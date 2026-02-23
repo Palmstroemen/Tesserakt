@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f4f6fb;
+  color: #1a1d24;
+}
+
+.layout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d9deeb;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+input[type="date"],
+input[type="time"] {
+  padding: 6px 8px;
+}
+
+button {
+  padding: 8px 12px;
+  border: 1px solid #5772d5;
+  background: #5772d5;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.slider {
+  margin: 8px 0 12px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 56px;
+  align-items: center;
+  gap: 8px;
+}
+
+.bar-track {
+  background: #ecf0fc;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 10px;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: #5772d5;
+}
+
+.self-line {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #4c556a;
+}
+
+.compare-box {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px dashed #bec9e8;
+  border-radius: 8px;
+}
+
+.bins {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid #e1e6f4;
+  padding: 8px;
+  text-align: left;
+}
+
+.error {
+  color: #9f1d35;
+}

@@ -1,0 +1,98 @@
+export const FRAGEN = [
+  {
+    id: 1,
+    text: "Ich bin ein liebevoller und einfuehlsamer Mensch in Beziehungen.",
+    dimension: "liebe",
+    gewichte: { Westlich: 1.0, Bazi: 0.5, Numerologie: 1.0, KO: 1.0 },
+  },
+  {
+    id: 2,
+    text: "Romantische Verbindungen entstehen in meinem Leben eher leicht.",
+    dimension: "liebe",
+    gewichte: { Westlich: 0.9, Bazi: 0.8, Numerologie: 0.7, KO: 1.0 },
+  },
+  {
+    id: 3,
+    text: "Ich bin ehrgeizig und setze mir klare berufliche Ziele.",
+    dimension: "beruf",
+    gewichte: { Westlich: 1.0, Bazi: 1.0, Numerologie: 0.9, KO: 1.0 },
+  },
+  {
+    id: 4,
+    text: "Andere Menschen respektieren meine fachliche Kompetenz.",
+    dimension: "beruf",
+    gewichte: { Westlich: 0.8, Bazi: 0.9, Numerologie: 1.0, KO: 1.0 },
+  },
+  {
+    id: 5,
+    text: "Ich halte mich fuer geschickt in finanziellen Angelegenheiten.",
+    dimension: "finanzen",
+    gewichte: { Westlich: 1.0, Bazi: 1.0, Numerologie: 0.9, KO: 1.0 },
+  },
+  {
+    id: 6,
+    text: "Geld und materielle Sicherheit kommen in meinem Leben eher von selbst.",
+    dimension: "finanzen",
+    gewichte: { Westlich: 0.9, Bazi: 1.0, Numerologie: 0.8, KO: 1.0 },
+  },
+  {
+    id: 7,
+    text: "Ich habe generell viel Energie und koerperliche Vitalitaet.",
+    dimension: "gesundheit",
+    gewichte: { Westlich: 1.0, Bazi: 0.7, Numerologie: 0.7, KO: 1.0 },
+  },
+  {
+    id: 8,
+    text: "Ich erhole mich nach Krankheiten oder Belastungen schnell.",
+    dimension: "gesundheit",
+    gewichte: { Westlich: 1.0, Bazi: 0.8, Numerologie: 0.6, KO: 1.0 },
+  },
+  {
+    id: 9,
+    text: "Ich bin gerne unter Menschen und fuehle mich in Gruppen wohl.",
+    dimension: "soziales",
+    gewichte: { Westlich: 1.0, Bazi: 0.0, Numerologie: 1.0, KO: 1.0 },
+  },
+  {
+    id: 10,
+    text: "Ich knuepfe leicht neue Bekanntschaften und halte Kontakt aufrecht.",
+    dimension: "soziales",
+    gewichte: { Westlich: 0.9, Bazi: 0.0, Numerologie: 1.0, KO: 1.0 },
+  },
+  {
+    id: 11,
+    text: "Ich halte mich fuer einen kreativen Menschen.",
+    dimension: "kreativitaet",
+    gewichte: { Westlich: 1.0, Bazi: 0.0, Numerologie: 1.0, KO: 1.0 },
+  },
+  {
+    id: 12,
+    text: "Ich finde spontan und intuitiv unkonventionelle Loesungen fuer Probleme.",
+    dimension: "kreativitaet",
+    gewichte: { Westlich: 0.8, Bazi: 0.3, Numerologie: 0.9, KO: 1.0 },
+  },
+  {
+    id: 13,
+    text: "In meinem Leben passieren haeufig bedeutende Veraenderungen.",
+    dimension: "veraenderung",
+    gewichte: { Westlich: 0.9, Bazi: 1.0, Numerologie: 0.8, KO: 1.0 },
+  },
+  {
+    id: 14,
+    text: "Ich bin offen fuer Neues und passe mich gut an veraenderte Umstaende an.",
+    dimension: "veraenderung",
+    gewichte: { Westlich: 0.8, Bazi: 0.7, Numerologie: 0.9, KO: 1.0 },
+  },
+  {
+    id: 15,
+    text: "Spirituelle oder metaphysische Themen sind ein wichtiger Teil meines Lebens.",
+    dimension: "spiritualitaet",
+    gewichte: { Westlich: 0.8, Bazi: 0.0, Numerologie: 0.9, KO: 1.0 },
+  },
+  {
+    id: 16,
+    text: "Ich vertraue oft meiner Intuition und inneren Stimme.",
+    dimension: "spiritualitaet",
+    gewichte: { Westlich: 0.7, Bazi: 0.0, Numerologie: 0.8, KO: 1.0 },
+  },
+];

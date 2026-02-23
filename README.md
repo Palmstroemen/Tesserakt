@@ -16,7 +16,7 @@ Horoskop-Assessment als Fullstack-Projekt mit klarer Trennung zwischen:
 ├── docs/
 ├── tools/
 ├── archive/
-├── Startprompt.md
+├── ToDo.md
 └── Tesserakt.code-workspace
 ```
 
@@ -44,3 +44,11 @@ Horoskop-Assessment als Fullstack-Projekt mit klarer Trennung zwischen:
 ## Workspace
 
 Zum Arbeiten in Cursor/VS Code den Multi-Root-Workspace `Tesserakt.code-workspace` oeffnen.
+
+## Scope-Quelle
+
+Die verbindliche Aufgabenliste fuer die Umsetzung wird in `ToDo.md` gepflegt.
+
+## Entwicklung
+
+Lokal starten und testen: `docs/dev_workflow.md`.
