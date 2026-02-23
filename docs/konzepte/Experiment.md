@@ -1,3 +1,152 @@
+# Horoskop Assessment - Experiment und Produktbild
+
+*Harmonisierte Fassung*  
+*Stand: Februar 2026*
+
+---
+
+## 1. Ziel des Experiments
+
+Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Menschen treffen.
+
+- Vergleich mehrerer Systeme unter identischen Fragen.
+- Kontrollgruppe (`KO`) als deterministische Zufalls-Baseline.
+- Ergebnisfokus auf **Fit (absolut)** und **Skill vs Zufall**.
+
+**Status:** MVP live (Spiel A), Erweiterungen geplant  
+**Abhaengigkeiten:** Backend-Rating, Fragenkatalog, Ergebnis-UI
+
+---
+
+## 2. Einheitliches Spielfeld A/B/C
+
+## 2.1 Spiel A - Persoenlichkeit
+
+- 1 Person, Geburtsdaten, Frageflow.
+- Ergebnis als Systemvergleich inkl. KO.
+
+**Status:** MVP live  
+**Abhaengigkeiten:** Frontend-Flow, Vektor-API, Session-Speicherung
+
+## 2.2 Spiel B - Prognose/Zeit
+
+- Rueckblick auf vergangene Zeitfenster.
+- Fragen dynamisch aus Delta-Staerke.
+
+**Status:** Phase 2/3  
+**Abhaengigkeiten:** Periodenvektoren, Fragegenerator, Anti-Redundanz
+
+## 2.3 Spiel C - Beziehung
+
+- 2-Personen-Kompatibilitaet.
+- Optionaler Link zu Spiel-A-Sessions.
+
+**Status:** Phase 3  
+**Abhaengigkeiten:** Datenmodell C, Regelwerke, Datenschutzflow
+
+---
+
+## 3. Verbindliche Bewertungslogik
+
+1. Pro Frage wird ein Fehler zwischen Nutzerwert und Systemwert berechnet.
+2. Gewichtet wird nur dort, wo das System die Dimension sinnvoll abdeckt.
+3. Primare Metriken:
+   - **Fit (absolut)**
+   - **Skill vs Zufall**
+   - **Delta Fit/Skill zu KO**
+4. KO ist methodischer Vergleichsanker und erscheint in Rankings immer zuletzt.
+
+Nicht als Kernmetrik kommunizieren:
+- `Rank-Score`
+
+**Status:** MVP live  
+**Abhaengigkeiten:** Rating-Pipeline, Matrix, Ranking-UI
+
+---
+
+## 4. Didaktische Leitidee
+
+Das Produkt soll gleichzeitig:
+
+- neugierig machen,
+- Unterschiede zwischen Systemen sichtbar machen,
+- und methodisch aufklaeren (inkl. KO und Grenzen der Aussagekraft).
+
+Tonalitaet:
+- respektvoll gegenueber kulturellen Traditionen,
+- wissenschaftlich sauber,
+- nicht zynisch.
+
+**Status:** MVP + Phase 2  
+**Abhaengigkeiten:** Content, UX-Texte, Ergebnisdarstellung
+
+---
+
+## 5. Visuelle Produktstrategie
+
+## 5.1 Grundprinzip
+
+- Gemeinsame visuelle Klammer: Kreis-/Orbital-Motiv.
+- Systeme erhalten eigene Bildsprache, aber in einheitlichem Layoutraster.
+- Animationen sparsam und performant (mobile-first).
+
+## 5.2 Stilfamilien je System (konzeptionell)
+
+- Westlich: kosmisch, klare Geometrie, Lichtlinien.
+- Bazi: kalligrafisch/elementar.
+- Hellenistisch: mosaik-/gravur-inspiriert.
+- Arabisch: geometrisch-ornamental.
+- Numerologie: mathematisch/diagrammatisch.
+- Kabbalah: Baumstruktur/gravurhaft.
+- Japanisch: feinlinig, symbolisch, materialitaetsbetont.
+
+Hinweis:
+- Diese Stilfamilien sind Designrichtungen, keine Produktpflicht im MVP.
+
+**Status:** Phase 2 (Designsystem-Ausbau)  
+**Abhaengigkeiten:** Art Direction, Komponentenbibliothek, Performance-Budget
+
+---
+
+## 6. Mobile- und Performance-Prinzipien
+
+- Inhalte zuerst lesbar und schnell, Effekte danach.
+- Keine schweren Echtzeit-Reflexionspipelines als Kernanforderung.
+- Progressive Enhancement: High-End-Effekte nur optional.
+
+**Status:** MVP laufend, Phase 2 Optimierung  
+**Abhaengigkeiten:** Frontend-Performance, Device-Profiling
+
+---
+
+## 7. Kultur und Verantwortung
+
+- Systembeschreibungen ohne Karikatur/Klischee.
+- Historische und kulturelle Herkunft korrekt benennen.
+- KO nicht als "Entwertung", sondern als methodischer Vergleich kommunizieren.
+
+**Status:** fortlaufend  
+**Abhaengigkeiten:** Redaktion, Quellenpflege
+
+---
+
+## 8. Decision Backlog
+
+1. Oeffentliche Produktbezeichnung fuer "Japanisch" final festlegen.
+2. Storyname fuer KO final festlegen (falls nicht rein als KO angezeigt).
+3. Rolle von Humoraltypen final festlegen (Meta-System vs Zusatzanalyse).
+
+**Status:** offen  
+**Abhaengigkeiten:** Product, Research, Content
+
+---
+
+## 9. Was gilt jetzt
+
+- Dieses Dokument beschreibt die Experimentlogik produktnah und konsistent zur SSOT.
+- Langform-Ideen zu visuellen Spezialeffekten gelten als Inspirationspool, nicht als MVP-Scope.
+- Verbindliche Begriffe und Metriken sind in `harmonisierung_vorlage.md` festgelegt.
+
 Eine Webseite, die aufgrund des eingegebenen Geburtsdatums und der eingegebenen Geburtszeit mehre Horoskope erstellt.
 
 Klassische Astrologie: A
