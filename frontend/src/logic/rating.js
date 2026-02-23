@@ -22,6 +22,9 @@ export function getQuestionWeights(systems, dimension, frageGewichte, matrix) {
   return Object.fromEntries(raws.map((item) => [item.system, item.raw / sum]));
 }
 
+// For two independent U(1,5) variables: E[(X-Y)^2] = 8/3.
+const RANDOM_BASELINE_MSE = 8 / 3;
+
 export function calculateRating(vektoren, antworten, matrix) {
   const systems = Object.keys(vektoren ?? {});
   const kumulFehler = Object.fromEntries(systems.map((s) => [s, 0]));
@@ -62,14 +65,17 @@ export function calculateRating(vektoren, antworten, matrix) {
   const systemDetails = {};
   for (const system of systems) {
     if (!(system in normiert)) {
-      systemDetails[system] = { fitScore: null, fehler: null, rang: null };
+      systemDetails[system] = { fitScore: null, skillScore: null, fehler: null, rang: null };
       continue;
     }
+    const mse = normiert[system];
     const rmse = Math.sqrt(normiert[system]);
     const fitScore = Math.max(0, 100 * (1 - rmse / 4));
+    const skillScore = Math.max(0, 100 * (1 - mse / RANDOM_BASELINE_MSE));
     systemDetails[system] = {
       fitScore: Number(fitScore.toFixed(1)),
-      fehler: Number(normiert[system].toFixed(4)),
+      skillScore: Number(skillScore.toFixed(1)),
+      fehler: Number(mse.toFixed(4)),
       rang: null,
     };
   }
@@ -79,6 +85,9 @@ export function calculateRating(vektoren, antworten, matrix) {
     .sort((a, b) => {
       if (a === "KO") return 1;
       if (b === "KO") return -1;
+      if (systemDetails[b].skillScore !== systemDetails[a].skillScore) {
+        return systemDetails[b].skillScore - systemDetails[a].skillScore;
+      }
       if (systemDetails[b].fitScore !== systemDetails[a].fitScore) {
         return systemDetails[b].fitScore - systemDetails[a].fitScore;
       }
@@ -90,7 +99,9 @@ export function calculateRating(vektoren, antworten, matrix) {
   });
 
   const koFit = systemDetails.KO?.fitScore ?? null;
+  const koSkill = systemDetails.KO?.skillScore ?? null;
   const fitVsKO = {};
+  const skillVsKO = {};
   if (koFit !== null) {
     for (const system of systems) {
       if (systemDetails[system]?.fitScore !== null) {
@@ -98,6 +109,13 @@ export function calculateRating(vektoren, antworten, matrix) {
       }
     }
   }
+  if (koSkill !== null) {
+    for (const system of systems) {
+      if (systemDetails[system]?.skillScore !== null) {
+        skillVsKO[system] = Number((systemDetails[system].skillScore - koSkill).toFixed(1));
+      }
+    }
+  }
 
-  return { ranking, systemDetails, fitVsKO };
+  return { ranking, systemDetails, fitVsKO, skillVsKO };
 }

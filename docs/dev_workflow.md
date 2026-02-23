@@ -41,4 +41,13 @@ Optional kann `VITE_API_BASE` gesetzt werden.
    - `POST /session` -> `200`
    - `GET /vergleich` -> `200`
 
+## QA / Diagnose-Checks
+
+- Random-Baseline fuer Scoring (Fit + Skill):
+  - `python3 tools/random_baseline_test.py --runs 5000 --seed 42`
+- System-Coverage und Neutralitaetsdiagnose:
+  - `python3 tools/system_diagnostics.py --runs 1200 --seed 42`
+- Fokusdiagnose auf ein Systemset:
+  - `python3 tools/system_diagnostics.py --runs 1500 --systems Japanisch Hellenistisch --seed 42`
+
 Hinweis: Die lokale Persistenz laeuft aktuell ueber `backend/assessment.db` (SQLite) fuer schnelle Entwicklungszyklen.

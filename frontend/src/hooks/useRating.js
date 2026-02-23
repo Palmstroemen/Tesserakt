@@ -48,6 +48,7 @@ export function useRating(vektoren, antworten, inputs) {
       ranking: base.ranking,
       systemDetails: base.systemDetails,
       fitVsKO: base.fitVsKO ?? {},
+      skillVsKO: base.skillVsKO ?? {},
       temperament,
       matrix,
       matrixLoading,

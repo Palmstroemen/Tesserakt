@@ -283,6 +283,7 @@ export default function App() {
             systeme={rating.systemDetails}
             ranking={rating.ranking}
             fitVsKO={rating.fitVsKO}
+            skillVsKO={rating.skillVsKO}
           />
           <TemperamentProfil temperament={rating.temperament} />
           <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>

@@ -316,15 +316,44 @@ def handle_profektionen(quelle: dict, rules: dict, inputs: dict) -> Dict[str, fl
     n = (alter % zyklus) + 1
     fmt = quelle.get("schluessel_format", "haus_{n}").replace("{n}", str(n))
     container = rules.get(quelle["schluessel"], {})
-    return extract_dims(container.get(fmt, container.get(str(n), {})),
-                        quelle.get("dim_feld","dimensionen_vektor"))
+    payload = container.get(fmt, container.get(str(n), {}))
+    if not payload:
+        # Fallback for nested structures like "profektionshaus_themen": {"haus_1": {...}}
+        nested = container.get("profektionshaus_themen", {})
+        payload = nested.get(fmt, nested.get(str(n), {}))
+    return extract_dims(payload, quelle.get("dim_feld","dimensionen_vektor"))
 
 def handle_sekt(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    stunde = inputs.get("geburts_stunde", 12)
+    stunde = inputs.get(quelle.get("eingabe", "geburts_stunde"), 12)
     ist_tag = 6 <= stunde <= 18
     container = rules.get(quelle["schluessel"], {})
     feld = quelle.get("tag_schluessel" if ist_tag else "nacht_schluessel", "")
-    return {d: float(v) for d, v in container.get(feld, {}).items() if d in DIMENSIONS}
+    dims = {d: float(v) for d, v in container.get(feld, {}).items() if d in DIMENSIONS}
+    if dims:
+        return dims
+
+    # Fallback when rule files contain only qualitative sekt text but no explicit vectors.
+    if ist_tag:
+        return {
+            "liebe": 3.0,
+            "beruf": 3.5,
+            "finanzen": 3.3,
+            "gesundheit": 3.1,
+            "soziales": 3.4,
+            "kreativitaet": 3.0,
+            "veraenderung": 3.3,
+            "spiritualitaet": 2.9,
+        }
+    return {
+        "liebe": 3.4,
+        "beruf": 2.9,
+        "finanzen": 2.9,
+        "gesundheit": 3.3,
+        "soziales": 3.1,
+        "kreativitaet": 3.2,
+        "veraenderung": 2.8,
+        "spiritualitaet": 3.4,
+    }
 
 def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     alter   = inputs.get("lebensalter", 0)
@@ -338,13 +367,23 @@ def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float
     fmt      = quelle.get("profil_format", "{planet}_mahadasha")
     laufzeit = 0
     for planet, dauer in dauern.items():
-        if not isinstance(dauer, (int, float)):
-            # Metadaten-Eintraege wie "_beschreibung" ignorieren.
+        dauer_jahre = None
+        if isinstance(dauer, (int, float)):
+            dauer_jahre = float(dauer)
+        elif isinstance(dauer, dict):
+            # Some rule files store durations as {"jahre": N, ...}
+            jahre = dauer.get("jahre")
+            if isinstance(jahre, (int, float)):
+                dauer_jahre = float(jahre)
+
+        if dauer_jahre is None:
+            # Metadaten-Eintraege wie "quelle" ignorieren.
             continue
-        if laufzeit + dauer > position:
+
+        if laufzeit + dauer_jahre > position:
             key = fmt.replace("{planet}", planet)
             return extract_dims(profile.get(key, {}), quelle.get("dim_feld","dimensionen_vektor"))
-        laufzeit += dauer
+        laufzeit += dauer_jahre
     return {}
 
 def handle_nakshatra(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
@@ -359,7 +398,18 @@ def handle_nakshatra(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float
 
 def handle_direkter_vektor(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     container = rules.get(quelle["schluessel"], {})
-    return extract_dims(container, quelle.get("dim_feld","dimensionen_vektor"))
+    dims = extract_dims(container, quelle.get("dim_feld","dimensionen_vektor"))
+    if dims:
+        return dims
+
+    # Fallback for nested house maps (e.g. lot_des_gluecks -> deutung_nach_haeusern -> haus_n)
+    haeuser = container.get("deutung_nach_haeusern", {})
+    if isinstance(haeuser, dict):
+        alter = inputs.get("lebensalter", 0)
+        haus_idx = (alter % 12) + 1
+        haus_key = f"haus_{haus_idx}"
+        return extract_dims(haeuser.get(haus_key, {}), quelle.get("dim_feld","dimensionen_vektor"))
+    return {}
 
 
 # Registry aller Handler
