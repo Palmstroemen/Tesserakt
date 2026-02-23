@@ -61,9 +61,14 @@ button {
 
 .bar-row {
   display: grid;
-  grid-template-columns: 130px 1fr 56px;
+  grid-template-columns: 240px 1fr 56px;
   align-items: center;
   gap: 8px;
+}
+
+.bar-weight {
+  color: #4c556a;
+  font-size: 12px;
 }
 
 .bar-track {
@@ -112,4 +117,37 @@ button {
 
 .error {
   color: #9f1d35;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.checkbox-row {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid #d9deeb;
+  border-radius: 8px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.game-option {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.game-option.active {
+  border-color: #2f4ec6;
 }

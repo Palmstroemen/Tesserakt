@@ -2,7 +2,7 @@ function widthFromScore(value) {
   return `${Math.max(0, Math.min(100, ((value - 1) / 4) * 100))}%`;
 }
 
-export default function SystemVergleichBalken({ systemWerte, selbst }) {
+export default function SystemVergleichBalken({ systemWerte, systemGewichte, selbst }) {
   const entries = Object.entries(systemWerte ?? {});
   if (!entries.length) {
     return <p>Keine Systemwerte vorhanden.</p>;
@@ -12,7 +12,17 @@ export default function SystemVergleichBalken({ systemWerte, selbst }) {
     <div className="bars">
       {entries.map(([system, wert]) => (
         <div className="bar-row" key={system}>
-          <span className="bar-label">{system}</span>
+          <span className="bar-label">
+            {system}
+            <span className="bar-weight">
+              {" "}
+              (w=
+              {typeof systemGewichte?.[system] === "number"
+                ? systemGewichte[system].toFixed(2)
+                : "-"}
+              )
+            </span>
+          </span>
           <div className="bar-track">
             <span className="bar-fill" style={{ width: widthFromScore(wert) }} />
           </div>

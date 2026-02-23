@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import GeburtsdatumInput from "./components/GeburtsdatumInput";
+import GameSelector from "./components/GameSelector";
+import GamePlaceholder from "./components/GamePlaceholder";
+import SystemSelector from "./components/SystemSelector";
 import SelbsteinschaetzungSlider from "./components/SelbsteinschaetzungSlider";
 import SystemVergleichBalken from "./components/SystemVergleichBalken";
 import VergleichsGruppeViz from "./components/VergleichsGruppeViz";
@@ -9,8 +12,8 @@ import TemperamentProfil from "./components/TemperamentProfil";
 import { useVektoren } from "./hooks/useVektoren";
 import { useRating } from "./hooks/useRating";
 import { FRAGEN } from "./logic/questions";
+import { getQuestionWeights } from "./logic/rating";
 
-const SYSTEME = ["Westlich", "Bazi", "Numerologie", "KO"];
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
 function dayOfYear(isoDate) {
@@ -20,27 +23,84 @@ function dayOfYear(isoDate) {
   return Math.floor(diff / 86400000);
 }
 
+function shuffleQuestions(questions) {
+  const copy = [...questions];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 export default function App() {
   const [birthDate, setBirthDate] = useState("");
   const [birthTime, setBirthTime] = useState("12:00");
-  const [confirmed, setConfirmed] = useState(false);
+  const [setupReady, setSetupReady] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
+  const [assessmentStarted, setAssessmentStarted] = useState(false);
+  const [availableSystems, setAvailableSystems] = useState([
+    "Westlich",
+    "Bazi",
+    "Numerologie",
+    "Kabbalah",
+    "Arabisch",
+    "Hellenistisch",
+    "Japanisch",
+    "KO",
+  ]);
+  const [selectedSystems, setSelectedSystems] = useState(["Westlich", "Bazi", "Numerologie"]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [questionOrder, setQuestionOrder] = useState([]);
   const [currentValue, setCurrentValue] = useState(3);
   const [answers, setAnswers] = useState([]);
   const [ratingHistory, setRatingHistory] = useState([]);
   const [saved, setSaved] = useState(false);
 
+  useEffect(() => {
+    async function loadSystems() {
+      try {
+        const response = await fetch(`${API_BASE}/systeme`);
+        if (!response.ok) {
+          return;
+        }
+        const payload = await response.json();
+        if (Array.isArray(payload.verfuegbar)) {
+          setAvailableSystems(payload.verfuegbar);
+        }
+        if (Array.isArray(payload.default) && payload.default.length) {
+          setSelectedSystems(payload.default);
+        }
+      } catch {
+        // Keep frontend fallback values.
+      }
+    }
+    loadSystems();
+  }, []);
+
   const { vektoren, inputs, loading, error } = useVektoren(
-    confirmed ? birthDate : null,
-    confirmed ? birthTime : null,
-    SYSTEME
+    assessmentStarted ? birthDate : null,
+    assessmentStarted ? birthTime : null,
+    selectedSystems
   );
   const rating = useRating(vektoren, answers, inputs);
 
-  const activeFrage = FRAGEN[currentIndex];
-  const isFinished = currentIndex >= FRAGEN.length;
+  const activeFrage = questionOrder[currentIndex];
+  const isFinished =
+    selectedGame === "personality" &&
+    assessmentStarted &&
+    questionOrder.length > 0 &&
+    currentIndex >= questionOrder.length;
   const doy = useMemo(() => (birthDate ? dayOfYear(birthDate) : null), [birthDate]);
   const stunde = useMemo(() => Number((birthTime || "12:00").split(":")[0]), [birthTime]);
+  const currentQuestionWeights = useMemo(() => {
+    if (!activeFrage || !selectedSystems.length) {
+      return {};
+    }
+    const frageGewichte = Object.fromEntries(
+      selectedSystems.map((system) => [system, activeFrage.gewichte?.[system] ?? 1])
+    );
+    return getQuestionWeights(selectedSystems, activeFrage.dimension, frageGewichte, rating.matrix);
+  }, [activeFrage, selectedSystems, rating.matrix]);
 
   useEffect(() => {
     if (!answers.length || !rating.ranking.length) {
@@ -50,7 +110,7 @@ export default function App() {
   }, [answers.length, rating.ranking.join("|")]);
 
   useEffect(() => {
-    if (!isFinished || saved || !inputs?.session_id) {
+    if (selectedGame !== "personality" || !isFinished || saved || !inputs?.session_id) {
       return;
     }
 
@@ -79,12 +139,53 @@ export default function App() {
     }
 
     saveSession();
-  }, [isFinished, saved, inputs, birthDate, birthTime, answers, rating]);
+  }, [selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating]);
 
   function handleConfirm(date, time) {
     setBirthDate(date);
     setBirthTime(time || "12:00");
-    setConfirmed(true);
+    setSetupReady(true);
+    setSelectedGame(null);
+    setAssessmentStarted(false);
+    setCurrentIndex(0);
+    setQuestionOrder([]);
+    setAnswers([]);
+    setRatingHistory([]);
+    setSaved(false);
+  }
+
+  function handleGameSelect(gameId) {
+    setSelectedGame(gameId);
+    setAssessmentStarted(false);
+    setCurrentIndex(0);
+    setQuestionOrder([]);
+    setAnswers([]);
+    setRatingHistory([]);
+    setSaved(false);
+  }
+
+  function backToGameSelection() {
+    setSelectedGame(null);
+    setAssessmentStarted(false);
+    setCurrentIndex(0);
+    setQuestionOrder([]);
+    setAnswers([]);
+    setRatingHistory([]);
+    setSaved(false);
+  }
+
+  function toggleSystem(system) {
+    setSelectedSystems((prev) =>
+      prev.includes(system) ? prev.filter((item) => item !== system) : [...prev, system]
+    );
+  }
+
+  function startAssessment() {
+    if (selectedGame !== "personality" || !selectedSystems.length) {
+      return;
+    }
+    setQuestionOrder(shuffleQuestions(FRAGEN));
+    setAssessmentStarted(true);
     setCurrentIndex(0);
     setAnswers([]);
     setRatingHistory([]);
@@ -92,9 +193,12 @@ export default function App() {
   }
 
   function submitAnswer() {
-    const frage = FRAGEN[currentIndex];
+    const frage = activeFrage;
+    if (!frage) {
+      return;
+    }
     const systemWerte = Object.fromEntries(
-      SYSTEME.map((system) => [system, Number(vektoren?.[system]?.[frage.dimension])])
+      selectedSystems.map((system) => [system, Number(vektoren?.[system]?.[frage.dimension])])
     );
 
     setAnswers((prev) => [
@@ -105,7 +209,9 @@ export default function App() {
         dimension: frage.dimension,
         selbst_wert: currentValue,
         system_werte: systemWerte,
-        gewichte: frage.gewichte,
+        gewichte: Object.fromEntries(
+          selectedSystems.map((system) => [system, frage.gewichte?.[system] ?? 1])
+        ),
       },
     ]);
     setCurrentValue(3);
@@ -117,20 +223,41 @@ export default function App() {
       <h1>Horoskop Assessment</h1>
       <GeburtsdatumInput value={birthDate} timeValue={birthTime} onConfirm={handleConfirm} />
 
+      {setupReady ? (
+        <>
+          <GameSelector selectedGame={selectedGame} onSelect={handleGameSelect} />
+          {selectedGame === "personality" ? (
+            <SystemSelector
+              systems={availableSystems}
+              selectedSystems={selectedSystems}
+              onToggle={toggleSystem}
+              onStart={startAssessment}
+            />
+          ) : null}
+          {selectedGame === "forecast" ? (
+            <GamePlaceholder title="Prognose und Zeiteinschaetzung" onBack={backToGameSelection} />
+          ) : null}
+          {selectedGame === "relationship" ? (
+            <GamePlaceholder title="Beziehungseinschaetzung" onBack={backToGameSelection} />
+          ) : null}
+        </>
+      ) : null}
+
       {loading ? <p>Vektoren werden berechnet...</p> : null}
       {error ? <p className="error">{error}</p> : null}
 
-      {confirmed && !loading && vektoren && !isFinished ? (
+      {selectedGame === "personality" && assessmentStarted && !loading && vektoren && !isFinished ? (
         <section className="card">
           <h2>
-            Frage {currentIndex + 1}/{FRAGEN.length}
+            Frage {currentIndex + 1}/{questionOrder.length}
           </h2>
           <p>{activeFrage.text}</p>
           <SelbsteinschaetzungSlider value={currentValue} onChange={setCurrentValue} />
           <SystemVergleichBalken
             systemWerte={Object.fromEntries(
-              SYSTEME.map((system) => [system, vektoren?.[system]?.[activeFrage.dimension]])
+              selectedSystems.map((system) => [system, vektoren?.[system]?.[activeFrage.dimension]])
             )}
+            systemGewichte={currentQuestionWeights}
             selbst={currentValue}
           />
           <VergleichsGruppeViz
@@ -145,12 +272,18 @@ export default function App() {
         </section>
       ) : null}
 
-      {confirmed ? <Zwischenstand ratingHistory={ratingHistory} /> : null}
+      {selectedGame === "personality" && assessmentStarted ? (
+        <Zwischenstand ratingHistory={ratingHistory} />
+      ) : null}
 
-      {isFinished ? (
+      {selectedGame === "personality" && assessmentStarted && isFinished ? (
         <section className="card">
           <h2>Ergebnis</h2>
-          <RankingTabelle systeme={rating.systemDetails} ranking={rating.ranking} />
+          <RankingTabelle
+            systeme={rating.systemDetails}
+            ranking={rating.ranking}
+            fitVsKO={rating.fitVsKO}
+          />
           <TemperamentProfil temperament={rating.temperament} />
           <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>
         </section>

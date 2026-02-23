@@ -10,7 +10,7 @@ export default function Zwischenstand({ ratingHistory }) {
       <ul>
         {latest.ranking.map((system) => (
           <li key={system}>
-            {system}: {latest.systemDetails[system].rating.toFixed(1)}%
+            {system}: Fit (absolut) {latest.systemDetails[system].fitScore.toFixed(1)}
           </li>
         ))}
       </ul>

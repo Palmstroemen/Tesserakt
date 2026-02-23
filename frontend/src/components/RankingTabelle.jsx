@@ -1,4 +1,4 @@
-export default function RankingTabelle({ systeme, ranking }) {
+export default function RankingTabelle({ systeme, ranking, fitVsKO }) {
   if (!ranking?.length) {
     return <p>Noch kein Ergebnis.</p>;
   }
@@ -9,7 +9,8 @@ export default function RankingTabelle({ systeme, ranking }) {
         <tr>
           <th>Rang</th>
           <th>System</th>
-          <th>Rating</th>
+          <th>Fit (absolut)</th>
+          <th>Delta Fit zu KO</th>
           <th>Norm. Fehler</th>
         </tr>
       </thead>
@@ -18,7 +19,8 @@ export default function RankingTabelle({ systeme, ranking }) {
           <tr key={system}>
             <td>{index + 1}</td>
             <td>{system}</td>
-            <td>{systeme[system].rating.toFixed(1)}%</td>
+            <td>{systeme[system].fitScore.toFixed(1)}</td>
+            <td>{typeof fitVsKO?.[system] === "number" ? `${fitVsKO[system].toFixed(1)}` : "-"}</td>
             <td>{systeme[system].fehler.toFixed(4)}</td>
           </tr>
         ))}

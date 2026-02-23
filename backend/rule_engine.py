@@ -338,6 +338,9 @@ def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float
     fmt      = quelle.get("profil_format", "{planet}_mahadasha")
     laufzeit = 0
     for planet, dauer in dauern.items():
+        if not isinstance(dauer, (int, float)):
+            # Metadaten-Eintraege wie "_beschreibung" ignorieren.
+            continue
         if laufzeit + dauer > position:
             key = fmt.replace("{planet}", planet)
             return extract_dims(profile.get(key, {}), quelle.get("dim_feld","dimensionen_vektor"))

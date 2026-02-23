@@ -1,10 +1,25 @@
-const DEFAULT_SYSTEMS = ["Westlich", "Bazi", "Numerologie", "KO"];
-
-export function getGewicht(matrix, system, dimension, frageGewichte) {
+export function getQuestionWeights(systems, dimension, frageGewichte, matrix) {
   const konsens = matrix?.konsens_gewichtung ?? {};
-  const matrixWeight = konsens?.[dimension]?.[system] ?? 1 / DEFAULT_SYSTEMS.length;
-  const frageWeight = frageGewichte?.[system] ?? 1;
-  return matrixWeight * frageWeight;
+  const raws = systems.map((system) => {
+    const matrixWeight = konsens?.[dimension]?.[system] ?? 0;
+    const frageWeight = frageGewichte?.[system] ?? 1;
+    return { system, raw: matrixWeight * frageWeight };
+  });
+
+  let sum = raws.reduce((acc, item) => acc + item.raw, 0);
+  if (sum <= 0) {
+    raws.forEach((item) => {
+      item.raw = frageGewichte?.[item.system] ?? 1;
+    });
+    sum = raws.reduce((acc, item) => acc + item.raw, 0);
+  }
+
+  if (sum <= 0) {
+    const equal = 1 / Math.max(1, systems.length);
+    return Object.fromEntries(systems.map((system) => [system, equal]));
+  }
+
+  return Object.fromEntries(raws.map((item) => [item.system, item.raw / sum]));
 }
 
 export function calculateRating(vektoren, antworten, matrix) {
@@ -15,13 +30,14 @@ export function calculateRating(vektoren, antworten, matrix) {
   for (const eintrag of antworten) {
     const selbst = Number(eintrag.selbst_wert);
     const frageGewichte = eintrag.gewichte ?? {};
+    const questionWeights = getQuestionWeights(systems, eintrag.dimension, frageGewichte, matrix);
 
     for (const system of systems) {
       const wert = Number(eintrag.system_werte?.[system]);
       if (Number.isNaN(wert)) {
         continue;
       }
-      const w = getGewicht(matrix, system, eintrag.dimension, frageGewichte);
+      const w = questionWeights[system] ?? 0;
       if (!w) {
         continue;
       }
@@ -43,32 +59,45 @@ export function calculateRating(vektoren, antworten, matrix) {
     return { ranking: [], systemDetails: {} };
   }
 
-  const values = Object.values(normiert);
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const span = max - min || 1;
-
   const systemDetails = {};
   for (const system of systems) {
     if (!(system in normiert)) {
-      systemDetails[system] = { rating: null, fehler: null, rang: null };
+      systemDetails[system] = { fitScore: null, fehler: null, rang: null };
       continue;
     }
-    const score = 100 * (1 - (normiert[system] - min) / span);
+    const rmse = Math.sqrt(normiert[system]);
+    const fitScore = Math.max(0, 100 * (1 - rmse / 4));
     systemDetails[system] = {
-      rating: Number(score.toFixed(1)),
+      fitScore: Number(fitScore.toFixed(1)),
       fehler: Number(normiert[system].toFixed(4)),
       rang: null,
     };
   }
 
   const ranking = systems
-    .filter((s) => systemDetails[s].rating !== null)
-    .sort((a, b) => systemDetails[b].rating - systemDetails[a].rating);
+    .filter((s) => systemDetails[s].fitScore !== null)
+    .sort((a, b) => {
+      if (a === "KO") return 1;
+      if (b === "KO") return -1;
+      if (systemDetails[b].fitScore !== systemDetails[a].fitScore) {
+        return systemDetails[b].fitScore - systemDetails[a].fitScore;
+      }
+      return normiert[a] - normiert[b];
+    });
 
   ranking.forEach((system, idx) => {
     systemDetails[system].rang = idx + 1;
   });
 
-  return { ranking, systemDetails };
+  const koFit = systemDetails.KO?.fitScore ?? null;
+  const fitVsKO = {};
+  if (koFit !== null) {
+    for (const system of systems) {
+      if (systemDetails[system]?.fitScore !== null) {
+        fitVsKO[system] = Number((systemDetails[system].fitScore - koFit).toFixed(1));
+      }
+    }
+  }
+
+  return { ranking, systemDetails, fitVsKO };
 }

@@ -60,10 +60,10 @@ export function calculateTemperament(ratingResult, inputs) {
   let sum = 0;
   for (const [system, details] of Object.entries(ratingResult?.systemDetails ?? {})) {
     const temperament = assignment[system];
-    if (!temperament || typeof details?.rating !== "number") {
+    if (!temperament || typeof details?.fitScore !== "number") {
       continue;
     }
-    const weight = Math.max(0, details.rating) / 100;
+    const weight = Math.max(0, details.fitScore) / 100;
     distribution[temperament] += weight;
     sum += weight;
   }

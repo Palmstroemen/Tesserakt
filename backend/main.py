@@ -8,10 +8,12 @@ from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from rule_engine import (
     DIMENSIONS,
+    SUBFOLDERS,
     build_inputs,
     compute_vector,
     load_rules,
@@ -21,15 +23,24 @@ from store import compare_group, init_db, persist_session
 from horoskop_assessment import FRAGEN
 
 app = FastAPI(title="Horoskop Assessment API", version="0.1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    allow_origins=[],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-SUPPORTED_SYSTEMS = ["Westlich", "Bazi", "Numerologie", "KO"]
+DEFAULT_SYSTEMS = ["Westlich", "Bazi", "Numerologie"]
+SUPPORTED_SYSTEMS = [*SUBFOLDERS, "KO"]
 
 
 class VektorRequest(BaseModel):
     geburtsdatum: str = Field(examples=["1985-03-15"])
     uhrzeit: Optional[str] = Field(default="12:00", examples=["14:30"])
     session_id: Optional[str] = Field(default=None, description="Optional for deterministic KO values")
-    systeme: List[str] = Field(default_factory=lambda: SUPPORTED_SYSTEMS.copy())
+    systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
 
 
 class VektorResponse(BaseModel):
@@ -127,7 +138,9 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     inputs = build_inputs(birth_dt, now)
 
     session_id = payload.session_id or str(uuid4())
-    requested = payload.systeme or SUPPORTED_SYSTEMS.copy()
+    requested = payload.systeme
+    if not requested:
+        raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewaehlt werden")
     unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
     if unknown:
         raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
@@ -143,6 +156,14 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
     return VektorResponse(vektoren=vektoren, inputs=response_inputs)
+
+
+@app.get("/systeme")
+def get_systeme() -> Dict[str, object]:
+    return {
+        "verfuegbar": SUPPORTED_SYSTEMS,
+        "default": DEFAULT_SYSTEMS,
+    }
 
 
 @app.get("/fragen")
