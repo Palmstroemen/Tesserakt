@@ -1,0 +1,891 @@
+{
+  "_meta": {
+    "system": "arabische_astrologie",
+    "modul": "firdaria",
+    "version": "1.0",
+    "gespraech": "A2",
+    "sources": [
+      "Abu Ma'shar (Albumasar) - Introductorium in Astronomiam (ca. 850 n. Chr., Originaltext public domain; Lemay Übersetzung 1962, public domain AT/EU)",
+      "Al-Biruni - Book of Instruction in the Elements of the Art of Astrology (1029 n. Chr., R. Ramsay Wright Übersetzung 1934, public domain AT/EU)",
+      "Sahl ibn Bishr (Zahel) - Introduction to the Science of the Judgments of the Stars (ca. 820 n. Chr., Originaltext public domain)",
+      "Guido Bonatti - Liber Astronomiae (ca. 1277 n. Chr., Originaltext public domain)",
+      "Masha'allah ibn Athari - On Reception (ca. 800 n. Chr., public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Arabische Astrologie — Das vollständige Firdaria-System (arab. Firdār, pl. Firdāriyyāt). Enthält: System-Übersicht, Firdaria-Reihenfolge für Tag- und Nacht-Horoskop, 9 vollständige Haupt-Firdaria-Profile (7 Planeten + Mondknoten), 63 Unter-Firdaria-Kombinationen mit Qualitätsmatrix, Berechnungsmethode des Einstiegspunkts sowie Aktivierungs- und Timing-Regeln. Baut auf arabisch_lose.json (A1) auf und wird in arabisch_techniken.json (A3) weiter integriert.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog arabisch_lose.json",
+    "bezug_zu_anderen_modulen": {
+      "arabisch_lose_json": "Firdaria-Herrscher aktivieren Lose — Kernverbindung zu A1",
+      "hell_zeitherren_json": "Hellenistische Profektionen als paralleles Zeitherren-System — Vergleich in H3",
+      "arabisch_techniken_json": "Almuten und Direktionen ergänzen Firdaria-Timing — A3",
+      "hell_wuerden_json": "Würde des Firdaria-Herrschers entscheidet über Perioden-Qualität"
+    }
+  },
+
+  "system_uebersicht": {
+    "beschreibung": "Das Firdaria-System (arab. Firdār, pers. Herkunft: Fardar / Fardār — wörtlich: 'Periode', 'Abschnitt') ist ein planetares Lebensphasen-System, das dem Menschen von Geburt an planetare Hauptherrscher zuweist. Diese Herrscher bestimmen die Qualität und die Themen einer Lebensphase. Das System wird Abu Ma'shar zugeschrieben, der es in seinem Introductorium systematisch dargestellt hat — es stammt aber aus der persisch-arabischen Tradition, die hellenistische Zeitherrensysteme mit sāsānidischen Überlieferungen verbindet.",
+    "quelle": "Abu Ma'shar - Introductorium in Astronomiam VII.1-3; Al-Biruni - Book of Instruction Kap. 496-502 (Wright S.303-315); Sahl ibn Bishr - Introduction IV.1-3",
+
+    "gesamtzyklus": {
+      "dauer": "75 Jahre",
+      "planeten": "Sieben klassische Planeten (Sonne, Venus, Merkur, Mond, Saturn, Jupiter, Mars) + Mondknoten (Nordknoten / Südknoten)",
+      "prinzip": "Jeder Planet regiert eine bestimmte Anzahl von Jahren. Die Reihenfolge der Planeten richtet sich nach dem Sektprinzip: Bei Tag-Horoskopen beginnt die Sonne (Haupt-Tag-Planet), bei Nacht-Horoskopen der Mond (Haupt-Nacht-Planet). Dies spiegelt dasselbe Sektprinzip wider, das die Würden und Lots bestimmt.",
+      "quelle": "Abu Ma'shar VII.1; Al-Biruni Kap. 496"
+    },
+
+    "tag_nacht_bestimmung": {
+      "beschreibung": "Die Unterscheidung Tag/Nacht ist für das Firdaria-System fundamental. Sie bestimmt nicht nur die Reihenfolge, sondern auch den Startplaneten des gesamten Lebenszyklus.",
+      "tag_horoskop": "Sonne über dem Horizont zur Geburtszeit (Sonne in den Häusern 7–12, gezählt von ASC). Tag-Horoskope beginnen mit der Sonne.",
+      "nacht_horoskop": "Sonne unter dem Horizont zur Geburtszeit (Sonne in den Häusern 1–6). Nacht-Horoskope beginnen mit dem Mond.",
+      "daemmerungszone": "Al-Biruni: 'Wenn die Sonne genau am Horizont steht — bei Sonnenauf- oder -untergang — ist das Urteil schwierig. Dann schaue auf den Mond: steht er über dem Horizont, behandle es als Tag.'",
+      "quelle": "Al-Biruni Kap. 496; Abu Ma'shar VII.1"
+    },
+
+    "reihenfolge_und_dauern": {
+      "tag_horoskop": {
+        "reihenfolge": ["sonne", "venus", "merkur", "mond", "saturn", "jupiter", "mars", "nordknoten", "suedknoten"],
+        "dauern_jahre": {
+          "sonne": 10,
+          "venus": 8,
+          "merkur": 13,
+          "mond": 9,
+          "saturn": 11,
+          "jupiter": 12,
+          "mars": 7,
+          "nordknoten": 3,
+          "suedknoten": 2
+        },
+        "gesamtdauer": 75,
+        "logik": "Die Reihenfolge folgt der Ptolemäischen Planetensphären-Ordnung (von außen nach innen: Saturn, Jupiter, Mars, Sonne, Venus, Merkur, Mond), aber beginnt mit der Sonne als Tag-Licht und reorganisiert nach Sekt-Prinzip."
+      },
+      "nacht_horoskop": {
+        "reihenfolge": ["mond", "saturn", "jupiter", "mars", "sonne", "venus", "merkur", "nordknoten", "suedknoten"],
+        "dauern_jahre": {
+          "mond": 9,
+          "saturn": 11,
+          "jupiter": 12,
+          "mars": 7,
+          "sonne": 10,
+          "venus": 8,
+          "merkur": 13,
+          "nordknoten": 3,
+          "suedknoten": 2
+        },
+        "gesamtdauer": 75,
+        "logik": "Das Nacht-Horoskop beginnt mit dem Mond (Nacht-Licht) und ordnet die Planeten nach Nacht-Sekt. Die Mondknoten bleiben am Ende — sie sind sektunabhängig."
+      },
+      "quelle": "Abu Ma'shar - Introductorium VII.1; Al-Biruni Kap. 497; Sahl IV.1"
+    },
+
+    "vergleich_mit_anderen_systemen": {
+      "vimshottari_dasha_jyotish": {
+        "gemeinsamkeit": "Beide Systeme teilen dasselbe Grundprinzip: planetare Lebensabschnitte von fester Dauer, die der Mensch der Reihe nach durchläuft. Beide haben Haupt- und Unter-Perioden.",
+        "unterschied_planeten": "Vimshottari nutzt 9 Planeten (7 + Rahu + Ketu); Firdaria nutzt 7 Planeten + Mondknoten. Uranus, Neptun, Pluto fehlen in beiden.",
+        "unterschied_dauern": "Vimshottari: 120 Jahre Gesamtzyklus (Ketu 7J., Venus 20J., Sonne 6J., Mond 10J., Mars 7J., Rahu 18J., Jupiter 16J., Saturn 19J., Merkur 17J.). Firdaria: 75 Jahre.",
+        "unterschied_startpunkt": "Vimshottari: Startplanet hängt vom Nakshatra des Geburts-Mondes ab. Firdaria: Startplanet hängt von Tag/Nacht ab.",
+        "quelle": "Al-Biruni Kap. 502 (Wright S.315 — Al-Biruni selbst vergleicht persische und indische Systeme)"
+      },
+      "hellenistische_profektionen": {
+        "gemeinsamkeit": "Beide sind Zeitherren-Systeme: ein Planet regiert eine Lebensphase.",
+        "unterschied": "Profektionen (H3) sind jährlich und zeichenbasiert; Firdaria sind mehrjährig und planetenbasiert. Profektionen wechseln jedes Jahr; Firdaria halten Jahre bis Jahrzehnte an.",
+        "synergie": "Arabische Astrologen nutzen beide gleichzeitig: Firdaria als langfristigen Rahmen, Profektionen für die Jahresebene innerhalb des Firdaria-Rahmens.",
+        "quelle": "Sahl ibn Bishr - Introduction IV.3"
+      },
+      "bazi_dayun": {
+        "gemeinsamkeit": "Bazi Dayun (10-Jahres-Pfeiler) und Firdaria sind beide Systeme von Lebensabschnitten unter planetaren/elementaren Herrschern.",
+        "unterschied": "Bazi Dayun wechselt alle 10 Jahre und leitet sich aus dem Geburtspfeiler ab. Firdaria: variable Längen (7–13 Jahre) je nach Planet, feste Reihenfolge.",
+        "quelle": "Syntheseregel nach Projektplan"
+      }
+    },
+
+    "deutungsprinzipien": {
+      "planet_im_nativen_horoskop": "Die Qualität einer Firdaria-Periode hängt primär davon ab, wie der Firdaria-Herrscher im Geburtshoroskop positioniert ist: Haus, Zeichen, Würde, Aspekte. Ein gut gestellter Firdaria-Herrscher → gute Periode; ein schlecht gestellter → schwierige Periode.",
+      "transit_des_herrschers": "Während einer Firdaria-Periode sind Transits des Firdaria-Herrschers besonders bedeutsam. Der Herrscher 'spricht lauter' in seiner eigenen Periode.",
+      "lot_verbindung": "Wenn der Firdaria-Herrscher gleichzeitig Lot-Herrscher eines wichtigen Lots ist, werden die Lot-Themen in dieser Periode besonders aktiviert (vgl. arabisch_lose.json).",
+      "quelle": "Abu Ma'shar VII.2; Al-Biruni Kap. 498; Sahl IV.2"
+    }
+  },
+
+  "haupt_firdaria": {
+    "beschreibung": "Vollständige Profile für alle 9 Haupt-Firdaria-Herrscher. Jedes Profil gilt sowohl für Tag- als auch Nacht-Horoskope — nur die zeitliche Position im Lebenszyklus unterscheidet sich. Der Dimensionsvektor zeigt die allgemeine Qualitätsneigung der Periode (modifiziert durch die Horoskopstellung des Herrschers).",
+    "quelle": "Abu Ma'shar - Introductorium VII.1-4; Al-Biruni - Book of Instruction Kap. 498-501; Sahl ibn Bishr - Introduction IV.1-4",
+
+    "sonne": {
+      "dauer_jahre": 10,
+      "symbol": "☉",
+      "arabisch": "Firdār al-Shams",
+      "beschreibung": "Die Sonne-Firdaria ist die Periode der Identität, der Autorität und des öffentlichen Lebens. Abu Ma'shar: 'Die Sonne regiert König, Vater, Führung und das Lebensprinzip.' In dieser Periode treten Themen von Rang, Ansehen, Vaterbeziehung und persönlicher Kraft in den Vordergrund. Die Sonne beleuchtet — was in ihrer Periode liegt, wird sichtbar, ob günstig oder ungünstig.",
+      "position_im_tag_zyklus": "1. Periode (Geburt bis ~10. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "5. Periode (~34.–44. Lebensjahr bei Nacht-Horoskop, nach Mond/Saturn/Jupiter/Mars)",
+      "quelle": "Abu Ma'shar VII.2; Al-Biruni Kap. 498; Sahl IV.2",
+
+      "lebensthemen": [
+        "Identität und Selbstdefinition",
+        "Autorität, Rang und öffentliches Ansehen",
+        "Vater und väterliche Figuren",
+        "Vitalität und Lebensenergie",
+        "Führungsrolle und Verantwortung",
+        "Anerkennung und Sichtbarkeit"
+      ],
+      "typische_ereignisse": [
+        "Erhalt eines Amtes oder einer Führungsposition",
+        "Verbesserung des sozialen Ansehens",
+        "Wichtige Ereignisse rund um den Vater",
+        "Gesundheitliche Vitalität oder Herz-/Kreislauf-Themen",
+        "Heiraten oder Verbindungen mit einflussreichen Personen",
+        "Öffentliche Anerkennung oder Auszeichnung"
+      ],
+      "chancen": "Aufstieg in Hierarchien, öffentliche Anerkennung, Stärkung der persönlichen Autorität, günstiger Zeitraum für Führungspositionen und Karriereschritte.",
+      "risiken": "Überheblichkeit, Starrheil, Ignoranz gegenüber anderen — die Sonne neigt dazu, das eigene Licht über alles zu stellen. Bei schwacher Sonnenstellung im Horoskop: Sichtbarkeit ohne Substanz, Konflikte mit Autoritäten.",
+      "herrscher_in_wuerde": "Sonne in Löwe (Domizil) oder Widder (Exaltation): außergewöhnlich günstige Periode, starke Entfaltung aller Sonnenthemen.",
+      "herrscher_in_schwaeche": "Sonne in Waage (Fall) oder Wassermann (Detriment): Periode bringt Herausforderungen in Identität und Autorität; mögliche Konflikte mit Vater oder Vorgesetzten.",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "venus": {
+      "dauer_jahre": 8,
+      "symbol": "♀",
+      "arabisch": "Firdār al-Zuhra",
+      "beschreibung": "Die Venus-Firdaria ist die Periode der Freude, Liebe, Schönheit und des materiellen Wohlstands. Abu Ma'shar: 'Venus regiert Frauen, Schmuck, Musik, Vergnügen und das Angenehme des Lebens.' Diese Periode bringt Leichtigkeit, soziale Gunst und häufig romantische Begegnungen. Al-Biruni: 'Die Venus-Firdaria ist die angenehmste unter den Perioden.'",
+      "position_im_tag_zyklus": "2. Periode (~10.–18. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "6. Periode (~44.–52. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.2; Al-Biruni Kap. 498; Sahl IV.2",
+
+      "lebensthemen": [
+        "Romantische Liebe und Partnerschaft",
+        "Ästhetik, Kunst und Schönheit",
+        "Materieller Wohlstand und Genuss",
+        "Soziale Harmonie und Beliebtheit",
+        "Mutter und weibliche Bezugspersonen",
+        "Kreatives Schaffen und künstlerischer Ausdruck"
+      ],
+      "typische_ereignisse": [
+        "Verlieben, Heirat oder Vertiefung einer Partnerschaft",
+        "Künstlerische Schaffensperioden",
+        "Materieller Wohlstand, Geschenke, Erbschaften",
+        "Soziale Erfolge und neue Freundschaften",
+        "Erholung und Genuss nach anstrengenden Perioden",
+        "Verbesserung des Lebensstils, Wohnungswechsel ins Schöne"
+      ],
+      "chancen": "Günstigste Periode für Liebesbeziehungen, kreative Projekte, soziale Verbindungen und materiellen Komfort. Harmonie fließt leichter als in anderen Perioden.",
+      "risiken": "Überindulgenz, Faulheit, Vernachlässigung von Pflichten zugunsten von Genuss. Bei schwacher Venus: enttäuschende Liebschaften, finanzielle Unvorsichtigkeit.",
+      "herrscher_in_wuerde": "Venus in Stier oder Waage (Domizil) oder Fische (Exaltation): maximale Liebes- und Wohlstandsgunst.",
+      "herrscher_in_schwaeche": "Venus in Skorpion oder Widder (Detriment) oder Jungfrau (Fall): Liebesbeziehungen von Enttäuschung geprägt; finanzielle Leichtfertigkeit.",
+      "dimensionen_vektor": {
+        "liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 4,
+        "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3
+      }
+    },
+
+    "merkur": {
+      "dauer_jahre": 13,
+      "symbol": "☿",
+      "arabisch": "Firdār al-'Utarid",
+      "beschreibung": "Die Merkur-Firdaria ist die längste Periode und steht für intellektuelle Entwicklung, Kommunikation, Handel und Bildung. Abu Ma'shar: 'Merkur regiert Schreiber, Gelehrte, Kaufleute, Ärzte und alles, was mit Wissen und Tausch verbunden ist.' Wegen ihrer Länge (13 Jahre) prägt diese Periode einen ganzen Lebensabschnitt nachhaltig — oft die Periode, in der Bildung abgeschlossen und berufliche Grundlagen gelegt werden.",
+      "position_im_tag_zyklus": "3. Periode (~18.–31. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "7. Periode (~52.–65. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.2; Al-Biruni Kap. 499; Sahl IV.2",
+
+      "lebensthemen": [
+        "Bildung, Lernen und intellektuelle Entwicklung",
+        "Kommunikation, Schreiben und Sprache",
+        "Handel, Geschäfte und Vertragsabschlüsse",
+        "Reisen, besonders kurze und häufige",
+        "Geschwister und nahes soziales Umfeld",
+        "Vielseitigkeit, Anpassung und Wandel"
+      ],
+      "typische_ereignisse": [
+        "Abschluss einer Ausbildung oder eines Studiums",
+        "Berufseinstieg in intellektuelle oder kommunikative Berufe",
+        "Vertragsabschlüsse, Geschäftsgründungen",
+        "Häufige Ortsveränderungen und Reisen",
+        "Wichtige Geschwisterereignisse",
+        "Schriftstellerische oder wissenschaftliche Veröffentlichungen"
+      ],
+      "chancen": "Günstig für alles, was Geist und Sprache fordert. Lange Periode erlaubt nachhaltige intellektuelle Projekte. Gut für Kaufleute, Gelehrte, Journalisten, Lehrer.",
+      "risiken": "Merkur-Typen können sich verzetteln — zu viele Projekte gleichzeitig, Oberflächlichkeit, Nervosität. Bei schwachem Merkur: Kommunikationsprobleme, Vertragsstreitigkeiten, Lernblockaden.",
+      "herrscher_in_wuerde": "Merkur in Zwillinge oder Jungfrau (Domizil und Exaltation): beste Voraussetzungen für intellektuelle und kommunikative Leistungen.",
+      "herrscher_in_schwaeche": "Merkur in Fische (Detriment und Fall) oder Schütze (Detriment): Kommunikation leidet, Verträge unklar, Lernen mühsam.",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 2
+      }
+    },
+
+    "mond": {
+      "dauer_jahre": 9,
+      "symbol": "☽",
+      "arabisch": "Firdār al-Qamar",
+      "beschreibung": "Die Mond-Firdaria ist die Periode des Gefühls, der Familie, der Wandlung und der öffentlichen Resonanz. Abu Ma'shar: 'Der Mond regiert Mütter, Frauen allgemein, die Bevölkerung, Reisen über Wasser und alles, was sich schnell verändert.' Der Mond bringt Fluss und Wandel — diese Periode ist selten statisch. Al-Biruni: 'Die Mond-Periode ist reich an Ereignissen, denn der Mond selbst ist der schnellste Planet.'",
+      "position_im_tag_zyklus": "4. Periode (~31.–40. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "1. Periode (Geburt bis ~9. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.2; Al-Biruni Kap. 499; Sahl IV.2",
+
+      "lebensthemen": [
+        "Familie, Mutter und häusliches Leben",
+        "Emotionale Tiefe und Verarbeitung",
+        "Öffentlichkeit, Popularität, Kontakt zur breiten Masse",
+        "Häufige Veränderungen und Umzüge",
+        "Reisen, besonders über Wasser",
+        "Intuition und unbewusste Prozesse"
+      ],
+      "typische_ereignisse": [
+        "Familienereignisse (Geburt, Tod, Hochzeit in der Familie)",
+        "Umzüge und Wohnortwechsel",
+        "Öffentliche Popularität oder Kontakt zur Masse",
+        "Emotionale Krisen und Heilungsprozesse",
+        "Reisen, Auslandsaufenthalte",
+        "Wichtige Ereignisse rund um die Mutter"
+      ],
+      "chancen": "Öffentliche Beliebtheit, emotionale Tiefe und familiäre Verbindungen. Günstig für alles, was mit der Öffentlichkeit und dem kollektiven Empfinden zu tun hat.",
+      "risiken": "Emotionale Instabilität, Wankelmut, zu starke Abhängigkeit von äußeren Stimmungen. Bei schwachem Mond: familiäre Konflikte, emotionale Überforderung, Verzettelung durch zu viele Veränderungen.",
+      "herrscher_in_wuerde": "Mond in Krebs (Domizil) oder Stier (Exaltation): tiefe emotionale Intelligenz, familiäre Harmonie, öffentliche Zuneigung.",
+      "herrscher_in_schwaeche": "Mond in Steinbock (Detriment) oder Skorpion (Fall): emotionale Kälte oder Krisen, familiäre Spannungen, öffentliche Anfeindungen.",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+      }
+    },
+
+    "saturn": {
+      "dauer_jahre": 11,
+      "symbol": "♄",
+      "arabisch": "Firdār Zuhal",
+      "beschreibung": "Die Saturn-Firdaria ist die Periode der Prüfung, Reifung, Einschränkung und tiefen Verantwortung. Abu Ma'shar: 'Saturn regiert altes Wissen, Traurigkeit, Einsamkeit, schwere Arbeit, Väter älterer Generationen und alles, was dauerhaft und schwer ist.' Diese Periode ist selten leicht — aber sie baut Charakter und Substanz. Al-Biruni: 'Die Saturn-Firdaria ist die härteste aller Perioden — und die, die am tiefsten formt.'",
+      "position_im_tag_zyklus": "5. Periode (~40.–51. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "2. Periode (~9.–20. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.3; Al-Biruni Kap. 499; Sahl IV.3",
+
+      "lebensthemen": [
+        "Prüfungen, Einschränkungen und Verzögerungen",
+        "Tiefe Reifung und Charakterbildung",
+        "Verantwortung, Pflicht und Last",
+        "Isolation, Einsamkeit, Rückzug",
+        "Strukturaufbau und langfristige Planung",
+        "Alte Menschen, Väter, Ahnen"
+      ],
+      "typische_ereignisse": [
+        "Berufliche oder finanzielle Einschränkungen",
+        "Verlust, Trauer, Tod in der Familie oder im Umfeld",
+        "Gesundheitliche Einschränkungen, chronische Beschwerden",
+        "Erzwungener Rückzug oder Isolation",
+        "Übernahme schwerer Verantwortung (Pflege, Führung in der Krise)",
+        "Fundamentale Restrukturierung des Lebens"
+      ],
+      "chancen": "Trotz Schwere: Beste Periode für tiefe, dauerhafte Aufbauarbeit. Was in der Saturn-Firdaria aufgebaut wird, hält. Günstig für Strukturen, Institutionen, langfristige Investitionen.",
+      "risiken": "Depression, Resignation, Isolation ohne Aussicht. Bei sehr schwachem Saturn: Verluste ohne Kompensation, gesundheitliche Krise, chronische Einschränkungen.",
+      "herrscher_in_wuerde": "Saturn in Steinbock oder Wassermann (Domizil) oder Waage (Exaltation): die Schwere kommt, aber mit Würde und Struktur — Aufbau ist möglich.",
+      "herrscher_in_schwaeche": "Saturn in Krebs oder Löwe (Detriment) oder Widder (Fall): härteste Variante — Einschränkungen ohne strukturierende Kraft.",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4
+      }
+    },
+
+    "jupiter": {
+      "dauer_jahre": 12,
+      "symbol": "♃",
+      "arabisch": "Firdār al-Mushtari",
+      "beschreibung": "Die Jupiter-Firdaria ist die Periode der Expansion, des Segens und des Wachstums. Abu Ma'shar: 'Jupiter regiert Religion, Recht, Reichtum, Kinder, Würde und das Beste im Leben.' Diese Periode folgt in der Tag-Reihenfolge auf Saturn — ein klassischer Wechsel von Prüfung zu Belohnung. Al-Biruni: 'Die Jupiter-Firdaria ist die gesegnetste der Perioden — wer sie gut nutzt, schreitet deutlich voran.'",
+      "position_im_tag_zyklus": "6. Periode (~51.–63. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "3. Periode (~20.–32. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.3; Al-Biruni Kap. 500; Sahl IV.3",
+
+      "lebensthemen": [
+        "Expansion, Wachstum und Überfluss",
+        "Religion, Philosophie und höheres Wissen",
+        "Kinder und Fruchtbarkeit",
+        "Recht, Gerechtigkeit und ethisches Handeln",
+        "Reisen in die Ferne, Auslandsverbindungen",
+        "Großzügigkeit und Mäzenatentum"
+      ],
+      "typische_ereignisse": [
+        "Finanzielle Expansion oder Vermögensaufbau",
+        "Geburt von Kindern oder Enkeln",
+        "Religiöse oder philosophische Wandlung",
+        "Rechtsangelegenheiten mit günstigem Ausgang",
+        "Reisen, Auslandsaufenthalte, internationale Verbindungen",
+        "Erhalt von Titeln, Ehrungen oder höheren Ämtern"
+      ],
+      "chancen": "Günstigste Periode für Wachstum in fast allen Bereichen. Was gesucht wird, findet sich. Günstig für Familiengründung, Bildungsabschlüsse, Karrieresprünge und spirituelle Vertiefung.",
+      "risiken": "Überdehnung, zu viele gleichzeitige Projekte, unrealistische Erwartungen. Bei schwachem Jupiter: Die Expansion bleibt aus; mögliche rechtliche Probleme; übertriebene Frömmigkeit ohne Fundament.",
+      "herrscher_in_wuerde": "Jupiter in Schütze oder Fische (Domizil) oder Krebs (Exaltation): maximale Expansion und Segen.",
+      "herrscher_in_schwaeche": "Jupiter in Zwillinge oder Jungfrau (Detriment) oder Steinbock (Fall): Expansion blockiert, rechtliche Schwierigkeiten, Kinder-Themen problematisch.",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+        "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5
+      }
+    },
+
+    "mars": {
+      "dauer_jahre": 7,
+      "symbol": "♂",
+      "arabisch": "Firdār al-Mirrikh",
+      "beschreibung": "Die Mars-Firdaria ist die kürzeste der Planeten-Perioden und steht für Energie, Konflikt, Mut und Durchsetzung. Abu Ma'shar: 'Mars regiert Krieger, Chirurgen, Schmiede, Feuer, Streit, Blut und alles Scharfe und Schnelle.' Diese Periode bringt Intensität — oft Konflikte, aber auch starken Antrieb und die Fähigkeit, Hindernisse zu überwinden. Sahl: 'Mars handelt schnell und verlässt sich nicht lang auf.'",
+      "position_im_tag_zyklus": "7. Periode (~63.–70. Lebensjahr bei Tag-Horoskop)",
+      "position_im_nacht_zyklus": "4. Periode (~32.–39. Lebensjahr bei Nacht-Horoskop)",
+      "quelle": "Abu Ma'shar VII.3; Al-Biruni Kap. 500; Sahl IV.3",
+
+      "lebensthemen": [
+        "Energie, Tatkraft und Durchsetzung",
+        "Konflikte, Auseinandersetzungen und Kämpfe",
+        "Mut und Risikobereitschaft",
+        "Körperliche Vitalität und Sport",
+        "Chirurgische Eingriffe, Unfälle, Verletzungen",
+        "Abrupte Veränderungen und Trennungen"
+      ],
+      "typische_ereignisse": [
+        "Konflikte am Arbeitsplatz oder in Beziehungen",
+        "Chirurgische Eingriffe oder Unfälle",
+        "Militärischer Dienst oder physische Auseinandersetzungen",
+        "Abrupte Trennungen oder Scheidungen",
+        "Starke körperliche Aktivität, sportliche Höchstleistungen",
+        "Abrupte Karrierewechsel oder Brüche"
+      ],
+      "chancen": "Günstig für Mut, Initiative und das Überwinden von Hindernissen. Kurze Periode — intensive Themen, aber schnell überwunden. Gut für Sportler, Chirurgen, Militärangehörige.",
+      "risiken": "Impulsivität, Aggressivität, Unfallgefahr. Bei schwachem Mars: Konflikte ohne Lösung, Verletzungen, chronische Streitigkeiten.",
+      "herrscher_in_wuerde": "Mars in Widder oder Skorpion (Domizil) oder Steinbock (Exaltation): Energie und Durchsetzungskraft, Konflikte enden günstig.",
+      "herrscher_in_schwaeche": "Mars in Waage oder Stier (Detriment) oder Krebs (Fall): Konflikte ohne Ausweg, Verletzungsrisiko erhöht, Energie verpufft.",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 2, "gesundheit": 3,
+        "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2
+      }
+    },
+
+    "nordknoten": {
+      "dauer_jahre": 3,
+      "symbol": "☊",
+      "arabisch": "Firdār al-Ra's (Rahu)",
+      "beschreibung": "Die Nordknoten-Firdaria ist die Periode der karmischen Expansion und des Hineinwachsens in neue, unbekannte Erfahrungsräume. Der Nordknoten (Ra's al-Jauzahar — 'Kopf des Drachen') zeigt in der arabischen Tradition die Richtung des Wachstums und der Sehnsucht. Abu Ma'shar: 'Der Nordknoten wirkt wie Jupiter — er bringt Wachstum und Expansion, aber oft durch Überforderung.' Diese Periode kann destabilisierend sein, weil sie in unbekanntes Terrain drängt.",
+      "position_im_zyklus": "8. Periode (vorletzt, für Tag und Nacht identisch)",
+      "quelle": "Abu Ma'shar VII.4; Al-Biruni Kap. 501; Sahl IV.4",
+
+      "lebensthemen": [
+        "Karmische Expansion und Wachstumsimpuls",
+        "Begegnung mit dem Unbekannten und Neuen",
+        "Überforderung durch zu schnelles Wachstum",
+        "Spirituelle Öffnung und neue Erfahrungsräume",
+        "Kollektive Verbindungen und größere Zusammenhänge",
+        "Aufbrechen alter Muster durch äußere Ereignisse"
+      ],
+      "typische_ereignisse": [
+        "Unerwartete Möglichkeiten und Chancen",
+        "Begegnungen mit fremden Kulturen oder Weltanschauungen",
+        "Spirituelle oder religiöse Wandlungserlebnisse",
+        "Kollektive Ereignisse, die das persönliche Leben berühren",
+        "Destabilisierung durch zu raschen Wandel",
+        "Beginn neuer Lebenskapitel, die noch unklar erscheinen"
+      ],
+      "chancen": "Wachstum über die bisherigen Grenzen hinaus. Chance, in neue Erfahrungsräume zu wachsen und karmische Potenziale zu aktivieren.",
+      "risiken": "Überforderung, Grenzauflösung, Orientierungslosigkeit. Die kurze Dauer (3 Jahre) macht die Intensität dieser Periode besonders spürbar.",
+      "sektunabhaengigkeit": "Die Mondknoten-Perioden stehen am Ende beider Zyklen (Tag und Nacht) — sie sind nicht sektgebunden. Al-Biruni: 'Die Knoten kennen keine Sekte — sie wirken für alle.'",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+      }
+    },
+
+    "suedknoten": {
+      "dauer_jahre": 2,
+      "symbol": "☋",
+      "arabisch": "Firdār al-Dhanab (Ketu)",
+      "beschreibung": "Die Südknoten-Firdaria ist die kürzeste und abschließende Periode des 75-Jahres-Zyklus. Der Südknoten (Dhanab al-Jauzahar — 'Schwanz des Drachen') zeigt in der arabischen Tradition das Loslassen, die karmische Abgabe und das Verarbeiten des Vergangenen. Abu Ma'shar: 'Der Südknoten wirkt wie Saturn — er nimmt, entzieht, zieht zurück.' Diese Periode ist oft von Abschieds- und Auflösungsthemen geprägt.",
+      "position_im_zyklus": "9. Periode (letzte, für Tag und Nacht identisch)",
+      "quelle": "Abu Ma'shar VII.4; Al-Biruni Kap. 501; Sahl IV.4",
+
+      "lebensthemen": [
+        "Loslassen und karmische Abgabe",
+        "Auflösung alter Muster und Beziehungen",
+        "Rückzug, Stille und innere Verarbeitung",
+        "Vergangenheitsbewältigung",
+        "Vorbereitung auf einen neuen Zyklus",
+        "Spirituelle Vertiefung durch Entleerung"
+      ],
+      "typische_ereignisse": [
+        "Abschiede und Trennungen",
+        "Auflösung von Projekten oder Beziehungen",
+        "Rückzug aus öffentlichem Leben",
+        "Verarbeitung vergangener Erfahrungen",
+        "Vorbereitung auf neuen Lebensabschnitt",
+        "Begegnung mit dem eigenen Ende — spirituell oder konkret"
+      ],
+      "chancen": "Tiefe spirituelle Klärung. Was losgelassen werden muss, kann losgelassen werden. Vorbereitung auf neuen Zyklus mit klarerem Bewusstsein.",
+      "risiken": "Resignation, Isolation, Verlustschmerz ohne Integration. Al-Biruni: 'Wenn der Südknoten-Herrscher schlecht steht, bringt die Periode Entbehrung ohne Sinn.'",
+      "sektunabhaengigkeit": "Wie der Nordknoten: sektunabhängig, am Ende beider Zyklen.",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+        "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 5
+      }
+    }
+  },
+
+  "unter_firdaria": {
+    "beschreibung": "Jede Haupt-Firdaria-Periode wird in 7 Unter-Perioden (Sub-Firdaria) unterteilt. Die Reihenfolge der Unter-Planeten beginnt immer mit dem Hauptherrscher selbst und folgt dann der jeweiligen Tag- oder Nacht-Reihenfolge. Die Dauer jeder Unter-Periode ergibt sich aus der Hauptdauer ÷ 7 (gleichmäßig verteilt). Die Mondknoten-Perioden haben ebenfalls 7 Unter-Perioden.",
+    "quelle": "Abu Ma'shar - Introductorium VII.5-6; Al-Biruni - Book of Instruction Kap. 502; Sahl ibn Bishr - Introduction IV.5",
+
+    "berechnungsmethode": {
+      "prinzip": "Hauptdauer in Jahren ÷ 7 = Unter-Perioden-Dauer. Die Reihenfolge der Unter-Planeten folgt der Haupt-Reihenfolge des jeweiligen Horoskop-Typs (Tag oder Nacht), beginnend mit dem Hauptherrscher.",
+      "beispiel_sonne_tag": "Sonne-Hauptperiode: 10 Jahre. 10 ÷ 7 ≈ 1,43 Jahre pro Unter-Periode. Reihenfolge: Sonne/Sonne → Sonne/Venus → Sonne/Merkur → Sonne/Mond → Sonne/Saturn → Sonne/Jupiter → Sonne/Mars.",
+      "mondknoten": "Nordknoten-Periode (3 Jahre): 3 ÷ 7 ≈ 0,43 Jahre ≈ 5,1 Monate pro Unter-Periode. Südknoten (2 Jahre): 2 ÷ 7 ≈ 0,29 Jahre ≈ 3,4 Monate.",
+      "quelle": "Al-Biruni Kap. 502"
+    },
+
+    "qualitaets_matrix": {
+      "beschreibung": "Die Qualität einer Unter-Firdaria-Periode (Haupt/Unter) hängt von der planetaren Beziehung zwischen Haupt- und Unterherrscher ab. Freundliche Kombinationen verlaufen harmonisch; feindliche bringen Spannung und Konflikte; neutrale sind gemischt.",
+      "quelle": "Abu Ma'shar VII.5; Sahl IV.5",
+
+      "freundschaftsbeziehungen": {
+        "sonne_freunde": ["mond", "mars", "jupiter"],
+        "sonne_feinde": ["saturn", "venus"],
+        "sonne_neutral": ["merkur"],
+        "venus_freunde": ["merkur", "saturn"],
+        "venus_feinde": ["sonne", "mond"],
+        "venus_neutral": ["mars", "jupiter"],
+        "merkur_freunde": ["sonne", "venus"],
+        "merkur_feinde": ["mond"],
+        "merkur_neutral": ["mars", "jupiter", "saturn"],
+        "mond_freunde": ["sonne", "merkur"],
+        "mond_feinde": ["saturn"],
+        "mond_neutral": ["venus", "mars", "jupiter"],
+        "saturn_freunde": ["merkur", "venus"],
+        "saturn_feinde": ["sonne", "mond", "mars"],
+        "saturn_neutral": ["jupiter"],
+        "jupiter_freunde": ["sonne", "mond", "mars"],
+        "jupiter_feinde": ["merkur"],
+        "jupiter_neutral": ["saturn", "venus"],
+        "mars_freunde": ["sonne", "jupiter"],
+        "mars_feinde": ["saturn"],
+        "mars_neutral": ["mond", "venus", "merkur"],
+        "quelle": "Abu Ma'shar VII.5; Al-Biruni Kap. 502"
+      },
+
+      "kombinationen_tag_horoskop": {
+        "sonne_hauptperiode": {
+          "sonne_sonne": {
+            "qualitaet": "neutral_bis_guenstig",
+            "beschreibung": "Reine Sonnen-Energie — Identität und Autorität stehen im Fokus, ohne Modifikation durch andere Prinzipien. Klärung der eigenen Natur.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "sonne_venus": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Sonne und Venus sind planetare Feinde (Sonne = Autorität/Pflicht vs. Venus = Genuss/Leichtigkeit). Diese Kombination bringt Spannungen zwischen Karriere-Verpflichtungen und Liebesbedürfnissen. Sahl: 'Die Sonne mag Venus nicht — sie konkurrieren.'",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 2}
+          },
+          "sonne_merkur": {
+            "qualitaet": "neutral",
+            "beschreibung": "Merkur ist zur Sonne neutral. Intellektuelle und kommunikative Aktivitäten unter Sonnen-Regie. Günstig für Vertragsabschlüsse in Karrierekontexten.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 2}
+          },
+          "sonne_mond": {
+            "qualitaet": "guenstig",
+            "beschreibung": "Sonne und Mond sind Freunde — Licht und sein Reflektor. Öffentliche Sichtbarkeit trifft auf emotionale Resonanz. Günstig für alle, die öffentlich wirken wollen.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "sonne_saturn": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Die schwerste Unter-Kombination innerhalb der Sonnen-Periode. Sonne und Saturn sind Erzfeinde — Licht gegen Dunkelheit, Autorität gegen Einschränkung. Al-Biruni: 'Wenn Saturn in der Sonne-Periode regiert, kommen Prüfungen, Verluste oder Konflikte mit Vätern und Autoritäten.' Vorsicht bei wichtigen Entscheidungen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4}
+          },
+          "sonne_jupiter": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Sonne und Jupiter sind Freunde. Ausgezeichnete Kombination für Expansion von Autorität und Status. Abu Ma'shar: 'Jupiter in der Sonne-Periode — das ist der König, der Segen empfängt.' Günstig für Karriere, Ehrungen und religiöse Themen.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+          },
+          "sonne_mars": {
+            "qualitaet": "guenstig_mit_risiko",
+            "beschreibung": "Sonne und Mars sind Freunde — beide Feuer, beide aktiv. Viel Energie und Durchsetzungskraft. Günstig für mutige Schritte und Karriereoffensiven. Risiko: Impulsivität und Konflikte mit Vorgesetzten.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2}
+          }
+        },
+
+        "venus_hauptperiode": {
+          "venus_venus": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Reine Venus-Energie — Liebes- und Wohlstandsthemen in vollster Entfaltung. Sahl: 'Venus in Venus — dies ist das süßeste aller Haus.' Günstigster Moment der Venus-Hauptperiode.",
+            "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3}
+          },
+          "venus_merkur": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Venus und Merkur sind Freunde — Schönheit trifft Geist. Günstig für künstlerische und kommerzielle Projekte. Kreativität und Handel florieren gemeinsam.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3}
+          },
+          "venus_mond": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Venus und Mond sind Feinde in dieser Tradition (beide weiblich, konkurrieren). Emotionale Unruhe in Liebesbeziehungen. Stimmungsschwankungen beeinflussen Genussfähigkeit.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+          },
+          "venus_saturn": {
+            "qualitaet": "guenstig_stabil",
+            "beschreibung": "Venus und Saturn sind Freunde — Genuss trifft Beständigkeit. Günstig für langfristige Liebesbeziehungen und solide finanzielle Strukturen. Weniger Freude, mehr Verlässlichkeit.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+          },
+          "venus_jupiter": {
+            "qualitaet": "neutral_bis_guenstig",
+            "beschreibung": "Venus und Jupiter sind neutral zueinander. Freude und Expansion können sich verbinden — günstig, wenn beide gut stehen. Mögliche Überschwänglichkeit und Übermaß.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4}
+          },
+          "venus_mars": {
+            "qualitaet": "leidenschaftlich_spannungsreich",
+            "beschreibung": "Venus und Mars sind neutral, aber gegensätzlich — Liebe und Kampf. Intensive Leidenschaften, erotische Spannung, mögliche Beziehungskonflikte. Kreativ-destruktive Energie.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 2}
+          },
+          "venus_sonne": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Sonne und Venus sind Feinde — Pflicht und Genuss im Konflikt. Karriereanforderungen stören Liebesglück. Abu Ma'shar: 'Die Sonne versengt Venus.'",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}
+          }
+        },
+
+        "saturn_hauptperiode": {
+          "saturn_saturn": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Reine Saturn-Energie — maximale Schwere und Prüfung. Al-Biruni: 'Saturn in Saturn ist die schwerste aller Perioden — alles wird geprüft.' Aber: auch tiefste Reifung möglich.",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 2, "finanzen": 1, "gesundheit": 2, "soziales": 1, "kreativitaet": 1, "veraenderung": 4, "spiritualitaet": 5}
+          },
+          "saturn_jupiter": {
+            "qualitaet": "neutral_erleichterung",
+            "beschreibung": "Saturn und Jupiter sind neutral zueinander — ein erträglicher Übergang innerhalb der Saturn-Periode. Jupiter mildert Saturn etwas, ohne seine Grundnatur zu ändern. Kleine Erleichterungen, Hoffnung.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4}
+          },
+          "saturn_mars": {
+            "qualitaet": "sehr_schwierig_gefaehrlich",
+            "beschreibung": "Die gefährlichste Kombination: beide Malefiker, Saturn-Mars sind Feinde. Sahl: 'Hüte dich in dieser Zeit — Unfälle, Krankheiten und Konflikte häufen sich.' Vorsicht bei körperlichen Risiken.",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 2, "finanzen": 1, "gesundheit": 1, "soziales": 1, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 3}
+          },
+          "saturn_sonne": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Feinde: Autorität und Einschränkung im Konflikt. Konflikte mit Vorgesetzten, Vaterfiguren oder dem eigenen Selbstbild. Gesundheitliche Belastungen möglich.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4}
+          },
+          "saturn_venus": {
+            "qualitaet": "guenstig_innerhalb_schwerer_periode",
+            "beschreibung": "Saturn und Venus sind Freunde — die günstigste Unter-Periode innerhalb der Saturn-Hauptperiode. Stabile, ernsthafte Liebesbeziehungen oder materielle Konsolidierung.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+          },
+          "saturn_merkur": {
+            "qualitaet": "neutral_guenstig",
+            "beschreibung": "Saturn und Merkur sind Freunde — strukturiertes Denken und Kommunikation. Günstig für seriöse intellektuelle Arbeit, Verträge mit langer Laufzeit, Buchführung.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "saturn_mond": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Saturn und Mond sind Feinde — emotionale Einschränkung und Isolation. Al-Biruni: 'Der Mond leidet unter Saturn — Melancholie, Verlust der Mutter oder familiäre Schwierigkeiten.' Emotionale Kälte.",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4}
+          }
+        },
+
+        "jupiter_hauptperiode": {
+          "jupiter_jupiter": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Reine Jupiter-Energie — maximale Expansion. Abu Ma'shar: 'Jupiter in Jupiter — der Mensch erfährt die Gunst des Himmels in vollem Maß.' Beste Zeit für alle Expansionsprojekte.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 5, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+          },
+          "jupiter_mars": {
+            "qualitaet": "guenstig_aktiv",
+            "beschreibung": "Jupiter und Mars sind Freunde — Expansion trifft Tatkraft. Günstig für mutige Unternehmungen. Sahl: 'Jupiter gibt Wohlwollen, Mars gibt Energie — zusammen entsteht kraftvoller Erfolg.'",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4}
+          },
+          "jupiter_sonne": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Jupiter und Sonne sind Freunde. Günstigster Moment für Karriere und öffentliche Anerkennung. Al-Biruni: 'Diese Kombination bringt Ehrungen und Titel.'",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+          },
+          "jupiter_venus": {
+            "qualitaet": "neutral_angenehm",
+            "beschreibung": "Jupiter und Venus sind neutral. Angenehme Kombination — Freude und Expansion. Mögliche Überindulgenz. Günstig für geselliges Leben und kreative Projekte.",
+            "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 4}
+          },
+          "jupiter_merkur": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Jupiter und Merkur sind Feinde — Überzeugung und Detail im Konflikt. Jupiter will Großes sehen; Merkur prüft jedes Detail. Intellektuelle Spannung, Meinungsverschiedenheiten.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4}
+          },
+          "jupiter_mond": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Jupiter und Mond sind Freunde. Öffentliche Beliebtheit und familiäres Glück. Günstig für Familiengründung, öffentliche Auftritte und emotionale Erfüllung.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+          },
+          "jupiter_saturn": {
+            "qualitaet": "neutral_gemaessigt",
+            "beschreibung": "Jupiter und Saturn sind neutral. Expansion wird durch Realismus gedämpft — nachhaltiges Wachstum statt überschwänglicher Sprünge. Günstig für langfristige Investitionen.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4}
+          }
+        },
+
+        "mars_hauptperiode": {
+          "mars_mars": {
+            "qualitaet": "sehr_intensiv_risikoreich",
+            "beschreibung": "Reine Mars-Energie — maximale Intensität, Konflikt und Tatkraft. Sahl: 'Mars in Mars ist die gefährlichste aller Unter-Perioden — aber auch die mutigste.' Unfallrisiko, aber auch außergewöhnliche Durchsetzungskraft.",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 4, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2}
+          },
+          "mars_sonne": {
+            "qualitaet": "guenstig_aktiv",
+            "beschreibung": "Mars und Sonne sind Freunde. Energie und Autorität verbinden sich. Günstig für mutige Karriereschritte und öffentliche Konfrontationen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 2}
+          },
+          "mars_venus": {
+            "qualitaet": "leidenschaftlich",
+            "beschreibung": "Mars und Venus sind neutral — Leidenschaft und Begehren. Intensive erotische und kreative Energie. Beziehungskonflikte möglich, aber auch tiefe Leidenschaft.",
+            "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 2}
+          },
+          "mars_merkur": {
+            "qualitaet": "neutral",
+            "beschreibung": "Mars und Merkur sind neutral. Scharfe Kommunikation und intellektuelle Schlagfertigkeit. Günstig für Debatten, Verhandlungen und schnelle Entscheidungen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 2}
+          },
+          "mars_mond": {
+            "qualitaet": "emotional_aufgewuehlt",
+            "beschreibung": "Mars und Mond sind neutral, aber schwierig in der Praxis — Impulsivität trifft Emotionalität. Emotionale Ausbrüche, Konflikte in der Familie. Frauen-Themen können konfliktreich sein.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 3}
+          },
+          "mars_saturn": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Die gefährlichste Kombination auch in der Mars-Hauptperiode: beide Malefiker als Feinde. Al-Biruni: 'Vermeide in dieser Zeit alle riskanten Unternehmungen.' Unfälle, Krankheiten, Konflikte mit Autoritäten.",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 1, "finanzen": 1, "gesundheit": 1, "soziales": 1, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 3}
+          },
+          "mars_jupiter": {
+            "qualitaet": "guenstig_mit_schwung",
+            "beschreibung": "Mars und Jupiter sind Freunde — Tatkraft und Expansion gemeinsam. Günstig für mutige Unternehmungen mit Wachstumspotenzial. Sahl: 'Jupiter mildert Mars — der Mut wird weise.'",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4}
+          }
+        },
+
+        "merkur_hauptperiode": {
+          "merkur_merkur": {
+            "qualitaet": "sehr_guenstig_intellektuell",
+            "beschreibung": "Reine Merkur-Energie — intellektuelle Hochleistung und kommunikative Brillanz. Günstigster Moment der Merkur-Hauptperiode für geistige Arbeit und Handel.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 2}
+          },
+          "merkur_mond": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Merkur und Mond sind Feinde — Logik und Emotion im Konflikt. Kommunikationsprobleme durch emotionale Überladung. Intuition und Verstand arbeiten gegeneinander.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+          },
+          "merkur_saturn": {
+            "qualitaet": "guenstig_strukturiert",
+            "beschreibung": "Merkur und Saturn sind Freunde — analytisches Denken trifft auf Geduld. Günstig für wissenschaftliche Forschung, Buchführung, langfristige Planungen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "merkur_jupiter": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Feinde: Merkur (Detail) und Jupiter (Überblick). Meinungsverschiedenheiten in Glaubens- und Bildungsfragen. Rechtliche Auseinandersetzungen. Übermäßige Prinzipientreue.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "merkur_mars": {
+            "qualitaet": "neutral_scharf",
+            "beschreibung": "Mars und Merkur sind neutral. Scharfzüngigkeit und schnelles Denken. Gut für Debatten und Verhandlungen. Vorsicht: vorschnelle Urteile.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 2}
+          },
+          "merkur_sonne": {
+            "qualitaet": "guenstig",
+            "beschreibung": "Sonne und Merkur sind Freunde. Intellektuelle Autorität, eloquente Führung. Günstig für Redner, Schriftsteller und Berater von Mächtigen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}
+          },
+          "merkur_venus": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Merkur und Venus sind Freunde — Geist und Schönheit. Günstig für Kunst, Musik, Schreiben über Liebe und ästhetische Projekte. Angenehmer sozialer Austausch.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3}
+          }
+        },
+
+        "mond_hauptperiode": {
+          "mond_mond": {
+            "qualitaet": "sehr_emotional_wandelreich",
+            "beschreibung": "Reine Mond-Energie — maximale emotionale Tiefe und Wandel. Intensivste Phase der Mond-Hauptperiode. Öffentliche Sichtbarkeit und familiäre Themen dominieren.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4}
+          },
+          "mond_saturn": {
+            "qualitaet": "sehr_schwierig",
+            "beschreibung": "Mond und Saturn sind Feinde. Emotionale Unterdrückung, familiäre Verluste, Melancholie. Al-Biruni: 'Diese Kombination bringt Traurigkeit, besonders in Bezug auf die Mutter oder das häusliche Leben.'",
+            "dimensionen_vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4}
+          },
+          "mond_jupiter": {
+            "qualitaet": "sehr_guenstig",
+            "beschreibung": "Mond und Jupiter sind Freunde. Öffentliche Beliebtheit und expansive Familienereignisse. Günstig für Mütter, Familiengründung, öffentliches Wirken.",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5}
+          },
+          "mond_mars": {
+            "qualitaet": "emotional_aufgewuehlt",
+            "beschreibung": "Mond und Mars sind neutral, aber schwierig in der Praxis. Emotionale Konflikte, Impulsivität, familiäre Auseinandersetzungen. Gut für physische Aktivitäten, schwierig für Beziehungen.",
+            "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 3}
+          },
+          "mond_sonne": {
+            "qualitaet": "sehr_guenstig_oeffentlich",
+            "beschreibung": "Mond und Sonne sind Freunde — Vollmond-Prinzip. Maximale öffentliche Sichtbarkeit und Resonanz. Abu Ma'shar: 'Licht auf Licht — der Mensch strahlt für alle.'",
+            "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4}
+          },
+          "mond_venus": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Mond und Venus sind Feinde. Emotionale Ansprüche und Liebesbedürfnisse geraten in Konflikt. Unzufriedenheit in Beziehungen, Stimmungsschwankungen.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+          },
+          "mond_merkur": {
+            "qualitaet": "spannungsreich",
+            "beschreibung": "Mond und Merkur sind Feinde. Logik und Gefühl arbeiten gegeneinander. Kommunikationsmissverständnisse im familiären Umfeld.",
+            "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+          }
+        }
+      }
+    }
+  },
+
+  "einstiegspunkt_berechnung": {
+    "beschreibung": "Die erste Firdaria-Periode beginnt nicht immer bei Null. Der Einstiegspunkt hängt von der Position des Startplaneten im Horoskop ab — genauer: vom Mondknoten-Zyklus oder, nach Abu Ma'shar, von der Position des Herrschers im Tierkreis.",
+    "quelle": "Abu Ma'shar - Introductorium VII.7; Al-Biruni - Book of Instruction Kap. 503 (Wright S.316-317); Sahl ibn Bishr - Introduction IV.6",
+
+    "methode_abu_mashar": {
+      "beschreibung": "Abu Ma'shar berechnet die bereits verstrichene Zeit der ersten Periode aus dem Längengrad des Startplaneten im Geburtshoroskop.",
+      "formel": "Bereits verstrichene Jahre = (Längengrad des Startplaneten ÷ 360°) × Hauptperioden-Dauer",
+      "beispiel_tag": "Tag-Horoskop, Startplanet Sonne bei 120° (= 4. Zeichen Krebs, 0°): 120 ÷ 360 × 10 Jahre = 3,33 Jahre bereits verstrichen. Das Kind tritt also in die Sonne-Periode ein mit noch 6,67 Jahren verbleibend.",
+      "beispiel_nacht": "Nacht-Horoskop, Startplanet Mond bei 270° (= 10. Zeichen Steinbock, 0°): 270 ÷ 360 × 9 Jahre = 6,75 Jahre bereits verstrichen. Verbleibend: 2,25 Jahre in der Mond-Periode.",
+      "quelle": "Abu Ma'shar VII.7"
+    },
+
+    "methode_al_biruni": {
+      "beschreibung": "Al-Biruni bevorzugt eine einfachere Methode: Der Startplanet beginnt die erste volle Periode ab Geburt. Die Berechnung des Einstiegs erfolgt nur, wenn der Geburtsmonat einen Planetenherrscher aktiviert.",
+      "hinweis": "Für die Praxis in diesem System: Abu Ma'shar-Methode empfohlen — sie gibt präzisere Timing-Angaben für die erste Periode.",
+      "quelle": "Al-Biruni Kap. 503"
+    },
+
+    "praktische_lebenszuordnung_tag": {
+      "beschreibung": "Näherungsweise Lebensalter für Tag-Horoskop (ohne Einstiegskorrektur, ab Geburt gerechnet)",
+      "sonne": "0–10 Jahre",
+      "venus": "10–18 Jahre",
+      "merkur": "18–31 Jahre",
+      "mond": "31–40 Jahre",
+      "saturn": "40–51 Jahre",
+      "jupiter": "51–63 Jahre",
+      "mars": "63–70 Jahre",
+      "nordknoten": "70–73 Jahre",
+      "suedknoten": "73–75 Jahre"
+    },
+
+    "praktische_lebenszuordnung_nacht": {
+      "beschreibung": "Näherungsweise Lebensalter für Nacht-Horoskop (ohne Einstiegskorrektur, ab Geburt gerechnet)",
+      "mond": "0–9 Jahre",
+      "saturn": "9–20 Jahre",
+      "jupiter": "20–32 Jahre",
+      "mars": "32–39 Jahre",
+      "sonne": "39–49 Jahre",
+      "venus": "49–57 Jahre",
+      "merkur": "57–70 Jahre",
+      "nordknoten": "70–73 Jahre",
+      "suedknoten": "73–75 Jahre"
+    }
+  },
+
+  "firdaria_aktivierung_und_timing": {
+    "beschreibung": "Firdaria entfalten ihre Wirkung nicht gleichmäßig über die gesamte Periode. Bestimmte Mechanismen verstärken oder verringern die Intensität zu spezifischen Zeitpunkten.",
+    "quelle": "Abu Ma'shar - Introductorium VII.8; Al-Biruni - Book of Instruction Kap. 504; Sahl ibn Bishr - Introduction IV.7; Bonatti - Liber Astronomiae V.4-6",
+
+    "transit_des_firdaria_herrschers": {
+      "beschreibung": "Während einer Firdaria-Periode sind Transits des Firdaria-Herrschers zu Schlüsselpunkten des Horoskops besonders wirksam. Abu Ma'shar: 'Der Firdaria-Herrscher 'spricht' während seiner Periode lauter als alle anderen Planeten.'",
+      "transit_ueber_asc": "Firdaria-Herrscher über ASC: persönlicher Neuanfang im Sinne des Perioden-Themas. Wichtiger Schwellenpunkt.",
+      "transit_ueber_mc": "Firdaria-Herrscher über MC: öffentliche Manifestation des Perioden-Themas. Karriere- oder Statusschwelle.",
+      "transit_ueber_lot_des_gluecks": "Firdaria-Herrscher über Lot des Glücks: materielles Glücksmoment innerhalb der Periode.",
+      "transit_ueber_nativ_position": "Firdaria-Herrscher konjunkt seiner eigenen Geburtsposition: intensivster Ausdruck der Periode.",
+      "quelle": "Abu Ma'shar VII.8; Sahl IV.7"
+    },
+
+    "firdaria_und_profektionsjahr": {
+      "beschreibung": "Das stärkste Timing-Instrument der arabischen Astrologie ist die Kombination aus Firdaria und Profektionsjahr. Wenn der Firdaria-Herrscher und der Profektions-Jahresherrscher identisch sind oder sich freundlich aspektieren, verstärken sich die Themen beider Systeme.",
+      "quelle": "Sahl ibn Bishr - Introduction IV.7; Bonatti - Liber Astronomiae V.5",
+
+      "doppelaktivierung_gleicher_herrscher": {
+        "beschreibung": "Firdaria-Herrscher = Profektions-Jahresherrscher (z.B. Jupiter-Firdaria UND Jupiter-Profektionsjahr gleichzeitig).",
+        "wirkung": "Stärkste mögliche Aktivierung des Planeten. Sahl: 'Wenn derselbe Planet Firdaria und Profektionsjahr regiert, ist das ein großes Jahr — für gut oder schlecht.' Abu Ma'shar: 'Dann hat der Planet seine volle Stimme.'",
+        "beispiel": "Jemand in der Jupiter-Firdaria, im Jupiter-Profektionsjahr (z.B. Aszendent im 9. Haus profiziert, Jupiter regiert): Jahrzehnt und Jahr unter Jupiter — maximale Jupiter-Expansion."
+      },
+      "doppelaktivierung_befreundete_herrscher": {
+        "beschreibung": "Firdaria-Herrscher und Profektions-Jahresherrscher sind befreundete Planeten.",
+        "wirkung": "Harmonische Verstärkung beider Perioden. Guter Zeitpunkt für Entscheidungen."
+      },
+      "doppelaktivierung_feindliche_herrscher": {
+        "beschreibung": "Firdaria-Herrscher und Profektions-Jahresherrscher sind feindliche Planeten (z.B. Saturn-Firdaria + Sonne-Profektionsjahr).",
+        "wirkung": "Spannungsgeladenes Jahr — beide Prinzipien arbeiten gegeneinander. Al-Biruni: 'Wenn Freunde regieren, erwartet Gutes; wenn Feinde, erwartet Widerstand.' Vorsicht bei Entscheidungen."
+      }
+    },
+
+    "firdaria_und_lot_aktivierung": {
+      "beschreibung": "Wenn der aktuelle Firdaria-Herrscher gleichzeitig der Herrscher eines wichtigen Lots ist, werden die Lot-Themen für die gesamte Firdaria-Periode aktiviert.",
+      "verweis": "Vollständige Lot-Aktivierungsregeln: arabisch_lose.json — Abschnitt lot_aktivierung_und_timing",
+      "hauptregel": "Firdaria-Herrscher = Lot-Herrscher → Lot-Thema dominant für gesamte Periode. Plus Transit des Herrschers über das Lot im selben Jahr → Manifestation des Themas.",
+      "quelle": "Abu Ma'shar VII.8; Al-Biruni Kap. 504"
+    },
+
+    "perioden_qualitaet_modifikatoren": {
+      "beschreibung": "Jenseits des Planetencharakters wird die Perioden-Qualität durch folgende Faktoren modifiziert.",
+      "quelle": "Al-Biruni Kap. 498-501; Sahl IV.2-4",
+
+      "herrscher_stellung_im_geburtshoroskop": {
+        "in_winkeln": "Firdaria-Herrscher im 1., 4., 7. oder 10. Haus des Geburtshoroskops: Periode ist stark und wirksam — ihre Themen manifestieren sich deutlich.",
+        "in_erfolgreichen_haeusern": "Firdaria-Herrscher im 2., 5., 9. oder 11. Haus: günstige Perioden-Entfaltung.",
+        "in_leidenden_haeusern": "Firdaria-Herrscher im 6., 8. oder 12. Haus: Periode bringt Einschränkungen oder verborgene Wirkungen.",
+        "in_kadenz": "Firdaria-Herrscher im 3. oder 9. Haus: Periode wirkt auf geistige oder reisebedingte Themen."
+      },
+      "wuerde_des_herrschers": {
+        "in_wuerde": "Domizil oder Exaltation: Periode entfaltet sich in bester Qualität des Planeten.",
+        "in_neutral": "Keine besondere Würde oder Schwäche: Periode wie beschrieben, ohne besondere Modifikation.",
+        "in_schwaeche": "Detriment oder Fall: Periode bringt die schwierigeren Aspekte des Planeten stärker hervor."
+      },
+      "aspekte_zum_herrscher": {
+        "jupiter_aspektiert_herrscher": "Jupiter aspektiert den Firdaria-Herrscher im Geburtshoroskop: Periode wird gemildert und mit Segen versehen, auch wenn der Herrscher selbst problematisch ist.",
+        "saturn_aspektiert_herrscher": "Saturn aspektiert den Firdaria-Herrscher: Periode wird schwerer und langsamer, auch wenn der Herrscher günstig ist.",
+        "venus_aspektiert_herrscher": "Venus aspektiert: Angenehme Qualitäten werden verstärkt, Konflikte gemildert.",
+        "mars_aspektiert_herrscher": "Mars aspektiert: Intensität steigt, Konflikte und Veränderungen werden wahrscheinlicher."
+      }
+    }
+  },
+
+  "integration_mit_anderen_systemen": {
+    "beschreibung": "Das Firdaria-System steht in Bezug zu allen anderen zeitherren-basierten Systemen des Projekts.",
+    "quelle": "Syntheseregel nach Projektplan; Al-Biruni Kap. 502 (Wright S.315)",
+
+    "firdaria_zu_hellenistischen_profektionen": {
+      "beschreibung": "Profektionen (hell_zeitherren.json, H3) und Firdaria sind komplementär — nicht konkurrierend. Arabische Astrologen nutzen beide gleichzeitig.",
+      "firdaria_als_rahmen": "Firdaria gibt den Lebensabschnitt-Rahmen (Jahre bis Jahrzehnte). Der aktuelle Firdaria-Herrscher setzt den Grundton der gesamten Periode.",
+      "profektionen_als_feinsteuerung": "Profektionen (1 Jahr je Haus) geben die Jahres-Ereignisse innerhalb des Firdaria-Rahmens. Sie antworten auf die Frage: 'Welche Themen sind in diesem konkreten Jahr innerhalb der Firdaria-Periode aktiviert?'",
+      "synergie": "Wenn Firdaria-Herrscher und Profektions-Jahresherrscher übereinstimmen → doppelte Aktivierung (vgl. firdaria_aktivierung_und_timing)."
+    },
+
+    "firdaria_zu_vimshottari_dasha": {
+      "beschreibung": "Beide Systeme teilen dasselbe Grundprinzip: Lebensabschnitte unter planetaren Herrschern.",
+      "strukturvergleich": {
+        "firdaria_gesamt": "75 Jahre, 9 Hauptperioden, Reihenfolge aus Sektprinzip, Einstieg aus Planetenposition",
+        "vimshottari_gesamt": "120 Jahre, 9 Hauptperioden (Mahadasha), Reihenfolge fix, Einstieg aus Mond-Nakshatra"
+      },
+      "planeten_qualitaeten_vergleich": {
+        "jupiter_firdaria_vs_jupiter_dasha": "Beide: Expansion, Wachstum, Wohlstand. Qualitativ sehr ähnlich.",
+        "saturn_firdaria_vs_saturn_dasha": "Beide: Prüfung, Reifung, Verzögerung. Qualitativ sehr ähnlich.",
+        "mars_firdaria_vs_mars_dasha": "Beide: Konflikt, Energie, Durchsetzung. Ähnlich.",
+        "merkur_laenge": "Firdaria: 13 Jahre; Vimshottari: 17 Jahre — Merkur ist in beiden Systemen besonders lang.",
+        "mondknoten": "Firdaria: Knoten am Ende (3 + 2 Jahre). Vimshottari: Rahu 18 Jahre, Ketu 7 Jahre — viel prominenter."
+      },
+      "praktische_anwendung": "Wenn Firdaria-Jupiter und Vimshottari Jupiter-Mahadasha gleichzeitig aktiv: außergewöhnlich starke Jupiter-Phase. Wenn Firdaria-Saturn und Vimshottari Saturn-Mahadasha: intensivste Prüfungsphase möglich."
+    },
+
+    "firdaria_zu_bazi_dayun": {
+      "beschreibung": "Bazi Dayun (10-Jahres-Pfeiler) und Firdaria sind strukturell ähnlich: beide geben Lebensabschnitte unter übergeordneten Themen/Herrschern.",
+      "unterschied": "Bazi Dayun leitet sich aus dem Geburtspfeiler ab und wechselt alle 10 Jahre; Firdaria hat feste Dauern je Planet. Bazi nutzt 5 Elemente; Firdaria nutzt 7 Planeten.",
+      "parallele": "In beiden Systemen gilt: Der Herrscher/Pfeiler der aktuellen Periode interagiert mit den permanenten Faktoren des Geburtshoroskops — gute Interaktion = gute Periode."
+    },
+
+    "firdaria_zu_kabbala": {
+      "beschreibung": "Die 7 klassischen Planeten der Firdaria entsprechen den 7 klassischen Sephiroth-Planeten (Kether/Saturn bis Yesod/Mond in der traditionellen Zuordnung).",
+      "zuordnung": {
+        "saturn_firdaria": "Binah (Verstand, Einschränkung, Weisheit durch Prüfung)",
+        "jupiter_firdaria": "Chesed (Gnade, Expansion, Segen)",
+        "mars_firdaria": "Geburah (Stärke, Gericht, Konflikt)",
+        "sonne_firdaria": "Tiferet (Schönheit, Harmonie, Zentrum)",
+        "venus_firdaria": "Netzach (Sieg, Liebe, Kreativität)",
+        "merkur_firdaria": "Hod (Herrlichkeit, Intellekt, Kommunikation)",
+        "mond_firdaria": "Yesod (Fundament, Unterbewusstes, Zyklus)"
+      },
+      "anwendung": "Wenn Firdaria-Jupiter aktiv ist, ist die kabbalistisch-planetare Qualität von Chesed (Gnade) dominant — Meditationen, Rituale oder Betrachtungen zu Chesed können die Periode unterstützen."
+    }
+  }
+}

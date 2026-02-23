@@ -1,0 +1,923 @@
+{
+  "_meta": {
+    "system": "kabbalah",
+    "modul": "sephiroth",
+    "version": "1.0",
+    "gespraech": "K1",
+    "sources": [
+      "S.L. MacGregor Mathers - The Kabbalah Unveiled (1887, public domain)",
+      "W. Wynn Westcott - Sepher Yetzirah, Übersetzung (1887, public domain)",
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, public domain)",
+      "Sefer Yetzirah - Originaltext (3.-6. Jhd., public domain, Westcott-Übersetzung)",
+      "Aleister Crowley - 777 and Other Qabalistic Writings (1909, public domain AT/EU)",
+      "Papus (Gérard Encausse) - The Tarot of the Bohemians (1892, public domain)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Die 10 Sephiroth des kabbalistischen Baumes des Lebens (Etz Chaim). Jede Sephira mit vollständigem Profil: hebräischer Name, Bedeutung, Position, Planetarkorrespondenz, Göttliche Namen, Erzengel, Engelschor, Tugend, Laster, Körperkorrespondenz, Farben in vier Welten, Dimensionsvektor, Verbindung zur Numerologie und praktische Deutungsregeln.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog numerologie_basis.json"
+  },
+
+  "baum_des_lebens_uebersicht": {
+    "beschreibung": "Der Baum des Lebens (hebr. Etz Chaim) ist das zentrale Diagramm der Kabbalah. Er zeigt die 10 Sephiroth (göttliche Emanationen) verbunden durch 22 Pfade. Der Baum beschreibt den Weg der göttlichen Schöpfung (von oben nach unten) und den Weg der spirituellen Rückkehr (von unten nach oben).",
+    "quelle": "Mathers - The Kabbalah Unveiled Einleitung; Westcott - Sepher Yetzirah S.1-20",
+    "drei_saeulen": {
+      "saeure_der_strenge": {"name": "Boaz / Säule der Strenge / linke Säule", "sephiroth": [3, 5, 8], "prinzip": "Forma, Limitation, Feminine Qualität (Binah-Seite)"},
+      "saeure_der_gnade": {"name": "Jachin / Säule der Gnade / rechte Säule", "sephiroth": [2, 4, 7], "prinzip": "Kraft, Expansion, Maskuline Qualität (Chokmah-Seite)"},
+      "saeure_der_mitte": {"name": "Mittelsäule / Säule des Gleichgewichts", "sephiroth": [1, 6, 9, 10], "prinzip": "Gleichgewicht, Synthese, der direkte Weg"}
+    },
+    "vier_welten": {
+      "atziluth": {"name": "Atziluth — Welt der Emanation", "element": "Feuer", "ebene": "Göttliche Archetypen", "farb_skala": "König-Skala"},
+      "briah": {"name": "Briah — Welt der Schöpfung", "element": "Wasser", "ebene": "Erzengel / Mentale Prinzipien", "farb_skala": "Königin-Skala"},
+      "yetzirah": {"name": "Yetzirah — Welt der Formation", "element": "Luft", "ebene": "Engel / Emotionale Muster", "farb_skala": "Kaiser-Skala"},
+      "assiah": {"name": "Assiah — Welt der Aktion", "element": "Erde", "ebene": "Materielle Manifestation", "farb_skala": "Kaiserinnen-Skala"}
+    },
+    "drei_dreiecke": {
+      "supernal_triangle": {"sephiroth": [1, 2, 3], "name": "Supernales Dreieck / Göttliche Trias", "beschreibung": "Jenseits menschlichen Verstehens. Kether, Chokmah, Binah."},
+      "ethical_triangle": {"sephiroth": [4, 5, 6], "name": "Ethisches Dreieck / Moralische Trias", "beschreibung": "Chesed, Geburah, Tiphereth — das Reich der Seele."},
+      "astral_triangle": {"sephiroth": [7, 8, 9], "name": "Astrales Dreieck / Magische Trias", "beschreibung": "Netzach, Hod, Yesod — das Reich der Formation."}
+    },
+    "daath": {
+      "name": "Da'ath — Die verborgene Sephira",
+      "beschreibung": "Da'ath (Wissen) ist keine echte Sephira, sondern der Schnittpunkt des Abyssus — der Kluft zwischen Supernales Dreieck und dem Rest des Baumes. Es repräsentiert Wissen ohne Weisheit, den Eingang zum Abgrund.",
+      "position": "Zwischen Kether und Tiphereth, hinter dem Parochet (Schleier)",
+      "quelle": "Mathers - Kabbalah Unveiled S.15; Crowley - 777 Tabelle I"
+    }
+  },
+
+  "sephiroth": {
+
+    "1_kether": {
+      "nummer": 1,
+      "name_hebraeisch": "כֶּתֶר",
+      "name_transliteration": "Kether",
+      "name_deutsch": "Die Krone",
+      "position_baum": "Höchste Sephira, Spitze der Mittelsäule, Supernales Dreieck",
+      "saeure": "Mittelsäule",
+      "quelle": "Westcott - Sepher Yetzirah S.21-25; Mathers - Kabbalah Unveiled S.10-20; Crowley - 777 Tabelle I",
+
+      "planet": "Erstes Swirlings (Primum Mobile / Neptun in moderner Entsprechung)",
+      "planet_symbol": "🜀",
+      "planet_klassisch": "Primum Mobile — die erste Bewegung, die Ursache aller Bewegung",
+      "planet_modern": "Neptun (nach Crowley/777) oder: kein Planet — jenseits des Planetensystems",
+
+      "goettlicher_name": "Eheieh (אֶהְיֶה)",
+      "goettlicher_name_bedeutung": "Ich bin / Ich werde sein — das absolute Sein",
+      "goettlicher_name_quelle": "Mathers S.12; Westcott Sepher Yetzirah S.22",
+
+      "erzengel": "Metatron",
+      "erzengel_bedeutung": "Der nächste am Thron, Angesicht Gottes, Hüter der Akasha-Chroniken",
+
+      "engelschor": "Chajoth ha-Qadesh (חַיּוֹת הַקֹּדֶשׁ)",
+      "engelschor_deutsch": "Die Heiligen Lebewesen (entsprechen den vier Wesen der Merkabah/Ezechiel-Vision)",
+
+      "tugend": "Vollendung des Großen Werkes (Attainment)",
+      "laster": "Keines — Kether ist jenseits von Lastern",
+      "spirituelle_erfahrung": "Union mit Gott — Samadhi, Devekut, mystische Einheit",
+
+      "koerper_entsprechung": "Scheitel des Schädels, der höchste Punkt",
+      "koerper_quelle": "Mathers S.15; Crowley 777 Spalte CLXXXIX",
+
+      "farben": {
+        "atziluth": "Brillantes Weiß",
+        "briah": "Weißes Brillieren",
+        "yetzirah": "Weiß, durchscheinend",
+        "assiah": "Weiß mit Goldflecken",
+        "quelle": "Crowley - 777 Tabellen II-V; Mathers S.17"
+      },
+
+      "symbole": ["Punkt", "Krone", "Swastika (urspr. Spiralbewegung)", "Weißes Licht"],
+      "magische_waffe": "Krone",
+      "titel": ["Macroprosopus (Der Große Antlitz)", "Ancient of Days", "Arik Anpin"],
+
+      "verbindung_numerologie": {
+        "zahl": 1,
+        "entsprechung": "Die Eins der Numerologie (Sonne/Ich-Kraft) ist das menschliche Echo von Kether. Kether ist die göttliche Einheit, die Eins ist ihre menschliche Manifestation.",
+        "planet_brücke": "Sonne (Numerologie Zahl 1) → Tiphereth (Sephira 6) ist der Sonne zugeordnet; Kether steht ÜBER der Sonne als reine Einheit.",
+        "quelle": "Westcott - Numbers S.18-20; Sepharial S.20"
+      },
+
+      "praktische_deutung": "Kether in einer Deutung zeigt den höchsten spirituellen Auftrag einer Person — das Lebensziel auf der Seelen-Ebene. Es ist die Verbindung zur göttlichen Quelle, die nicht direkt erlebt, aber angestrebt werden kann. Im Horoskop: Verbindung zum Mittelhimmel (MC) als höchster Lebensausdruck.",
+
+      "qliphoth": {
+        "name": "Thaumiel (תָּאוּמִיאֵל)",
+        "deutsch": "Die Zwillinge Gottes",
+        "beschreibung": "Das Qliphoth von Kether ist die Spaltung der göttlichen Einheit in zwei rivalisierende Pole. Dualismus statt Einheit, Ego-Inflation, falsche Götter.",
+        "quelle": "Mathers - Kabbalah Unveiled S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 3,
+        "finanzen": 2,
+        "gesundheit": 4,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Mathers S.10-20; Westcott Sepher Yetzirah S.21-25; Crowley 777 Tabelle I"
+    },
+
+    "2_chokmah": {
+      "nummer": 2,
+      "name_hebraeisch": "חָכְמָה",
+      "name_transliteration": "Chokmah",
+      "name_deutsch": "Die Weisheit",
+      "position_baum": "Rechte obere Sephira, Spitze der Gnadensäule, Supernales Dreieck",
+      "saeure": "Säule der Gnade (rechts)",
+      "quelle": "Westcott - Sepher Yetzirah S.25-30; Mathers - Kabbalah Unveiled S.20-30; Crowley - 777 Tabelle I",
+
+      "planet": "Uranus (modern) / Sternenhimmel / Zodiak gesamt (klassisch)",
+      "planet_symbol": "♅",
+      "planet_klassisch": "Der gesamte Sternenhimmel (Mazloth) — alle Fixsterne als Einheit",
+      "planet_modern": "Uranus nach Crowley/777",
+
+      "goettlicher_name": "Jah (יָהּ)",
+      "goettlicher_name_bedeutung": "Kürzeste Form des göttlichen Namens — reine maskuline Kraft",
+      "goettlicher_name_quelle": "Mathers S.22; Westcott Sepher Yetzirah S.26",
+
+      "erzengel": "Ratziel",
+      "erzengel_bedeutung": "Hüter der göttlichen Geheimnisse, Offenbarer der kosmischen Weisheit",
+
+      "engelschor": "Auphanim (אוֹפַנִּים)",
+      "engelschor_deutsch": "Die Räder (Ophanim) — die Engel der Sphären aus Ezechiels Vision",
+
+      "tugend": "Hingebungsvolle Andacht / Devotionstärke",
+      "laster": "Nichts (jenseits der persönlichen Laster)",
+      "spirituelle_erfahrung": "Die Vision Gottes von Angesicht zu Angesicht",
+
+      "koerper_entsprechung": "Linke Seite des Gesichts / Linkes Auge (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.23; Crowley 777",
+
+      "farben": {
+        "atziluth": "Reines Weiches Blau",
+        "briah": "Grau",
+        "yetzirah": "Perlmuttgrau irisierend",
+        "assiah": "Weiß durchzogen mit Rot",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Phallus", "Zodiak", "Lingam", "Gerade Linie", "Stab"],
+      "magische_waffe": "Der Innere Robe der Verborgenheit / Lingam / Der Stab",
+      "titel": ["Abba (Der Vater)", "Supernal Father", "Yod des Tetragrammatons"],
+
+      "verbindung_numerologie": {
+        "zahl": 2,
+        "entsprechung": "Chokmah als zweite Sephira entspricht der Numerologie-Zwei (Mond/Dualität). Jedoch ist Chokmah maskulin-aktiv, während die Numerologie-Zwei feminin-passiv ist. Paradox: Die Zwei der Form ist weiblich, die Zwei des Seins (Chokmah) ist männlich.",
+        "planet_brücke": "Uranus (Chokmah) entspricht der Numerologie-Zahl 4 (Uranus). Synthese-Regel: Chokmah-Energie verbindet Weisheits-Zahl 2 mit Uranus-Revolutionskraft 4.",
+        "quelle": "Westcott - Numbers S.24; Crowley 777"
+      },
+
+      "praktische_deutung": "Chokmah steht für den ersten Impuls, die reine maskuline Schöpfungskraft, die noch keine Form hat. In der Deutung: das ungeformte Potenzial, der göttliche Funke vor der Manifestation. Verbindung zu Uranus: plötzliche Erleuchtungen, Visionen, revolutionäres Wissen.",
+
+      "qliphoth": {
+        "name": "Ghagiel (גָּאגִיאֵל) / Chaigidel",
+        "deutsch": "Die Hinderer",
+        "beschreibung": "Qliphoth von Chokmah: Chaotische Kraft ohne Weisheit, blinde Macht, falsche Propheten, verzerrte Visionen.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 5,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Mathers S.20-30; Westcott Sepher Yetzirah S.25-30; Crowley 777"
+    },
+
+    "3_binah": {
+      "nummer": 3,
+      "name_hebraeisch": "בִּינָה",
+      "name_transliteration": "Binah",
+      "name_deutsch": "Das Verständnis / Die Einsicht",
+      "position_baum": "Linke obere Sephira, Spitze der Strengesäule, Supernales Dreieck",
+      "saeure": "Säule der Strenge (links)",
+      "quelle": "Westcott - Sepher Yetzirah S.30-35; Mathers - Kabbalah Unveiled S.30-40; Crowley - 777 Tabelle I",
+
+      "planet": "Saturn",
+      "planet_symbol": "♄",
+      "planet_klassisch": "Saturn — Saturnus, der Zeitgott, Grenzen, Form, Tod",
+      "planet_modern": "Saturn (klassisch und modern identisch)",
+
+      "goettlicher_name": "JHWH Elohim (יְהוָה אֱלֹהִים)",
+      "goettlicher_name_bedeutung": "Der Herr Gott — Verbindung von maskulinem Tetragrammaton mit femininem Elohim",
+      "goettlicher_name_quelle": "Mathers S.32; Westcott Sepher Yetzirah S.31",
+
+      "erzengel": "Tzaphkiel (צַפְקִיאֵל)",
+      "erzengel_bedeutung": "Kontemplator Gottes / Hüter des Göttlichen Thrones / Engel der Trauer und Weisheit",
+
+      "engelschor": "Aralim (אֲרָאלִים)",
+      "engelschor_deutsch": "Die Mächtigen / Starken — Thronen der christlichen Engelshierarchie entsprechend",
+
+      "tugend": "Stille / Schweigen / Kontemplation",
+      "laster": "Geiz / Avaritia",
+      "spirituelle_erfahrung": "Die Vision der Trauer (Vision of Sorrow) — Verstehen der Notwendigkeit des Leidens",
+
+      "koerper_entsprechung": "Rechte Seite des Gesichts / Rechtes Auge (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.33; Crowley 777",
+
+      "farben": {
+        "atziluth": "Karmesinrot / Scharlach",
+        "briah": "Schwarz",
+        "yetzirah": "Dunkelbraun",
+        "assiah": "Grau durchzogen mit Rosa",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Kteis (weibliches Prinzip)", "Kelch / Graal", "Vulva", "Dreieck mit Spitze nach unten", "Granatapfel"],
+      "magische_waffe": "Der Kelch oder das Schalenwerk",
+      "titel": ["Ama (Die dunkle unfruchtbare Mutter)", "Aima (Die helle fruchtbare Mutter)", "Marah (Das Meer)", "Supernal Mother", "Hé des Tetragrammatons"],
+
+      "verbindung_numerologie": {
+        "zahl": 3,
+        "entsprechung": "Binah als dritte Sephira entspricht der Numerologie-Drei (Jupiter). Paradox: Binah ist Saturn, Drei ist Jupiter. Die Form (Binah/Saturn) gibt dem Wachstum (Jupiter/3) seine Grenzen — erst durch Begrenzung entsteht manifeste Schöpfung.",
+        "planet_brücke": "Saturn (Binah) entspricht Numerologie-Zahl 8. Synthese: Binah als mütterliches Verstehen enthält Samsara-Kraft der 8 (Saturn) und die schöpferische Drei.",
+        "quelle": "Westcott - Numbers S.30; Sepharial S.22"
+      },
+
+      "praktische_deutung": "Binah steht für die große Mutter, die Form und Limit setzt. In der Deutung: Struktur, Disziplin, Grenzen als Ermöglichung (nicht Hemmung) von Manifestation. Saturn-Kraft: Karma, Zeit, Reifung durch Erfahrung. Thema der fruchtbaren Dunkelheit.",
+
+      "qliphoth": {
+        "name": "Sathariel (סַתֲרִיאֵל)",
+        "deutsch": "Die Verberger Gottes",
+        "beschreibung": "Qliphoth von Binah: Verstockung, Geistige Verhärtung, Unfruchtbarkeit durch übermäßige Begrenzung, Todestrieb als Selbstzweck.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 2,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Mathers S.30-40; Westcott Sepher Yetzirah S.30-35; Crowley 777"
+    },
+
+    "4_chesed": {
+      "nummer": 4,
+      "name_hebraeisch": "חֶסֶד",
+      "name_transliteration": "Chesed",
+      "name_deutsch": "Die Gnade / Die Barmherzigkeit / Die Güte",
+      "alternative_namen": ["Gedulah (גְּדֻלָּה) — Die Größe"],
+      "position_baum": "Rechte mittlere Sephira, Gnadensäule, Ethisches Dreieck",
+      "saeure": "Säule der Gnade (rechts)",
+      "quelle": "Mathers - Kabbalah Unveiled S.40-50; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.35-40",
+
+      "planet": "Jupiter",
+      "planet_symbol": "♃",
+      "planet_klassisch": "Jupiter — König der Götter, Expansion, Gnade, Gesetz",
+      "planet_modern": "Jupiter (klassisch und modern identisch)",
+
+      "goettlicher_name": "El (אֵל)",
+      "goettlicher_name_bedeutung": "Gott / Die Stärke — einfachste Gottesbezeichnung",
+      "goettlicher_name_quelle": "Mathers S.42; Crowley 777",
+
+      "erzengel": "Tzadkiel (צַדְקִיאֵל)",
+      "erzengel_bedeutung": "Gerechtigkeit Gottes — Engel der Gnade, Barmherzigkeit und des Wachstums",
+
+      "engelschor": "Chasmalim (חַשְׁמַלִּים)",
+      "engelschor_deutsch": "Die Glänzenden / Funkelnden — entsprechen den Dominationen",
+
+      "tugend": "Demut / Gehorsam / Obedienz",
+      "laster": "Bigotterie / Heuchelei / Glaubensfanatismus",
+      "spirituelle_erfahrung": "Die Vision der Liebe",
+
+      "koerper_entsprechung": "Linker Arm und linke Schulter (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.43; Crowley 777",
+
+      "farben": {
+        "atziluth": "Tiefviolett / Amethystblau",
+        "briah": "Blau",
+        "yetzirah": "Tiefes Purpurblau",
+        "assiah": "Tiefes Azurblau mit Gelb",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Kelch", "Szepter", "Orb", "Wand", "Viereck / Quadrat"],
+      "magische_waffe": "Der Zauberstab / Der Szepter / Die Pyramide",
+      "titel": ["Großes Liebender (Magnus Amans)", "Weißer König", "Der Starke"],
+
+      "verbindung_numerologie": {
+        "zahl": 4,
+        "entsprechung": "Chesed als vierte Sephira entspricht Numerologie-Zahl 4 (Uranus). Paradox: Chesed ist Jupiter, aber die Vier ist Uranus. In der Synthese: Die Vier als Strukturzahl (Vier Elemente, Vier Welten) spiegelt die ordnende Gnade von Chesed wider.",
+        "planet_brücke": "Jupiter (Chesed) entspricht direkt Numerologie-Zahl 3. Chesed (4. Sephira) + Jupiter (Zahl 3) = die schöpferische Gnade zwischen Form und Wachstum.",
+        "quelle": "Westcott - Numbers S.37; Sepharial S.24"
+      },
+
+      "praktische_deutung": "Chesed steht für Großzügigkeit, Ausdehnung, rechtmäßige Autorität und väterliche Fürsorge. In der Deutung: günstige Phasen des Wachstums, Gönner, Autoritäten die unterstützen, legale und soziale Strukturen die Schutz bieten. Jupiter-Kraft: Expansion, Glück, Fülle.",
+
+      "qliphoth": {
+        "name": "Ga'ashekelah (גָּעֲשֶׁכְּלָה) / Agshekeloh",
+        "deutsch": "Die Störer / Die Plünderer",
+        "beschreibung": "Qliphoth von Chesed: Maßlosigkeit, unkontrollierte Expansion, Tyrannei durch übermäßige Güte (Laissez-faire), fanatische Frömmigkeit.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 5,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Mathers S.40-50; Crowley 777; Westcott Sepher Yetzirah S.35-40"
+    },
+
+    "5_geburah": {
+      "nummer": 5,
+      "name_hebraeisch": "גְּבוּרָה",
+      "name_transliteration": "Geburah",
+      "name_deutsch": "Die Kraft / Die Stärke / Das Gericht",
+      "alternative_namen": ["Din (דִּין) — Das Gericht", "Pachad (פַּחַד) — Die Furcht"],
+      "position_baum": "Linke mittlere Sephira, Strengesäule, Ethisches Dreieck",
+      "saeure": "Säule der Strenge (links)",
+      "quelle": "Mathers - Kabbalah Unveiled S.50-60; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.40-45",
+
+      "planet": "Mars",
+      "planet_symbol": "♂",
+      "planet_klassisch": "Mars — Gott des Krieges, Kraft, Durchsetzung, Feuer",
+      "planet_modern": "Mars (klassisch und modern identisch)",
+
+      "goettlicher_name": "Elohim Gibor (אֱלֹהִים גִּבּוֹר)",
+      "goettlicher_name_bedeutung": "Allmächtiger Gott / Der mächtige Gott — Gott als Richter und Krieger",
+      "goettlicher_name_quelle": "Mathers S.52; Crowley 777",
+
+      "erzengel": "Kamael (כַּמָאֵל)",
+      "erzengel_bedeutung": "Der brennt für Gott / Anführer der Mächte Gottes, Engel des Gerichts und des Krieges",
+
+      "engelschor": "Seraphim (שְׂרָפִים)",
+      "engelschor_deutsch": "Die Brennenden — feurige Engel der göttlichen Reinigung (auch in Jesaja 6)",
+
+      "tugend": "Energie / Mut / Stärke",
+      "laster": "Grausamkeit / Tyrannei",
+      "spirituelle_erfahrung": "Die Vision der Macht",
+
+      "koerper_entsprechung": "Rechter Arm und rechte Schulter (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.53; Crowley 777",
+
+      "farben": {
+        "atziluth": "Orangerot / Scharlachrot",
+        "briah": "Rot",
+        "yetzirah": "Hellrot / Scharlach",
+        "assiah": "Rot mit Schwarzen Strichen",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Schwert", "Speer", "Geißel / Peitsche", "Kette", "Fünfzackiger Stern (Pentagramm)"],
+      "magische_waffe": "Das Schwert / Die Geißel",
+      "titel": ["Richter (Dayan)", "Stärke der Götter", "Der Arm der Herrschaft"],
+
+      "verbindung_numerologie": {
+        "zahl": 5,
+        "entsprechung": "Geburah als fünfte Sephira entspricht Numerologie-Zahl 5 (Merkur). Mars (Geburah) steht für Kraft, Merkur (5) für Beweglichkeit — beide erzeugen Dynamik, Wandel und schnelle Energie.",
+        "planet_brücke": "Mars (Geburah) entspricht Numerologie-Zahl 9. Synthese: Geburhas fünfte Position (Veränderung/Freiheit) + Mars-Energie (9) = kraftvoller Wandel durch Entschlossenheit.",
+        "quelle": "Westcott - Numbers S.45; Sepharial S.26"
+      },
+
+      "praktische_deutung": "Geburah steht für notwendige Kraft, Disziplin, Gericht und das Prinzip des Schnitts: Altes wird abgetrennt, damit Neues entstehen kann. In der Deutung: Konflikte die Reinigung bringen, Entscheidungen mit Konsequenz, Gerichte, Chirurgie, Transformation durch Krise. Mars-Kraft: Mut, Durchsetzung.",
+
+      "qliphoth": {
+        "name": "Golachab (גּוֹלַחָב) / Gha'agsheblah",
+        "deutsch": "Die Brennenden / Die Köpfe der Schlangen",
+        "beschreibung": "Qliphoth von Geburah: Ungezügelte Grausamkeit, Sadismus, blinde Zerstörung, Tyrannei, Krieg um des Krieges willen.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 5,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Mathers S.50-60; Crowley 777; Westcott Sepher Yetzirah S.40-45"
+    },
+
+    "6_tiphereth": {
+      "nummer": 6,
+      "name_hebraeisch": "תִּפְאֶרֶת",
+      "name_transliteration": "Tiphereth",
+      "name_deutsch": "Die Schönheit / Der Glanz",
+      "position_baum": "Zentrum des Baumes, Mittelsäule, Ethisches Dreieck — Herzpunkt aller Sephiroth",
+      "saeure": "Mittelsäule",
+      "quelle": "Mathers - Kabbalah Unveiled S.60-75; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.45-55",
+
+      "planet": "Sonne",
+      "planet_symbol": "☉",
+      "planet_klassisch": "Sonne — Mittelpunkt, Bewusstsein, König, das Höhere Selbst (HGA)",
+      "planet_modern": "Sonne (klassisch und modern identisch)",
+
+      "goettlicher_name": "JHWH Eloah ve-Da'ath (יְהוָה אֱלוֹהַּ וְדַעַת)",
+      "goettlicher_name_bedeutung": "Herr Gott des Wissens — Verbindung von Tetragrammaton mit Eloah und Da'ath",
+      "goettlicher_name_quelle": "Mathers S.62; Crowley 777",
+
+      "erzengel": "Raphael (רָפָאֵל)",
+      "erzengel_bedeutung": "Heilung Gottes — Erzengl der Heilung, Luft, Reisen und des Sonnenbewusstseins",
+
+      "engelschor": "Malachim (מַלְאָכִים)",
+      "engelschor_deutsch": "Die Könige / Die Boten — entsprechen den Tugenden in der christlichen Hierarchie",
+
+      "tugend": "Hingebung an das Große Werk / Devotion to the Great Work",
+      "laster": "Hochmut / Stolz",
+      "spirituelle_erfahrung": "Die Vision der Harmonie — Begegnung mit dem Heiligen Schutzengel (HGA)",
+
+      "koerper_entsprechung": "Brust / Herz (im Adam Kadmon) — Zentrum des Körpers wie Tiphereth Zentrum des Baumes",
+      "koerper_quelle": "Mathers S.63; Crowley 777",
+
+      "farben": {
+        "atziluth": "Klares Rosa-Rosenfarben / Rosé",
+        "briah": "Goldgelb / Sonnengelb",
+        "yetzirah": "Reich Lachs-Rosa",
+        "assiah": "Goldamber",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Lamen (Brustschild)", "Rosenkreuz", "Lamm", "Phönix", "Licht", "Kreuz (als Gleichgewicht der vier Elemente)"],
+      "magische_waffe": "Das Lamen / Die Rose / Das Kreuz",
+      "titel": ["Melech (der König)", "Rachum (der Barmherzige)", "Adam / Microprosopus (Das Kleine Antlitz)", "Der Sohn"],
+
+      "verbindung_numerologie": {
+        "zahl": 6,
+        "entsprechung": "Tiphereth als sechste Sephira entspricht Numerologie-Zahl 6 (Venus). Sonne (Tiphereth) und Venus (6) teilen das Prinzip von Harmonie, Schönheit und Ausgleich. Tiphereth ist das Herz des Baumes — Numerologie 6 ist das Herz des sozialen Lebens.",
+        "planet_brücke": "Sonne (Tiphereth) entspricht Numerologie-Zahl 1. Synthese: Tiphereth als Sonne-Sephira (Position 6 = Schönheit/Harmonie) verbindet Numerologie-Einheit (1/Sonne) mit sozialer Harmonie (6/Venus).",
+        "quelle": "Westcott - Numbers S.50; Sepharial S.28; Crowley 777"
+      },
+
+      "praktische_deutung": "Tiphereth ist die zentralste und wichtigste Sephira für praktische Arbeit. Es ist der Punkt, von dem aus alle anderen Sephiroth zugänglich sind. In der Deutung: Das Höhere Selbst, Lebensaufgabe, Sinn, künstlerische Vollendung, Gesundheit als Gleichgewicht. Verbindung HGA (Heiliger Schutzengel): spirituelle Mission.",
+
+      "qliphoth": {
+        "name": "Thagirion (תַּגִּירִיאוֹן) / Tagiriron",
+        "deutsch": "Die Streitenden / Die Zanker",
+        "beschreibung": "Qliphoth von Tiphereth: Das falsche Selbst, Ego als Gott, Disharmonie die als Schönheit verkleidet ist, innere Zerrissenheit trotz äußerem Glanz.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 5,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Mathers S.60-75; Crowley 777; Westcott Sepher Yetzirah S.45-55"
+    },
+
+    "7_netzach": {
+      "nummer": 7,
+      "name_hebraeisch": "נֶצַח",
+      "name_transliteration": "Netzach",
+      "name_deutsch": "Der Sieg / Die Ewigkeit / Der Triumph",
+      "position_baum": "Rechte untere Sephira der Magischen Trias, Gnadensäule, Astrales Dreieck",
+      "saeure": "Säule der Gnade (rechts)",
+      "quelle": "Mathers - Kabbalah Unveiled S.75-85; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.55-60",
+
+      "planet": "Venus",
+      "planet_symbol": "♀",
+      "planet_klassisch": "Venus — Göttin der Liebe, Natur, Begehren, Kunst, instinktive Kräfte",
+      "planet_modern": "Venus (klassisch und modern identisch)",
+
+      "goettlicher_name": "JHWH Tzabaoth (יְהוָה צְבָאוֹת)",
+      "goettlicher_name_bedeutung": "Herr der Heerscharen (der Natur) — maskuline Kraft in der Sphäre der Venus",
+      "goettlicher_name_quelle": "Mathers S.77; Crowley 777",
+
+      "erzengel": "Haniel (הַנִיאֵל)",
+      "erzengel_bedeutung": "Gnade Gottes — Erzengel der Venus, der Liebe, Schönheit und astralischen Visionen",
+
+      "engelschor": "Elohim (אֱלֹהִים)",
+      "engelschor_deutsch": "Die Götter — Engelgruppe der Naturgötter und elementaren Kräfte",
+
+      "tugend": "Unselfish Love — Selbstlose Liebe / Uneigennützigkeit",
+      "laster": "Unkeuschheit / Lust",
+      "spirituelle_erfahrung": "Die Vision der triumphierenden Schönheit",
+
+      "koerper_entsprechung": "Lenden / Hüften (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.78; Crowley 777",
+
+      "farben": {
+        "atziluth": "Bernstein / Hellgrün",
+        "briah": "Smaragdgrün",
+        "yetzirah": "Helles Olivbraun",
+        "assiah": "Olivbraun durchzogen mit Gold",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Lampe", "Gürtel", "Rose (als Natur)", "Spiegel der Venus", "Hexagramm"],
+      "magische_waffe": "Die Lampe / Der Gürtel",
+      "titel": ["Firmitas (die Festigkeit)", "Beständigkeit der Natur"],
+
+      "verbindung_numerologie": {
+        "zahl": 7,
+        "entsprechung": "Netzach als siebte Sephira entspricht Numerologie-Zahl 7 (Neptun). Venus (Netzach) und Neptun (7) teilen das Prinzip des Traumhaften, Romantischen und Mystischen. Netzach ist die astrale/emotionale Natur; Neptun/7 ist die mystische Tiefe — beide lösen das Ego auf.",
+        "planet_brücke": "Venus (Netzach) entspricht Numerologie-Zahl 6. Synthese: Netzach (7. Position/Sieg über Materie) + Venus (6/Harmonie) = Schönheit als spiritueller Weg.",
+        "quelle": "Westcott - Numbers S.55; Sepharial S.30"
+      },
+
+      "praktische_deutung": "Netzach repräsentiert die emotionale, instinktive und astrale Natur des Menschen. Es ist der Bereich von Gefühlen, Begehren, Leidenschaften, Kunst und Naturverbundenheit. In der Deutung: Liebesangelegenheiten, künstlerische Inspiration, emotionale Muster, Naturheilung, romantische Begegnungen.",
+
+      "qliphoth": {
+        "name": "A'arab Zaraq (עֹרֵב זָרָק) / Harab Serapel",
+        "deutsch": "Die Raben des Dispersions / Streuung",
+        "beschreibung": "Qliphoth von Netzach: Hässlichkeit als Schönheit verkleidet, perversen Begierden, Lust als Selbstzweck, Auflösung durch Exzess.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Mathers S.75-85; Crowley 777; Westcott Sepher Yetzirah S.55-60"
+    },
+
+    "8_hod": {
+      "nummer": 8,
+      "name_hebraeisch": "הוֹד",
+      "name_transliteration": "Hod",
+      "name_deutsch": "Der Ruhm / Die Herrlichkeit / Die Pracht",
+      "position_baum": "Linke untere Sephira der Magischen Trias, Strengesäule, Astrales Dreieck",
+      "saeure": "Säule der Strenge (links)",
+      "quelle": "Mathers - Kabbalah Unveiled S.85-95; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.60-65",
+
+      "planet": "Merkur",
+      "planet_symbol": "☿",
+      "planet_klassisch": "Merkur — Göttlicher Bote, Sprache, Magie, Handel, Intellekt, Trickster",
+      "planet_modern": "Merkur (klassisch und modern identisch)",
+
+      "goettlicher_name": "Elohim Tzabaoth (אֱלֹהִים צְבָאוֹת)",
+      "goettlicher_name_bedeutung": "Gott der Heerscharen (des Intellekts) — feminine Kraft in der Sphäre des Merkur",
+      "goettlicher_name_quelle": "Mathers S.87; Crowley 777",
+
+      "erzengel": "Michael (מִיכָאֵל)",
+      "erzengel_bedeutung": "Wer ist wie Gott — Erzengel des Merkur in der Kabbalah (unterscheidet sich von christlicher Zuordnung), Beschützer, göttlicher Krieger und Bote",
+
+      "engelschor": "Beni Elohim (בְּנֵי אֱלֹהִים)",
+      "engelschor_deutsch": "Die Söhne der Götter — Engelklasse der Naturgeister und niederen göttlichen Kräfte",
+
+      "tugend": "Wahrhaftigkeit / Ehrlichkeit",
+      "laster": "Unehrlichkeit / Täuschung",
+      "spirituelle_erfahrung": "Die Vision der Pracht",
+
+      "koerper_entsprechung": "Rechtes Bein (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.88; Crowley 777",
+
+      "farben": {
+        "atziluth": "Violett-Purpur",
+        "briah": "Orange",
+        "yetzirah": "Rostrot-Orange",
+        "assiah": "Schwarz-Weiß gefleckt (Hermaphrodit-Farbe)",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Namen und Verschwörungen (Magie)", "Apron (Schurz)", "Caduceus", "Würfel"],
+      "magische_waffe": "Der Caduceus / Die Schriftrolle",
+      "titel": ["Absoluter / Vollständiger", "Pracht der Götter"],
+
+      "verbindung_numerologie": {
+        "zahl": 8,
+        "entsprechung": "Hod als achte Sephira entspricht Numerologie-Zahl 8 (Saturn). Merkur (Hod) steht für Kommunikation und Intellekt, Saturn/8 für Struktur und Karma — Synthese: Das Gesetz (8) wird durch Sprache (Merkur/Hod) manifestiert und ausgedrückt.",
+        "planet_brücke": "Merkur (Hod) entspricht Numerologie-Zahl 5. Synthese: Hod (8. Position/Ruhm des Geistes) + Merkur (5/Wandel/Kommunikation) = Intellekt als Transformationswerkzeug.",
+        "quelle": "Westcott - Numbers S.67; Sepharial S.32"
+      },
+
+      "praktische_deutung": "Hod repräsentiert den rationalen Verstand, Sprache, Magie als Wissenschaft, Handel und Kommunikation. In der Deutung: Intellektuelle Herausforderungen, Schriftliches und Sprachliches, magische Praxis, Handelsangelegenheiten, logisches Denken als Werkzeug. Merkur-Kraft: Schnelligkeit, Anpassung, Vielseitigkeit.",
+
+      "qliphoth": {
+        "name": "Samael (סַמָאֵל)",
+        "deutsch": "Gift Gottes / Der Blinde Gott",
+        "beschreibung": "Qliphoth von Hod: Lüge, Täuschung, Falschheit, böse Magie, Manipulation durch Sprache, Intellekt ohne Herz.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Mathers S.85-95; Crowley 777; Westcott Sepher Yetzirah S.60-65"
+    },
+
+    "9_yesod": {
+      "nummer": 9,
+      "name_hebraeisch": "יְסוֹד",
+      "name_transliteration": "Yesod",
+      "name_deutsch": "Das Fundament / Die Grundlage",
+      "position_baum": "Mittelsäule, unterhalb von Tiphereth, Astrales Dreieck — verbindet alle Kräfte mit Malkuth",
+      "saeure": "Mittelsäule",
+      "quelle": "Mathers - Kabbalah Unveiled S.95-105; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.65-70",
+
+      "planet": "Mond",
+      "planet_symbol": "☽",
+      "planet_klassisch": "Mond — Astralplan, Unterbewusstsein, Träume, Reflexion, Psyche",
+      "planet_modern": "Mond (klassisch und modern identisch)",
+
+      "goettlicher_name": "Shaddai El Chai (שַׁדַּי אֵל חַי)",
+      "goettlicher_name_bedeutung": "Der Allmächtige lebendige Gott — die lebende Kraft des Fundamentes",
+      "goettlicher_name_quelle": "Mathers S.97; Crowley 777",
+
+      "erzengel": "Gabriel (גַּבְרִיאֵל)",
+      "erzengel_bedeutung": "Gott ist meine Stärke — Erzengel des Mondes, der Träume, Offenbarungen und des Astrals",
+
+      "engelschor": "Kerubim (כְּרוּבִים)",
+      "engelschor_deutsch": "Die Starken / Cherubim — Hüter heiliger Orte und Träger der Göttlichen Gegenwart",
+
+      "tugend": "Unabhängigkeit / Resilienz",
+      "laster": "Faulheit / Untätigkeit",
+      "spirituelle_erfahrung": "Die Vision des Maschinentums des Universums — das Erkennen der astralen Mechanismen",
+
+      "koerper_entsprechung": "Reproduktionsorgane / Sexualität (im Adam Kadmon)",
+      "koerper_quelle": "Mathers S.98; Crowley 777",
+
+      "farben": {
+        "atziluth": "Indigo",
+        "briah": "Violett",
+        "yetzirah": "Sehr tiefes Purpur",
+        "assiah": "Zitronengelb durchzogen mit Azurblau",
+        "quelle": "Crowley - 777 Tabellen II-V"
+      },
+
+      "symbole": ["Parfüm", "Sandalen", "Mond (alle Phasen)", "Sexuelle Symbole"],
+      "magische_waffe": "Das Parfüm / Der Spiegel",
+      "titel": ["Tzaddik (der Gerechte)", "Fundament der Welt", "Der Starke"],
+
+      "verbindung_numerologie": {
+        "zahl": 9,
+        "entsprechung": "Yesod als neunte Sephira entspricht Numerologie-Zahl 9 (Mars). Mond (Yesod) und Mars (9) bilden scheinbar einen Widerspruch — jedoch beide stehen für Tiefe, Unterbewusstsein (Mond) und vollendende Kraft (Mars/9). Die Neun als Vollendungszahl spiegelt Yesod als letzten Filter vor der materiellen Welt.",
+        "planet_brücke": "Mond (Yesod) entspricht Numerologie-Zahl 2. Synthese: Yesod (9. Position/Fundament) + Mond (2/Empfangen) = das Fundament der Manifestation ist emotionale Rezeptivität.",
+        "quelle": "Westcott - Numbers S.75; Sepharial S.34"
+      },
+
+      "praktische_deutung": "Yesod ist das astrale Fundament der physischen Welt — der Bereich von Träumen, Phantasien, dem Unterbewusstsein und der astralen Reise. In der Deutung: Träume als Botschaften, psychische Fähigkeiten, unbewusste Muster, Sexualität und Vitalität, das kollektive Unbewusste.",
+
+      "qliphoth": {
+        "name": "Gamaliel (גַּמָּלִיאֵל) / Gamchicoth",
+        "deutsch": "Die Obscönen / Die Vergeltenden",
+        "beschreibung": "Qliphoth von Yesod: Perverse Träume, Nightmares, sexuelle Obsessionen, Parasitäre Astralenergien, Mondwahnsinn.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Mathers S.95-105; Crowley 777; Westcott Sepher Yetzirah S.65-70"
+    },
+
+    "10_malkuth": {
+      "nummer": 10,
+      "name_hebraeisch": "מַלְכוּת",
+      "name_transliteration": "Malkuth",
+      "name_deutsch": "Das Königreich / Die Herrschaft",
+      "position_baum": "Unterste Sephira, Mittelsäule, die Welt der Materie — Endpunkt der göttlichen Emanation",
+      "saeure": "Mittelsäule (Empfangspunkt aller drei Säulen)",
+      "quelle": "Mathers - Kabbalah Unveiled S.105-120; Crowley - 777 Tabelle I; Westcott Sepher Yetzirah S.70-80",
+
+      "planet": "Erde / Elemente gesamt",
+      "planet_symbol": "⊕",
+      "planet_klassisch": "Die Erde — alle vier Elemente (Feuer, Wasser, Luft, Erde) in ihrer Gesamtheit",
+      "planet_modern": "Erde / auch: Pluto als planetarer Herrscher nach manchen Schulen",
+
+      "goettlicher_name": "Adonai ha-Aretz (אֲדֹנָי הָאָרֶץ) / Adonai Malekh",
+      "goettlicher_name_bedeutung": "Herr der Erde / Herr der Könige — Gott als Herrscher über die materielle Welt",
+      "goettlicher_name_quelle": "Mathers S.107; Crowley 777",
+
+      "erzengel": "Sandalphon (סַנְדַּלְפוֹן)",
+      "erzengel_bedeutung": "Zwillingsbruder von Metatron — Hüter der physischen Welt, verbindet Gebete der Erde mit dem Himmel",
+
+      "engelschor": "Ashim (אִשִּׁים)",
+      "engelschor_deutsch": "Die Feurigen Seelen / Brennende Wesen — niedere Engel der physischen Sphäre",
+
+      "tugend": "Diskriminierung / Unterscheidungsvermögen",
+      "laster": "Habgier / Trägheit / Materialismus",
+      "spirituelle_erfahrung": "Die Vision des Heiligen Wächters / Vision des Heiligen Engels in der Materie",
+
+      "koerper_entsprechung": "Füße / Anus (im Adam Kadmon) — der tiefste Punkt des Körpers",
+      "koerper_quelle": "Mathers S.108; Crowley 777",
+
+      "farben": {
+        "atziluth": "Gelb (als Erde-Element)",
+        "briah": "Ocker / Zitronengelb, Olivgrün, Rostbraun, Schwarz (vier Elemente)",
+        "yetzirah": "Citrin, Olivgrün, Rostbraun, Schwarz gemischt",
+        "assiah": "Schwarz mit gelbem Strich",
+        "quelle": "Crowley - 777 Tabellen II-V; Mathers S.109"
+      },
+
+      "symbole": ["Altar des zweifachen Würfels", "Magischer Kreis", "Das gleichseitige Dreieck", "Myrrhe", "Kreis und Kreuz"],
+      "magische_waffe": "Der Magische Kreis / Das Dreieck der Kunst",
+      "titel": ["Malkah (die Königin)", "Kal-lah (die Braut)", "Shekhina (göttliche Gegenwart in der Welt)", "Gottesmutter"],
+
+      "verbindung_numerologie": {
+        "zahl": 10,
+        "entsprechung": "Malkuth als zehnte Sephira entspricht der Zahl 10 — die auf 1 reduziert (1+0=1) Kether widerspiegelt. Malkuth und Kether sind Spiegelbilder: Malkuth ist Kether in Assiah (Materie), Kether ist Malkuth in Atziluth (Geist). Das Königreich ist die Krone im Materiellen.",
+        "planet_brücke": "Erde (Malkuth) hat kein direktes Numerologie-Planetar-Entsprechung da die Erde in der klassischen Numerologie nicht als Planet gezählt wird. Malkuth entspricht der 10 als Vollendungszahl und der 1 als erneuerte Einheit.",
+        "quelle": "Westcott - Numbers S.15; Mathers S.107; Crowley 777"
+      },
+
+      "praktische_deutung": "Malkuth ist die physische Welt, die Erde, der Körper und das alltägliche Leben. In der Deutung: Alle materiellen Angelegenheiten — Geld, Gesundheit, Wohnen, Arbeit, der physische Körper. Es ist der Ausgangspunkt jeder spirituellen Reise: Der Weg nach oben beginnt auf der Erde. Die Shekhina wohnt im Materiellen.",
+
+      "qliphoth": {
+        "name": "Nehemoth (נְחֶמוֹת) / Nahemoth",
+        "deutsch": "Die Flüsterer / Die Klagenden",
+        "beschreibung": "Qliphoth von Malkuth: Materielle Fixierung, Gier, Unfähigkeit das Materielle loszulassen, blinde Anhaftung an physische Welt, Lärmende Dämonen der Materie.",
+        "quelle": "Mathers S.26"
+      },
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 5,
+        "gesundheit": 4,
+        "soziales": 3,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 2
+      },
+      "quelle_vektor": "Mathers S.105-120; Crowley 777; Westcott Sepher Yetzirah S.70-80"
+    }
+
+  },
+
+  "planetare_sephiroth_tabelle": {
+    "beschreibung": "Schnellreferenz: Planetarkorrespondenzen der 10 Sephiroth mit Verbindung zur Numerologie-Zahl.",
+    "quelle": "Crowley - 777 Tabelle I; Mathers - Kabbalah Unveiled; Sepharial - Kabalistic Astrology S.20-45",
+    "tabelle": {
+      "1_Kether": {"planet": "Primum Mobile / Neptun", "symbol": "🜀", "numerologie_zahl": "1 (Echo)", "saeure": "Mitte"},
+      "2_Chokmah": {"planet": "Uranus / Sternenhimmel", "symbol": "♅", "numerologie_zahl": "4 (Uranus)", "saeure": "Gnade"},
+      "3_Binah": {"planet": "Saturn", "symbol": "♄", "numerologie_zahl": "8 (Saturn)", "saeure": "Strenge"},
+      "4_Chesed": {"planet": "Jupiter", "symbol": "♃", "numerologie_zahl": "3 (Jupiter)", "saeure": "Gnade"},
+      "5_Geburah": {"planet": "Mars", "symbol": "♂", "numerologie_zahl": "9 (Mars)", "saeure": "Strenge"},
+      "6_Tiphereth": {"planet": "Sonne", "symbol": "☉", "numerologie_zahl": "1 (Sonne)", "saeure": "Mitte"},
+      "7_Netzach": {"planet": "Venus", "symbol": "♀", "numerologie_zahl": "6 (Venus)", "saeure": "Gnade"},
+      "8_Hod": {"planet": "Merkur", "symbol": "☿", "numerologie_zahl": "5 (Merkur)", "saeure": "Strenge"},
+      "9_Yesod": {"planet": "Mond", "symbol": "☽", "numerologie_zahl": "2 (Mond)", "saeure": "Mitte"},
+      "10_Malkuth": {"planet": "Erde / Alle Elemente", "symbol": "⊕", "numerologie_zahl": "10=1", "saeure": "Mitte"}
+    }
+  },
+
+  "qliphoth_uebersicht": {
+    "beschreibung": "Die 10 Qliphoth — Schattenseiten und Gegenpole der 10 Sephiroth. Repräsentieren unausgewogene Manifestationen der Sephiroth-Kräfte.",
+    "quelle": "Mathers - Kabbalah Unveiled S.25-30; Crowley - 777",
+    "tabelle": {
+      "1_Kether": {"qliphoth": "Thaumiel", "deutsch": "Zwillinge Gottes", "prinzip": "Gespaltene Göttlichkeit"},
+      "2_Chokmah": {"qliphoth": "Ghagiel / Chaigidel", "deutsch": "Die Hinderer", "prinzip": "Chaotische Kraft ohne Weisheit"},
+      "3_Binah": {"qliphoth": "Sathariel", "deutsch": "Die Verberger", "prinzip": "Verhärtung und geistige Blindheit"},
+      "4_Chesed": {"qliphoth": "Ga'ashekelah", "deutsch": "Die Plünderer", "prinzip": "Maßlose Expansion / Tyrannei"},
+      "5_Geburah": {"qliphoth": "Golachab", "deutsch": "Die Brennenden", "prinzip": "Ungezügelte Grausamkeit"},
+      "6_Tiphereth": {"qliphoth": "Thagirion", "deutsch": "Die Zanker", "prinzip": "Falsches Selbst / Ego als Gott"},
+      "7_Netzach": {"qliphoth": "A'arab Zaraq", "deutsch": "Raben der Zerstreuung", "prinzip": "Lust als Selbstzweck"},
+      "8_Hod": {"qliphoth": "Samael", "deutsch": "Gift Gottes", "prinzip": "Lüge und Täuschung"},
+      "9_Yesod": {"qliphoth": "Gamaliel", "deutsch": "Die Obscönen", "prinzip": "Perverse Astralenergie"},
+      "10_Malkuth": {"qliphoth": "Nehemoth", "deutsch": "Die Flüsterer", "prinzip": "Blinde Materialfixierung"}
+    }
+  },
+
+  "sephiroth_tugenden_laster": {
+    "beschreibung": "Schnellreferenz aller Tugenden und Laster der 10 Sephiroth.",
+    "quelle": "Crowley - 777 Spalte XLVI; Mathers - Kabbalah Unveiled",
+    "tabelle": {
+      "1_Kether": {"tugend": "Vollendung des Großen Werkes", "laster": "Keines"},
+      "2_Chokmah": {"tugend": "Hingebungsvolle Andacht", "laster": "Keines"},
+      "3_Binah": {"tugend": "Stille / Schweigen", "laster": "Geiz"},
+      "4_Chesed": {"tugend": "Demut / Gehorsam", "laster": "Bigotterie"},
+      "5_Geburah": {"tugend": "Energie / Mut", "laster": "Grausamkeit"},
+      "6_Tiphereth": {"tugend": "Hingebung an das Große Werk", "laster": "Hochmut"},
+      "7_Netzach": {"tugend": "Unselfish Love", "laster": "Unkeuschheit / Lust"},
+      "8_Hod": {"tugend": "Wahrhaftigkeit", "laster": "Unehrlichkeit"},
+      "9_Yesod": {"tugend": "Unabhängigkeit", "laster": "Faulheit"},
+      "10_Malkuth": {"tugend": "Diskriminierung", "laster": "Habgier / Trägheit"}
+    }
+  },
+
+  "farben_vier_welten_matrix": {
+    "beschreibung": "Farb-Matrix aller 10 Sephiroth in den vier Welten (König-, Königin-, Kaiser-, Kaiserinnenskala nach Crowley 777).",
+    "quelle": "Crowley - 777 Tabellen II-V; Mathers - Kabbalah Unveiled",
+    "matrix": {
+      "1_Kether": {"atziluth": "Brillantes Weiß", "briah": "Weißes Brillieren", "yetzirah": "Weiß durchscheinend", "assiah": "Weiß mit Goldflecken"},
+      "2_Chokmah": {"atziluth": "Reines Blau", "briah": "Grau", "yetzirah": "Perlmuttgrau", "assiah": "Weiß mit Rot"},
+      "3_Binah": {"atziluth": "Scharlachrot", "briah": "Schwarz", "yetzirah": "Dunkelbraun", "assiah": "Grau mit Rosa"},
+      "4_Chesed": {"atziluth": "Tiefviolett", "briah": "Blau", "yetzirah": "Tiefes Purpur", "assiah": "Azurblau mit Gelb"},
+      "5_Geburah": {"atziluth": "Orangerot", "briah": "Rot", "yetzirah": "Hellrot", "assiah": "Rot mit Schwarz"},
+      "6_Tiphereth": {"atziluth": "Klares Rosa", "briah": "Goldgelb", "yetzirah": "Reich Lachs-Rosa", "assiah": "Goldamber"},
+      "7_Netzach": {"atziluth": "Bernstein", "briah": "Smaragdgrün", "yetzirah": "Helles Olivbraun", "assiah": "Olivbraun mit Gold"},
+      "8_Hod": {"atziluth": "Violett-Purpur", "briah": "Orange", "yetzirah": "Rostrot-Orange", "assiah": "Schwarz-Weiß gefleckt"},
+      "9_Yesod": {"atziluth": "Indigo", "briah": "Violett", "yetzirah": "Sehr tiefes Purpur", "assiah": "Zitronengelb mit Azur"},
+      "10_Malkuth": {"atziluth": "Gelb", "briah": "Zitrone/Olive/Rost/Schwarz", "yetzirah": "Citrin/Olive/Rost/Schwarz gemischt", "assiah": "Schwarz mit Gelbstrich"}
+    }
+  },
+
+  "syntheseregeln_numerologie_kabbalah": {
+    "beschreibung": "Verbindungsregeln zwischen Numerologie-Grundzahlen und Sephiroth für systemübergreifende Deutung.",
+    "quelle": "Westcott - Numbers Their Occult Power S.15-82; Sepharial - Kabalistic Astrology S.20-45; Crowley - 777",
+    "regeln": [
+      {
+        "numerologie_zahl": 1,
+        "planet": "Sonne",
+        "sephira": "Tiphereth (6)",
+        "synthese": "Numerologie-1 (Sonne/Ich) manifestiert auf Sephira-Ebene als Tiphereth — das Höhere Selbst und die Lebensaufgabe. Zahl-1-Menschen suchen unbewusst nach Tiphereth-Qualitäten: Harmonie, Sinn, Führung aus der Mitte."
+      },
+      {
+        "numerologie_zahl": 2,
+        "planet": "Mond",
+        "sephira": "Yesod (9)",
+        "synthese": "Numerologie-2 (Mond/Empfangen) korrespondiert mit Yesod — dem Fundament des Astrals. Zahl-2-Menschen haben naturhafte Verbindung zu Träumen, Unterbewusstsein und emotionalen Tiefen."
+      },
+      {
+        "numerologie_zahl": 3,
+        "planet": "Jupiter",
+        "sephira": "Chesed (4)",
+        "synthese": "Numerologie-3 (Jupiter/Wachstum) korrespondiert mit Chesed — göttliche Gnade und Expansion. Zahl-3-Menschen kanalisieren Chesed-Energie: Großzügigkeit, Freude, schöpferische Fülle."
+      },
+      {
+        "numerologie_zahl": 4,
+        "planet": "Uranus",
+        "sephira": "Chokmah (2)",
+        "synthese": "Numerologie-4 (Uranus/Struktur+Rebellion) korrespondiert mit Chokmah — göttliche Weisheit als erster Impuls. Paradox: Die strukturbewusste 4 trägt den revolutionären Uranus-Chokmah-Funken in sich."
+      },
+      {
+        "numerologie_zahl": 5,
+        "planet": "Merkur",
+        "sephira": "Hod (8)",
+        "synthese": "Numerologie-5 (Merkur/Kommunikation) korrespondiert mit Hod — Ruhm des Geistes. Zahl-5-Menschen sind natürliche Hod-Kanäle: schnelle Wahrnehmung, sprachliche Begabung, magisches Potenzial."
+      },
+      {
+        "numerologie_zahl": 6,
+        "planet": "Venus",
+        "sephira": "Netzach (7)",
+        "synthese": "Numerologie-6 (Venus/Harmonie) korrespondiert mit Netzach — Sieg durch Schönheit. Zahl-6-Menschen berühren Netzach-Qualitäten: Liebe, Kunst, Naturverbundenheit, emotionale Tiefe."
+      },
+      {
+        "numerologie_zahl": 7,
+        "planet": "Neptun",
+        "sephira": "Kether (1) / Da'ath",
+        "synthese": "Numerologie-7 (Neptun/Mystik) weist über das Planetensystem hinaus — zu Kether (Einheit) oder Da'ath (verborgenes Wissen). Zahl-7-Menschen suchen das Unsagbare jenseits der Form."
+      },
+      {
+        "numerologie_zahl": 8,
+        "planet": "Saturn",
+        "sephira": "Binah (3)",
+        "synthese": "Numerologie-8 (Saturn/Karma) korrespondiert mit Binah — das große Verstehen durch Form und Limit. Zahl-8-Menschen verkörpern Binah-Energie: Reife durch Erfahrung, Karma als Lehrerin, mütterliche Tiefe."
+      },
+      {
+        "numerologie_zahl": 9,
+        "planet": "Mars",
+        "sephira": "Geburah (5)",
+        "synthese": "Numerologie-9 (Mars/Vollendung) korrespondiert mit Geburah — die reinigende Kraft. Zahl-9-Menschen tragen Geburah in sich: Mut, humanitäre Energie als Schwert gegen Ungerechtigkeit, Transformation durch Krise."
+      }
+    ]
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln in dieser Datei.",
+    "gesamt_regeln": 73,
+    "kategorien": {
+      "sephiroth_profile": 10,
+      "dimensionsvektoren": 10,
+      "planetarkorrespondenzen": 10,
+      "goettliche_namen": 10,
+      "erzengel_zuordnungen": 10,
+      "engelchor_zuordnungen": 10,
+      "tugend_laster_paare": 10,
+      "qliphoth_profile": 10,
+      "farben_vier_welten": 40,
+      "syntheseregeln_numerologie": 9,
+      "baum_struktur_regeln": 8,
+      "koerper_entsprechungen": 10
+    },
+    "hinweis": "Farben-Matrix (40 Einträge = 10 Sephiroth × 4 Welten) als Regelgruppe gezählt. Gesamtregelzahl struktureller Kernregeln: ~73."
+  }
+}

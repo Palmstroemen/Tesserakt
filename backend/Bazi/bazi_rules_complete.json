@@ -1,0 +1,682 @@
+{
+  "_meta": {
+    "system": "chinese_bazi",
+    "version": "1.0",
+    "datei": "bazi_rules_complete.json",
+    "gespraech": 3,
+    "erstellt": "2026-02-19",
+    "beschreibung": "Vervollständigung des Bazi-Regelwerks: Luck Pillars, Monatspillar-Interaktionen, alle Clash- und Combination-Muster, Shen Sha",
+    "quellen": [
+      "Joey Yap - Bazi The Destiny Code (public summaries)",
+      "Traditional Tong Shu almanac interpretations",
+      "Five Element theory classical texts",
+      "Wan Nian Li (Ten Thousand Year Calendar)",
+      "Classical Bazi texts (public domain)"
+    ],
+    "dimensions": ["liebe", "beruf", "finanzen", "gesundheit", "soziales", "kreativitaet", "veraenderung", "spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "regel_count": 152,
+    "hinweis": "Diese Datei ergänzt bazi_rules.json (v0.1). Basis-Strukturen (heavenly_stems, earthly_branches, five_element_interactions, day_master_profiles) verbleiben in der Basisdatei."
+  },
+
+  "luck_pillars": {
+    "_intro": "Luck Pillars (Da Yun / Große Laufperioden) beschreiben 10-Jahres-Zyklen, die das Schicksal prägen. Jeder Pillar besteht aus einem Heavenly Stem + Earthly Branch. Die Laufrichtung (vorwärts/rückwärts) hängt vom Geschlecht und Geburtsjahr (Yang/Yin) ab.",
+
+    "laufrichtung": {
+      "mann_yang_jahr":     { "richtung": "vorwaerts", "text": "Mann in Yang-Jahr: Pillars laufen vorwärts durch den Kalender" },
+      "mann_yin_jahr":      { "richtung": "rueckwaerts", "text": "Mann in Yin-Jahr: Pillars laufen rückwärts" },
+      "frau_yang_jahr":     { "richtung": "rueckwaerts", "text": "Frau in Yang-Jahr: Pillars laufen rückwärts" },
+      "frau_yin_jahr":      { "richtung": "vorwaerts", "text": "Frau in Yin-Jahr: Pillars laufen vorwärts" }
+    },
+
+    "stem_luck_pillars": {
+      "_intro": "Der Heavenly Stem des Luck Pillars aktiviert die Ten Gods (Zehn Götter) im Natal-Chart.",
+      "jia": {
+        "text_de": "Jia-Periode: Wachstum, neue Anfänge, Expansion. Günstig für Karrierestart und langfristige Projekte. Direkte Energie, keine Umwege.",
+        "vektor": { "beruf": 4, "kreativitaet": 4, "veraenderung": 4, "liebe": 3, "finanzen": 3 },
+        "ten_god_effekt": "Aktiviert Bieguai (Direkte Ressource) oder Zhengcai (Direktes Reichtum) je nach Day Master",
+        "quelle": "Joey Yap / klassische Bazi-Tradition"
+      },
+      "yi": {
+        "text_de": "Yi-Periode: Diplomatisches Vorgehen, soziale Vernetzung, künstlerische Entfaltung. Indirekte Wege zum Erfolg.",
+        "vektor": { "soziales": 5, "liebe": 4, "kreativitaet": 4, "beruf": 3 },
+        "ten_god_effekt": "Aktiviert Pianyin (Indirekte Ressource) oder Piancai (Indirekter Reichtum)",
+        "quelle": "Joey Yap / klassische Bazi-Tradition"
+      },
+      "bing": {
+        "text_de": "Bing-Periode: Sichtbarkeit, Ruhm, öffentliche Anerkennung. Leidenschaftliche Phase, Feuer der Ambition. Risiko von Übertreibung.",
+        "vektor": { "beruf": 5, "soziales": 4, "liebe": 4, "kreativitaet": 5, "gesundheit": 3 },
+        "ten_god_effekt": "Aktiviert Zhengguan (Direkter Offizier) oder Zhengyin (Direkte Ressource)",
+        "quelle": "Tong Shu Almanach"
+      },
+      "ding": {
+        "text_de": "Ding-Periode: Präzision, inneres Feuer, spirituelle Tiefe. Weniger spektakulär aber nachhaltig. Gut für Qualitätsarbeit.",
+        "vektor": { "spiritualitaet": 4, "beruf": 4, "kreativitaet": 3, "gesundheit": 3 },
+        "ten_god_effekt": "Aktiviert Qisha (Sieben-Mörder) oder Pianyin (Indirekte Ressource)",
+        "quelle": "Joey Yap"
+      },
+      "wu": {
+        "text_de": "Wu-Periode: Stabilisierung, Konsolidierung, Erdung. Finanzielle Sicherheit aufbauen. Wenig Raum für Spontanität.",
+        "vektor": { "finanzen": 4, "beruf": 3, "gesundheit": 4, "veraenderung": 2, "liebe": 3 },
+        "ten_god_effekt": "Aktiviert Zhengcai (Direktes Reichtum) oder Piansha (Indirekte Autorität)",
+        "quelle": "Five Element Theorie"
+      },
+      "ji": {
+        "text_de": "Ji-Periode: Fürsorge, Detailarbeit, Verwaltung. Günstig für Familienangelegenheiten. Risiko von Überenagagement in Details.",
+        "vektor": { "liebe": 4, "soziales": 4, "beruf": 3, "finanzen": 3, "gesundheit": 4 },
+        "ten_god_effekt": "Aktiviert Piancai (Indirekter Reichtum) oder Zhengguan (Direkter Offizier)",
+        "quelle": "Joey Yap"
+      },
+      "geng": {
+        "text_de": "Geng-Periode: Stärke, Durchsetzungsvermögen, Entscheidungen erzwingen. Karrierechancen durch Mut. Konflikte möglich.",
+        "vektor": { "beruf": 5, "finanzen": 4, "veraenderung": 4, "soziales": 2, "liebe": 2 },
+        "ten_god_effekt": "Aktiviert Qisha (Sieben-Mörder) oder Bijian (Freund/Konkurrent)",
+        "quelle": "Klassische Bazi-Texte"
+      },
+      "xin": {
+        "text_de": "Xin-Periode: Ästhetik, Perfektion, Raffinesse. Gute Phase für kreative Berufe, Finanzen durch Qualität. Emotionale Sensibilität hoch.",
+        "vektor": { "kreativitaet": 5, "finanzen": 4, "liebe": 3, "spiritualitaet": 3 },
+        "ten_god_effekt": "Aktiviert Zhengguan (Direkter Offizier) oder Jiecai (Helfer/Rivale)",
+        "quelle": "Joey Yap"
+      },
+      "ren": {
+        "text_de": "Ren-Periode: Freiheit, Expansion, intellektuelle Neugier. Reisen, internationale Verbindungen. Schwierigkeit: Fokus halten.",
+        "vektor": { "veraenderung": 5, "kreativitaet": 4, "spiritualitaet": 4, "beruf": 3, "finanzen": 2 },
+        "ten_god_effekt": "Aktiviert Pianyin (Indirekte Ressource) oder Shishang (Kreative Produktion)",
+        "quelle": "Tong Shu Almanach"
+      },
+      "gui": {
+        "text_de": "Gui-Periode: Intuition, Rückzug, innere Transformation. Spirituelle Entwicklung stark. Äußerliche Erfolge treten zurück.",
+        "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "veraenderung": 4, "beruf": 2, "soziales": 2 },
+        "ten_god_effekt": "Aktiviert Zhengyin (Direkte Ressource) oder Shangguan (Kreative Überwindung)",
+        "quelle": "Five Element Theorie"
+      }
+    },
+
+    "branch_luck_pillars": {
+      "_intro": "Der Earthly Branch des Luck Pillars enthält Hidden Stems (versteckte Heavenly Stems) und interagiert mit dem Natal-Chart durch Clashes, Combinations und Harms.",
+      "zi": {
+        "text_de": "Zi-Luckpillar (Wasser): Intelligenz und Intuition im Fokus. Gute Phase für Studium, Forschung, strategisches Denken. Emotionale Tiefe.",
+        "hidden_stems": ["gui"],
+        "vektor": { "spiritualitaet": 4, "kreativitaet": 4, "beruf": 4, "liebe": 3 },
+        "clash_warnung": "Clashed von Wu — wenn Wu im Natal, instabile Periode"
+      },
+      "chou": {
+        "text_de": "Chou-Luckpillar (Erde): Ausdauer, Geduld, langsamer aber sicherer Aufbau. Günstig für Immobilien, langfristige Investitionen.",
+        "hidden_stems": ["ji", "gui", "xin"],
+        "vektor": { "finanzen": 4, "beruf": 4, "gesundheit": 3, "veraenderung": 2 },
+        "clash_warnung": "Clashed von Wei — wenn Wei im Natal, finanzielle Spannungen"
+      },
+      "yin": {
+        "text_de": "Yin-Luckpillar (Holz): Mutige Expansion, Risikobereitschaft, Reisen. Neue Territorien erschließen, Führungsrollen übernehmen.",
+        "hidden_stems": ["jia", "bing", "wu"],
+        "vektor": { "veraenderung": 5, "beruf": 4, "soziales": 4, "liebe": 3 },
+        "clash_warnung": "Clashed von Shen — wenn Shen im Natal, Reiseprobleme oder Konflikte"
+      },
+      "mao": {
+        "text_de": "Mao-Luckpillar (Holz): Sanfte Diplomatie, künstlerische Blüte, soziale Harmonie. Beziehungen vertiefen sich. Ruhige, aber fruchtbare Phase.",
+        "hidden_stems": ["yi"],
+        "vektor": { "liebe": 5, "kreativitaet": 5, "soziales": 4, "beruf": 3 },
+        "clash_warnung": "Clashed von You — wenn You im Natal, Beziehungskrisen"
+      },
+      "chen": {
+        "text_de": "Chen-Luckpillar (Erde): Transformationserde, Drachen-Energie. Große Lebenswendepunkte, Karrieresprünge möglich. Visionäre Phase.",
+        "hidden_stems": ["wu", "yi", "gui"],
+        "vektor": { "beruf": 5, "veraenderung": 5, "finanzen": 4, "spiritualitaet": 3 },
+        "clash_warnung": "Clashed von Xu — wenn Xu im Natal, Heimat/Familienumbrüche"
+      },
+      "si": {
+        "text_de": "Si-Luckpillar (Feuer): Strategisches Denken, Tiefenarbeit, verborgene Kräfte aktivieren. Oft unterschätzte, aber mächtige Periode.",
+        "hidden_stems": ["bing", "geng", "wu"],
+        "vektor": { "beruf": 4, "finanzen": 4, "kreativitaet": 4, "spiritualitaet": 4 },
+        "clash_warnung": "Clashed von Hai — wenn Hai im Natal, Gesundheit beachten"
+      },
+      "wu_branch": {
+        "text_de": "Wu-Luckpillar (Feuer): Energie, Reisen, Freiheit. Bewegte Phase, viele Veränderungen. Liebesangelegenheiten aktiv, aber unbeständig.",
+        "hidden_stems": ["ding", "ji"],
+        "vektor": { "liebe": 3, "beruf": 4, "veraenderung": 5, "finanzen": 3 },
+        "clash_warnung": "Clashed von Zi — wenn Zi im Natal, emotionale Instabilität"
+      },
+      "wei": {
+        "text_de": "Wei-Luckpillar (Erde): Kreativität, Fürsorge, künstlerische Sensibilität. Familienorientierte Phase, emotionale Erfüllung im Vordergrund.",
+        "hidden_stems": ["ji", "ding", "yi"],
+        "vektor": { "liebe": 5, "kreativitaet": 4, "soziales": 4, "finanzen": 3 },
+        "clash_warnung": "Clashed von Chou — wenn Chou im Natal, finanzielle Kompromisse nötig"
+      },
+      "shen": {
+        "text_de": "Shen-Luckpillar (Metall): Cleverness, Opportunismus, rasche Geistesblitze. Gut für Handel, Technologie, schnelle Gewinne. Vorsicht: Übereiltes Handeln.",
+        "hidden_stems": ["geng", "ren", "wu"],
+        "vektor": { "beruf": 5, "finanzen": 4, "kreativitaet": 4, "veraenderung": 4 },
+        "clash_warnung": "Clashed von Yin — wenn Yin im Natal, Konflikte und Reiseunruhen"
+      },
+      "you": {
+        "text_de": "You-Luckpillar (Metall): Präzision, Perfektionismus, Qualitätsarbeit. Finanziell sehr stark. Risiko: soziale Isolation durch hohe Standards.",
+        "hidden_stems": ["xin"],
+        "vektor": { "finanzen": 5, "beruf": 5, "kreativitaet": 3, "soziales": 2 },
+        "clash_warnung": "Clashed von Mao — wenn Mao im Natal, Beziehungsprobleme"
+      },
+      "xu": {
+        "text_de": "Xu-Luckpillar (Erde): Spirituelle Reife, Loyalität geprüft, Gerechtigkeit im Fokus. Karmaische Ausgleichsphase. Gut für innere Arbeit.",
+        "hidden_stems": ["wu", "xin", "ding"],
+        "vektor": { "spiritualitaet": 5, "soziales": 3, "gesundheit": 3, "veraenderung": 4 },
+        "clash_warnung": "Clashed von Chen — wenn Chen im Natal, berufliche Umbrüche"
+      },
+      "hai": {
+        "text_de": "Hai-Luckpillar (Wasser): Großzügigkeit, spirituelle Offenheit, Ende und Neubeginn. Tiefe innere Reinigung. Günstig für Kreatives und Spirituelles.",
+        "hidden_stems": ["ren", "jia"],
+        "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "liebe": 4, "finanzen": 2 },
+        "clash_warnung": "Clashed von Si — wenn Si im Natal, Gesundheit und Erschöpfung beachten"
+      }
+    }
+  },
+
+  "monthly_pillar_interactions": {
+    "_intro": "Monatspillar-Interaktionen beschreiben, wie der aktuelle Monats-Pillar (Heavenly Stem + Earthly Branch) mit den Natal-Säulen interagiert. Der Monat ist die zweitwichtigste Pillar-Ebene nach dem Tag (Day Master).",
+
+    "stem_interaktionen": {
+      "_intro": "Wenn der Monats-Stem mit dem Natal Day Master oder anderen Natal-Stems interagiert, entstehen Ten-God-Effekte.",
+      "guenstige_ten_gods": {
+        "zhengyin_direkte_ressource": {
+          "text_de": "Direktes Ressource-Monat: Unterstützung durch Mentoren, Mütter, Bildung. Günstig zum Lernen, Schreiben, Erholen.",
+          "vektor": { "spiritualitaet": 4, "beruf": 4, "gesundheit": 4, "liebe": 3 }
+        },
+        "zhengcai_direktes_reichtum": {
+          "text_de": "Direktes Reichtum-Monat: Verdienst durch ehrliche Arbeit. Finanzplanung ergibt sich leicht. Disziplinierter Umgang mit Geld.",
+          "vektor": { "finanzen": 5, "beruf": 4, "liebe": 3, "soziales": 3 }
+        },
+        "zhengguan_direkter_offizier": {
+          "text_de": "Direkter Offizier-Monat: Struktur und Disziplin regieren. Gut für Bürokratie, Rechtsfragen, offizielle Angelegenheiten.",
+          "vektor": { "beruf": 5, "soziales": 3, "finanzen": 3, "veraenderung": 2 }
+        },
+        "bijian_freund": {
+          "text_de": "Freund/Helfer-Monat: Unterstützung durch Gleichgesinnte, Teamarbeit. Soziale Aktivitäten günstig. Vorsicht: Konkurrenz möglich.",
+          "vektor": { "soziales": 5, "beruf": 3, "liebe": 3, "finanzen": 3 }
+        },
+        "shishang_kreative_produktion": {
+          "text_de": "Kreative Produktion-Monat: Ideenfluss hoch, Ausdruck und Leistung. Besonders für Künstler, Schreiber, Performer.",
+          "vektor": { "kreativitaet": 5, "beruf": 4, "liebe": 3, "spiritualitaet": 3 }
+        }
+      },
+      "herausfordernde_ten_gods": {
+        "qisha_sieben_moerder": {
+          "text_de": "Sieben-Mörder-Monat: Druck, Konflikte, aggressive Energie. Schwierige Verhandlungen, Autoritätsprobleme. Mit Stärke nutzbar.",
+          "vektor": { "beruf": 3, "soziales": 2, "gesundheit": 2, "veraenderung": 5 }
+        },
+        "shangguan_kreative_uberwindung": {
+          "text_de": "Kreative Überwindung-Monat: Rebellion gegen Regeln, kreatives Chaos. Eigentümer und Chefs ungünstig. Gut für Eigeninitiative.",
+          "vektor": { "kreativitaet": 4, "beruf": 2, "soziales": 2, "veraenderung": 4 }
+        },
+        "piancai_indirektes_reichtum": {
+          "text_de": "Indirekter Reichtum-Monat: Spekulative Chancen, Glücksspiel-Energie. Schnelle Gewinne und Verluste möglich. Vorsicht bei Investitionen.",
+          "vektor": { "finanzen": 3, "veraenderung": 4, "soziales": 3, "kreativitaet": 3 }
+        },
+        "pianyin_indirekte_ressource": {
+          "text_de": "Indirekte Ressource-Monat: Unkonventionelles Lernen, Spiritualität, Rückzug. Nicht ideal für konventionelle Karriereschritte.",
+          "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "beruf": 2, "soziales": 2 }
+        }
+      }
+    },
+
+    "branch_interaktionen": {
+      "_intro": "Der Earthly Branch des Monats kann mit Natal-Branches in Combination, Clash, Harm oder Punishment treten.",
+      "combination_mit_natal": {
+        "text_de": "Wenn der Monats-Branch mit einem Natal-Branch kombiniert (Liu He oder San He): Harmonische Periode, Kooperationen gelingen, Energie fließt.",
+        "vektor": { "soziales": 4, "beruf": 4, "liebe": 4, "finanzen": 3 }
+      },
+      "clash_mit_natal": {
+        "text_de": "Wenn der Monats-Branch einen Natal-Branch clashed: Unerwartete Ereignisse, Veränderungen erzwungen. Nicht immer negativ — manchmal befreiend.",
+        "vektor": { "veraenderung": 5, "gesundheit": 2, "beruf": 2, "liebe": 2 }
+      },
+      "harm_mit_natal": {
+        "text_de": "Wenn Harm-Relation (Liu Hai) zwischen Monats- und Natal-Branch: Unterschwellige Spannungen, unerwartete Sabotage, Missverständnisse.",
+        "vektor": { "soziales": 2, "liebe": 2, "beruf": 3, "gesundheit": 3 }
+      },
+      "punishment_mit_natal": {
+        "text_de": "Wenn Punishment-Relation (Xing) aktiv: Disziplinarische Herausforderungen, Rechtsfragen, Karma-Ausgleich. Geduld und Integrität erforderlich.",
+        "vektor": { "beruf": 2, "soziales": 2, "spiritualitaet": 4, "veraenderung": 4 }
+      },
+      "destruction_mit_natal": {
+        "text_de": "Wenn Destruction-Relation (Po) aktiv: Projekte scheitern unerwartet, Fehlkommunikation. Begonnenes nicht zum Abschluss bringen.",
+        "vektor": { "beruf": 1, "finanzen": 2, "veraenderung": 5, "kreativitaet": 2 }
+      }
+    }
+  },
+
+  "clash_und_combination_vollstaendig": {
+    "_intro": "Vollständige Muster aller Earthly Branch-Interaktionen. Ergänzt die Basisdatei (bazi_rules.json). Enthält alle 6 Clashes, alle 6 Liu-He-Kombinationen, alle 4 San-He-Dreiecke, Harms (Liu Hai), Punishments (Xing) und Destructions (Po).",
+
+    "liu_he_kombinationen": {
+      "_intro": "Liu He = 6 harmonische Zweier-Kombinationen. Erzeugt jeweils ein dominantes Element. Sehr günstig wenn diese Zweige gemeinsam im Chart oder in Transiten erscheinen.",
+      "zi_chou": {
+        "element_ergebnis": "erde",
+        "text_de": "Ratte-Büffel (Zi-Chou): Stärkste Stabilisierungs-Kombination. Finanzieller Aufbau, zuverlässige Partnerschaften, Teamwork. Langfristig ausgerichtet.",
+        "vektor": { "finanzen": 5, "beruf": 4, "soziales": 4, "liebe": 3, "veraenderung": 2 },
+        "quelle": "Klassische Bazi-Lehre"
+      },
+      "yin_hai": {
+        "element_ergebnis": "holz",
+        "text_de": "Tiger-Schwein (Yin-Hai): Kreative und idealistische Verbindung. Künstlerische Projekte, altruistische Ziele, romantische Energie. Kann naiv sein.",
+        "vektor": { "kreativitaet": 5, "liebe": 4, "spiritualitaet": 4, "finanzen": 2 },
+        "quelle": "Tong Shu"
+      },
+      "mao_xu": {
+        "element_ergebnis": "feuer",
+        "text_de": "Hase-Hund (Mao-Xu): Romantische Feuer-Kombination. Tiefe Liebesverbindungen, Leidenschaft, gegenseitige Loyalität. Sehr günstig für Ehe und Partnerschaft.",
+        "vektor": { "liebe": 5, "kreativitaet": 4, "soziales": 4, "beruf": 3 },
+        "quelle": "Joey Yap / Klassisch"
+      },
+      "chen_you": {
+        "element_ergebnis": "metall",
+        "text_de": "Drache-Hahn (Chen-You): Mächtige Finanz-Kombination. Reichtum durch Präzision und strategisches Denken. Karrierehöhepunkte. Analytische Stärke.",
+        "vektor": { "finanzen": 5, "beruf": 5, "soziales": 3, "liebe": 2 },
+        "quelle": "Klassische Bazi-Lehre"
+      },
+      "si_shen": {
+        "element_ergebnis": "wasser",
+        "text_de": "Schlange-Affe (Si-Shen): Intelligenz und Strategie. Planung und Ausführung. Gut für Technologie, Forschung, Medizin. Kompetitiv.",
+        "vektor": { "beruf": 5, "kreativitaet": 4, "finanzen": 4, "liebe": 2 },
+        "quelle": "Tong Shu"
+      },
+      "wu_wei": {
+        "element_ergebnis": "feuer",
+        "text_de": "Pferd-Ziege (Wu-Wei): Leidenschaft und Empathie vereint. Soziale Aktivitäten, Abenteuer, lebhafte Liebe. Expansive, freudvolle Energie.",
+        "vektor": { "liebe": 4, "soziales": 5, "kreativitaet": 4, "finanzen": 3 },
+        "quelle": "Joey Yap"
+      }
+    },
+
+    "san_he_dreiecke": {
+      "_intro": "San He = 3-Zweig-Kombinationen, die ein Element in seiner reinsten Form aktivieren. Extrem mächtige Muster wenn alle drei im Chart erscheinen.",
+      "wasser_dreieck": {
+        "branches": ["shen", "zi", "chen"],
+        "text_de": "Affe-Ratte-Drache (Shen-Zi-Chen): Wasserdominanz. Intelligenz, Tiefe, intuitive Kraft. Internationale Verbindungen, Technologie, Finanzmärkte. Sehr günstig für Water Day Masters.",
+        "vektor": { "spiritualitaet": 5, "kreativitaet": 5, "beruf": 4, "finanzen": 4 },
+        "guenstig_fuer": "Wasser und Metall Day Master",
+        "quelle": "Klassisch"
+      },
+      "holz_dreieck": {
+        "branches": ["hai", "mao", "wei"],
+        "text_de": "Schwein-Hase-Ziege (Hai-Mao-Wei): Holzdominanz. Kreativität, Mitgefühl, Wachstum. Beziehungen, Kunst, Heilberufe. Sanfte aber beständige Kraft.",
+        "vektor": { "kreativitaet": 5, "liebe": 5, "soziales": 4, "spiritualitaet": 4 },
+        "guenstig_fuer": "Holz und Wasser Day Master",
+        "quelle": "Klassisch"
+      },
+      "feuer_dreieck": {
+        "branches": ["yin", "wu", "xu"],
+        "text_de": "Tiger-Pferd-Hund (Yin-Wu-Xu): Feuerdominanz. Charisma, Führung, Durchsetzungsstärke. Karrierespitzen, öffentliche Anerkennung. Intensive aber erschöpfende Energie.",
+        "vektor": { "beruf": 5, "soziales": 4, "kreativitaet": 4, "gesundheit": 3 },
+        "guenstig_fuer": "Feuer und Holz Day Master",
+        "quelle": "Klassisch"
+      },
+      "metall_dreieck": {
+        "branches": ["si", "you", "chou"],
+        "text_de": "Schlange-Hahn-Büffel (Si-You-Chou): Metalldominanz. Präzision, Reichtum, Ausdauer. Finanzwesen, Recht, Medizin. Langsamer aber sicherer Aufstieg.",
+        "vektor": { "finanzen": 5, "beruf": 5, "gesundheit": 4, "liebe": 2 },
+        "guenstig_fuer": "Metall und Erde Day Master",
+        "quelle": "Klassisch"
+      }
+    },
+
+    "sechs_clashes": {
+      "_intro": "Sechs Clashes (Liu Chong) = destabilisierende Zwei-Zweig-Konflikte. Erzwingen Veränderungen. Nicht immer negativ — manchmal Katalysator für nötigen Wandel.",
+      "zi_wu": {
+        "text_de": "Ratte-Pferd (Zi-Wu): Wasser clashed Feuer. Emotionale Instabilität, Impulsivität, Richtungswechsel. Beziehungen geraten unter Druck. Veränderungspotenzial hoch.",
+        "vektor": { "veraenderung": 5, "liebe": 1, "soziales": 2, "beruf": 2, "gesundheit": 3 },
+        "clashed_elemente": "Wasser vs. Feuer",
+        "quelle": "Klassisch"
+      },
+      "chou_wei": {
+        "text_de": "Büffel-Ziege (Chou-Wei): Erde clashed Erde. Finanzielle Einbußen, Partnerschaftskonflikte. Grundlagen erschüttert. Neuausrichtung nötig.",
+        "vektor": { "finanzen": 2, "beruf": 2, "liebe": 2, "veraenderung": 4 },
+        "clashed_elemente": "Erde vs. Erde",
+        "quelle": "Klassisch"
+      },
+      "yin_shen": {
+        "text_de": "Tiger-Affe (Yin-Shen): Holz clashed Metall. Reiseprobleme, Rechtsstreitigkeiten, persönliche Konflikte. Hohe Energie, aber in Konflikt.",
+        "vektor": { "soziales": 2, "veraenderung": 5, "beruf": 3, "gesundheit": 2 },
+        "clashed_elemente": "Holz vs. Metall",
+        "quelle": "Klassisch"
+      },
+      "mao_you": {
+        "text_de": "Hase-Hahn (Mao-You): Holz clashed Metall. Beziehungsbrüche, Trennung. Kreativität und Strenge in Konflikt. Emotionale Verluste möglich.",
+        "vektor": { "liebe": 1, "soziales": 2, "kreativitaet": 2, "veraenderung": 4 },
+        "clashed_elemente": "Holz vs. Metall",
+        "quelle": "Klassisch"
+      },
+      "chen_xu": {
+        "text_de": "Drache-Hund (Chen-Xu): Erde clashed Erde. Heimat- und Familienturbulenzen. Immobilienangelegenheiten komplex. Transformative Kraft.",
+        "vektor": { "soziales": 2, "finanzen": 2, "veraenderung": 5, "spiritualitaet": 3 },
+        "clashed_elemente": "Erde vs. Erde",
+        "quelle": "Klassisch"
+      },
+      "si_hai": {
+        "text_de": "Schlange-Schwein (Si-Hai): Feuer clashed Wasser. Gesundheitsprobleme (bes. Herz/Niere), chronischer Stress. Spirituelle Krisen und Durchbrüche.",
+        "vektor": { "gesundheit": 1, "spiritualitaet": 4, "veraenderung": 5, "beruf": 2 },
+        "clashed_elemente": "Feuer vs. Wasser",
+        "quelle": "Klassisch"
+      }
+    },
+
+    "liu_hai_harms": {
+      "_intro": "Liu Hai = 6 Harm-Relationen. Subtiler als Clashes, aber langanhaltend störend. Verursachen Missverständnisse, unterschwellige Feindschaft, soziale Komplikationen.",
+      "zi_wei": {
+        "text_de": "Ratte-Ziege (Zi-Wei): Emotionale Missverständnisse in Beziehungen. Fürsorge wird nicht anerkannt. Kommunikationsprobleme.",
+        "vektor": { "liebe": 2, "soziales": 2, "beruf": 3, "gesundheit": 3 }
+      },
+      "chou_wu_harm": {
+        "text_de": "Büffel-Pferd (Chou-Wu): Finanzielle Unterleibungen durch Impulsivität. Instabilität bei Karriereplänen. Ungeduld sabotiert Aufbau.",
+        "vektor": { "finanzen": 2, "beruf": 2, "veraenderung": 3, "gesundheit": 3 }
+      },
+      "yin_si": {
+        "text_de": "Tiger-Schlange (Yin-Si): Verdeckte Feindschaft, Intrigen. Scheinfreunde. Vorsicht bei neuen Partnerschaften und Verträgen.",
+        "vektor": { "soziales": 1, "beruf": 2, "liebe": 2, "spiritualitaet": 3 }
+      },
+      "mao_chen": {
+        "text_de": "Hase-Drache (Mao-Chen): Schöpferische Energie wird durch Struktur behindert. Künstlerische Frustrationen, bürokratische Hindernisse.",
+        "vektor": { "kreativitaet": 2, "beruf": 2, "liebe": 3, "veraenderung": 3 }
+      },
+      "shen_hai": {
+        "text_de": "Affe-Schwein (Shen-Hai): Intellekt und Idealismus in Konflikt. Strategien scheitern an der Realität. Finanzielle Enttäuschungen.",
+        "vektor": { "finanzen": 2, "beruf": 2, "spiritualitaet": 3, "kreativitaet": 3 }
+      },
+      "you_xu": {
+        "text_de": "Hahn-Hund (You-Xu): Perfektionismus trifft auf Loyalität — beide untergraben sich. Qualitätsprobleme trotz guter Absichten.",
+        "vektor": { "beruf": 2, "soziales": 2, "liebe": 3, "gesundheit": 3 }
+      }
+    },
+
+    "xing_punishments": {
+      "_intro": "Xing = Punishment-Relationen. Drei Typen: Ungrateful Punishment (Zi-Mao), Bullying Punishment (Yin-Si-Shen), Uncivilized Punishment (Chou-Xu-Wei). Plus selbst-strafende Branches.",
+      "zi_mao_undankbar": {
+        "branches": ["zi", "mao"],
+        "text_de": "Ratte-Hase: Undankbarkeitsmuster. Wohltaten werden nicht erwidert. Soziale Dynamiken aus dem Gleichgewicht. Karma-Muster sichtbar.",
+        "vektor": { "soziales": 2, "liebe": 2, "spiritualitaet": 4, "beruf": 3 }
+      },
+      "yin_si_shen_tyrannei": {
+        "branches": ["yin", "si", "shen"],
+        "text_de": "Tiger-Schlange-Affe: Tyrannei-Punishment. Machtkonflikte, autoritäres Verhalten, Unterdrückung. Wenn alle drei vorhanden: stark destabilisierend.",
+        "vektor": { "soziales": 1, "beruf": 2, "gesundheit": 2, "veraenderung": 5 }
+      },
+      "chou_xu_wei_unzivilisiert": {
+        "branches": ["chou", "xu", "wei"],
+        "text_de": "Büffel-Hund-Ziege: Unkultiviertes Punishment. Mangelnde Disziplin trotz guter Werte. Selbstsabotage. Schwierigkeiten mit Regeln und Institutionen.",
+        "vektor": { "beruf": 2, "finanzen": 2, "soziales": 2, "veraenderung": 4 }
+      },
+      "selbstbestrafung": {
+        "chen_chen": {
+          "text_de": "Drache-Drache: Selbstbestrafung. Perfektionismus, innere Kritik, Überarbeitung. Transformationsenergie nach innen gerichtet.",
+          "vektor": { "gesundheit": 2, "beruf": 3, "spiritualitaet": 4, "veraenderung": 4 }
+        },
+        "wu_wu": {
+          "text_de": "Pferd-Pferd: Selbstbestrafung. Ruhelosigkeit, Überengagement, Ausbrennen. Energie sucht Auslass, findet keinen.",
+          "vektor": { "gesundheit": 2, "beruf": 2, "liebe": 2, "veraenderung": 5 }
+        },
+        "hai_hai": {
+          "text_de": "Schwein-Schwein: Selbstbestrafung. Naivität sich selbst gegenüber. Spirituelle Überbelastung, emotionale Erschöpfung.",
+          "vektor": { "gesundheit": 2, "spiritualitaet": 3, "soziales": 2, "finanzen": 2 }
+        }
+      }
+    },
+
+    "po_destructions": {
+      "_intro": "Po (破) = Destructions. 6 Relationen, die begonnene Dinge zerstören. Projekte werden abrupt unterbrochen.",
+      "zi_you": {
+        "text_de": "Ratte-Hahn: Intelligenz und Perfektion sabotieren sich gegenseitig. Überdurchdachte Pläne scheitern an Ausführung.",
+        "vektor": { "beruf": 2, "finanzen": 2, "kreativitaet": 2, "veraenderung": 4 }
+      },
+      "chou_chen": {
+        "text_de": "Büffel-Drache: Aufbau und Vision im Widerspruch. Langfristige Projekte durch Übermut gefährdet.",
+        "vektor": { "finanzen": 2, "beruf": 2, "veraenderung": 4, "spiritualitaet": 3 }
+      },
+      "yin_hai_po": {
+        "text_de": "Tiger-Schwein: Mut und Idealismus gegenseitig destruktiv. Risikobereitschaft führt zu Verlusten.",
+        "vektor": { "finanzen": 1, "beruf": 2, "liebe": 3, "veraenderung": 5 }
+      },
+      "mao_wu": {
+        "text_de": "Hase-Pferd: Harmonie und Bewegung in Konflikt. Beziehungen werden durch Ungeduld zerstört.",
+        "vektor": { "liebe": 1, "soziales": 2, "beruf": 3, "veraenderung": 4 }
+      },
+      "si_shen_po": {
+        "text_de": "Schlange-Affe: Strategie und Cleverness sabotieren sich. Überschlaue Pläne durchschauen sich gegenseitig.",
+        "vektor": { "beruf": 2, "finanzen": 2, "soziales": 2, "veraenderung": 4 }
+      },
+      "wei_xu": {
+        "text_de": "Ziege-Hund: Empathie und Loyalität im Widerspruch. Fürsorge ohne Früchte. Missverstandene Absichten.",
+        "vektor": { "liebe": 2, "soziales": 2, "spiritualitaet": 3, "veraenderung": 3 }
+      }
+    }
+  },
+
+  "shen_sha": {
+    "_intro": "Shen Sha (神煞) = Göttliche Stars / Schicksalssterne. Werden aus dem Verhältnis von Geburtsjahr-Zweig (oder Day Branch) zu anderen Pillars berechnet. Die 12 wichtigsten für Schicksal, Karriere, Beziehungen und Gesundheit.",
+
+    "yi_ma_reisestern": {
+      "name_de": "Yi Ma — Reisestern / Wanderndes Pferd",
+      "berechnung": "Aus dem Geburtsjahr-Zweig: Si/You/Chou → Yin; Yin/Wu/Xu → Shen; Shen/Zi/Chen → Yin; Hai/Mao/Wei → Si",
+      "text_de": "Aktiviert Reisen, Ortswechsel, internationale Verbindungen. Wenn günstig (kombiniert): Beförderung durch Mobilität. Wenn clashed: erzwungener Ortswechsel, Unruhe.",
+      "aktiv_wenn": "Yi Ma-Branch clashed oder im Luck/Year Pillar",
+      "vektor_guenstig": { "beruf": 4, "veraenderung": 5, "soziales": 4, "finanzen": 3 },
+      "vektor_unguenstig": { "veraenderung": 5, "gesundheit": 2, "liebe": 2, "beruf": 2 },
+      "quelle": "Tong Shu / Joey Yap"
+    },
+
+    "tian_yi_guiren": {
+      "name_de": "Tian Yi Gui Ren — Himmlischer Edler / Glücksstern",
+      "berechnung": "Aus dem Day Stem: Jia/Wu → Chou/Wei; Yi/Ji → Zi/Shen; Bing/Ding → Hai/You; Geng/Xin → Yin/Wu; Ren/Gui → Mao/Si",
+      "text_de": "Stärkster Glücksstern. Wenn im Chart aktiv: Rettung in der Not durch Helfer, Gönner oder glückliche Umstände. Besonders günstig in Stunden/Jahren der entsprechenden Branches.",
+      "aktiv_wenn": "Entsprechender Branch in Luck Pillar, Year Pillar oder Hour Pillar",
+      "vektor": { "beruf": 5, "finanzen": 4, "soziales": 5, "gesundheit": 4, "liebe": 4 },
+      "quelle": "Klassisch / Tong Shu"
+    },
+
+    "tao_hua_liebesstern": {
+      "name_de": "Tao Hua — Pfirsichblüte / Liebesstern",
+      "berechnung": "Aus dem Geburtsjahr-Zweig: Si/You/Chou → Wu; Yin/Wu/Xu → Mao; Shen/Zi/Chen → You; Hai/Mao/Wei → Zi",
+      "text_de": "Aktiviert romantische Anziehung, Charme, soziale Popularität. Günstig für Künstler und Performer. Wenn übermäßig: Ausschweifung, emotionale Abhängigkeit.",
+      "aktiv_wenn": "Tao Hua-Branch im Luck oder Year Pillar",
+      "vektor_guenstig": { "liebe": 5, "soziales": 5, "kreativitaet": 4, "beruf": 3 },
+      "vektor_unguenstig": { "liebe": 2, "finanzen": 2, "gesundheit": 2, "veraenderung": 4 },
+      "quelle": "Joey Yap / Tong Shu"
+    },
+
+    "tian_de_guiren": {
+      "name_de": "Tian De Gui Ren — Himmlische Tugend",
+      "berechnung": "Liegt im Geburtsmonat-Branch in bestimmten Pillar-Positionen (Monat-Branch-Formel)",
+      "text_de": "Schutz vor Unfällen und Krankheit. Verhindert Schlimmeres. Menschen mit diesem Stern kommen glimpflich davon. Günstig für Gesundheitsberufe.",
+      "vektor": { "gesundheit": 5, "spiritualitaet": 4, "soziales": 4, "beruf": 3 },
+      "quelle": "Klassisch"
+    },
+
+    "yue_de_guiren": {
+      "name_de": "Yue De Gui Ren — Mondtugend",
+      "berechnung": "Aus Geburtsmonat: Yin/Wu/Xu-Monate → Bing; Shen/Zi/Chen-Monate → Ren; Si/You/Chou-Monate → Jia; Hai/Mao/Wei-Monate → Geng",
+      "text_de": "Ähnlich Tian De, aber mondbasiert. Mitgefühl, spirituelle Führung, Schutz durch weibliche Energie. Rettung in letzter Minute.",
+      "vektor": { "spiritualitaet": 5, "gesundheit": 4, "liebe": 4, "soziales": 4 },
+      "quelle": "Tong Shu"
+    },
+
+    "jiang_xing_generalstern": {
+      "name_de": "Jiang Xing — General-Stern",
+      "berechnung": "Aus Geburtsjahr-Zweig durch feste Tabelle",
+      "text_de": "Führungsqualität, militärische oder unternehmerische Autorität. Gut für Management, Sport, Militär. Risiko: Dominanz, Arroganz.",
+      "aktiv_wenn": "Im Hour oder Day Pillar",
+      "vektor_guenstig": { "beruf": 5, "soziales": 4, "finanzen": 4 },
+      "vektor_herausfordernd": { "liebe": 2, "soziales": 2, "spiritualitaet": 2 },
+      "quelle": "Klassisch"
+    },
+
+    "gua_su_einsamkeitsstern": {
+      "name_de": "Gu Xing / Gua Su — Einsamkeitsstern / Witwen-Stern",
+      "berechnung": "Gu Xing: Si/You/Chou → Yin; Yin/Wu/Xu → Si; Shen/Zi/Chen → Si; Hai/Mao/Wei → Shen. Gua Su: entgegengesetzt.",
+      "text_de": "Neigung zur Einsamkeit, Einzelgängertum, Schwierigkeit in engen Beziehungen. Gut für spirituelle Praxis, Wissenschaft, Forschung. Ehe oft herausfordernd.",
+      "vektor": { "liebe": 2, "soziales": 2, "spiritualitaet": 5, "kreativitaet": 4, "beruf": 4 },
+      "quelle": "Joey Yap / Klassisch"
+    },
+
+    "tian_luo_di_wang": {
+      "name_de": "Tian Luo / Di Wang — Himmelsnetz / Erdkönig",
+      "berechnung": "Tian Luo: Chen (Drache); Di Wang: Xu (Hund) — wenn in bestimmten Pillar-Positionen",
+      "text_de": "Einschränkungen durch höhere Mächte oder Institutionen. Gesetze, Bürokratie, Steuern. Wenn positiv genutzt: Schutz durch Struktur. Wenn negativ: Falle.",
+      "vektor": { "beruf": 2, "veraenderung": 3, "spiritualitaet": 4, "gesundheit": 3 },
+      "quelle": "Klassisch"
+    },
+
+    "xue_ren_blutstern": {
+      "name_de": "Xue Ren — Blutstern / Scharfklinge",
+      "berechnung": "Aus Month Branch durch Formel: Yin → You; Mao → Shen; etc.",
+      "text_de": "Hinweis auf chirurgische Eingriffe, Unfälle, erzwungene körperliche Einschnitte. Wenn gut aspektiert: Chirurgen, Handwerker. Vorsicht bei Unfallrisiken.",
+      "vektor": { "gesundheit": 2, "beruf": 3, "veraenderung": 4, "spiritualitaet": 3 },
+      "quelle": "Tong Shu"
+    },
+
+    "tian_yi_guishen_akademisch": {
+      "name_de": "Wen Chang — Akademischer Stern",
+      "berechnung": "Aus Day Stem: Jia → Si; Yi → Wu; Bing → Shen; Ding → You; Wu → Shen; Ji → You; Geng → Hai; Xin → Zi; Ren → Yin; Gui → Mao",
+      "text_de": "Stärkt intellektuelle Fähigkeiten, Schreiben, akademischen Erfolg. Prüfungen günstig. Lehrberufe gefördert. Literarisches Talent.",
+      "aktiv_wenn": "Wen Chang-Branch in Hour, Day oder Year Pillar",
+      "vektor": { "beruf": 4, "kreativitaet": 5, "soziales": 3, "spiritualitaet": 4 },
+      "quelle": "Joey Yap / Tong Shu"
+    },
+
+    "tai_ji_gua_stern": {
+      "name_de": "Tai Ji Gua — Höchster Ultimativer Stern",
+      "berechnung": "Aus Day Branch: Zi/Wu → Zi/Wu; Chou/Wei → Chou/Wei; Yin/Shen → Yin/Shen; Mao/You → Mao/You; Chen/Xu → Chen/Xu; Si/Hai → Si/Hai",
+      "text_de": "Spirituelle Klarheit, metaphysisches Verständnis, mediale Fähigkeiten. Menschen mit diesem Stern haben oft Interesse an Esoterik, Religion oder Philosophie.",
+      "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "beruf": 3, "liebe": 3 },
+      "quelle": "Klassisch"
+    },
+
+    "sui_po_jahresbrecher": {
+      "name_de": "Sui Po — Jahresbrecher",
+      "berechnung": "Branch direkt gegenüber dem aktuellen Jahreszweig (z.B. Jahr Zi → Sui Po Wu)",
+      "text_de": "Das Jahr des Sui Po ist gefährlich für Aktivitäten, Reisen, neue Projekte. Gesundheit besonders schützen. Günstig für Rückzug, Meditation, innere Arbeit.",
+      "vektor": { "gesundheit": 2, "beruf": 2, "veraenderung": 4, "spiritualitaet": 4 },
+      "quelle": "Tong Shu"
+    }
+  },
+
+  "stem_kombinationen_60_jiazi": {
+    "_intro": "Der 60-Jia-Zi-Zyklus kombiniert alle 10 Heavenly Stems mit allen 12 Earthly Branches. Nur 60 (nicht 120) Kombinationen entstehen durch die Parität von Yin/Yang (Stems und Branches sind jeweils Yang+Yang oder Yin+Yin). Jede Kombination trägt eine einzigartige Energie.",
+
+    "1_jia_zi":   { "stem": "jia", "branch": "zi", "text_de": "Holz-Yang auf Wasser-Rat: Visionärer Start. Wachstumspotenzial enorm. Intellektuell stark, kreative Pionierarbeit.",
+                    "vektor": { "kreativitaet": 5, "beruf": 4, "veraenderung": 4 } },
+    "2_yi_chou":  { "stem": "yi", "branch": "chou", "text_de": "Holz-Yin auf Erde-Büffel: Flexible Anpassung an stabile Strukturen. Geduld zahlt sich aus.",
+                    "vektor": { "finanzen": 4, "beruf": 4, "liebe": 3 } },
+    "3_bing_yin": { "stem": "bing", "branch": "yin", "text_de": "Feuer-Yang auf Holz-Tiger: Explosive Energie, Führung, Risiko. Charismatisch aber impulsiv.",
+                    "vektor": { "beruf": 5, "veraenderung": 5, "soziales": 4 } },
+    "4_ding_mao": { "stem": "ding", "branch": "mao", "text_de": "Feuer-Yin auf Holz-Hase: Sanftes Feuer, künstlerische Intelligenz, emotionale Tiefe.",
+                    "vektor": { "kreativitaet": 5, "liebe": 4, "spiritualitaet": 4 } },
+    "5_wu_chen":  { "stem": "wu", "branch": "chen", "text_de": "Erde-Yang auf Erde-Drache: Doppelte Erde mit Drachen-Vision. Stabile Transformation, starker Wille.",
+                    "vektor": { "beruf": 5, "finanzen": 4, "veraenderung": 4 } },
+    "6_ji_si":    { "stem": "ji", "branch": "si", "text_de": "Erde-Yin auf Feuer-Schlange: Subtile Intelligenz, strategische Geduld, verborgene Stärke.",
+                    "vektor": { "beruf": 4, "finanzen": 4, "spiritualitaet": 4 } },
+    "7_geng_wu":  { "stem": "geng", "branch": "wu", "text_de": "Metall-Yang auf Feuer-Pferd: Stärke trifft Bewegung. Kampfgeist, Entschlossenheit, Durchsetzung.",
+                    "vektor": { "beruf": 5, "veraenderung": 4, "gesundheit": 3 } },
+    "8_xin_wei":  { "stem": "xin", "branch": "wei", "text_de": "Metall-Yin auf Erde-Ziege: Ästhetische Fürsorge, Qualitätsbewusstsein, Empathie.",
+                    "vektor": { "kreativitaet": 5, "liebe": 4, "beruf": 4 } },
+    "9_ren_shen": { "stem": "ren", "branch": "shen", "text_de": "Wasser-Yang auf Metall-Affe: Höchste Intelligenz-Kombination. Schnelldenker, strategisch brillant.",
+                    "vektor": { "beruf": 5, "kreativitaet": 5, "finanzen": 4 } },
+    "10_gui_you": { "stem": "gui", "branch": "you", "text_de": "Wasser-Yin auf Metall-Hahn: Tiefe Intuition kombiniert mit Präzision. Analytisch-intuitiver Genius.",
+                    "vektor": { "spiritualitaet": 5, "beruf": 4, "kreativitaet": 4 } },
+    "11_jia_xu":  { "stem": "jia", "branch": "xu", "text_de": "Holz-Yang auf Erde-Hund: Pioniergeist auf treuestem Grund. Idealismus mit Loyalität.",
+                    "vektor": { "soziales": 5, "beruf": 4, "spiritualitaet": 3 } },
+    "12_yi_hai":  { "stem": "yi", "branch": "hai", "text_de": "Holz-Yin auf Wasser-Schwein: Sanftes Wachstum in tiefen Gewässern. Kreativ, spirituell, großzügig.",
+                    "vektor": { "kreativitaet": 4, "spiritualitaet": 5, "liebe": 4 } },
+    "13_bing_zi": { "stem": "bing", "branch": "zi", "text_de": "Feuer-Yang auf Wasser-Ratte: Feuer auf Wasser — Spannung zwischen Visibilität und Tiefe. Kreativ-explosiv.",
+                    "vektor": { "kreativitaet": 5, "veraenderung": 4, "beruf": 4 } },
+    "14_ding_chou":{ "stem": "ding", "branch": "chou", "text_de": "Feuer-Yin auf Erde-Büffel: Inneres Feuer in stabiler Erde. Ausdauernde Energie, beharrliches Arbeiten.",
+                    "vektor": { "beruf": 4, "finanzen": 4, "gesundheit": 4 } },
+    "15_wu_yin":  { "stem": "wu", "branch": "yin", "text_de": "Erde-Yang auf Holz-Tiger: Stabilität und Mut vereint. Verlässliche Führungspersönlichkeit.",
+                    "vektor": { "beruf": 5, "soziales": 4, "finanzen": 3 } },
+    "16_ji_mao":  { "stem": "ji", "branch": "mao", "text_de": "Erde-Yin auf Holz-Hase: Fürsorge trifft Diplomatie. Soziale Harmonie, geschäftlicher Instinkt.",
+                    "vektor": { "soziales": 5, "liebe": 4, "beruf": 4 } },
+    "17_geng_chen":{ "stem": "geng", "branch": "chen", "text_de": "Metall-Yang auf Erde-Drache: Stärke und Vision. Mächtige Karrierekombination, unerbittlich.",
+                    "vektor": { "beruf": 5, "finanzen": 4, "veraenderung": 4 } },
+    "18_xin_si":  { "stem": "xin", "branch": "si", "text_de": "Metall-Yin auf Feuer-Schlange: Verfeinerung unter Druck. Edelstein-Energie. Brillanz durch Herausforderung.",
+                    "vektor": { "kreativitaet": 5, "spiritualitaet": 4, "beruf": 4 } },
+    "19_ren_wu":  { "stem": "ren", "branch": "wu", "text_de": "Wasser-Yang auf Feuer-Pferd: Dynamische Spannung. Reisen, Abenteuer, internationale Karriere.",
+                    "vektor": { "veraenderung": 5, "beruf": 4, "soziales": 4 } },
+    "20_gui_wei": { "stem": "gui", "branch": "wei", "text_de": "Wasser-Yin auf Erde-Ziege: Tiefe Empathie, intuitives Mitgefühl, heilende Energie.",
+                    "vektor": { "liebe": 5, "spiritualitaet": 5, "soziales": 4 } },
+    "21_jia_shen":{ "stem": "jia", "branch": "shen", "text_de": "Holz-Yang auf Metall-Affe: Expansiver Geist trifft clevere Strategie. Unternehmerischer Erfolg.",
+                    "vektor": { "beruf": 5, "finanzen": 4, "kreativitaet": 4 } },
+    "22_yi_you":  { "stem": "yi", "branch": "you", "text_de": "Holz-Yin auf Metall-Hahn: Diplomatie trifft Präzision. Ästhetisch-analytische Stärke.",
+                    "vektor": { "kreativitaet": 5, "beruf": 4, "finanzen": 4 } },
+    "23_bing_xu": { "stem": "bing", "branch": "xu", "text_de": "Feuer-Yang auf Erde-Hund: Leidenschaft und Loyalität. Karismatische Führung mit Integrität.",
+                    "vektor": { "beruf": 5, "soziales": 4, "liebe": 4 } },
+    "24_ding_hai":{ "stem": "ding", "branch": "hai", "text_de": "Feuer-Yin auf Wasser-Schwein: Inneres Licht in großzügigen Gewässern. Spirituelle Wärme.",
+                    "vektor": { "spiritualitaet": 5, "liebe": 5, "kreativitaet": 4 } },
+    "25_wu_zi":   { "stem": "wu", "branch": "zi", "text_de": "Erde-Yang auf Wasser-Ratte: Damm-Energie. Kontrolle über emotionale Fluten. Strategische Ruhe.",
+                    "vektor": { "beruf": 4, "finanzen": 4, "gesundheit": 4 } },
+    "26_ji_chou": { "stem": "ji", "branch": "chou", "text_de": "Erde-Yin auf Erde-Büffel: Doppelte Erde. Äußerste Stabilität, Konservatismus, Beständigkeit.",
+                    "vektor": { "finanzen": 5, "gesundheit": 4, "veraenderung": 2 } },
+    "27_geng_yin":{ "stem": "geng", "branch": "yin", "text_de": "Metall-Yang auf Holz-Tiger: Kraft und Mut. Kriegergeist, mutige Entscheidungen, Pionierarbeit.",
+                    "vektor": { "beruf": 5, "veraenderung": 5, "soziales": 3 } },
+    "28_xin_mao": { "stem": "xin", "branch": "mao", "text_de": "Metall-Yin auf Holz-Hase: Feines Metall auf sanftem Holz. Hochästhetisch, kunstfertig, charmant.",
+                    "vektor": { "kreativitaet": 5, "liebe": 5, "soziales": 4 } },
+    "29_ren_chen":{ "stem": "ren", "branch": "chen", "text_de": "Wasser-Yang auf Erde-Drache: Ozean des Drachen. Immense Schöpferkraft, internationale Wirkung.",
+                    "vektor": { "kreativitaet": 5, "beruf": 5, "veraenderung": 4 } },
+    "30_gui_si":  { "stem": "gui", "branch": "si", "text_de": "Wasser-Yin auf Feuer-Schlange: Regen auf Flamme. Geheimnisvolle Tiefe, intuitive Weisheit.",
+                    "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "liebe": 3 } },
+    "31_jia_wu":  { "stem": "jia", "branch": "wu", "text_de": "Holz-Yang auf Feuer-Pferd: Wald in Flammen. Maximale Energie, Sichtbarkeit, Führungsdrang.",
+                    "vektor": { "beruf": 5, "soziales": 5, "veraenderung": 4 } },
+    "32_yi_wei":  { "stem": "yi", "branch": "wei", "text_de": "Holz-Yin auf Erde-Ziege: Blumengarten-Energie. Kreativität, Schönheit, soziale Harmonie.",
+                    "vektor": { "kreativitaet": 5, "liebe": 5, "soziales": 4 } },
+    "33_bing_shen":{ "stem": "bing", "branch": "shen", "text_de": "Feuer-Yang auf Metall-Affe: Schmiedefeuer. Clevere Führung, technisches Talent, Stärke.",
+                    "vektor": { "beruf": 5, "kreativitaet": 4, "finanzen": 4 } },
+    "34_ding_you":{ "stem": "ding", "branch": "you", "text_de": "Feuer-Yin auf Metall-Hahn: Feinschmiede. Perfektionismus, ästhetische Brillanz, Qualitätsarbeit.",
+                    "vektor": { "kreativitaet": 5, "beruf": 5, "finanzen": 4 } },
+    "35_wu_xu":   { "stem": "wu", "branch": "xu", "text_de": "Erde-Yang auf Erde-Hund: Bergkette. Unverrückbare Stabilität, Loyalität, Schutz.",
+                    "vektor": { "gesundheit": 5, "soziales": 4, "finanzen": 4 } },
+    "36_ji_hai":  { "stem": "ji", "branch": "hai", "text_de": "Erde-Yin auf Wasser-Schwein: Weiche Erde im Wasser. Fürsorge und Großzügigkeit, spirituelle Neigung.",
+                    "vektor": { "liebe": 5, "spiritualitaet": 4, "soziales": 4 } },
+    "37_geng_zi": { "stem": "geng", "branch": "zi", "text_de": "Metall-Yang auf Wasser-Ratte: Schwert im Wasser. Scharfer Intellekt, strategische Präzision.",
+                    "vektor": { "beruf": 5, "kreativitaet": 4, "finanzen": 4 } },
+    "38_xin_chou":{ "stem": "xin", "branch": "chou", "text_de": "Metall-Yin auf Erde-Büffel: Edelmetall im Boden. Versteckter Reichtum, Ausdauer, Qualität.",
+                    "vektor": { "finanzen": 5, "beruf": 4, "gesundheit": 4 } },
+    "39_ren_yin": { "stem": "ren", "branch": "yin", "text_de": "Wasser-Yang auf Holz-Tiger: Fluss trifft Tiger. Expansiver Intellekt, mutige Kreativität, Reisen.",
+                    "vektor": { "veraenderung": 5, "kreativitaet": 4, "beruf": 4 } },
+    "40_gui_mao": { "stem": "gui", "branch": "mao", "text_de": "Wasser-Yin auf Holz-Hase: Regen auf Blüten. Sanfte Intuition, künstlerische Zartheit, Romantik.",
+                    "vektor": { "liebe": 5, "kreativitaet": 5, "spiritualitaet": 4 } },
+    "41_jia_chen":{ "stem": "jia", "branch": "chen", "text_de": "Holz-Yang auf Erde-Drache: Baum auf Drachenberg. Visionäre Pionierarbeit, Durchbrüche.",
+                    "vektor": { "beruf": 5, "veraenderung": 5, "kreativitaet": 4 } },
+    "42_yi_si":   { "stem": "yi", "branch": "si", "text_de": "Holz-Yin auf Feuer-Schlange: Rankenpflanze und Feuer. Strategische Flexibilität, verborgen stark.",
+                    "vektor": { "beruf": 4, "spiritualitaet": 4, "kreativitaet": 4 } },
+    "43_bing_wu": { "stem": "bing", "branch": "wu", "text_de": "Feuer-Yang auf Feuer-Pferd: Doppeltes Feuer. Maximale Ausstrahlung, Intensität. Burnout-Risiko.",
+                    "vektor": { "soziales": 5, "beruf": 4, "gesundheit": 2 } },
+    "44_ding_wei":{ "stem": "ding", "branch": "wei", "text_de": "Feuer-Yin auf Erde-Ziege: Kerzenwärme auf sanfter Erde. Fürsorgendes Feuer, emotionale Güte.",
+                    "vektor": { "liebe": 5, "soziales": 4, "kreativitaet": 4 } },
+    "45_wu_shen": { "stem": "wu", "branch": "shen", "text_de": "Erde-Yang auf Metall-Affe: Robuste Erde formt Metall. Solide Strategie, zuverlässige Intelligenz.",
+                    "vektor": { "beruf": 5, "finanzen": 5, "gesundheit": 4 } },
+    "46_ji_you":  { "stem": "ji", "branch": "you", "text_de": "Erde-Yin auf Metall-Hahn: Feine Erde poliert Metall. Detailpräzision, Verwaltungstalent.",
+                    "vektor": { "beruf": 5, "finanzen": 4, "kreativitaet": 3 } },
+    "47_geng_xu": { "stem": "geng", "branch": "xu", "text_de": "Metall-Yang auf Erde-Hund: Schwert auf Hündeberg. Unerschütterliche Entschlossenheit, Gerechtigkeit.",
+                    "vektor": { "beruf": 5, "soziales": 4, "spiritualitaet": 3 } },
+    "48_xin_hai": { "stem": "xin", "branch": "hai", "text_de": "Metall-Yin auf Wasser-Schwein: Silber im Ozean. Verborgen wertvolle Weisheit, spirituelle Raffinesse.",
+                    "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "liebe": 4 } },
+    "49_ren_zi":  { "stem": "ren", "branch": "zi", "text_de": "Wasser-Yang auf Wasser-Ratte: Doppelwasser-Energie. Extreme Intellektualität, Intuition und Tiefe.",
+                    "vektor": { "spiritualitaet": 5, "kreativitaet": 5, "beruf": 4 } },
+    "50_gui_chou":{ "stem": "gui", "branch": "chou", "text_de": "Wasser-Yin auf Erde-Büffel: Regen auf frostige Erde. Ausdauer unter Schwierigkeiten, innere Stärke.",
+                    "vektor": { "finanzen": 4, "gesundheit": 3, "spiritualitaet": 4 } },
+    "51_jia_yin": { "stem": "jia", "branch": "yin", "text_de": "Holz-Yang auf Holz-Tiger: Doppelholz. Expansivste Wachstumsenergie. Führung, Größe, Risiko.",
+                    "vektor": { "beruf": 5, "veraenderung": 5, "kreativitaet": 4 } },
+    "52_yi_mao":  { "stem": "yi", "branch": "mao", "text_de": "Holz-Yin auf Holz-Hase: Doppelholz Yin. Reine Harmonie, Künstlernatur, soziale Gabe.",
+                    "vektor": { "kreativitaet": 5, "liebe": 5, "soziales": 5 } },
+    "53_bing_chen":{ "stem": "bing", "branch": "chen", "text_de": "Feuer-Yang auf Erde-Drache: Sonne auf Drachen. Visionäre Führung, strahlende Autorität.",
+                    "vektor": { "beruf": 5, "soziales": 5, "veraenderung": 4 } },
+    "54_ding_si": { "stem": "ding", "branch": "si", "text_de": "Feuer-Yin auf Feuer-Schlange: Doppelfeuer. Intensität, Tiefe, Spiritualität. Erschöpfungsrisiko.",
+                    "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "gesundheit": 2 } },
+    "55_wu_wu":   { "stem": "wu", "branch": "wu", "text_de": "Erde-Yang auf Feuer-Pferd: Aktion und Stabilität. Verlässliche Energie, aber auch Selbstbestrafungs-Muster.",
+                    "vektor": { "beruf": 4, "finanzen": 3, "gesundheit": 3 } },
+    "56_ji_wei":  { "stem": "ji", "branch": "wei", "text_de": "Erde-Yin auf Erde-Ziege: Doppelerde Yin. Maximale Fürsorge, emotionale Tiefe, stille Stärke.",
+                    "vektor": { "liebe": 5, "soziales": 5, "gesundheit": 4 } },
+    "57_geng_shen":{ "stem": "geng", "branch": "shen", "text_de": "Metall-Yang auf Metall-Affe: Doppelmetall. Scharfster Intellekt, härteste Entschlossenheit.",
+                    "vektor": { "beruf": 5, "finanzen": 5, "soziales": 2 } },
+    "58_xin_you": { "stem": "xin", "branch": "you", "text_de": "Metall-Yin auf Metall-Hahn: Reinstes Metall. Vollendeter Perfektionismus, höchste Präzision.",
+                    "vektor": { "beruf": 5, "kreativitaet": 5, "liebe": 2 } },
+    "59_ren_xu":  { "stem": "ren", "branch": "xu", "text_de": "Wasser-Yang auf Erde-Hund: Fluss durch Berge. Beharrlichkeit überwindet alle Hindernisse.",
+                    "vektor": { "beruf": 4, "spiritualitaet": 4, "veraenderung": 4 } },
+    "60_gui_hai": { "stem": "gui", "branch": "hai", "text_de": "Wasser-Yin auf Wasser-Schwein: Doppelwasser Yin. Tiefste Intuition, kosmische Weisheit, Ende eines Zyklus.",
+                    "vektor": { "spiritualitaet": 5, "kreativitaet": 5, "liebe": 4 } }
+  }
+}

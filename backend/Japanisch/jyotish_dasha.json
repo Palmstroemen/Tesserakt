@@ -1,0 +1,573 @@
+{
+  "_meta": {
+    "system": "jyotish",
+    "modul": "vimshottari_dasha",
+    "version": "1.0",
+    "gespraech": "J2",
+    "sources": [
+      "Parashara - Brihat Parashara Hora Shastra (BPHS, ca. 600-800 n. Chr., R. Santhanam Übersetzung 1984, public domain AT/EU)",
+      "Mantreswara - Phaladeepika (ca. 13. Jhd., G.S. Kapoor Übersetzung, public domain AT/EU)",
+      "Kalyana Varma - Saravali (ca. 800 n. Chr., Bangalore Sureshwara Übersetzung, public domain AT/EU)",
+      "Vaidyanatha Dikshita - Jataka Parijata (ca. 16. Jhd., public domain)",
+      "Varahamihira - Brihat Jataka (ca. 550 n. Chr., B. Suryanarain Rao Übersetzung 1905, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Jyotish — Vimshottari Dasha-System. Das vollständige System der planetaren Lebensperioden (Mahadasha, Antardasha, Pratyantardasha) inkl. Berechnung, 9 Hauptperioden-Profile, 81 Antardasha-Qualitäten (9×9 Matrix), Dasha-Bhukti-Deutungsregeln, Haus-Aktivierung durch Dasha-Lord, Sonderregeln für günstige/ungünstige Perioden und Cross-System-Synthese.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog jyotish_nakshatras.json",
+    "bezug_zu_anderen_modulen": {
+      "jyotish_nakshatras_json": "Nakshatra-Lord des Geburtsmondes = erster Mahadasha-Lord. Kernverbindung zu J1.",
+      "jyotish_yogas_json": "Yoga-Stärke im Horoskop modifiziert Dasha-Wirkung. J3.",
+      "arabisch_firdaria_json": "Strukturelle Parallele: Firdaria (75-J.-Zyklus, 9 Planeten) ↔ Vimshottari (120-J.-Zyklus, 9 Planeten). A2.",
+      "hell_zeitherren_json": "Zodiacal Releasing ↔ Vimshottari: beide Techniken nutzen planetare Lebensabschnitte mit unterschiedlichen Berechnungsbasen. H3.",
+      "bazi_rules_complete_json": "Dayun (Bazi-Dekaden-Pfeiler, 10 J.) ↔ Mahadasha: analoges Prinzip planetarer/stelarer Lebenszyklen."
+    }
+  },
+
+  "system_uebersicht": {
+    "name_vollstaendig": "Vimshottari Dasha (विंशोत्तरी दशा)",
+    "name_bedeutung": "Sanskrit: 'vimshottari' = 120; 'dasha' = Periode/Zustand. Wörtlich: 'Das System der 120 Jahre'.",
+    "beschreibung": "Das Vimshottari Dasha-System ist das wichtigste Prognosewerkzeug der Jyotish-Astrologie. Es unterteilt das menschliche Leben in aufeinanderfolgende Perioden, die jeweils von einem der 9 Planeten (Graha) regiert werden. Der Gesamtzyklus beträgt 120 Jahre und beginnt mit dem Nakshatra-Lord des Geburtmondes. Parashara nennt es 'das beste aller Dasha-Systeme für präzise Lebensvorhersage'.",
+    "quelle": "Parashara - BPHS Kap. 46 (Santhanam Bd. 2, S. 1-15); Mantreswara - Phaladeepika Kap. 20",
+
+    "grundprinzip": {
+      "beschreibung": "Jeder der 9 Planeten (Sonne, Mond, Mars, Rahu, Jupiter, Saturn, Merkur, Ketu, Venus — in dieser festen Reihenfolge) regiert eine Hauptperiode (Mahadasha) von bestimmter Dauer. Die Reihenfolge ist unveränderlich; der Einstiegspunkt im Zyklus wird durch das Geburts-Nakshatra bestimmt.",
+      "quelle": "Parashara - BPHS Kap. 46",
+      "gesamt_zyklus_jahre": 120,
+      "anzahl_planeten": 9,
+      "reihenfolge": ["Ketu","Venus","Sonne","Mond","Mars","Rahu","Jupiter","Saturn","Merkur"]
+    },
+
+    "dasha_ebenen": {
+      "mahadasha": "Hauptperiode — regiert von einem Planeten. Dauer: 7–20 Jahre. Setzt den Grundton eines Lebensabschnittes.",
+      "antardasha": "Unterperiode (Bhukti) — innerhalb jeder Mahadasha folgen alle 9 Planeten als Unterherrscher in derselben Reihenfolge, beginnend mit dem Mahadasha-Herrn selbst.",
+      "pratyantardasha": "Unter-Unterperiode — innerhalb jeder Antardasha abermals alle 9 Planeten. Für präzises Timing von Ereignissen.",
+      "sookshma_dasha": "Vierte Ebene — selten verwendet, für sehr präzises kurzfristiges Timing.",
+      "quelle": "Parashara - BPHS Kap. 46-48"
+    },
+
+    "berechnung_startpunkt": {
+      "schritt_1": "Geburts-Nakshatra bestimmen: In welchem der 27 Nakshatras steht der Geburtsmond? (Siderischer Tierkreis / Lahari-Ayanamsha)",
+      "schritt_2": "Nakshatra-Lord identifizieren: Jedes Nakshatra hat einen festen Herrn (z.B. Ashwini=Ketu, Bharani=Venus, Krittika=Sonne…). Dieser ist der erste Mahadasha-Lord.",
+      "schritt_3": "Verbleibende Erstperiode berechnen: Der Mond hat das Geburts-Nakshatra bereits teilweise durchlaufen. Die verbleibende Dasha-Zeit errechnet sich proportional: (Verbleibende Nakshatra-Grad / 13°20') × Mahadasha-Dauer.",
+      "schritt_4": "Vollständige Sequenz: Nach Ablauf der Erstperiode folgen die verbleibenden 8 Planeten in der Standardreihenfolge, bis der 120-Jahre-Zyklus vollendet ist.",
+      "beispiel": "Geburtsmond bei 6°40' Bharani (Venus-Nakshatra). Bharani: 13°20'-26°40' Widder. Mond bei 6°40' Widder = noch im Nakshatra, hat 0°00' der Bharani-Range durchlaufen. Da Venus-Mahadasha 20 Jahre dauert: volle 20 Jahre Venus-Dasha. Hätte der Mond 6°40' von 13°20' durchlaufen = 50% → verbleibende Dasha = 10 Jahre.",
+      "quelle": "Parashara - BPHS Kap. 46 (Santhanam Bd. 2, S. 1-5)"
+    },
+
+    "vergleich_firdaria": {
+      "gemeinsamkeiten": "Beide: feste Reihenfolge planetarer Hauptperioden; Einstiegspunkt durch Geburtshoroskop bestimmt; Untergliederung in Sub-Perioden; 9 Zeitherren (Vimshottari: 9 Graha; Firdaria: 7 Planeten + 2 Knoten = 9).",
+      "unterschiede": "Vimshottari: 120 Jahre Gesamtzyklus; Startpunkt durch Mond-Nakshatra; alle 9 Planeten wiederholen sich in Antardasha. Firdaria: 75 Jahre Gesamtzyklus; Startpunkt durch Tag/Nacht-Horoskop; Sub-Perioden nur 7 Planeten × Hauptperiode.",
+      "quelle": "Vgl. Abu Ma'shar - Introductorium Maius (ca. 850 n. Chr.); Parashara - BPHS Kap. 46"
+    }
+  },
+
+  "mahadasha_dauern": {
+    "ketu":    {"jahre": 7,  "nakshatra_lords": ["Ashwini","Magha","Mula"]},
+    "venus":   {"jahre": 20, "nakshatra_lords": ["Bharani","Purva Phalguni","Purva Ashadha"]},
+    "sonne":   {"jahre": 6,  "nakshatra_lords": ["Krittika","Uttara Phalguni","Uttara Ashadha"]},
+    "mond":    {"jahre": 10, "nakshatra_lords": ["Rohini","Hasta","Shravana"]},
+    "mars":    {"jahre": 7,  "nakshatra_lords": ["Mrigashira","Chitra","Dhanishta"]},
+    "rahu":    {"jahre": 18, "nakshatra_lords": ["Ardra","Swati","Shatabhisha"]},
+    "jupiter": {"jahre": 16, "nakshatra_lords": ["Punarvasu","Vishakha","Purva Bhadrapada"]},
+    "saturn":  {"jahre": 19, "nakshatra_lords": ["Pushya","Anuradha","Uttara Bhadrapada"]},
+    "merkur":  {"jahre": 17, "nakshatra_lords": ["Ashlesha","Jyeshtha","Revati"]},
+    "quelle": "Parashara - BPHS Kap. 46; Mantreswara - Phaladeepika Kap. 20"
+  },
+
+  "mahadasha_profile": {
+
+    "ketu_mahadasha": {
+      "planet": "Ketu",
+      "dauer_jahre": 7,
+      "symbol": "☋",
+      "natur_jyotish": "Moksha-Karaka, südlicher Mondknoten, spirituelle Ablösung, Ketu ist ein Schatten-Planet (Chaya Graha) ohne physischen Körper. Asketisch, spirituell, separativ. Gibt Ergebnisse wie Mars.",
+      "hauptthemen": "Loslösung, spirituelles Erwachen, verborgene Fähigkeiten aus vergangenen Leben, Isolation, unerwartete Veränderungen, Gesundheit durch psychosomatische Faktoren, mystische Erfahrungen.",
+      "typische_ereignisse": ["Rückzug vom Materiellen", "Spirituelle Suche intensiviert sich", "Unerwartete Trennungen", "Wiederentdeckung vergangener Talente", "Gesundheitliche Krisen möglich (Mars-Natur)", "Ortswechsel oder innere Wanderung"],
+      "chancen": "Spirituelle Vertiefung, Befreiung von alten Mustern, Aktivierung verborgener Begabungen, Erkenntnismomente, Ahnenarbeit, Moksha-Fortschritt.",
+      "risiken": "Verwirrung, Isolation, unklare Ziele, Gesundheitsschwäche, finanzielle Instabilität, Schwierigkeiten mit klarer Kommunikation.",
+      "guenstig_wenn": "Ketu gut positioniert (Schütze, Wassermann, Widder); Ketu im 12., 9. oder 4. Haus; kein Aspekt von Malefics ohne Gegenkraft.",
+      "unguenstig_wenn": "Ketu in Feindzeichen (Zwillinge, Steinbock); Ketu in 2., 5., 7. oder 10. Haus ohne Schutz; Aspekt von Saturn und Mars gleichzeitig.",
+      "quelle": "Parashara - BPHS Kap. 47 (Santhanam Bd. 2, S. 45-52); Mantreswara - Phaladeepika XX.1-15",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 5
+      }
+    },
+
+    "venus_mahadasha": {
+      "planet": "Venus",
+      "dauer_jahre": 20,
+      "symbol": "♀",
+      "natur_jyotish": "Shukra. Größter Benefic für weltliche Angelegenheiten. Kama-Karaka (Begehren/Freude), Stri-Karaka (Frauen/Partnerschaft), Vahana-Karaka (Fahrzeuge/Luxus). Regiert Stier und Waage.",
+      "hauptthemen": "Genuss, Luxus, Liebe und Partnerschaft, Kunst und Kreativität, materieller Wohlstand, Schönheit, gesellschaftlicher Status, Ausgleich und Harmonie. Längste Mahadasha (20 Jahre) — Zeit der Reife und Fülle.",
+      "typische_ereignisse": ["Heirat oder Partnerschaft", "Wohlstand und materieller Aufstieg", "Kunstprojekte und kreative Entfaltung", "Sozialer Aufstieg", "Fahrzeuge, Immobilien, Luxusgüter", "Starke romantische Erlebnisse", "Gesellschaftliche Anerkennung"],
+      "chancen": "Größte Wohlstandsperiode; Harmonie in Beziehungen; künstlerischer Durchbruch; gesellschaftliche Integration; physische Attraktivität und Ausstrahlung gestärkt.",
+      "risiken": "Übermäßiger Hedonismus; Selbstbespiegelung; sexuelle Ausschweifungen; materielle Abhängigkeiten; Faulheit durch Bequemlichkeit.",
+      "guenstig_wenn": "Venus in eigenem Zeichen (Stier, Waage) oder Exaltation (Fische); Venus im Lagna oder Kendra (1., 4., 7., 10. Haus); Venus ist Lagna-Lord.",
+      "unguenstig_wenn": "Venus in Debilitation (Jungfrau); Venus im 6., 8. oder 12. Haus ohne Schutz; Venus von Saturn oder Rahu aspektiert.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.25-45; Kalyana Varma - Saravali Kap. 48",
+      "dimensionen_vektor": {
+        "liebe": 5, "beruf": 4, "finanzen": 5, "gesundheit": 4,
+        "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3
+      }
+    },
+
+    "sonne_mahadasha": {
+      "planet": "Sonne",
+      "dauer_jahre": 6,
+      "symbol": "☉",
+      "natur_jyotish": "Surya. Atma-Karaka (Seele/Selbst), Pita-Karaka (Vater), Rajya-Karaka (Regierung/Status). Natürlicher Malefic, aber Licht und Kraft. Regiert Löwe.",
+      "hauptthemen": "Autorität, Identität, Selbstausdruck, Karriere im Staatsbereich, Vater-Beziehungen, Gesundheit und Vitalität, Ehre und Reputation, Regierung und Behörden.",
+      "typische_ereignisse": ["Karrieresprünge durch Eigeninitiative", "Kontakt mit Behörden/Regierungsstellen", "Vater-Thematiken", "Gesundheitliche Klärung", "Führungspositionen", "Identitätsstärkung"],
+      "chancen": "Klare Identität; Durchsetzungskraft; Karriere in Führungsposition; offizielle Anerkennung; gesteigerte Vitalität; Vater-Heilung möglich.",
+      "risiken": "Autoritarismus; Arroganz; Ego-Konflikte; Probleme mit Autoritäten; Augenleiden; Herz-Kreislauf-Themen; Vater-Verlust oder Trennung.",
+      "guenstig_wenn": "Sonne in Exaltation (Widder) oder eigenem Zeichen (Löwe); Sonne im 10., 9. oder 1. Haus; Sonne stark und ohne Malefic-Aspekte.",
+      "unguenstig_wenn": "Sonne in Debilitation (Waage); Sonne im 6., 8. oder 12. Haus; Sonne von Saturn aspektiert (Feindschaft).",
+      "quelle": "Parashara - BPHS Kap. 47; Kalyana Varma - Saravali Kap. 48",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 5, "finanzen": 3, "gesundheit": 4,
+        "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "mond_mahadasha": {
+      "planet": "Mond",
+      "dauer_jahre": 10,
+      "symbol": "☽",
+      "natur_jyotish": "Chandra. Manas-Karaka (Geist/Emotionen), Mata-Karaka (Mutter), Jala-Karaka (Wasser/Flüssigkeiten). Natürlicher Benefic (wenn zunehmd und unaspektiert von Malefics). Regiert Krebs.",
+      "hauptthemen": "Emotionales Leben, Mutter-Beziehungen, Volksseele/Öffentlichkeit, Reisen, Wasser und Flüssigkeiten, psychisches Wohlbefinden, Heim und Ernährung, Intuition, Wandel und Anpassung.",
+      "typische_ereignisse": ["Intensive Mutter-Themen", "Heim- und Familienwandel", "Emotionale Reifung", "Öffentliche Sichtbarkeit", "Reisen und Migration", "Gefühlstiefs und -hochs", "Fertilitätsthemen"],
+      "chancen": "Emotionale Reifung; tiefe familiäre Bindungen; öffentliche Beliebtheit; Intuition und Empathie gestärkt; Mutter-Heilung; Kreativität durch Gefühl.",
+      "risiken": "Emotionale Instabilität; Abhängigkeiten; psychosomatische Erkrankungen; übermäßige Stimmungsschwankungen; unklare Grenzen; Bindungsthemen.",
+      "guenstig_wenn": "Mond zunehmend (Shuklapa ksha) und voll; Mond in Exaltation (Stier) oder eigenem Zeichen (Krebs); Mond im 4., 5. oder 9. Haus.",
+      "unguenstig_wenn": "Mond abnehmend und dunkel (Amavasya-nah); Mond in Debilitation (Skorpion); Mond aspektiert von Saturn (Vata-Störung) oder Rahu/Ketu.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.46-65; Kalyana Varma - Saravali Kap. 48",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+      }
+    },
+
+    "mars_mahadasha": {
+      "planet": "Mars",
+      "dauer_jahre": 7,
+      "symbol": "♂",
+      "natur_jyotish": "Mangala / Kuja. Bumi-Karaka (Grundbesitz/Erde), Bhratra-Karaka (Geschwister), Vikrama-Karaka (Kraft/Mut). Natürlicher Malefic. Regiert Widder und Skorpion.",
+      "hauptthemen": "Energie, Kampfgeist, Immobilien und Grundbesitz, Geschwister-Beziehungen, Technik und Chirurgie, Konflikte und Durchsetzung, Sexualität und Leidenschaft, militärische/sportliche Aktivitäten.",
+      "typische_ereignisse": ["Immobilienkäufe", "Sportliche Höchstleistungen", "Konflikte und Rechtsstreitigkeiten", "Unfälle oder Operationen möglich", "Geschwister-Thematiken", "Karriere in technischen/militärischen Bereichen", "Leidenschaftliche Beziehungen"],
+      "chancen": "Enorme Energie und Durchsetzungskraft; Immobilienerfolge; sportliche/technische Leistungen; Karriere in Führung und Wettkampf; Selbstverteidigungsstärke.",
+      "risiken": "Aggressivität und Impulsivität; Unfälle; Operationen; Konflikte; Blut- und Feuerverletzungen; Geschwister-Streit; rechtliche Probleme.",
+      "guenstig_wenn": "Mars in Exaltation (Steinbock) oder eigenem Zeichen (Widder, Skorpion); Mars im 3., 6., 10. oder 11. Haus; Mars stark und als Yogakaraka (z.B. für Krebs/Löwe Lagna).",
+      "unguenstig_wenn": "Mars in Debilitation (Krebs); Mars im 1., 4., 7. oder 8. Haus (Manglik-Position); Mars aspektiert Lagna-Lord ungünstig.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.66-85; Vaidyanatha Dikshita - Jataka Parijata X",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+        "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2
+      }
+    },
+
+    "rahu_mahadasha": {
+      "planet": "Rahu",
+      "dauer_jahre": 18,
+      "symbol": "☊",
+      "natur_jyotish": "Rahu. Nördlicher Mondknoten, Chaya Graha (Schatten-Planet). Kein physischer Körper, aber mächtigster Zeitfaktor. Gibt Ergebnisse wie Saturn. Karaka für: Fremde, Ausland, Innovation, Ambitionen, Obsessionen, Täuschung und Illusion.",
+      "hauptthemen": "Ambition und Aufstieg durch unkonventionelle Wege, Auslandsbezug, Technologie und Modernität, Täuschung und Illusion, Obsessionen, plötzliche Sprünge und Stürze, kollektive Einflüsse, Karma-Themen.",
+      "typische_ereignisse": ["Plötzlicher Status-Aufstieg", "Auslandsreisen oder -aufenthalte", "Technologieaffinität", "Unkonventionelle Lebensweise", "Täuschungsrisiken", "Kontroverse öffentliche Situationen", "Obsessive Verhaltensweisen möglich"],
+      "chancen": "Spektakulärer Aufstieg; innovative Durchbrüche; Auslandserfolge; technologische Spitzenleistungen; Unerfülltes aus vergangenen Leben manifestiert sich.",
+      "risiken": "Täuschung und Selbsttäuschung; Sucht und Obsession; instabile Verhältnisse; geistige Verwirrung; Skandale; Vergiftungsrisiken; Traumata.",
+      "guenstig_wenn": "Rahu in Stier, Zwillinge, Jungfrau, Waage oder Wassermann (freundliche Zeichen); Rahu im 3., 6. oder 11. Haus; Rahu gut aspektiert von Jupiter.",
+      "unguenstig_wenn": "Rahu in Schütze, Steinbock oder Widder; Rahu im 1., 5., 8. oder 9. Haus; Rahu von Saturn aspektiert ohne Ausgleich.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.86-105; Kalyana Varma - Saravali Kap. 48",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 4, "gesundheit": 2,
+        "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2
+      }
+    },
+
+    "jupiter_mahadasha": {
+      "planet": "Jupiter",
+      "dauer_jahre": 16,
+      "symbol": "♃",
+      "natur_jyotish": "Guru / Brihaspati. Größter natürlicher Benefic. Putra-Karaka (Kinder), Vidya-Karaka (Wissen/Bildung), Dharma-Karaka (Pflicht/Spiritualität), Dhana-Karaka (Wohlstand). Regiert Schütze und Fische.",
+      "hauptthemen": "Weisheit und Wachstum, Kinder und Nachkommen, Bildung und Lehren, Spiritualität und Dharma, Wohlstand und Glück, Reisen zu heiligen Orten, Lebensphilosophie, gesellschaftliche Anerkennung durch Integrität.",
+      "typische_ereignisse": ["Kinder werden geboren oder treten in neuen Kontext", "Bildungsabschlüsse oder Lehrtätigkeit", "Spirituelle Vertiefung", "Finanzielle Expansion", "Heirat aus moralischen/religiösen Beweggründen", "Reisen zu Pilgerorten", "Rechtliche Erfolge"],
+      "chancen": "Größte spirituelle Wachstumsperiode; Kinder und Nachfolge; Wisdom-Expansion; natürlicher Schutz; finanzielle Stabilität; moralisches Ansehen; Glück durch Tugend.",
+      "risiken": "Überheblichkeit; dogmatischer Moralismus; Fettleibigkeit/Stoffwechselprobleme (Jupiter-Krankheiten); Überexpansion ohne Fundament; naive Großzügigkeit.",
+      "guenstig_wenn": "Jupiter in Exaltation (Krebs) oder eigenem Zeichen (Schütze, Fische); Jupiter im 1., 4., 5., 7., 9. oder 10. Haus; Jupiter als Lagna-Lord oder 9.-Haus-Lord.",
+      "unguenstig_wenn": "Jupiter in Debilitation (Steinbock); Jupiter im 6., 8. oder 12. Haus; Jupiter aspektiert von Saturn und Mars ohne Benefic-Gegenkraft.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.106-125; Vaidyanatha Dikshita - Jataka Parijata X",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+        "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5
+      }
+    },
+
+    "saturn_mahadasha": {
+      "planet": "Saturn",
+      "dauer_jahre": 19,
+      "symbol": "♄",
+      "natur_jyotish": "Shani. Ayush-Karaka (Lebenszeit/Langlebigkeit), Karma-Karaka (Arbeit/Karma), Dukha-Karaka (Leid/Prüfungen), Vayu-Karaka (Luft/Nerven). Größter natürlicher Malefic. Regiert Steinbock und Wassermann.",
+      "hauptthemen": "Karma-Erfüllung, harte Arbeit und Beharrlichkeit, Einschränkungen und Lektionen, Langlebigkeit und Gesundheit durch Disziplin, niedriger Status/Aufstieg durch Anstrengung, alte Menschen und Ahnen, Isolation und Prüfungen.",
+      "typische_ereignisse": ["Verzögerungen und Hindernisse", "Harte Arbeitsphasen mit langfristiger Belohnung", "Karma-Abgleich aus Vergangenheit", "Gesundheitliche Einschränkungen durch Chronisches", "Ältere Menschen spielen Schlüsselrolle", "Tiefe Lektionen über Geduld", "Strukturaufbau für die Zukunft"],
+      "chancen": "Tiefste Disziplin-Periode; langfristiger Aufbau; Karma-Befreiung durch Tun; Mastery durch Übung; dauerhafte Strukturen werden errichtet; spirituelle Tiefe durch Entbehrung.",
+      "risiken": "Depression und Isolation; chronische Erkrankungen; Verluste und Entsagungen; Lebenserschöpfung; Kälte in Beziehungen; Karrierestagnation in früher Saturn-Phase.",
+      "guenstig_wenn": "Saturn in Exaltation (Waage) oder eigenem Zeichen (Steinbock, Wassermann); Saturn als Yogakaraka (für Stier oder Waage Lagna); Saturn im 3., 6. oder 11. Haus.",
+      "unguenstig_wenn": "Saturn in Debilitation (Widder); Saturn im 1., 7., 8. oder 12. Haus; Saturn aspektiert Mond (Geist-Erschöpfung) und Lagna-Lord.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.126-145; Kalyana Varma - Saravali Kap. 48",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4
+      }
+    },
+
+    "merkur_mahadasha": {
+      "planet": "Merkur",
+      "dauer_jahre": 17,
+      "symbol": "☿",
+      "natur_jyotish": "Budha. Buddhi-Karaka (Intellekt/Unterscheidungsvermögen), Bandhava-Karaka (Verwandte/Freunde), Vak-Karaka (Sprache/Kommunikation). Natürlicher Benefic, wird malefic bei Aspekt von Malefics. Regiert Zwillinge und Jungfrau.",
+      "hauptthemen": "Intellekt und Kommunikation, Handel und Geschäft, Schreiben und Sprache, Bildung und Logik, Verwandte (Geschwister, Cousins), Reisen und Transport, analytisches Denken, Heilkunde und Mathematik.",
+      "typische_ereignisse": ["Bildung und intellektuelle Entwicklung", "Handelsprojekte und Geschäftsaufbau", "Schriftstellerei oder Kommunikationsprojekte", "Geschwister-Themen", "Kurzreisen und Transport-Aktivitäten", "Analytische Arbeit", "Spracherwerb oder Kommunikationsberufe"],
+      "chancen": "Intellektuelle Hochleistung; Geschäftserfolg; kommunikative Versiertheit; vielseitige Projekte; natürliche Heilkunde; gute Studienzeit; soziale Vernetzung.",
+      "risiken": "Nervosität und Überanalyse; Verstreute Energie durch zu viele Projekte; Sprachprobleme oder Missverständnisse; Betrug durch Cleverness anderer; Hautprobleme (Merkur).",
+      "guenstig_wenn": "Merkur in Exaltation (Jungfrau) oder eigenem Zeichen (Zwillinge, Jungfrau); Merkur im 1., 2., 4., 5., 7., 9. oder 10. Haus; Merkur als Lagna-Lord.",
+      "unguenstig_wenn": "Merkur in Debilitation (Fische); Merkur aspektiert von Mars (intellektuelle Rücksichtslosigkeit) oder Saturn (Denkblockaden); Merkur im 8. Haus.",
+      "quelle": "Parashara - BPHS Kap. 47; Mantreswara - Phaladeepika XX.146-165; Vaidyanatha Dikshita - Jataka Parijata X",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+      }
+    }
+  },
+
+  "antardasha_matrix": {
+    "_beschreibung": "Für jede Mahadasha folgen alle 9 Planeten als Antardasha (Bhukti) in derselben Vimshottari-Reihenfolge, beginnend mit dem Mahadasha-Lord selbst. Qualitätsbewertung: Freundschaft der Planeten, Hausstellung beider Lords, gegenseitige Aspekte. Die Dauer der Antardasha = (Mahadasha-Jahre × Antardasha-Jahre) / 120 × 12 Monate.",
+    "quelle": "Parashara - BPHS Kap. 48; Mantreswara - Phaladeepika Kap. 20",
+
+    "qualitaet_grundregel": {
+      "sehr_guenstig": "Mahadasha-Lord und Antardasha-Lord sind natürliche Freunde (z.B. Sonne-Mond, Jupiter-Mars, Jupiter-Sonne); beide in Kendra oder Trikona zueinander.",
+      "guenstig": "Neutrale Beziehung mit günstiger Hausstellung; mindestens einer der Lords in starker Position.",
+      "neutral": "Gemischte Beziehung; einer stark, einer schwach; keine klare Feindschaft.",
+      "unguenstig": "Natürliche Feindschaft (z.B. Saturn-Sonne, Mars-Saturn); einer oder beide in Dusthana (6., 8., 12. Haus).",
+      "sehr_unguenstig": "Doppelte Feindschaft (z.B. Sonne-Saturn, Sonne-Rahu); Dusthana-Position beider Lords; Debilitation ohne Aufhebung."
+    },
+
+    "ketu_antardasha": {
+      "ketu_ketu": {"qualitaet": "neutral", "beschreibung": "Isolation und spirituelle Suche dominieren. Rückzug, innere Wanderung, unklare Orientierung. Transformation durch Loslösung.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":5}},
+      "ketu_venus": {"qualitaet": "unguenstig", "beschreibung": "Ketu-Venus: Ablösung von Genuss und Beziehungen. Mystische Liebe vs. weltliche Bindung. Künstlerische Inspiration, aber Beziehungskonflikt.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4}},
+      "ketu_sonne": {"qualitaet": "unguenstig", "beschreibung": "Ego-Auflösung. Konflikte mit Autoritäten und Vater. Identitätskrise mit Potential zur spirituellen Reifung. Gesundheit zu beachten.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":4,"spiritualitaet":4}},
+      "ketu_mond": {"qualitaet": "unguenstig", "beschreibung": "Psychische Sensibilität extrem erhöht. Emotionale Verwirrung, Mutter-Themen. Spirituelle Träume und Visionen. Nervöse Erschöpfung möglich.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":4,"spiritualitaet":5}},
+      "ketu_mars": {"qualitaet": "guenstig", "beschreibung": "Beide Mars-Natur (Ketu wie Mars). Energie für spirituelle Disziplin. Technik und Chirurgie, Kampf um innere Wahrheit. Unfallrisiko.", "dimensionen": {"liebe":2,"beruf":3,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":4}},
+      "ketu_rahu": {"qualitaet": "sehr_unguenstig", "beschreibung": "Knotenachse aktiviert — maximale Karma-Konfrontation. Chaotische Wendungen, Identitätsverlust, Täuschungen. Seltene Erleuchtungsmomente möglich.", "dimensionen": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":3,"veraenderung":5,"spiritualitaet":4}},
+      "ketu_jupiter": {"qualitaet": "sehr_guenstig", "beschreibung": "Bestes Antardasha in Ketu-Periode. Spirituelle Weisheit durch Guru. Religiöse Praxis vertieft. Schutz durch höhere Mächte. Dharma-Erleuchtung.", "dimensionen": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}},
+      "ketu_saturn": {"qualitaet": "neutral", "beschreibung": "Tiefe Karmaauflösung durch Entbehrung. Isolation und Disziplin. Spirituelle Arbeit durch Einschränkung. Chronische Gesundheit zu prüfen.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":4,"spiritualitaet":4}},
+      "ketu_merkur": {"qualitaet": "neutral", "beschreibung": "Intuition trifft Intellekt. Verborgenes Wissen, okkulte Wissenschaften. Kommunikation wird tiefer, aber auch undeutlicher. Interessant für Forschung.", "dimensionen": {"liebe":2,"beruf":3,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4}}
+    },
+
+    "venus_antardasha": {
+      "venus_venus": {"qualitaet": "sehr_guenstig", "beschreibung": "Doppelte Venus-Energie — maximaler Genuss und Wohlstand. Heirat, Luxus, Kunst. Gesellschaftlicher Höhepunkt. Vorsicht: Überheblichkeit.", "dimensionen": {"liebe":5,"beruf":4,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":2}},
+      "venus_sonne": {"qualitaet": "neutral", "beschreibung": "Luxus trifft Autorität. Karriere im Kreativbereich. Staatliche Anerkennung für Kunst. Spannungen zwischen persönlichem Genuss und öffentlicher Rolle.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":2,"spiritualitaet":2}},
+      "venus_mond": {"qualitaet": "sehr_guenstig", "beschreibung": "Romantik und Emotionen auf Höhepunkt. Mütterliche Fürsorge und sinnliche Liebe. Künstlerische Fruchtbarkeit. Öffentliche Beliebtheit.", "dimensionen": {"liebe":5,"beruf":3,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3}},
+      "venus_mars": {"qualitaet": "unguenstig", "beschreibung": "Leidenschaft und Konflikt in Beziehungen. Intensive Sexualität. Immobilienerwerb möglich. Eifersuchtsszenen und Macht in der Liebe.", "dimensionen": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":3,"spiritualitaet":1}},
+      "venus_rahu": {"qualitaet": "neutral", "beschreibung": "Unkonventionelle Beziehungen und exotischer Luxus. Auslandsbezug in Liebe/Kunst. Verlockende, aber instabile Verbindungen. Täuschung in Finanzen.", "dimensionen": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":2,"soziales":3,"kreativitaet":4,"veraenderung":3,"spiritualitaet":2}},
+      "venus_jupiter": {"qualitaet": "sehr_guenstig", "beschreibung": "Guru-Shukra: Ideale Wohlstands-Kombination. Dharma und Genuss. Heirat nach Werten. Finanzielle Expansion durch ethisches Handeln.", "dimensionen": {"liebe":5,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":4}},
+      "venus_saturn": {"qualitaet": "guenstig", "beschreibung": "Langsamer aber stetiger Aufbau von Wohlstand. Beziehungen durch Pflicht und Reife. Venus-Saturn: künstlerische Disziplin. Spätreife in Beziehungen.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3}},
+      "venus_merkur": {"qualitaet": "sehr_guenstig", "beschreibung": "Kunst und Intellekt verbinden sich. Kreatives Schreiben, Musik und Kommunikation blühen. Handelstalent. Schöne Sprache und ästhetisches Denken.", "dimensionen": {"liebe":4,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3}},
+      "venus_ketu": {"qualitaet": "unguenstig", "beschreibung": "Spirituelle Ablösung von Genuss. Kreativität trifft Askese. Romantische Illusionen lösen sich auf. Schutzengel in Trennungsmomenten.", "dimensionen": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4}}
+    },
+
+    "jupiter_antardasha": {
+      "jupiter_jupiter": {"qualitaet": "sehr_guenstig", "beschreibung": "Doppelter Guru-Segen. Spirituelle Hochphase, Weisheitserweiterung, Kinder, Bildung. Größte Wachstumsperiode in Jupiter-Dasha.", "dimensionen": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5}},
+      "jupiter_saturn": {"qualitaet": "neutral", "beschreibung": "Wachstum durch Disziplin. Dharma trifft Karma. Philosophische Prüfungen. Religiöse Pflicht. Langfristige spirituelle Reifung.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}},
+      "jupiter_merkur": {"qualitaet": "guenstig", "beschreibung": "Bildungs-Hochphase. Lehren und Lernen. Philosophisch-intellektuelle Entfaltung. Schriftstellerei. Guru-Schüler-Beziehungen.", "dimensionen": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":2,"spiritualitaet":5}},
+      "jupiter_ketu": {"qualitaet": "guenstig", "beschreibung": "Spirituelle Weisheit durch Moksha-Prinzip. Intuitive Erleuchtung. Rückzug und philosophische Vertiefung. Pilgerreisen.", "dimensionen": {"liebe":2,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}},
+      "jupiter_venus": {"qualitaet": "sehr_guenstig", "beschreibung": "Guru-Shukra: Ideale Kombination von Weisheit und Schönheit. Heirat, Kinder, Wohlstand und spirituelle Freude kombiniert.", "dimensionen": {"liebe":5,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":5}},
+      "jupiter_sonne": {"qualitaet": "sehr_guenstig", "beschreibung": "Guru-Surya: Dharma und Führung. Religiöse Autorität. Regierungserfolg durch Integrität. Karrierehöhepunkt durch Tugend.", "dimensionen": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":4,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}},
+      "jupiter_mond": {"qualitaet": "sehr_guenstig", "beschreibung": "Gajakesari-Potential aktiviert. Emotionaler und intellektueller Ausgleich. Öffentliche Anerkennung durch Weisheit. Mutter-Heilung.", "dimensionen": {"liebe":5,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5}},
+      "jupiter_mars": {"qualitaet": "guenstig", "beschreibung": "Guru-Mangala: Kraft durch Dharma. Religiöser Mut. Immobilienerwerb aus religiösen Gründen. Sportliche und spirituelle Disziplin kombiniert.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":4}},
+      "jupiter_rahu": {"qualitaet": "neutral", "beschreibung": "Guru-Rahu: Chandalayoga-Risiko (Guru durch Rahu gestört). Unkonventionelle Weisheit. Auslandsbezug in Religion. Guru-Täuschung möglich.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":2,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":3}}
+    },
+
+    "saturn_antardasha": {
+      "saturn_saturn": {"qualitaet": "neutral", "beschreibung": "Tiefste Karma-Periode. Maximale Einschränkung, aber auch maximaler Aufbau für die Zukunft. Chronische Prüfungen. Monastische Energie.", "dimensionen": {"liebe":1,"beruf":3,"finanzen":2,"gesundheit":2,"soziales":1,"kreativitaet":2,"veraenderung":3,"spiritualitaet":4}},
+      "saturn_merkur": {"qualitaet": "guenstig", "beschreibung": "Analytische Meisterschaft. Diszipliniertes Denken. Strukturierte Kommunikation. Karriere in Wissenschaft, Recht, Architektur.", "dimensionen": {"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3}},
+      "saturn_ketu": {"qualitaet": "unguenstig", "beschreibung": "Doppelte Separationskraft. Extreme Isolation, Gesundheitsprüfungen, spirituelle Tiefe durch Not. Karmaauflösung durch Leiden.", "dimensionen": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":2,"veraenderung":4,"spiritualitaet":5}},
+      "saturn_venus": {"qualitaet": "guenstig", "beschreibung": "Spätblüte in Beziehungen. Materielle Disziplin mit Schönheitssinn. Kunst durch Ausdauer. Stabile Finanzen durch Fleiß.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3}},
+      "saturn_sonne": {"qualitaet": "sehr_unguenstig", "beschreibung": "Stärkste natürliche Feindschaft. Konflikte mit Autoritäten, Vater-Probleme, Karrierehindernisse, Herzgesundheit zu prüfen. Karmaernte.", "dimensionen": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":1,"veraenderung":3,"spiritualitaet":3}},
+      "saturn_mond": {"qualitaet": "unguenstig", "beschreibung": "Depression und emotionale Erschöpfung. Mutter-Verlust oder Trennung. Psychische Belastungen. Reifung durch Trauer. Isolation.", "dimensionen": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":2,"veraenderung":3,"spiritualitaet":4}},
+      "saturn_mars": {"qualitaet": "unguenstig", "beschreibung": "Zwei Malefics — heftige Prüfungen. Unfälle, Operationen, Konflikte, rechtliche Probleme. Enorme Ausdauer wenn überwunden.", "dimensionen": {"liebe":1,"beruf":3,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":2,"veraenderung":4,"spiritualitaet":2}},
+      "saturn_rahu": {"qualitaet": "unguenstig", "beschreibung": "Chaos und Beschränkung. Fremdländische Probleme. Täuschung durch Geduld. Kann jedoch tiefe Karriereveränderungen einleiten.", "dimensionen": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":1,"kreativitaet":2,"veraenderung":4,"spiritualitaet":3}},
+      "saturn_jupiter": {"qualitaet": "guenstig", "beschreibung": "Dharma durch Disziplin. Religiöse Pflicht erfüllt. Spirituelle Reifung durch Prüfungen. Filosofische Tiefe. Karma-Ausgleich durch Weisheit.", "dimensionen": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}}
+    }
+  },
+
+  "haus_aktivierung_durch_dasha": {
+    "_beschreibung": "Welche Lebensbereiche ein Dasha-Lord aktiviert, hängt primär davon ab, welche Häuser er im Natalhoroskop regiert (als Lord) und in welchem Haus er steht. Dies ist die Basis jeder Dasha-Deutung.",
+    "quelle": "Parashara - BPHS Kap. 46-48; Mantreswara - Phaladeepika Kap. 20",
+
+    "regeln": {
+
+      "regel_H01": {
+        "id": "regel_H01",
+        "name": "Dasha-Lord als Kendra-Lord",
+        "beschreibung": "Wenn der Mahadasha-Lord ein Kendra-Haus (1., 4., 7., 10.) regiert, stärkt er während seiner Periode alle Bereiche dieses Hauses. Das 1. Haus: Identität und Gesundheit. Das 4. Haus: Heim, Mutter, Immobilien. Das 7. Haus: Partnerschaft, Ehe. Das 10. Haus: Karriere, Status.",
+        "dimensionen_modifikator": "Kendra-Lord-Dasha wirkt grundsätzlich fördernd; Malefic-Kendra-Lords (Kendra-Adhipati-Dosha) schwächen jedoch — insbesondere Jupiter und Venus als Kendra-Lords für eigene Lagnas können ungünstig sein.",
+        "quelle": "Parashara - BPHS Kap. 34 (Kendra-Adhipati-Dosha)"
+      },
+
+      "regel_H02": {
+        "id": "regel_H02",
+        "name": "Dasha-Lord als Trikona-Lord",
+        "beschreibung": "Der Trikona (5. und 9. Haus) gilt als 'Häuser des Glücks und der Dharma'. Wenn der Mahadasha-Lord das 5. oder 9. Haus regiert, bringt seine Dasha-Periode spirituelles Wachstum, Glück, Kinder (5. Haus) oder Lehrer/Reisen/Philosophie (9. Haus).",
+        "dimensionen_modifikator": "Trikona-Lord-Dasha: stark günstig für spiritualitaet (+1), beruf (+1), finanzen (+1). Selten ungünstig außer bei starker Debilitation.",
+        "quelle": "Parashara - BPHS Kap. 34"
+      },
+
+      "regel_H03": {
+        "id": "regel_H03",
+        "name": "Dasha-Lord als Dusthana-Lord",
+        "beschreibung": "Wenn der Mahadasha-Lord das 6., 8. oder 12. Haus regiert, aktiviert seine Periode die Themen dieser Häuser: 6. Haus: Feinde, Krankheit, Schulden; 8. Haus: Tod, Krisen, Okkultes, Erbschaften; 12. Haus: Verluste, Gefängnis, Ausland, Moksha. Ist der Lord selbst gut positioniert, können auch positive Seiten auftreten (z.B. Erbschaft im 8. Haus, spirituelle Reisen im 12. Haus).",
+        "dimensionen_modifikator": "Dusthana-Lord-Dasha: gesundheit (-1), finanzen (-1), soziales (-1). Kompensation durch starke Stellung des Lords.",
+        "quelle": "Parashara - BPHS Kap. 34; Mantreswara - Phaladeepika Kap. 18"
+      },
+
+      "regel_H04": {
+        "id": "regel_H04",
+        "name": "Dasha-Lord im eigenen Exaltationszeichen",
+        "beschreibung": "Befindet sich der Mahadasha-Lord in seinem Exaltationszeichen (z.B. Jupiter in Krebs, Sonne in Widder), ist er maximal stark. Alle von ihm regierten Häuser und seine natürlichen Karakatvas (Bedeutungsfelder) werden maximal gefördert. Parashara: 'Der exaltierte Planet gibt die besten Ergebnisse seiner Natur.'",
+        "dimensionen_modifikator": "+1 auf alle Dimensionen, die der Planet natürlich regiert.",
+        "quelle": "Parashara - BPHS Kap. 3 (Exaltation); Kap. 46"
+      },
+
+      "regel_H05": {
+        "id": "regel_H05",
+        "name": "Dasha-Lord in Debilitation",
+        "beschreibung": "Der Mahadasha-Lord in seinem Debilitationszeichen (Neecha) ist maximal geschwächt. Neecha-Bhanga-Raja-Yoga kann jedoch die Debilitation aufheben und sogar in Stärke umwandeln: wenn der Herrscher des Debilitationszeichens im Kendra steht oder der exaltierte Planet des Debilitationszeichens im Kendra steht.",
+        "dimensionen_modifikator": "-1 auf alle Dimensionen ohne Neecha-Bhanga. Bei Neecha-Bhanga: neutral bis +1.",
+        "quelle": "Parashara - BPHS Kap. 3; Mantreswara - Phaladeepika Kap. 7 (Neecha-Bhanga)"
+      },
+
+      "regel_H06": {
+        "id": "regel_H06",
+        "name": "Dasha-Lord retrograd",
+        "beschreibung": "Ein retrograder (Vakri) Mahadasha-Lord gibt seine Ergebnisse verzögert oder auf unkonventionelle Weise. Parashara: Retrograde Planeten haben erhöhte Kraft (besonders Mars, Jupiter, Saturn), geben aber Ergebnisse erst nach Verzögerungen oder in umgekehrter Reihenfolge.",
+        "dimensionen_modifikator": "Timing-Verschiebung; beruf: tendenziell verzögert; veraenderung: erhöht durch Unkonventionalität.",
+        "quelle": "Parashara - BPHS Kap. 27 (Retrograde Planeten)"
+      },
+
+      "regel_H07": {
+        "id": "regel_H07",
+        "name": "Dasha-Lord verbrennt (Combustion)",
+        "beschreibung": "Ein Planet, der zu nah an der Sonne steht (Asta / Combust), verliert seine Stärke. Verbrannte Planeten als Mahadasha-Lords können ihre vollständigen Ergebnisse nicht liefern. Kritische Grade: Mond unter 12°, Mars unter 17°, Merkur unter 14°, Jupiter unter 11°, Venus unter 10°, Saturn unter 15°.",
+        "dimensionen_modifikator": "-1 auf alle planetenspezifischen Dimensionen.",
+        "quelle": "Parashara - BPHS Kap. 27; Mantreswara - Phaladeepika Kap. 4"
+      },
+
+      "regel_H08": {
+        "id": "regel_H08",
+        "name": "Yogakaraka als Dasha-Lord",
+        "beschreibung": "Ein Yogakaraka ist ein Planet, der gleichzeitig ein Kendra- und ein Trikona-Haus regiert. Für Stier-Lagna ist Saturn Yogakaraka (regiert 9. und 10. Haus); für Waage-Lagna ist Saturn ebenfalls Yogakaraka; für Krebs-Lagna ist Mars Yogakaraka; für Löwe-Lagna ist Mars Yogakaraka. Die Dasha des Yogakaraka ist grundsätzlich die beste Karriere- und Statusperiode.",
+        "dimensionen_modifikator": "+2 auf beruf, +1 auf finanzen, +1 auf soziales.",
+        "quelle": "Parashara - BPHS Kap. 34 (Yogakaraka)"
+      },
+
+      "regel_H09": {
+        "id": "regel_H09",
+        "name": "Marakaraka als Dasha-Lord (Zeitfaktor)",
+        "beschreibung": "Marakara-Planeten (Todbringer) sind Lords des 2. und 7. Hauses sowie Planeten, die im 2. oder 7. Haus stehen. In Kombination mit hohem Alter und geschwächter Gesundheit kann die Dasha eines Marakara zu lebensbedrohlichen Gesundheitskrisen führen. Für junge Menschen zeigt die Maraka-Dasha stattdessen oft Stagnation oder Beziehungsprobleme.",
+        "dimensionen_modifikator": "gesundheit: -2 bei älteren Personen; liebe: -1 (Beziehungsprobleme); veraenderung: +1.",
+        "quelle": "Parashara - BPHS Kap. 44 (Maraka-Planeten); Mantreswara - Phaladeepika Kap. 18"
+      },
+
+      "regel_H10": {
+        "id": "regel_H10",
+        "name": "Dasha-Lord aspektiert von natürlichen Benefics",
+        "beschreibung": "Wenn der Mahadasha-Lord von Jupiter, Venus oder (zunehmendem) Mond aspektiert wird, werden seine positiven Ergebnisse verstärkt. Jupiter-Aspekt gilt als Schutzaspekt schlechthin: 'Guru raksha' (Guru schützt).",
+        "dimensionen_modifikator": "+1 auf alle positiven Dimensionen des Planeten; gesundheit: +1.",
+        "quelle": "Parashara - BPHS Kap. 26 (Aspekte); Mantreswara - Phaladeepika Kap. 6"
+      },
+
+      "regel_H11": {
+        "id": "regel_H11",
+        "name": "Dasha-Lord aspektiert von natürlichen Malefics ohne Gegenkraft",
+        "beschreibung": "Saturn-, Mars-, Rahu- oder Ketu-Aspekt auf den Mahadasha-Lord ohne ausgleichenden Benefic-Aspekt: Die positiven Ergebnisse werden beschnitten, Leiden und Hindernisse sind zu erwarten. Doppelter Malefic-Aspekt (z.B. Saturn + Mars): maximale Erschwernis.",
+        "dimensionen_modifikator": "-1 auf alle positiven Dimensionen; veraenderung: +1.",
+        "quelle": "Parashara - BPHS Kap. 26; Kalyana Varma - Saravali Kap. 5"
+      },
+
+      "regel_H12": {
+        "id": "regel_H12",
+        "name": "Antardasha-Lord als 6-8 oder 6-12 Beziehung zum Mahadasha-Lord",
+        "beschreibung": "Wenn Mahadasha-Lord und Antardasha-Lord in 6-8 (Shadashtak) oder 2-12 Beziehung zueinander stehen (gezählt von einem zum anderen), entsteht Spannung und Reibung zwischen den Perioden. Diese Unterperioden sind tendenziell schwierig und bringen Hindernisse, Konflikte oder unerwartete Wendungen.",
+        "dimensionen_modifikator": "-1 auf liebe, beruf, soziales; veraenderung: +1.",
+        "quelle": "Parashara - BPHS Kap. 48; Mantreswara - Phaladeepika Kap. 20"
+      }
+    }
+  },
+
+  "timing_regeln": {
+    "_beschreibung": "Regeln zur präzisen Datierung von Ereignissen innerhalb von Dasha-Perioden.",
+    "quelle": "Parashara - BPHS Kap. 46-50; Mantreswara - Phaladeepika Kap. 20-22",
+
+    "regeln": {
+
+      "regel_T01": {
+        "id": "regel_T01",
+        "name": "Transit des Mahadasha-Lords aktiviert Antardasha-Ereignis",
+        "beschreibung": "Wenn der Mahadasha-Lord durch Transit über den Antardasha-Lord oder über den Natal-Mond, den Lagna-Grad oder den Antardasha-Lord zieht, werden Ereignisse der Antardasha ausgelöst. Der Gochara (Transit) des Mahadasha-Lords über das Natal-Zeichen des Antardasha-Lords ist besonders wirksam.",
+        "quelle": "Parashara - BPHS Kap. 50 (Gochara-Phala)"
+      },
+
+      "regel_T02": {
+        "id": "regel_T02",
+        "name": "Doppelaktivierung: Dasha + Gochara übereinstimmend",
+        "beschreibung": "Ereignisse manifestieren sich am wahrscheinlichsten, wenn SOWOHL die Dasha-Periode günstig ist ALS AUCH der entsprechende Transit übereinstimmt. Beispiel: In Jupiter-Dasha wird Heirat wahrscheinlich, wenn Jupiter zusätzlich über das 7. Haus oder den Venus-Grad transit. Parashara: 'Dasha und Gochara zusammen geben unfehlbare Ergebnisse.'",
+        "quelle": "Parashara - BPHS Kap. 50; Kalyana Varma - Saravali Kap. 53"
+      },
+
+      "regel_T03": {
+        "id": "regel_T03",
+        "name": "Saturn und Jupiter Transits als Hauptaktivierungen",
+        "beschreibung": "Saturn und Jupiter sind die wichtigsten Transit-Planeten für Lebensereignisse. Jupiter: 12-jähriger Zyklus — Jupiterjahr im 1., 5., 9. Haus gilt als Glücksjahr. Saturn: Sade-Sati (7,5-Jahre-Periode über Mond, 12. Haus davor und 2. Haus danach) — intensive Prüfungsphase, die oft mit belastender Dasha koinzidiert.",
+        "quelle": "Parashara - BPHS Kap. 50 (Sade-Sati); Mantreswara - Phaladeepika Kap. 22"
+      },
+
+      "regel_T04": {
+        "id": "regel_T04",
+        "name": "Pratyantardasha für genaues Datum",
+        "beschreibung": "Wenn Mahadasha und Antardasha die Qualität eines Ereignisses anzeigen, liefert die Pratyantardasha das genaue Timing (Monat-genaues Fenster). Der Pratyantardasha-Lord sollte entweder der gleiche Planet sein wie einer der oberen Ebenen oder ein freundlicher Planet in günstiger Position.",
+        "quelle": "Parashara - BPHS Kap. 48; Mantreswara - Phaladeepika Kap. 21"
+      },
+
+      "regel_T05": {
+        "id": "regel_T05",
+        "name": "Varga-Analyse für Qualitätsverfeinerung",
+        "beschreibung": "Die Stärke eines Dasha-Lords sollte nicht nur im Radix (D1/Rashi), sondern auch im Navamsha (D9 — Ehepartner/Karma), Dashamsha (D10 — Karriere) und Saptamsha (D7 — Kinder) geprüft werden. Ein schwacher Radix-Planet, der im Navamsha exaltiert steht, liefert trotzdem gute Ergebnisse in Eheangelegenheiten.",
+        "quelle": "Parashara - BPHS Kap. 6 (Varga-Divisionen); Mantreswara - Phaladeepika Kap. 5"
+      }
+    }
+  },
+
+  "sonder_regeln": {
+    "_beschreibung": "Spezialregeln für besondere Konstellationen in Dasha-Interpretationen.",
+    "quelle": "Parashara - BPHS; Mantreswara - Phaladeepika; Kalyana Varma - Saravali",
+
+    "regeln": {
+
+      "regel_S01": {
+        "id": "regel_S01",
+        "name": "Rahu-Ketu Dasha: Gegenteil-Prinzip",
+        "beschreibung": "Rahu und Ketu haben keinen eigenen Naturcharakter, sondern übernehmen den Charakter des Planeten, mit dem sie konjunktieren oder von dem sie aspektiert werden. Steht Rahu mit Jupiter: gibt Jupiter-ähnliche Ergebnisse, aber auf unkonventionelle Weise. Ketu mit Mars: intensive Mars-Energie, oft mit spirituellem Twist.",
+        "quelle": "Parashara - BPHS Kap. 47; Kalyana Varma - Saravali Kap. 48"
+      },
+
+      "regel_S02": {
+        "id": "regel_S02",
+        "name": "Dasha des 8. Haus-Lords: Transformation",
+        "beschreibung": "Die Dasha des Herrn des 8. Hauses bringt tiefe Transformationen: Erbschaften, okkulte Erfahrungen, Lebenskrisen, aber auch spirituelle Durchbrüche. Ist dieser Lord stark (exaltiert, in eigenem Zeichen), kann er trotz des schwierigen Hauses heilende und transformierende Erfahrungen bringen.",
+        "quelle": "Parashara - BPHS Kap. 11; Mantreswara - Phaladeepika Kap. 14"
+      },
+
+      "regel_S03": {
+        "id": "regel_S03",
+        "name": "Dasha des Lagna-Lords: Identitätswandel",
+        "beschreibung": "Die Dasha des Lagna-Lords (Herrn des Aszendenten) ist eine der wichtigsten des gesamten Lebens. Sie aktiviert alle Lebensbereiche durch das Prisma der Identität und des Körpers. Ein starker Lagna-Lord in seiner Dasha gibt Gesundheit, Selbstbewusstsein und Durchsetzungskraft.",
+        "quelle": "Parashara - BPHS Kap. 46; Mantreswara - Phaladeepika Kap. 20"
+      },
+
+      "regel_S04": {
+        "id": "regel_S04",
+        "name": "Doppelte Benefic-Periode: Raj-Yoga-Aktivierung",
+        "beschreibung": "Wenn im Radix ein Raj-Yoga (Kombination von Kendra-Lord und Trikona-Lord) vorhanden ist, wird dieser Yoga am stärksten in der Dasha eines der beteiligten Planeten aktiviert — insbesondere wenn auch die Antardasha dem anderen Raj-Yoga-Planeten gehört. Beispiel: Kendra-Lord Jupiter in Konjunktion mit Trikona-Lord Mars → in Jupiter-Mars-Antardasha größter Karrierehöhepunkt.",
+        "quelle": "Parashara - BPHS Kap. 34 (Raj-Yoga); Mantreswara - Phaladeepika Kap. 6"
+      },
+
+      "regel_S05": {
+        "id": "regel_S05",
+        "name": "Dasha-Lord als Atmakaraka",
+        "beschreibung": "Der Atmakaraka (der Planet mit dem höchsten Grad im Horoskop — die 'Seele des Horoskops') hat besondere Bedeutung. Wenn der Mahadasha-Lord der Atmakaraka ist, berührt diese Periode die tiefste Seelen-Essenz des Individuums. Sehr günstige Perioden für spirituelles Wachstum, aber auch intensive Selbstkonfrontation.",
+        "quelle": "Parashara - BPHS Kap. 33 (Jaimini Karakas); Vaidyanatha Dikshita - Jataka Parijata"
+      },
+
+      "regel_S06": {
+        "id": "regel_S06",
+        "name": "Badhaka-Lord als Dasha-Lord",
+        "beschreibung": "Jedes Lagna hat einen Badhaka-Lord (Hindernis-Lord). Für bewegliche Zeichen (Widder, Krebs, Waage, Steinbock) ist der Badhaka-Lord der Herr des 11. Hauses; für feste Zeichen der Herr des 9. Hauses; für Doppelzeichen der Herr des 7. Hauses. Die Badhaka-Dasha bringt mysteriöse Hindernisse und Blockaden, die schwer rational zu erklären sind.",
+        "quelle": "Parashara - BPHS Kap. 44; Mantreswara - Phaladeepika Kap. 19"
+      },
+
+      "regel_S07": {
+        "id": "regel_S07",
+        "name": "Gajakesari-Yoga in Mond-Dasha",
+        "beschreibung": "Gajakesari-Yoga besteht, wenn Jupiter im Kendra zum Mond steht (1., 4., 7., 10. Haus vom Mond). In der Mond-Mahadasha (oder Jupiter-Antardasha innerhalb der Mond-Dasha) ist dieses Yoga am wirksamsten: öffentliche Anerkennung, emotionaler Ausgleich, spirituelles Wachstum und materielle Stabilität.",
+        "quelle": "Mantreswara - Phaladeepika Kap. 6 (Gajakesari-Yoga)"
+      },
+
+      "regel_S08": {
+        "id": "regel_S08",
+        "name": "Kala-Sarpa-Dosha in Rahu-Ketu-Dasha",
+        "beschreibung": "Wenn alle 7 Planeten zwischen Rahu und Ketu eingeschlossen sind (Kala-Sarpa-Dosha), sind die Rahu- und Ketu-Mahadasha-Perioden besonders intensiv und schicksalhaft. Das gesamte Leben ist stärker von Karma-Ablösung und unvorhersehbaren Wendungen geprägt.",
+        "quelle": "Kalyana Varma - Saravali Kap. 48 (Rahu-Ketu); Vaidyanatha Dikshita - Jataka Parijata X"
+      }
+    }
+  },
+
+  "synthese_cross_system": {
+    "_beschreibung": "Verbindungen des Vimshottari-Dasha-Systems zu anderen Regelwerken in diesem Projektplan.",
+    "quelle": "Projektplan PROJEKTPLAN_hellenistik_jyotish_arabisch.md; Parashara - BPHS",
+
+    "jyotish_nakshatras": {
+      "verbindung": "Das Geburts-Nakshatra des Mondes bestimmt den ersten Mahadasha-Lord — direkte Kernverbindung zu jyotish_nakshatras.json (J1). Nakshatra-Qualitäten färben die Mahadasha: Ein Ketu-Nakshatra (Ashwini, Magha, Mula) mit Ketu-Mahadasha potenziert die Ketu-Energie doppelt.",
+      "anwendung": "Nakshatra-Lord aus J1 → Erster Dasha-Lord in J2; Nakshatra-Qualität modifiziert Dasha-Deutung."
+    },
+
+    "jyotish_yogas": {
+      "verbindung": "Yogas (Planetenkombinationen, J3) werden durch Dasha aktiviert — ohne aktivierende Dasha bleibt ein Yoga 'schlafend'. Ein Raj-Yoga zwischen Jupiter und Mars entfaltet sich am stärksten in Jupiter-Mars-Antardasha oder Mars-Jupiter-Antardasha.",
+      "anwendung": "Yoga-Identifikation in J3 → Dasha-Aktivierung in J2."
+    },
+
+    "arabisch_firdaria": {
+      "verbindung": "Vimshottari Dasha (120 Jahre, 9 Planeten) ↔ Arabische Firdaria (75 Jahre, 9 Planeten mit Knoten). Strukturell homologe Systeme aus verschiedenen Traditionen. Beide nutzen planetare Sequenzen und Sub-Perioden. Vergleich für dasselbe Geburtsdatum: Welche Planeten aktivieren beide Systeme gleichzeitig? Doppelung = höchste Wahrscheinlichkeit für starke Lebensereignisse.",
+      "anwendung": "Bei Überschneidung von Firdaria-Hauptperiode und Mahadasha desselben Planeten: Ereigniswahrscheinlichkeit maximal erhöht."
+    },
+
+    "hell_zeitherren": {
+      "verbindung": "Hellenistische Chronokratoren (Profektionen, Zodiacal Releasing) ↔ Vimshottari: Beide sind Timing-Systeme auf Basis planetarer Lebenszyklen. Zodiacal Releasing (Valens) nutzt Minor Years der Zeichen, während Vimshottari fixe Planetenjahre nutzt. Vergleich erhöht Präzision.",
+      "anwendung": "Gleichzeitige Aktivierung desselben Bereichs durch Profektionsjahr UND Dasha = verstärkte Manifestation."
+    },
+
+    "bazi_dayun": {
+      "verbindung": "Bazi Dayun (10-Jahres-Dekaden-Pfeiler, Chinesische Astrologie) ↔ Mahadasha: Beide sind Lebensabschnitt-Systeme mit Periodendauern von 7-20 Jahren. Während Bazi auf Elementarqualitäten basiert, nutzt Vimshottari Planetencharaktere. Parallele Lektüre möglich für globale Lebensphasenbewertung.",
+      "anwendung": "Übereinstimmende Qualität (z.B. Feuer-Dayun + Sonne-Mahadasha): Feuerenergie doppelt aktiviert."
+    },
+
+    "western_rules": {
+      "verbindung": "Western Transits (Gochara-Äquivalent) können mit Vimshottari kombiniert werden. Insbesondere Saturn-Transits (Saturn-Return, Sade-Sati) und Jupiter-Transits liefern präzises Timing-Signal für Dasha-Ereignisse. Westliche Progressionen (Secondary Progressions) können mit Antardasha-Timing kombiniert werden.",
+      "anwendung": "Dasha gibt Thema und Qualität → Western Transit gibt präzises Datum. Sinergie-Ansatz."
+    }
+  },
+
+  "glossar": {
+    "mahadasha": "Hauptperiode des Vimshottari-Systems; von einem der 9 Planeten regiert; 7–20 Jahre.",
+    "antardasha": "Unterperiode (Bhukti) innerhalb der Mahadasha; alle 9 Planeten treten nacheinander als Unterherrscher auf.",
+    "pratyantardasha": "Unter-Unterperiode; drittes Timing-Level für präzises Ereignis-Dating.",
+    "gochara": "Transit — Bewegung eines Planeten durch den Tierkreis nach der Geburt; wichtigstes Aktivierungs-Tool für Dasha-Ereignisse.",
+    "lagna": "Aszendent; das aufgehende Zeichen zum Geburtsmoment; Ausgangspunkt des Hauss ystems.",
+    "kendra": "1., 4., 7., 10. Haus — Winkel-Häuser; Orte maximaler Manifestation.",
+    "trikona": "5. und 9. Haus — Häuser des Glücks und der Tugend.",
+    "dusthana": "6., 8., 12. Haus — Häuser der Schwierigkeiten und Transformation.",
+    "karaka": "Bedeutungsträger; jeder Planet ist natürlicher Karaka bestimmter Lebensbereiche (z.B. Jupiter = Kinder, Venus = Liebe).",
+    "yogakaraka": "Planet, der gleichzeitig Kendra und Trikona regiert; günstigste Planetenrolle für ein bestimmtes Lagna.",
+    "neecha": "Debilitation; der schwächste Punkt eines Planeten im Tierkreis.",
+    "uccha": "Exaltation; der stärkste Punkt eines Planeten im Tierkreis.",
+    "vakri": "Retrograd; scheinbare Rückwärtsbewegung eines Planeten.",
+    "asta": "Verbrennung (Combustion); Planet zu nah an der Sonne.",
+    "sade_sati": "7,5-Jahres-Periode des Saturn-Transits über das Mondzeichen und die benachbarten Zeichen; intensive Prüfungsphase.",
+    "atmakaraka": "Planet mit dem höchsten Grad im Geburtshoroskop; repräsentiert die Seele.",
+    "vimshottari": "Sanskrit für '120'; Name des dominanten Dasha-Systems mit 120-jährigem Gesamtzyklus.",
+    "bhukti": "Anderes Wort für Antardasha (Unterperiode); im Süden Indiens häufig verwendet.",
+    "graha": "Planet (Sanskrit); wörtlich: 'der Greifende/Erfassende'; die 9 Himmelskörper des Jyotish.",
+    "nirayana": "Siderischer Tierkreis; fixierter Tierkreis nach dem Sternenhimmel; Basis des Jyotish.",
+    "ayanamsha": "Differenz zwischen tropischem und siderischem Tierkreis (ca. 23-24° in 2026)."
+  }
+}

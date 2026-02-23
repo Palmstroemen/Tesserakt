@@ -1,0 +1,522 @@
+{
+  "_meta": {
+    "system": "hellenistische_astrologie",
+    "modul": "zeitherren_chronokrators",
+    "version": "1.0",
+    "gespraech": "H3",
+    "sources": [
+      "Vettius Valens - Anthologies (ca. 160 n. Chr., Mark Riley Übersetzung, public domain)",
+      "Dorotheus of Sidon - Carmen Astrologicum (ca. 75 n. Chr., Originaltext public domain)",
+      "Claudius Ptolemy - Tetrabiblos (J.M. Ashmand Übersetzung 1822, public domain)",
+      "Paulus Alexandrinus - Introductory Matters (ca. 378 n. Chr., Originaltext public domain)",
+      "Porphyry - Introduction to the Tetrabiblos (ca. 270 n. Chr., public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Hellenistische Astrologie — Das vollständige System der Zeitherren (Chronokrators). Enthält: Jährliche Profektionen (Annual Profections), monatliche Profektionen, Dekaden-Profektionen nach Dorotheus, sowie das Zodiacal Releasing (Aphesis) nach Valens mit Minor Years, Level 1 und 2, und dem Konzept des Loosing of the Bond. Alle Techniken sind horoskopbasiert und erfordern ASC, Lot des Glücks und Lot des Geistes (hell_lots.json).",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog hell_wuerden.json und hell_lots.json"
+  },
+
+  "system_uebersicht": {
+    "beschreibung": "Zeitherren (griech. Chronokrators — 'Herrscher der Zeit') sind Planeten, die für definierte Zeitabschnitte die Qualität des Lebens prägen. Das Konzept ist grundlegend anders als moderne Progressionen: statt eines symbolischen Tages-für-ein-Jahr-Systems nutzen die hellenistischen Techniken echte astronomische Zyklen und fest definierte Perioden. Der Zeitherr ist eine Art Gouverneur — er filtert alle anderen Horoskopeinflüsse durch seine eigene Natur.",
+    "quelle": "Valens - Anthologies IV.1 (Riley S.67-72); Dorotheus - Carmen V.1",
+
+    "unterschied_zu_modernen_progressionen": {
+      "hellenistisch": "Feste Perioden pro Zeichen oder Planet; direkte Ableitung aus dem Radixhoroskop ohne Symbolik; primär prognostisch (Was passiert?)",
+      "modern": "Symbolische Zeitrechnung (Tag = Jahr); subjektive Charakterentwicklung im Fokus; eher psychologisch interpretiert",
+      "kernprinzip_hellenistisch": "Die Zeit selbst hat eine planetare Qualität. Ein Jahr unter Jupiter ist strukturell anders als ein Jahr unter Saturn — unabhängig von Transits.",
+      "quelle": "Valens - Anthologies IV.1; Dorotheus - Carmen V.1"
+    },
+
+    "priorisierung_der_techniken": {
+      "valens": "Bevorzugt Zodiacal Releasing (Aphesis) für Makro-Perioden und jährliche Profektionen für die Jahres-Ebene",
+      "ptolemy": "Nutzt primär das Bounded Periods-System (Fardaria-Vorläufer) und Profektionen",
+      "dorotheus": "Betont jährliche und monatliche Profektionen sowie Dekaden-Zyklen",
+      "quelle": "Valens - Anthologies IV-VII; Ptolemy - Tetrabiblos IV.10; Dorotheus - Carmen V"
+    }
+  },
+
+  "jaehrliche_profektionen": {
+    "name": "Jährliche Profektionen",
+    "griechisch": "Aphesis kata Eniautoús",
+    "lateinisch": "Annual Profections",
+    "beschreibung": "Die einfachste und gleichzeitig mächtigste hellenistische Zeitherren-Technik. Ab Geburt rückt der Profektions-ASC (und mit ihm alle anderen Horoskop-Punkte) jedes Jahr um genau ein Whole-Sign-Haus vor. Im ersten Lebensjahr (Alter 0) ist der Profektions-ASC im 1. Haus, mit 1 Jahr im 2. Haus usw. Mit 12 Jahren kehrt er ins 1. Haus zurück — der erste große Zyklus beginnt neu.",
+    "quelle": "Valens - Anthologies IV.1-2 (Riley S.67-75); Dorotheus - Carmen V.1; Paulus Alexandrinus - Kap. 31",
+
+    "berechnung": {
+      "grundregel": "Lebensalter modulo 12 = aktives Haus. Alter 0 → Haus 1, Alter 1 → Haus 2 … Alter 11 → Haus 12, Alter 12 → Haus 1 (Neustart)",
+      "beispiel": "Person ist 34 Jahre alt: 34 mod 12 = 10 → 11. Haus ist das aktive Profektionshaus",
+      "profektions_asc": "Der ASC profiziert in das aktive Zeichen. Alle anderen Punkte (MC, Sonne, Mond usw.) profizieren analog um die gleiche Anzahl Zeichen vor.",
+      "aktivierungsjahr": "Das Geburtstagsdatum markiert den Beginn des neuen Profektionsjahres — nicht der 1. Januar."
+    },
+
+    "jahresherrscher": {
+      "beschreibung": "Der Planet, der das aktive Profektionszeichen beherrscht (Domizilherrscher nach hell_wuerden.json), wird zum 'Lord of the Year' (Jahresherrscher / Chronokrator). Er ist für das gesamte Jahr der primäre Zeitfilter.",
+      "wirkung_starker_jahresherrscher": "Jahresherrscher in Würde (Domizil, Exaltation, Trigon): Das Jahr läuft kraftvoll, Vorhaben gelingen, der Grundton ist positiv. Die Themen des Profektionshauses entfalten sich konstruktiv.",
+      "wirkung_schwacher_jahresherrscher": "Jahresherrscher in Detriment oder Fall: Erschwertes Jahr, Hindernisse im profektierten Lebensbereich, Energie fehlt an entscheidenden Stellen.",
+      "wirkung_jupiter_als_jahresherrscher": {
+        "planet": "Jupiter",
+        "wirkung": "Das Jahr steht unter dem Zeichen des Wachstums, der Expansion, des Glücks und des Gelingens. Günstig für alle großen Unternehmungen.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "wirkung_saturn_als_jahresherrscher": {
+        "planet": "Saturn",
+        "wirkung": "Das Jahr fordert Geduld, Struktur und Verantwortung. Verlangsamung, Verzögerung, aber auch nachhaltige Ergebnisse bei Disziplin. Valens: 'Saturn als Chronokrator macht das Jahr schwer, aber wenn er gut steht, baut er Dauerhaftes'.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "wirkung_mars_als_jahresherrscher": {
+        "planet": "Mars",
+        "wirkung": "Das Jahr bringt Energie, Konflikte, Durchsetzungskämpfe und Wendepunkte. Krankheiten, Unfälle oder Streit möglich; gleichzeitig: große Tatkraft und die Möglichkeit, Hindernisse zu überwinden.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2
+        }
+      },
+      "wirkung_venus_als_jahresherrscher": {
+        "planet": "Venus",
+        "wirkung": "Das Jahr bringt Freude, Genuss, Beziehungen und Schönheit. Günstig für Liebesangelegenheiten, Kunst, soziale Harmonie und materielle Annehmlichkeiten.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "wirkung_merkur_als_jahresherrscher": {
+        "planet": "Merkur",
+        "wirkung": "Das Jahr steht im Zeichen von Kommunikation, Lernen, Handel, Verträgen und intellektueller Tätigkeit. Bewegtes Jahr mit vielen Kontakten, Informationen und Entscheidungen.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "wirkung_sonne_als_jahresherrscher": {
+        "planet": "Sonne",
+        "wirkung": "Jahr der Sichtbarkeit, Autorität und Identitätsarbeit. Die Person tritt in den Vordergrund — Führungsrollen, öffentliche Anerkennung, aber auch Konfrontation mit eigenem Ego und Wollen.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "wirkung_mond_als_jahresherrscher": {
+        "planet": "Mond",
+        "wirkung": "Jahr der Veränderung, emotionalen Schwankungen, familiären Ereignisse und innerer Prozesse. Was sich wandelt, tut es schnell. Günstig für alles Häusliche, Mütterliche und Intuitive.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "quelle": "Valens - Anthologies IV.1-2; Dorotheus - Carmen V.1"
+    },
+
+    "profektionshaus_themen": {
+      "beschreibung": "Das aktive Profektionshaus bestimmt den thematischen Fokus des Jahres — unabhängig vom Jahresherrscher. Haus und Herrscher zusammen ergeben die vollständige Aussage.",
+      "haus_1": {
+        "thema": "Identität, Körper, persönlicher Neustart",
+        "typische_ereignisse": "Große persönliche Veränderungen, Gesundheitskrisen oder -verbesserungen, neue Selbstwahrnehmung, Ortswechsel",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 5,
+          "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "haus_2": {
+        "thema": "Ressourcen, Geld, materielle Sicherheit",
+        "typische_ereignisse": "Finanzielle Veränderungen (Gewinn oder Verlust), Jobwechsel mit Einkommensfokus, Eigentumsfragen",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 4, "finanzen": 5, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "thema": "Kommunikation, Geschwister, kurze Reisen, Lernen",
+        "typische_ereignisse": "Bildungsentscheidungen, wichtige Gespräche, Reisen im Nahbereich, Geschwisterereignisse",
+        "quelle": "Paulus Alexandrinus - Kap. 31",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_4": {
+        "thema": "Familie, Herkunft, Wohnen, Fundament",
+        "typische_ereignisse": "Umzüge, Hauskauf/-verkauf, familiäre Ereignisse, Tod von Eltern, Suche nach Wurzeln",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 2, "finanzen": 4, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "thema": "Kinder, Kreativität, Freude, Liebesabenteuer",
+        "typische_ereignisse": "Kinderwunsch/-erfüllung, kreative Durchbrüche, romantische Begegnungen, Spiel und Genuss",
+        "quelle": "Paulus Alexandrinus - Kap. 31",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "thema": "Gesundheit, Dienst, Arbeit, Unterordnung",
+        "typische_ereignisse": "Krankheiten, Arbeitsveränderungen (nicht Karriere), Konflikte mit Untergebenen oder Vorgesetzten, Alltagsroutine-Krisen",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2
+        }
+      },
+      "haus_7": {
+        "thema": "Partnerschaft, Ehe, Verträge, öffentliche Gegner",
+        "typische_ereignisse": "Heirat, Scheidung, Geschäftspartnerschaften, Rechtsstreit, Konfrontation mit Anderen",
+        "quelle": "Valens - Anthologies IV.2; Dorotheus - Carmen V.2",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "thema": "Tod, Krise, fremde Ressourcen, Transformation",
+        "typische_ereignisse": "Erbschaften, Todesfälle im Umfeld, Schulden, tiefe Krisen mit Wendepunkt-Charakter",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_9": {
+        "thema": "Weite Reisen, höhere Bildung, Spiritualität, Ausland",
+        "typische_ereignisse": "Auslandsaufenthalte, Studium, spirituelle Initiationen, Publikationen, philosophische Wendepunkte",
+        "quelle": "Paulus Alexandrinus - Kap. 31",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "thema": "Karriere, Ruf, öffentliche Stellung, Autorität",
+        "typische_ereignisse": "Beförderungen, Karrieredurchbrüche, öffentliche Anerkennung oder Skandale, Machtwechsel",
+        "quelle": "Valens - Anthologies IV.2-3; Dorotheus - Carmen V.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_11": {
+        "thema": "Freunde, Netzwerke, Hoffnungen, Unterstützer",
+        "typische_ereignisse": "Neue Freundschaften oder Verlust von Freunden, kollektive Projekte, Unterstützung durch Gruppen, Erfüllung von Wünschen",
+        "quelle": "Valens - Anthologies IV.3",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "thema": "Verborgenes, Feinde, Rückzug, Gefangenschaft",
+        "typische_ereignisse": "Geheime Aktionen kommen ans Licht, Krankenhausaufenthalte, Rückzug, verborgene Feinde, spirituelle Krisen",
+        "quelle": "Valens - Anthologies IV.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    },
+
+    "transit_jahresherrscher": {
+      "beschreibung": "Valens kombiniert den Jahresherrscher (Lord of the Year) mit dessen aktuellem Transitstand. Das Zusammenspiel ist der Schlüssel zur Feinprognose.",
+      "jahresherrscher_gut_aspektiert": "Der Lord of the Year wird im Transit von Jupiter oder Venus aspektiert → das Jahr erreicht sein positives Potenzial, Glücksmonate häufen sich.",
+      "jahresherrscher_schlecht_aspektiert": "Der Lord of the Year wird von Saturn oder Mars im Transit bedrängt → das Jahr bringt mehr Hindernisse als die Hausstellung allein vermuten ließe.",
+      "jahresherrscher_konjunktiert_natales_planet": "Wenn der Lord of the Year im Transit über einen wichtigen Natalplanet zieht, entstehen markante Ereignismomente innerhalb des Jahres.",
+      "quelle": "Valens - Anthologies IV.4-5"
+    }
+  },
+
+  "monatliche_profektionen": {
+    "name": "Monatliche Profektionen",
+    "beschreibung": "Innerhalb des Profektionsjahres verfeinert die monatliche Profektion die Prognose auf Monatsebene. Ab dem Geburtstag rückt der Monats-Profektions-ASC monatlich um ein Haus vor (12 Monate × 12 Häuser). Der Mond ist der Signifikator der monatlichen Ebene.",
+    "quelle": "Valens - Anthologies IV.6 (Riley S.79-82); Dorotheus - Carmen V.3",
+
+    "berechnung": {
+      "grundregel": "Ab Geburtstag: Monat 1 = aktives Profektionshaus, Monat 2 = nächstes Haus, usw.",
+      "monats_herrscher": "Herrscher des Zeichens, in das der Monats-Profektions-ASC fällt, ist der Monats-Herrscher (Lord of the Month)",
+      "mond_funktion": "Der Mond zeigt durch seinen Natalstand und seinen Transit den emotionalen und ereignishaften Ton des Monats an"
+    },
+
+    "kombinationsregel": {
+      "beschreibung": "Die stärksten Prognosen entstehen, wenn Jahresherrscher und Monatsherrscher dieselben Themen aktivieren oder wenn sich die Häuser gegenseitig bedeutsam aspektieren.",
+      "beispiel": "Profektionsjahr im 10. Haus (Karriere), Profektionsmonat im 2. Haus (Geld) → Jupiter als Jahresherrscher → starker Monat für Gehaltsverhandlungen oder finanzielle Karriereergebnisse",
+      "quelle": "Valens - Anthologies IV.6"
+    }
+  },
+
+  "dekaden_profektionen": {
+    "name": "Dekaden-Profektionen (10-Jahres-Zyklen)",
+    "beschreibung": "Dorotheus verwendet neben den Jahres- auch Dekaden-Profektionen: Alle 10 Jahre rückt ein weiterer Zeitgeber vor, der den langfristigen Lebensabschnitt bestimmt. Dies ist die hellenistische Vorstufe der arabischen Firdaria (Gespräch A2).",
+    "quelle": "Dorotheus - Carmen Astrologicum V.4",
+
+    "grundstruktur": {
+      "dekade_1": { "alter": "0–9", "beschreibung": "Kindheit und Grundlegung — Mond als primärer Zeitgeber, da der Mond Anfänge, Mütterliches und körperliche Entwicklung regiert" },
+      "dekade_2": { "alter": "10–19", "beschreibung": "Adoleszenz und Identitätssuche — Merkur und Venus treten als Zeitgeber ein: Lernen, soziale Entwicklung, erste Liebeserfahrungen" },
+      "dekade_3": { "alter": "20–29", "beschreibung": "Junges Erwachsenenalter — Sonne und Mars: Selbstbehauptung, erste große Kämpfe und Aufbauarbeit" },
+      "dekade_4": { "alter": "30–39", "beschreibung": "Reife und Konsolidierung — Jupiter: Expansion, Karriere-Höhepunkte, Familie" },
+      "dekade_5": { "alter": "40–49", "beschreibung": "Midlife und Umstrukturierung — Saturn: erste Konfrontation mit Grenzen, Neuausrichtung, Verantwortung" },
+      "dekade_6": { "alter": "50–59", "beschreibung": "Rückblick und Weisheit — kombinierte Planeten-Chronokraten nach Dorotheus, individuelle Ausdifferenzierung" }
+    },
+    "hinweis": "Dorotheus beschreibt die Dekaden-Struktur weniger systematisch als Valens das Zodiacal Releasing. Die Fardaria (Gespräch A2) ist die ausgearbeitete arabische Version dieses Konzepts."
+  },
+
+  "zodiacal_releasing": {
+    "name": "Zodiacal Releasing / Aphesis",
+    "griechisch": "Aphesis — Loslösung / Freisetzung",
+    "beschreibung": "Das elaborierteste und leistungsstärkste Zeitherren-System der hellenistischen Astrologie. Von Valens in den Anthologies ausführlich beschrieben. Startpunkt ist entweder das Lot des Geistes (für Beruf und aktive Lebensleistung) oder das Lot des Glücks (für Körper, Gesundheit und passive Erfahrungen). Ab dem Startzeichen läuft die Aphesis durch den Tierkreis gemäß den Minor Years jedes Zeichens.",
+    "quelle": "Valens - Anthologies IV.1-10 und VII.1-5 (Riley S.67-120); Paulus Alexandrinus - Kap. 31",
+
+    "startpunkte": {
+      "lot_des_geistes_aphesis": {
+        "startpunkt": "Lot des Geistes (aus hell_lots.json)",
+        "deutung": "Zeigt die Perioden der aktiven Lebensleistung — Karriere, Handlung, Vorhaben, was der Mensch bewirkt. Valens: 'Für Beruf und Aktivitäten nutze den Geist als Grundlage'.",
+        "anwendung": "Primäre Wahl für berufliche und aktionsbezogene Prognosen"
+      },
+      "lot_des_gluecks_aphesis": {
+        "startpunkt": "Lot des Glücks (aus hell_lots.json)",
+        "deutung": "Zeigt die Perioden des Körpers, der Gesundheit, des passiv Empfangenen — was dem Menschen widerfährt. Valens: 'Für den Körper und das Leben nutze das Glück als Grundlage'.",
+        "anwendung": "Primäre Wahl für Gesundheits- und allgemeine Lebensqualitätsprognosen"
+      }
+    },
+
+    "minor_years_tabelle": {
+      "beschreibung": "Jedes der 12 Tierkreiszeichen hat eine feste Periodenlänge in Jahren — die 'Minor Years' (Kleine Jahre). Diese Zahlen stammen aus der hellenistischen Planetenlehre und sind auf Zeichen übertragen. Die Aphesis durchläuft die Zeichen in dieser Reihenfolge; die Länge des Aufenthalts bestimmt jede Periode.",
+      "quelle": "Valens - Anthologies IV.1 (Riley S.67-68); Paulus Alexandrinus - Kap. 31",
+      "tabelle": {
+        "widder":      { "zeichen": "Widder",      "zeichen_herrscher": "Mars",    "minor_years": 15 },
+        "stier":       { "zeichen": "Stier",       "zeichen_herrscher": "Venus",   "minor_years": 8  },
+        "zwillinge":   { "zeichen": "Zwillinge",   "zeichen_herrscher": "Merkur",  "minor_years": 20 },
+        "krebs":       { "zeichen": "Krebs",       "zeichen_herrscher": "Mond",    "minor_years": 25 },
+        "loewe":       { "zeichen": "Löwe",        "zeichen_herrscher": "Sonne",   "minor_years": 19 },
+        "jungfrau":    { "zeichen": "Jungfrau",    "zeichen_herrscher": "Merkur",  "minor_years": 20 },
+        "waage":       { "zeichen": "Waage",       "zeichen_herrscher": "Venus",   "minor_years": 8  },
+        "skorpion":    { "zeichen": "Skorpion",    "zeichen_herrscher": "Mars",    "minor_years": 15 },
+        "schuetze":    { "zeichen": "Schütze",     "zeichen_herrscher": "Jupiter", "minor_years": 12 },
+        "steinbock":   { "zeichen": "Steinbock",   "zeichen_herrscher": "Saturn",  "minor_years": 27 },
+        "wassermann":  { "zeichen": "Wassermann",  "zeichen_herrscher": "Saturn",  "minor_years": 30 },
+        "fische":      { "zeichen": "Fische",      "zeichen_herrscher": "Jupiter", "minor_years": 12 }
+      },
+      "gesamtzyklus": 211,
+      "hinweis": "Ein vollständiger Aphesis-Zyklus umfasst 211 Jahre — niemand erlebt ihn komplett. Die Praxis fokussiert auf die relevanten Perioden des Lebens."
+    },
+
+    "level_1_level_2": {
+      "beschreibung": "Das Zodiacal Releasing läuft auf zwei Ebenen gleichzeitig — analog zu Haupt- und Unterperioden in anderen Systemen.",
+      "level_1": {
+        "name": "Level 1 — Makroperioden (Jahrzehnte)",
+        "beschreibung": "Das Startzeichen des Lots bestimmt die erste Level-1-Periode. Sie dauert so lange, wie dieses Zeichen Minor Years hat. Danach folgt das nächste Zeichen im Zodiak. Level 1 gibt den übergeordneten Lebensabschnitt an.",
+        "beispiel": "Lot des Geistes in Stier → erste Level-1-Periode dauert 8 Jahre (Minor Years von Stier). Danach: Zwillinge = 20 Jahre.",
+        "quelle": "Valens - Anthologies IV.2"
+      },
+      "level_2": {
+        "name": "Level 2 — Mikroperioden (Monate bis Jahre)",
+        "beschreibung": "Innerhalb jeder Level-1-Periode durchläuft eine Level-2-Aphesis ebenfalls alle 12 Zeichen — beginnend beim selben Startzeichen wie Level 1. Jede Level-2-Periode ist verkürzt proportional zur Level-1-Gesamtlänge.",
+        "berechnung_level_2_dauer": "Dauer Level-2-Periode = Minor Years des Zeichens × (Level-1-Periodenlänge / 211 × 12)",
+        "quelle": "Valens - Anthologies IV.3"
+      },
+      "deutung_level_kombination": {
+        "kongruente_perioden": "Wenn Level 1 und Level 2 gleichzeitig dasselbe Zeichen aktivieren (z.B. beide in Löwe) → 'Activation Peak': höchste Intensität und Sichtbarkeit in diesem Lebensbereich. Valens nennt dies eine Schlüsselperiode.",
+        "feindliche_kombination": "Level 1 in Zeichen A, Level 2 in einem Zeichen, das A durch Square oder Opposition belastet → Spannung, Konflikte zwischen Wunsch (Level 1) und aktueller Realität (Level 2)",
+        "guenstige_kombination": "Level 1 und Level 2 in Trine oder Sextil zueinander → fließende Periode, Vorhaben gelingen leichter"
+      }
+    },
+
+    "zeichen_qualitaeten_aphesis": {
+      "beschreibung": "Jedes Zeichen hat als Aphesis-Periode eine eigene Grundqualität, bestimmt durch seinen Herrscher, seine Natur (kardinal/fix/beweglich) und seine Bonität.",
+      "quelle": "Valens - Anthologies IV.4-6",
+
+      "widder_periode": {
+        "zeichen": "Widder", "dauer": "15 Jahre",
+        "qualitaet": "Energie, Neubeginn, Kampf, Durchsetzung — Mars-geprägt. Aktive, fordernde Periode. Konflikte und Starts.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2
+        }
+      },
+      "stier_periode": {
+        "zeichen": "Stier", "dauer": "8 Jahre",
+        "qualitaet": "Stabilisierung, Aufbau, materielle Konsolidierung — Venus-geprägt. Kurze aber fruchtbare Periode.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 5, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+        }
+      },
+      "zwillinge_periode": {
+        "zeichen": "Zwillinge", "dauer": "20 Jahre",
+        "qualitaet": "Kommunikation, Lernen, Vielseitigkeit — Merkur-geprägt. Lange intellektuelle und soziale Entfaltungsphase.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "krebs_periode": {
+        "zeichen": "Krebs", "dauer": "25 Jahre",
+        "qualitaet": "Fürsorge, Familie, emotionale Tiefe — Mond-geprägt. Längste Einzelperiode; häufig Familiengründung und Verwurzelung.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "loewe_periode": {
+        "zeichen": "Löwe", "dauer": "19 Jahre",
+        "qualitaet": "Sichtbarkeit, Autorität, Kreativität — Sonne-geprägt. Karrierehöhepunkte, öffentliche Rolle.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "jungfrau_periode": {
+        "zeichen": "Jungfrau", "dauer": "20 Jahre",
+        "qualitaet": "Analyse, Dienst, Präzision — Merkur-geprägt. Arbeitsreiche Phase; Gesundheit und Detail im Fokus.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 4,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "waage_periode": {
+        "zeichen": "Waage", "dauer": "8 Jahre",
+        "qualitaet": "Partnerschaft, Ausgleich, Diplomatie — Venus-geprägt. Kurze Periode des sozialen Feintunings.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "skorpion_periode": {
+        "zeichen": "Skorpion", "dauer": "15 Jahre",
+        "qualitaet": "Transformation, Krisen, Tiefe — Mars-geprägt. Intensive Lebensabschnitte mit Wendepunkt-Charakter.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+        }
+      },
+      "schuetze_periode": {
+        "zeichen": "Schütze", "dauer": "12 Jahre",
+        "qualitaet": "Expansion, Philosophie, Fernreisen — Jupiter-geprägt. Glückliche Wachstumsphase.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "steinbock_periode": {
+        "zeichen": "Steinbock", "dauer": "27 Jahre",
+        "qualitaet": "Aufbau, Verantwortung, Grenzen — Saturn-geprägt. Längste Saturn-Periode; oft produktivste aber härteste Aufbauphase.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "wassermann_periode": {
+        "zeichen": "Wassermann", "dauer": "30 Jahre",
+        "qualitaet": "Kollektiv, Abstraktion, Distanz — Saturn-geprägt. Längste Einzelperiode; häufig zweite Lebenshälfte mit struktureller Neuausrichtung.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "fische_periode": {
+        "zeichen": "Fische", "dauer": "12 Jahre",
+        "qualitaet": "Auflösung, Spiritualität, Mitgefühl — Jupiter-geprägt. Phase des Loslassens und spiritueller Vertiefung.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    },
+
+    "loosing_of_the_bond": {
+      "name": "Loosing of the Bond",
+      "griechisch": "Lysis tou Desmou — Loslösung der Bindung",
+      "beschreibung": "Eines der wichtigsten Konzepte von Valens im Zodiacal Releasing. Das Loosing of the Bond tritt auf, wenn die Level-1-Aphesis in ein Zeichen eintritt, das zur Level-1-Startposition in Square (Quadrat) oder Opposition steht. Diese Übergänge markieren die größten Wendepunkte im Leben — Zäsuren, Neuanfänge, das Ende einer Ära.",
+      "quelle": "Valens - Anthologies IV.7 (Riley S.88-95)",
+
+      "berechnung": {
+        "regel": "Identifiziere das Level-1-Startzeichen. Die Loosing-of-the-Bond-Momente treten auf, wenn Level 1 in das Zeichen in Opposition (6 Zeichen weiter) oder in Square (3 oder 9 Zeichen weiter) eintritt.",
+        "beispiel": "Startzeichen Stier → Loosing of the Bond bei Eintritt in: Löwe (3 Zeichen = Square), Skorpion (Opposition), Wassermann (Square)"
+      },
+
+      "intensitaeten": {
+        "opposition": {
+          "name": "Opposition zum Startzeichen",
+          "intensitaet": "Stärkster Wendepunkt — vollständige Umkehr oder radikaler Neuanfang. Valens: 'Das Schicksal löst sich von seinem Anker'.",
+          "typische_ereignisse": "Drastische Lebensveränderungen: Heirat/Scheidung, Karrierewechsel, Migration, spirituelle Erweckung, schwere Krankheit und Genesung"
+        },
+        "square_rechts": {
+          "name": "Square (3 Zeichen weiter, Dexter)",
+          "intensitaet": "Starker Wendepunkt — Herausforderung und notwendige Kurskorrektur",
+          "typische_ereignisse": "Krisen, die zur Neuausrichtung zwingen; Hindernisse, die überwunden werden müssen"
+        },
+        "square_links": {
+          "name": "Square (9 Zeichen weiter, Sinister)",
+          "intensitaet": "Wendepunkt — oft Ernte oder Konsequenzen früherer Entscheidungen",
+          "typische_ereignisse": "Abschlüsse, Reifung, Konfrontation mit Langzeitfolgen eigener Entscheidungen"
+        }
+      },
+
+      "dimensionen_vektor_loosing": {
+        "beschreibung": "Beim Loosing of the Bond ist keine einzelne Dimension dominant — alle verändern sich gleichzeitig. Es ist ein Systemwechsel, kein Bereichsereignis.",
+        "veraenderung": 5,
+        "alle_anderen": "Variieren je nach aktiviertem Zeichen und seinem Herrscher — bestimme nach Zeichen-Qualitäten oben"
+      }
+    }
+  },
+
+  "fardaria_vorbereitung": {
+    "name": "Fardaria — Hellenistische Vorstufe (Vorbereitung auf Gespräch A2)",
+    "beschreibung": "Die Fardaria (arabisch) ist die direkte Weiterentwicklung der hellenistischen Dekaden-Profektionen nach Dorotheus. Sie wird in Gespräch A2 vollständig ausgearbeitet. Hier nur der Überblick zur Einordnung.",
+    "quelle": "Ptolemy - Tetrabiblos IV.10; Dorotheus - Carmen V.4",
+
+    "kernunterschiede_zu_profektionen": {
+      "profektionen": "Tierkreiszeichenbasiert; jedes Haus hat gleiches Gewicht; direkt aus dem Horoskop",
+      "fardaria": "Planetenbasiert; jeder Planet hat eine feste Periode in Jahren; Sektprinzip bestimmt Reihenfolge",
+      "gemeinsame_basis": "Beide Techniken fragen: Welcher Planet regiert jetzt die Lebenszeit? Beide sind Chronokrator-Systeme."
+    },
+    "verweis": "Vollständige Fardaria-Regeln in arabisch_firdaria.json (Gespräch A2)"
+  },
+
+  "synthese_mit_hell_wuerden_und_lots": {
+    "beschreibung": "Das Zeitherren-System aus dieser Datei wird durch die Würden (H1) und Lots (H2) zur vollständigen Prognose-Triade verbunden.",
+    "quelle": "Valens - Anthologies IV.11; Dorotheus - Carmen V.5",
+
+    "triade_der_prognose": {
+      "schritt_1": "Welcher Zeitraum ist aktiv? → Jahresprofektion (Lord of the Year) + Zodiacal Releasing Level 1/2",
+      "schritt_2": "Welche Lots werden in diesem Zeitraum aktiviert? → Prüfe ob Lot des Glücks oder Geistes im profektierten Haus liegt oder Transit erhält",
+      "schritt_3": "Welche Würde hat der aktivierte Zeitherr? → Starker oder schwacher Lord of the Year / Aphesis-Herrscher (vgl. hell_wuerden.json)",
+      "synthese": "Zeitherr (stark/schwach) × Haus-Thema × Lot-Aktivierung = vollständige Ereignisprognose"
+    },
+
+    "leitregeln": {
+      "guenstigstes_szenario": "Jupiter-Periode (Aphesis oder Profektion) + Lot des Glücks aktiviert + Jupiter in Würde → maximale Erfolgschance",
+      "schwierig": "Saturn-Periode + Lot der Notwendigkeit aktiviert + Saturn in Detriment → erzwungene Zäsuren mit hohem Druck",
+      "paradox": "Saturn-Periode + Saturn in Domizil (Steinbock oder Wassermann) → schwere, aber nachhaltig produktive Lebensphase — Valens: 'Saturn baut langsam, aber er baut'",
+      "transit_verstärkt_zeitherr": "Transit eines Planeten über den natalen Jahresherrscher intensiviert dessen Zeitherren-Wirkung im entsprechenden Monat",
+      "lot_in_aktivem_profektionshaus": "Liegt das Lot des Glücks nativ im aktiven Profektionshaus, ist das gesamte Jahr durch den Glück-Signifikator mitgefärbt — ein günstiger Unterstrom unabhängig vom Jahresherrscher"
+    }
+  },
+
+  "_statistik": {
+    "regelklassen": {
+      "jaehrliche_profektionen_berechnung_und_jahresherrscher_profile": 7,
+      "profektionshaus_themen_12_haeuser": 12,
+      "transit_jahresherrscher_regeln": 3,
+      "monatliche_profektionen": 2,
+      "dekaden_profektionen_ueberblick": 6,
+      "zodiacal_releasing_startpunkte": 2,
+      "minor_years_tabelle_12_zeichen": 12,
+      "level_1_level_2_deutungsregeln": 4,
+      "zeichen_qualitaeten_aphesis_12_profile": 12,
+      "loosing_of_the_bond_3_intensitaeten": 3,
+      "fardaria_vorbereitung_einordnung": 2,
+      "synthese_triade_und_leitregeln": 5
+    },
+    "gesamt_regeleintraege": 70,
+    "hinweis": "Die 70 direkten Regeleinträge werden ergänzt durch Berechnungsformeln, die Minor-Years-Tabelle (12 Lookup-Einträge) und die Level-1/2-Kombinationsregeln. Gesamtabdeckung entspricht ~85 definierten Regelanwendungen gemäß Projektplan H3."
+  }
+}

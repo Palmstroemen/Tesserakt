@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astro Regelwerk Explorer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+  :root {
+    --ink:    #1a1118;
+    --vellum: #f5f0e8;
+    --gold:   #b8860b;
+    --gold2:  #d4a017;
+    --rust:   #8b3a2a;
+    --slate:  #2d3a4a;
+    --mist:   #e8e4d8;
+    --dim:    #6b6358;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ink);
+    color: var(--vellum);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, rgba(184,134,11,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,58,42,0.08) 0%, transparent 50%);
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+    position: relative;
+  }
+
+  header::before {
+    content: '✦ ✦ ✦';
+    display: block;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 12px;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: var(--gold2);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 40px rgba(212,160,23,0.3);
+  }
+
+  .subtitle {
+    color: var(--dim);
+    font-style: italic;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .sources {
+    font-size: 12px;
+    color: var(--dim);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* ── Tabs ──────────────────────────────────────── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    padding: 1.5rem 2rem 0;
+    border-bottom: 1px solid rgba(184,134,11,0.2);
+    overflow-x: auto;
+  }
+
+  .tab {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    color: var(--dim);
+    border: 1px solid transparent;
+    border-bottom: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+    background: transparent;
+  }
+
+  .tab:hover { color: var(--vellum); }
+
+  .tab.active {
+    color: var(--gold2);
+    border-color: rgba(184,134,11,0.3);
+    background: rgba(184,134,11,0.05);
+    position: relative;
+    bottom: -1px;
+  }
+
+  /* ── Content ───────────────────────────────────── */
+  .panel { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* ── Rule Cards ────────────────────────────────── */
+  .rule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .rule-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 2px;
+    padding: 1.2rem 1.4rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+    position: relative;
+  }
+
+  .rule-card:hover {
+    border-color: rgba(184,134,11,0.5);
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .rule-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .symbol {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--gold2);
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--gold2);
+    text-transform: uppercase;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+    color: var(--dim);
+    font-style: italic;
+  }
+
+  .card-text {
+    font-size: 15px;
+    color: rgba(245,240,232,0.85);
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  /* ── Dimension Bars ────────────────────────────── */
+  .dim-bars { display: flex; flex-direction: column; gap: 4px; margin-top: 0.6rem; }
+
+  .dim-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+  }
+
+  .dim-label {
+    width: 90px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .dim-bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .dim-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .dim-bar-fill.high   { background: linear-gradient(90deg, #b8860b, #d4a017); }
+  .dim-bar-fill.medium { background: linear-gradient(90deg, #4a6741, #5f8c55); }
+  .dim-bar-fill.low    { background: linear-gradient(90deg, #8b3a2a, #aa4433); }
+
+  .dim-val {
+    width: 24px;
+    text-align: right;
+    color: var(--dim);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ── Source Badge ──────────────────────────────── */
+  .source-badge {
+    font-size: 10px;
+    color: var(--dim);
+    font-style: italic;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── Filter Bar ────────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(184,134,11,0.3);
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold2);
+    background: rgba(184,134,11,0.1);
+  }
+
+  /* ── Transit Table ─────────────────────────────── */
+  .transit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .transit-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--gold2);
+    text-transform: uppercase;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+    text-align: left;
+  }
+
+  .transit-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .transit-table tr:hover td { background: rgba(184,134,11,0.05); }
+
+  .aspect-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5px;
+  }
+
+  .aspect-chip.positiv  { background: rgba(95,140,85,0.2);  color: #7ab870; border: 1px solid rgba(95,140,85,0.4); }
+  .aspect-chip.negativ  { background: rgba(170,68,51,0.2);  color: #cc7766; border: 1px solid rgba(170,68,51,0.4); }
+  .aspect-chip.neutral  { background: rgba(184,134,11,0.2); color: #d4a017; border: 1px solid rgba(184,134,11,0.4); }
+
+  /* ── Demo Calculator ───────────────────────────── */
+  .calc-form {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(184,134,11,0.2);
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group { flex: 1; min-width: 140px; }
+
+  label {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  input[type="date"], input[type="time"] {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(184,134,11,0.3);
+    color: var(--vellum);
+    padding: 0.6rem 0.8rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    color-scheme: dark;
+  }
+
+  input:focus { border-color: var(--gold2); }
+
+  .calc-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 0.8rem 2.5rem;
+    background: linear-gradient(135deg, rgba(184,134,11,0.3), rgba(212,160,23,0.15));
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    cursor: pointer;
+    display: block;
+    margin: 1.5rem auto 0;
+    transition: all 0.3s;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .calc-btn:hover {
+    background: linear-gradient(135deg, rgba(184,134,11,0.5), rgba(212,160,23,0.3));
+    box-shadow: 0 0 20px rgba(184,134,11,0.2);
+  }
+
+  /* ── Result Vectors ────────────────────────────── */
+  .vector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .vector-panel {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(184,134,11,0.2);
+    padding: 1.2rem;
+  }
+
+  .vector-panel h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold2);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(184,134,11,0.2);
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+  }
+
+  .meta-item span:first-child {
+    color: var(--dim);
+    font-size: 11px;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+  }
+
+  .meta-item span:last-child { color: var(--gold2); }
+
+  /* ── Section Headers ───────────────────────────── */
+  .section-header {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold2);
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+    margin: 2rem 0 1rem;
+  }
+
+  .section-header::before {
+    content: '⊕ ';
+    opacity: 0.6;
+  }
+
+  /* ── Validation UI ─────────────────────────────── */
+  .validation-note {
+    background: rgba(184,134,11,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(245,240,232,0.8);
+  }
+
+  .star-rating {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .star {
+    font-size: 18px;
+    cursor: pointer;
+    color: rgba(184,134,11,0.3);
+    transition: color 0.15s;
+  }
+
+  .star.active, .star:hover { color: var(--gold2); }
+
+  /* ── Ornaments ─────────────────────────────────── */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 12px;
+    letter-spacing: 8px;
+    margin: 2rem 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Astro Regelwerk</h1>
+  <p class="subtitle">Kanonisches Regelwerk · Westliche & Bazi Astrologie</p>
+  <p class="sources">Quellen: Sepharial (1910) · N. DeVore Encyclopaedia (1947) · Raphael Manual (1828) · Klassische Bazi-Texte</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('signs')">Sonnenzeichen</button>
+  <button class="tab" onclick="showTab('transits')">Transite & Aspekte</button>
+  <button class="tab" onclick="showTab('bazi')">Bazi / Fünf Elemente</button>
+  <button class="tab" onclick="showTab('calculator')">Vektor-Demo</button>
+  <button class="tab" onclick="showTab('validate')">Validierung</button>
+</div>
+
+<!-- ══ SONNENZEICHEN ═══════════════════════════════════════════ -->
+<div class="panel active" id="panel-signs">
+  <div class="filter-bar">
+    <span style="font-family:Cinzel;font-size:10px;letter-spacing:1px;color:var(--dim);text-transform:uppercase;">Element:</span>
+    <button class="filter-btn active" onclick="filterSigns('all', this)">Alle</button>
+    <button class="filter-btn" onclick="filterSigns('feuer', this)">🔥 Feuer</button>
+    <button class="filter-btn" onclick="filterSigns('erde', this)">🌍 Erde</button>
+    <button class="filter-btn" onclick="filterSigns('luft', this)">💨 Luft</button>
+    <button class="filter-btn" onclick="filterSigns('wasser', this)">💧 Wasser</button>
+  </div>
+  <div class="rule-grid" id="signs-grid"></div>
+</div>
+
+<!-- ══ TRANSITE ════════════════════════════════════════════════ -->
+<div class="panel" id="panel-transits">
+  <div class="filter-bar">
+    <span style="font-family:Cinzel;font-size:10px;letter-spacing:1px;color:var(--dim);text-transform:uppercase;">Planet:</span>
+    <button class="filter-btn active" onclick="filterTransit('all', this)">Alle</button>
+    <button class="filter-btn" onclick="filterTransit('sonne', this)">☉ Sonne</button>
+    <button class="filter-btn" onclick="filterTransit('mond', this)">☽ Mond</button>
+    <button class="filter-btn" onclick="filterTransit('venus', this)">♀ Venus</button>
+    <button class="filter-btn" onclick="filterTransit('mars', this)">♂ Mars</button>
+    <button class="filter-btn" onclick="filterTransit('jupiter', this)">♃ Jupiter</button>
+    <button class="filter-btn" onclick="filterTransit('saturn', this)">♄ Saturn</button>
+    <button class="filter-btn" onclick="filterTransit('uranus', this)">♅ Uranus</button>
+    <button class="filter-btn" onclick="filterTransit('neptun', this)">♆ Neptun</button>
+    <button class="filter-btn" onclick="filterTransit('pluto', this)">♇ Pluto</button>
+  </div>
+  <table class="transit-table">
+    <thead>
+      <tr>
+        <th>Planet</th>
+        <th>Aspekt</th>
+        <th>Interpretation</th>
+        <th>Hauptdimensionen</th>
+        <th>Quelle</th>
+      </tr>
+    </thead>
+    <tbody id="transit-body"></tbody>
+  </table>
+</div>
+
+<!-- ══ BAZI ═══════════════════════════════════════════════════ -->
+<div class="panel" id="panel-bazi">
+  <div class="section-header">Heavenly Stems (天干)</div>
+  <div class="rule-grid" id="stems-grid"></div>
+
+  <div class="section-header">Earthly Branches / Tiere (地支)</div>
+  <div class="rule-grid" id="branches-grid"></div>
+
+  <div class="section-header">Fünf-Element-Interaktionen (五行)</div>
+  <div class="rule-grid" id="elements-grid"></div>
+</div>
+
+<!-- ══ CALCULATOR ══════════════════════════════════════════════ -->
+<div class="panel" id="panel-calculator">
+  <div class="validation-note">
+    Diese Demo berechnet Ergebnisvektoren aus dem Regelwerk — ohne externe Astronomie-Libraries.
+    In der Produktionsversion wird Swiss Ephemeris für präzise Planetenpositionen verwendet.
+  </div>
+
+  <div class="calc-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Geburtsdatum</label>
+        <input type="date" id="birth-date" value="1985-03-15">
+      </div>
+      <div class="form-group">
+        <label>Geburtszeit (optional)</label>
+        <input type="time" id="birth-time" value="12:00">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculate()">✦ Vektoren berechnen ✦</button>
+  </div>
+
+  <div id="calc-result" style="display:none">
+    <div class="section-header">Persönliche Daten</div>
+    <div class="meta-grid" id="meta-display"></div>
+    
+    <div class="section-header">Ergebnisvektoren — Heute (T0)</div>
+    <div class="vector-grid" id="vectors-t0"></div>
+
+    <div class="section-header">Ergebnisvektoren — Letzter Monat (T1)</div>
+    <div class="vector-grid" id="vectors-t1"></div>
+
+    <div class="section-header">Ergebnisvektoren — Letztes Quartal (T3)</div>
+    <div class="vector-grid" id="vectors-t3"></div>
+
+    <div class="section-header">Generierte Fragen (Beispiel: System A, T1)</div>
+    <div id="questions-display"></div>
+  </div>
+</div>
+
+<!-- ══ VALIDIERUNG ═════════════════════════════════════════════ -->
+<div class="panel" id="panel-validate">
+  <div class="validation-note">
+    Astrologen können hier einzelne Regeln bewerten. Diese Bewertungen fließen in die 
+    Konfidenz-Gewichtung des Regelwerks ein. Ziel: Konsens über kanonische Interpretationen.
+  </div>
+
+  <div id="validation-cards"></div>
+</div>
+
+
+<script>
+// ══ DATEN (eingebettet aus JSON-Regelwerken) ═══════════════════════════════
+
+const WEST_SIGNS = {
+  widder:     { symbol:"♈", element:"feuer", herrscher:"Mars",    text:"Dynamisch, pionierfreudig, direkt, impulsiv, mutig",         vektor:{liebe:3,beruf:4,finanzen:3,gesundheit:3,soziales:3,kreativitaet:3,veraenderung:4,spiritualitaet:2} },
+  stier:      { symbol:"♉", element:"erde",  herrscher:"Venus",   text:"Beständig, sinnenfreudig, geduldig, stur, materiell",        vektor:{liebe:4,beruf:4,finanzen:4,gesundheit:3,soziales:3,kreativitaet:3,veraenderung:2,spiritualitaet:2} },
+  zwillinge:  { symbol:"♊", element:"luft",  herrscher:"Merkur",  text:"Vielseitig, kommunikativ, neugierig, unbeständig",           vektor:{liebe:3,beruf:4,finanzen:3,gesundheit:3,soziales:5,kreativitaet:5,veraenderung:3,spiritualitaet:2} },
+  krebs:      { symbol:"♋", element:"wasser",herrscher:"Mond",    text:"Einfühlsam, familiär, schützend, empfindlich, intuitiv",     vektor:{liebe:4,beruf:3,finanzen:3,gesundheit:3,soziales:4,kreativitaet:4,veraenderung:3,spiritualitaet:4} },
+  loewe:      { symbol:"♌", element:"feuer", herrscher:"Sonne",   text:"Großzügig, kreativ, stolz, dominant, dramatisch, herzlich",  vektor:{liebe:4,beruf:5,finanzen:3,gesundheit:4,soziales:4,kreativitaet:5,veraenderung:3,spiritualitaet:2} },
+  jungfrau:   { symbol:"♍", element:"erde",  herrscher:"Merkur",  text:"Analytisch, perfektionistisch, hilfsbereit, kritisch",       vektor:{liebe:3,beruf:5,finanzen:4,gesundheit:4,soziales:3,kreativitaet:3,veraenderung:2,spiritualitaet:3} },
+  waage:      { symbol:"♎", element:"luft",  herrscher:"Venus",   text:"Harmonisch, ästhetisch, gerecht, unentschlossen, charmant",  vektor:{liebe:5,beruf:3,finanzen:3,gesundheit:3,soziales:5,kreativitaet:4,veraenderung:2,spiritualitaet:3} },
+  skorpion:   { symbol:"♏", element:"wasser",herrscher:"Mars/Pluto",text:"Intensiv, tiefgründig, leidenschaftlich, transformativ",  vektor:{liebe:4,beruf:4,finanzen:4,gesundheit:3,soziales:2,kreativitaet:4,veraenderung:5,spiritualitaet:5} },
+  schuetze:   { symbol:"♐", element:"feuer", herrscher:"Jupiter", text:"Optimistisch, freiheitsliebend, philosophisch, großzügig",  vektor:{liebe:3,beruf:4,finanzen:3,gesundheit:3,soziales:5,kreativitaet:4,veraenderung:4,spiritualitaet:4} },
+  steinbock:  { symbol:"♑", element:"erde",  herrscher:"Saturn",  text:"Ehrgeizig, diszipliniert, praktisch, verantwortungsvoll",   vektor:{liebe:2,beruf:5,finanzen:4,gesundheit:3,soziales:2,kreativitaet:3,veraenderung:2,spiritualitaet:2} },
+  wassermann: { symbol:"♒", element:"luft",  herrscher:"Saturn/Uranus",text:"Unabhängig, humanistisch, originell, idealistisch",    vektor:{liebe:3,beruf:4,finanzen:3,gesundheit:3,soziales:5,kreativitaet:5,veraenderung:4,spiritualitaet:3} },
+  fische:     { symbol:"♓", element:"wasser",herrscher:"Jupiter/Neptun",text:"Einfühlsam, träumerisch, intuitiv, selbstlos, kreativ",vektor:{liebe:5,beruf:3,finanzen:2,gesundheit:3,soziales:4,kreativitaet:5,veraenderung:3,spiritualitaet:5} },
+};
+
+const TRANSIT_RULES = [
+  { planet:"Sonne", sym:"☉", aspekt:"Konjunktion", typ:"neutral",  text:"Verstärkte Lebenskraft, Selbstbewusstsein. Günstig für Anfänge.",            dims:{beruf:4,gesundheit:4,veraenderung:4}, quelle:"Sepharial S.98"  },
+  { planet:"Sonne", sym:"☉", aspekt:"Trine",       typ:"positiv",  text:"Harmonische Lebensenergie. Dinge fließen leicht. Kreativität hoch.",          dims:{liebe:4,beruf:4,kreativitaet:5},      quelle:"Sepharial S.99"  },
+  { planet:"Sonne", sym:"☉", aspekt:"Quadrat",     typ:"negativ",  text:"Spannungen zwischen Wille und Umständen. Anstrengung nötig.",                  dims:{liebe:2,beruf:2,gesundheit:2},        quelle:"Sepharial S.100" },
+  { planet:"Mond",  sym:"☽", aspekt:"Trine",       typ:"positiv",  text:"Emotionale Harmonie. Gute Zeit für Familiäres und Beziehungspflege.",          dims:{liebe:5,gesundheit:4,soziales:5},     quelle:"Sepharial S.105" },
+  { planet:"Mond",  sym:"☽", aspekt:"Quadrat",     typ:"negativ",  text:"Emotionale Irritationen, Launenhaftigkeit. Missverständnisse.",                dims:{liebe:2,gesundheit:2,soziales:2},     quelle:"Sepharial S.106" },
+  { planet:"Venus", sym:"♀", aspekt:"Konjunktion", typ:"neutral",  text:"Liebesleben aufblühend. Schönheit, Harmonie und soziale Erfolge.",             dims:{liebe:5,finanzen:4,soziales:5},       quelle:"Sepharial S.112" },
+  { planet:"Venus", sym:"♀", aspekt:"Trine",       typ:"positiv",  text:"Harmonische Liebesenergie. Geld fließt leichter. Künstlerische Inspiration.",  dims:{liebe:5,finanzen:4,kreativitaet:5},   quelle:"Sepharial S.113" },
+  { planet:"Venus", sym:"♀", aspekt:"Quadrat",     typ:"negativ",  text:"Liebesstreitigkeiten, Eifersucht. Geldausgaben impulsiv.",                     dims:{liebe:2,finanzen:2,soziales:2},       quelle:"Sepharial S.114" },
+  { planet:"Venus", sym:"♀", aspekt:"Opposition",  typ:"negativ",  text:"Beziehungsspannungen. Partner unzufrieden. Genuss kontra Pflicht.",            dims:{liebe:1,finanzen:2,soziales:2},       quelle:"Sepharial S.114" },
+  { planet:"Mars",  sym:"♂", aspekt:"Konjunktion", typ:"neutral",  text:"Hohe Energie und Tatendrang. Achtung: Impulsivität und Aggressionen.",         dims:{beruf:4,gesundheit:3,veraenderung:5}, quelle:"Sepharial S.116" },
+  { planet:"Mars",  sym:"♂", aspekt:"Trine",       typ:"positiv",  text:"Zielgerichtete Energie. Sportliche und berufliche Leistungen hoch.",           dims:{beruf:5,gesundheit:4,veraenderung:4}, quelle:"Sepharial S.117" },
+  { planet:"Mars",  sym:"♂", aspekt:"Quadrat",     typ:"negativ",  text:"Konflikte, Streit, Unfallgefahr. Impulshandlungen vermeiden.",                 dims:{beruf:2,gesundheit:2,liebe:2},        quelle:"Sepharial S.118" },
+  { planet:"Jupiter",sym:"♃",aspekt:"Konjunktion", typ:"neutral",  text:"Großes Glück, Expansion, Optimismus. Einer der günstigsten Transite.",         dims:{liebe:4,beruf:5,finanzen:5,soziales:5},quelle:"Sepharial S.120"},
+  { planet:"Jupiter",sym:"♃",aspekt:"Trine",       typ:"positiv",  text:"Fluss von Glück und Wohlwollen. Erfolg ohne große Anstrengung.",               dims:{beruf:5,finanzen:4,soziales:4},       quelle:"Sepharial S.121" },
+  { planet:"Jupiter",sym:"♃",aspekt:"Quadrat",     typ:"negativ",  text:"Übertreibung, Selbstüberschätzung, Verschwendung. Maß halten.",                dims:{beruf:2,finanzen:2},                  quelle:"Sepharial S.122" },
+  { planet:"Saturn", sym:"♄",aspekt:"Konjunktion", typ:"neutral",  text:"Prüfungen, Einschränkungen, Verantwortung. Langfristig lehrreich.",            dims:{liebe:2,beruf:3,finanzen:2,gesundheit:2},quelle:"Sepharial S.124"},
+  { planet:"Saturn", sym:"♄",aspekt:"Trine",       typ:"positiv",  text:"Stabilität durch Disziplin. Langfristige Ziele kommen in Reichweite.",         dims:{beruf:5,finanzen:4,gesundheit:4},     quelle:"Sepharial S.125" },
+  { planet:"Saturn", sym:"♄",aspekt:"Quadrat",     typ:"negativ",  text:"Hindernisse, Rückschläge, Erschöpfung. Geduld und Ausdauer erforderlich.",     dims:{liebe:2,beruf:2,finanzen:2},          quelle:"Sepharial S.126" },
+  { planet:"Uranus", sym:"♅",aspekt:"Konjunktion", typ:"neutral",  text:"Plötzliche Veränderungen, Umbrüche, Befreiung. Unvorhersehbar.",               dims:{veraenderung:5,kreativitaet:5},       quelle:"DeVore S.341"    },
+  { planet:"Neptun", sym:"♆",aspekt:"Trine",       typ:"positiv",  text:"Spirituelle Harmonie, künstlerische Inspiration, romantischer Idealismus.",    dims:{spiritualitaet:5,kreativitaet:5,liebe:4},quelle:"DeVore S.291" },
+  { planet:"Pluto",  sym:"♇",aspekt:"Konjunktion", typ:"neutral",  text:"Tiefe Transformation, Tod und Wiedergeburt alter Muster.",                    dims:{veraenderung:5,spiritualitaet:5},      quelle:"DeVore S.310"    },
+];
+
+const STEMS = [
+  { stem:"Jiǎ",  sym:"甲", el:"Holz Yang", text:"Wachstum, Pionier, Aufrichtigkeit",          vektor:{initiative:5,empathie:3,kreativitaet:4} },
+  { stem:"Yǐ",   sym:"乙", el:"Holz Yin",  text:"Anpassung, Flexibilität, Diplomatie",         vektor:{initiative:3,empathie:5,kreativitaet:4} },
+  { stem:"Bǐng", sym:"丙", el:"Feuer Yang",text:"Wärme, Charisma, Großzügigkeit",              vektor:{initiative:4,empathie:4,kreativitaet:5} },
+  { stem:"Dīng", sym:"丁", el:"Feuer Yin", text:"Präzision, Intuition, Beharrlichkeit",        vektor:{initiative:3,empathie:4,kreativitaet:3} },
+  { stem:"Wù",   sym:"戊", el:"Erde Yang", text:"Stabilität, Verlässlichkeit, Grenze",         vektor:{initiative:2,empathie:3,kreativitaet:2} },
+  { stem:"Jǐ",   sym:"己", el:"Erde Yin",  text:"Fürsorge, Detailgenauigkeit, Vorsicht",       vektor:{initiative:2,empathie:5,kreativitaet:2} },
+  { stem:"Gēng", sym:"庚", el:"Metall Yang",text:"Entschlossenheit, Gerechtigkeit, Kraft",     vektor:{initiative:5,empathie:2,kreativitaet:3} },
+  { stem:"Xīn",  sym:"辛", el:"Metall Yin",text:"Ästhetik, Perfektion, Sensibilität",          vektor:{initiative:3,empathie:4,kreativitaet:4} },
+  { stem:"Rén",  sym:"壬", el:"Wasser Yang",text:"Intelligenz, Freiheit, Anpassung",           vektor:{initiative:4,empathie:3,kreativitaet:5} },
+  { stem:"Guǐ",  sym:"癸", el:"Wasser Yin",text:"Intuition, Stille, Tiefe",                    vektor:{initiative:2,empathie:5,kreativitaet:5} },
+];
+
+const BRANCHES = [
+  { branch:"Zǐ",   tier:"🐭 Ratte",   el:"Wasser", liebe:3, beruf:4, finanzen:4, text:"Klug, schöpferisch, opportunistisch" },
+  { branch:"Chǒu", tier:"🐂 Büffel",  el:"Erde",   liebe:3, beruf:5, finanzen:4, text:"Geduldig, ausdauernd, stur, zuverlässig" },
+  { branch:"Yín",  tier:"🐯 Tiger",   el:"Holz",   liebe:3, beruf:4, finanzen:3, text:"Mutig, charismatisch, impulsiv" },
+  { branch:"Mǎo",  tier:"🐰 Hase",    el:"Holz",   liebe:5, beruf:3, finanzen:3, text:"Sanft, diplomatisch, künstlerisch" },
+  { branch:"Chén", tier:"🐉 Drache",  el:"Erde",   liebe:3, beruf:5, finanzen:4, text:"Visionär, leidenschaftlich, eigenwillig" },
+  { branch:"Sì",   tier:"🐍 Schlange",el:"Feuer",  liebe:4, beruf:4, finanzen:4, text:"Intuitiv, tiefgründig, berechnend" },
+  { branch:"Wǔ",   tier:"🐎 Pferd",   el:"Feuer",  liebe:3, beruf:4, finanzen:3, text:"Energetisch, freiheitsliebend, unbeständig" },
+  { branch:"Wèi",  tier:"🐑 Ziege",   el:"Erde",   liebe:5, beruf:3, finanzen:3, text:"Empathisch, kreativ, fürsorglich" },
+  { branch:"Shēn", tier:"🐵 Affe",    el:"Metall", liebe:3, beruf:5, finanzen:4, text:"Clever, vielseitig, opportunistisch" },
+  { branch:"Yǒu",  tier:"🐔 Hahn",    el:"Metall", liebe:3, beruf:5, finanzen:5, text:"Perfektionistisch, analytisch, direkt" },
+  { branch:"Xū",   tier:"🐕 Hund",    el:"Erde",   liebe:4, beruf:4, finanzen:3, text:"Loyal, gerecht, beschützend" },
+  { branch:"Hài",  tier:"🐷 Schwein", el:"Wasser", liebe:5, beruf:3, finanzen:3, text:"Großzügig, aufrichtig, spirituell" },
+];
+
+const DIMENSIONS = ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"];
+const DIM_LABELS = { liebe:"Liebe", beruf:"Beruf", finanzen:"Finanzen", gesundheit:"Gesundheit", 
+                      soziales:"Soziales", kreativitaet:"Kreativ", veraenderung:"Wandel", spiritualitaet:"Spirit" };
+
+// ══ RENDERING ══════════════════════════════════════════════════════════════
+
+function dimBars(vektor) {
+  return DIMENSIONS.map(d => {
+    const v   = vektor[d] || 3;
+    const pct = (v / 5) * 100;
+    const cls = v >= 4 ? 'high' : v <= 2 ? 'low' : 'medium';
+    return `<div class="dim-row">
+      <span class="dim-label">${DIM_LABELS[d]}</span>
+      <div class="dim-bar-track"><div class="dim-bar-fill ${cls}" style="width:${pct}%"></div></div>
+      <span class="dim-val">${v}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderSigns() {
+  const grid = document.getElementById('signs-grid');
+  grid.innerHTML = Object.entries(WEST_SIGNS).map(([name, data]) => `
+    <div class="rule-card" data-element="${data.element}">
+      <div class="card-header">
+        <span class="symbol">${data.symbol}</span>
+        <div>
+          <div class="card-title">${name.charAt(0).toUpperCase() + name.slice(1)}</div>
+          <div class="card-subtitle">${data.element} · Herrscher: ${data.herrscher}</div>
+        </div>
+      </div>
+      <p class="card-text">${data.text}</p>
+      <div class="dim-bars">${dimBars(data.vektor)}</div>
+      <div class="source-badge">Sepharial 1910</div>
+    </div>
+  `).join('');
+}
+
+function filterSigns(element, btn) {
+  document.querySelectorAll('#panel-signs .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.rule-card[data-element]').forEach(card => {
+    card.style.display = element === 'all' || card.dataset.element === element ? '' : 'none';
+  });
+}
+
+function renderTransits() {
+  const tbody = document.getElementById('transit-body');
+  tbody.innerHTML = TRANSIT_RULES.map(r => {
+    const dims = Object.entries(r.dims).map(([d,v]) => {
+      const cls = v >= 4 ? 'high' : v <= 2 ? 'low' : 'medium';
+      return `<span style="display:inline-block;padding:1px 6px;margin:1px;font-size:10px;background:rgba(255,255,255,0.05);border-radius:1px;color:${cls==='high'?'#d4a017':cls==='low'?'#cc7766':'#aaa'}">${DIM_LABELS[d]}: ${v}</span>`;
+    }).join('');
+    return `<tr data-planet="${r.planet.toLowerCase()}">
+      <td><span style="font-size:1.3rem;color:var(--gold2)">${r.sym}</span> ${r.planet}</td>
+      <td><span class="aspect-chip ${r.typ}">${r.aspekt}</span></td>
+      <td style="font-style:italic;color:rgba(245,240,232,0.8);font-size:14px">${r.text}</td>
+      <td>${dims}</td>
+      <td style="font-size:11px;color:var(--dim);font-style:italic">${r.quelle}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterTransit(planet, btn) {
+  document.querySelectorAll('#panel-transits .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#transit-body tr').forEach(row => {
+    row.style.display = planet === 'all' || row.dataset.planet === planet ? '' : 'none';
+  });
+}
+
+function renderBazi() {
+  document.getElementById('stems-grid').innerHTML = STEMS.map(s => `
+    <div class="rule-card">
+      <div class="card-header">
+        <span class="symbol">${s.sym}</span>
+        <div>
+          <div class="card-title">${s.stem}</div>
+          <div class="card-subtitle">${s.el}</div>
+        </div>
+      </div>
+      <p class="card-text">${s.text}</p>
+      <div class="dim-bars">${Object.entries(s.vektor).map(([k,v]) => `
+        <div class="dim-row">
+          <span class="dim-label">${k}</span>
+          <div class="dim-bar-track"><div class="dim-bar-fill ${v>=4?'high':v<=2?'low':'medium'}" style="width:${v/5*100}%"></div></div>
+          <span class="dim-val">${v}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('branches-grid').innerHTML = BRANCHES.map(b => `
+    <div class="rule-card">
+      <div class="card-header">
+        <span class="symbol" style="font-size:1.5rem">${b.tier}</span>
+        <div>
+          <div class="card-title">${b.branch} — ${b.tier.split(' ')[1]}</div>
+          <div class="card-subtitle">Element: ${b.el}</div>
+        </div>
+      </div>
+      <p class="card-text">${b.text}</p>
+      <div class="dim-bars">
+        ${['liebe','beruf','finanzen'].map(d => `
+          <div class="dim-row">
+            <span class="dim-label">${DIM_LABELS[d]}</span>
+            <div class="dim-bar-track"><div class="dim-bar-fill ${b[d]>=4?'high':b[d]<=2?'low':'medium'}" style="width:${b[d]/5*100}%"></div></div>
+            <span class="dim-val">${b[d]}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const elements = [
+    { label:"Holz → Feuer",  typ:"gen", text:"Kreativität und Leidenschaft wachsen",      vektor:{kreativitaet:5,liebe:4} },
+    { label:"Feuer → Erde",  typ:"gen", text:"Projekte gedeihen, Stabilität entsteht",     vektor:{beruf:4,finanzen:4} },
+    { label:"Erde → Metall", typ:"gen", text:"Materieller Aufbau und Qualität",            vektor:{finanzen:5,beruf:4} },
+    { label:"Metall → Wasser",typ:"gen",text:"Tiefe Einsicht, Intuition stärkt sich",      vektor:{spiritualitaet:4,kreativitaet:4} },
+    { label:"Wasser → Holz", typ:"gen", text:"Wachstum und Erneuerung",                    vektor:{veraenderung:4,gesundheit:4} },
+    { label:"Holz ↔ Erde",   typ:"con", text:"Einschränkungen bei Ressourcen",             vektor:{beruf:2,finanzen:2} },
+    { label:"Erde ↔ Wasser", typ:"con", text:"Kommunikation und Fluss gehemmt",            vektor:{soziales:2,kreativitaet:2} },
+    { label:"Wasser ↔ Feuer",typ:"con", text:"Begeisterung gedämpft",                      vektor:{liebe:2,kreativitaet:2} },
+    { label:"Feuer ↔ Metall",typ:"con", text:"Strukturen unter Druck",                     vektor:{beruf:2,finanzen:2} },
+    { label:"Metall ↔ Holz", typ:"con", text:"Erzwungene Veränderungen",                   vektor:{veraenderung:3,gesundheit:2} },
+  ];
+  document.getElementById('elements-grid').innerHTML = elements.map(e => `
+    <div class="rule-card">
+      <div class="card-header">
+        <span class="symbol" style="font-size:1.2rem">${e.typ==='gen'?'⊕':'⊘'}</span>
+        <div>
+          <div class="card-title">${e.label}</div>
+          <div class="card-subtitle">${e.typ==='gen'?'Generierend':'Kontrollierend'}</div>
+        </div>
+      </div>
+      <p class="card-text">${e.text}</p>
+      <div class="dim-bars">${Object.entries(e.vektor).map(([d,v]) => `
+        <div class="dim-row">
+          <span class="dim-label">${DIM_LABELS[d]}</span>
+          <div class="dim-bar-track"><div class="dim-bar-fill ${v>=4?'high':v<=2?'low':'medium'}" style="width:${v/5*100}%"></div></div>
+          <span class="dim-val">${v}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══ CALCULATOR ═════════════════════════════════════════════════════════════
+
+function sunSign(date) {
+  const m = date.getMonth() + 1, d = date.getDate();
+  const signs = [
+    [3,21,4,19,'Widder'], [4,20,5,20,'Stier'], [5,21,6,20,'Zwillinge'],
+    [6,21,7,22,'Krebs'], [7,23,8,22,'Löwe'], [8,23,9,22,'Jungfrau'],
+    [9,23,10,22,'Waage'], [10,23,11,21,'Skorpion'], [11,22,12,21,'Schütze'],
+    [1,20,2,18,'Wassermann'], [2,19,3,20,'Fische']
+  ];
+  for (const [sm,sd,em,ed,name] of signs) {
+    if ((m===sm&&d>=sd)||(m===em&&d<=ed)) return name;
+  }
+  return 'Steinbock';
+}
+
+function baziYear(year) {
+  const stems   = ['Jiǎ','Yǐ','Bǐng','Dīng','Wù','Jǐ','Gēng','Xīn','Rén','Guǐ'];
+  const branches= ['Zǐ','Chǒu','Yín','Mǎo','Chén','Sì','Wǔ','Wèi','Shēn','Yǒu','Xū','Hài'];
+  const tiere   = ['Ratte','Büffel','Tiger','Hase','Drache','Schlange','Pferd','Ziege','Affe','Hahn','Hund','Schwein'];
+  const o = (year - 1924) % 60;
+  return { stem: stems[o%10], branch: branches[o%12], tier: tiere[o%12] };
+}
+
+function seededRandom(seed) {
+  return ((Math.sin(seed) * 10000) % 1 + 1) / 2;
+}
+
+function computeVectors(birthDate) {
+  const sign   = sunSign(birthDate);
+  const signKey = sign.toLowerCase().replace('ö','oe').replace('ü','ue').replace('ä','ae');
+  const signData = WEST_SIGNS[signKey] || WEST_SIGNS['steinbock'];
+  
+  // Western base from sign
+  const westBase = {...signData.vektor};
+  
+  // Bazi
+  const bazi = baziYear(birthDate.getFullYear());
+  const branchData = BRANCHES.find(b => {
+    const tMap = {zǐ:'Ratte',chǒu:'Büffel',yín:'Tiger',mǎo:'Hase',chén:'Drache',
+                  sì:'Schlange',wǔ:'Pferd',wèi:'Ziege',shēn:'Affe',yǒu:'Hahn',xū:'Hund',hài:'Schwein'};
+    return b.tier.split(' ')[1] === bazi.tier;
+  }) || BRANCHES[0];
+  
+  const baziBase = {};
+  DIMENSIONS.forEach(d => {
+    baziBase[d] = branchData[d] || 3;
+  });
+  
+  // Seed for control
+  const seed = birthDate.getFullYear() * 10000 + (birthDate.getMonth()+1)*100 + birthDate.getDate();
+  
+  function addTransitNoise(base, timeSeed) {
+    const result = {};
+    DIMENSIONS.forEach((d, i) => {
+      const noise = (seededRandom(seed + timeSeed + i * 17) - 0.5) * 1.8;
+      result[d] = Math.max(1, Math.min(5, Math.round((base[d] + noise) * 10) / 10));
+    });
+    return result;
+  }
+
+  function controlVec(offset) {
+    const result = {};
+    DIMENSIONS.forEach((d, i) => {
+      result[d] = Math.round((seededRandom(seed + offset + i * 31) * 1.6 + 2.2) * 10) / 10;
+    });
+    return result;
+  }
+
+  return {
+    A: { T0: addTransitNoise(westBase, 0), T1: addTransitNoise(westBase, 30), T3: addTransitNoise(westBase, 100) },
+    C: { T0: addTransitNoise(baziBase, 7), T1: addTransitNoise(baziBase, 37), T3: addTransitNoise(baziBase, 107) },
+    K: { T0: controlVec(0), T1: controlVec(30), T3: controlVec(100) },
+    meta: { sign, bazi }
+  };
+}
+
+function vectorPanel(title, vektor, color) {
+  return `<div class="vector-panel">
+    <h3>${title}</h3>
+    ${DIMENSIONS.map(d => {
+      const v = vektor[d] || 3;
+      const pct = (v/5)*100;
+      const cls = v>=4?'high':v<=2?'low':'medium';
+      return `<div class="dim-row" style="margin-bottom:5px">
+        <span class="dim-label">${DIM_LABELS[d]}</span>
+        <div class="dim-bar-track"><div class="dim-bar-fill ${cls}" style="width:${pct}%"></div></div>
+        <span class="dim-val">${v}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function topDimensions(vektor, n=3) {
+  return Object.entries(vektor)
+    .sort((a,b) => Math.abs(b[1]-3) - Math.abs(a[1]-3))
+    .slice(0, n);
+}
+
+const QUESTIONS_TPLS = {
+  liebe: { h:"Hast du in letzter Zeit Wärme und Zuneigung in deiner Beziehung gespürt?", l:"Hat sich dein Liebesleben eher schwierig oder distanziert angefühlt?" },
+  beruf: { h:"Lief es beruflich besonders gut — gab es Erfolge oder Anerkennung?", l:"Hattest du beruflich das Gefühl, gegen Widerstände ankämpfen zu müssen?" },
+  finanzen: { h:"War die finanzielle Situation eher entspannt und stabil?", l:"Hattest du finanzielle Sorgen oder unerwartete Ausgaben?" },
+  gesundheit: { h:"Hast du dich körperlich fit und energiegeladen gefühlt?", l:"Hast du dich körperlich eher schlapp oder anfällig gefühlt?" },
+  soziales: { h:"War dein soziales Leben lebhaft — viele Begegnungen, gute Gespräche?", l:"Hast du dich in sozialen Situationen eher unwohl oder zurückgezogen gefühlt?" },
+  kreativitaet: { h:"Hast du kreative Energie gespürt — neue Ideen, künstlerische Impulse?", l:"Fühltest du dich kreativ blockiert oder in einem Trott?" },
+  veraenderung: { h:"Hat sich in diesem Zeitraum etwas in deinem Leben deutlich verändert?", l:"War dieser Zeitraum eher ruhig und ohne große Veränderungen?" },
+  spiritualitaet: { h:"Hast du intensive innere Erlebnisse oder spirituelle Momente gehabt?", l:"War dein Alltag eher nüchtern, wenig auf innere Themen ausgerichtet?" },
+};
+
+function calculate() {
+  const dateStr = document.getElementById('birth-date').value;
+  if (!dateStr) return;
+  const birthDate = new Date(dateStr);
+  const result = computeVectors(birthDate);
+  
+  document.getElementById('calc-result').style.display = 'block';
+  
+  document.getElementById('meta-display').innerHTML = `
+    <div class="meta-item"><span>Sonnenzeichen</span><span>${result.meta.sign}</span></div>
+    <div class="meta-item"><span>Chines. Tier</span><span>${result.meta.bazi.tier}</span></div>
+    <div class="meta-item"><span>Jahr-Stem</span><span>${result.meta.bazi.stem}</span></div>
+    <div class="meta-item"><span>Jahr-Branch</span><span>${result.meta.bazi.branch}</span></div>
+  `;
+
+  const sysLabels = { A:'♈ Westliche Astrologie', C:'☯ Bazi', K:'⊘ Kontrollgruppe' };
+  ['T0','T1','T3'].forEach(t => {
+    document.getElementById(`vectors-${t.toLowerCase()}`).innerHTML =
+      ['A','C','K'].map(s => vectorPanel(sysLabels[s], result[s][t])).join('');
+  });
+
+  // Generate sample questions for A/T1
+  const top3 = topDimensions(result.A.T1, 3);
+  document.getElementById('questions-display').innerHTML = top3.map(([dim, val], i) => {
+    const dir = val >= 3 ? 'h' : 'l';
+    const inv = dir === 'l';
+    const q   = QUESTIONS_TPLS[dim]?.[dir] || `Frage zu ${dim}`;
+    return `<div style="padding:1.2rem;border:1px solid rgba(184,134,11,0.15);margin-bottom:0.8rem;background:rgba(255,255,255,0.02)">
+      <p style="margin-bottom:0.8rem;font-style:italic;color:rgba(245,240,232,0.9)">${i+1}. ${q}${inv?' <span style="font-size:11px;color:var(--dim)">[invertiert]</span>':''}</p>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div style="display:flex;gap:6px">${[1,2,3,4,5].map(n=>`<button onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.style.color='var(--dim)');this.style.color='var(--gold2)'" style="background:none;border:1px solid rgba(184,134,11,0.3);color:var(--dim);width:32px;height:32px;cursor:pointer;font-family:Cinzel;font-size:11px;transition:color 0.2s">${n}</button>`).join('')}</div>
+        <span style="font-size:12px;color:var(--dim);font-style:italic">Erwartete Antwort: ${Math.round(val)}/5 · Dim: ${DIM_LABELS[dim]} · Wert: ${val}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══ VALIDATION ══════════════════════════════════════════════════════════════
+
+function renderValidation() {
+  const samples = TRANSIT_RULES.slice(0, 6);
+  document.getElementById('validation-cards').innerHTML = samples.map((r,i) => `
+    <div style="padding:1.5rem;border:1px solid rgba(184,134,11,0.2);margin-bottom:1rem;background:rgba(255,255,255,0.02)">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.8rem">
+        <span style="font-size:1.5rem;color:var(--gold2)">${r.sym}</span>
+        <div>
+          <div style="font-family:Cinzel;font-size:12px;letter-spacing:1px;color:var(--gold2)">${r.planet} ${r.aspekt}</div>
+          <div style="font-size:12px;color:var(--dim)">${r.quelle}</div>
+        </div>
+      </div>
+      <p style="font-style:italic;color:rgba(245,240,232,0.85);margin-bottom:1rem">"${r.text}"</p>
+      <p style="font-size:13px;color:var(--dim);margin-bottom:0.5rem">Würden Sie das auch so interpretieren?</p>
+      <div class="star-rating" id="stars-${i}">
+        ${[1,2,3,4,5].map(n=>`<span class="star" onclick="rateStar(${i},${n})">★</span>`).join('')}
+        <span style="font-size:12px;color:var(--dim);margin-left:0.5rem" id="star-val-${i}">nicht bewertet</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function rateStar(cardIdx, rating) {
+  const stars = document.querySelectorAll(`#stars-${cardIdx} .star`);
+  stars.forEach((s, i) => s.classList.toggle('active', i < rating));
+  document.getElementById(`star-val-${cardIdx}`).textContent = `${rating}/5`;
+}
+
+// ══ TABS ════════════════════════════════════════════════════════════════════
+
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', t.getAttribute('onclick').includes(`'${id}'`)));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel-${id}`).classList.add('active');
+}
+
+// ══ INIT ════════════════════════════════════════════════════════════════════
+renderSigns();
+renderTransits();
+renderBazi();
+renderValidation();
+</script>
+</body>
+</html>

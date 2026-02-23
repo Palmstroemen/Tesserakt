@@ -1,0 +1,647 @@
+{
+  "_meta": {
+    "system": "numerologie",
+    "modul": "lebenspfad",
+    "version": "1.0",
+    "sources": [
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, Project Gutenberg #3203)",
+      "L. Dow Balliett - The Philosophy of Numbers (1908, public domain)",
+      "Cheiro (Count Louis Hamon) - Book of Numbers (1926, public domain AT/EU)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Lebenspfadzahlen 1-9 mit vollständigen Profilen, Meisterzahlen 11/22/33, Lebenspfad×Lebenspfad-Kompatibilitätsmatrix (81 Kombinationen), und Periodenzahlen (drei Lebenszyklen).",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog western_rules_complete.json und numerologie_basis.json"
+  },
+
+  "berechnung_lebenspfad": {
+    "beschreibung": "Standardalgorithmus zur Berechnung der Lebenspfadzahl aus dem vollständigen Geburtsdatum (TT.MM.JJJJ).",
+    "quelle": "Cheiro - Book of Numbers Kap.1; Westcott S.15; Balliett S.10",
+    "methode_1_standard": {
+      "name": "Additionsmethode (empfohlen)",
+      "schritte": [
+        "Alle Ziffern des vollständigen Geburtsdatums addieren",
+        "Quersumme bilden bis einstellige Zahl resultiert",
+        "Ausnahme: 11, 22, 33 sind Meisterzahlen und werden NICHT weiter reduziert"
+      ],
+      "beispiel_1": {
+        "geburtsdatum": "14.02.1990",
+        "rechnung": "1+4+0+2+1+9+9+0 = 26 → 2+6 = 8",
+        "lebenspfad": 8
+      },
+      "beispiel_2": {
+        "geburtsdatum": "29.11.1984",
+        "rechnung": "2+9+1+1+1+9+8+4 = 35 → 3+5 = 8",
+        "lebenspfad": 8
+      },
+      "beispiel_3_meisterzahl": {
+        "geburtsdatum": "11.02.1975",
+        "rechnung": "1+1+0+2+1+9+7+5 = 26 → 2+6 = 8",
+        "lebenspfad": 8,
+        "hinweis": "Meisterzahl entsteht erst im Zwischenschritt, nicht im Endresultat → keine Meisterzahl"
+      },
+      "beispiel_4_meisterzahl": {
+        "geburtsdatum": "29.02.1980",
+        "rechnung": "2+9+0+2+1+9+8+0 = 31 → 3+1 = 4",
+        "lebenspfad": 4
+      }
+    },
+    "methode_2_dreiteilig": {
+      "name": "Dreiteilige Methode (Tag + Monat + Jahr separat)",
+      "schritte": [
+        "Tag reduzieren: TT → einstellig (außer 11, 22)",
+        "Monat reduzieren: MM → einstellig (außer 11)",
+        "Jahr reduzieren: JJJJ → einstellig (außer 11, 22)",
+        "Die drei Teilergebnisse addieren und weiter reduzieren bis einstellig (außer 11, 22, 33)"
+      ],
+      "beispiel": {
+        "geburtsdatum": "29.11.1984",
+        "tag": "29 → 11 (Meisterzahl, nicht reduzieren)",
+        "monat": "11 (Meisterzahl, nicht reduzieren)",
+        "jahr": "1984 → 1+9+8+4 = 22 (Meisterzahl, nicht reduzieren)",
+        "summe": "11+11+22 = 44 → 4+4 = 8",
+        "lebenspfad": 8,
+        "hinweis": "Diese Methode kann bei bestimmten Daten Meisterzahlen im Zwischenschritt offenbaren"
+      }
+    },
+    "meisterzahl_schwellwerte": {
+      "11": "Wenn das Endresultat der Quersumme 11 ergibt, bleibt es 11 (Meisterzahl), wird alternativ als 11/2 notiert",
+      "22": "Wenn das Endresultat 22 ergibt, bleibt es 22 (Meisterzahl), wird alternativ als 22/4 notiert",
+      "33": "Wenn das Endresultat 33 ergibt, bleibt es 33 (Meisterzahl), wird alternativ als 33/6 notiert"
+    }
+  },
+
+  "lebenspfad_profile": {
+
+    "1": {
+      "lebenspfad": 1,
+      "name": "Lebenspfad 1 – Der Pionier",
+      "planet": "Sonne",
+      "planet_symbol": "☉",
+      "element": "Feuer",
+      "kernthema": "Selbstverwirklichung, Unabhängigkeit, Führerschaft, das Neue erschaffen.",
+      "positiv": "Geborener Anführer mit visionärem Geist. Originell, mutig, entschlossen. Fähig, als Erster neue Wege zu gehen und andere zu inspirieren. Starke Willenskraft und Pioniergeist.",
+      "negativ": "Tendenz zu Dominanz und Eigensucht. Kann Zusammenarbeit schwierig finden. Ungeduld, Arroganz und Sturheit als Schattenseite. Gefahr, Alleingang über Partnerschaft zu stellen.",
+      "lebensaufgabe": "Den Mut zu echter Individualität und unabhängiger Führerschaft zu entwickeln, ohne in Egoismus zu verfallen. Lernen, sich selbst zu kennen und anderen auf gleicher Augenhöhe zu begegnen.",
+      "berufliche_neigungen": ["Unternehmertum", "Führungspositionen", "Erfindung und Innovation", "Politik", "Militär", "Selbständigkeit", "Pionierarbeit in jedem Fachgebiet", "Sportführung"],
+      "herausforderung": "Partnerschaft und Kooperation lernen. Den Unterschied zwischen Führen und Kontrollieren erkennen. Verletzlichkeit zulassen.",
+      "charakter_quelle": "Westcott S.18-22; Cheiro Kap.1; Balliett S.11-15",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.18-22; Cheiro Kap.1; Balliett S.11-15"
+    },
+
+    "2": {
+      "lebenspfad": 2,
+      "name": "Lebenspfad 2 – Der Diplomat",
+      "planet": "Mond",
+      "planet_symbol": "☽",
+      "element": "Wasser",
+      "kernthema": "Partnerschaft, Harmonie, Mitgefühl, Kooperation, das Verbinden von Gegensätzen.",
+      "positiv": "Hochsensibles, einfühlsames Wesen mit natürlichem diplomatischem Geschick. Intuitiv, geduldig, loyal. Hervorragende Teamfähigkeit und Fähigkeit zur Vermittlung.",
+      "negativ": "Neigung zu Unentschlossenheit, Abhängigkeit und übermäßiger Empfindlichkeit. Kann eigene Bedürfnisse zugunsten anderer völlig vernachlässigen. Stimmungsschwankungen.",
+      "lebensaufgabe": "Lernen, im Dienen nicht die eigene Identität zu verlieren. Eigene Stärke in Sanftheit zu erkennen. Entschlossenheit entwickeln, ohne die feinfühlige Natur zu opfern.",
+      "berufliche_neigungen": ["Mediation", "Diplomatie", "Beratung", "Psychologie", "Pflege", "Musik", "Lehre", "Assistenzrollen", "Teamarbeit", "Sozialarbeit"],
+      "herausforderung": "Eigene Meinung vertreten. Grenzen setzen. Entscheidungsfreude entwickeln. Codependenz vermeiden.",
+      "charakter_quelle": "Westcott S.24-28; Cheiro Kap.2; Balliett S.16-20",
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 2,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Westcott S.24-28; Cheiro Kap.2; Balliett S.16-20"
+    },
+
+    "3": {
+      "lebenspfad": 3,
+      "name": "Lebenspfad 3 – Der Ausdrückende",
+      "planet": "Jupiter",
+      "planet_symbol": "♃",
+      "element": "Feuer",
+      "kernthema": "Selbstausdruck, Kreativität, Freude, Kommunikation, das Schöne in der Welt zum Leben erwecken.",
+      "positiv": "Außerordentlich kreative, gesellige und ausdrucksstarke Natur. Natürlicher Optimismus und Freude, die andere inspiriert. Talent für Sprache, Kunst und Unterhaltung.",
+      "negativ": "Tendenz zur Oberflächlichkeit und Zerstreutheit. Schwierigkeiten mit Disziplin und Fokus. Kann Energie verschwenden statt zu konzentrieren. Emotionale Übertreibung.",
+      "lebensaufgabe": "Die kreative Kraft zu disziplinieren und produktiv zu kanalisieren. Tiefe neben Leichtigkeit zu entwickeln. Den Selbstausdruck von Eitelkeit zu befreien.",
+      "berufliche_neigungen": ["Schriftstellerei", "Schauspiel", "Bildende Kunst", "Musik", "Werbung", "Unterhaltung", "Mode", "Unterricht", "Verlagswesen", "Sprecher/Moderator"],
+      "herausforderung": "Disziplin und Ausdauer stärken. Projekte vollenden statt nur beginnen. Tiefgang kultivieren.",
+      "charakter_quelle": "Westcott S.30-35; Cheiro Kap.3; Balliett S.21-26",
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Westcott S.30-35; Cheiro Kap.3; Balliett S.21-26"
+    },
+
+    "4": {
+      "lebenspfad": 4,
+      "name": "Lebenspfad 4 – Der Baumeister",
+      "planet": "Uranus",
+      "planet_symbol": "♅",
+      "element": "Erde",
+      "kernthema": "Stabilität, Ordnung, Fleiß, praktisches Aufbauen, solides Fundament schaffen.",
+      "positiv": "Außerordentlich zuverlässig, fleißig und methodisch. Hervorragendes Organisationstalent. Beharrt auf Qualität und Sorgfalt. Loyale, vertrauenswürdige Natur.",
+      "negativ": "Neigung zu Sturheit und Engstirnigkeit. Kann zu rigide und resistent gegen Veränderung sein. Gefahr der Überarbeitung und Selbstausbeutung. Unterdrückte Rebellion.",
+      "lebensaufgabe": "Stabilität und Beständigkeit aufzubauen, ohne in Stagnation zu verfallen. Disziplin als Tugend zu leben, Flexibilität als Ergänzung zu lernen. Das Fundament für andere und sich selbst zu legen.",
+      "berufliche_neigungen": ["Ingenieurwesen", "Architektur", "Buchhaltung", "Handwerk", "Landwirtschaft", "Bauwesen", "Verwaltung", "Militär", "Wissenschaft", "Bergbau"],
+      "herausforderung": "Flexibilität und Spontaneität kultivieren. Kontrolle loslassen. Das Leben neben der Arbeit nicht vergessen.",
+      "charakter_quelle": "Westcott S.37-42; Cheiro Kap.4; Balliett S.27-32",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 2,
+        "veraenderung": 2,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.37-42; Cheiro Kap.4; Balliett S.27-32"
+    },
+
+    "5": {
+      "lebenspfad": 5,
+      "name": "Lebenspfad 5 – Der Freigeist",
+      "planet": "Merkur",
+      "planet_symbol": "☿",
+      "element": "Luft",
+      "kernthema": "Freiheit, Abenteuer, Wandel, Erfahrung sammeln, Vermittlung zwischen Welten.",
+      "positiv": "Dynamisch, anpassungsfähig und vielseitig begabt. Natürliche Neugier und Reiselust. Ausgezeichnete Kommunikationsfähigkeit. Kann schnell auf Veränderungen reagieren und andere begeistern.",
+      "negativ": "Mangelnde Ausdauer und Unbeständigkeit. Sucht nach immer neuen Stimulationen, flieht vor Verantwortung. Kann süchtig nach Reizen werden. Schwierigkeiten mit Bindung und Verpflichtung.",
+      "lebensaufgabe": "Die Freiheit zu leben und dabei Verantwortung zu tragen. Die Balance zwischen Abenteuer und Beständigkeit zu finden. Die Mannigfaltigkeit der Erfahrungen in Weisheit zu verwandeln.",
+      "berufliche_neigungen": ["Reise und Tourismus", "Journalismus", "Vertrieb", "Werbung", "Beratung", "Sprachberufe", "Unternehmertum", "Handel", "Diplomatie", "Forschung"],
+      "herausforderung": "Verlässlichkeit und Konsequenz entwickeln. Tiefe statt nur Breite kultivieren. Sucht und Eskapismus vermeiden.",
+      "charakter_quelle": "Westcott S.44-49; Cheiro Kap.5; Balliett S.33-38",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.44-49; Cheiro Kap.5; Balliett S.33-38"
+    },
+
+    "6": {
+      "lebenspfad": 6,
+      "name": "Lebenspfad 6 – Der Fürsorgende",
+      "planet": "Venus",
+      "planet_symbol": "♀",
+      "element": "Erde",
+      "kernthema": "Verantwortung, Familie, Fürsorge, Schönheit, Dienst an der Gemeinschaft, Harmonie schaffen.",
+      "positiv": "Tiefe Liebesfähigkeit und Fürsorglichkeit. Natürliches Talent als Heiler, Lehrer und Betreuer. Sinn für Ästhetik und Schönheit. Stärke in familiären und gemeinschaftlichen Bindungen.",
+      "negativ": "Tendenz zur Selbstaufopferung und Überverantwortlichkeit. Kontrollbedürfnis im Streben nach Perfektion. Schwierigkeiten, Grenzen zu setzen und Hilfe abzulehnen.",
+      "lebensaufgabe": "Fürsorge als Berufung zu leben, ohne zur Selbstaufopferung zu werden. Schönheit und Harmonie in der Welt zu manifestieren. Verantwortung zu übernehmen ohne zu dominieren.",
+      "berufliche_neigungen": ["Medizin", "Pflege", "Sozialarbeit", "Lehre", "Kindererziehung", "Kunst und Design", "Beratung", "Rechtswesen", "Innenarchitektur", "Küche und Gastgewerbe"],
+      "herausforderung": "Selbstfürsorge praktizieren. Grenzen setzen. Nicht für andere denken und leben, sondern mit ihnen. Perfektionismus überwinden.",
+      "charakter_quelle": "Westcott S.51-57; Cheiro Kap.6; Balliett S.39-44",
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Westcott S.51-57; Cheiro Kap.6; Balliett S.39-44"
+    },
+
+    "7": {
+      "lebenspfad": 7,
+      "name": "Lebenspfad 7 – Der Suchende",
+      "planet": "Neptun",
+      "planet_symbol": "♆",
+      "element": "Wasser",
+      "kernthema": "Innerlichkeit, Weisheit, Analyse, Spiritualität, das Verborgene enthüllen, Wahrheitssuche.",
+      "positiv": "Ausgeprägte analytische und intuitive Fähigkeiten. Tiefer Drang nach Wahrheit und Verstehen. Natürliche Spiritualität und Verbindung zu verborgenen Dimensionen. Stille und Stärke.",
+      "negativ": "Tendenz zu Isolation, Misstrauen und emotionaler Distanz. Kann zynisch oder pessimistisch werden. Schwierigkeit, Vertrauen aufzubauen und sich zu öffnen. Rückzug als Schutzmechanismus.",
+      "lebensaufgabe": "Weisheit zu entwickeln durch innere Suche und äußere Erfahrung in Balance. Die geistige Tiefe mit dem emotionalen Leben zu verbinden. Erkenntnisse mit der Welt zu teilen statt sie zu horten.",
+      "berufliche_neigungen": ["Wissenschaft", "Philosophie", "Theologie", "Psychologie", "Forschung", "Mystik", "Schriftstellerei", "Analyse", "Medizin", "Technik"],
+      "herausforderung": "Vertrauen entwickeln. Emotionale Öffnung üben. Isolation vermeiden. Das Wissen in Weisheit und Mitgefühl verwandeln.",
+      "charakter_quelle": "Westcott S.59-65; Cheiro Kap.7; Balliett S.45-51",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.59-65; Cheiro Kap.7; Balliett S.45-51"
+    },
+
+    "8": {
+      "lebenspfad": 8,
+      "name": "Lebenspfad 8 – Der Mächtige",
+      "planet": "Saturn",
+      "planet_symbol": "♄",
+      "element": "Erde",
+      "kernthema": "Macht, materielle Verwirklichung, Karma, Erfolg durch Ausdauer, Gerechtigkeit, Meisterschaft.",
+      "positiv": "Enormes Potenzial für Erfolg, Wohlstand und gesellschaftliche Wirkung. Starke Entschlossenheit und Führungskraft. Natürliches Geschäftstalent und strategisches Denken. Gerechtigkeitssinn.",
+      "negativ": "Gefahr von Machtmissbrauch, Gier und Materialismus. Saturn-Karma: Herausforderungen kehren zurück bis die Lektion gelernt ist. Kann rigide, kalt oder rücksichtslos werden.",
+      "lebensaufgabe": "Macht und Reichtum im Dienst von Gerechtigkeit und Weisheit einzusetzen. Das karmische Prinzip zu verstehen: was man sät, erntet man. Materiellen Erfolg mit spirituellem Wachstum zu verbinden.",
+      "berufliche_neigungen": ["Unternehmensführung", "Bankwesen", "Immobilien", "Recht", "Politik", "Militär", "Medizin", "Großhandel", "Infrastruktur", "Führungspositionen jeder Art"],
+      "herausforderung": "Macht ethisch einsetzen. Großzügigkeit kultivieren. Emotionale Kälte überwinden. Das karmische Gesetz respektieren.",
+      "charakter_quelle": "Westcott S.67-73; Cheiro Kap.8; Balliett S.53-60",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.67-73; Cheiro Kap.8; Balliett S.53-60"
+    },
+
+    "9": {
+      "lebenspfad": 9,
+      "name": "Lebenspfad 9 – Der Vollender",
+      "planet": "Mars",
+      "planet_symbol": "♂",
+      "element": "Feuer",
+      "kernthema": "Vollendung, universale Liebe, Altruismus, Weisheit der Erfahrung, loslassen, dienen.",
+      "positiv": "Tiefes Mitgefühl und universale Liebe. Breite Weisheit aus vielen Erfahrungen. Natürliche humanitäre Ausrichtung. Inspirierende Führungsfähigkeit durch Güte statt Macht.",
+      "negativ": "Schwierigkeiten loszulassen (Menschen, Situationen, Vergangenes). Kann sich in Bitterkeit verlieren, wenn Ideale enttäuscht werden. Impulsivität und emotionale Explosivität als Schattenseite.",
+      "lebensaufgabe": "Vollendung und Loslassen zu meistern. In bedingungsloser Liebe zu dienen ohne Erwartung. Alle früheren Erfahrungen zu integrieren und deren Weisheit zu teilen. Universale Perspektive einnehmen.",
+      "berufliche_neigungen": ["Humanitäre Arbeit", "NGO/Wohltätigkeit", "Kunst", "Philosophie", "Spiritual Leadership", "Medizin", "Recht", "Lehramt", "Schriftstellerei", "Heilen"],
+      "herausforderung": "Loslassen lernen. Enttäuschungen verarbeiten statt zu verdrängen. Das eigene Wohl nicht zu vergessen im Dienst am anderen.",
+      "charakter_quelle": "Westcott S.75-82; Cheiro Kap.9; Balliett S.61-68; Sepharial S.45",
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.75-82; Cheiro Kap.9; Balliett S.61-68; Sepharial S.45"
+    }
+
+  },
+
+  "meisterzahlen": {
+
+    "11": {
+      "zahl": 11,
+      "notation": "11/2",
+      "name": "Die Elf – Der Visionär",
+      "planet": "Mond (erhöht) / Uranus",
+      "planet_symbol": "☽ / ♅",
+      "element": "Luft / Wasser",
+      "kategorie": "Meisterzahl",
+      "kernthema": "Intuition, Erleuchtung, Inspiration, Verbindung zum Höheren, spirituelle Botschaft an die Welt.",
+      "grundlage_zahl": 2,
+      "beschreibung": "Die 11 ist die erste und grundlegendste Meisterzahl. Sie trägt alle Qualitäten der 2 (Mitgefühl, Diplomatie, Sensibilität) in erhöhter, spirituell aufgeladener Form. Die 11 wird als Kanal zwischen dem Irdischen und dem Höheren verstanden – ein Visionär, der intuitiv Wahrheiten empfängt, die andere nicht sehen.",
+      "positiv": "Außerordentliche Intuition und visionäre Fähigkeiten. Natürlicher Zugang zu höheren Ebenen des Bewusstseins. Fähigkeit, andere zu inspirieren und zu erleuchten. Charisma, das aus innerer Tiefe kommt. Idealist mit echter spiritueller Kraft.",
+      "negativ": "Die intensive Energie der 11 ist schwer zu tragen: Nervosität, Überreizung, Selbstzweifel. Tendenz zur Weltflucht oder zum Messias-Komplex. Die Spannung zwischen visionärer Höhe und alltäglicher Realität erzeugt oft innere Zerrissenheit. Kann an den eigenen Ansprüchen scheitern.",
+      "lebensaufgabe": "Die höhere Intuition zu erden und nutzbar zu machen. Als inspirierender Kanal zu dienen, ohne sich zu verlieren. Die Balance zwischen visionärer Höhe und gelebtem Alltag zu finden. Das Licht weiterzugeben.",
+      "herausforderung": "Erdung und Praktikabilität entwickeln. Selbstfürsorge nicht vernachlässigen. Das Visionäre nicht als Last, sondern als Geschenk erleben.",
+      "meisterzahl_oder_2": "Menschen mit 11 sind oft erst in der zweiten Lebenshälfte bereit, die volle Meisterzahl-Energie zu tragen. In jungen Jahren manifestiert sich die 11 häufig als intensive 2-Energie.",
+      "berufliche_neigungen": ["Spiritual Leadership", "Kunst und Kreativität auf höchstem Niveau", "Psychologie und Beratung", "Lehre und Inspiration", "Heilen", "Schriftstellerei", "Musik", "Prophetie / Channeling", "Diplomatie"],
+      "gesundheit": "Besonders empfindliches Nervensystem. Neigung zu nervenverbundenen Erkrankungen, Angst, emotionaler Überwältigung. Benötigt regelmäßige Erdungs- und Ruhephasen. Schlafqualität ist entscheidend.",
+      "charakter_quelle": "Westcott S.90-95; Cheiro Kap.11; Balliett S.70-74",
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 2,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.90-95; Cheiro Kap.11; Balliett S.70-74"
+    },
+
+    "22": {
+      "zahl": 22,
+      "notation": "22/4",
+      "name": "Die Zweiundzwanzig – Der Meisterbauer",
+      "planet": "Uranus / Saturn",
+      "planet_symbol": "♅ / ♄",
+      "element": "Erde",
+      "kategorie": "Meisterzahl",
+      "kernthema": "Manifestation auf höchstem Niveau, großartige Werke in der Welt erschaffen, Visionen in Realität verwandeln.",
+      "grundlage_zahl": 4,
+      "beschreibung": "Die 22 gilt als die mächtigste aller Meisterzahlen. Sie trägt die visionäre Intuition der 11 (da 2+2=4 aber 22 die doppelte 11 enthält) und verbindet sie mit der praktischen Baumeisterkraft der 4. Die 22 kann Visionen auf einer Skala verwirklichen, die weit über das Individuelle hinausgeht – Institutionen, Bewegungen, Werke, die die Menschheit prägen.",
+      "positiv": "Enormes Potential zur Manifestation großer Ideen. Verbindet spirituelle Vision mit praktischer Meisterschaft. Natürliche Führungskraft und Fähigkeit, Systeme zu erschaffen, die Bestand haben. Stärke, Disziplin und Weitblick in seltener Kombination.",
+      "negativ": "Das Gewicht der 22 ist schwer: Tendenz zum Scheitern durch zu große Ambitionen oder Selbstsabotage aus Angst vor dem eigenen Potenzial. Neigung zu Dogmatismus, Kontrollbedürfnis und emotionaler Unterdrückung. Burnout durch übermäßigen Anspruch.",
+      "lebensaufgabe": "Werke zu schaffen, die über das eigene Leben hinauswirken. Die Vision in die Materie zu bringen ohne die Menschlichkeit zu verlieren. Das eigene Limit zu transzendieren und dabei geerdet zu bleiben.",
+      "herausforderung": "Das eigene Potential annehmen statt davor zurückzuschrecken. Perfektionismus überwinden. Mitarbeiter und Visionen in Balance halten. Emotionen nicht opfern.",
+      "meisterzahl_oder_4": "Die 22 entfaltet sich meist erst ab Mitte 30 oder später. Viele 22-Menschen leben zunächst als intensive, leicht frustrierte 4-Energie, bis die Meisterzahl-Dimension sichtbar wird.",
+      "berufliche_neigungen": ["Architektur und Stadtplanung", "Unternehmensgründung auf globaler Skala", "Politik und Staatsführung", "Ingenieurwesen", "Wissenschaftliche Pionierarbeit", "Institutionenaufbau", "Religiöse oder spirituelle Bewegungen", "Finanzsysteme"],
+      "gesundheit": "Stark, aber gefährdet durch Überarbeitung und das Tragen von zu viel Verantwortung. Skelett und Gelenke (Saturn), Herz-Kreislauf durch Dauerstress. Benötigt strukturierte Erholungsphasen.",
+      "charakter_quelle": "Westcott S.96-101; Cheiro Kap.22; Balliett S.75-80",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.96-101; Cheiro Kap.22; Balliett S.75-80"
+    },
+
+    "33": {
+      "zahl": 33,
+      "notation": "33/6",
+      "name": "Die Dreiunddreißig – Der Meisterlehrer",
+      "planet": "Jupiter / Venus",
+      "planet_symbol": "♃ / ♀",
+      "element": "Feuer / Erde",
+      "kategorie": "Meisterzahl",
+      "kernthema": "Bedingungslose Liebe, Meisterschaft des Lehrens, Selbstlosigkeit auf höchstem Niveau, Christusbewusstsein.",
+      "grundlage_zahl": 6,
+      "beschreibung": "Die 33 ist die seltenste Meisterzahl und gilt in vielen Traditionen als Zahl des Christusbewusstseins oder höchsten spirituellen Dienstes (33. Lebensjahr Christi, 33 Wirbel der Wirbelsäule, 33 Grade im Freimaurertum). Sie trägt die doppelte Kreativität der 3 (3×11) und die Verantwortung der 6, erhebt auf das Niveau bedingungsloser, universaler Liebe und Lehre.",
+      "positiv": "Außerordentliche Fähigkeit zu bedingungsloser Liebe und Fürsorge auf universaler Ebene. Geborener Meisterlehrer, der durch das eigene gelebte Beispiel wirkt. Tiefe Spiritualität und mitfühlende Weisheit. Heilt und inspiriert durch bloße Anwesenheit.",
+      "negativ": "Das Niveau der 33 ist äußerst schwer zu tragen und oft kaum zu ertragen ohne die Basisenergie der 6 als Erdung. Tendenz zu Martyrium, Selbstaufopferung bis zur Selbstzerstörung. Kann im Versuch zu helfen sich selbst vollständig verlieren.",
+      "lebensaufgabe": "In vollständiger Selbstlosigkeit und bedingungsloser Liebe zu dienen, ohne dabei das Selbst aufzugeben. Als lebendiges Beispiel für das zu werden, was die Menschheit in ihrer höchsten Form sein kann. Den Schülern das Licht nicht zu geben, sondern in ihnen zu entzünden.",
+      "herausforderung": "Das eigene Wohl nicht dem Dienst opfern. Grenzen als heilig betrachten. Das Licht pflegen, das man weitergibt.",
+      "meisterzahl_oder_6": "Echte 33-Energie manifestiert sich äußerst selten in reiner Form. Die meisten Menschen mit 33 als Lebenspfad schwingen zwischen intensiver 6-Energie und gelegentlichen Momenten der 33-Meisterschaft. Die volle 33-Kraft zeigt sich meist erst im reifen Lebensabschnitt.",
+      "berufliche_neigungen": ["Spiritual Teaching und Leadership", "Heilen auf tiefster Ebene", "Humanitäre Arbeit", "Kunst als spiritueller Ausdruck", "Unterricht in tiefgründigen Disziplinen", "Klosterleben / monastische Berufe", "Seelsorge"],
+      "gesundheit": "Äußerst empfindlich und absorptiv. Neigt dazu, die Leiden anderer zu übernehmen (Empath-Erschöpfung). Regelmäßige Reinigungsrituale und Naturkontakt wichtig. Herz und Kreislauf schützen.",
+      "charakter_quelle": "Westcott S.102-107; Cheiro Kap.33 (Anm.); Balliett S.81-86",
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 2,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.102-107; Cheiro Kap.33; Balliett S.81-86"
+    }
+
+  },
+
+  "lebenspfad_kompatibilitaet": {
+    "beschreibung": "Kompatibilitätsmatrix aller Lebenspfadzahlen 1-9 (inkl. Meisterzahlen als 2/4/6 für Matrixzwecke). Dimensionen: liebe (romantische Partnerschaft), beruf (Zusammenarbeit, Geschäft), partnerschaft (allgemeine Lebenspartnerschaft). Skala 1-5.",
+    "quelle": "Cheiro - Book of Numbers; Balliett - Philosophy of Numbers; Westcott S.18-82",
+    "hinweis_meisterzahlen": "Meisterzahlen 11, 22, 33 sind in der Matrix unter 2, 4, 6 inkludiert, verstärken jedoch die angegebenen Tendenzen und fügen spirituelle Dimension hinzu.",
+
+    "matrix": {
+      "1x1": {"lebenspfad_a": 1, "lebenspfad_b": 1, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "Zwei starke Anführer – Respekt und Bewunderung, aber Machtkampf möglich. Im Beruf gut wenn Rollen klar getrennt.", "quelle": "Cheiro Kap.1; Balliett S.20"},
+      "1x2": {"lebenspfad_a": 1, "lebenspfad_b": 2, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Klassische Ergänzung: Führerschaft + Fürsorge. 1 entscheidet, 2 unterstützt. Funktioniert wenn 2 eigene Stärke nicht verliert.", "quelle": "Cheiro Kap.1-2; Balliett S.21"},
+      "1x3": {"lebenspfad_a": 1, "lebenspfad_b": 3, "liebe": 4, "beruf": 3, "partnerschaft": 3, "erklaerung": "1 bewundert die Kreativität der 3, 3 liebt den Pioniergeist der 1. Im Beruf können beide zu egozentrisch sein.", "quelle": "Cheiro Kap.1,3; Balliett S.22"},
+      "1x4": {"lebenspfad_a": 1, "lebenspfad_b": 4, "liebe": 3, "beruf": 5, "partnerschaft": 4, "erklaerung": "Ausgezeichnete Geschäftskombination: Vision (1) + Struktur (4). Privat kann Starrsinn der 4 die 1 frustrieren.", "quelle": "Cheiro Kap.1,4; Balliett S.23"},
+      "1x5": {"lebenspfad_a": 1, "lebenspfad_b": 5, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Beide dynamisch und veränderungsfreudig. Spannendes Paar. Im Beruf innovativ. Gefahr: Keiner baut langfristige Stabilität.", "quelle": "Cheiro Kap.1,5; Balliett S.24"},
+      "1x6": {"lebenspfad_a": 1, "lebenspfad_b": 6, "liebe": 4, "beruf": 3, "partnerschaft": 4, "erklaerung": "1 profitiert von der wärmenden Fürsorglichkeit der 6. 6 bewundert die Stärke der 1. Im Beruf unterschiedliche Prioritäten.", "quelle": "Cheiro Kap.1,6; Balliett S.25"},
+      "1x7": {"lebenspfad_a": 1, "lebenspfad_b": 7, "liebe": 3, "beruf": 4, "partnerschaft": 4, "erklaerung": "Intellektuelle Ergänzung: Tatmensch (1) und Denker (7). 7 gibt 1 Tiefe, 1 gibt 7 Handlungsimpuls. Privat beide distanziert.", "quelle": "Cheiro Kap.1,7; Balliett S.26"},
+      "1x8": {"lebenspfad_a": 1, "lebenspfad_b": 8, "liebe": 2, "beruf": 5, "partnerschaft": 3, "erklaerung": "Zwei Machnaturen – im Beruf herausragendes Team. Privat harter Kampf um Vorherrschaft.", "quelle": "Cheiro Kap.1,8; Balliett S.27"},
+      "1x9": {"lebenspfad_a": 1, "lebenspfad_b": 9, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "1 (Anfang) + 9 (Ende) – universale Komplementarität. 9 gibt 1 humanitäre Weisheit, 1 gibt 9 Tatendrang.", "quelle": "Cheiro Kap.1,9; Balliett S.28"},
+      "2x2": {"lebenspfad_a": 2, "lebenspfad_b": 2, "liebe": 4, "beruf": 3, "partnerschaft": 4, "erklaerung": "Tiefes emotionales Verstehen. Sehr harmonisch und fürsorglich. Im Beruf können beide zu unentschlossen sein.", "quelle": "Cheiro Kap.2; Balliett S.21"},
+      "2x3": {"lebenspfad_a": 2, "lebenspfad_b": 3, "liebe": 4, "beruf": 3, "partnerschaft": 4, "erklaerung": "2 liebt die Kreativität und Wärme der 3. 3 schätzt die Unterstützung der 2. Schöne, warme Beziehung.", "quelle": "Cheiro Kap.2,3; Balliett S.22"},
+      "2x4": {"lebenspfad_a": 2, "lebenspfad_b": 4, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "2 bringt Wärme in die nüchterne 4-Welt. 4 gibt 2 Sicherheit. Kann aber zu statisch werden.", "quelle": "Cheiro Kap.2,4; Balliett S.23"},
+      "2x5": {"lebenspfad_a": 2, "lebenspfad_b": 5, "liebe": 3, "beruf": 3, "partnerschaft": 3, "erklaerung": "Die Unbeständigkeit der 5 kann die bindungsbedürftige 2 verletzen. Wenn beide wachsen, ergänzend; ansonsten schwierig.", "quelle": "Cheiro Kap.2,5; Balliett S.24"},
+      "2x6": {"lebenspfad_a": 2, "lebenspfad_b": 6, "liebe": 5, "beruf": 4, "partnerschaft": 5, "erklaerung": "Außerordentlich harmonisch. Beide fürsorglich, liebevoll und auf Harmonie ausgerichtet. Eine der besten Liebeskompatibilitäten.", "quelle": "Cheiro Kap.2,6; Balliett S.25"},
+      "2x7": {"lebenspfad_a": 2, "lebenspfad_b": 7, "liebe": 4, "beruf": 4, "partnerschaft": 5, "erklaerung": "Tiefe spirituelle Verbindung. 2 öffnet das Herz der 7, 7 gibt 2 intellektuelle Tiefe. Sehr besondere Verbindung.", "quelle": "Cheiro Kap.2,7; Balliett S.26"},
+      "2x8": {"lebenspfad_a": 2, "lebenspfad_b": 8, "liebe": 2, "beruf": 3, "partnerschaft": 2, "erklaerung": "Schwierige Kombination. 8 ist zu hart und mächtig für die empfindliche 2. Emotionale Verletzung wahrscheinlich.", "quelle": "Cheiro Kap.2,8; Balliett S.27"},
+      "2x9": {"lebenspfad_a": 2, "lebenspfad_b": 9, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Tiefes Mitgefühl verbindet beide. 9 gibt universale Liebe, 2 gibt persönliche Wärme. Harmonisch.", "quelle": "Cheiro Kap.2,9; Balliett S.28"},
+      "3x3": {"lebenspfad_a": 3, "lebenspfad_b": 3, "liebe": 4, "beruf": 3, "partnerschaft": 3, "erklaerung": "Kreativ, verspielt und lebendig. Viel Freude und Inspiration gegenseitig. Im Alltag aber fehlende Erdung.", "quelle": "Cheiro Kap.3; Balliett S.26"},
+      "3x4": {"lebenspfad_a": 3, "lebenspfad_b": 4, "liebe": 2, "beruf": 4, "partnerschaft": 3, "erklaerung": "Konträr: 3 ist kreativ-verspielt, 4 ist ernst-strukturiert. Im Beruf ergänzend. Privat oft frustrierend.", "quelle": "Cheiro Kap.3,4; Balliett S.27"},
+      "3x5": {"lebenspfad_a": 3, "lebenspfad_b": 5, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Dynamisch, kommunikativ, abenteuerlich. Beide lieben Freiheit und Ausdruck. Lebendige Beziehung.", "quelle": "Cheiro Kap.3,5; Balliett S.28"},
+      "3x6": {"lebenspfad_a": 3, "lebenspfad_b": 6, "liebe": 5, "beruf": 4, "partnerschaft": 5, "erklaerung": "Ausgezeichnet. Beide kreativ, warm und sozial. 6 erdet die 3, 3 bringt Leichtigkeit in die Verantwortung der 6.", "quelle": "Cheiro Kap.3,6; Balliett S.29"},
+      "3x7": {"lebenspfad_a": 3, "lebenspfad_b": 7, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "Interessant aber schwierig: 3 ist extrovertiert, 7 ist introvertiert. Intellektuelle Stimulation, emotionale Lücken.", "quelle": "Cheiro Kap.3,7; Balliett S.30"},
+      "3x8": {"lebenspfad_a": 3, "lebenspfad_b": 8, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "3 bringt Kreativität, 8 bringt Ressourcen. Gute Geschäftskombination. Privat unterschiedliche Prioritäten.", "quelle": "Cheiro Kap.3,8; Balliett S.31"},
+      "3x9": {"lebenspfad_a": 3, "lebenspfad_b": 9, "liebe": 5, "beruf": 5, "partnerschaft": 5, "erklaerung": "Hervorragend. Beide der Jupiter-Triade zugehörig. Gemeinsame Freude, Ideale und Schöpferkraft.", "quelle": "Cheiro Kap.3,9; Balliett S.32"},
+      "4x4": {"lebenspfad_a": 4, "lebenspfad_b": 4, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "Stabil, verlässlich, praktisch – aber wenig Feuer. Gute Basis, aber Routine und Stagnation als Gefahr.", "quelle": "Cheiro Kap.4; Balliett S.32"},
+      "4x5": {"lebenspfad_a": 4, "lebenspfad_b": 5, "liebe": 2, "beruf": 3, "partnerschaft": 2, "erklaerung": "Schwierig: 4 braucht Stabilität, 5 flieht vor Routine. Fundamentaler Wertekonflikt.", "quelle": "Cheiro Kap.4,5; Balliett S.33"},
+      "4x6": {"lebenspfad_a": 4, "lebenspfad_b": 6, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Sehr harmonisch. Beide geerdet, pflichtbewusst und auf Familie ausgerichtet. Stabile, verlässliche Verbindung.", "quelle": "Cheiro Kap.4,6; Balliett S.34"},
+      "4x7": {"lebenspfad_a": 4, "lebenspfad_b": 7, "liebe": 3, "beruf": 5, "partnerschaft": 4, "erklaerung": "4 erschafft, 7 versteht. Im Beruf hervorragend (praktischer Aufbau + analytische Tiefe). Privat beide distanziert.", "quelle": "Cheiro Kap.4,7; Balliett S.35"},
+      "4x8": {"lebenspfad_a": 4, "lebenspfad_b": 8, "liebe": 3, "beruf": 5, "partnerschaft": 4, "erklaerung": "Kraftvolle Kombination für materiellen Erfolg. Beide praktisch und zielorientiert. Gut für Geschäft.", "quelle": "Cheiro Kap.4,8; Balliett S.36"},
+      "4x9": {"lebenspfad_a": 4, "lebenspfad_b": 9, "liebe": 2, "beruf": 3, "partnerschaft": 2, "erklaerung": "Schwierig: 4 denkt konkret-praktisch, 9 denkt universal-idealistisch. Grundlegend verschiedene Weltsichten.", "quelle": "Cheiro Kap.4,9; Balliett S.37"},
+      "5x5": {"lebenspfad_a": 5, "lebenspfad_b": 5, "liebe": 4, "beruf": 4, "partnerschaft": 3, "erklaerung": "Abenteuerlich, aufregend, nie langweilig. Im Beruf innovativ. Privat: Wer baut das Zuhause? Fehlende Stabilität.", "quelle": "Cheiro Kap.5; Balliett S.38"},
+      "5x6": {"lebenspfad_a": 5, "lebenspfad_b": 6, "liebe": 3, "beruf": 3, "partnerschaft": 3, "erklaerung": "5 liebt Freiheit, 6 liebt Bindung und Zuhause. Kann funktionieren wenn 5 Wurzeln schätzt, 6 Freiheit lässt.", "quelle": "Cheiro Kap.5,6; Balliett S.39"},
+      "5x7": {"lebenspfad_a": 5, "lebenspfad_b": 7, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Beide schätzen intellektuelle Freiheit und Unabhängigkeit. Respektvolle Verbindung mit genug Raum.", "quelle": "Cheiro Kap.5,7; Balliett S.40"},
+      "5x8": {"lebenspfad_a": 5, "lebenspfad_b": 8, "liebe": 2, "beruf": 4, "partnerschaft": 2, "erklaerung": "8 will Kontrolle, 5 flieht davor. Im Beruf kann 5 Ideen liefern, 8 strukturiert sie. Privat spannungsgeladen.", "quelle": "Cheiro Kap.5,8; Balliett S.41"},
+      "5x9": {"lebenspfad_a": 5, "lebenspfad_b": 9, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Beide frei, weit und idealistisch. 9 gibt 5 tiefere Bedeutung, 5 gibt 9 Beweglichkeit.", "quelle": "Cheiro Kap.5,9; Balliett S.42"},
+      "6x6": {"lebenspfad_a": 6, "lebenspfad_b": 6, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Sehr harmonisch und fürsorglich. Tiefe Verantwortungsgemeinschaft. Gefahr: Gegenseitige Überverantwortlichkeit.", "quelle": "Cheiro Kap.6; Balliett S.44"},
+      "6x7": {"lebenspfad_a": 6, "lebenspfad_b": 7, "liebe": 3, "beruf": 3, "partnerschaft": 3, "erklaerung": "7 braucht Rückzug, 6 braucht Verbindung. Kann wachsen wenn beide Raum und Nähe respektieren.", "quelle": "Cheiro Kap.6,7; Balliett S.45"},
+      "6x8": {"lebenspfad_a": 6, "lebenspfad_b": 8, "liebe": 3, "beruf": 4, "partnerschaft": 3, "erklaerung": "6 gibt Wärme und Heimat, 8 gibt Sicherheit und Ressourcen. Funktioniert wenn 8 Fürsorge wertschätzt.", "quelle": "Cheiro Kap.6,8; Balliett S.46"},
+      "6x9": {"lebenspfad_a": 6, "lebenspfad_b": 9, "liebe": 5, "beruf": 5, "partnerschaft": 5, "erklaerung": "Hervorragend. Beide tief liebend, humanitär und kreativ. Gemeinsame Werte und Lebensausrichtung.", "quelle": "Cheiro Kap.6,9; Balliett S.47"},
+      "7x7": {"lebenspfad_a": 7, "lebenspfad_b": 7, "liebe": 3, "beruf": 4, "partnerschaft": 4, "erklaerung": "Tiefes intellektuelles und spirituelles Verständnis. Im Alltag aber beide in eigener Welt. Kann isoliert wirken.", "quelle": "Cheiro Kap.7; Balliett S.51"},
+      "7x8": {"lebenspfad_a": 7, "lebenspfad_b": 8, "liebe": 2, "beruf": 4, "partnerschaft": 2, "erklaerung": "Fundamental verschieden: 7 sucht Wahrheit, 8 sucht Macht. Im Beruf ergänzend. Privat kaum gemeinsame Sprache.", "quelle": "Cheiro Kap.7,8; Balliett S.52"},
+      "7x9": {"lebenspfad_a": 7, "lebenspfad_b": 9, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Spirituelle Verwandtschaft. Beide suchen tiefere Bedeutung. 9 gibt Wärme, 7 gibt Analyse. Harmonisch.", "quelle": "Cheiro Kap.7,9; Balliett S.53"},
+      "8x8": {"lebenspfad_a": 8, "lebenspfad_b": 8, "liebe": 2, "beruf": 4, "partnerschaft": 2, "erklaerung": "Enorm mächtig im Beruf. Privat: Machtkampf, emotionale Kälte, wenig Raum für Verletzlichkeit.", "quelle": "Cheiro Kap.8; Balliett S.60"},
+      "8x9": {"lebenspfad_a": 8, "lebenspfad_b": 9, "liebe": 2, "beruf": 3, "partnerschaft": 2, "erklaerung": "Schwierig: 8 will materielle Macht, 9 will universale Güte. Wertekonflikt. Respekt möglich, tiefe Bindung selten.", "quelle": "Cheiro Kap.8,9; Balliett S.61"},
+      "9x9": {"lebenspfad_a": 9, "lebenspfad_b": 9, "liebe": 4, "beruf": 4, "partnerschaft": 4, "erklaerung": "Tiefes gemeinsames Verständnis. Beide universal und idealistisch. Gefahr: Beide zu uneigennützig, vernachlässigen Alltagsgestaltung.", "quelle": "Cheiro Kap.9; Balliett S.67"}
+    },
+
+    "matrix_lookup": {
+      "beschreibung": "Schnelllookup: Übergebe beide Lebenspfadzahlen, sortiert aufsteigend, verbunden mit 'x'. Beispiel: LP 3 + LP 7 → '3x7'.",
+      "hinweis": "Matrix ist symmetrisch. 1x7 = 7x1 usw. Immer kleinere Zahl zuerst."
+    }
+  },
+
+  "periodenzahlen": {
+    "beschreibung": "Die drei Lebenszyklen (Pinnacles/Perioden) nach Westcott und Cheiro: Je eine Periode prägt Jugend, Mittleres Alter und Reife. Berechnung aus Geburtsmonat, -tag und -jahr.",
+    "quelle": "Westcott - Numbers Their Occult Power S.110-120; Cheiro - Book of Numbers Kap.12; Balliett - Philosophy of Numbers S.90-100",
+
+    "berechnung": {
+      "periode_1": {
+        "name": "Erste Periode – Jugend",
+        "beschreibung": "Regiert von Geburtsmonat. Prägt Kindheit und junge Erwachsene Jahre (bis ca. 28-35 Jahre je nach Lebenspfad).",
+        "berechnung": "Ziffern des Geburtsmonats addieren bis einstellig (oder Meisterzahl).",
+        "beispiel": {"monat": 11, "ergebnis": "11 (Meisterzahl) oder 1+1=2"},
+        "ende_alter": {
+          "formel": "36 minus Lebenspfadzahl",
+          "beispiel": "Lebenspfad 5 → Erste Periode endet mit 36-5=31 Jahren"
+        }
+      },
+      "periode_2": {
+        "name": "Zweite Periode – Mittleres Alter",
+        "beschreibung": "Regiert von Geburtstag. Prägt die produktiven mittleren Lebensjahre.",
+        "berechnung": "Ziffern des Geburtstags addieren bis einstellig (oder Meisterzahl).",
+        "beispiel": {"tag": 29, "ergebnis": "11 (Meisterzahl) oder 2+9=11"},
+        "dauer": "9 Jahre nach Ende der ersten Periode"
+      },
+      "periode_3": {
+        "name": "Dritte Periode – Reife",
+        "beschreibung": "Regiert vom Geburtsjahr. Prägt die Jahre der Reife und Vollendung.",
+        "berechnung": "Alle Ziffern des Geburtsjahrs addieren bis einstellig (oder Meisterzahl).",
+        "beispiel": {"jahr": 1984, "rechnung": "1+9+8+4=22 (Meisterzahl) oder 2+2=4"},
+        "beginn": "Nach Ende der zweiten Periode, bleibt für den Rest des Lebens"
+      }
+    },
+
+    "perioden_bedeutungen": {
+      "1": {
+        "periode_energie": 1,
+        "name": "Periode der Eins",
+        "bedeutung": "Zeit der Unabhängigkeit, neuer Anfänge und Selbstfindung. Stärke des Ichs wird gefordert. Günstig für Initiativen und eigenständige Projekte.",
+        "themen": "Selbstfindung, Führerschaft entwickeln, Unabhängigkeit aufbauen, neue Wege gehen.",
+        "guenstig": "Eigeninitiative, Unternehmensgründung, Selbststudium, Durchsetzungsvermögen stärken.",
+        "herausforderung": "Lernen, allein zu stehen ohne einsam zu werden.",
+        "quelle": "Westcott S.110; Cheiro Kap.12"
+      },
+      "2": {
+        "periode_energie": 2,
+        "name": "Periode der Zwei",
+        "bedeutung": "Zeit der Partnerschaft, Kooperation und Sensibilität. Andere kommen in das Leben. Emotionale Entwicklung und Feinfühligkeit werden gefördert.",
+        "themen": "Beziehungen vertiefen, Diplomatie lernen, emotionale Intelligenz aufbauen, Kooperationsfähigkeit.",
+        "guenstig": "Partnerschaften (privat und beruflich), Diplomatie, kreative Zusammenarbeit, Intuitionsentwicklung.",
+        "herausforderung": "Nicht zu sehr in anderen aufgehen. Eigene Meinung behaupten.",
+        "quelle": "Westcott S.111; Cheiro Kap.12"
+      },
+      "3": {
+        "periode_energie": 3,
+        "name": "Periode der Drei",
+        "bedeutung": "Zeit des kreativen Ausdrucks, der gesellschaftlichen Entfaltung und Freude. Talente kommen zum Vorschein. Expansion auf sozialer und kreativer Ebene.",
+        "themen": "Kreativität ausleben, Selbstausdruck, gesellschaftliche Kontakte, Optimismus kultivieren.",
+        "guenstig": "Künstlerische Projekte, Kommunikation, soziale Netzwerke, Reisen, Lernen.",
+        "herausforderung": "Fokus halten, Energie nicht verzetteln.",
+        "quelle": "Westcott S.112; Cheiro Kap.12"
+      },
+      "4": {
+        "periode_energie": 4,
+        "name": "Periode der Vier",
+        "bedeutung": "Zeit des Aufbaus, harter Arbeit und solider Fundamente. Praktische Ergebnisse werden gefordert. Geduld und Beständigkeit sind Schlüssel.",
+        "themen": "Strukturen aufbauen, Disziplin üben, materielle Stabilität schaffen, Pflichten erfüllen.",
+        "guenstig": "Immobilien, Karriereaufbau, Ausbildung, familiäre Verantwortung übernehmen.",
+        "herausforderung": "Nicht in Starrsinn oder Verbitterung über Einschränkungen verfallen.",
+        "quelle": "Westcott S.113; Cheiro Kap.12"
+      },
+      "5": {
+        "periode_energie": 5,
+        "name": "Periode der Fünf",
+        "bedeutung": "Zeit des Wandels, der Freiheit und vielfältiger Erfahrungen. Altes wird losgelassen, Neues tritt ein. Reisen, neue Kontakte, Expansionsmöglichkeiten.",
+        "themen": "Veränderung annehmen, Flexibilität üben, neue Erfahrungen sammeln, Horizont erweitern.",
+        "guenstig": "Berufswechsel, Umzüge, Reisen, neue Beziehungen, Selbstentwicklung.",
+        "herausforderung": "Nicht in Zerstreuung verlieren. Einige Wurzeln behalten.",
+        "quelle": "Westcott S.114; Cheiro Kap.12"
+      },
+      "6": {
+        "periode_energie": 6,
+        "name": "Periode der Sechs",
+        "bedeutung": "Zeit der Verantwortung, Familie und Fürsorge. Bindungen werden gefestigt oder neue entstehen. Häusliches Leben, Ehe, Kinder, Gemeinschaft stehen im Fokus.",
+        "themen": "Familie stärken, Fürsorge leisten, Harmonie im häuslichen Umfeld schaffen, Schönheit kultivieren.",
+        "guenstig": "Heirat, Familiengründung, Eigenheim, Pflegeberufe, Kunst und Ästhetik.",
+        "herausforderung": "Nicht für andere aufopfern bis zur Erschöpfung.",
+        "quelle": "Westcott S.115; Cheiro Kap.12"
+      },
+      "7": {
+        "periode_energie": 7,
+        "name": "Periode der Sieben",
+        "bedeutung": "Zeit der inneren Einkehr, des Studiums und der spirituellen Vertiefung. Äußere Aktivitäten treten zurück. Tiefes Nachdenken und Selbstanalyse stehen im Vordergrund.",
+        "themen": "Innenschau, Studium, spirituelle Praxis, Analyse, Einsamkeit als Ressource nutzen.",
+        "guenstig": "Weiterbildung, Forschung, Meditation, Schriftstellerei, spirituelle Entwicklung.",
+        "herausforderung": "Soziale Isolation vermeiden. Erkenntnisse nicht für sich behalten.",
+        "quelle": "Westcott S.116; Cheiro Kap.12"
+      },
+      "8": {
+        "periode_energie": 8,
+        "name": "Periode der Acht",
+        "bedeutung": "Zeit des materiellen Erfolgs, der Macht und des karmischen Ausgleichs. Karrierehöhepunkte möglich. Finanzielle Expansion oder signifikante Herausforderungen.",
+        "themen": "Karriere, finanzielle Ziele, Machtfragen, karmische Konsequenzen, Führerschaft auf höchstem Niveau.",
+        "guenstig": "Investitionen, Karrieresprünge, Unternehmenswachstum, Führungsrollen.",
+        "herausforderung": "Ethisches Handeln bewahren. Nicht auf Kosten anderer erfolgreich werden.",
+        "quelle": "Westcott S.117; Cheiro Kap.12"
+      },
+      "9": {
+        "periode_energie": 9,
+        "name": "Periode der Neun",
+        "bedeutung": "Zeit des Abschlusses, Loslassens und der Vollendung. Altes wird beendet, Raum für Neues entsteht. Universale Themen, humanitäres Wirken, spirituelle Integration.",
+        "themen": "Abschlüsse vollziehen, loslassen, vergeben, universales Denken, den Dienst an der Gemeinschaft stärken.",
+        "guenstig": "Vollendung langfristiger Projekte, Beziehungen transformieren, humanitäres Engagement, Vergebung.",
+        "herausforderung": "Das Loslassen nicht als Verlust, sondern als Befreiung erleben.",
+        "quelle": "Westcott S.118; Cheiro Kap.12"
+      },
+      "11": {
+        "periode_energie": 11,
+        "name": "Periode der Elf (Meister)",
+        "bedeutung": "Zeit erhöhter Intuition, spiritueller Eingebung und visionärer Impulse. Besondere Möglichkeiten zur Inspiration anderer. Intensive, manchmal überwältigende Energie.",
+        "themen": "Spirituelles Erwachen, visionäres Wirken, intuitive Erkenntnis, Erleuchtung in Alltagsmomenten.",
+        "guenstig": "Spirituelle Praxis, Kunst, Beratung, Lehre, kreative Durchbrüche.",
+        "herausforderung": "Erdung nicht vernachlässigen. Die Energie führt leicht zu Nervosität und Überreizung.",
+        "quelle": "Westcott S.119; Cheiro Kap.12"
+      },
+      "22": {
+        "periode_energie": 22,
+        "name": "Periode der Zweiundzwanzig (Meister)",
+        "bedeutung": "Zeit außerordentlicher Manifestationskraft. Potenzial für Werke von historischer Dimension. Häufig mit großer Verantwortung und schwerem Karma verbunden.",
+        "themen": "Großartige Projekte realisieren, Institutionen aufbauen, globale Wirkung erzielen, Meisterschaft demonstrieren.",
+        "guenstig": "Langfristige Projekte mit gesellschaftlicher Wirkung, Führung großer Organisationen, Visionen in Materie verwandeln.",
+        "herausforderung": "Das Potential nicht durch Angst oder Überforderung verschwenden.",
+        "quelle": "Westcott S.120; Cheiro Kap.12"
+      }
+    },
+
+    "vollstaendiges_beispiel": {
+      "geburtsdatum": "14.11.1982",
+      "lebenspfad": {
+        "rechnung": "1+4+1+1+1+9+8+2 = 27 → 2+7 = 9",
+        "ergebnis": 9
+      },
+      "periode_1": {
+        "quelle": "Monat = November = 11 → 11 (Meisterzahl) oder 1+1=2",
+        "energie": "11/2",
+        "endet_mit": "36 - 9 = 27 Jahren"
+      },
+      "periode_2": {
+        "quelle": "Tag = 14 → 1+4 = 5",
+        "energie": 5,
+        "von_bis": "27 bis 36 Jahre"
+      },
+      "periode_3": {
+        "quelle": "Jahr = 1982 → 1+9+8+2 = 20 → 2+0 = 2",
+        "energie": 2,
+        "ab": "36 Jahre bis Lebensende"
+      }
+    }
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln in dieser Datei für maschinelle Auswertung.",
+    "gesamt_regeln": 102,
+    "kategorien": {
+      "lebenspfad_profile_1_9": 9,
+      "dimensionsvektoren_lebenspfad": 9,
+      "meisterzahl_profile": 3,
+      "dimensionsvektoren_meisterzahlen": 3,
+      "lebenspfad_kompatibilitaet_liebe": 36,
+      "lebenspfad_kompatibilitaet_beruf": 36,
+      "lebenspfad_kompatibilitaet_partnerschaft": 36,
+      "perioden_energien_1_9": 9,
+      "perioden_energien_meister": 2,
+      "berechnung_lebenspfad": 2,
+      "berechnung_perioden": 3
+    },
+    "hinweis": "Kompatibilitätsregeln sind dreifach kodiert (liebe/beruf/partnerschaft), daher 36×3=108 Einzel-Regelwerte; als kombinierte Regeln gezählt: 36 Paare."
+  }
+}

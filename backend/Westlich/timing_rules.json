@@ -1,0 +1,639 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "erstellt": "2026-02-19",
+    "gespraech": 2,
+    "thema": "Zeitregeln: Firdaria / Planetenperioden, Planet×Planet Aspekte, Mond durch die 12 Häuser",
+    "quellen": [
+      "Sepharial — Astrology: How to Make and Read Your Own Horoscope (Gutenberg #46963, 1920) — Section IV Chapter VI",
+      "Raphael (Robert Cross Smith) — A Manual of Astrology (1828)",
+      "Nicholas DeVore — Encyclopedia of Astrology (1947)",
+      "Claudius Ptolemy — Tetrabiblos (public domain)"
+    ],
+    "regelanzahl_gesamt": 80,
+    "kapitel": [
+      "firdaria_perioden",
+      "planet_planet_aspekte",
+      "mond_durch_haeuser"
+    ]
+  },
+
+  "firdaria_perioden": {
+    "_intro": "Die Firdaria (auch: Firdar) ist ein persisches Periodensystem, das im mittelalterlichen Westen über arabische Vermittlung aufgenommen wurde. Es unterteilt das Leben in Hauptperioden (Firdar), die von den sieben klassischen Planeten plus den Mondknoten regiert werden. Jede Hauptperiode ist weiter in Unterperioden unterteilt. Der Startplanet hängt davon ab, ob die Person bei Tag (über dem Horizont stehende Sonne) oder bei Nacht geboren wurde. Quelle: Sepharial Section IV Chapter VI; DeVore Encyclopedia.",
+    "tagesgeburt_reihenfolge": ["sonne","venus","merkur","mond","saturn","jupiter","mars","nordknoten","suedknoten"],
+    "nachtgeburt_reihenfolge": ["mond","saturn","jupiter","mars","nordknoten","suedknoten","sonne","venus","merkur"],
+    "perioden_jahre": {
+      "sonne": 10,
+      "venus": 8,
+      "merkur": 13,
+      "mond": 9,
+      "saturn": 11,
+      "jupiter": 12,
+      "mars": 7,
+      "nordknoten": 3,
+      "suedknoten": 2
+    },
+    "gesamt_zyklus_jahre": 75,
+    "planet_interpretationen": {
+      "sonne": {
+        "text_de": "Die Sonnen-Firdar bringt Themen von Identität, Lebenskraft, Vaterbeziehung, Autorität und öffentlichem Ansehen in den Vordergrund. Günstig für Führungsrollen, Selbstverwirklichung und Sichtbarkeit. Gesundheit und Vitalität sind ein zentrales Thema. Konflikte mit Autoritätspersonen möglich.",
+        "schluesselthemen": ["Identität", "Ansehen", "Führung", "Vater", "Gesundheit"],
+        "vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+      },
+      "mond": {
+        "text_de": "Die Mond-Firdar betont Emotionalität, Familienleben, Mutterbeziehung, Wohnortwechsel und innere Welt. Häufig Phasen emotionaler Empfindlichkeit oder Neuorientierung im privaten Bereich. Günstig für kreative, pflegerische und familiäre Unternehmungen.",
+        "schluesselthemen": ["Familie", "Emotionen", "Mutter", "Umzug", "Intuition"],
+        "vektor": {"liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 3}
+      },
+      "merkur": {
+        "text_de": "Die Merkur-Firdar (13 Jahre, die längste) fördert intellektuelle Entwicklung, Kommunikation, Lernen, Handel und Vernetzung. Reisen, Schreiben, Studium und geschäftliche Verhandlungen stehen im Fokus. Nervöse Anspannung und Zerstreutheit als mögliche Schattenseite.",
+        "schluesselthemen": ["Bildung", "Kommunikation", "Handel", "Reisen", "Vernetzung"],
+        "vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 2, "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 2}
+      },
+      "venus": {
+        "text_de": "Die Venus-Firdar (8 Jahre) betont Liebesbeziehungen, Kunst, Genuss, Schönheit und sozialen Wohlstand. Häufig eine Phase erhöhter Attraktivität und sozialer Kontakte. Günstig für Heirat, kreative Projekte und finanzielle Verbesserungen durch Partnerschaften.",
+        "schluesselthemen": ["Liebe", "Kunst", "Genuss", "Ehe", "sozialer Wohlstand"],
+        "vektor": {"liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 2}
+      },
+      "mars": {
+        "text_de": "Die Mars-Firdar (7 Jahre) bringt Energie, Durchsetzungskraft, Konflikte und Risiken. Günstig für Sport, Pionierleistungen und unternehmerische Aktivitäten. Unfälle, Streitigkeiten oder übermäßige Impulsivität als Risiken. Männliche Beziehungen werden thematisiert.",
+        "schluesselthemen": ["Energie", "Konflikte", "Durchsetzung", "Pioniergeist", "Männer"],
+        "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 1}
+      },
+      "jupiter": {
+        "text_de": "Die Jupiter-Firdar (12 Jahre) ist meist eine Phase des Wachstums, des Glücks und der Expansion. Recht, Philosophie, Fernreisen, Hochschulbildung und religiöse Fragen rücken in den Vordergrund. Finanzielle und berufliche Verbesserungen sind möglich. Übertreibung und Leichtsinn als Schattenseite.",
+        "schluesselthemen": ["Wachstum", "Glück", "Expansion", "Weisheit", "Recht"],
+        "vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4}
+      },
+      "saturn": {
+        "text_de": "Die Saturn-Firdar (11 Jahre) bringt Prüfungen, Einschränkungen, Verantwortung und Reifungsprozesse. Häufig Verluste, Trauer oder Isolation, aber auch tiefe Konsolidierung und Aufbau von Dauerhaftem. Disziplin und Beharrlichkeit werden belohnt. Günstig für Strukturaufbau.",
+        "schluesselthemen": ["Prüfungen", "Verantwortung", "Verlust", "Reife", "Struktur"],
+        "vektor": {"liebe": 1, "beruf": 4, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4}
+      },
+      "nordknoten": {
+        "text_de": "Die Nordknoten-Firdar (3 Jahre) zeigt eine Phase karmischer Weiterentwicklung und neuer Verbindungen. Begegnungen, die das Schicksal voranbringen. Kollektive Strömungen beeinflussen das persönliche Leben stark. Günstig für sozialen Aufstieg und spirituelles Wachstum.",
+        "schluesselthemen": ["Karma", "Schicksal", "Wachstum", "neue Verbindungen", "Kollektiv"],
+        "vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 4, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5}
+      },
+      "suedknoten": {
+        "text_de": "Die Südknoten-Firdar (2 Jahre) bringt Auflösung, Rückzug und Abschluss alter Muster. Alte Beziehungen und Gewohnheiten werden losgelassen. Günstig für spirituelle Arbeit und innere Reinigung, weniger für neue äußerliche Unternehmungen. Isolation oder Erschöpfung möglich.",
+        "schluesselthemen": ["Auflösung", "Abschluss", "Rückzug", "Spiritualität", "Loslassen"],
+        "vektor": {"liebe": 2, "beruf": 1, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5}
+      }
+    }
+  },
+
+  "planet_planet_aspekte": {
+    "_intro": "Natale Planet×Planet Aspekte beschreiben die strukturellen Spannungsfelder und Harmonien im Geburtshoroskop. Jede Kombination zeigt, wie zwei planetare Prinzipien miteinander interagieren. Konjunktion = Verschmelzung; Trigon/Sextil = Fluss; Quadrat/Opposition = Reibung und Wachstum. Quelle: Sepharial Sections II und III; Ptolemy Tetrabiblos Book I; DeVore Encyclopedia.",
+    "aspekt_typen": {
+      "konjunktion": {"grad": 0, "orb": 8, "qualitaet": "neutral_bis_intensiv"},
+      "sextil": {"grad": 60, "orb": 6, "qualitaet": "leicht_harmonisch"},
+      "quadrat": {"grad": 90, "orb": 8, "qualitaet": "herausfordernd"},
+      "trigon": {"grad": 120, "orb": 8, "qualitaet": "harmonisch"},
+      "opposition": {"grad": 180, "orb": 8, "qualitaet": "spannungsvoll"}
+    },
+    "kombinationen": {
+      "sonne_mond": {
+        "konjunktion": {
+          "text_de": "Neumond-Natur: Wille und Gefühl wirken als Einheit. Starke Persönlichkeit, aber Schwierigkeit, andere Perspektiven zu integrieren. Mutter-Vater-Beziehung prägend. Hohe Lebensenergie, klare Zielorientierung.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "sextil": {
+          "text_de": "Wille und Gefühle ergänzen sich gut. Emotionale Ausgeglichenheit unterstützt die Zielumsetzung. Gute Beziehungen zu Mutter und Vater. Anpassungsfähigkeit und Charme.",
+          "vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "quadrat": {
+          "text_de": "Innerer Konflikt zwischen Wille und Gefühl. Elternbeziehungen oft spannungsgeladen. Antrieb durch innere Reibung. Neigung zu widersprüchlichem Verhalten. Wachstum durch Selbstreflexion.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Vollmond-ähnliche Harmonie: Wille und Gefühl fließen zusammen. Natürliche Ausstrahlung und Beliebtheit. Elternbeziehungen förderlich. Leichtigkeit im Ausdruck der eigenen Identität.",
+          "vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "opposition": {
+          "text_de": "Polarität zwischen Selbst und Beziehungswelt. Schwankungen zwischen Wille und emotionalen Bedürfnissen. Partnerschaft als Spiegel innerer Konflikte. Reifung durch Ausbalancierung beider Prinzipien.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3}
+        }
+      },
+      "sonne_merkur": {
+        "_hinweis": "Merkur kann maximal 28° von der Sonne entfernt sein, daher nur Konjunktion und (selten) Sextil möglich.",
+        "konjunktion": {
+          "text_de": "Verbrannte Merkur (Cazimi wenn <1°, Verbrennung wenn 1–8°): Wille und Intellekt sind eng verknüpft. Starke Meinungsbildung, lebhafter Verstand, Ich-Fixierung in Kommunikation. Bei Cazimi: außergewöhnliche geistige Klarheit und Sprachtalent.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 2}
+        }
+      },
+      "sonne_venus": {
+        "_hinweis": "Venus kann maximal 48° von der Sonne entfernt sein, daher nur Konjunktion und Sextil möglich.",
+        "konjunktion": {
+          "text_de": "Charismatisch, kunstliebend, sozialer Charme, Freude am Schönen und am Leben. Genussfreudig, attraktiv, oft kreativ begabt. Neigung zu Eigenliebe oder Verwöhnung.",
+          "vektor": {"liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 2}
+        },
+        "sextil": {
+          "text_de": "Liebenswürdige, soziale Persönlichkeit. Kunst und Schönheit spielen eine unterstützende Rolle im Alltag. Gute diplomatische Fähigkeiten und angenehmes Wesen.",
+          "vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 1, "spiritualitaet": 2}
+        }
+      },
+      "sonne_mars": {
+        "konjunktion": {
+          "text_de": "Starke Willenskraft, Tatendrang und Durchsetzungsvermögen. Mut und Risikofreude. Neigung zu Aggression, Impulsivität und Unfallneigung. Pioniergeist und sportliche Energie.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 1}
+        },
+        "sextil": {
+          "text_de": "Energie und Wille gut kanalisiert. Durchsetzungsfähig ohne übertriebene Aggression. Sportlicher, aktiver Charakter. Günstig für Führungsrollen.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 1}
+        },
+        "quadrat": {
+          "text_de": "Innere Spannung zwischen Ego und Triebkraft. Konflikte mit Autoritäten oder Männern. Hohe Energie, aber unkontrollierbar. Unfallgefahr. Wachstum durch Disziplin und Kanalisierung.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Energie und Vitalität fließen harmonisch. Natürlicher Führungsstil, Mut ohne Rücksichtslosigkeit. Sportliches Talent, Freude am Wettbewerb.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 3, "gesundheit": 5, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 1}
+        },
+        "opposition": {
+          "text_de": "Äußerer Widerstand aktiviert Kampfgeist. Konflikte mit anderen entzünden sich an Machtfragen. Partnerschaft oft durch Konkurrenz oder Aggression belastet.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2}
+        }
+      },
+      "sonne_jupiter": {
+        "konjunktion": {
+          "text_de": "Optimismus, Großzügigkeit, Glück und Expansion. Neigung zu Übertreibung und Selbstüberschätzung. Günstig für Reisen, Bildung und berufliche Förderung. Natürliche Autorität und Weitblick.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+        },
+        "sextil": {
+          "text_de": "Glück und Optimismus unterstützen die Entfaltung. Gute Lernfähigkeit und Weitsicht. Soziale Großzügigkeit. Günstig für Studium und Karriere.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Übertriebener Ehrgeiz oder Hybris. Versprechen, die nicht gehalten werden. Rechtliche oder religiöse Konflikte. Wachstum durch Selbstbeschränkung und Realismus.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Außergewöhnliches Glück und natürlicher Optimismus. Förderung durch einflussreiche Männer und Mentoren. Karrierechancen kommen von selbst. Moralischer Weitblick.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "opposition": {
+          "text_de": "Spannung zwischen Eigeninteresse und größerem Ganzen. Partner oder Gesellschaft bremsen den Ego-Ausdruck. Lernfeld: Bescheidenheit und kollektive Verantwortung.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4}
+        }
+      },
+      "sonne_saturn": {
+        "konjunktion": {
+          "text_de": "Ernst, Disziplin und Ausdauer prägen die Persönlichkeit. Vaterbeziehung oft kühl oder fordernd. Langsamer Aufstieg, aber beständige Resultate. Neigung zu Melancholie oder überhöhten Ansprüchen an sich selbst.",
+          "vektor": {"liebe": 1, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "sextil": {
+          "text_de": "Disziplin und Verantwortungsbewusstsein unterstützen die Zielerreichung. Praktischer, zuverlässiger Charakter. Günstig für Karriere durch Beharrlichkeit.",
+          "vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Innere Blockaden, mangelndes Selbstvertrauen oder übermäßige Selbstkritik. Vaterbeziehung belastend. Hindernisse im Berufsweg als Lernfeld. Wachstum durch Beharrlichkeit trotz Widerstand.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4}
+        },
+        "trigon": {
+          "text_de": "Disziplin und Ehrgeiz harmonisch verbunden. Langfristiger Aufbau gelingt natürlich. Reife Ausstrahlung, Verlässlichkeit und Respekt von anderen.",
+          "vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Äußere Einschränkungen und Autoritätskonflikte. Gesellschaft oder Partner begrenzen die Selbstentfaltung. Lernfeld: Gleichgewicht zwischen Selbstbehauptung und Pflicht.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4}
+        }
+      },
+      "sonne_uranus": {
+        "konjunktion": {
+          "text_de": "Rebellion, Originalität und Unabhängigkeitsdrang. Innovativer Geist, technische oder wissenschaftliche Begabung. Unberechenbarkeit und Schwierigkeit mit Autoritäten und Konventionen.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Revolutionärer Drang trifft auf innere oder äußere Starrheit. Brüche und plötzliche Veränderungen. Lernfeld: konstruktiver Umgang mit Freiheitsdrang.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Kreative Originalität fließt harmonisch. Pioniergeist ohne Zerstörung. Günstig für Innovationen, Technik und unkonventionelle Karrierewege.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Freiheitsdrang trifft auf Erwartungen der Umwelt. Gruppenspannungen. Revolutionäres Verhalten in Beziehungen. Außenseiterrolle.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}
+        }
+      },
+      "sonne_neptun": {
+        "konjunktion": {
+          "text_de": "Sensible, spirituell begabte Persönlichkeit. Künstlerische und mediale Fähigkeiten. Schwierigkeit mit klarer Ich-Abgrenzung; Neigung zu Idealismus oder Selbstbetrug.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 5}
+        },
+        "quadrat": {
+          "text_de": "Ideale prallen auf Realität. Enttäuschungsgefahr, Selbstbetrug oder Verwirrung über die eigene Identität. Wachstum durch spirituelle Reife.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+        },
+        "trigon": {
+          "text_de": "Spirituelle Begabung und künstlerische Intuition fließen harmonisch. Günstig für Kunst, Spiritualität und Heilberufe.",
+          "vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 5}
+        },
+        "opposition": {
+          "text_de": "Realität und Ideale in Spannung. Partner oder Umwelt projizieren Illusionen. Neigung zu Enttäuschungen in Beziehungen.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 5}
+        }
+      },
+      "sonne_pluto": {
+        "konjunktion": {
+          "text_de": "Intensive Willenskraft und Transformationsdrang. Magnetische Persönlichkeit mit Hang zu Kontrolle oder Machtfragen. Tiefe Regenerationsfähigkeit. Krisen als Katalysatoren.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4}
+        },
+        "quadrat": {
+          "text_de": "Machtkonflikte, Kontrollzwang oder Selbstdestruktion als Herausforderung. Tiefe psychische Umbauarbeiten nötig. Wachstum durch Loslassen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 5}
+        },
+        "trigon": {
+          "text_de": "Transformationskraft harmonisch entfaltet. Starke innere Ressourcen, Regenerationsfähigkeit, natürliche Führungsstärke.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 4, "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4}
+        },
+        "opposition": {
+          "text_de": "Machtkämpfe in Beziehungen. Andere spiegeln Schattenseiten zurück. Lernfeld: Teilen von Macht und Ressourcen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4}
+        }
+      },
+      "mond_merkur": {
+        "konjunktion": {
+          "text_de": "Gefühl und Intellekt eng verbunden. Lebhafter, kommunikativer Geist mit emotionaler Einfärbung. Gutes Gedächtnis, Sprachgefühl. Neigung zur Überanalyse von Gefühlen.",
+          "vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 4, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "quadrat": {
+          "text_de": "Spannung zwischen Gefühl und Verstand. Nervöse Reizbarkeit. Kommunikation emotional überladen. Lernfeld: rationale Distanz zu Emotionen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Intuition und Intelligenz im Einklang. Eloquenter, einfühlsamer Kommunikationsstil. Günstig für Schreiben, Lehren und Beratung.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "opposition": {
+          "text_de": "Emotionen und rationale Analyse in Spannung. Schwierigkeiten, Gefühle klar zu artikulieren. Meinungsverschiedenheiten mit nahen Personen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}
+        }
+      },
+      "mond_venus": {
+        "konjunktion": {
+          "text_de": "Emotionale Wärme, Anziehungskraft und Liebesbedürfnis stark ausgeprägt. Kunstsinn, Genussfreude, Häuslichkeit. Sehr angenehmes soziales Wesen. Neigung zur Verwöhnung.",
+          "vektor": {"liebe": 5, "beruf": 2, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 2}
+        },
+        "quadrat": {
+          "text_de": "Emotionale Bedürfnisse und Liebeswünsche in Spannung. Abhängigkeit in Liebesbeziehungen. Eifersucht oder Überempfindlichkeit. Wachstum durch Selbstliebe.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Liebevolles, harmonisches Wesen. Natürliche Anziehungskraft und soziale Beliebtheit. Günstig für Liebesbeziehungen und kreative Tätigkeiten.",
+          "vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 2}
+        },
+        "opposition": {
+          "text_de": "Emotionale Bedürfnisse und romantische Ideale kollidieren. Liebesbeziehungen emotionell intensiv. Mutter-Frau-Konflikt möglich.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+        }
+      },
+      "mond_mars": {
+        "konjunktion": {
+          "text_de": "Explosive Emotionalität und Tatendrang. Impulsiv, leidenschaftlich, schnell reizbar. Hohe Energie, aber schwer steuerbar. Günstig für Sport und körperliche Aktivität.",
+          "vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 1}
+        },
+        "quadrat": {
+          "text_de": "Innere Unruhe und emotionale Aggressivität. Konflikte im häuslichen Bereich. Unfallneigung. Wachstum durch Impulskontrolle.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 1}
+        },
+        "trigon": {
+          "text_de": "Emotionale Energie gut kanalisiert. Schützender, mutiger Charakter. Günstig für Führung im häuslichen und sozialen Bereich.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 1}
+        },
+        "opposition": {
+          "text_de": "Emotionale Bedürfnisse kollidieren mit Durchsetzungsdrang. Konflikte in Partnerschaft oder Familie. Aggression als Abwehr emotionaler Verletzlichkeit.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 1}
+        }
+      },
+      "mond_jupiter": {
+        "konjunktion": {
+          "text_de": "Emotionale Großzügigkeit, Optimismus und Fürsorge. Günstig für Familie, Häuslichkeit und soziales Engagement. Beliebtheit und Wohlwollen aus der Umgebung.",
+          "vektor": {"liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Emotionale Übertreibung und Anspruchsdenken. Verausgabung durch übermäßige Fürsorge. Gewichtsprobleme durch emotionales Essen möglich.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Emotionale Fülle und Lebensfreude. Glück durch Familien- und Gemeinschaftsleben. Günstig für soziale Berufe und Bildung.",
+          "vektor": {"liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Emotionale Ideale prallen auf Realität. Übertriebene Erwartungen in Beziehungen. Spannung zwischen Heimat und weiter Welt.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3}
+        }
+      },
+      "mond_saturn": {
+        "konjunktion": {
+          "text_de": "Emotionale Kälte oder Zurückhaltung. Mutterthema von Distanz oder Pflichtgefühl geprägt. Melancholie und innere Einsamkeit als Prägung. Reife und Zuverlässigkeit als Stärke.",
+          "vektor": {"liebe": 1, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "quadrat": {
+          "text_de": "Unterdrückte Emotionen und emotionale Blockaden. Mutterverhältnis belastet. Neigung zu Depression. Lernfeld: Gefühle zulassen und zeigen.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 1, "soziales": 1, "kreativitaet": 1, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "trigon": {
+          "text_de": "Emotionale Reife und Verlässlichkeit. Disziplinierte Fürsorge. Günstig für Verantwortung in Familie und Beruf.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Emotionale Bedürfnisse werden durch äußere Pflichten oder Partner unterdrückt. Kälte in Beziehungen. Lernfeld: Balance zwischen Selbstfürsorge und Verantwortung.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 1, "veraenderung": 2, "spiritualitaet": 4}
+        }
+      },
+      "mond_uranus": {
+        "konjunktion": {
+          "text_de": "Ungewöhnliche Emotionalität, innere Unruhe und Originalität. Mutterverhältnis unkonventionell. Starke Intuition und Empfindlichkeit für kollektive Strömungen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Innere Unruhe und Stimmungsschwankungen. Plötzliche emotionale Brüche. Beziehungsinstabilität.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Emotionale Freiheit und Originalität harmonisch. Günstig für Kreativität und alternative Lebensformen.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Emotionale Unvorhersehbarkeit trifft auf Erwartungen der Umwelt. Beziehungen plötzlich unterbrochen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 3}
+        }
+      },
+      "mond_neptun": {
+        "konjunktion": {
+          "text_de": "Hohe Empathie und Sensitivität. Traumhaftes, mythisches Innenleben. Grenze zwischen Selbst und anderen verschwommen. Künstlerisch oder mediumistisch begabt.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 1, "gesundheit": 2, "soziales": 3, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 5}
+        },
+        "quadrat": {
+          "text_de": "Illusionen und Enttäuschungen im emotionalen Bereich. Neigung zu Eskapismus. Mutterverhältnis idealisiert oder diffus.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 1, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "trigon": {
+          "text_de": "Spirituelle Empathie und kreative Imagination fließen harmonisch. Günstig für Kunst, Heilung und spirituelle Arbeit.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 5}
+        },
+        "opposition": {
+          "text_de": "Emotionale Grenzen unklar. Partner projizieren Illusionen. Selbstaufopferung in Beziehungen.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 5}
+        }
+      },
+      "mond_pluto": {
+        "konjunktion": {
+          "text_de": "Intensive emotionale Tiefe und Transformationskraft. Mutterverhältnis von Machtdynamiken oder Tiefe geprägt. Starke unbewusste Kräfte. Regenerationsfähigkeit nach emotionalen Krisen.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5}
+        },
+        "quadrat": {
+          "text_de": "Emotionale Machtkämpfe und Kontrollzwang. Tiefe Ängste und Traumata im Hintergrund. Wachstum durch Psychoarbeit.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 1, "soziales": 1, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 5}
+        },
+        "trigon": {
+          "text_de": "Emotionale Tiefe als Stärke. Transformationsfähigkeit und psychologische Einsicht. Günstig für Heilberufe und Krisenarbeit.",
+          "vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}
+        },
+        "opposition": {
+          "text_de": "Machtkämpfe in engen Beziehungen. Andere lösen intensive Gefühlsreaktionen aus. Lernfeld: emotionale Autonomie.",
+          "vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 1, "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5}
+        }
+      },
+      "merkur_venus": {
+        "_hinweis": "Merkur und Venus können maximal 76° voneinander entfernt sein, daher nur Konjunktion und Sextil möglich.",
+        "konjunktion": {
+          "text_de": "Sprachliches Talent und ästhetisches Gespür vereint. Diplomatische Kommunikation, Charme in der Sprache. Neigung zu Kunst, Poesie und angenehmer Unterhaltung.",
+          "vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 2}
+        },
+        "sextil": {
+          "text_de": "Kommunikation und sozialer Charme gut verbunden. Günstig für Diplomatie, Verhandlungen und kreativen Austausch.",
+          "vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 4, "kreativitaet": 4, "veraenderung": 1, "spiritualitaet": 2}
+        }
+      },
+      "merkur_mars": {
+        "konjunktion": {
+          "text_de": "Scharfer, direkter Verstand. Rhetorische Schlagkraft und Durchsetzungsvermögen in Debatten. Neigung zu Streit und Sarkasmus. Günstig für Anwälte, Journalisten.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 1}
+        },
+        "quadrat": {
+          "text_de": "Kommunikationskonflikte, Vorwürfe und Streitsüchtigkeit. Übereilte Entscheidungen. Lernfeld: überlegt sprechen.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 1}
+        },
+        "trigon": {
+          "text_de": "Intellektuelle Energie und Durchsetzungswille im Einklang. Günstig für technische Berufe, Debatte und Verhandlung.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 1}
+        },
+        "opposition": {
+          "text_de": "Gedankliche Auseinandersetzungen mit anderen. Meinungsverschiedenheiten eskalieren leicht. Geistige Herausforderung durch Widerpart.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 1}
+        }
+      },
+      "merkur_jupiter": {
+        "konjunktion": {
+          "text_de": "Weitsichtiger, optimistischer Verstand. Philosophische Denkweise, Freude am Lernen. Neigung zu übertriebenen Plänen oder Selbstüberschätzung.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Großspurige Pläne ohne Umsetzung. Übertreibung in Kommunikation. Philosophisch oder religiös dogmatisch.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Geistiger Weitblick und Optimismus harmonisch. Günstig für Lehren, Schreiben, Recht und Philosophie.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "opposition": {
+          "text_de": "Eigene Ideen treffen auf andere Weltanschauungen. Lernfeld: geistige Bescheidenheit und Integration verschiedener Sichtweisen.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        }
+      },
+      "merkur_saturn": {
+        "konjunktion": {
+          "text_de": "Konzentrierter, strukturierter Verstand. Gründlichkeit und Sorgfalt. Neigung zu Pessimismus oder kommunikativer Zurückhaltung. Günstig für Wissenschaft und Forschung.",
+          "vektor": {"liebe": 1, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Gedankliche Blockaden, Grübeln und Schwarzsehen. Kommunikationshemmungen. Lernfeld: Vertrauen in den eigenen Verstand.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 1, "soziales": 1, "kreativitaet": 1, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Systematisches, zuverlässiges Denken. Günstig für Mathematik, Strukturarbeit und analytische Berufe.",
+          "vektor": {"liebe": 1, "beruf": 5, "finanzen": 4, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Eigene Ideen werden von anderen in Frage gestellt. Kommunikation mit Autoritäten schwierig.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        }
+      },
+      "venus_mars": {
+        "konjunktion": {
+          "text_de": "Starke Anziehungskraft und Leidenschaft. Verbindung von Schönheit und Begehren. Hohe sexuelle Energie und Ausdruckskraft. Neigung zu Impulsivität in Liebesangelegenheiten.",
+          "vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 1}
+        },
+        "quadrat": {
+          "text_de": "Liebeskonflikte durch Unterschied zwischen Zuneigung und Begehren. Eifersucht, Rivalität in Liebesbeziehungen. Kreative Spannung.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 1}
+        },
+        "trigon": {
+          "text_de": "Liebe und Leidenschaft fließen harmonisch. Attraktiv und charismatisch. Günstig für kreative und romantische Projekte.",
+          "vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 1}
+        },
+        "opposition": {
+          "text_de": "Spannung zwischen Bedürfnis nach Harmonie und nach Leidenschaft. Partner als Gegenpol in Liebesangelegenheiten.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 1}
+        }
+      },
+      "venus_jupiter": {
+        "konjunktion": {
+          "text_de": "Glück in Liebe und Finanzen. Großzügig, kunstliebend, gesellig. Günstig für künstlerischen Erfolg und soziale Beziehungen. Neigung zur Verschwendung.",
+          "vektor": {"liebe": 5, "beruf": 3, "finanzen": 5, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Übertriebene Genusssucht oder Verausgabung in Liebe und Finanzen. Günstig, aber mit Maßhalten.",
+          "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 1, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Natürliches Glück und Beliebtheit. Kunstsinn und soziale Großzügigkeit. Eine der günstigsten Planetenverbindungen.",
+          "vektor": {"liebe": 5, "beruf": 4, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 1, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Idealisierte Liebeserwartungen. Großzügigkeit bis zur Naivität. Günstige Grundströmung, aber mit blinden Flecken.",
+          "vektor": {"liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 1, "spiritualitaet": 3}
+        }
+      },
+      "venus_saturn": {
+        "konjunktion": {
+          "text_de": "Liebe und Verantwortung verbunden. Beziehungen eher ernst und dauerhaft. Neigung zu Entbehrung in Liebesangelegenheiten oder späten Liebeserfahrungen. Günstig für langfristige Bindungen.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 1, "spiritualitaet": 3}
+        },
+        "quadrat": {
+          "text_de": "Liebesentzug oder Abweisung als Kindheitsprägung. Angst vor Ablehnung. Beziehungen mit Altersdifferenz oder Pflichtcharakter. Wachstum durch Selbstliebe.",
+          "vektor": {"liebe": 1, "beruf": 3, "finanzen": 2, "gesundheit": 1, "soziales": 1, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Treue, zuverlässige Liebesbeziehungen. Belohnung für Geduld und Beständigkeit. Günstig für dauerhafte Ehen.",
+          "vektor": {"liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 1, "spiritualitaet": 3}
+        },
+        "opposition": {
+          "text_de": "Partner als einschränkend erlebt. Liebesbeziehungen mit Altersdifferenz oder Pflichtcharakter. Spannung zwischen Vergnügen und Pflicht.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+        }
+      },
+      "mars_jupiter": {
+        "konjunktion": {
+          "text_de": "Hochenergetisch, optimistisch und aktiv. Pioniergeist und Abenteuerlust. Günstig für Sport, Unternehmertum und Reisen. Neigung zur Risikobereitschaft bis hin zu Leichtsinn.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 3, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2}
+        },
+        "quadrat": {
+          "text_de": "Übermäßige Risikobereitschaft. Unfälle durch Leichtsinn. Konflikte durch Anmaßung oder Überheblichkeit. Energie als Lernfeld für Mäßigung.",
+          "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Energie und Optimismus im Einklang. Günstig für Sport, Leistung und unternehmerische Erfolge. Natürlicher Glücksmotor.",
+          "vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 5, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 2}
+        },
+        "opposition": {
+          "text_de": "Andere bremsen den Tatendrang. Rechtliche oder moralische Konflikte durch Übereifer.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+        }
+      },
+      "mars_saturn": {
+        "konjunktion": {
+          "text_de": "Disziplinierte Energie, zielgerichtete Ausdauer. Energie wird durch Struktur kanalisiert. Innere Spannung zwischen Antrieb und Kontrolle. Günstig für Handwerk, Militär und harte körperliche Arbeit.",
+          "vektor": {"liebe": 1, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+        },
+        "quadrat": {
+          "text_de": "Innere Blockierung von Energie. Frustration und unterdrückte Aggression. Unfallneigung durch verdrängten Druck. Lernfeld: gesunde Ventile.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 1, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+        },
+        "trigon": {
+          "text_de": "Ausdauer und Energie perfekt verbunden. Langfristige Leistung ohne Verschleiß. Günstig für körperliche und berufliche Langzeitziele.",
+          "vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+        },
+        "opposition": {
+          "text_de": "Äußerer Widerstand hemmt Tatendrang. Autoritätskonflikte und Machtspiele. Lernfeld: Geduld und strategisches Abwarten.",
+          "vektor": {"liebe": 1, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+        }
+      },
+      "jupiter_saturn": {
+        "konjunktion": {
+          "text_de": "Gesellschaftliche Zeitqualität (Große Konjunktion alle 20 Jahre). Persönlich: Balance zwischen Expansion und Einschränkung. Wichtige Aufbauphase mit realistischem Optimismus. Generationsprägend.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4}
+        },
+        "quadrat": {
+          "text_de": "Spannung zwischen Wachstumswunsch und Realitätsprinzip. Chancen blockiert oder verzögert. Lernfeld: realistische Planung.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3}
+        },
+        "trigon": {
+          "text_de": "Expansion und Konsolidierung im Gleichgewicht. Günstig für nachhaltige Karriere- und Finanzplanung. Gesellschaftliche Integration.",
+          "vektor": {"liebe": 2, "beruf": 4, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4}
+        },
+        "opposition": {
+          "text_de": "Soziale Kräfte in Spannung: Optimismus vs. Realismus im gesellschaftlichen Umfeld. Schwanken zwischen Risiko und Vorsicht.",
+          "vektor": {"liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3}
+        }
+      }
+    }
+  },
+
+  "mond_durch_haeuser": {
+    "_intro": "Der Mondtransit durch die 12 Häuser beschreibt die monatliche emotionale und alltagspraktische Qualität während der ca. 2–3-tägigen Mondpassage durch jedes Haus. Der Mond braucht ca. 28 Tage für den vollen Umlauf. Quelle: Sepharial Section IV; Raphael Manual of Astrology Chapter V; DeVore Encyclopedia.",
+    "haus_1": {
+      "text_de": "Erhöhte Selbstwahrnehmung und Präsenz. Stimmung und Körpergefühl werden sensibler. Günstig für neue persönliche Initiativen und Selbstpflege. Das Äußere wirkt emotionaler auf andere.",
+      "schluesselthemen": ["Selbst", "Aussehen", "neue Anfänge", "Körpergefühl"],
+      "vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}
+    },
+    "haus_2": {
+      "text_de": "Aufmerksamkeit auf Finanzen, Besitz und materielle Sicherheit. Emotionale Ausgaben oder Sparsamkeit. Günstig für Finanzplanungen und Bestandsaufnahmen. Bedürfnis nach Komfort und Stabilität.",
+      "schluesselthemen": ["Finanzen", "Besitz", "Sicherheit", "Genuss"],
+      "vektor": {"liebe": 2, "beruf": 2, "finanzen": 5, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 1}
+    },
+    "haus_3": {
+      "text_de": "Kommunikationsbedürfnis steigt. Gespräche, Briefe, kurze Reisen. Geschwister- und Nachbarschaftsthemen aktuell. Gedanken kreisen um alltägliche Angelegenheiten. Günstig für Lernen und Austausch.",
+      "schluesselthemen": ["Kommunikation", "Geschwister", "Kurzreisen", "Lernen"],
+      "vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2}
+    },
+    "haus_4": {
+      "text_de": "Heimat, Familie und Herkunft im Fokus. Rückzugsbedürfnis und Heimeligkeit. Vergangenheitsthemen tauchen auf. Günstig für häusliche Aktivitäten, Familienpflege und innere Einkehr.",
+      "schluesselthemen": ["Heimat", "Familie", "Rückzug", "Vergangenheit"],
+      "vektor": {"liebe": 3, "beruf": 1, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 3}
+    },
+    "haus_5": {
+      "text_de": "Freude, Kreativität, Romantik und Spiel stehen im Vordergrund. Kinder- und Liebesthemen aktiviert. Günstig für kreative Projekte, Freizeitvergnügen und romantische Begegnungen.",
+      "schluesselthemen": ["Kreativität", "Liebe", "Kinder", "Vergnügen"],
+      "vektor": {"liebe": 5, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 2}
+    },
+    "haus_6": {
+      "text_de": "Alltag, Arbeit und Gesundheit im Fokus. Neigung zur Pflichterfüllung oder zu Beschwerden. Günstig für Organisation, Routinearbeit und Gesundheitspflege. Kritisch-analytische Stimmung.",
+      "schluesselthemen": ["Arbeit", "Gesundheit", "Alltag", "Dienst"],
+      "vektor": {"liebe": 1, "beruf": 4, "finanzen": 3, "gesundheit": 5, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+    },
+    "haus_7": {
+      "text_de": "Partnerschaften, Ehe und offene Feindschaften aktiviert. Bedürfnis nach Verbindung und Spiegelung. Günstig für Verhandlungen, Beziehungsgespräche und Kooperationen.",
+      "schluesselthemen": ["Partnerschaft", "Ehe", "Diplomatie", "andere"],
+      "vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 5, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+    },
+    "haus_8": {
+      "text_de": "Tiefe, Transformation und Tabu-Themen. Finanzen Dritter oder Erbschaftsfragen. Sexualität und psychologische Tiefe aktuell. Günstig für tiefgreifende Veränderungen und Aufarbeitung.",
+      "schluesselthemen": ["Transformation", "Sexualität", "Erbschaft", "Psyche"],
+      "vektor": {"liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4}
+    },
+    "haus_9": {
+      "text_de": "Fernreisen, Philosophie, Spiritualität und höheres Lernen. Neigung zu weitgespanntem Denken. Günstig für Studium, spirituelle Suche, Fernreisen und interkulturelle Begegnungen.",
+      "schluesselthemen": ["Philosophie", "Fernreisen", "Spiritualität", "höhere Bildung"],
+      "vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5}
+    },
+    "haus_10": {
+      "text_de": "Beruf, öffentliche Rolle und gesellschaftlicher Status im Vordergrund. Ehrgeiz und Sichtbarkeit erhöht. Günstig für Karriereschritte, Präsentationen und öffentliches Auftreten.",
+      "schluesselthemen": ["Karriere", "Status", "Öffentlichkeit", "Vater"],
+      "vektor": {"liebe": 1, "beruf": 5, "finanzen": 4, "gesundheit": 2, "soziales": 4, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+    },
+    "haus_11": {
+      "text_de": "Freundschaften, Gruppen, Wünsche und Ideale. Kollektive und gesellschaftliche Themen. Günstig für Vernetzung, Teamarbeit und das Verfolgen langfristiger Ziele.",
+      "schluesselthemen": ["Freundschaft", "Gruppen", "Wünsche", "Zukunft"],
+      "vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+    },
+    "haus_12": {
+      "text_de": "Rückzug, Stille, Unbewusstes und Abschlüsse. Intuition und Träume verstärkt. Günstig für Meditation, Rückzug und spirituelle Arbeit. Erschöpfung und Isolation als Risiko.",
+      "schluesselthemen": ["Rückzug", "Unbewusstes", "Spiritualität", "Abschluss"],
+      "vektor": {"liebe": 1, "beruf": 1, "finanzen": 1, "gesundheit": 2, "soziales": 1, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 5}
+    }
+  }
+}

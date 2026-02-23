@@ -1,0 +1,1025 @@
+{
+  "_meta": {
+    "system": "kabbalah",
+    "modul": "pfade",
+    "version": "1.0",
+    "gespraech": "K2",
+    "sources": [
+      "S.L. MacGregor Mathers - The Kabbalah Unveiled (1887, public domain)",
+      "W. Wynn Westcott - Sepher Yetzirah, Übersetzung (1887, public domain)",
+      "Sefer Yetzirah - Originaltext (3.-6. Jhd., public domain, Westcott-Übersetzung)",
+      "Aleister Crowley - 777 and Other Qabalistic Writings (1909, public domain AT/EU)",
+      "Papus (Gérard Encausse) - The Tarot of the Bohemians (1892, public domain)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Die 22 Pfade des kabbalistischen Baumes des Lebens, entsprechend den 22 hebräischen Buchstaben. Jeder Pfad mit: verbundenen Sephiroth, hebräischem Buchstaben, Gematria-Wert, Tarot-Entsprechung (Major Arcana), astrologischer Entsprechung, Buchstabengruppe (Mutter/Doppelt/Einfach), magischer Qualität, spiritueller Lektion und Dimensionsvektor. Pfade werden ab Nr. 11 gezählt (Pfade 1-10 = die Sephiroth selbst).",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog kabbalah_sephiroth.json"
+  },
+
+  "pfad_system_uebersicht": {
+    "beschreibung": "Die 22 Pfade verbinden die 10 Sephiroth des Baumes des Lebens. Sie entsprechen den 22 Buchstaben des hebräischen Alphabets und den 22 Karten des Major Arcana des Tarot. Die Pfade sind nummeriert von 11 bis 32 (Pfade 1-10 sind den Sephiroth vorbehalten).",
+    "quelle": "Westcott - Sepher Yetzirah S.5-15; Mathers - Kabbalah Unveiled Einleitung; Crowley - 777 Tabelle I",
+    "nummerierung": "Pfad 11 (Kether→Chokmah) bis Pfad 32 (Yesod→Malkuth)",
+    "drei_buchstabengruppen": {
+      "muetter": {
+        "name": "Drei Mutterbuchstaben (Oth HaEmot)",
+        "buchstaben": ["Aleph (א)", "Mem (מ)", "Shin (ש)"],
+        "elemente": ["Luft", "Wasser", "Feuer"],
+        "bedeutung": "Die drei fundamentalen Elementarbuchstaben. Sie bilden die Grundlage aller anderen Buchstaben. Aleph = Luft/Gleichgewicht, Mem = Wasser/Stille, Shin = Feuer/Aktivität.",
+        "quelle": "Westcott - Sepher Yetzirah S.16-22; Crowley 777"
+      },
+      "doppelte": {
+        "name": "Sieben Doppelbuchstaben (Oth HaKefulot)",
+        "buchstaben": ["Beth (ב)", "Gimel (ג)", "Daleth (ד)", "Kaph (כ)", "Pe (פ)", "Resh (ר)", "Tau (ת)"],
+        "planeten": ["Merkur", "Mond", "Venus", "Jupiter", "Mars", "Sonne", "Saturn"],
+        "bedeutung": "Doppelbuchstaben haben zwei Aussprachen (hart/weich) und entsprechen den sieben klassischen Planeten. Sie regieren sieben Tage, sieben Öffnungen des Körpers, sieben Himmelsrichtungen.",
+        "quelle": "Westcott - Sepher Yetzirah S.22-30; Crowley 777"
+      },
+      "einfache": {
+        "name": "Zwölf Einfache Buchstaben (Oth HaPeshutot)",
+        "buchstaben": ["He (ה)", "Vau (ו)", "Zayin (ז)", "Cheth (ח)", "Teth (ט)", "Yod (י)", "Lamed (ל)", "Nun (נ)", "Samekh (ס)", "Ayin (ע)", "Tzaddi (צ)", "Qoph (ק)"],
+        "tierkreis": ["Widder", "Stier", "Zwillinge", "Krebs", "Löwe", "Jungfrau", "Waage", "Skorpion", "Schütze", "Steinbock", "Wassermann", "Fische"],
+        "bedeutung": "Zwölf einfache Buchstaben entsprechen den zwölf Tierkreiszeichen, zwölf Monaten, zwölf Organen des Menschen.",
+        "quelle": "Westcott - Sepher Yetzirah S.30-40; Crowley 777"
+      }
+    }
+  },
+
+  "pfade": {
+
+    "11": {
+      "pfad_nummer": 11,
+      "von_sephira": {"nummer": 1, "name": "Kether"},
+      "zu_sephira": {"nummer": 2, "name": "Chokmah"},
+      "richtung": "Kether → Chokmah",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.16-18; Mathers S.10",
+
+      "buchstabe_hebraeisch": "א",
+      "buchstabe_name": "Aleph",
+      "buchstabe_bedeutung": "Ochse / Stier — das erste Tier, Kraft, Atem",
+      "buchstabe_gruppe": "Mutter",
+      "gematria_wert": 1,
+      "element_buchstabe": "Luft",
+
+      "tarot": "0 — Der Narr (The Fool)",
+      "tarot_beschreibung": "Der Narr ist der reine Geist vor der Manifestation — der erste Schritt in die Unbekannte, unbegrenzte Möglichkeit, göttliche Torheit als höchste Weisheit.",
+
+      "astrologie": "Luft (Element) / nach manchen Schulen: Uranus",
+      "astrologie_symbol": "🜁",
+
+      "magische_qualitaet": "Der Atem Gottes — Prana, Pneuma, das Lebende Licht das alle Dinge durchdringt. Pfad des reinen Seins vor jeder Differenzierung.",
+      "spirituelle_lektion": "Vertrauen ins Unbekannte. Der Sprung ohne Netz. Göttliche Naivität als Mut. Das Ego loslassen und dem Fluss des Lebens vertrauen.",
+      "titel": "Sepher Yetzirah: Wunderbare oder Verborgene Intelligenz",
+
+      "praktische_deutung": "Pfad 11 (Aleph) aktiviert sich wenn man einen fundamentalen Neubeginn wagt — wenn man das Vertraute hinter sich lässt ohne das Ziel zu kennen. Luft/Atem: Meditationspraktiken, Pranayama, Atemarbeit öffnen diesen Pfad.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 2,
+        "finanzen": 2,
+        "gesundheit": 4,
+        "soziales": 3,
+        "kreativitaet": 5,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.16-18"
+    },
+
+    "12": {
+      "pfad_nummer": 12,
+      "von_sephira": {"nummer": 1, "name": "Kether"},
+      "zu_sephira": {"nummer": 3, "name": "Binah"},
+      "richtung": "Kether → Binah",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.22-24; Mathers S.12",
+
+      "buchstabe_hebraeisch": "ב",
+      "buchstabe_name": "Beth",
+      "buchstabe_bedeutung": "Haus — das erste Haus, die Hülle, der Behälter",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 2,
+      "element_buchstabe": "Merkur (Planet)",
+
+      "tarot": "I — Der Magier (The Magician)",
+      "tarot_beschreibung": "Der Magier ist der bewusste Wille der die vier Werkzeuge (Stab/Kelch/Schwert/Pentakel) meisterhaft einsetzt. Er verbindet Himmel und Erde: 'Wie oben, so unten.'",
+
+      "astrologie": "Merkur",
+      "astrologie_symbol": "☿",
+
+      "magische_qualitaet": "Transparente Intelligenz — der göttliche Wille der durch das Medium des Geistes wirkt. Magie als bewusste Schöpfung durch Wort und Wille.",
+      "spirituelle_lektion": "Konzentration und Wille. Das Werkzeug des Geistes beherrschen lernen. Sprache als Schöpfungskraft erkennen. 'Im Anfang war das Wort.'",
+      "titel": "Sepher Yetzirah: Transparente Intelligenz",
+
+      "praktische_deutung": "Pfad 12 (Beth) betrifft alle Formen bewusster Kommunikation, Magie, Handel und intellektuelle Meisterschaft. Merkur-Pfad: Schreiben, Sprechen, Unterrichten als spirituelle Praktiken.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.22-24"
+    },
+
+    "13": {
+      "pfad_nummer": 13,
+      "von_sephira": {"nummer": 1, "name": "Kether"},
+      "zu_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "richtung": "Kether → Tiphereth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.24-25; Mathers S.14",
+
+      "buchstabe_hebraeisch": "ג",
+      "buchstabe_name": "Gimel",
+      "buchstabe_bedeutung": "Kamel — das Tier das durch die Wüste trägt, der Verbinder von Welten",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 3,
+      "element_buchstabe": "Mond (Planet)",
+
+      "tarot": "II — Die Hohepriesterin (The High Priestess)",
+      "tarot_beschreibung": "Die Hohepriesterin sitzt zwischen den Säulen Jachin und Boaz, hält die Torah verborgen. Sie ist das Tor zur verborgenen Weisheit, die intuitive Brücke zwischen dem Bekannten und dem Geheimnisvollen.",
+
+      "astrologie": "Mond",
+      "astrologie_symbol": "☽",
+
+      "magische_qualitaet": "Einigende Intelligenz — der direkte Pfad zwischen Krone und Schönheit, durch den der Abyssus (die Kluft) überquert wird. Der Pfad des Mondes durch die Wüste des Nichts.",
+      "spirituelle_lektion": "Stille hören. Das verborgene Wissen jenseits der Worte. Weibliche Intuition als höchstes Wissen. Den Abyssus überqueren durch Vertrauen.",
+      "titel": "Sepher Yetzirah: Einigende Intelligenz",
+
+      "praktische_deutung": "Pfad 13 (Gimel) ist der direkte Weg zwischen dem Absoluten (Kether) und dem Selbst (Tiphereth) — der längste und wichtigste Mittelpfad. Mondmeditation, Traumarbeit, stille Kontemplation öffnen diesen Pfad.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 3,
+        "finanzen": 2,
+        "gesundheit": 4,
+        "soziales": 2,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.24-25"
+    },
+
+    "14": {
+      "pfad_nummer": 14,
+      "von_sephira": {"nummer": 2, "name": "Chokmah"},
+      "zu_sephira": {"nummer": 3, "name": "Binah"},
+      "richtung": "Chokmah → Binah",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.25-26; Mathers S.16",
+
+      "buchstabe_hebraeisch": "ד",
+      "buchstabe_name": "Daleth",
+      "buchstabe_bedeutung": "Tür — die Öffnung, der Durchgang, das Tor",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 4,
+      "element_buchstabe": "Venus (Planet)",
+
+      "tarot": "III — Die Herrscherin (The Empress)",
+      "tarot_beschreibung": "Die Herrscherin ist die große Mutter, die schöpferische Natur, Venus in ihrer füllsten Form. Fruchtbarkeit, Überfluss, Schönheit als kosmisches Prinzip.",
+
+      "astrologie": "Venus",
+      "astrologie_symbol": "♀",
+
+      "magische_qualitaet": "Leuchtende Intelligenz — die Verbindung zwischen Weisheit (Chokmah) und Verstehen (Binah), zwischen dem väterlichen und mütterlichen Prinzip des Supernalen Dreiecks. Das Tor der Schöpfung.",
+      "spirituelle_lektion": "Schönheit als Weg zur Wahrheit. Die Vereinigung von Weisheit und Form. Liebe als kosmische Kraft die Gegensätze verbindet.",
+      "titel": "Sepher Yetzirah: Leuchtende Intelligenz",
+
+      "praktische_deutung": "Pfad 14 (Daleth) betrifft Fruchtbarkeit in allen Formen — physisch, kreativ, spirituell. Venus-Kraft: Liebe als Schöpfungsprinzip, Schönheit als spiritueller Weg, Natur als Offenbarung.",
+
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 4,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.25-26"
+    },
+
+    "15": {
+      "pfad_nummer": 15,
+      "von_sephira": {"nummer": 2, "name": "Chokmah"},
+      "zu_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "richtung": "Chokmah → Tiphereth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.30-31; Mathers S.18",
+
+      "buchstabe_hebraeisch": "ה",
+      "buchstabe_name": "He",
+      "buchstabe_bedeutung": "Fenster — das Öffnen, der Blick nach außen, Revelation",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 5,
+      "element_buchstabe": "Widder (Tierkreis)",
+
+      "tarot": "IV — Der Herrscher (The Emperor)",
+      "tarot_beschreibung": "Der Herrscher ist die maskuline Ordnungskraft, der Gesetzgeber, der Vater. Struktur, Autorität und Willen aus höchster Weisheit heraus.",
+
+      "astrologie": "Widder / Mars",
+      "astrologie_symbol": "♈",
+
+      "magische_qualitaet": "Konstitutive Intelligenz — der Pfad der kosmischen Weisheit (Chokmah) manifestiert sich als Struktur und Herrschaft (Tiphereth). Göttliches Gesetz wird zu individuellem Charakter.",
+      "spirituelle_lektion": "Autorität aus innerer Stärke. Struktur als Dienst am Leben. Der König als Hüter — nicht Besitzer — seines Reiches.",
+      "titel": "Sepher Yetzirah: Konstitutive Intelligenz",
+
+      "praktische_deutung": "Pfad 15 (He) betrifft Führung, Autorität und männliche Schöpfungskraft. Widder-Energie: Pioniergeist, Durchsetzungsvermögen, neuer Beginn aus göttlichem Willen.",
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 3,
+        "veraenderung": 4,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.30-31"
+    },
+
+    "16": {
+      "pfad_nummer": 16,
+      "von_sephira": {"nummer": 2, "name": "Chokmah"},
+      "zu_sephira": {"nummer": 4, "name": "Chesed"},
+      "richtung": "Chokmah → Chesed",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.31-32; Mathers S.20",
+
+      "buchstabe_hebraeisch": "ו",
+      "buchstabe_name": "Vau",
+      "buchstabe_bedeutung": "Nagel / Haken — das Verbindende, der Anker",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 6,
+      "element_buchstabe": "Stier (Tierkreis)",
+
+      "tarot": "V — Der Hierophant (The Hierophant)",
+      "tarot_beschreibung": "Der Hierophant ist der Hohepriester, der Brückenbauer zwischen göttlicher Weisheit und menschlichem Verständnis. Tradition, Lehre, geistige Autorität.",
+
+      "astrologie": "Stier / Venus",
+      "astrologie_symbol": "♉",
+
+      "magische_qualitaet": "Ewige Intelligenz — göttliche Weisheit verankert sich als Gnade (Chesed). Der Nagel verbindet Himmel und Erde. Tradition als Gefäß des Heiligen.",
+      "spirituelle_lektion": "Weisheit in Form kleiden ohne sie zu begrenzen. Der Lehrer der das Unsagbare saybar macht. Tradition als lebendiger Fluss, nicht totes Dogma.",
+      "titel": "Sepher Yetzirah: Ewige Intelligenz",
+
+      "praktische_deutung": "Pfad 16 (Vau) betrifft Lehre, spirituelle Autorität und die Weitergabe von Wissen. Stier-Energie: Beständigkeit, Zuverlässigkeit, Erdung des Höheren.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 3,
+        "veraenderung": 2,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.31-32"
+    },
+
+    "17": {
+      "pfad_nummer": 17,
+      "von_sephira": {"nummer": 3, "name": "Binah"},
+      "zu_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "richtung": "Binah → Tiphereth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.32-33; Mathers S.22",
+
+      "buchstabe_hebraeisch": "ז",
+      "buchstabe_name": "Zayin",
+      "buchstabe_bedeutung": "Schwert / Waffe — das Trennende, das Unterscheidende",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 7,
+      "element_buchstabe": "Zwillinge (Tierkreis)",
+
+      "tarot": "VI — Die Liebenden (The Lovers)",
+      "tarot_beschreibung": "Die Liebenden zeigen die fundamentale Wahl — die Vereinigung von Gegensätzen oder die Trennung. Bewusste Entscheidung, Synthese von Gegenpolen, der Pakt zwischen Seele und Persönlichkeit.",
+
+      "astrologie": "Zwillinge / Merkur",
+      "astrologie_symbol": "♊",
+
+      "magische_qualitaet": "Disponierende Intelligenz — das mütterliche Verstehen (Binah) gibt der Seele (Tiphereth) ihre Prägung. Das Schwert unterscheidet — trennt das Wesentliche vom Unwesentlichen.",
+      "spirituelle_lektion": "Die bewusste Wahl als spiritueller Akt. Gegensätze als Polpaare erkennen die sich ergänzen. Die Hochzeit von Seele und Geist.",
+      "titel": "Sepher Yetzirah: Disponierende Intelligenz",
+
+      "praktische_deutung": "Pfad 17 (Zayin) betrifft wichtige Lebensentscheidungen, Partnerschaften und die Vereinigung von Gegensätzen. Zwillinge-Energie: Dualität, Kommunikation, das Spiel von Licht und Schatten.",
+
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.32-33"
+    },
+
+    "18": {
+      "pfad_nummer": 18,
+      "von_sephira": {"nummer": 3, "name": "Binah"},
+      "zu_sephira": {"nummer": 5, "name": "Geburah"},
+      "richtung": "Binah → Geburah",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.33-34; Mathers S.24",
+
+      "buchstabe_hebraeisch": "ח",
+      "buchstabe_name": "Cheth",
+      "buchstabe_bedeutung": "Zaun / Gehege — das Schützende, der Wächter",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 8,
+      "element_buchstabe": "Krebs (Tierkreis)",
+
+      "tarot": "VII — Der Wagen (The Chariot)",
+      "tarot_beschreibung": "Der Wagen zeigt den Triumph des Willens über die Gegensätze — zwei Sphinxe (schwarz und weiß) werden durch reinen Willen gelenkt. Sieg durch Selbstbeherrschung.",
+
+      "astrologie": "Krebs / Mond",
+      "astrologie_symbol": "♋",
+
+      "magische_qualitaet": "Intelligenz des Hauses des Einflusses — Schutz und Begrenzung (Binah) manifestiert sich als Kraft (Geburah). Der Gehege schützt das Heilige.",
+      "spirituelle_lektion": "Willenskraft durch Selbstdisziplin. Schutz durch klare Grenzen. Den inneren Widerspruch durch Meisterschaft überwinden.",
+      "titel": "Sepher Yetzirah: Intelligenz des Hauses des Einflusses",
+
+      "praktische_deutung": "Pfad 18 (Cheth) betrifft Selbstbeherrschung, Schutz und den Sieg durch Disziplin. Krebs-Energie: Schutz des Inneren, emotionale Stärke als Panzer, Heimat als Festung.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 3,
+        "kreativitaet": 3,
+        "veraenderung": 4,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.33-34"
+    },
+
+    "19": {
+      "pfad_nummer": 19,
+      "von_sephira": {"nummer": 4, "name": "Chesed"},
+      "zu_sephira": {"nummer": 5, "name": "Geburah"},
+      "richtung": "Chesed → Geburah",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.34-35; Mathers S.26",
+
+      "buchstabe_hebraeisch": "ט",
+      "buchstabe_name": "Teth",
+      "buchstabe_bedeutung": "Schlange — die verborgene Kraft, Kundalini, das Potenzial",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 9,
+      "element_buchstabe": "Löwe (Tierkreis)",
+
+      "tarot": "VIII — Die Kraft (Strength) / XI in alten Decks",
+      "tarot_beschreibung": "Die Kraft zeigt eine Frau die sanft den Mund eines Löwen öffnet. Stärke durch Liebe nicht durch Gewalt. Das Tier (instinktive Natur) wird durch das Höhere Selbst gezähmt.",
+
+      "astrologie": "Löwe / Sonne",
+      "astrologie_symbol": "♌",
+
+      "magische_qualitaet": "Intelligenz des Geheimnisses aller geistigen Aktivitäten — die verborgene Schlangenkraft (Kundalini) die zwischen Gnade und Gericht balanciert. Der horizontale Pfad zwischen den großen Kräften.",
+      "spirituelle_lektion": "Sanfte Stärke als höchste Kraft. Die Natur nicht unterdrücken, sondern integrieren. Mut aus Liebe, nicht aus Angst.",
+      "titel": "Sepher Yetzirah: Intelligenz des Geheimnisses",
+
+      "praktische_deutung": "Pfad 19 (Teth) betrifft die Balance zwischen Güte (Chesed) und Strenge (Geburah) — Gerechtigkeit mit Mitgefühl. Löwen-Energie: Kreative Lebenskraft, Großzügigkeit, königliche Würde.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 5,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.34-35"
+    },
+
+    "20": {
+      "pfad_nummer": 20,
+      "von_sephira": {"nummer": 4, "name": "Chesed"},
+      "zu_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "richtung": "Chesed → Tiphereth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.35-36; Mathers S.28",
+
+      "buchstabe_hebraeisch": "י",
+      "buchstabe_name": "Yod",
+      "buchstabe_bedeutung": "Hand / offene Hand — der erste Buchstabe des Tetragrammatons, der göttliche Wille",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 10,
+      "element_buchstabe": "Jungfrau (Tierkreis)",
+
+      "tarot": "IX — Der Einsiedler (The Hermit)",
+      "tarot_beschreibung": "Der Einsiedler trägt seine Laterne durch die Dunkelheit — er leuchtet anderen den Weg während er seinen eigenen geht. Weisheit aus der Einsamkeit. Die Laterne ist Tiphereth, der Stab ist der Yod-Pfad.",
+
+      "astrologie": "Jungfrau / Merkur",
+      "astrologie_symbol": "♍",
+
+      "magische_qualitaet": "Vollkommene Intelligenz — die kleinste Form (Yod, der kleinste Buchstabe) enthält die vollkommene Weisheit. Gnade (Chesed) destilliert sich zur inneren Vollkommenheit (Tiphereth).",
+      "spirituelle_lektion": "Der innere Lehrer. Einsamkeit als Quell der Weisheit. Die Laterne tragen: anderen leuchten ohne sich zu verausgaben. Diskernment als spirituelle Praxis.",
+      "titel": "Sepher Yetzirah: Vollkommene Intelligenz",
+
+      "praktische_deutung": "Pfad 20 (Yod) betrifft innere Vervollkommnung, Analyse und stille Weisheit. Jungfrau-Energie: Unterscheidungsvermögen, Reinheit, Dienst am Detail als Dienst am Ganzen.",
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.35-36"
+    },
+
+    "21": {
+      "pfad_nummer": 21,
+      "von_sephira": {"nummer": 4, "name": "Chesed"},
+      "zu_sephira": {"nummer": 7, "name": "Netzach"},
+      "richtung": "Chesed → Netzach",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.36-37; Mathers S.30",
+
+      "buchstabe_hebraeisch": "כ",
+      "buchstabe_name": "Kaph",
+      "buchstabe_bedeutung": "Handfläche / Schale — das Empfangende, die Schale des Glücks",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 20,
+      "element_buchstabe": "Jupiter (Planet)",
+
+      "tarot": "X — Das Rad des Schicksals (Wheel of Fortune)",
+      "tarot_beschreibung": "Das Rad des Schicksals dreht sich — Sphinx oben, Anubis rechts, Set links. Jupiter als kosmisches Gesetz: alles dreht sich, alles kehrt wieder. Karma als kosmische Gerechtigkeit.",
+
+      "astrologie": "Jupiter",
+      "astrologie_symbol": "♃",
+
+      "magische_qualitaet": "Belohnende Intelligenz — Jupiterkraft (Kaph/Schale) füllt sich mit göttlicher Gnade (Chesed) und schüttet sie in die Natur (Netzach). Das Rad dreht das Glück.",
+      "spirituelle_lektion": "Zyklen erkennen und annehmen. Karma als Lehrerin nicht als Strafe. Das Glück kommt zu dem der die Schale offen hält.",
+      "titel": "Sepher Yetzirah: Belohnende Intelligenz",
+
+      "praktische_deutung": "Pfad 21 (Kaph) betrifft Glück, Zyklen und kosmische Gerechtigkeit. Jupiter-Energie: Expansion, Fülle, Optimismus — aber auch die Mahnung, dass das Rad sich immer weiterdreht.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 5,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.36-37"
+    },
+
+    "22": {
+      "pfad_nummer": 22,
+      "von_sephira": {"nummer": 5, "name": "Geburah"},
+      "zu_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "richtung": "Geburah → Tiphereth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.37-38; Mathers S.32",
+
+      "buchstabe_hebraeisch": "ל",
+      "buchstabe_name": "Lamed",
+      "buchstabe_bedeutung": "Ochsenstachel / Lernrute — das Antreibende, das Lehrende durch Konsequenz",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 30,
+      "element_buchstabe": "Waage (Tierkreis)",
+
+      "tarot": "XI — Die Gerechtigkeit (Justice) / VIII in alten Decks",
+      "tarot_beschreibung": "Die Gerechtigkeit hält Schwert und Waage — kosmische Ausgewogenheit, Karma, das Gesetz der Konsequenz. Hier wird abgewogen: Gericht (Geburah) führt zur Harmonie (Tiphereth).",
+
+      "astrologie": "Waage / Venus",
+      "astrologie_symbol": "♎",
+
+      "magische_qualitaet": "Treue Intelligenz — das Gericht (Geburah) wird durch Gerechtigkeit (Lamed) zu Harmonie (Tiphereth) geläutert. Der Stachel lehrt durch Konsequenz.",
+      "spirituelle_lektion": "Karma annehmen. Verantwortung für alle eigenen Handlungen übernehmen. Gerechtigkeit als Dienst an der kosmischen Ordnung.",
+      "titel": "Sepher Yetzirah: Treue Intelligenz",
+
+      "praktische_deutung": "Pfad 22 (Lamed) betrifft Karma, Ausgleich und Gerechtigkeit. Waage-Energie: Ausgewogenheit, Rechtsfragen, Verträge, Konsequenz des eigenen Handelns.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 2,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.37-38"
+    },
+
+    "23": {
+      "pfad_nummer": 23,
+      "von_sephira": {"nummer": 5, "name": "Geburah"},
+      "zu_sephira": {"nummer": 8, "name": "Hod"},
+      "richtung": "Geburah → Hod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.16-17; Mathers S.34",
+
+      "buchstabe_hebraeisch": "מ",
+      "buchstabe_name": "Mem",
+      "buchstabe_bedeutung": "Wasser — das Fließende, das Tiefe, die Mutter der Reinigung",
+      "buchstabe_gruppe": "Mutter",
+      "gematria_wert": 40,
+      "element_buchstabe": "Wasser",
+
+      "tarot": "XII — Der Gehängte (The Hanged Man)",
+      "tarot_beschreibung": "Der Gehängte hängt freiwillig kopfüber am Baum — Opfer als Erleuchtung. Er sieht die Welt umgekehrt und erkennt die verborgene Ordnung. Hingabe, Opfer, Umkehrung der Perspektive.",
+
+      "astrologie": "Wasser (Element) / Neptun (modern)",
+      "astrologie_symbol": "🜄",
+
+      "magische_qualitaet": "Stabile Intelligenz — Wasser als stabilisierendes Element. Die Kraft (Geburah) wird durch Hingabe (Mem/Wasser) geläutert und fließt in den Intellekt (Hod). Opfer als Weg zur Stärke.",
+      "spirituelle_lektion": "Das freiwillige Opfer. Die Welt durch neue Augen sehen. Ego-Tod als Voraussetzung für spirituelle Geburt. Geduld in der Schwebe.",
+      "titel": "Sepher Yetzirah: Stabile Intelligenz",
+
+      "praktische_deutung": "Pfad 23 (Mem) betrifft Hingabe, Opfer und Perspektivwechsel. Wasser-Kraft: Reinigung, emotionale Tiefe, das Loslassen von Kontrolle als höchste Kontrolle.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 2,
+        "finanzen": 2,
+        "gesundheit": 4,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.16-17"
+    },
+
+    "24": {
+      "pfad_nummer": 24,
+      "von_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "zu_sephira": {"nummer": 7, "name": "Netzach"},
+      "richtung": "Tiphereth → Netzach",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.38-39; Mathers S.36",
+
+      "buchstabe_hebraeisch": "נ",
+      "buchstabe_name": "Nun",
+      "buchstabe_bedeutung": "Fisch — das Lebewesen der Tiefe, Tod und Wiedergeburt",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 50,
+      "element_buchstabe": "Skorpion (Tierkreis)",
+
+      "tarot": "XIII — Der Tod (Death)",
+      "tarot_beschreibung": "Der Tod (Sensenmann auf weißem Pferd) mäht alles nieder — König, Bischof, Kind, Jungfrau. Nicht physischer Tod, sondern Transformation: das Alte stirbt, Neues entsteht. Unvermeidliche Veränderung.",
+
+      "astrologie": "Skorpion / Mars/Pluto",
+      "astrologie_symbol": "♏",
+
+      "magische_kultaet": "Imaginative Intelligenz — das Selbst (Tiphereth) steigt hinab in die emotionale Natur (Netzach) durch den Tod des Alten. Transformation als kreativer Prozess.",
+      "spirituelle_lektion": "Den Tod als Lehrer annehmen. Loslassen als höchste Kunst. Jede Transformation erfordert ein Sterben des Alten.",
+      "titel": "Sepher Yetzirah: Imaginative Intelligenz",
+
+      "praktische_deutung": "Pfad 24 (Nun) betrifft tiefe Transformation, das Ende von Lebensabschnitten und Wiedergeburt. Skorpion-Energie: Tiefe, Sexualität als Schöpfungskraft, Auferstehung aus der Asche.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.38-39"
+    },
+
+    "25": {
+      "pfad_nummer": 25,
+      "von_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "zu_sephira": {"nummer": 9, "name": "Yesod"},
+      "richtung": "Tiphereth → Yesod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.39-40; Mathers S.38",
+
+      "buchstabe_hebraeisch": "ס",
+      "buchstabe_name": "Samekh",
+      "buchstabe_bedeutung": "Stütze / Prop — das Haltende, der Bogen der trägt",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 60,
+      "element_buchstabe": "Schütze (Tierkreis)",
+
+      "tarot": "XIV — Die Mäßigkeit / Temperanz (Temperance)",
+      "tarot_beschreibung": "Der Engel mischt Wasser zwischen zwei Kelchen — Alchemie des Lebens. Gleichgewicht, Geduld, die Kunst des Mischens. Das Höhere Selbst (Tiphereth) kommuniziert mit dem Unterbewussten (Yesod).",
+
+      "astrologie": "Schütze / Jupiter",
+      "astrologie_symbol": "♐",
+
+      "magische_qualitaet": "Tentative Intelligenz — Prüfung und Läuterung auf dem Weg zwischen Selbst (Tiphereth) und Fundament (Yesod). Der Pfeil des Schützen trifft das Ziel durch Geduld.",
+      "spirituelle_lektion": "Alchemie des Alltags. Geduld als höchste Kunst. Das Höhere Selbst und das Unterbewusstsein in Dialog bringen. Mäßigung als Schlüssel zur Meisterschaft.",
+      "titel": "Sepher Yetzirah: Tentative Intelligenz",
+
+      "praktische_deutung": "Pfad 25 (Samekh) betrifft Heilung, Gleichgewicht und die Integration von Bewusstem und Unbewusstem. Schütze-Energie: Optimismus, Philosophie, das Ziel aus der Perspektive des Höheren sehen.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 5,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.39-40"
+    },
+
+    "26": {
+      "pfad_nummer": 26,
+      "von_sephira": {"nummer": 6, "name": "Tiphereth"},
+      "zu_sephira": {"nummer": 8, "name": "Hod"},
+      "richtung": "Tiphereth → Hod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.40-41; Mathers S.40",
+
+      "buchstabe_hebraeisch": "ע",
+      "buchstabe_name": "Ayin",
+      "buchstabe_bedeutung": "Auge — das Sehende, die Wahrnehmung, das innere Auge",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 70,
+      "element_buchstabe": "Steinbock (Tierkreis)",
+
+      "tarot": "XV — Der Teufel (The Devil)",
+      "tarot_beschreibung": "Der Teufel zeigt Pan/Baphomet mit zwei gefesselten Figuren — deren Fesseln sind locker, sie könnten sich befreien. Materielle Bindung durch eigene Wahl. Das Auge das sich selbst täuscht.",
+
+      "astrologie": "Steinbock / Saturn",
+      "astrologie_symbol": "♑",
+
+      "magische_qualitaet": "Erneuernde Intelligenz — das Selbst (Tiphereth) sieht sich selbst durch das Auge (Ayin) in seiner Beschränkung (Hod/Materie). Die materielle Bindung als Weg zur Befreiung.",
+      "spirituelle_lektion": "Die eigenen Fesseln erkennen. Materie als Lehrer nicht als Feind. Das Tier in uns integrieren statt unterdrücken. Steinbock: Aufstieg durch Beharrlichkeit.",
+      "titel": "Sepher Yetzirah: Erneuernde Intelligenz",
+
+      "praktische_deutung": "Pfad 26 (Ayin) betrifft die Erkenntnis eigener Bindungen und den Weg zur Befreiung. Steinbock-Energie: Ehrgeiz, Ausdauer, die langsame aber sichere Bergbesteigung.",
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 4,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.40-41"
+    },
+
+    "27": {
+      "pfad_nummer": 27,
+      "von_sephira": {"nummer": 7, "name": "Netzach"},
+      "zu_sephira": {"nummer": 8, "name": "Hod"},
+      "richtung": "Netzach → Hod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.22-23; Mathers S.42",
+
+      "buchstabe_hebraeisch": "פ",
+      "buchstabe_name": "Pe",
+      "buchstabe_bedeutung": "Mund — das Sprechende, der Ausdruck, die Öffnung",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 80,
+      "element_buchstabe": "Mars (Planet)",
+
+      "tarot": "XVI — Der Turm (The Tower)",
+      "tarot_beschreibung": "Der Turm wird vom Blitz getroffen — Figuren fallen heraus. Göttliche Zerstörung falscher Strukturen. Plötzliche Offenbarung die alles Alte einreißt. Mars' Blitz trifft was korrumpiert ist.",
+
+      "astrologie": "Mars",
+      "astrologie_symbol": "♂",
+
+      "magische_kultaet": "Aktivierende Intelligenz — Mars-Kraft (Pe/Mund) schlägt wie der Blitz zwischen emotionaler Natur (Netzach) und Intellekt (Hod). Zerstörung falscher Strukturen durch göttliche Kraft.",
+      "spirituelle_lektion": "Wenn das Alte fallen muss, lass es fallen. Göttliche Zerstörung als Gnade. Das Gebäude des Ego einreißen um das Fundament zu enthüllen.",
+      "titel": "Sepher Yetzirah: Aktivierende Intelligenz",
+
+      "praktische_deutung": "Pfad 27 (Pe) betrifft plötzliche Umbrüche, Offenbarungen und das Einreißen falscher Strukturen. Mars-Energie: Durchsetzung, Direktheit, der befreiende Schlag.",
+
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 3,
+        "finanzen": 2,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.22-23"
+    },
+
+    "28": {
+      "pfad_nummer": 28,
+      "von_sephira": {"nummer": 7, "name": "Netzach"},
+      "zu_sephira": {"nummer": 9, "name": "Yesod"},
+      "richtung": "Netzach → Yesod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.41-42; Mathers S.44",
+
+      "buchstabe_hebraeisch": "צ",
+      "buchstabe_name": "Tzaddi",
+      "buchstabe_bedeutung": "Angel / Fishhook — das Ziehende, das aus der Tiefe Herausholende",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 90,
+      "element_buchstabe": "Wassermann (Tierkreis)",
+
+      "tarot": "XVII — Der Stern (The Star)",
+      "tarot_beschreibung": "Die nackte Göttin gießt Wasser auf die Erde und ins Wasser — acht Sterne leuchten. Hoffnung nach der Dunkelheit, kosmische Erneuerung, die Inspiration die aus der Stille kommt.",
+
+      "astrologie": "Wassermann / Uranus/Saturn",
+      "astrologie_symbol": "♒",
+
+      "magische_qualitaet": "Natürliche Intelligenz — die natürliche Kraft (Netzach/Venus) verbindet sich mit dem Fundament (Yesod/Mond). Der Stern leuchtet weil die emotionale Natur zum Astral-Fundament herabsteigt.",
+      "spirituelle_lektion": "Hoffnung als aktive Kraft. Die Stille nach dem Sturm nähren. Inspiration empfangen wie Sternlicht — geduldig und offen.",
+      "titel": "Sepher Yetzirah: Natürliche Intelligenz",
+
+      "praktische_deutung": "Pfad 28 (Tzaddi) betrifft Erneuerung, Inspiration und kosmische Hoffnung. Wassermann-Energie: Humanismus, Originalität, die Zukunft aus der Stille empfangen.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.41-42"
+    },
+
+    "29": {
+      "pfad_nummer": 29,
+      "von_sephira": {"nummer": 7, "name": "Netzach"},
+      "zu_sephira": {"nummer": 10, "name": "Malkuth"},
+      "richtung": "Netzach → Malkuth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.42-43; Mathers S.46",
+
+      "buchstabe_hebraeisch": "ק",
+      "buchstabe_name": "Qoph",
+      "buchstabe_bedeutung": "Hinterkopf / Nadelöhr — das Verborgene hinter dem Sichtbaren",
+      "buchstabe_gruppe": "Einfach",
+      "gematria_wert": 100,
+      "element_buchstabe": "Fische (Tierkreis)",
+
+      "tarot": "XVIII — Der Mond (The Moon)",
+      "tarot_beschreibung": "Der Mond scheint auf einen Hummer im Teich, zwei Hunde heulen, zwei Türme ragen. Illusion, das Unbewusste, der Weg durch die Dunkelheit. Was echt ist und was Spiegelung?",
+
+      "astrologie": "Fische / Jupiter/Neptun",
+      "astrologie_symbol": "♓",
+
+      "magische_qualitaet": "Körperliche Intelligenz — die emotionale Natur (Netzach) steigt in die physische Welt (Malkuth) durch das Nadelöhr des Hinterkopfes. Illusion als Tür zur Wahrheit.",
+      "spirituelle_lektion": "Den Weg durch die Illusion finden ohne sich zu verlieren. Unbewusste Ängste konfrontieren. Der Instinkt führt wenn der Verstand scheitert.",
+      "titel": "Sepher Yetzirah: Körperliche Intelligenz",
+
+      "praktische_deutung": "Pfad 29 (Qoph) betrifft das Unbewusste, Träume und die Grenzen zwischen Welten. Fische-Energie: Empfindsamkeit, Mystik, das Meer der kollektiven Seele.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 2,
+        "finanzen": 2,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.42-43"
+    },
+
+    "30": {
+      "pfad_nummer": 30,
+      "von_sephira": {"nummer": 8, "name": "Hod"},
+      "zu_sephira": {"nummer": 9, "name": "Yesod"},
+      "richtung": "Hod → Yesod",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.23-24; Mathers S.48",
+
+      "buchstabe_hebraeisch": "ר",
+      "buchstabe_name": "Resh",
+      "buchstabe_bedeutung": "Kopf / Haupt — das Führende, das Erstrangige",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 200,
+      "element_buchstabe": "Sonne (Planet)",
+
+      "tarot": "XIX — Die Sonne (The Sun)",
+      "tarot_beschreibung": "Ein Kind reitet auf einem weißen Pferd unter strahlender Sonne — Sonnenstrahlen erleuchten alles. Freude, Klarheit, Bewusstsein, das Licht das alle Schatten vertreibt.",
+
+      "astrologie": "Sonne",
+      "astrologie_symbol": "☉",
+
+      "magische_qualitaet": "Sammelnde Intelligenz — die Sonne (Resh) leuchtet zwischen Intellekt (Hod) und Fundament (Yesod). Das Bewusstsein erleuchtet das Unterbewusstsein. Sonnenlicht als Heilkraft.",
+      "spirituelle_lektion": "Das natürliche Selbst frei ausdrücken. Freude als spirituelle Praxis. Bewusstsein als Heilmittel — was beleuchtet wird, kann sich wandeln.",
+      "titel": "Sepher Yetzirah: Sammelnde Intelligenz",
+
+      "praktische_deutung": "Pfad 30 (Resh) betrifft Freude, Klarheit und bewusstes Erwachen. Sonnen-Energie: Vitalität, Kreativität, das strahlendes Selbst das anderen Licht spendet.",
+
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 5,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.23-24"
+    },
+
+    "31": {
+      "pfad_nummer": 31,
+      "von_sephira": {"nummer": 8, "name": "Hod"},
+      "zu_sephira": {"nummer": 10, "name": "Malkuth"},
+      "richtung": "Hod → Malkuth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.17-18; Mathers S.50",
+
+      "buchstabe_hebraeisch": "ש",
+      "buchstabe_name": "Shin",
+      "buchstabe_bedeutung": "Zahn / Feuer — das Verzehrende, das Reinigende, die göttliche Flamme",
+      "buchstabe_gruppe": "Mutter",
+      "gematria_wert": 300,
+      "element_buchstabe": "Feuer",
+
+      "tarot": "XX — Das Gericht (Judgement / The Aeon)",
+      "tarot_beschreibung": "Der Erzengel Gabriel bläst die Posaune — Tote erwachen aus ihren Gräbern. Das Jüngste Gericht als kosmische Erneuerung. In Crowleys Thoth-Tarot: Der Äon — das Feuer der Transformation das eine neue Ära einläutet.",
+
+      "astrologie": "Feuer (Element) / Pluto (modern)",
+      "astrologie_symbol": "🜂",
+
+      "magische_qualitaet": "Perpetuelle Intelligenz — das göttliche Feuer (Shin) steigt vom Intellekt (Hod) in die physische Welt (Malkuth). Reinigung durch Feuer. Das Jüngste Gericht als innere Erweckung.",
+      "spirituelle_lektion": "Der Ruf der Seele annehmen. Auferstehung aus alten Mustern. Das Feuer das läutert, nicht zerstört.",
+      "titel": "Sepher Yetzirah: Perpetuelle Intelligenz",
+
+      "praktische_deutung": "Pfad 31 (Shin) betrifft spirituelles Erwachen, Läuterung und den Ruf zu einer höheren Bestimmung. Feuer-Energie: Reinigung, Passion, das göttliche Feuer das in der Materie brennt.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.17-18"
+    },
+
+    "32": {
+      "pfad_nummer": 32,
+      "von_sephira": {"nummer": 9, "name": "Yesod"},
+      "zu_sephira": {"nummer": 10, "name": "Malkuth"},
+      "richtung": "Yesod → Malkuth",
+      "quelle": "Crowley - 777 Tabelle I; Westcott - Sepher Yetzirah S.24-25; Mathers S.52",
+
+      "buchstabe_hebraeisch": "ת",
+      "buchstabe_name": "Tau",
+      "buchstabe_bedeutung": "Kreuz / Zeichen — das Abschließende, die Vollendung, das Siegel",
+      "buchstabe_gruppe": "Doppelt",
+      "gematria_wert": 400,
+      "element_buchstabe": "Saturn (Planet) / Erde (Element)",
+
+      "tarot": "XXI — Die Welt (The World / The Universe)",
+      "tarot_beschreibung": "Die tanzende Figur in der Mandorla umgeben von den vier Lebewesen (Adler/Stier/Löwe/Mensch) — Vollendung des Großen Werkes. Das Ende ist der Anfang. Die Welt als vollendeter Kreis.",
+
+      "astrologie": "Saturn / Erde",
+      "astrologie_symbol": "♄",
+
+      "magische_qualitaet": "Administrative Intelligenz — die letzte Verbindung: Fundament (Yesod) manifestiert sich als physische Welt (Malkuth). Das Kreuz (Tau) ist das letzte Zeichen — das Siegel der Vollendung.",
+      "spirituelle_lektion": "Vollendung annehmen. Die Reise endet wo sie begann — aber auf höherer Ebene. Das Kreuz des Lebens als Segen, nicht als Last.",
+      "titel": "Sepher Yetzirah: Administrative Intelligenz",
+
+      "praktische_deutung": "Pfad 32 (Tau) betrifft Vollendung, Ernte und den Abschluss eines Lebenszyklus. Saturn-Energie: Zeit, Karma, die Früchte aller Arbeit. Der Weg von der Astral- zur Physikalwelt.",
+
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Crowley 777; Westcott Sepher Yetzirah S.24-25"
+    }
+
+  },
+
+  "hebraeisches_alphabet_tabelle": {
+    "beschreibung": "Vollständige Referenztabelle aller 22 hebräischen Buchstaben mit Gematria-Wert, Gruppe, Pfad und Tarot-Entsprechung.",
+    "quelle": "Westcott - Sepher Yetzirah S.15-45; Crowley - 777 Tabellen I, V, VI",
+    "tabelle": [
+      {"nr": 1, "buchstabe": "א", "name": "Aleph", "wert": 1, "gruppe": "Mutter", "element_planet": "Luft", "pfad": 11, "tarot": "0 Der Narr"},
+      {"nr": 2, "buchstabe": "ב", "name": "Beth", "wert": 2, "gruppe": "Doppelt", "element_planet": "Merkur", "pfad": 12, "tarot": "I Der Magier"},
+      {"nr": 3, "buchstabe": "ג", "name": "Gimel", "wert": 3, "gruppe": "Doppelt", "element_planet": "Mond", "pfad": 13, "tarot": "II Die Hohepriesterin"},
+      {"nr": 4, "buchstabe": "ד", "name": "Daleth", "wert": 4, "gruppe": "Doppelt", "element_planet": "Venus", "pfad": 14, "tarot": "III Die Herrscherin"},
+      {"nr": 5, "buchstabe": "ה", "name": "He", "wert": 5, "gruppe": "Einfach", "element_planet": "Widder", "pfad": 15, "tarot": "IV Der Herrscher"},
+      {"nr": 6, "buchstabe": "ו", "name": "Vau", "wert": 6, "gruppe": "Einfach", "element_planet": "Stier", "pfad": 16, "tarot": "V Der Hierophant"},
+      {"nr": 7, "buchstabe": "ז", "name": "Zayin", "wert": 7, "gruppe": "Einfach", "element_planet": "Zwillinge", "pfad": 17, "tarot": "VI Die Liebenden"},
+      {"nr": 8, "buchstabe": "ח", "name": "Cheth", "wert": 8, "gruppe": "Einfach", "element_planet": "Krebs", "pfad": 18, "tarot": "VII Der Wagen"},
+      {"nr": 9, "buchstabe": "ט", "name": "Teth", "wert": 9, "gruppe": "Einfach", "element_planet": "Löwe", "pfad": 19, "tarot": "VIII Die Kraft"},
+      {"nr": 10, "buchstabe": "י", "name": "Yod", "wert": 10, "gruppe": "Einfach", "element_planet": "Jungfrau", "pfad": 20, "tarot": "IX Der Einsiedler"},
+      {"nr": 11, "buchstabe": "כ", "name": "Kaph", "wert": 20, "gruppe": "Doppelt", "element_planet": "Jupiter", "pfad": 21, "tarot": "X Rad des Schicksals"},
+      {"nr": 12, "buchstabe": "ל", "name": "Lamed", "wert": 30, "gruppe": "Einfach", "element_planet": "Waage", "pfad": 22, "tarot": "XI Die Gerechtigkeit"},
+      {"nr": 13, "buchstabe": "מ", "name": "Mem", "wert": 40, "gruppe": "Mutter", "element_planet": "Wasser", "pfad": 23, "tarot": "XII Der Gehängte"},
+      {"nr": 14, "buchstabe": "נ", "name": "Nun", "wert": 50, "gruppe": "Einfach", "element_planet": "Skorpion", "pfad": 24, "tarot": "XIII Der Tod"},
+      {"nr": 15, "buchstabe": "ס", "name": "Samekh", "wert": 60, "gruppe": "Einfach", "element_planet": "Schütze", "pfad": 25, "tarot": "XIV Die Mäßigkeit"},
+      {"nr": 16, "buchstabe": "ע", "name": "Ayin", "wert": 70, "gruppe": "Einfach", "element_planet": "Steinbock", "pfad": 26, "tarot": "XV Der Teufel"},
+      {"nr": 17, "buchstabe": "פ", "name": "Pe", "wert": 80, "gruppe": "Doppelt", "element_planet": "Mars", "pfad": 27, "tarot": "XVI Der Turm"},
+      {"nr": 18, "buchstabe": "צ", "name": "Tzaddi", "wert": 90, "gruppe": "Einfach", "element_planet": "Wassermann", "pfad": 28, "tarot": "XVII Der Stern"},
+      {"nr": 19, "buchstabe": "ק", "name": "Qoph", "wert": 100, "gruppe": "Einfach", "element_planet": "Fische", "pfad": 29, "tarot": "XVIII Der Mond"},
+      {"nr": 20, "buchstabe": "ר", "name": "Resh", "wert": 200, "gruppe": "Doppelt", "element_planet": "Sonne", "pfad": 30, "tarot": "XIX Die Sonne"},
+      {"nr": 21, "buchstabe": "ש", "name": "Shin", "wert": 300, "gruppe": "Mutter", "element_planet": "Feuer", "pfad": 31, "tarot": "XX Das Gericht"},
+      {"nr": 22, "buchstabe": "ת", "name": "Tau", "wert": 400, "gruppe": "Doppelt", "element_planet": "Saturn", "pfad": 32, "tarot": "XXI Die Welt"}
+    ]
+  },
+
+  "pfad_verbindungen_matrix": {
+    "beschreibung": "Übersicht aller 22 Pfade mit ihren Sephiroth-Verbindungen als Schnellreferenz.",
+    "quelle": "Crowley - 777 Tabelle I; Mathers - Kabbalah Unveiled",
+    "tabelle": [
+      {"pfad": 11, "von": "Kether (1)", "zu": "Chokmah (2)", "buchstabe": "Aleph א", "tarot": "Der Narr"},
+      {"pfad": 12, "von": "Kether (1)", "zu": "Binah (3)", "buchstabe": "Beth ב", "tarot": "Der Magier"},
+      {"pfad": 13, "von": "Kether (1)", "zu": "Tiphereth (6)", "buchstabe": "Gimel ג", "tarot": "Die Hohepriesterin"},
+      {"pfad": 14, "von": "Chokmah (2)", "zu": "Binah (3)", "buchstabe": "Daleth ד", "tarot": "Die Herrscherin"},
+      {"pfad": 15, "von": "Chokmah (2)", "zu": "Tiphereth (6)", "buchstabe": "He ה", "tarot": "Der Herrscher"},
+      {"pfad": 16, "von": "Chokmah (2)", "zu": "Chesed (4)", "buchstabe": "Vau ו", "tarot": "Der Hierophant"},
+      {"pfad": 17, "von": "Binah (3)", "zu": "Tiphereth (6)", "buchstabe": "Zayin ז", "tarot": "Die Liebenden"},
+      {"pfad": 18, "von": "Binah (3)", "zu": "Geburah (5)", "buchstabe": "Cheth ח", "tarot": "Der Wagen"},
+      {"pfad": 19, "von": "Chesed (4)", "zu": "Geburah (5)", "buchstabe": "Teth ט", "tarot": "Die Kraft"},
+      {"pfad": 20, "von": "Chesed (4)", "zu": "Tiphereth (6)", "buchstabe": "Yod י", "tarot": "Der Einsiedler"},
+      {"pfad": 21, "von": "Chesed (4)", "zu": "Netzach (7)", "buchstabe": "Kaph כ", "tarot": "Rad des Schicksals"},
+      {"pfad": 22, "von": "Geburah (5)", "zu": "Tiphereth (6)", "buchstabe": "Lamed ל", "tarot": "Die Gerechtigkeit"},
+      {"pfad": 23, "von": "Geburah (5)", "zu": "Hod (8)", "buchstabe": "Mem מ", "tarot": "Der Gehängte"},
+      {"pfad": 24, "von": "Tiphereth (6)", "zu": "Netzach (7)", "buchstabe": "Nun נ", "tarot": "Der Tod"},
+      {"pfad": 25, "von": "Tiphereth (6)", "zu": "Yesod (9)", "buchstabe": "Samekh ס", "tarot": "Die Mäßigkeit"},
+      {"pfad": 26, "von": "Tiphereth (6)", "zu": "Hod (8)", "buchstabe": "Ayin ע", "tarot": "Der Teufel"},
+      {"pfad": 27, "von": "Netzach (7)", "zu": "Hod (8)", "buchstabe": "Pe פ", "tarot": "Der Turm"},
+      {"pfad": 28, "von": "Netzach (7)", "zu": "Yesod (9)", "buchstabe": "Tzaddi צ", "tarot": "Der Stern"},
+      {"pfad": 29, "von": "Netzach (7)", "zu": "Malkuth (10)", "buchstabe": "Qoph ק", "tarot": "Der Mond"},
+      {"pfad": 30, "von": "Hod (8)", "zu": "Yesod (9)", "buchstabe": "Resh ר", "tarot": "Die Sonne"},
+      {"pfad": 31, "von": "Hod (8)", "zu": "Malkuth (10)", "buchstabe": "Shin ש", "tarot": "Das Gericht"},
+      {"pfad": 32, "von": "Yesod (9)", "zu": "Malkuth (10)", "buchstabe": "Tau ת", "tarot": "Die Welt"}
+    ]
+  },
+
+  "drei_gruppen_uebersicht": {
+    "beschreibung": "Die drei Buchstabengruppen des Sefer Yetzirah mit ihren kosmischen Entsprechungen.",
+    "quelle": "Westcott - Sepher Yetzirah S.15-45; Crowley - 777",
+    "muetter": {
+      "buchstaben": ["Aleph (א) = Luft / Pfad 11", "Mem (מ) = Wasser / Pfad 23", "Shin (ש) = Feuer / Pfad 31"],
+      "koerper": ["Brust (Luft/Atem)", "Bauch (Wasser/Flüssigkeit)", "Kopf (Feuer/Nerven)"],
+      "jahreszeiten": ["Frühling (Luft)", "Winter (Wasser)", "Sommer (Feuer)"],
+      "kosmisch": ["Luft zwischen Feuer und Wasser = Gleichgewicht", "Wasser = Kälte/Dunkel", "Feuer = Wärme/Licht"]
+    },
+    "doppelte": {
+      "buchstaben_planeten": [
+        {"buchstabe": "Beth ב", "planet": "Merkur", "tugend": "Weisheit", "laster": "Torheit"},
+        {"buchstabe": "Gimel ג", "planet": "Mond", "tugend": "Reichtum", "laster": "Armut"},
+        {"buchstabe": "Daleth ד", "planet": "Venus", "tugend": "Fruchtbarkeit", "laster": "Unfruchtbarkeit"},
+        {"buchstabe": "Kaph כ", "planet": "Jupiter", "tugend": "Leben", "laster": "Tod"},
+        {"buchstabe": "Pe פ", "planet": "Mars", "tugend": "Herrschaft", "laster": "Knechtschaft"},
+        {"buchstabe": "Resh ר", "planet": "Sonne", "tugend": "Frieden", "laster": "Krieg"},
+        {"buchstabe": "Tau ת", "planet": "Saturn", "tugend": "Gnade", "laster": "Hässlichkeit"}
+      ]
+    },
+    "einfache": {
+      "buchstaben_zeichen": [
+        {"buchstabe": "He ה", "zeichen": "Widder", "sinn": "Sehen"},
+        {"buchstabe": "Vau ו", "zeichen": "Stier", "sinn": "Hören"},
+        {"buchstabe": "Zayin ז", "zeichen": "Zwillinge", "sinn": "Riechen"},
+        {"buchstabe": "Cheth ח", "zeichen": "Krebs", "sinn": "Sprechen"},
+        {"buchstabe": "Teth ט", "zeichen": "Löwe", "sinn": "Schmecken"},
+        {"buchstabe": "Yod י", "zeichen": "Jungfrau", "sinn": "Wirken/Arbeiten"},
+        {"buchstabe": "Lamed ל", "zeichen": "Waage", "sinn": "Begatten"},
+        {"buchstabe": "Nun נ", "zeichen": "Skorpion", "sinn": "Bewegen"},
+        {"buchstabe": "Samekh ס", "zeichen": "Schütze", "sinn": "Zürnen"},
+        {"buchstabe": "Ayin ע", "zeichen": "Steinbock", "sinn": "Lachen"},
+        {"buchstabe": "Tzaddi צ", "zeichen": "Wassermann", "sinn": "Nachdenken"},
+        {"buchstabe": "Qoph ק", "zeichen": "Fische", "sinn": "Schlafen"}
+      ]
+    }
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln in dieser Datei.",
+    "gesamt_regeln": 84,
+    "kategorien": {
+      "pfad_profile": 22,
+      "dimensionsvektoren": 22,
+      "buchstaben_tarot_zuordnungen": 22,
+      "buchstaben_astrologie_zuordnungen": 22,
+      "buchstaben_gruppen_regeln": 22,
+      "gematria_werte": 22,
+      "sephiroth_verbindungen": 22,
+      "spirituelle_lektionen": 22,
+      "drei_gruppen_detailregeln": 22,
+      "hebraeisches_alphabet_tabelle": 22
+    },
+    "hinweis": "Kernregelzahl: 22 Pfad-Profile mit je Vektor, Lektion, Tarot, Astrologie, Gruppe = ~84 strukturelle Regelgruppen. Tabellen als Schnellreferenz zusätzlich enthalten."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "system": "Kabbalah",
+    "beschreibung": "Kabbalah — Lebenspfadzahl auf Sephiroth gemappt",
+    "zeit_abhaengig": false
+  },
+  "vektor_quellen": [
+    {
+      "id": "sephira",
+      "schluessel": "sephiroth",
+      "typ": "nach_sephira",
+      "eingabe": "lebenspfadzahl",
+      "schluessel_format": "{n}_{name}",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 1.0,
+      "pflicht": true,
+      "reduktion": { "max": 10, "meisterzahlen_mapping": {"11": 2, "22": 4, "33": 6} }
+    }
+  ]
+}

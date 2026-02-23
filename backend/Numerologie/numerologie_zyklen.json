@@ -1,0 +1,756 @@
+{
+  "_meta": {
+    "system": "numerologie",
+    "modul": "zyklen",
+    "version": "1.0",
+    "gespraech": "N4",
+    "sources": [
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, Project Gutenberg #3203)",
+      "L. Dow Balliett - The Philosophy of Numbers (1908, public domain)",
+      "Cheiro (Count Louis Hamon) - Book of Numbers (1926, public domain AT/EU)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)",
+      "Iamblichos - Life of Pythagoras (ca. 300 n. Chr., public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Numerologische Zeitzyklen: Persönliches Jahr (1-9), Persönlicher Monat (9×9=81 Kombinationen), Persönlicher Tag, Pinnacles (4 Lebensgipfel), Challenges (4 Lebensherausforderungen), Universelles Jahr. Berechnung und Bedeutung aller Zyklen.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog numerologie_basis.json und numerologie_lebenspfad.json"
+  },
+
+  "berechnungen": {
+
+    "persoenliches_jahr": {
+      "beschreibung": "Das Persönliche Jahr wird berechnet aus Geburtsmonat + Geburtstag + aktuelles Kalenderjahr (alle Ziffern addiert bis einstellig, außer Meisterzahlen 11/22/33).",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.84; Balliett S.70",
+      "methode": "Geburtsmonat + Geburtstag + Jahreszahl (alle Ziffern queraddiert) → Quersumme bis 1-9 (oder 11/22/33).",
+      "beispiel": {
+        "geburtstag": "15. März",
+        "aktuelles_jahr": 2026,
+        "rechnung": "3 + 1+5 + 2+0+2+6 = 3+6+10 = 3+6+1+0 = 10 = 1+0 = 1",
+        "persoenliches_jahr": 1
+      },
+      "hinweis_jahresbeginn": "Das Persönliche Jahr beginnt offiziell am 1. Januar, entfaltet seine volle Wirkung jedoch ab dem Geburtstag. Die zwei bis drei Monate vor dem Geburtstag zeigen bereits Vorzeichen des neuen Zyklus.",
+      "zyklus_uebersicht": "Der 9-Jahres-Zyklus ist der fundamentale Zeitzyklus der westlichen Numerologie. Jahr 1 = Neubeginn, Jahr 9 = Abschluss. Danach beginnt ein neuer Zyklus."
+    },
+
+    "persoenlicher_monat": {
+      "beschreibung": "Der Persönliche Monat verfeinert das Persönliche Jahr auf monatlicher Ebene.",
+      "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
+      "methode": "Persönliches Jahr + aktueller Kalendermonat → Quersumme bis 1-9 (oder 11/22).",
+      "beispiel": {
+        "persoenliches_jahr": 3,
+        "aktueller_monat": 7,
+        "rechnung": "3 + 7 = 10 = 1+0 = 1",
+        "persoenlicher_monat": 1
+      }
+    },
+
+    "persoenlicher_tag": {
+      "beschreibung": "Der Persönliche Tag verfeinert den Persönlichen Monat auf täglicher Ebene für kurzfristige Entscheidungen.",
+      "quelle": "Balliett - Philosophy of Numbers S.80-82; Cheiro Kap.10",
+      "methode": "Persönlicher Monat + aktuelles Tagesdatum → Quersumme bis 1-9.",
+      "beispiel": {
+        "persoenlicher_monat": 1,
+        "tagesdatum": 19,
+        "rechnung": "1 + 1+9 = 1+10 = 11 = 1+1 = 2",
+        "persoenlicher_tag": 2
+      },
+      "anwendung": "Persönliche Tage eignen sich für taktische Entscheidungen: Verträge, Gespräche, Reisebeginn, Projektstart. Tag 1 = Neustarts, Tag 6 = Verhandlungen, Tag 8 = Finanzentscheidungen etc."
+    },
+
+    "universelles_jahr": {
+      "beschreibung": "Das Universelle Jahr ist die kollektive Energie des Kalenderjahres, die alle Menschen beeinflusst.",
+      "quelle": "Westcott S.83; Balliett S.68-70",
+      "methode": "Alle Ziffern des Kalenderjahres addieren bis einstellig.",
+      "beispiele": [
+        {"jahr": 2025, "rechnung": "2+0+2+5=9", "universelles_jahr": 9},
+        {"jahr": 2026, "rechnung": "2+0+2+6=10=1+0=1", "universelles_jahr": 1},
+        {"jahr": 2027, "rechnung": "2+0+2+7=11", "universelles_jahr": 11},
+        {"jahr": 2033, "rechnung": "2+0+3+3=8", "universelles_jahr": 8}
+      ],
+      "interaktion": "Das Universelle Jahr bildet den kollektiven Hintergrund. Das Persönliche Jahr zeigt die individuelle Erfahrung. Wenn Persönliches Jahr = Universelles Jahr, verstärkt sich die Energie. Kontraste erzeugen besondere Spannungen und Chancen."
+    },
+
+    "pinnacles": {
+      "beschreibung": "Die vier Pinnacles (Lebensgipfel) beschreiben die vier großen Lebensabschnitte und deren Qualität.",
+      "quelle": "Westcott S.90-95; Cheiro - Book of Numbers Kap.12; Balliett S.85-92",
+      "berechnung": {
+        "methode": "Aus Geburtsmonat (M), Geburtstag (T), Geburtsjahr (J) — alle auf einstellige Zahl oder Meisterzahl reduziert.",
+        "pinnacle_1": "M + T (reduziert) = 1. Pinnacle",
+        "pinnacle_2": "T + J (reduziert) = 2. Pinnacle",
+        "pinnacle_3": "Pinnacle 1 + Pinnacle 2 (reduziert) = 3. Pinnacle",
+        "pinnacle_4": "M + J (reduziert) = 4. Pinnacle"
+      },
+      "dauer": {
+        "pinnacle_1_bis": "36 minus Lebenspfadzahl (Lebenspfad 5 → erstes Pinnacle endet mit 31)",
+        "pinnacle_2_bis": "Pinnacle 1 Ende + 9 Jahre",
+        "pinnacle_3_bis": "Pinnacle 2 Ende + 9 Jahre",
+        "pinnacle_4_bis": "Rest des Lebens",
+        "hinweis": "Meisterzahlen im Lebenspfad beeinflussen die Länge des ersten Pinnacles. Meisterzahl 11 → subtrahiere 11 von 36."
+      },
+      "bedeutungen": {
+        "1": "Pinnacle 1 = Zeit der Unabhängigkeit, Führungsstärke und Pionierarbeit. Eigenständigkeit steht im Mittelpunkt.",
+        "2": "Pinnacle 2 = Zeit der Partnerschaften, Kooperation, Diplomatie. Beziehungen prägen diesen Abschnitt.",
+        "3": "Pinnacle 3 = Zeit der kreativen Entfaltung, des Ausdrucks und des sozialen Aufblühens.",
+        "4": "Pinnacle 4 = Zeit des Aufbaus, der Disziplin, harter Arbeit und Fundament-Legung.",
+        "5": "Pinnacle 5 = Zeit der Veränderung, des Abenteuers, der Freiheit und unerwarteter Wendungen.",
+        "6": "Pinnacle 6 = Zeit der Familie, Verantwortung, Harmonie und häuslicher Pflege.",
+        "7": "Pinnacle 7 = Zeit der Reflexion, Spiritualität, inneren Einkehr und Wissenssuche.",
+        "8": "Pinnacle 8 = Zeit des materiellen Aufbaus, Erfolgs, Macht und Geschäftsentwicklung.",
+        "9": "Pinnacle 9 = Zeit des humanitären Dienstes, der Vollendung, des Loslassens und Abschlusses.",
+        "11": "Pinnacle 11 = Zeit erhöhter Intuition, spiritueller Offenbarung und inspirativer Führung. Hohe Anspannung.",
+        "22": "Pinnacle 22 = Zeit der Manifestation großer Visionen in die materielle Welt. Meisterbauer-Phase."
+      }
+    },
+
+    "challenges": {
+      "beschreibung": "Die vier Challenges (Lebensherausforderungen) zeigen Bereiche, in denen Wachstum durch Überwindung möglich ist.",
+      "quelle": "Westcott S.95-98; Cheiro Kap.12; Balliett S.92-98",
+      "berechnung": {
+        "methode": "Aus Geburtsmonat (M), Geburtstag (T), Geburtsjahr (J) — alle auf einstellige Zahl reduziert. Challenges = Differenzen (immer positiv/absoluter Betrag).",
+        "challenge_1": "|T - M| = 1. Challenge",
+        "challenge_2": "|J - T| = 2. Challenge",
+        "challenge_3": "|Challenge 2 - Challenge 1| = 3. Challenge (Hauptherausforderung)",
+        "challenge_4": "|J - M| = 4. Challenge"
+      },
+      "hinweis": "Challenges können nie höher als 8 sein (da Differenz zweier einstelliger Zahlen). Die Zahl 0 ist möglich und zeigt, dass keine spezifische Herausforderung dominiert — alle Bereiche offen.",
+      "bedeutungen": {
+        "0": "Challenge 0 = Die Herausforderung liegt darin, die richtige Wahl aus zu vielen Möglichkeiten zu treffen. Keine klare Begrenzung. Lehre: Fokus und Entscheidungsfreude entwickeln.",
+        "1": "Challenge 1 = Herausforderung: Unabhängigkeit und Selbstvertrauen entwickeln. Tendenz, sich von anderen abhängig zu machen oder zu dominieren. Lehre: Eigene Stärke finden.",
+        "2": "Challenge 2 = Herausforderung: Überempfindlichkeit, Unentschlossenheit, Angst vor Ablehnung. Lehre: Emotionale Stabilität und innere Sicherheit aufbauen.",
+        "3": "Challenge 3 = Herausforderung: Kreative Energie nicht vergeuden, Selbstkritik überwinden, Ausdruck entwickeln. Lehre: Talent konsequent einsetzen.",
+        "4": "Challenge 4 = Herausforderung: Disziplin, Ausdauer und Ordnung — entweder zuviel Starrheit oder zu wenig Struktur. Lehre: Mittlere Balance zwischen Flexibilität und Struktur.",
+        "5": "Challenge 5 = Herausforderung: Freiheitsstreben vs. Verantwortung. Versuchung durch Exzesse, Bindungsangst. Lehre: Freiheit mit Disziplin verbinden.",
+        "6": "Challenge 6 = Herausforderung: Übermäßige Selbstaufopferung oder Ablehnung von Verantwortung. Lehre: Grenzen setzen und wahrhaft fürsorglich ohne Kontrolle sein.",
+        "7": "Challenge 7 = Herausforderung: Überintellektualisierung, soziale Isolation, mangelndes Vertrauen. Lehre: Spiritualität öffnet das Herz, innere Stille zulassen.",
+        "8": "Challenge 8 = Herausforderung: Materieller Misserfolg durch Angst vor Macht oder umgekehrt Gier und Machtmissbrauch. Lehre: Kraft weise einsetzen und Gleichgewicht finden."
+      }
+    }
+  },
+
+  "persoenliches_jahr_profile": {
+
+    "PJ1": {
+      "zahl": 1,
+      "name": "Persönliches Jahr 1 — Der Neubeginn",
+      "schluesselthema": "Neubeginn, Unabhängigkeit, Eigeninitiative, Selbstfindung",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.84-86; Balliett S.70-73",
+      "beschreibung": "Das Persönliche Jahr 1 markiert den Beginn eines neuen 9-Jahres-Zyklus. Neue Projekte, Ideen und Wege entstehen. Es ist die Zeit, Samen zu säen, die in den folgenden Jahren aufgehen werden. Mut zur Eigenständigkeit ist gefragt — wer jetzt zögert, verpasst günstige Startbedingungen.",
+      "chancen": "Neue Karrierewege einschlagen, Projekte starten, Selbständigkeit wagen, persönliche Identität klären, Führungsrollen übernehmen.",
+      "warnungen": "Impulsivität bremsen, nicht alles auf einmal anfangen, Rücksicht auf andere nicht vergessen.",
+      "liebe_hinweis": "Neue Beziehungen möglich, aber Ego-Dynamiken können Partnerschaften belasten. Singles: günstig für erste Schritte.",
+      "beruf_hinweis": "Starkes Jahr für Karrieresprünge, Bewerbungen, eigene Vorhaben. Mut zu neuen Wegen.",
+      "finanzen_hinweis": "Investitionen in neue Unternehmungen. Vorsicht: Übereifer kann zu Fehlentscheidungen führen.",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 5,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.84-86; Balliett S.70-73"
+    },
+
+    "PJ2": {
+      "zahl": 2,
+      "name": "Persönliches Jahr 2 — Die Geduld",
+      "schluesselthema": "Geduld, Partnerschaft, Kooperation, Diplomatie, Warten",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.86; Balliett S.73-74",
+      "beschreibung": "Nach dem Aufbruch folgt das Jahr der Stille und des Wartens. Was im Jahr 1 begonnen wurde, braucht Zeit zum Wachsen. Beziehungen, Kooperationen und Details rücken in den Vordergrund. Ungeduld ist kontraproduktiv — Erzwingen führt zu Rückschritten.",
+      "chancen": "Beziehungen vertiefen, Netzwerke pflegen, Hintergrundinformationen sammeln, emotionale Intelligenz entwickeln, Partnerschaften festigen.",
+      "warnungen": "Keine überhasteten Entscheidungen. Überempfindlichkeit und Selbstzweifel vermeiden. Nicht zu passiv werden.",
+      "liebe_hinweis": "Ausgezeichnetes Jahr für bestehende Partnerschaften. Vertiefung, Versöhnung, gemeinsame Projekte.",
+      "beruf_hinweis": "Hintergrundarbeit, Netzwerken, Assistenzrollen. Kein Jahr für spektakuläre Alleingänge.",
+      "finanzen_hinweis": "Konservativ halten. Sparen, bestehende Investitionen pflegen, keine großen Risiken.",
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 3,
+        "veraenderung": 2,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.86; Balliett S.73-74"
+    },
+
+    "PJ3": {
+      "zahl": 3,
+      "name": "Persönliches Jahr 3 — Die Entfaltung",
+      "schluesselthema": "Ausdruck, Kreativität, Geselligkeit, Freude, Kommunikation",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.86-87; Balliett S.74-75",
+      "beschreibung": "Das Jahr 3 bringt Aufblühen, Freude und kreative Entfaltung. Soziale Kontakte mehren sich, künstlerische Projekte gedeihen, Kommunikation fließt leicht. Es ist ein Jahr, die Früchte des Begonnenen zu genießen und das Leben zu feiern.",
+      "chancen": "Kunstprojekte starten, öffentlich auftreten, schreiben, kommunizieren, soziale Netzwerke erweitern, Freude bewusst leben.",
+      "warnungen": "Zerstreuung und Oberflächlichkeit vermeiden. Geld nicht verschwenden. Ernsthaftigkeit nicht vernachlässigen.",
+      "liebe_hinweis": "Romantisch und gesellig. Liebesaffären möglich. Bestehende Beziehungen durch Leichtigkeit bereichern.",
+      "beruf_hinweis": "Ideal für kreative Berufe, Präsentationen, Selbstvermarktung, Kommunikationsberufe.",
+      "finanzen_hinweis": "Einnahmen möglich, aber auch Ausgaben hoch. Nicht zu freigiebig sein.",
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.86-87; Balliett S.74-75"
+    },
+
+    "PJ4": {
+      "zahl": 4,
+      "name": "Persönliches Jahr 4 — Die Arbeit",
+      "schluesselthema": "Aufbau, Disziplin, harte Arbeit, Fundamente, Struktur",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.87; Balliett S.75-76",
+      "beschreibung": "Das Jahr 4 ist ein Jahr der Mühsal und des beharrlichen Aufbaus. Feste Fundamente werden gelegt. Gesundheit, Ordnung, Finanzen und Strukturen erfordern Aufmerksamkeit. Kein glamouröses Jahr — aber ein Jahr, das dauerhaften Wert schafft.",
+      "chancen": "Liegenschaften kaufen, Unternehmensstrukturen festigen, Gesundheit verbessern, langfristige Planung, Schulden abbauen.",
+      "warnungen": "Überarbeitung und Erschöpfung drohen. Nicht verbohrt werden. Spontaneität und Lebensfreude erhalten.",
+      "liebe_hinweis": "Beziehungen brauchen Investition und Arbeit. Routinen können drücken. Gemeinsame Projekte stärken die Bindung.",
+      "beruf_hinweis": "Starkes Arbeitsjahr. Grundlegende Aufbauarbeit zahlt sich langfristig aus.",
+      "finanzen_hinweis": "Sparsam und konservativ. Immobilien günstig. Keine spekulativen Investitionen.",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 2,
+        "veraenderung": 2,
+        "spiritualitaet": 2
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.87; Balliett S.75-76"
+    },
+
+    "PJ5": {
+      "zahl": 5,
+      "name": "Persönliches Jahr 5 — Die Veränderung",
+      "schluesselthema": "Freiheit, Wandel, Abenteuer, unerwartete Ereignisse, Expansion",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.87-88; Balliett S.76-77",
+      "beschreibung": "Das Jahr 5 bricht mit dem Alten. Unerwartete Wendungen, Reisen, neue Menschen und aufregende Möglichkeiten charakterisieren dieses Jahr. Veränderungen sollten aktiv genutzt werden — Widerstand ist zwecklos. Das Alte macht Platz für Neues.",
+      "chancen": "Reisen, neue Fähigkeiten erwerben, alte Muster loslassen, Berufs- oder Wohnortwechsel, Netzwerke erweitern.",
+      "warnungen": "Disziplinlosigkeit, Exzesse und Unbeständigkeit vermeiden. Nicht jede Gelegenheit ist sinnvoll.",
+      "liebe_hinweis": "Unruhig für bestehende Beziehungen. Singles: aktives Kennenlernen. Freiheit vs. Bindung als Thema.",
+      "beruf_hinweis": "Wechsel möglich und sinnvoll. Neue Branchen, neue Rollen. Flexibilität ist Trumpf.",
+      "finanzen_hinweis": "Schwankungen. Keine langfristigen Festlegungen. Liquidität erhalten.",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.87-88; Balliett S.76-77"
+    },
+
+    "PJ6": {
+      "zahl": 6,
+      "name": "Persönliches Jahr 6 — Die Verantwortung",
+      "schluesselthema": "Familie, Zuhause, Pflege, Harmonie, Verantwortung, Heilung",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.88; Balliett S.77-78",
+      "beschreibung": "Das Jahr 6 dreht sich um Beziehungen, Familie, Haus und Verantwortung. Fürsorge für andere tritt in den Vordergrund. Heiraten, Umzüge, Familienzuwachs oder die Pflege von Angehörigen sind typische Themen. Harmonie und Ausgleich sind Ziele.",
+      "chancen": "Ehe, Familiengründung, Wohnungswechsel, kreativer Ausdruck durch Einrichtung, Heilungsarbeit, Gemeinschaftsprojekte.",
+      "warnungen": "Martyrertum und übermäßige Selbstaufopferung vermeiden. Eigene Bedürfnisse nicht ignorieren.",
+      "liebe_hinweis": "Günstigstes Jahr für Verlobung, Heirat oder Erneuerung von Beziehungen. Tiefe emotionale Verbindung.",
+      "beruf_hinweis": "Pflege-, Lehr-, Kunstberufe begünstigt. Teamarbeit und Harmonieförderung in Vordergrund.",
+      "finanzen_hinweis": "Ausgaben für Haus und Familie erhöht. Stabile Einkünfte möglich. Kein Jahr für Spekulation.",
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.88; Balliett S.77-78"
+    },
+
+    "PJ7": {
+      "zahl": 7,
+      "name": "Persönliches Jahr 7 — Die Einkehr",
+      "schluesselthema": "Reflexion, Spiritualität, inneres Wachstum, Rückzug, Analyse",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.88-89; Balliett S.78-79",
+      "beschreibung": "Das Jahr 7 ist ein inneres Jahr. Die äußere Welt tritt zurück — Studium, Spiritualität, Reflexion und tiefes Nachdenken treten in den Vordergrund. Alleine sein ist wertvoll. Was von außen gesucht wird, findet man nicht — was von innen kommt, ist jetzt fruchtbar.",
+      "chancen": "Ausbildungen, Forschung, spirituelle Praxis, Meditationsretreat, Schreiben, Analyse, tiefe Selbsterkenntnis.",
+      "warnungen": "Soziale Isolation vermeiden. Nicht in Pessimismus oder Paranoia verfallen. Finanziell nicht nachlässig werden.",
+      "liebe_hinweis": "Schwieriges Jahr für neue Beziehungen. Bestehende Partnerschaften: Vertiefung oder Distanz als Thema.",
+      "beruf_hinweis": "Hintergrundarbeit, Forschung, spezialisierte Ausbildung. Kein Jahr für Selbstvermarktung.",
+      "finanzen_hinweis": "Keine großen Investitionen. Sparsam leben. Finanziell ruhig halten.",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 3,
+        "finanzen": 2,
+        "gesundheit": 4,
+        "soziales": 2,
+        "kreativitaet": 3,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.88-89; Balliett S.78-79"
+    },
+
+    "PJ8": {
+      "zahl": 8,
+      "name": "Persönliches Jahr 8 — Die Ernte",
+      "schluesselthema": "Macht, Finanzen, Karriere, Ernte, Autorität, materielle Erfolge",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.89; Balliett S.79-81",
+      "beschreibung": "Das Jahr 8 ist das Jahr der materiellen Ernte. Was in den vorangegangenen sieben Jahren gesät wurde, zeigt jetzt Früchte — positiv wie negativ. Karrieresprünge, finanzielle Gewinne, aber auch Konflikte um Macht und Kontrolle sind typisch. Saturn-Energie: Gerechtigkeit durch Karma.",
+      "chancen": "Beförderungen, Gehaltsverhandlungen, Unternehmensgründung, Immobilieninvestitionen, Autoritätsrollen übernehmen.",
+      "warnungen": "Machtmissbrauch vermeiden. Nicht zu materialistisch werden. Gesundheit nicht vernachlässigen.",
+      "liebe_hinweis": "Machtdynamiken in Beziehungen können dominieren. Ehrlichkeit und gegenseitiger Respekt entscheidend.",
+      "beruf_hinweis": "Stärkstes Karrierejahr des Zyklus. Erfolge durch Einsatz und Ausdauer. Führungsrollen.",
+      "finanzen_hinweis": "Günstigstes Finanzjahr. Investitionen, Vermögensaufbau, große Transaktionen möglich.",
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 3,
+        "veraenderung": 4,
+        "spiritualitaet": 2
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.89; Balliett S.79-81"
+    },
+
+    "PJ9": {
+      "zahl": 9,
+      "name": "Persönliches Jahr 9 — Der Abschluss",
+      "schluesselthema": "Vollendung, Loslassen, Abschluss, Transformation, universale Liebe",
+      "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.89-90; Balliett S.81-82",
+      "beschreibung": "Das Jahr 9 markiert das Ende des Zyklus. Altes löst sich auf — Beziehungen, Berufe, Wohnorte, Überzeugungen. Was nicht mehr dient, geht. Das ist schmerzhaft, aber notwendig, um im folgenden Jahr 1 wirklich neu beginnen zu können. Humanitäre Energie ist stark.",
+      "chancen": "Abschlüsse feiern, altes Gepäck loslassen, anderen dienen, künstlerische Vollendung, internationale Verbindungen.",
+      "warnungen": "An Altem festhalten verlängert den Schmerz. Neue Projekte jetzt nicht starten — sie reifen erst im nächsten Zyklus.",
+      "liebe_hinweis": "Ende von Beziehungen möglich. Alte Wunden heilen. Vergebung und Loslassen als Themen.",
+      "beruf_hinweis": "Abschluss bestehender Projekte. Kein Jahr für Neustarts. Berufliche Übergänge vorbereiten.",
+      "finanzen_hinweis": "Konservativ. Manche Verluste unvermeidlich. Auf das Nächste vorbereiten.",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 3,
+        "finanzen": 2,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Cheiro Kap.10; Westcott S.89-90; Balliett S.81-82"
+    },
+
+    "PJ11": {
+      "zahl": 11,
+      "name": "Persönliches Jahr 11 — Die Erleuchtung",
+      "schluesselthema": "Höhere Intuition, Inspiration, spirituelle Mission, Nervosität, Visionskraft",
+      "quelle": "Westcott S.86; Balliett S.83; Cheiro Kap.11",
+      "beschreibung": "Das Persönliche Jahr 11 (tritt auf, wenn Geburtsmonat + Geburtstag + Jahreszahl auf 11 reduziert) ist von extremer Intensität. Intuition und spirituelle Sensibilität sind auf dem Höchststand. Es ist ein Jahr der Inspiration, aber auch der Nervosität und des inneren Drucks. Viele Menschen erleben es als Jahr 2, wenn die Meisterzahlenergie zu überwältigend ist.",
+      "chancen": "Spirituelle Durchbrüche, kreative Inspiration, öffentliche Präsenz als Visionär, Lehren und Inspirieren anderer.",
+      "warnungen": "Überreizung, nervliche Belastung, unrealistische Erwartungen. Erdung notwendig.",
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 2,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.86; Balliett S.83; Cheiro Kap.11"
+    },
+
+    "PJ22": {
+      "zahl": 22,
+      "name": "Persönliches Jahr 22 — Der Meisterbauer",
+      "schluesselthema": "Manifestation, Großprojekte, materielle und spirituelle Synthese, Weltveränderung",
+      "quelle": "Westcott S.90; Balliett S.84; Cheiro Kap.11",
+      "beschreibung": "Das Persönliche Jahr 22 ist eines der seltensten und mächtigsten Jahre. Visionen können in materielle Wirklichkeit überführt werden — in einem Ausmaß, das normalerweise nicht möglich wäre. Viele erleben es auf der Ebene von Jahr 4, wenn die Energie zu überwältigend ist.",
+      "chancen": "Große Unternehmungen starten, gesellschaftliche Beiträge leisten, Institutionen gründen, Lebenswerk vorantreiben.",
+      "warnungen": "Größenwahn vermeiden. Erdung essenziell. Hohe Verantwortung mit dem Potential verbinden.",
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 5,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.90; Balliett S.84; Cheiro Kap.11"
+    }
+
+  },
+
+  "persoenlicher_monat_profile": {
+
+    "beschreibung": "81 Kombinationen aus Persönlichem Jahr (1-9) × Kalendermonat (1-12 → auf 1-9 reduziert). Bedeutung ergibt sich aus der Interaktion beider Zahlen. Nachfolgend die 9 Grundbedeutungen des Persönlichen Monats; für die vollständige Matrix werden diese mit dem Hintergrund des Persönlichen Jahres gewichtet.",
+    "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
+
+    "PM1": {
+      "monatszahl": 1,
+      "name": "Persönlicher Monat 1",
+      "schluesselthema": "Neue Anfänge, Entscheidungen, Initiative",
+      "beschreibung": "Geeignet für neue Projekte, Gespräche initiieren, Selbständigkeit demonstrieren. Energie ist frisch und direkt.",
+      "beste_aktionen": ["Projekte starten", "Entscheidungen treffen", "Eigeninitiative zeigen", "Verhandlungen beginnen"],
+      "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2}
+    },
+
+    "PM2": {
+      "monatszahl": 2,
+      "name": "Persönlicher Monat 2",
+      "schluesselthema": "Kooperation, Details, Geduld, Abwarten",
+      "beschreibung": "Monat des Sammelns und Wartens. Beziehungen und Netzwerke pflegen. Nicht forcieren — Hintergrundarbeit leisten.",
+      "beste_aktionen": ["Netzwerken", "Details klären", "Beziehungen pflegen", "Hintergrundinformationen sammeln"],
+      "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+    },
+
+    "PM3": {
+      "monatszahl": 3,
+      "name": "Persönlicher Monat 3",
+      "schluesselthema": "Ausdruck, Soziales, Kreativität, Kommunikation",
+      "beschreibung": "Geselliger und kreativer Monat. Präsentationen, Auftritte, kreative Projekte, soziale Kontakte blühen auf.",
+      "beste_aktionen": ["Präsentieren", "Kreative Projekte", "Soziale Events", "Schreiben und Kommunizieren"],
+      "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}
+    },
+
+    "PM4": {
+      "monatszahl": 4,
+      "name": "Persönlicher Monat 4",
+      "schluesselthema": "Arbeit, Organisation, Struktur, Aufbau",
+      "beschreibung": "Monat für Fleiß, Ordnung, administrative Aufgaben und solide Aufbauarbeit. Kein Glamour, aber nachhaltiger Fortschritt.",
+      "beste_aktionen": ["Organisieren", "Budgetieren", "Strukturen aufbauen", "Gesundheitsroutinen festigen"],
+      "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+    },
+
+    "PM5": {
+      "monatszahl": 5,
+      "name": "Persönlicher Monat 5",
+      "schluesselthema": "Veränderung, Freiheit, Unerwartetes, Reisen",
+      "beschreibung": "Dynamischer, unberechenbarer Monat. Flexibel bleiben, Veränderungen annehmen, neue Eindrücke sammeln.",
+      "beste_aktionen": ["Reisen", "Spontane Entscheidungen", "Neue Kontakte", "Alte Strukturen lösen"],
+      "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}
+    },
+
+    "PM6": {
+      "monatszahl": 6,
+      "name": "Persönlicher Monat 6",
+      "schluesselthema": "Familie, Verantwortung, Heimat, Harmonie",
+      "beschreibung": "Monat der Fürsorge und familiären Verbindlichkeiten. Heim und Beziehungen im Mittelpunkt. Harmonie schaffen.",
+      "beste_aktionen": ["Familienfragen regeln", "Häusliche Verbesserungen", "Beziehungspflege", "Heilungsarbeit"],
+      "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+    },
+
+    "PM7": {
+      "monatszahl": 7,
+      "name": "Persönlicher Monat 7",
+      "schluesselthema": "Reflexion, Analyse, Spiritualität, Rückzug",
+      "beschreibung": "Introvertierter Monat. Innenwelt erkunden, analysieren, forschen, meditieren. Keine Forcierung äußerer Resultate.",
+      "beste_aktionen": ["Studieren", "Meditieren", "Analysieren", "Alleine arbeiten", "Gesundheitscheck"],
+      "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 4, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 5}
+    },
+
+    "PM8": {
+      "monatszahl": 8,
+      "name": "Persönlicher Monat 8",
+      "schluesselthema": "Finanzen, Macht, Karriere, materielle Ergebnisse",
+      "beschreibung": "Günstiger Monat für Finanzentscheidungen, Vertragsabschlüsse, Karriereschritte, Machtpositionen.",
+      "beste_aktionen": ["Vertragsabschlüsse", "Finanzinvestitionen", "Karrieregespräche", "Autoritätsansprüche"],
+      "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+    },
+
+    "PM9": {
+      "monatszahl": 9,
+      "name": "Persönlicher Monat 9",
+      "schluesselthema": "Abschluss, Vollendung, Loslassen, humanitäre Themen",
+      "beschreibung": "Monat des Abschlusses und der Reinigung. Altes beenden, vergeben, loslassen. Keine Neustarts — fertigstellen.",
+      "beste_aktionen": ["Projekte abschließen", "Beziehungen klären", "Vergeben und Loslassen", "Anderen dienen"],
+      "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}
+    }
+
+  },
+
+  "persoenlicher_monat_matrix_81": {
+    "beschreibung": "Vollständige 9×9-Matrix für Persönliches Jahr × Persönlicher Monat. Zeigt die spezifische Energie jeder Kombination. Werte: qualitative Zusammenfassung der Interaktion.",
+    "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
+    "hinweis": "Die Basis-Energie des Persönlichen Jahres bildet den Hintergrund; der Persönliche Monat ist der Vordergrund. Lese: [PJ].[PM] = spezifische Energie.",
+    "matrix": {
+      "PJ1": {
+        "PM1": "Doppelte Startenergie: Kraftvolle neue Anfänge, Unabhängigkeit auf dem Höhepunkt. Ideal für Bewerbungen, Unternehmensstart.",
+        "PM2": "Initiative bremst ab — Geduld gefordert. Hintergrundarbeit für Jahresprojekte. Netzwerken.",
+        "PM3": "Neustarts bekommen kreative Ausdruckskraft. Ideen kommunizieren, Projekt vorstellen.",
+        "PM4": "Strukturierung der Jahrespläne. Businesspläne erstellen, Finanzen ordnen.",
+        "PM5": "Unerwartete Chancen für Jahresstart. Neue Kontakte, überraschende Gelegenheiten nutzen.",
+        "PM6": "Verantwortung fürs Neue übernehmen. Familiäre Unterstützung im Neustart.",
+        "PM7": "Innehalten: Strategie für das Jahres-Vorhaben durchdenken, bevor man handelt.",
+        "PM8": "Finanzkraft für neue Projekte. Investitionen im Neubeginn — günstig für materielle Starts.",
+        "PM9": "Altes loslassen, um neuen Zyklus zu beginnen. Letzte Aufräumarbeit bevor PJ1 voll greift."
+      },
+      "PJ2": {
+        "PM1": "Initiativefunke im Geduldjahr. Kleine Starts möglich, aber nicht übertreiben.",
+        "PM2": "Doppelte Wartenergie: Geduld, Details, Hintergrundarbeit. Keine großen Schritte.",
+        "PM3": "Partnerschaften im kreativen Licht. Gemeinsame Ideen ausdrücken.",
+        "PM4": "Ordnung und Struktur in Kooperationen. Administrative Partnerarbeit.",
+        "PM5": "Überraschungen in Beziehungen. Unerwartete Begegnungen. Flexibel bleiben.",
+        "PM6": "Tiefe Beziehungspflege. Familiendynamiken im Fokus. Harmonisierung.",
+        "PM7": "Analytische Reflexion über Beziehungen. Innere Klärung, was man wirklich will.",
+        "PM8": "Finanzielle Partnerschaftsthemen. Gemeinsame Investitionen prüfen.",
+        "PM9": "Abschlüsse in Partnerschaften. Klärung, Vergebung, Neuausrichtung in Beziehungen."
+      },
+      "PJ3": {
+        "PM1": "Kreativer Neustart im Entfaltungsjahr: Neue künstlerische Projekte initiieren.",
+        "PM2": "Kreative Ideen reifen lassen. Hintergrundarbeit an Projekten.",
+        "PM3": "Doppelte Kreativenergie: Stärkster Monat für Kunst, Auftritte, Selbstausdruck.",
+        "PM4": "Kreativität strukturieren. Disziplinierte Ausführung von Ideen. Arbeit an kreativen Projekten.",
+        "PM5": "Spontane Kreativität. Unerwartete Inspirationen nutzen. Neue kreative Richtungen.",
+        "PM6": "Kreativität im Dienst anderer. Familienprojekte, gemeinsame künstlerische Arbeit.",
+        "PM7": "Kreative Einkehr. Innere Quellen erkunden. Schreibworkshop oder Studium.",
+        "PM8": "Kreativität monetarisieren. Verträge für künstlerische Projekte abschließen.",
+        "PM9": "Kreative Projekte vollenden, veröffentlichen, abliefern."
+      },
+      "PJ4": {
+        "PM1": "Frischer Impuls im Arbeitsjahr: Neue Struktur einführen. Projekte methodisch starten.",
+        "PM2": "Geduldige Detailarbeit. Verwaltungsaufgaben, Dokumentationen.",
+        "PM3": "Auflockerung der Arbeitsroutine. Kommunikation im Team. Kreative Problemlösung.",
+        "PM4": "Doppelte Arbeitsenergie: Intensivstes Arbeitssegment des Jahres. Fundamentales aufbauen.",
+        "PM5": "Unerwartete Änderungen in Strukturen. Flexibilität in Plänen einbauen.",
+        "PM6": "Häusliche Strukturen verbessern. Familie in Aufbaupläne einbeziehen.",
+        "PM7": "Strategische Planung und Analyse. Langfristige Projekte durchdenken.",
+        "PM8": "Finanzen und Karriere stärken. Gehaltsverhandlungen im Arbeitsjahr.",
+        "PM9": "Projekte vollenden. Altes Arbeitsmaterial abschließen und archivieren."
+      },
+      "PJ5": {
+        "PM1": "Doppelter Wandelimpuls: Drastische Veränderungen beginnen. Kühnheit ist gefragt.",
+        "PM2": "Tempo drosseln. Veränderungen planen statt erzwingen. Strategisches Abwarten.",
+        "PM3": "Kreativer Ausdruck im Wandel. Neue Ideen kommunizieren. Soziale Netzwerke in Bewegung.",
+        "PM4": "Neue Strukturen in veränderten Umständen aufbauen. Organisation im Chaos.",
+        "PM5": "Explosiver Veränderungsmonat: Größte Dynamik des Jahres. Alles ist möglich.",
+        "PM6": "Veränderungen betreffen das Zuhause und die Familie. Umzüge, familiäre Neuausrichtung.",
+        "PM7": "Innere Reise im Veränderungsjahr: Was brauche ich wirklich? Reflexion der Wandelprozesse.",
+        "PM8": "Finanzielle Veränderungen. Neue Investitionsstrategien. Beruflicher Wandel mit Konsequenz.",
+        "PM9": "Abschluss eines Veränderungskapitels. Transformation vervollständigen."
+      },
+      "PJ6": {
+        "PM1": "Neue Verantwortung übernehmen. Familienprojekte initiieren.",
+        "PM2": "Geduldige Fürsorge. Details in Haushalts- und Familienplänen.",
+        "PM3": "Freude in der Familie. Kreative Familienaktivitäten. Schöne Momente schaffen.",
+        "PM4": "Häusliche Aufgaben strukturieren. Haus renovieren, Ordnung schaffen.",
+        "PM5": "Unerwartete Wendungen im Familienleben. Flexibilität in Fürsorgerollen.",
+        "PM6": "Doppelte Familienenergie: Stärkster Monat für Ehe, Familiengründung, Häuslichkeit.",
+        "PM7": "Reflexion über Beziehungsrollen. Innere Klärung familiärer Dynamiken.",
+        "PM8": "Finanzielle Familienfragen regeln. Erbschaftsfragen, Immobilien, Gemeinschaftsfinanzen.",
+        "PM9": "Familiäre Konflikte lösen. Vergebung in Beziehungen. Alte Wunden heilen."
+      },
+      "PJ7": {
+        "PM1": "Seltener Aktivismusmonat im Einkehrjahr. Kleine, gezielte Schritte nach außen.",
+        "PM2": "Tiefe Stille: Maximale Introversion. Meditationsrückzug, spirituelle Übungen.",
+        "PM3": "Kreative Ausdrucksform für innere Erkenntnisse. Schreiben, Kunst aus Tiefe.",
+        "PM4": "Strukturierte Studienarbeit. Systematische Forschung und Analyse.",
+        "PM5": "Unerwartete spirituelle Erfahrungen oder äußere Störungen der Einkehr.",
+        "PM6": "Spiritualität in Familie und Gemeinschaft einbringen. Heilungsarbeit.",
+        "PM7": "Doppelte Einkehrenergie: Höchste spirituelle Intensität. Tiefe Erkenntnisse möglich.",
+        "PM8": "Erkenntnisse materiell verwerten. Geistiges Wissen in beruflichen Wert überführen.",
+        "PM9": "Spirituelle Zyklen abschließen. Alte Überzeugungen loslassen, Transformation."
+      },
+      "PJ8": {
+        "PM1": "Neue Karriereschritte im Erntejahr. Frischer Impuls für materielle Ziele.",
+        "PM2": "Hintergrundverhandlungen. Details in Finanzverträgen prüfen.",
+        "PM3": "Karriere durch Kommunikation fördern. Selbstmarketing, Netzwerken.",
+        "PM4": "Intensivste Arbeitsphase im Erntejahr. Strukturen für Erfolg festigen.",
+        "PM5": "Unerwartete Karriere- oder Finanzwenden. Flexibel auf Gelegenheiten reagieren.",
+        "PM6": "Balance zwischen Karriere und Familie gefordert. Familienfinanzen regeln.",
+        "PM7": "Strategische Rückbesinnung: Langfristige Karriereplanung überdenken.",
+        "PM8": "Doppelte Materielle Energie: Stärkster Monat für Finanzen, Verträge, Macht.",
+        "PM9": "Finanzielle Abschlüsse. Projekte vollenden. Energie für nächsten Zyklus freimachen."
+      },
+      "PJ9": {
+        "PM1": "Kleiner Neubeginn im Abschlussjahr. Vorbereitungen für nächsten Zyklus starten.",
+        "PM2": "Geduldiges Loslassen. Details von Abschlüssen klären.",
+        "PM3": "Abschlussfeiern. Kreative Vollendungen. Letzte Auftritte und Ausstellungen.",
+        "PM4": "Ordnung schaffen im Abschlussjahr. Altes archivieren, Kisten packen.",
+        "PM5": "Überraschende Wendungen im Abschluss. Offene Fäden überraschend lösen.",
+        "PM6": "Familiäre Abschlüsse und Versöhnung. Letzte Verantwortungsübergaben.",
+        "PM7": "Tiefe spirituelle Abschlussreflexion. Was hat dieser Zyklus gelehrt?",
+        "PM8": "Finanzielle Abschlüsse und Erbschaften. Materielle Bilanzen ziehen.",
+        "PM9": "Doppelte Abschlussenergie: Vollständigstes Loslassen. Transformation auf allen Ebenen."
+      }
+    }
+  },
+
+  "persoenlicher_tag_grundsaetze": {
+    "beschreibung": "Grundprinzipien für die Nutzung des Persönlichen Tages in der täglichen Entscheidungsfindung.",
+    "quelle": "Balliett - Philosophy of Numbers S.80-82",
+    "anwendung_nach_tageszahl": {
+      "1": "Entscheidungen treffen, neue Gespräche beginnen, Eigeninitiative zeigen.",
+      "2": "Kooperieren, zuhören, Details klären, keine großen Entscheidungen.",
+      "3": "Soziale Aktivitäten, kreatives Arbeiten, Kommunizieren, Auftreten.",
+      "4": "Büroarbeiten, Organisieren, Gesundheitsroutinen, Strukturaufgaben.",
+      "5": "Reisen, spontane Entscheidungen, neue Erfahrungen, Freiheit genießen.",
+      "6": "Familien- und Heimaufgaben, Pflege von Beziehungen, Schönheitspflege.",
+      "7": "Studieren, meditieren, analysieren, alleine arbeiten, Gesundheitscheck.",
+      "8": "Finanzielle Entscheidungen, Vertragsunterzeichnungen, Karrieregespräche.",
+      "9": "Abschlüsse, Vollendungen, Reinigungen, Verzichten und Loslassen."
+    }
+  },
+
+  "universelles_jahr_profile": {
+    "beschreibung": "Das Universelle Jahr beschreibt die kollektive Energie des Kalenderjahres für alle Menschen.",
+    "quelle": "Westcott S.83-84; Balliett S.68-70",
+
+    "UJ1": {
+      "zahl": 1,
+      "schluesselthema": "Kollektiver Neubeginn, neue Ären, Innovationen, Pioniergeist",
+      "beschreibung": "Universelle Jahre 1 bringen neue Zyklen für die Menschheit. Technologische Pionierarbeit, politische Neustarts, gesellschaftliche Veränderungen starten. Individueller Mut wird kollektiv gespiegelt.",
+      "beispiele": ["2026 = Universelles Jahr 1", "2017 = Universelles Jahr 1"]
+    },
+    "UJ2": {
+      "zahl": 2,
+      "schluesselthema": "Diplomatie, Kooperation, internationale Abkommen, Fürsorge",
+      "beschreibung": "Kollektives Warten und Verhandeln. Internationale Kooperationen, Friedensabkommen, Aufmerksamkeit für Randgruppen und Empfindlichkeiten."
+    },
+    "UJ3": {
+      "zahl": 3,
+      "schluesselthema": "Kreativität, Kommunikation, kollektive Freude, Medien, Kunst",
+      "beschreibung": "Kulturelle Blüte, Medienwandel, kollektiver Optimismus. Ausdrucksfreude auf gesellschaftlicher Ebene."
+    },
+    "UJ4": {
+      "zahl": 4,
+      "schluesselthema": "Aufbau, Strukturen, Wirtschaft, Arbeit, Infrastruktur",
+      "beschreibung": "Jahr der harten Arbeit auf kollektiver Ebene. Wirtschaftsaufbau, Infrastruktur, gesellschaftliche Stabilisierung."
+    },
+    "UJ5": {
+      "zahl": 5,
+      "schluesselthema": "Kollektiver Wandel, Revolutionen, Freiheitsbewegungen, Unruhe",
+      "beschreibung": "Turbulentes Jahr für Gesellschaft. Umbrüche, Freiheitsbewegungen, neue soziale Bewegungen, Reisefreiheit."
+    },
+    "UJ6": {
+      "zahl": 6,
+      "schluesselthema": "Familie, Gemeinschaft, soziale Verantwortung, Gesundheitssysteme",
+      "beschreibung": "Kollektive Fürsorge tritt in den Vordergrund. Familienpolitik, Bildung, Gesundheit, Gemeinschaftswerte."
+    },
+    "UJ7": {
+      "zahl": 7,
+      "schluesselthema": "Wissenschaft, Spiritualität, kollektive Reflexion, Geheimnisse",
+      "beschreibung": "Wissenschaftliche Durchbrüche, spirituelle Suche, gesellschaftliche Introspektion. Verborgenheit und Wahrheitssuche."
+    },
+    "UJ8": {
+      "zahl": 8,
+      "schluesselthema": "Wirtschaftspower, Unternehmertum, Macht, Finanzsysteme",
+      "beschreibung": "Jahr des Mammons und der Macht. Börsen, Immobilien, globale Finanzsysteme im Fokus. Macht und Ohnmacht."
+    },
+    "UJ9": {
+      "zahl": 9,
+      "schluesselthema": "Globale Vollendung, Zyklusende, Naturkatastrophen, humanitäre Krisen",
+      "beschreibung": "Kollektives Loslassen. Ende von Ären, internationale humanitäre Themen, große Abschlüsse auf Weltebene. Vorbereitung für neuen Weltzyklus."
+    },
+    "UJ11": {
+      "zahl": 11,
+      "schluesselthema": "Kollektive Inspiration, spirituelle Erweckung, Massenmedien-Visionen",
+      "beschreibung": "Visionäre kollektive Impulse. Spirituelle Erweckungen, technologische Visionen, intensive globale Kommunikation. Hohe Nervosität."
+    },
+    "UJ22": {
+      "zahl": 22,
+      "schluesselthema": "Historische Manifestation, Weltinfrastruktur, globale Meisterbauprojekte",
+      "beschreibung": "Seltenste und mächtigste universelle Energie. Historische Institutionen werden gegründet, globale Strukturen manifestiert."
+    }
+  },
+
+  "interaktion_pj_uj": {
+    "beschreibung": "Regeln für die Interaktion zwischen Persönlichem Jahr (PJ) und Universellen Jahr (UJ).",
+    "quelle": "Westcott S.83-84; Balliett S.68-70",
+    "regeln": [
+      {
+        "konstellation": "PJ = UJ",
+        "bedeutung": "Maximale Verstärkung der Jahresenergie. Was das Jahr bringt, wirkt doppelt — sowohl persönlich als auch kollektiv. Selten und kraftvoll.",
+        "beispiel": "PJ1 in UJ1: Persönlicher Neubeginn wird kollektiv gespiegelt. Besonders kraftvolle Neustart-Energie."
+      },
+      {
+        "konstellation": "PJ + UJ = 10 (reduziert auf 1)",
+        "bedeutung": "Harmonische Ergänzung: Persönliche und universelle Energie ergänzen sich und führen zu einem vollständigen Ganzen.",
+        "beispiel": "PJ3 in UJ7: Kreativität trifft auf kollektive Analyse — Kunstwerke mit tiefem spirituellen Gehalt entstehen leichter."
+      },
+      {
+        "konstellation": "PJ und UJ ergeben Summe = 11 oder 22",
+        "bedeutung": "Meisterzahl-Resonanz: Die Verbindung beider Energien erzeugt erhöhte Intensität und Möglichkeiten für spirituellen Durchbruch oder materielle Manifestation.",
+        "beispiel": "PJ4 in UJ7: 4+7=11. Jahr erhöhter Meisterzahl-Resonanz."
+      },
+      {
+        "konstellation": "PJ und UJ sind Gegenpole (Summe = 9 oder differieren um 4-5)",
+        "bedeutung": "Spannung zwischen innerer Erfahrung und äußerem Zeitgeist. Die Person schwimmt gegen den kollektiven Strom — anstrengend, aber entwicklungsreich.",
+        "beispiel": "PJ9 in UJ1: Während die Welt neu beginnt, schließt die Person ab. Innere Isolation möglich."
+      }
+    ]
+  },
+
+  "pinnacle_profile": {
+    "beschreibung": "Vollständige Profile für alle möglichen Pinnacle-Zahlen 1-9, 11, 22.",
+    "quelle": "Westcott S.90-95; Cheiro - Book of Numbers Kap.12; Balliett S.85-92",
+
+    "PIN1": {"zahl": 1, "name": "Pinnacle 1", "thema": "Eigenständigkeit, Führung, Pionierarbeit", "beschreibung": "Lebensabschnitt der Selbstfindung und Führungsstärke. Unabhängigkeit wird aufgebaut. Der Mensch lernt, auf eigenen Füßen zu stehen und eigene Wege zu gehen.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 2}},
+    "PIN2": {"zahl": 2, "name": "Pinnacle 2", "thema": "Partnerschaft, Kooperation, Diplomatie", "beschreibung": "Lebensabschnitt, der durch Beziehungen und Zusammenarbeit geprägt ist. Entwicklung von Geduld, Einfühlungsvermögen und diplomatischem Geschick.", "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}},
+    "PIN3": {"zahl": 3, "name": "Pinnacle 3", "thema": "Kreativer Ausdruck, Kommunikation, Geselligkeit", "beschreibung": "Zeit des künstlerischen Aufblühens und sozialen Gedeihens. Talent wird entfaltet, Freude wird gelebt, Kreativität findet ihren Weg.", "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}},
+    "PIN4": {"zahl": 4, "name": "Pinnacle 4", "thema": "Aufbau, Disziplin, Stabilität", "beschreibung": "Lebensabschnitt harter, zielgerichteter Arbeit. Fundamente werden gelegt. Kein Glamour, aber beständiger Aufbau von Sicherheit und Struktur.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}},
+    "PIN5": {"zahl": 5, "name": "Pinnacle 5", "thema": "Wandel, Freiheit, Abenteuer", "beschreibung": "Dynamischer Lebensabschnitt voller Veränderungen, Reisen und unerwarteter Wendungen. Freiheit ist der Wert, der zählt.", "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}},
+    "PIN6": {"zahl": 6, "name": "Pinnacle 6", "thema": "Familie, Verantwortung, Heimat", "beschreibung": "Familiärer Lebensabschnitt. Ehe, Elternschaft, häusliche Pflichten, Gemeinschaftsverantwortung stehen im Mittelpunkt.", "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}},
+    "PIN7": {"zahl": 7, "name": "Pinnacle 7", "thema": "Spiritualität, Reflexion, Wissen", "beschreibung": "Innerer Lebensabschnitt. Studium, Forschung, Spiritualität, Einsamkeit und Tiefe prägen diesen Zyklus. Weisheit wächst.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 4, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5}},
+    "PIN8": {"zahl": 8, "name": "Pinnacle 8", "thema": "Macht, materieller Erfolg, Karriere", "beschreibung": "Lebensabschnitt des materiellen Aufstiegs. Karriere, Finanzen, Führung und Einfluss stehen im Fokus. Karma wird deutlich sichtbar.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2}},
+    "PIN9": {"zahl": 9, "name": "Pinnacle 9", "thema": "Humanitärer Dienst, Vollendung, universale Liebe", "beschreibung": "Lebensabschnitt der Weisheit und des dienenden Lebens. Humanitäre Ziele, künstlerische Vollendung, Abschlüsse und Loslassen.", "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}},
+    "PIN11": {"zahl": 11, "name": "Pinnacle 11", "thema": "Spirituelle Führung, Inspiration, Meisterzahl-Abschnitt", "beschreibung": "Seltener und intensiver Meisterzahl-Abschnitt. Erhöhte Intuition, spirituelle Mission, öffentliche Wirkung als Visionär. Sehr anspruchsvoll.", "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5}},
+    "PIN22": {"zahl": 22, "name": "Pinnacle 22", "thema": "Meisterbau, Manifestation auf höchster Ebene", "beschreibung": "Seltenster Pinnacle. Potenzial für historisch bedeutende Errungenschaften. Visionen materialisieren sich. Höchste Anforderungen an Disziplin und Erdung.", "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 5}}
+  },
+
+  "challenge_profile": {
+    "beschreibung": "Vollständige Profile für alle Challenge-Zahlen 0-8.",
+    "quelle": "Westcott S.95-98; Cheiro Kap.12; Balliett S.92-98",
+
+    "CH0": {"zahl": 0, "name": "Challenge 0", "thema": "Keine spezifische Herausforderung — alle Bereiche offen", "lektion": "Entscheidungsfreude entwickeln. Zu viele Optionen können lähmen. Fokus und Prioritätensetzung üben.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
+    "CH1": {"zahl": 1, "name": "Challenge 1", "thema": "Selbstvertrauen und Unabhängigkeit", "lektion": "Eigene Stärke finden. Weder übermäßige Abhängigkeit noch Dominanz. Den eigenen Weg gehen.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
+    "CH2": {"zahl": 2, "name": "Challenge 2", "thema": "Emotionale Stabilität und innere Sicherheit", "lektion": "Überempfindlichkeit überwinden. Eigene emotionale Bedürfnisse erkennen und kommunizieren. Selbstwert aus innen aufbauen.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}},
+    "CH3": {"zahl": 3, "name": "Challenge 3", "thema": "Kreative Disziplin und Selbstausdruck", "lektion": "Talente gezielt einsetzen statt vergeuden. Selbstkritik überwinden und Ausdruck wagen. Disziplin in Kreativität.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3}},
+    "CH4": {"zahl": 4, "name": "Challenge 4", "thema": "Balance zwischen Struktur und Flexibilität", "lektion": "Weder zu starr noch zu unstrukturiert. Disziplin und Ordnung kultivieren, aber Lebendigkeit erhalten.", "dimensionen_vektor": {"liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}},
+    "CH5": {"zahl": 5, "name": "Challenge 5", "thema": "Freiheit und Verantwortung verbinden", "lektion": "Freiheitsstreben mit Verlässlichkeit verbinden. Exzesse vermeiden. Langfristige Konsequenzen von Entscheidungen berücksichtigen.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
+    "CH6": {"zahl": 6, "name": "Challenge 6", "thema": "Grenzen in Fürsorge", "lektion": "Fürsorge ohne Selbstaufopferung. Eigene Grenzen setzen. Verantwortung annehmen ohne Kontrolle zu verlieren.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
+    "CH7": {"zahl": 7, "name": "Challenge 7", "thema": "Vertrauen und innere Öffnung", "lektion": "Überintellektualisierung loslassen. Spirituelle Öffnung zulassen. Anderen vertrauen. Einsamkeit von Rückzug unterscheiden.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}},
+    "CH8": {"zahl": 8, "name": "Challenge 8", "thema": "Gesunder Umgang mit Macht und Materie", "lektion": "Weder Angst vor Erfolg und Reichtum noch Gier und Machtmissbrauch. Kraft weise einsetzen. Materielles im Dienst des Höheren.", "dimensionen_vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}}
+  },
+
+  "zeitrahmen_uebersicht": {
+    "beschreibung": "Übersicht aller Zeitzyklen und ihrer typischen Dauer/Frequenz.",
+    "quelle": "Cheiro - Book of Numbers Kap.10-12; Westcott S.83-98; Balliett S.68-98",
+    "tabelle": [
+      {"zyklus": "Persönlicher Tag", "dauer": "1 Tag", "frequenz": "täglich", "berechnung": "Persönlicher Monat + Tagesdatum → Quersumme"},
+      {"zyklus": "Persönlicher Monat", "dauer": "1 Monat", "frequenz": "monatlich", "berechnung": "Persönliches Jahr + Kalendermonat → Quersumme"},
+      {"zyklus": "Persönliches Jahr", "dauer": "1 Jahr", "frequenz": "jährlich", "berechnung": "Geburtsmonat + Geburtstag + Kalenderjahr → Quersumme"},
+      {"zyklus": "9-Jahres-Zyklus", "dauer": "9 Jahre", "frequenz": "ca. 8-9x im Leben", "berechnung": "PJ1 bis PJ9"},
+      {"zyklus": "Pinnacles", "dauer": "variabel (8-27 Jahre)", "frequenz": "4× im Leben", "berechnung": "Differenzformel aus Geburtsdaten"},
+      {"zyklus": "Challenges", "dauer": "parallel zu Pinnacles", "frequenz": "4× im Leben", "berechnung": "Differenzformel aus Geburtsdaten"},
+      {"zyklus": "Lebenspfad-Perioden", "dauer": "ca. 27 Jahre je Phase", "frequenz": "3× im Leben", "berechnung": "Geburtsmonat, Geburtstag, Geburtsjahr separat"}
+    ]
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln in dieser Datei.",
+    "gesamt_regeln": 91,
+    "kategorien": {
+      "berechnungsmethoden": 7,
+      "persoenliches_jahr_profile": 11,
+      "persoenlicher_monat_grundprofile": 9,
+      "persoenlicher_monat_matrix_81_eintraege": 81,
+      "persoenlicher_tag_anwendungsregeln": 9,
+      "universelles_jahr_profile": 11,
+      "interaktion_pj_uj": 4,
+      "pinnacle_profile": 11,
+      "challenge_profile": 9,
+      "zeitrahmen_uebersicht": 7
+    },
+    "hinweis": "Die 81 Einträge der Persönlicher-Monat-Matrix werden als Regelgruppe gezählt. Gesamtregelzahl exklusive Matrix-Inhalte: ~91 strukturelle Regeln."
+  }
+}

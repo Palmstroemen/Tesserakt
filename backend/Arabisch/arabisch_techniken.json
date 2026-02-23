@@ -1,0 +1,669 @@
+{
+  "_meta": {
+    "system": "arabische_astrologie",
+    "modul": "techniken_und_integration",
+    "version": "1.0",
+    "gespraech": "A3",
+    "sources": [
+      "Al-Biruni - Book of Instruction in the Elements of the Art of Astrology (1029 n. Chr., R. Ramsay Wright Übersetzung 1934, public domain AT/EU)",
+      "Abu Ma'shar (Albumasar) - Introductorium in Astronomiam (ca. 850 n. Chr., Originaltext public domain; Lemay Übersetzung 1962, public domain AT/EU)",
+      "Sahl ibn Bishr (Zahel) - Introduction to the Science of the Judgments of the Stars (ca. 820 n. Chr., Originaltext public domain)",
+      "Masha'allah ibn Athari - On Reception (ca. 800 n. Chr., public domain)",
+      "Al-Qabisi (Alcabitius) - Introduction to the Art of Astrology (ca. 950 n. Chr., Originaltext public domain)",
+      "Guido Bonatti - Liber Astronomiae (ca. 1277 n. Chr., Originaltext public domain)",
+      "Claudius Ptolemy - Tetrabiblos (J.M. Ashmand Übersetzung 1822, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Arabische Astrologie — Fortgeschrittene Techniken und Gesamtintegration. Enthält: vollständiges Almuten-System (Berechnung + 12 Haus-Profile), Primäre Direktionen (Ptolemäische Methode), Arabische Aspekttheorie (Reception, Hayz, Cazimi, Combustion, Void of Course), Interrogationes/Horoskopie sowie vollständige Synthese-Regeln für alle Systeme. Abschluss des arabischen Teilwerks (A1–A3) und Verbindungsglied zum Gesamtprojekt.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog arabisch_lose.json / arabisch_firdaria.json",
+    "bezug_zu_anderen_modulen": {
+      "arabisch_lose_json": "Almuten-Analyse bestimmt Lot-Herrscher-Qualität — direkte Verbindung",
+      "arabisch_firdaria_json": "Direktionen ergänzen Firdaria-Timing; Almuten zeigt dominanten Lebensplaneten",
+      "hell_wuerden_json": "Würdetabellen sind Grundlage der Almuten-Berechnung (Punkte nach Domizil/Exaltation/Trigon/Term/Face)",
+      "hell_lots_json": "Direktionen zum Lot des Glücks — Querverbindung zu H2",
+      "hell_haeuser_json": "Aspekttheorie (Reception, Hayz) baut auf hellenistischen Grundlagen auf — H4"
+    }
+  },
+
+  "almuten": {
+    "beschreibung": "Der Almuten (arab. al-Mubtazz — 'der Siegreiche', lat. Almuten) ist der Planet mit den meisten Würdepunkten an einem bestimmten Grad des Tierkreises. In der arabischen Tradition ist er der 'heimliche Herrscher' dieses Grades — mächtiger als der bloße Zeichenherrscher, weil er mehrere Würde-Schichten gleichzeitig besitzt. Al-Biruni: 'Der Almuten ist der, dem dieser Grad am meisten gehört.'",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 461-468 (Wright S.260-275); Abu Ma'shar - Introductorium VI.1-3; Sahl ibn Bishr - Introduction I.8; Bonatti - Liber Astronomiae II.1",
+
+    "berechnung": {
+      "beschreibung": "Für jeden Grad des Tierkreises wird geprüft, welcher Planet die meisten Würdepunkte summiert. Die Punkte stammen aus den fünf essentiellen Würden (vgl. hell_wuerden.json).",
+      "quelle": "Al-Biruni Kap. 461; Bonatti II.1",
+
+      "punktesystem": {
+        "domizil": 5,
+        "exaltation": 4,
+        "trigon_tag": 3,
+        "trigon_nacht": 3,
+        "term": 2,
+        "face_dekan": 1,
+        "hinweis": "Ein Planet kann für denselben Grad mehrere Würden gleichzeitig haben — z.B. Domizil + Trigon + Term = 5+3+2 = 10 Punkte. Der Planet mit der höchsten Gesamtpunktzahl ist der Almuten dieses Grades."
+      },
+
+      "beispiel": {
+        "grad": "15° Widder (Tag-Horoskop)",
+        "mars_punkte": "Domizil (5) + Tag-Trigon Feuer (3) = 8 Punkte",
+        "sonne_punkte": "Exaltation (4) + Tag-Trigon Feuer (3) = 7 Punkte",
+        "jupiter_punkte": "Term ab 14° Widder (2) = 2 Punkte",
+        "saturn_punkte": "Face 3. Dekan Widder (1) = 1 Punkt",
+        "ergebnis": "Mars = Almuten mit 8 Punkten",
+        "quelle": "Al-Biruni Kap. 462"
+      },
+
+      "term_tabelle_ptolemaeisch": {
+        "beschreibung": "Die Term-Zuteilung nach Ptolemy (Tetrabiblos I.20) — Grundlage für Almuten-Berechnung. Jedes Zeichen ist in 5 ungleiche Abschnitte geteilt.",
+        "widder": "Mars 0-6°, Jupiter 6-12°, Venus 12-20°, Merkur 20-25°, Saturn 25-30°",
+        "stier": "Venus 0-8°, Merkur 8-15°, Jupiter 15-22°, Saturn 22-26°, Mars 26-30°",
+        "zwillinge": "Merkur 0-7°, Jupiter 7-14°, Venus 14-21°, Mars 21-25°, Saturn 25-30°",
+        "krebs": "Mars 0-6°, Venus 6-13°, Merkur 13-20°, Jupiter 20-27°, Saturn 27-30°",
+        "loewe": "Jupiter 0-6°, Venus 6-13°, Saturn 13-19°, Merkur 19-25°, Mars 25-30°",
+        "jungfrau": "Merkur 0-7°, Venus 7-13°, Jupiter 13-18°, Saturn 18-24°, Mars 24-30°",
+        "waage": "Saturn 0-6°, Merkur 6-14°, Jupiter 14-21°, Venus 21-28°, Mars 28-30°",
+        "skorpion": "Mars 0-7°, Venus 7-11°, Merkur 11-19°, Jupiter 19-24°, Saturn 24-30°",
+        "schuetze": "Jupiter 0-8°, Venus 8-14°, Merkur 14-19°, Saturn 19-25°, Mars 25-30°",
+        "steinbock": "Venus 0-6°, Merkur 6-12°, Jupiter 12-19°, Mars 19-25°, Saturn 25-30°",
+        "wassermann": "Saturn 0-6°, Merkur 6-12°, Venus 12-20°, Jupiter 20-25°, Mars 25-30°",
+        "fische": "Venus 0-8°, Jupiter 8-14°, Merkur 14-20°, Mars 20-26°, Saturn 26-30°",
+        "quelle": "Ptolemy - Tetrabiblos I.20 (Ashmand Übers. 1822)"
+      },
+
+      "dekan_tabelle": {
+        "beschreibung": "Die 36 Dekane (Face) nach chaldäischer Ordnung — je 10° pro Zeichen, Zuteilung nach planetarer Wochentag-Reihenfolge (Mars → Sonne → Venus → Merkur → Mond → Saturn → Jupiter, wiederholt).",
+        "widder": "1. Dekan 0-10°: Mars; 2. Dekan 10-20°: Sonne; 3. Dekan 20-30°: Venus",
+        "stier": "1. Dekan: Merkur; 2. Dekan: Mond; 3. Dekan: Saturn",
+        "zwillinge": "1. Dekan: Jupiter; 2. Dekan: Mars; 3. Dekan: Sonne",
+        "krebs": "1. Dekan: Venus; 2. Dekan: Merkur; 3. Dekan: Mond",
+        "loewe": "1. Dekan: Saturn; 2. Dekan: Jupiter; 3. Dekan: Mars",
+        "jungfrau": "1. Dekan: Sonne; 2. Dekan: Venus; 3. Dekan: Merkur",
+        "waage": "1. Dekan: Mond; 2. Dekan: Saturn; 3. Dekan: Jupiter",
+        "skorpion": "1. Dekan: Mars; 2. Dekan: Sonne; 3. Dekan: Venus",
+        "schuetze": "1. Dekan: Merkur; 2. Dekan: Mond; 3. Dekan: Saturn",
+        "steinbock": "1. Dekan: Jupiter; 2. Dekan: Mars; 3. Dekan: Sonne",
+        "wassermann": "1. Dekan: Venus; 2. Dekan: Merkur; 3. Dekan: Mond",
+        "fische": "1. Dekan: Saturn; 2. Dekan: Jupiter; 3. Dekan: Mars",
+        "quelle": "Al-Biruni Kap. 463; Firmicus Maternus - Mathesis II.4"
+      }
+    },
+
+    "almuten_figuris": {
+      "beschreibung": "Der Almuten Figuris (lat. 'Gestalt-Almuten') ist der stärkste Planet des gesamten Horoskops — nicht nur eines einzelnen Grades. Er wird durch Summierung der Würdepunkte aller relevanten Horoskop-Punkte berechnet.",
+      "quelle": "Al-Biruni Kap. 464-465; Abu Ma'shar VI.2; Bonatti II.2",
+
+      "berechnungsmethode": {
+        "schritt_1": "Berechne den Almuten des Aszendent-Grades (ASC)",
+        "schritt_2": "Berechne den Almuten des Sonne-Grades",
+        "schritt_3": "Berechne den Almuten des Mond-Grades",
+        "schritt_4": "Berechne den Almuten des MC-Grades",
+        "schritt_5": "Berechne den Almuten des Lot-des-Glücks-Grades",
+        "schritt_6": "Summiere für jeden Planeten die Punkte aus allen fünf Berechnungen",
+        "schritt_7": "Der Planet mit der höchsten Gesamtpunktzahl = Almuten Figuris",
+        "quelle": "Al-Biruni Kap. 465; Bonatti II.2"
+      },
+
+      "deutung": {
+        "beschreibung": "Der Almuten Figuris ist der 'heimliche Herrscher' des gesamten Lebens — mächtiger als der Aszendent-Herrscher und einflussreicher als der Herrscher des Sonnenzeichens. Er zeigt die tiefste planetare Prägung.",
+        "al_biruni": "Al-Biruni: 'Der Almuten Figuris ist wie der unsichtbare König des Horoskops — er regiert, auch wenn man ihn nicht sieht.'",
+        "vergleich_zum_lagna_herrscher": "Wenn Almuten Figuris ≠ ASC-Herrscher: Der Almuten zeigt die tiefere Lebensaufgabe; der ASC-Herrscher zeigt die Persönlichkeits-Oberfläche.",
+        "quelle": "Al-Biruni Kap. 465; Abu Ma'shar VI.2"
+      }
+    },
+
+    "almuten_nach_haeusern": {
+      "beschreibung": "Der Almuten eines Hausherrschers — d.h. der stärkste Planet im Zeichen, das ein bestimmtes Haus regiert — gibt präzisere Auskunft über das Haus-Thema als der bloße Zeichenherrscher. 12 Profile.",
+      "quelle": "Al-Biruni Kap. 466-467; Sahl ibn Bishr - Introduction I.8",
+
+      "haus_1": {
+        "name": "Almuten des 1. Hauses",
+        "thema": "Identität, Körper, Erscheinung",
+        "deutung": "Der Almuten des ASC-Zeichens zeigt, welcher Planet den Körper und die Persönlichkeit am tiefsten prägt. Er ist wirksamer als der bloße ASC-Herrscher. Sahl: 'Wenn der Almuten des 1. Hauses stark ist, ist der Körper kräftig und die Persönlichkeit durchsetzungsfähig.' Bei Schwäche: körperliche Anfälligkeit, Unsicherheit in der Selbstdarstellung.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 5, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "haus_2": {
+        "name": "Almuten des 2. Hauses",
+        "thema": "Finanzen, Ressourcen, materielle Mittel",
+        "deutung": "Der stärkste Planet im Zeichen des 2. Hauses zeigt die tiefste Qualität der Ressourcen-Sphäre. Al-Biruni: 'Der Almuten des 2. Hauses zeigt, durch welches planetare Prinzip Reichtum fließt oder ausbleibt.' Jupiter als Almuten des 2. Hauses: Wohlstand ohne große Mühe. Saturn als Almuten: Wohlstand durch harte Arbeit und Geduld.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 5, "gesundheit": 3, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+      },
+      "haus_3": {
+        "name": "Almuten des 3. Hauses",
+        "thema": "Kommunikation, Geschwister, kurze Reisen",
+        "deutung": "Bestimmt die Qualität des kommunikativen Ausdrucks und der Geschwisterbeziehungen tiefer als der bloße Zeichenherrscher. Merkur als Almuten: brillante Kommunikation. Saturn als Almuten: langsame, strukturierte, ernste Ausdrucksweise.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 2}
+      },
+      "haus_4": {
+        "name": "Almuten des 4. Hauses",
+        "thema": "Familie, Herkunft, Grundbesitz, Ende der Dinge",
+        "deutung": "Zeigt die tiefste Qualität der familiären und häuslichen Sphäre. Venus als Almuten des 4. Hauses: harmonisches, schönes Familienleben. Mars als Almuten: Konflikte in der Familie oder mit dem Vater; turbulente Herkunft.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 2, "finanzen": 4, "gesundheit": 3, "soziales": 4, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4}
+      },
+      "haus_5": {
+        "name": "Almuten des 5. Hauses",
+        "thema": "Kinder, Kreativität, Freude, Liebesabenteuer",
+        "deutung": "Bestimmt die Qualität von Kreativität und Kinderthemen. Jupiter als Almuten des 5. Hauses: Segen für Kinder und kreatives Schaffen. Saturn als Almuten: Verzögerung oder Schwierigkeiten bei Kindern; ernste, strukturierte Kreativität.",
+        "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "haus_6": {
+        "name": "Almuten des 6. Hauses",
+        "thema": "Dienst, Gesundheit, Tiere, Untergebene",
+        "deutung": "Zeigt die Qualität der Gesundheits- und Dienstsphäre. Merkur als Almuten des 6. Hauses: intellektuelle Arbeit im Dienst anderer; nervöse Gesundheit. Mars als Almuten: Verletzungsrisiken, entzündliche Erkrankungen; energische Dienste.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 2, "gesundheit": 4, "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+      },
+      "haus_7": {
+        "name": "Almuten des 7. Hauses",
+        "thema": "Partnerschaft, Ehe, Öffentlichkeit, offene Feinde",
+        "deutung": "Tiefster Präger der Partnerschafts-Sphäre. Venus als Almuten des 7. Hauses: harmonische, schöne Partnerschaft. Saturn als Almuten: ernste, pflichtbetonte oder verzögerte Partnerschaft; mögliche große Altersunterschiede.",
+        "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "haus_8": {
+        "name": "Almuten des 8. Hauses",
+        "thema": "Tod, Erbschaft, Verborgenes, Krise",
+        "deutung": "Al-Biruni: 'Der Almuten des 8. Hauses zeigt die Qualität der Krisen und Enden im Leben.' Jupiter als Almuten des 8. Hauses: Erbschaften, sanfter Tod, Krisenüberwindung mit Gnade. Mars als Almuten: gewaltsame Ereignisse, Unfälle, abrupte Enden.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 4}
+      },
+      "haus_9": {
+        "name": "Almuten des 9. Hauses",
+        "thema": "Religion, Philosophie, Fernreisen, höhere Bildung",
+        "deutung": "Bestimmt die Qualität der geistigen und spirituellen Sphäre. Jupiter als Almuten des 9. Hauses: tiefe religiöse Überzeugung, Glück auf Reisen, Bildungserfolg. Saturn als Almuten: orthodoxe oder strenge Religiosität; Reisen voller Mühsal.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}
+      },
+      "haus_10": {
+        "name": "Almuten des 10. Hauses",
+        "thema": "Karriere, Status, öffentliches Wirken, Ruhm",
+        "deutung": "Der mächtigste Almuten im Bezug auf weltlichen Erfolg. Al-Biruni: 'Der Almuten des 10. Hauses ist der Herr der Taten — durch ihn weiß man, welcher Planet das öffentliche Leben dominiert.' Sonne: öffentliche Autorität. Saturn: langsamer, mühsamer aber beständiger Aufstieg.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "haus_11": {
+        "name": "Almuten des 11. Hauses",
+        "thema": "Freunde, Hoffnungen, Netzwerke, Unterstützer",
+        "deutung": "Zeigt die tiefste Qualität der sozialen Netzwerk-Sphäre. Venus als Almuten des 11. Hauses: liebevolle Freundschaften, starkes soziales Netz. Saturn als Almuten: wenige, aber verlässliche Freunde; soziale Distanz trotz Ambitionen.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4}
+      },
+      "haus_12": {
+        "name": "Almuten des 12. Hauses",
+        "thema": "Verborgenheit, Feinde, Exil, Spiritualität",
+        "deutung": "Zeigt das tiefste Thema des Verborgenen und Einschränkenden. Jupiter als Almuten des 12. Hauses: das Verborgene bringt Segen — spirituelle Tiefe, schützende Isolation. Saturn als Almuten: schwere Einschränkungen, mögliche Gefangenschaft oder chronische Isolation.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 1, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5}
+      }
+    },
+
+    "almuten_in_der_praxis": {
+      "beschreibung": "Praktische Anwendungsregeln des Almuten-Systems in der Gesamtinterpretation.",
+      "quelle": "Al-Biruni Kap. 468; Abu Ma'shar VI.3; Bonatti II.3",
+
+      "regel_1": {
+        "name": "Almuten schlägt Zeichenherrscher",
+        "beschreibung": "Wenn der Almuten eines Hauses ein anderer Planet als der Zeichenherrscher ist, ist der Almuten der primäre Signifikator für das Haus-Thema. Sahl: 'Der Almuten ist mächtiger, weil er mehr Würden hat.' Der Zeichenherrscher zeigt die Oberfläche; der Almuten zeigt die tiefere Schicht."
+      },
+      "regel_2": {
+        "name": "Almuten und Firdaria zusammen",
+        "beschreibung": "Wenn der aktuelle Firdaria-Herrscher (arabisch_firdaria.json) gleichzeitig der Almuten Figuris ist: maximale Perioden-Intensität. Al-Biruni: 'Der stärkste Planet im Horoskop regiert auch die Lebensperiode — dann spricht der heimliche König laut.' Seltene, aber bedeutende Konstellation."
+      },
+      "regel_3": {
+        "name": "Almuten und Lot-Herrscher",
+        "beschreibung": "Wenn der Almuten eines Hauses gleichzeitig der Herrscher eines Lots (arabisch_lose.json) in demselben Haus ist: die Lot-Wirkung ist besonders stark und zuverlässig, weil der Herrscher doppelt verankert ist."
+      },
+      "regel_4": {
+        "name": "Almuten ↔ Bazi-Vergleich",
+        "beschreibung": "In Bazi zeigt der stärkste Tagesstamm (日元, Rì Yuán) das dominierende Lebens-Prinzip. Der Almuten Figuris erfüllt dieselbe Funktion: Er zeigt den 'heimlichen Regenten' des Lebens. Beide Systeme fragen: Welche Kraft dominiert diesen Menschen jenseits der offensichtlichen Zeichen?"
+      }
+    }
+  },
+
+  "primaere_direktionen": {
+    "beschreibung": "Primäre Direktionen (arab. al-Tasyir — 'das Herausschicken', lat. Directiones Primae) sind die präziseste Timing-Methode der arabischen und hellenistischen Astrologie. Sie basieren auf der scheinbaren Tagesbewegung der Himmelssphäre (Primärbewegung) und messen, wann ein Planet durch diese Bewegung einen anderen Horoskop-Punkt erreicht.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 505-512 (Wright S.317-328); Abu Ma'shar - Introductorium IX.1-3; Ptolemy - Tetrabiblos III.10 (Ashmand Übers.); Bonatti - Liber Astronomiae VI.1-4",
+
+    "grundprinzip": {
+      "beschreibung": "Die Himmelssphäre rotiert täglich um ca. 360°. Durch diese Rotation bewegen sich alle Himmelspunkte am Erdhorizont vorbei. Das Schlüsselprinzip der primären Direktionen ist die Äquivalenz von 1° Äquatorbogen (gemessen in Rektaszension) zu 1 Lebensjahr.",
+      "al_biruni": "Al-Biruni: 'Das Schicken eines Planeten bedeutet: wir lassen ihn durch die Primärbewegung zum anderen Punkt wandern, und jeder Grad dieser Reise ist ein Jahr des Lebens.'",
+      "ptolemy": "Ptolemy - Tetrabiblos III.10: 'Für jede Stunde, die der Ascendant-Punkt braucht, um einen Aspekt zu erreichen, ist ein Jahr zu rechnen.'",
+      "quelle": "Al-Biruni Kap. 505; Ptolemy III.10"
+    },
+
+    "berechnungsmethode": {
+      "beschreibung": "Vereinfachte Methode nach Al-Biruni (Ptolemäische Bogen-Methode):",
+      "schritt_1": "Bestimme den Ausgangspunkt (Promissor): z.B. ASC, MC, Lot des Glücks, oder ein Geburtsplanet",
+      "schritt_2": "Bestimme den Zielpunkt (Significator): z.B. ein Geburtsplanet oder sein Aspekt-Punkt",
+      "schritt_3": "Messe den Äquatorialbogen (in Rektaszension) zwischen Promissor und Significator",
+      "schritt_4": "Dieser Bogen in Grad = Alter des Ereignisses in Jahren",
+      "vereinfachung": "Für Näherungsberechnungen: Ekliptika-Längenunterschied ÷ cos(Deklination) ≈ Rektaszensions-Bogen",
+      "quelle": "Al-Biruni Kap. 506-507; Ptolemy III.10"
+    },
+
+    "richtungen_zum_aszendenten": {
+      "beschreibung": "Direktionen zum Ascendant-Punkt — der persönlichste und körperbezogenste Richtungspunkt. Al-Biruni: 'Der Ascendant ist das Tor des Lebens — was auf ihn trifft, trifft die Person selbst.'",
+      "quelle": "Al-Biruni Kap. 508; Abu Ma'shar IX.2",
+
+      "jupiter_dirigiert_zum_asc": {
+        "ereignis": "Jupiter dirigiert zum ASC",
+        "wirkung": "Günstigste Direktion: Expansion, Wohlstand, Gesundheitsverbesserung, öffentliche Anerkennung. Al-Biruni: 'Jupiter am Ascendant — dies ist das Jahr der Gunst Gottes.' Oft: wichtige Heiraten, Beförderungen, Geburt von Kindern.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 5, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5}
+      },
+      "venus_dirigiert_zum_asc": {
+        "ereignis": "Venus dirigiert zum ASC",
+        "wirkung": "Liebes- und Wohlstandsjahr. Günstig für Heirat, Geburten, künstlerische Erfolge, materiellen Komfort.",
+        "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3}
+      },
+      "saturn_dirigiert_zum_asc": {
+        "ereignis": "Saturn dirigiert zum ASC",
+        "wirkung": "Schwerstes Direktions-Jahr: Prüfungen, Krankheiten, Verluste, Einschränkungen der persönlichen Freiheit. Al-Biruni: 'Saturn am Ascendant — das ist das Jahr der Last und des Leidens.' Oft: chronische Erkrankungen, Rückschläge, Tod im Umfeld.",
+        "dimensionen_vektor": {"liebe": 1, "beruf": 2, "finanzen": 1, "gesundheit": 1, "soziales": 1, "kreativitaet": 1, "veraenderung": 5, "spiritualitaet": 4}
+      },
+      "mars_dirigiert_zum_asc": {
+        "ereignis": "Mars dirigiert zum ASC",
+        "wirkung": "Konflikt, Verletzungsgefahr, abrupte Veränderungen. Auch: große persönliche Energie und Durchsetzungskraft, wenn Mars im Horoskop stark ist. Sahl: 'Mars am Ascendant — Eile, Hitze, Gefahr.'",
+        "dimensionen_vektor": {"liebe": 1, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 1, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2}
+      },
+      "sonne_dirigiert_zum_asc": {
+        "ereignis": "Sonne dirigiert zum ASC",
+        "wirkung": "Öffentliche Sichtbarkeit, Autorität, wichtige Kontakte mit einflussreichen Personen. Günstig für Karriereschritte und familiäre Ereignisse (Vater, Autorität).",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "mond_dirigiert_zum_asc": {
+        "ereignis": "Mond dirigiert zum ASC",
+        "wirkung": "Emotionale Ereignisse, familiäre Veränderungen, öffentliche Popularität. Häufig: Umzüge, Familienvergrößerung, öffentliche Reaktionen. Wandel in der persönlichen Erscheinung.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 3}
+      },
+      "merkur_dirigiert_zum_asc": {
+        "ereignis": "Merkur dirigiert zum ASC",
+        "wirkung": "Intellektuelle Aktivität, Vertragsabschlüsse, Reisen, Kommunikation. Günstig für Bildungsabschlüsse, Schriftliches, Geschäftsgründungen.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 2}
+      }
+    },
+
+    "richtungen_zum_midheaven": {
+      "beschreibung": "Direktionen zum Midheaven (MC) — berufliche und öffentliche Ereignisse. Al-Biruni: 'Der MC ist das Haus der Taten — was auf ihn trifft, erscheint in der Öffentlichkeit.'",
+      "quelle": "Al-Biruni Kap. 509; Bonatti VI.2",
+
+      "jupiter_zum_mc": {
+        "wirkung": "Karriere-Höhepunkt, Beförderung, öffentliche Ehrung, Eintritt in wichtige Position. Das bedeutendste günstige Karriereereignis.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4}
+      },
+      "saturn_zum_mc": {
+        "wirkung": "Karriere-Einbruch, Sturz aus dem Amt, öffentliche Kritik, Autoritätsverlust. Sahl: 'Saturn am MC — der König verliert seinen Thron, der Kaufmann seine Güter.'",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 1, "finanzen": 1, "gesundheit": 2, "soziales": 1, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 3}
+      },
+      "sonne_zum_mc": {
+        "wirkung": "Starke öffentliche Sichtbarkeit, Autoritätsgewinn, Verbindung zu Mächtigen. Wichtiges Karriereereignis.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}
+      },
+      "mars_zum_mc": {
+        "wirkung": "Konflikte im Beruf, abrupte Karrierewechsel, Kämpfe um Status. Auch: Durchsetzung trotz Widerstands, mutige öffentliche Handlungen.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2}
+      }
+    },
+
+    "richtungen_zum_lot_des_gluecks": {
+      "beschreibung": "Direktionen zum Lot des Glücks (Pars Fortunae) — materielle und körperliche Ereignisse. Al-Biruni: 'Was auf das Lot des Glücks trifft, trifft den Körper und die materiellen Mittel des Menschen.'",
+      "quelle": "Al-Biruni Kap. 510; Abu Ma'shar IX.3",
+
+      "jupiter_zum_lot": {
+        "wirkung": "Materieller Glücksmoment — Erbschaft, finanzieller Durchbruch, körperliche Vitalitätssteigerung. Günstigstes materielles Ereignis.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 5, "gesundheit": 5, "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4}
+      },
+      "saturn_zum_lot": {
+        "wirkung": "Materieller Verlust, Krankheit, körperliche Einschränkung. Al-Biruni: 'Saturn am Lot des Glücks entzieht dem Körper seine Kraft und dem Portemonnaie seinen Inhalt.'",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 2, "finanzen": 1, "gesundheit": 1, "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 3}
+      },
+      "venus_zum_lot": {
+        "wirkung": "Wohlstand durch Genuss, Erbschaften von Frauen, körperliche Anmut und Gesundheit. Günstig für finanzielle Stabilität.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 5, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 2, "spiritualitaet": 3}
+      }
+    },
+
+    "direktions_timing_regeln": {
+      "beschreibung": "Übergreifende Regeln für die Interpretation primärer Direktionen.",
+      "quelle": "Al-Biruni Kap. 511; Sahl ibn Bishr - Introduction V.1; Bonatti VI.3",
+
+      "regel_1_zeugen": "Al-Biruni: 'Eine Direktion allein reicht nicht für ein sicheres Urteil. Suche Transit und Firdaria als Zeugen.' Erst wenn Direktion + aktueller Firdaria-Herrscher + Transit desselben Planeten zusammenwirken, ist das Ereignis hochwahrscheinlich.",
+      "regel_2_benoef_vs_malefc": "Dieselbe Direktion wirkt unterschiedlich je nach Horoskopstellung des dirigierten Planeten. Jupiter in Detriment dirigiert zum ASC: Segen, aber gemindert. Saturn in Exaltation dirigiert zum ASC: Prüfung, aber überwindbar.",
+      "regel_3_reception": "Wenn der dirigierende Planet im Zeichen des Zielpunkts Würde hat (Reception): Die Direktion wirkt milder und kooperativer. Al-Biruni: 'Wenn der ankommende Planet den Gastgeber ehrt, ist sein Besuch willkommen.'",
+      "regel_4_gegendirektionen": "Bonatti: 'Beachte auch die Rückrichtung (Converse Directions) — ein Punkt wird auch durch die Bewegung in der entgegengesetzten Richtung aktiviert.' Konverse Direktionen zeigen oft verborgene oder innere Ereignisse.",
+      "regel_5_kumulation": "Mehrere günstige Direktionen im selben Jahr: Häufung von Glück. Mehrere ungünstige: Häufung von Schwierigkeiten. Sahl: 'Wenn alle Zeiger auf dasselbe Ziel weisen, ist der Treffer sicher.'"
+    }
+  },
+
+  "arabische_aspekttheorie": {
+    "beschreibung": "Die arabische Astrologie übernimmt die 5 hellenistischen Aspekte (Konjunktion, Sextil, Quadrat, Trigon, Opposition) und entwickelt darüber hinaus eine differenzierte Theorie der Planeten-Beziehungen und Würde-Zustände. Diese Zustände bestimmen, wie stark ein Planet tatsächlich wirkt — unabhängig davon, welche Aspekte er bildet.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 447-460 (Wright S.237-259); Masha'allah - On Reception (vollständig); Sahl ibn Bishr - Introduction I.5-7; Al-Qabisi - Introduction I.1-4",
+
+    "reception": {
+      "name": "Reception / Empfang (arab. Qabul)",
+      "beschreibung": "Reception liegt vor, wenn ein Planet einen anderen im Zeichen empfängt, in dem er selbst Würde hat. Masha'allah: 'Reception bedeutet: Planet A befindet sich im Zeichen der Würde von Planet B — B empfängt A. Das ist der freundlichste aller Zustände, denn der Gast wird vom Hausherrn willkommen geheißen.'",
+      "quelle": "Masha'allah - On Reception (vollständig); Al-Biruni Kap. 452; Sahl I.6",
+
+      "einfache_reception": {
+        "definition": "Planet A steht im Zeichen des Domizils, der Exaltation oder der Triplizität von Planet B — und B schaut auf A (durch Aspekt oder Konjunktion).",
+        "wirkung": "Die Interaktion zwischen A und B ist freundlich und kooperativ, auch wenn der Aspekt an sich schwierig ist (z.B. Quadrat mit Reception ist besser als Trigon ohne Reception).",
+        "beispiel": "Mars in Steinbock (Exaltation des Mars), aspektiert von Saturn: Saturn empfängt Mars in seiner Exaltation — günstige Kooperation trotz potentiell schwierigem Saturn-Mars-Aspekt."
+      },
+      "gegenseitige_reception": {
+        "definition": "Planet A steht in der Würde von B, UND Planet B steht in der Würde von A — beide empfangen sich gegenseitig.",
+        "wirkung": "Stärkste Form der kooperativen Verbindung. Al-Biruni: 'Gegenseitige Reception ist wie zwei Kaufleute, die sich gegenseitig ihre Waren tauschen — beide profitieren.' Die Planeten wirken wie aus einer Einheit heraus.",
+        "beispiel": "Sonne in Widder (Exaltation) und Mars in Löwe (Feuer-Trigon der Sonne): gegenseitige Reception — Sonne und Mars sind in höchster Kooperation.",
+        "dimensionen_modifikator": "+1 auf alle Dimensionswerte beider beteiligter Planeten-Themen"
+      },
+      "reception_ohne_aspekt": {
+        "definition": "Planet A steht in der Würde von B, aber B aspektiert A nicht.",
+        "wirkung": "Schwächere Reception — das Potenzial der Kooperation ist vorhanden, aber nicht aktiviert. Sahl: 'Reception ohne Aspekt ist wie eine offene Tür — aber niemand tritt ein.'"
+      }
+    },
+
+    "hayz": {
+      "name": "Hayz (arab. Hayz — 'Zustand', 'Verfassung')",
+      "beschreibung": "Hayz beschreibt den Zustand eines Planeten, wenn er in maximaler Harmonie mit seinem Sekt, Geschlecht und Halbzirkel steht. Al-Biruni: 'Hayz ist der Zustand vollständiger Selbstübereinstimmung — der Planet ist ganz er selbst.' Es ist die akzidentelle Stärke durch Sektkonformität.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 453-455 (Wright S.248-253); Al-Qabisi - Introduction I.3; Sahl I.5",
+
+      "bedingungen": {
+        "tag_planet_in_hayz": "Tag-Planet (Sonne, Jupiter, Saturn) steht: (1) in einem Tag-Zeichen (Widder, Zwillinge, Löwe, Waage, Schütze, Wassermann) UND (2) über dem Horizont (Häuser 7-12) UND (3) im Tag-Horoskop (Sonne über Horizont)",
+        "nacht_planet_in_hayz": "Nacht-Planet (Mond, Venus, Mars) steht: (1) in einem Nacht-Zeichen (Stier, Krebs, Jungfrau, Skorpion, Steinbock, Fische) UND (2) unter dem Horizont (Häuser 1-6) UND (3) im Nacht-Horoskop",
+        "merkur_in_hayz": "Merkur: in Hayz wenn im selben Zeichen wie die Sonne (bei Tag) oder allein ohne Sonnen-Konjunktion (bei Nacht) — Merkur passt sich dem Sekt der Sonne an.",
+        "quelle": "Al-Biruni Kap. 453; Al-Qabisi I.3"
+      },
+
+      "wirkung": {
+        "beschreibung": "Ein Planet in Hayz ist in seinem besten akzidentellen Zustand. Auch wenn er keine essentielle Würde hat (also nicht in Domizil oder Exaltation steht), wirkt er mit seiner vollen natürlichen Kraft.",
+        "dimensionen_modifikator": "+1 auf alle Dimensionswerte dieses Planeten in der Interpretation",
+        "al_biruni": "Al-Biruni: 'Hayz gibt dem Planeten seine Würde zurück, auch wenn er sie durch Zeichen verloren hat.'",
+        "quelle": "Al-Biruni Kap. 455"
+      },
+
+      "partieller_hayz": {
+        "beschreibung": "Wenn nur zwei der drei Hayz-Bedingungen erfüllt sind (z.B. richtiges Zeichen + richtiges Horoskop, aber falscher Horizont-Bereich): partieller Hayz — teilweise Stärke.",
+        "wirkung": "Schwächere Hayz-Wirkung, aber immer noch günstiger als kein Hayz.",
+        "quelle": "Al-Qabisi I.3"
+      }
+    },
+
+    "cazimi": {
+      "name": "Cazimi (arab. Qalb al-Shams — 'Herzpunkt der Sonne')",
+      "beschreibung": "Cazimi beschreibt den Zustand eines Planeten, der exakt im Herzpunkt der Sonne steht — innerhalb von 17 Bogenminuten der Sonnenposition. Dieser Zustand ist das Gegenteil von Verbrennung (Combustion): Anstatt von der Sonne verbrannt zu werden, wird der Planet in das Herz der Sonne aufgenommen und erhält königliche Kraft.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 447 (Wright S.237-239); Sahl ibn Bishr - Introduction I.7; Bonatti - Liber Astronomiae I.4",
+
+      "definition": {
+        "bedingung": "Planet innerhalb von 0°17' (17 Bogenminuten) der Sonnenposition — absolut exakt konjunkt.",
+        "bildsprache": "Sahl: 'Der Planet steht im Herzen des Königs — er ist nicht verbrannt, sondern geehrt. Er sitzt auf dem Thron.'",
+        "quelle": "Sahl I.7; Al-Biruni Kap. 447"
+      },
+
+      "wirkung": {
+        "beschreibung": "Cazimi-Planeten sind in ihrem stärksten akzidentellen Zustand — stärker sogar als ein Planet in Domizil. Al-Biruni: 'Cazimi ist die größte akzidentelle Stärke, die ein Planet haben kann.' Der Planet empfängt alle Kraft der Sonne und wirkt sie durch seine eigene Natur aus.",
+        "dimensionen_modifikator": "+2 auf alle primären Dimensionswerte des Planeten",
+        "quelle": "Al-Biruni Kap. 447; Bonatti I.4"
+      },
+
+      "abgrenzung_von_combustion": "Innerhalb von 8° der Sonne (aber außerhalb von 17'): Combustion (Schwächung). Innerhalb von 17': Cazimi (Stärkung). Al-Biruni: 'Der Unterschied ist wie Tag und Nacht — derselbe Ort, aber ein anderer Zustand.'",
+      "quelle_abgrenzung": "Al-Biruni Kap. 447-448"
+    },
+
+    "combustion_und_under_the_beams": {
+      "name": "Verbrennung (arab. Ihtiraq) und Unter den Strahlen (arab. Taht al-Shu'a')",
+      "beschreibung": "Verbrennung (Combustion) und 'Unter den Strahlen stehen' (Under the Beams) beschreiben zwei Grade der Schwächung durch Sonnennähe. Die Sonne als König verbrennt Planeten in ihrer Nähe — sie verlieren ihre Eigenständigkeit.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 448-449 (Wright S.239-243); Sahl ibn Bishr - Introduction I.7; Al-Qabisi - Introduction I.2",
+
+      "under_the_beams": {
+        "definition": "Planet innerhalb von 15° der Sonne (aber außerhalb von 8°).",
+        "wirkung": "Planet ist geschwächt — er kann seine volle Natur nicht ausdrücken, da die Sonne seine 'Stimme' übertönt. Sahl: 'Unter den Strahlen ist der Planet wie ein Soldat im Schatten seines Königs — er existiert, aber man sieht ihn kaum.' Mildere Schwächung als Combustion.",
+        "dimensionen_modifikator": "−1 auf primäre Dimensionswerte des Planeten",
+        "quelle": "Sahl I.7; Al-Biruni Kap. 449"
+      },
+
+      "combustion": {
+        "definition": "Planet innerhalb von 8° der Sonne (aber außerhalb von 17').",
+        "wirkung": "Schwere Schwächung. Al-Biruni: 'Combustion ist wie Feuer, das alles verbrennt — der Planet verliert seine Fähigkeit zu geben und zu empfangen.' Der verbrannte Planet kann seine Themen nicht manifestieren. Besonders kritisch: Herrscher eines Hauses verbrannt → das Haus-Thema leidet.",
+        "dimensionen_modifikator": "−2 auf alle Dimensionswerte des Planeten",
+        "ausnahme_mond": "Der Mond ist besonders anfällig: schon 12° Abstand zur Sonne reichen für milde Verbrennung.",
+        "quelle": "Al-Biruni Kap. 448; Al-Qabisi I.2"
+      },
+
+      "ausnahme_reception": {
+        "beschreibung": "Wenn der verbrannte Planet im Zeichen der Sonne Würde hat (Reception): die Verbrennung wird stark gemildert. Al-Biruni: 'Reception in der Verbrennung ist wie Wasser im Feuer — das Feuer kühlt ab.' Sahl: 'Reception macht die Verbrennung erträglich.'",
+        "quelle": "Al-Biruni Kap. 448; Masha'allah - On Reception"
+      }
+    },
+
+    "void_of_course_mond": {
+      "name": "Void of Course Mond (arab. Qamar Munfasil — 'getrennter Mond')",
+      "beschreibung": "Der Mond ist Void of Course, wenn er keinen vollständigen Aspekt mehr zu einem anderen Planeten bildet, bevor er das aktuelle Zeichen verlässt. In der arabischen Tradition ist dies ein Zustand der Handlungsunfähigkeit: Was begonnen wird, wenn der Mond Void of Course ist, kommt nicht zur Vollendung.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 456-457 (Wright S.253-256); Sahl ibn Bishr - Introduction I.7; Bonatti - Liber Astronomiae I.5",
+
+      "definition": {
+        "arabisch": "Der Mond befindet sich im letzten Abschnitt eines Zeichens und bildet vor dem Zeichenwechsel keinen Aspekt (Konjunktion, Sextil, Quadrat, Trigon, Opposition) zu einem anderen Planeten.",
+        "sahl": "Sahl ibn Bishr: 'Wenn der Mond niemanden anschaut und niemand ihn anschaut — dann ist er verloren in einem leeren Raum. Was in dieser Zeit beginnt, endet ohne Frucht.'",
+        "quelle": "Sahl I.7"
+      },
+
+      "wirkung_allgemein": {
+        "beschreibung": "Begonnene Unternehmungen scheitern oder verlaufen im Sande. Entscheidungen getroffen in dieser Zeit führen nicht zum erwünschten Ergebnis. Al-Biruni: 'Ein Mond ohne Aspekte ist ein Bote ohne Botschaft.'",
+        "dimensionen_modifikator": "−1 auf alle Dimensionswerte für Ereignisse/Entscheidungen unter Void-of-Course-Mond",
+        "quelle": "Al-Biruni Kap. 456"
+      },
+
+      "ausnahmen": {
+        "mond_in_stier_oder_krebs": "Wenn der Mond Void of Course in Stier (Exaltation) oder Krebs (Domizil) ist: die Wirkung ist stark gemildert — der Mond hat eigene Kraft. Bonatti: 'Ein Mond in seinen Würden braucht keinen anderen — er wirkt aus sich selbst heraus.'",
+        "sammlung_des_lichts": "Wenn ein dritter Planet Aspekte zu beiden 'abgeschnittenen' Planeten bildet: er 'sammelt das Licht' und kann als Vermittler wirken. Dann ist das Void of Course überwunden.",
+        "quelle": "Bonatti I.5; Sahl I.7"
+      }
+    }
+  },
+
+  "interrogationes": {
+    "name": "Interrogationes / Horoskopie (arab. Masa'il — 'Fragen')",
+    "beschreibung": "Interrogationes (auch: Horary Astrology / Geburtshoroskopie) ist eine Technik, bei der nicht das Geburtshoroskop, sondern das Horoskop des Fragestellungs-Moments ausgewertet wird. Diese Technik ist in der arabischen Tradition neben der Nativitäts-Astrologie (Geburtshoroskop) gleichwertig etabliert. Sie beantwortet konkrete Lebensfragen mit Hilfe des Moments-Horoskops.",
+    "quelle": "Sahl ibn Bishr - Introduction V.1-8 (vollständig); Abu Ma'shar - Introductorium X.1-2; Al-Biruni - Book of Instruction Kap. 513-520 (Wright S.329-338); Bonatti - Liber Astronomiae VII.1-4",
+
+    "grundprinzip": {
+      "beschreibung": "Der Moment, in dem eine ernsthafte Frage gestellt wird, enthält astrologisch die Antwort — wenn man das Horoskop dieses Moments korrekt analysiert. Die arabische Tradition sieht im Fragehoroskop einen 'Spiegel' der aktuellen Lebenssituation.",
+      "fragesteller": "Der Fragesteller (Querent) wird durch den ASC und seinen Herrscher repräsentiert.",
+      "fragethema": "Das Thema der Frage wird durch das entsprechende Haus repräsentiert (z.B. Ehe = 7. Haus, Beruf = 10. Haus).",
+      "antwort_durch_mondaspekte": "Der Mond zeigt durch seine nächsten Aspekte, wie die Situation sich entwickelt — was er zuletzt berührt hat (Vergangenheit) und was er als nächstes berühren wird (Zukunft).",
+      "quelle": "Sahl V.1; Al-Biruni Kap. 513"
+    },
+
+    "wann_interrogationes_relevant": {
+      "geeignet": [
+        "Konkrete Einzelfragen: 'Wird diese Reise erfolgreich?', 'Bekomme ich den Job?', 'Wird diese Ehe halten?'",
+        "Zeitkritische Entscheidungen, bei denen kein Geburtshoroskop vorliegt",
+        "Ergänzende Vertiefung einer bestimmten Geburtshoroskop-Frage im aktuellen Moment",
+        "Fragen über vermisste Personen oder verlorene Gegenstände"
+      ],
+      "ungeeignet": [
+        "Allgemeine Lebensfragen, für die das Geburtshoroskop besser geeignet ist",
+        "Triviale oder nicht ernstgemeinte Fragen (Sahl: 'Die Frage muss aus dem Herzen kommen')",
+        "Wiederholte Fragen zu demselben Thema innerhalb kurzer Zeit"
+      ],
+      "quelle": "Sahl V.2; Al-Biruni Kap. 514"
+    },
+
+    "mond_als_verbindungsplanet": {
+      "beschreibung": "In der Interrogationes-Praxis ist der Mond der entscheidende Vermittler. Sahl: 'Der Mond trägt die Botschaft von einem Planeten zum anderen — er zeigt, was passiert ist und was passieren wird.'",
+      "letzter_aspekt": "Der letzte Aspekt des Mondes zeigt, was gerade abgeschlossen wurde oder welche Einflüsse die Situation geformt haben.",
+      "naechster_aspekt": "Der nächste Aspekt des Mondes zeigt, wohin sich die Situation entwickelt — das ist oft die Antwort auf die Frage.",
+      "quelle": "Sahl V.3; Abu Ma'shar X.2"
+    },
+
+    "bezug_zur_nativitaet": {
+      "beschreibung": "Arabische Astrologen nutzen Interrogationes nie isoliert, sondern in Kombination mit dem Geburtshoroskop. Al-Biruni: 'Das Fragehoroskop zeigt den Moment; das Geburtshoroskop zeigt das Potential. Beide zusammen zeigen das Ergebnis.'",
+      "quelle": "Al-Biruni Kap. 520"
+    }
+  },
+
+  "synthese_regeln": {
+    "beschreibung": "Vollständige Integrations-Synthese des arabischen Teilwerks (A1–A3) mit allen anderen Systemen des Projekts. Diese Regeln zeigen, wie arabische Techniken mit hellenistischer, westlicher, jyotish-indischer, Bazi- und Kabbalah-Astrologie zusammenwirken.",
+    "quelle": "Syntheseregel nach Projektplan; Al-Biruni Kap. 502 (Wright S.315) — Al-Biruni selbst vergleicht systematisch arabische, hellenistische, persische und indische Traditionen",
+
+    "arabisch_zu_hellenistisch": {
+      "beschreibung": "Die arabische Astrologie ist die direkteste Nachfolgerin der hellenistischen — historisch und methodisch. Fast alle arabischen Techniken haben hellenistische Vorläufer.",
+      "quelle": "Abu Ma'shar - Introductorium Vorwort; Al-Biruni Kap. 1 (Einleitung)",
+
+      "kontinuitaeten": {
+        "lots": "Arabische Lose (A1) = Hellenistische Lots (H2): selbe Formeln, erweiterte Systematik. Pars Fortunae = Sahm al-Sa'ada.",
+        "zeitherren": "Arabische Firdaria (A2) ↔ Hellenistische Profektionen (H3): beide Zeitherren-Systeme, komplementär zu verwenden.",
+        "aspekte": "Arabische Aspekt-Theorie baut direkt auf hellenistischen 5 Aspekten auf — Reception und Hayz sind arabische Erweiterungen der hellenistischen Würde-Lehre.",
+        "wuerden": "Das Almuten-Punktesystem (A3) verwendet exakt dieselben Würden wie hell_wuerden.json (H1): Domizil, Exaltation, Trigon, Term, Face."
+      },
+
+      "unterschiede": {
+        "firdaria_vs_zodiacal_releasing": "Firdaria ist ein alternatives Zeitherren-System zu Valens' Zodiacal Releasing (H3). Firdaria ist planetenbasiert; Zodiacal Releasing ist zeichenbasiert.",
+        "almuten_vs_oikodespotes": "Der Almuten der arabischen Tradition entspricht dem Oikodespotes (Hausherr) der hellenistischen — aber Al-Birunis Punktesystem ist systematischer.",
+        "interrogationes": "Horoskopie/Interrogationes (A3) ist in der arabischen Tradition viel stärker ausgebaut als in der hellenistischen."
+      },
+
+      "synthese_regel": "Hellenistische Würden (H1) → Almuten-Berechnung (A3). Hellenistische Lots (H2) → Lot-Herrscher durch Almuten präzisieren. Hellenistische Profektionen (H3) + Firdaria (A2) → kombiniertes Zeitherren-System. Hellenistische Aspekte (H4) + Reception/Hayz (A3) → vollständige Aspekt-Analyse."
+    },
+
+    "arabisch_zu_westlich": {
+      "beschreibung": "Die westliche Astrologie (western_rules_complete.json) ist die moderne Nachfolgerin der arabischen und hellenistischen Tradition, hat aber viele Präzisions-Techniken vereinfacht oder fallen gelassen.",
+      "quelle": "Syntheseregel nach Projektplan",
+
+      "direkt_anwendbare_techniken": {
+        "pars_fortunae": "Das Lot des Glücks (Pars Fortunae) ist in vielen westlichen Systemen bekannt und berechnet — aber oft ohne Tag/Nacht-Unterscheidung. Korrekte arabische Berechnung: mit Tag/Nacht-Umkehrung (vgl. arabisch_lose.json).",
+        "combustion": "Verbrennung (Combustion) ist im westlichen System bekannt, aber 'Unter den Strahlen' wird selten differenziert. Die arabische Gradierung (17' Cazimi / 8° Combustion / 15° Under Beams) ist präziser.",
+        "void_of_course": "Void of Course Mond ist im modernen westlichen System bekannt — die arabische Definition ist strenger (nur vollständige ptolemäische Aspekte zählen, keine modernen Aspekte wie Quincunx)."
+      },
+
+      "verlorene_techniken": {
+        "almuten": "Der Almuten ist in der modernen westlichen Astrologie fast unbekannt. Anwendung: Almuten des ASC-Grades berechnen → tiefer Persönlichkeits-Signifikator, der den ASC-Herrscher präzisiert.",
+        "hayz": "Hayz ist in westlicher Astrologie unbekannt. Anwendung: Planeten mit Hayz im westlichen Horoskop markieren → diese haben erhöhte akzidentelle Stärke.",
+        "reception": "Reception ist im westlichen System marginalisiert. Anwendung: Bevor ein schwieriger Aspekt (z.B. Saturn-Quadrat-Mond) negativ bewertet wird, prüfen ob Reception vorliegt — dann ist der Aspekt deutlich milder."
+      },
+
+      "moderne_planeten": "Uranus, Neptun, Pluto sind in der arabischen Tradition unbekannt. Für die Integration: Diese Planeten haben keine Domizile, Exaltationen oder Terms in den arabischen Tabellen — sie können nicht in Almuten-Berechnungen einbezogen werden. Im westlichen System separat behandeln."
+    },
+
+    "arabisch_zu_kabbala": {
+      "beschreibung": "Die 7 klassischen Planeten der arabischen Astrologie korrespondieren mit den 7 planetaren Sephiroth des kabbalistischen Lebensbaums. Diese Verbindung ist nicht historisch direkt belegt, aber strukturell kohärent: Beide Systeme verwenden dieselben 7 Planeten als Grundkräfte.",
+      "quelle": "Syntheseregel nach Projektplan",
+
+      "sephiroth_planeten_matrix": {
+        "saturn_binah": {
+          "planet": "Saturn",
+          "sephira": "Binah (3. Sephira — Verstand, Einschränkung, Mutterprinzip)",
+          "verbindung": "Saturn = Einschränkung, Form, Zeit, Prüfung. Binah = das formgebende Prinzip, das aus dem Unendlichen begrenzte Formen erschafft. Beide: das Prinzip der notwendigen Grenze.",
+          "firdaria_anwendung": "In der Saturn-Firdaria: Binah-Qualitäten meditations- und ritualbegleitend nutzen — das Prinzip der würdevollen Einschränkung internalisieren."
+        },
+        "jupiter_chesed": {
+          "planet": "Jupiter",
+          "sephira": "Chesed (4. Sephira — Gnade, Expansion, Liebe)",
+          "verbindung": "Jupiter = Expansion, Wohlwollen, Überfluss. Chesed = Gnade Gottes, bedingungslose Fürsorge. Beide: das Prinzip des großzügigen Gebens.",
+          "firdaria_anwendung": "In der Jupiter-Firdaria: Chesed-Qualitäten bewusst aktivieren — Großzügigkeit, Dankbarkeit, Ausweitung des Herzens."
+        },
+        "mars_geburah": {
+          "planet": "Mars",
+          "sephira": "Geburah (5. Sephira — Stärke, Gericht, Gerechtigkeit)",
+          "verbindung": "Mars = Kraft, Konflikt, Durchsetzung. Geburah = das Prinzip des gerechten Urteils und der notwendigen Stärke. Beide: Kraft im Dienst der Wahrheit.",
+          "firdaria_anwendung": "In der Mars-Firdaria: Geburah-Qualitäten — Mut mit Gerechtigkeit verbinden, nicht blinde Aggression."
+        },
+        "sonne_tiferet": {
+          "planet": "Sonne",
+          "sephira": "Tiferet (6. Sephira — Schönheit, Harmonie, Herzpunkt)",
+          "verbindung": "Sonne = Zentrum, Identität, Licht. Tiferet = Mittelpunkt des Lebensbaums, der alle anderen Sephiroth ausbalanciert. Beide: das Prinzip des harmonischen Zentrums.",
+          "firdaria_anwendung": "In der Sonne-Firdaria: Tiferet-Qualitäten — die eigene Mitte finden, Integration aller Lebensbereiche."
+        },
+        "venus_netzach": {
+          "planet": "Venus",
+          "sephira": "Netzach (7. Sephira — Sieg/Ewigkeit, Liebe, Kreativität)",
+          "verbindung": "Venus = Liebe, Schönheit, Kunst, Genuss. Netzach = die emotionale, kreative, vitale Kraft des Lebens. Beide: das Prinzip des schöpferischen Genusses.",
+          "firdaria_anwendung": "In der Venus-Firdaria: Netzach-Qualitäten — Schönheit als spirituellen Weg, Liebe als Erkenntnis."
+        },
+        "merkur_hod": {
+          "planet": "Merkur",
+          "sephira": "Hod (8. Sephira — Herrlichkeit, Intellekt, Kommunikation)",
+          "verbindung": "Merkur = Intelligenz, Sprache, Tausch. Hod = der analysierende, kategorisierende, kommunizierende Geist. Beide: das Prinzip der intellektuellen Klarheit.",
+          "firdaria_anwendung": "In der Merkur-Firdaria: Hod-Qualitäten — Klarheit im Denken, Ehrlichkeit in der Kommunikation, Präzision in der Analyse."
+        },
+        "mond_yesod": {
+          "planet": "Mond",
+          "sephira": "Yesod (9. Sephira — Fundament, Unbewusstes, Verbindung)",
+          "verbindung": "Mond = Unterbewusstes, Emotionen, Zyklus, Verbindung zum Kollektiven. Yesod = die Sphäre des Unbewussten und der astralen Verbindungen. Beide: das Prinzip des verbindenden Grundes.",
+          "firdaria_anwendung": "In der Mond-Firdaria: Yesod-Qualitäten — Traumarbeit, emotionale Tiefe, bewusste Verbindung mit dem kollektiven Unbewussten."
+        }
+      },
+
+      "mondknoten_kabbala": {
+        "nordknoten": "Entspricht in der Kabbalah dem Aufstieg durch den Lebensbaum — Bewegung von Malkuth (Materie) in Richtung Kether (Einheit).",
+        "suedknoten": "Entspricht dem Abstieg oder der Rückkehr — Loslassen der höheren Ebenen, Rückkehr ins Erdhafte.",
+        "quelle": "Syntheseregel nach Projektplan"
+      }
+    },
+
+    "arabisch_zu_jyotish": {
+      "beschreibung": "Arabische und Jyotish-Astrologie haben historische Berührungspunkte — Al-Biruni selbst hat indische Astrologie studiert und im 'Book of Instruction' mit arabischen Techniken verglichen. Beide Systeme verwenden klassische Planeten und Zeitherren-Perioden.",
+      "quelle": "Al-Biruni Kap. 502 (Wright S.315); Al-Biruni - Kitab al-Hind (über indische Wissenschaften)",
+
+      "firdaria_vs_vimshottari": {
+        "vergleich_tabelle": {
+          "sonne": {"firdaria_jahre": 10, "vimshottari_jahre": 6, "qualitaet_vergleich": "Beide: Autorität, Vater, Identität. Firdaria-Sonne länger — mehr Reifungszeit."},
+          "mond": {"firdaria_jahre": 9, "vimshottari_jahre": 10, "qualitaet_vergleich": "Beide: Emotionen, Mutter, Öffentlichkeit. Sehr ähnliche Dauer und Qualität."},
+          "mars": {"firdaria_jahre": 7, "vimshottari_jahre": 7, "qualitaet_vergleich": "Exakt gleiche Dauer! Beide: Konflikt, Energie, Durchsetzung. Stärkste Parallele."},
+          "merkur": {"firdaria_jahre": 13, "vimshottari_jahre": 17, "qualitaet_vergleich": "Beide: Intellekt, Kommunikation, Handel. Merkur ist in beiden Systemen besonders lang."},
+          "jupiter": {"firdaria_jahre": 12, "vimshottari_jahre": 16, "qualitaet_vergleich": "Beide: Expansion, Weisheit, Religion. Firdaria-Jupiter kürzer, aber qualitativ identisch."},
+          "venus": {"firdaria_jahre": 8, "vimshottari_jahre": 20, "qualitaet_vergleich": "Vimshottari-Venus viel länger — in Jyotish gilt Venus als der mächtigste Wohlstandsplanet."},
+          "saturn": {"firdaria_jahre": 11, "vimshottari_jahre": 19, "qualitaet_vergleich": "Beide: Prüfung, Reifung, Karma. Vimshottari-Saturn länger — Karma-Bearbeitung braucht Zeit."}
+        }
+      },
+
+      "lots_vs_arudha": {
+        "beschreibung": "Das arabische Lot-System (A1) hat eine strukturelle Parallele zum Arudha Lagna-System in Jyotish. Beide berechnen einen 'Spiegel-Punkt' aus einem anderen Horoskop-Punkt.",
+        "lot_des_gluecks": "Pars Fortunae (arabisch) ≈ Chandra Lagna (Mond-Aszendent in Jyotish) — beide zeigen die materielle und emotionale Grundlage.",
+        "lot_des_geistes": "Pars Spiritus (arabisch) ≈ Arudha Lagna (Jyotish) — beide zeigen das 'erscheinende Selbst' in der Welt, das weltliche Image.",
+        "quelle": "Syntheseregel nach Projektplan; Al-Biruni Kap. 502"
+      },
+
+      "almuten_vs_atmakaraka": {
+        "beschreibung": "Der Almuten Figuris (arabisch) hat eine Parallele zum Atmakaraka in Jyotish. Beide zeigen den dominantesten Planeten des gesamten Horoskops.",
+        "almuten_figuris": "Arabisch: Planet mit den meisten Würdepunkten an den 5 Schlüsselpunkten des Horoskops.",
+        "atmakaraka": "Jyotish: Planet mit dem höchsten Grad im Zeichen — er hat 'die meisten Erfahrungen gesammelt'.",
+        "vergleich": "Beide zeigen den 'Seelen-Planeten' — aber die Berechnungsmethoden sind grundverschieden. Der Almuten misst Würde; der Atmakaraka misst Erfahrungs-Reife (Grad)."
+      }
+    },
+
+    "arabisch_zu_bazi": {
+      "beschreibung": "Bazi und arabische Astrologie haben keine historische Verbindung, aber strukturelle Parallelen in ihrem Verständnis von Lebensperioden und dominanten Prinzipien.",
+      "quelle": "Syntheseregel nach Projektplan",
+
+      "almuten_vs_staerkster_tagesstamm": {
+        "beschreibung": "Beide Systeme identifizieren eine dominante Kraft im Gesamthoroskop, die über die offensichtlichen Faktoren hinausgeht.",
+        "almuten_figuris": "Arabisch: Der Planet mit den meisten Würdepunkten = 'heimlicher König' des Horoskops.",
+        "yong_shen_bazi": "Bazi: Der günstige Gott (用神, Yòng Shén) = die Kraft, die dem Tagesstamm am meisten hilft und das Gesamtsystem ausbalanciert.",
+        "parallele": "Beide suchen nach der Kraft, die das System trägt und die anderen überragt. Beide fragen: 'Welcher Planet/welches Element dominiert dieses Leben?'"
+      },
+
+      "firdaria_vs_dayun": {
+        "beschreibung": "Firdaria und Dayun (10-Jahres-Pfeiler in Bazi) sind strukturell ähnliche Zeitherren-Systeme.",
+        "firdaria": "7 Planeten + Knoten, feste Reihenfolge aus Sektprinzip, variable Dauern (7–13 Jahre).",
+        "dayun": "5 Elemente in 10-Jahres-Blöcken, Reihenfolge aus dem Monatspfeiler abgeleitet, immer 10 Jahre.",
+        "synthese": "Wenn Firdaria-Herrscher und der aktuelle Dayun-Pfeiler elementar harmonisch sind (z.B. Jupiter-Firdaria + Holz-Dayun): günstige Perioden-Verstärkung. Wenn konfliktreich (z.B. Saturn-Firdaria + Feuer-Dayun): Spannungsperiode."
+      },
+
+      "lots_vs_bazi_sterne": {
+        "beschreibung": "Arabische Lose zeigen sensitive Punkte im Horoskop; Bazi-Glückssterne (Tarot-ähnliche Zusatzfaktoren) zeigen günstige Einflüsse in bestimmten Jahren. Beide ergänzen das Grundhoroskop durch zusätzliche Fokuspunkte.",
+        "analogie": "Lot des Reichtums (arabisch) ≈ Reichtumsstern in Bazi — beide zeigen, in welchem Kontext finanzielle Chancen entstehen."
+      }
+    },
+
+    "gesamtsynthese_arabisches_teilwerk": {
+      "beschreibung": "Zusammenfassung der drei arabischen Module (A1–A3) als kohärentes System.",
+      "quelle": "Syntheseregel nach Projektplan",
+
+      "a1_arabisch_lose": "Arabische Lose (A1) geben sensitive Fokuspunkte für Lebensbereiche — das Was der astrologischen Aussage.",
+      "a2_firdaria": "Firdaria (A2) geben den Zeitrahmen planetarer Lebensabschnitte — das Wann der astrologischen Aussage.",
+      "a3_techniken": "Almuten (A3) gibt den Herrschenden Planeten — das Wer der astrologischen Aussage. Direktionen (A3) präzisieren das Timing auf Jahres- und Monatsebene. Aspekttheorie (A3) gibt die Qualität der Verbindungen — das Wie der astrologischen Aussage.",
+
+      "vollstaendige_analyse_sequenz": {
+        "schritt_1": "Almuten Figuris berechnen → Welcher Planet dominiert das gesamte Leben?",
+        "schritt_2": "Aktuelle Firdaria-Periode bestimmen (A2) → In welcher planetaren Lebensphase befindet sich die Person?",
+        "schritt_3": "Profektionsjahr bestimmen (hell_zeitherren.json) → Welches Jahres-Thema ist aktiv?",
+        "schritt_4": "Wichtige Lose berechnen (A1) → Welche Lebensbereiche sind von Natur aus besonders betont?",
+        "schritt_5": "Lot-Herrscher durch Almuten präzisieren → Ist der Lot-Herrscher wirklich der stärkste Planet in diesem Zeichen?",
+        "schritt_6": "Direktionen berechnen → Welche planetaren Ereignisse stehen in diesem Lebensjahr an?",
+        "schritt_7": "Aspekte durch Reception/Hayz/Cazimi/Combustion qualifizieren → Wie stark können die Planeten wirklich wirken?",
+        "schritt_8": "Drei-Zeugen-Regel anwenden (Firdaria + Profektion + Transit/Direktion) → Welche Ereignisse sind hochwahrscheinlich?"
+      }
+    }
+  }
+}

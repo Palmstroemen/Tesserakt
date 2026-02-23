@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "system": "Arabisch",
+    "beschreibung": "Arabische Astrologie — Firdaria-Perioden + Arabische Lose",
+    "zeit_abhaengig": true
+  },
+  "vektor_quellen": [
+    {
+      "id": "firdaria_aktiv",
+      "schluessel": "haupt_firdaria",
+      "typ": "firdaria",
+      "eingabe": "lebensalter",
+      "zyklus_jahre": 75,
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 1.0,
+      "pflicht": true
+    },
+    {
+      "id": "lot_glueck",
+      "schluessel": "lot_des_gluecks",
+      "typ": "direkter_vektor",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "lot_geist",
+      "schluessel": "lot_des_geistes",
+      "typ": "direkter_vektor",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.3,
+      "pflicht": false
+    }
+  ]
+}

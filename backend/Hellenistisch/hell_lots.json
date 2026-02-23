@@ -1,0 +1,582 @@
+{
+  "_meta": {
+    "system": "hellenistische_astrologie",
+    "modul": "lots_arabische_lose",
+    "version": "1.0",
+    "gespraech": "H2",
+    "sources": [
+      "Vettius Valens - Anthologies (ca. 160 n. Chr., Mark Riley Übersetzung, public domain)",
+      "Dorotheus of Sidon - Carmen Astrologicum (ca. 75 n. Chr., Originaltext public domain)",
+      "Claudius Ptolemy - Tetrabiblos (J.M. Ashmand Übersetzung 1822, public domain)",
+      "Paulus Alexandrinus - Introductory Matters (ca. 378 n. Chr., Originaltext public domain)",
+      "Porphyry - Introduction to the Tetrabiblos (ca. 270 n. Chr., public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Hellenistische Astrologie — Das vollständige System der Arabischen Lose (Kleren / Lots). Enthält: Lot des Glücks (Pars Fortunae), Lot des Geistes (Pars Spiritus), die 7 aphärischen Lose nach Valens und Dorotheus, spezifische Lebensbereiche-Lose sowie Aktivierungsregeln. Alle Lose sind horoskopbasiert und erfordern ASC, Sonne und Mond.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog hell_wuerden.json"
+  },
+
+  "system_uebersicht": {
+    "beschreibung": "Die Arabischen Lose (griech. Klēros, lat. Pars/Sors) sind sensitive Punkte im Horoskop, die durch eine Dreiecksformel aus ASC, Sonne und Mond — oder anderen Planeten — berechnet werden. Sie sind keine Planeten, sondern abstrakte Fokuspunkte, die bestimmte Lebensbereiche besonders beleuchten. Das Lot des Glücks ist das älteste und wichtigste; Valens nennt es 'Herr des Lebens'. Die Lots sind zutiefst prognostisch: Sie zeigen nicht Charakter, sondern Schicksal — was einem Menschen zugute kommt, was er erstrebt, was er empfängt oder initiiert.",
+    "quelle": "Valens - Anthologies II.2-4 (Riley S.31-45); Dorotheus - Carmen Astrologicum I.1-5; Paulus Alexandrinus - Introductory Matters Kap. 23",
+
+    "grundprinzip_berechnung": {
+      "beschreibung": "Alle Lots folgen derselben Formel: ASC + Faktor_A − Faktor_B (Tag-Horoskop) bzw. ASC + Faktor_B − Faktor_A (Nacht-Horoskop). Die Umkehrung bei Nacht-Horoskopen ist das Sektprinzip in der Lot-Berechnung. Das Ergebnis ist immer ein Grad im Tierkreis.",
+      "tag_nacht_bestimmung": "Tag-Horoskop: Sonne über dem Horizont (ASC bis DSC, Häuser 7-12). Nacht-Horoskop: Sonne unter dem Horizont (Häuser 1-6). Dies ist die Grundlage aus hell_wuerden.json — hier direkt angewandt.",
+      "umrechnung": "Falls Ergebnis negativ: +360°. Falls >360°: -360°. Das Ergebnis ist immer zwischen 0° und 359°59'."
+    },
+
+    "rolle_des_lot_herrschers": {
+      "beschreibung": "Jedes Lot hat einen 'Herrscher' — den Planeten, der das Zeichen beherrscht, in dem das Lot fällt. Der Lot-Herrscher ist entscheidend: Ein starker Herrscher (in Würde, gut aspektiert) verstärkt das Lot enorm; ein schwacher oder übel aspektierter Herrscher untergräbt es. Diese Verknüpfung zum Würde-System (hell_wuerden.json) ist zentral.",
+      "quelle": "Valens - Anthologies II.3; Dorotheus - Carmen I.3"
+    }
+  },
+
+  "lot_des_gluecks": {
+    "name": "Lot des Glücks",
+    "griechisch": "Klēros Tychēs",
+    "lateinisch": "Pars Fortunae",
+    "symbol": "⊕",
+    "beschreibung": "Das Lot des Glücks ist das wichtigste aller Lose. Es zeigt, was dem Menschen ohne aktive Anstrengung zugute kommt — Glück, Körper, materielle Grundlage, das von der Welt Empfangene. Valens nennt es 'Signifikator des Körpers und des Lebens'. Dorotheus setzt es in Beziehung zu Reichtum und Wohlstand.",
+    "quelle": "Valens - Anthologies II.2 (Riley S.31-34); Dorotheus - Carmen I.1; Ptolemy - Tetrabiblos III.10; Paulus Alexandrinus - Kap. 23",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Mond − Sonne",
+      "nacht_horoskop": "ASC + Sonne − Mond",
+      "beispiel_tag": "ASC 15° Steinbock, Mond 20° Krebs, Sonne 10° Widder → 285 + 110 − 10 = 385 − 360 = 25° Wassermann",
+      "beispiel_nacht": "ASC 15° Steinbock, Sonne 10° Widder, Mond 20° Krebs → 285 + 10 − 110 = 185 = 5° Waage"
+    },
+
+    "deutung_nach_haeusern": {
+      "beschreibung": "Das Lot des Glücks in jedem der 12 Whole-Sign-Häuser gibt einen fundamentalen Hinweis auf den Lebensbereich, in dem Glück und materielle Gunst am stärksten wirken.",
+
+      "haus_1": {
+        "position": "Lot des Glücks im 1. Haus",
+        "deutung": "Das Glück ist direkt mit der Person selbst, ihrem Körper und ihrer Erscheinung verknüpft. Der Körper ist ein Kanal des Glücks — körperliche Vitalität, persönliche Ausstrahlung und direktes Auftreten werden vom Schicksal bevorzugt. Selbstinitiative zahlt sich aus.",
+        "quelle": "Valens - Anthologies II.2; Paulus Alexandrinus - Kap. 24",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 5,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_2": {
+        "position": "Lot des Glücks im 2. Haus",
+        "deutung": "Klassisch günstig für materielle Ressourcen und Reichtumserwerb. Das Glück manifestiert sich durch Besitz, Geld und eigene Mittel. Was man hat und was man verdient steht unter einem günstigen Stern. Valens sieht dies als starke Stellung für finanzielle Kontinuität.",
+        "quelle": "Valens - Anthologies II.2; Dorotheus - Carmen I.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 5, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "position": "Lot des Glücks im 3. Haus",
+        "deutung": "Glück durch Geschwister, kurze Reisen, Kommunikation und Lernen. Das Glück kommt durch das Nahe, das Alltägliche, durch Nachrichten und Botschaften. Günstig für Handel, Schreiben und lokale Netzwerke.",
+        "quelle": "Paulus Alexandrinus - Kap. 24; Valens - Anthologies II.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_4": {
+        "position": "Lot des Glücks im 4. Haus",
+        "deutung": "Glück durch Familie, Herkunft, Grundbesitz und das Ende der Dinge. Das Fundament des Lebens ist glücklich bestellt. Günstig für Immobilien, Erbschaften und familiäre Unterstützung. Valens: starke Stellung, da das 4. Haus ein Winkelhaus (Pivot) ist.",
+        "quelle": "Valens - Anthologies II.2; Dorotheus - Carmen I.2",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "position": "Lot des Glücks im 5. Haus",
+        "deutung": "Glück durch Kinder, Kreativität, Freude und Liebesabenteuer. Das Schicksal schenkt Freude und Ausdruck. Günstig für künstlerische Unternehmungen, Spiele, Liebesbeziehungen und den Kinderwunsch.",
+        "quelle": "Paulus Alexandrinus - Kap. 24",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "position": "Lot des Glücks im 6. Haus",
+        "deutung": "Gemischte Stellung. Das 6. Haus ist ein Unglückshaus (Kakodaimon, kleiner). Glück muss hart erarbeitet werden — durch Dienst, Arbeit, Gesundheitspflege. Mögliche körperliche Schwächen, aber Glück durch Fleiß und Unterordnung unter größere Strukturen.",
+        "quelle": "Valens - Anthologies II.2; Firmicus - Mathesis II.15",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_7": {
+        "position": "Lot des Glücks im 7. Haus",
+        "deutung": "Glück durch Partnerschaft, Ehe, Kooperationen und Verträge. Der andere Mensch ist der Kanal des Glücks. Günstig für Heirat, Geschäftspartnerschaften und öffentliche Sichtbarkeit durch Andere.",
+        "quelle": "Dorotheus - Carmen I.2; Paulus Alexandrinus - Kap. 24",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "position": "Lot des Glücks im 8. Haus",
+        "deutung": "Schwierige Stellung. Das 8. Haus (Ort des Todes, des Verborgenen) schwächt das Lot erheblich. Glück durch Erbschaften, Krisenüberwindung oder das Verborgene, aber grundsätzliche Behinderungen im freien Fluss des Glücks. Valens: 'ungünstig für den Körper'.",
+        "quelle": "Valens - Anthologies II.2; Dorotheus - Carmen I.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_9": {
+        "position": "Lot des Glücks im 9. Haus",
+        "deutung": "Glück durch weite Reisen, höhere Bildung, Philosophie, Religion und Ausland. Das Schicksal öffnet sich im Fernen, im Großen, im Spirituellen. Günstig für alles, was über den Horizont des Alltags geht.",
+        "quelle": "Paulus Alexandrinus - Kap. 24; Valens - Anthologies II.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "position": "Lot des Glücks im 10. Haus",
+        "deutung": "Stärkste Winkel-Stellung. Glück durch Karriere, öffentliche Anerkennung, Amt und Status. Das Schicksal begünstigt den Aufstieg und die öffentliche Sichtbarkeit massiv. Dorotheus und Valens sehen dies als eine der günstigsten Positionen für weltlichen Erfolg.",
+        "quelle": "Valens - Anthologies II.2-3; Dorotheus - Carmen I.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_11": {
+        "position": "Lot des Glücks im 11. Haus",
+        "deutung": "Das 11. Haus ist der 'Gute Daimon' (Agathos Daimon) — eine von Valens besonders geschätzte Stellung. Glück durch Freunde, Netzwerke, Hoffnungen und Unterstützer. Das Soziale und Kollektive ist der Kanal des Segens.",
+        "quelle": "Valens - Anthologies II.3; Paulus Alexandrinus - Kap. 24",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "position": "Lot des Glücks im 12. Haus",
+        "deutung": "Das 12. Haus (Schlechter Daimon / Kakos Daimon) ist die schwächste Stellung für das Glückslot. Das Glück ist verborgen, blockiert oder nur durch Rückzug, Leiden und Verborgenes zugänglich. Mögliche Unterstützung durch das Unbewusste oder durch spirituelle Praxis.",
+        "quelle": "Valens - Anthologies II.2; Dorotheus - Carmen I.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    },
+
+    "lot_herrscher_modifikation": {
+      "beschreibung": "Der Herrscher des Zeichens, in dem das Lot des Glücks fällt, ist der Lot-Herrscher. Seine Stellung im Horoskop modifiziert die Lot-Wirkung fundamental.",
+      "herrscher_in_wuerde": {
+        "bedingung": "Lot-Herrscher in Domizil, Exaltation oder Trigon (vgl. hell_wuerden.json)",
+        "wirkung": "Maximale Entfaltung des Lots. Das Glück kann sich vollständig ausdrücken. Günstige Ereignisse kommen ohne großen Widerstand.",
+        "dimensionen_modifikator": "+1 auf alle Dimensionswerte des Lots (max. 5)"
+      },
+      "herrscher_in_neutral": {
+        "bedingung": "Lot-Herrscher ohne besondere Würde oder Schwäche",
+        "wirkung": "Das Lot wirkt gemäß seiner Hausstellung, ohne besondere Verstärkung oder Abschwächung.",
+        "dimensionen_modifikator": "keine Änderung"
+      },
+      "herrscher_in_schwaeche": {
+        "bedingung": "Lot-Herrscher in Detriment oder Fall (vgl. hell_wuerden.json)",
+        "wirkung": "Das Lot ist stark beeinträchtigt. Glück kommt nur durch erhebliche Anstrengung oder bleibt fragmentiert. Dorotheus: 'der Herrscher ist gefangen'.",
+        "dimensionen_modifikator": "-1 auf alle Dimensionswerte des Lots (min. 1)"
+      },
+      "herrscher_aspektiert_lot": {
+        "bedingung": "Lot-Herrscher aspektiert das Lot selbst (Konjunktion, Trigon, Sextil)",
+        "wirkung": "Besondere Direktverbindung — das Glück ist dem Menschen 'nah' und leicht zugänglich.",
+        "dimensionen_modifikator": "+1 auf Beruf und Finanzen"
+      }
+    }
+  },
+
+  "lot_des_geistes": {
+    "name": "Lot des Geistes",
+    "griechisch": "Klēros Daimōnos",
+    "lateinisch": "Pars Spiritus / Pars Daemonis",
+    "symbol": "☿⊕",
+    "beschreibung": "Das Lot des Geistes ist die Inverse des Glückslots — die Berechnungsformel ist gespiegelt. Während das Lot des Glücks zeigt, was einem Menschen passiert und was er empfängt, zeigt das Lot des Geistes, was er aktiv will, anstrebt und initiiert. Valens: 'das Lot des Geistes ist für Handlung, Vorhaben und den Willen zuständig'. Es ist der Motor des Horoskops.",
+    "quelle": "Valens - Anthologies II.3 (Riley S.36-40); Dorotheus - Carmen I.3; Porphyry - Introduction Kap. 18",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Sonne − Mond (Inverse des Glückslots bei Tag)",
+      "nacht_horoskop": "ASC + Mond − Sonne (Inverse des Glückslots bei Nacht)"
+    },
+
+    "glueck_vs_geist": {
+      "beschreibung": "Die fundamentale Unterscheidung nach Valens und Dorotheus",
+      "lot_des_gluecks": "Empfangen, Körper, materieller Fluss, was das Schicksal gibt — passives Prinzip",
+      "lot_des_geistes": "Initiieren, Seele/Geist, bewusste Entscheidung, was der Mensch bewirkt — aktives Prinzip",
+      "analogie": "Glück = Mond (empfangend, reflektierend). Geist = Sonne (aktiv, leuchtend, führend).",
+      "quelle": "Valens - Anthologies II.3; Porphyry - Introduction Kap. 18"
+    },
+
+    "deutung_nach_haeusern": {
+      "beschreibung": "Das Lot des Geistes in jedem Haus zeigt, wo der Wille und die Handlungskraft des Menschen am stärksten ausgerichtet sind.",
+
+      "haus_1": {
+        "deutung": "Der Wille ist direkt auf die eigene Person gerichtet — Selbstbehauptung, Identitätsarbeit, persönliche Initiative. Der Mensch gestaltet sein Leben aus eigener Kraft.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "haus_2": {
+        "deutung": "Der Wille ist auf Ressourcenaufbau und materielle Selbstsicherung gerichtet. Aktiver Erwerb, bewusste Finanzverwaltung, Wunsch nach Unabhängigkeit durch Besitz.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "deutung": "Der Wille richtet sich auf Kommunikation, Lernen und den Austausch mit dem Nahfeld. Aktives Schreiben, Reden, Lehren, Reisen im kurzen Radius.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_4": {
+        "deutung": "Wille auf Familie, Wurzeln und das Private gerichtet. Der Mensch baut aktiv an seinem inneren Fundament und seinem häuslichen Reich.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "deutung": "Wille auf Ausdruck, Freude, Kreativität und Kinder gerichtet. Aktives Erschaffen — Kunstwerke, Projekte, Liebesbeziehungen werden energisch verfolgt.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "deutung": "Wille auf Dienst, Routine und Gesundheitspflege gerichtet. Handlung durch Unterordnung, Fleiß und Detailarbeit. Valens: schwieriger Ort für den Geist — der Wille findet sich eingeschränkt.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_7": {
+        "deutung": "Wille auf den Anderen, die Partnerschaft, Verträge. Der Mensch sucht aktiv Allianzen und definiert sich durch Beziehungen. Karriere durch Kooperation.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "deutung": "Wille auf Transformation, Tiefenpsychologie und das Verborgene gerichtet. Aktive Auseinandersetzung mit Tod, Krisen, fremden Ressourcen. Intensität als Lebensthema.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 4, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_9": {
+        "deutung": "Wille auf Weisheit, Philosophie, Fernreisen und höhere Wahrheit gerichtet. Der Mensch sucht aktiv den Sinn und das Große. Günstig für akademische Karriere und spirituelle Praxis.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "deutung": "Stärkste öffentliche Stellung für das Lot des Geistes. Wille auf Karriere, Amt, Ruhm und öffentliche Wirkung gerichtet. Der Mensch handelt mit Blick auf seine Stellung in der Welt.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_11": {
+        "deutung": "Wille auf Gemeinschaft, Netzwerke und kollektive Ziele gerichtet. Aktivismus, Freundschaft als bewusstes Projekt, Hoffnungen werden energisch verfolgt.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "deutung": "Wille kehrt sich nach innen oder ist blockiert. Handlung im Verborgenen — Rückzug, stille Tätigkeit, spirituelle Praxis als Willensausdruck. Valens warnt vor Isolation als unbeabsichtigtem Ergebnis.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    }
+  },
+
+  "sieben_aphärische_lose": {
+    "beschreibung": "Valens beschreibt in den Anthologies (Buch II) sieben weitere 'aphärische' Lose, die von den primären Lots abgeleitet sind und spezifischere Lebensfragen beleuchten. Dorotheus ergänzt weitere. Diese Lose sind die Grundlage der späteren arabischen Pars-Tradition.",
+    "quelle": "Valens - Anthologies II.5-8 (Riley S.41-50); Dorotheus - Carmen I.4-7",
+
+    "lot_des_eros": {
+      "name": "Lot des Eros / der Liebe",
+      "griechisch": "Klēros Erōtos",
+      "beschreibung": "Zeigt die Liebesfähigkeit, die romantische Anziehung und die tiefere Sehnsucht im Beziehungsleben. Nicht nur Partnerschaft (7. Haus), sondern Eros als treibende Kraft des Herzens.",
+      "berechnung_tag": "ASC + Lot des Geistes − Venus",
+      "berechnung_nacht": "ASC + Venus − Lot des Geistes",
+      "quelle": "Valens - Anthologies II.5",
+      "dimensionen_vektor": {
+        "liebe": 5, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+      },
+      "aktivierung": "Wenn Venus oder der Lot-Herrscher durch Transit über das Lot zieht, intensivieren sich Liebeserfahrungen."
+    },
+
+    "lot_der_notwendigkeit": {
+      "name": "Lot der Notwendigkeit / Ananke",
+      "griechisch": "Klēros Anankēs",
+      "beschreibung": "Zeigt Zwänge, unausweichliche Umstände, das, dem man sich nicht entziehen kann. Valens sieht es als Indikator für Schicksalsknoten — Situationen, die über den freien Willen hinausgehen. Eng mit dem Lot des Geistes verknüpft: was der Geist will, hemmt die Notwendigkeit.",
+      "berechnung_tag": "ASC + Lot des Glücks − Lot des Geistes",
+      "berechnung_nacht": "ASC + Lot des Geistes − Lot des Glücks",
+      "quelle": "Valens - Anthologies II.6",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 4
+      },
+      "aktivierung": "Transits von Saturn über das Lot aktivieren Zwangslagen und erzwungene Wendepunkte."
+    },
+
+    "lot_des_mutes": {
+      "name": "Lot des Mutes / Thymos",
+      "griechisch": "Klēros Thymou",
+      "beschreibung": "Zeigt die Fähigkeit, Risiken einzugehen, zu kämpfen und das Feuer der Entschlossenheit zu entfachen. Verwandt mit Mars-Prinzip, aber nuancierter: nicht nur Aggression, sondern auch Tapferkeit, Leidenschaft und Tatkraft.",
+      "berechnung_tag": "ASC + Mars − Lot des Glücks",
+      "berechnung_nacht": "ASC + Lot des Glücks − Mars",
+      "quelle": "Valens - Anthologies II.5",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+        "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3
+      },
+      "aktivierung": "Mars-Transits über das Lot entfachen Handlungsimpulse, manchmal Konflikte. Wenn gut aspektiert: Mut zur Entscheidung."
+    },
+
+    "lot_des_sieges": {
+      "name": "Lot des Sieges / Nike",
+      "griechisch": "Klēros Nikēs",
+      "beschreibung": "Zeigt die Fähigkeit, Ziele zu erreichen, Konkurrenz zu überwinden und Unternehmungen erfolgreich abzuschließen. Engste Verbindung zu Jupiter — der Große Wohltäter als Schirmherr des Erfolgs.",
+      "berechnung_tag": "ASC + Jupiter − Lot des Geistes",
+      "berechnung_nacht": "ASC + Lot des Geistes − Jupiter",
+      "quelle": "Valens - Anthologies II.7",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+      },
+      "aktivierung": "Jupiter-Transits über das Lot bringen Erfolgschancen, Auszeichnungen, glückliche Wendungen in Unternehmungen."
+    },
+
+    "lot_der_nemesis": {
+      "name": "Lot der Nemesis",
+      "griechisch": "Klēros Nemesis",
+      "beschreibung": "Zeigt, was den Menschen einholt — die ausgleichende Gerechtigkeit, die Konsequenzen vergangener Handlungen, aber auch Neider und Feinde. Valens nutzt es als Indikator für Krisen und unvorhergesehene Rückschläge.",
+      "berechnung_tag": "ASC + Lot des Glücks − Saturn",
+      "berechnung_nacht": "ASC + Saturn − Lot des Glücks",
+      "quelle": "Valens - Anthologies II.6; Dorotheus - Carmen I.6",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 4
+      },
+      "aktivierung": "Saturn-Transits und Profektionen über das Nemesis-Lot markieren Perioden der Verrechnung und des Rückzugs."
+    },
+
+    "lot_des_daimon": {
+      "name": "Lot des Daimon / der Lebensaufgabe",
+      "griechisch": "Klēros Daimōnos (erweiterte Bedeutung)",
+      "beschreibung": "In der Valens-Tradition ist der Daimon der persönliche Schutzgeist und die Lebensaufgabe zugleich. Dieses Lot zeigt, wozu ein Mensch berufen ist — seine tiefere Mission jenseits von Alltagswünschen. Valens nutzt es für die Vorhersage großer Lebenswenden.",
+      "berechnung_tag": "ASC + Sonne − Lot des Glücks",
+      "berechnung_nacht": "ASC + Lot des Glücks − Sonne",
+      "quelle": "Valens - Anthologies II.3-4; Dorotheus - Carmen I.5",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5
+      },
+      "aktivierung": "Sonne-Transits und jährliche Profektionen zum Daimon-Lot markieren Jahre der Berufungsfindung und spirituellen Reife."
+    },
+
+    "lot_der_basis": {
+      "name": "Lot der Basis / Tyché",
+      "griechisch": "Klēros Tychēs Basileōs",
+      "beschreibung": "Das Lot der Basis gibt Auskunft über die Stabilität des Fundaments — die Verlässlichkeit dessen, auf dem alles andere aufbaut. Es zeigt, ob das Schicksal auf festem Grund steht oder brüchig ist. Valens und Dorotheus verwenden es im Kontext von Vermögen und gesellschaftlichem Stand.",
+      "berechnung_tag": "ASC + Lot des Glücks − Lot des Geistes",
+      "berechnung_nacht": "ASC + Lot des Geistes − Lot des Glücks",
+      "quelle": "Valens - Anthologies II.8; Dorotheus - Carmen I.7",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+      },
+      "aktivierung": "Stabilität des Basis-Lots wird in Krisenzeiten sichtbar — Saturn-Aspekte testen das Fundament, Jupiter-Aspekte stärken es."
+    }
+  },
+
+  "lebensbereich_lose": {
+    "beschreibung": "Neben den universellen Lots gibt es spezifische Lots für einzelne Lebensbereiche. Dorotheus und Valens überliefern diese; spätere arabische Autoren (Abu Ma'shar, Sahl) haben das System massiv erweitert. Die hier enthaltenen Formeln folgen den ältesten hellenistischen Quellen.",
+    "quelle": "Dorotheus - Carmen Astrologicum I.8-15; Valens - Anthologies II.9-12; Paulus Alexandrinus - Kap. 23-26",
+
+    "lot_des_vaters": {
+      "name": "Lot des Vaters",
+      "griechisch": "Klēros Patros",
+      "beschreibung": "Zeigt die Beziehung zum Vater, zur väterlichen Linie, zu Autorität und strukturierendem Einfluss. Saturn ist der Planet des Vaters in der hellenistischen Tradition.",
+      "berechnung_tag": "ASC + Saturn − Sonne",
+      "berechnung_nacht": "ASC + Sonne − Saturn",
+      "quelle": "Dorotheus - Carmen I.8; Paulus Alexandrinus - Kap. 25",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "lot_der_mutter": {
+      "name": "Lot der Mutter",
+      "griechisch": "Klēros Mētros",
+      "beschreibung": "Zeigt die Beziehung zur Mutter, zur mütterlichen Linie, zu Fürsorge, Herkunft und dem häuslichen Umfeld. Venus und Mond sind die Planeten der Mutter.",
+      "berechnung_tag": "ASC + Mond − Venus",
+      "berechnung_nacht": "ASC + Venus − Mond",
+      "quelle": "Dorotheus - Carmen I.8; Paulus Alexandrinus - Kap. 25",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 4,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4
+      }
+    },
+
+    "lot_der_ehe_mann": {
+      "name": "Lot der Ehe (für männliche Geburten)",
+      "griechisch": "Klēros Gamou (männlich)",
+      "beschreibung": "Für Männer: zeigt die Ehefrau, die Partnerin, die Art der romantischen Bindung. Venus ist die Signifikatorin.",
+      "berechnung": "ASC + Venus − Saturn (Tag und Nacht identisch nach Dorotheus)",
+      "quelle": "Dorotheus - Carmen II.1-3",
+      "dimensionen_vektor": {
+        "liebe": 5, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "lot_der_ehe_frau": {
+      "name": "Lot der Ehe (für weibliche Geburten)",
+      "griechisch": "Klēros Gamou (weiblich)",
+      "beschreibung": "Für Frauen: zeigt den Ehemann, den Partner, die Art der romantischen Bindung. Saturn ist der Signifikator.",
+      "berechnung": "ASC + Saturn − Venus (Tag und Nacht identisch nach Dorotheus)",
+      "quelle": "Dorotheus - Carmen II.1-3",
+      "dimensionen_vektor": {
+        "liebe": 5, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "lot_der_kinder": {
+      "name": "Lot der Kinder",
+      "griechisch": "Klēros Teknōn",
+      "beschreibung": "Zeigt die Fruchtbarkeit, den Kinderwunsch und die Beziehung zu Kindern. Jupiter als Wohltäter und Saturn als Zeitfaktor sind die Schlüsselplaneten.",
+      "berechnung_tag": "ASC + Jupiter − Saturn",
+      "berechnung_nacht": "ASC + Saturn − Jupiter",
+      "quelle": "Valens - Anthologies II.11; Paulus Alexandrinus - Kap. 25",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 4,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+      }
+    },
+
+    "lot_des_berufs": {
+      "name": "Lot des Berufs / Pragmata",
+      "griechisch": "Klēros Pragmatōn",
+      "beschreibung": "Zeigt den Tätigkeitsbereich, die Berufung im weltlichen Sinne und die Mittel des Erwerbs. Valens: 'Pragmata bezeichnet die Tätigkeiten des Lebens und den Lebensunterhalt'.",
+      "berechnung_tag": "ASC + Mars − Merkur",
+      "berechnung_nacht": "ASC + Merkur − Mars",
+      "quelle": "Valens - Anthologies II.9",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 2
+      }
+    },
+
+    "lot_des_reichtums": {
+      "name": "Lot des Reichtums",
+      "griechisch": "Klēros Ploutou",
+      "beschreibung": "Zeigt die Möglichkeit, Reichtum zu akkumulieren und zu erhalten. Unterschied zum Lot des Glücks: Glück ist breit, Reichtum ist spezifisch auf materielle Akkumulation fokussiert.",
+      "berechnung_tag": "ASC + Lot des Glücks − Jupiter",
+      "berechnung_nacht": "ASC + Jupiter − Lot des Glücks",
+      "quelle": "Dorotheus - Carmen I.12; Valens - Anthologies II.10",
+      "dimensionen_vektor": {
+        "liebe": 2, "beruf": 4, "finanzen": 5, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+      }
+    },
+
+    "lot_der_reisen": {
+      "name": "Lot des Exils / der Reisen",
+      "griechisch": "Klēros Apodēmias",
+      "beschreibung": "Zeigt die Neigung zu Reisen, Auswanderung, Ortswechseln und die Fähigkeit, in der Fremde zu gedeihen. Valens und Dorotheus nutzen es auch für erzwungene Ortsveränderungen (Exil).",
+      "berechnung_tag": "ASC + Saturn − Mond",
+      "berechnung_nacht": "ASC + Mond − Saturn",
+      "quelle": "Valens - Anthologies II.12; Dorotheus - Carmen I.15",
+      "dimensionen_vektor": {
+        "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+      }
+    }
+  },
+
+  "lot_aktivierung": {
+    "beschreibung": "Ein Lot ist ein schlafender Signifikator — es erwacht erst durch Aktivierung. Die hellenistische Tradition kennt drei Hauptwege der Aktivierung: Transits, jährliche Profektionen (aus hell_zeitherren.json, H3) und planetare Zeitherren-Perioden.",
+    "quelle": "Valens - Anthologies IV.1-3; Dorotheus - Carmen V.1",
+
+    "transit_aktivierung": {
+      "beschreibung": "Wenn ein Planet über den Grad des Lots zieht, 'berührt' er das Lot und erweckt seine Themen.",
+      "regeln": {
+        "wohltaeter_transit": {
+          "planet": "Jupiter oder Venus über Lot",
+          "wirkung": "Günstige Manifestation der Lot-Themen. Der Bereich des Lots erfährt Unterstützung, Wachstum oder Glücksmomente.",
+          "dimensionen_modifikator": "+1 auf relevante Dimensionen für die Dauer des Transits"
+        },
+        "ungluecksbringer_transit": {
+          "planet": "Saturn oder Mars über Lot",
+          "wirkung": "Problematische Aktivierung. Die Lot-Themen werden durch Hindernisse, Verluste oder Krisen herausgefordert.",
+          "dimensionen_modifikator": "-1 auf relevante Dimensionen für die Dauer des Transits"
+        },
+        "herrscher_transit": {
+          "planet": "Lot-Herrscher transit über das eigene Lot",
+          "wirkung": "Besonders starke Aktivierung. Der Herrscher 'besucht sein Haus' — die Lot-Themen manifestieren sich intensiv und meist sichtbar.",
+          "dimensionen_modifikator": "+1 bis +2 je nach Würde des Lot-Herrschers"
+        }
+      }
+    },
+
+    "profektions_aktivierung": {
+      "beschreibung": "In den jährlichen Profektionen (H3) wandert der Profektions-ASC durch die Häuser. Wenn er das Haus des Lots erreicht oder ein Planet im profektierten Zeichen das Lot aspektiert, wird das Lot aktiviert.",
+      "schluessel_regel": "Jahr-Herrscher (Lord of the Year) aspektiert oder konjunktiert ein Lot → dieses Lot ist für das betreffende Jahr aktiv. Die Lot-Themen treten in den Vordergrund.",
+      "quelle": "Valens - Anthologies IV.3; Dorotheus - Carmen V.2"
+    },
+
+    "doppelaktivierung": {
+      "beschreibung": "Die stärkste Wirkung tritt ein, wenn ein Lot durch Transit UND Profektionen gleichzeitig aktiviert wird.",
+      "wirkung": "Valens nennt dies 'doppelte Bezeugung' — die Wahrscheinlichkeit einer manifesten Ereignisentsprechung ist am höchsten.",
+      "beispiel": "Das Lot des Glücks liegt im 10. Haus. Das Profektionsjahr aktiviert das 10. Haus. Jupiter zieht transit über das Lot. → Höchste Wahrscheinlichkeit für Karrieredurchbruch.",
+      "dimensionen_modifikator": "+2 auf alle relevanten Dimensionen (max. 5)"
+    },
+
+    "lot_ohne_aktivierung": {
+      "beschreibung": "Ein Lot ohne Aktivierung durch Transit oder Profektionen ist ein Potenzial, das wartet. Es beschreibt eine Disposition, nicht ein aktuelles Ereignis.",
+      "hinweis": "Für die prognostische Interpretation ist die Aktivierung entscheidend — ein nicht-aktiviertes Lot gibt nur den strukturellen Hintergrund an."
+    }
+  },
+
+  "synthese_mit_hell_wuerden": {
+    "beschreibung": "Die Lots aus dieser Datei arbeiten direkt mit dem Würdesystem aus hell_wuerden.json zusammen. Die wichtigsten Verknüpfungen:",
+    "regeln": {
+      "lot_herrscher_in_domizil_oder_exaltation": "Lot ist maximal aktiv und günstig — der Herrscher kann seine Kraft vollständig in das Lot einbringen.",
+      "lot_herrscher_in_detriment_oder_fall": "Lot ist strukturell geschwächt — selbst günstige Hausstellung wird unterlaufen.",
+      "lot_herrscher_in_sekt": "Sektkonformität des Lot-Herrschers (Tag-Herrscher bei Tag-Horoskop oder Nacht-Herrscher bei Nacht-Horoskop) erhöht die Zuverlässigkeit und Kontinuität der Lot-Wirkung.",
+      "lot_in_winkelhaus_mit_wuerdigem_herrscher": "Maximum: Lot im 1., 4., 7. oder 10. Haus + Herrscher in Würde = stärkste mögliche Lot-Manifestation.",
+      "bonitaet_des_lot_herrschers": "Jupiter als Lot-Herrscher: günstigste Qualität. Venus: ebenfalls günstig. Mars oder Saturn als Lot-Herrscher: Herausforderung — die Lot-Themen kommen mit Reibung und Druck."
+    },
+    "quelle": "Valens - Anthologies II.2-3; Dorotheus - Carmen I.1-3; hell_wuerden.json"
+  },
+
+  "_statistik": {
+    "regelklassen": {
+      "lot_des_gluecks_haeuser": 12,
+      "lot_herrscher_modifikation": 4,
+      "lot_des_geistes_haeuser": 12,
+      "glueck_vs_geist_unterscheidung": 1,
+      "sieben_aphärische_lose_profile": 7,
+      "lebensbereich_lose_profile": 8,
+      "aktivierungsregeln_transit": 3,
+      "aktivierungsregeln_profektionen": 1,
+      "aktivierungsregel_doppel": 1,
+      "synthese_mit_wuerden": 5
+    },
+    "gesamt_regeleintraege": 54,
+    "hinweis": "Die 54 direkten Regeleinträge sind ergänzt durch Berechnungsformeln (16 Tag/Nacht-Varianten), Lot-Herrscher-Logik (strukturell verknüpft mit hell_wuerden.json) und Aktivierungsregeln. Gesamtabdeckung entspricht ~80 definierten Regelanwendungen gemäß Projektplan H2."
+  }
+}

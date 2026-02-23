@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "system": "Numerologie",
+    "beschreibung": "Klassische Numerologie — Lebenspfadzahl aus Geburtsdatum",
+    "zeit_abhaengig": false
+  },
+  "vektor_quellen": [
+    {
+      "id": "lebenspfad_grundzahl",
+      "schluessel": "grundzahlen",
+      "typ": "nach_lebenspfadzahl",
+      "eingabe": "lebenspfadzahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 1.0,
+      "pflicht": true
+    },
+    {
+      "id": "lebenspfad_profil",
+      "schluessel": "lebenspfad_profile",
+      "typ": "nach_lebenspfadzahl",
+      "eingabe": "lebenspfadzahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    }
+  ],
+  "lebenspfad_berechnung": {
+    "methode": "quersumme_mit_meisterzahlen",
+    "meisterzahlen": [11, 22, 33],
+    "reduktion_bis": 9
+  }
+}

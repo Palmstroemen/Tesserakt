@@ -1,0 +1,311 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "erstellt": "2026-02-22",
+    "beschreibung": "Humoraltypen als Meta-System — Übersetzungsschicht über allen 7 Systemen. Kein eigenständiges Regelwerk sondern ein Mapping der Systemausgaben auf die vier Temperamente nach Hippokrates/Galen/Paracelsus.",
+    "quellen": [
+      "Hippokrates: Über die Natur des Menschen (~400 v.Chr.)",
+      "Galen: De temperamentis (2. Jhd. n.Chr.)",
+      "Avicenna: Canon Medicinae (1025)",
+      "Paracelsus: Astronomia Magna (1537)",
+      "Ibn Ezra: The Beginning of Wisdom (1148) — Planeten-Temperament-Zuordnung",
+      "Ptolemäus: Tetrabiblos (2. Jhd.) — Planeten und Qualitäten"
+    ],
+    "vier_temperamente": {
+      "cholerisch":   { "element": "Feuer", "humor": "Gelbe Galle", "organ": "Leber",   "qualitaeten": ["heiß", "trocken"], "planet": "Mars",    "jahreszeit": "Sommer" },
+      "sanguinisch":  { "element": "Luft",  "humor": "Blut",        "organ": "Herz",    "qualitaeten": ["heiß", "feucht"], "planet": "Jupiter", "jahreszeit": "Frühling" },
+      "phlegmatisch": { "element": "Wasser","humor": "Schleim",     "organ": "Gehirn",  "qualitaeten": ["kalt", "feucht"], "planet": "Mond",    "jahreszeit": "Winter" },
+      "melancholisch":{ "element": "Erde",  "humor": "Schwarze Galle","organ": "Milz", "qualitaeten": ["kalt", "trocken"], "planet": "Saturn",  "jahreszeit": "Herbst" }
+    }
+  },
+
+  "system_mappings": {
+
+    "Westlich": {
+      "beschreibung": "Direkteste Verbindung — Westliche Astrologie hat die Humoraltypen vollständig internalisiert. Jedes Zeichen trägt ein Element, jedes Element ein Temperament.",
+      "mapping_typ": "nach_zeichen_element",
+      "zeichen_zu_temperament": {
+        "widder":      "cholerisch",
+        "loewe":       "cholerisch",
+        "schuetze":    "cholerisch",
+        "zwillinge":   "sanguinisch",
+        "waage":       "sanguinisch",
+        "wassermann":  "sanguinisch",
+        "krebs":       "phlegmatisch",
+        "skorpion":    "phlegmatisch",
+        "fische":      "phlegmatisch",
+        "stier":       "melancholisch",
+        "jungfrau":    "melancholisch",
+        "steinbock":   "melancholisch"
+      },
+      "planeten_zu_temperament": {
+        "mars":    "cholerisch",
+        "sonne":   "cholerisch",
+        "jupiter": "sanguinisch",
+        "venus":   "sanguinisch",
+        "mond":    "phlegmatisch",
+        "merkur":  "variabel",
+        "saturn":  "melancholisch"
+      },
+      "konfidenz": 0.95,
+      "historische_note": "Ptolemäus beschreibt im Tetrabiblos die vier Qualitäten (heiß/kalt/feucht/trocken) für jeden Planeten und jedes Zeichen — direkt aus der hippokratischen Humorallehre übernommen."
+    },
+
+    "Bazi": {
+      "beschreibung": "Bazi verwendet fünf Elemente statt vier — daher keine direkte 1:1-Entsprechung. Die Zuordnung erfolgt über das emotionale und charakterliche Profil der Elemente.",
+      "mapping_typ": "nach_element",
+      "element_zu_temperament": {
+        "feuer":  "cholerisch",
+        "holz":   "sanguinisch",
+        "wasser": "phlegmatisch",
+        "metall": "melancholisch",
+        "erde":   {
+          "primaer": "melancholisch",
+          "sekundaer": "phlegmatisch",
+          "note": "Erde ist in Bazi das Zentral-Element ohne direkte Jahreszeit — am nächsten an Melancholie (Stabilität, Schwere) aber mit phlegmatischen Zügen (Beharrlichkeit, Langsamkeit)."
+        }
+      },
+      "qualitaeten_mapping": {
+        "yang_holz":   { "temperament": "sanguinisch",  "staerke": 0.9 },
+        "yin_holz":    { "temperament": "sanguinisch",  "staerke": 0.7 },
+        "yang_feuer":  { "temperament": "cholerisch",   "staerke": 1.0 },
+        "yin_feuer":   { "temperament": "cholerisch",   "staerke": 0.8 },
+        "yang_erde":   { "temperament": "melancholisch","staerke": 0.7 },
+        "yin_erde":    { "temperament": "phlegmatisch", "staerke": 0.6 },
+        "yang_metall": { "temperament": "melancholisch","staerke": 0.9 },
+        "yin_metall":  { "temperament": "melancholisch","staerke": 1.0 },
+        "yang_wasser": { "temperament": "phlegmatisch", "staerke": 0.9 },
+        "yin_wasser":  { "temperament": "phlegmatisch", "staerke": 1.0 }
+      },
+      "konfidenz": 0.75,
+      "historische_note": "Die Fünf-Elemente-Lehre (Wu Xing) entstand unabhängig von der griechischen Vier-Elemente-Lehre, zeigt aber strukturelle Parallelen. Jesuits die im 17. Jhd. beide Systeme kannten, beobachteten die Ähnlichkeiten. Die Zuordnung ist interpretativ, nicht historisch belegt."
+    },
+
+    "Numerologie": {
+      "beschreibung": "Keine direkte historische Verbindung zu Humoraltypen. Zuordnung erfolgt über die charakterlichen Profile der Lebenspfadzahlen und ihre planetaren Entsprechungen in der pythagoreischen Tradition.",
+      "mapping_typ": "nach_lebenspfadzahl",
+      "lpz_zu_temperament": {
+        "1":  { "temperament": "cholerisch",   "begruendung": "Führung, Wille, Durchsetzung — Mars-Energie" },
+        "2":  { "temperament": "phlegmatisch", "begruendung": "Empathie, Anpassung, Harmonie — Mond-Energie" },
+        "3":  { "temperament": "sanguinisch",  "begruendung": "Ausdruck, Geselligkeit, Optimismus — Jupiter/Venus" },
+        "4":  { "temperament": "melancholisch","begruendung": "Struktur, Ordnung, Beständigkeit — Saturn-Energie" },
+        "5":  { "temperament": "sanguinisch",  "begruendung": "Freiheit, Vielseitigkeit, Neugier — Merkur/Luft" },
+        "6":  { "temperament": "phlegmatisch", "begruendung": "Fürsorge, Verantwortung, Harmonie — Venus/Wasser" },
+        "7":  { "temperament": "melancholisch","begruendung": "Tiefe, Analyse, Rückzug — Saturn/Erde" },
+        "8":  { "temperament": "cholerisch",   "begruendung": "Macht, Ambition, Materialismus — Mars/Feuer" },
+        "9":  { "temperament": "sanguinisch",  "begruendung": "Weisheit, Universalität, Idealismus — Jupiter" },
+        "11": { "temperament": "phlegmatisch", "begruendung": "Intuition, Spiritualität, Sensibilität — Mond erhöht" },
+        "22": { "temperament": "melancholisch","begruendung": "Meisterbauer, Erdung, Manifestation — Saturn erhöht" },
+        "33": { "temperament": "sanguinisch",  "begruendung": "Meisterlehrer, Mitgefühl, Ausdruck — Jupiter/Venus erhöht" }
+      },
+      "konfidenz": 0.60,
+      "historische_note": "Die pythagoreische Zahlen-Planeten-Zuordnung hat Überschneidungen mit der Humorallehre, aber keine direkte Verbindung. Diese Zuordnung ist rekonstruktiv."
+    },
+
+    "Kabbalah": {
+      "beschreibung": "Die Kabbalah verbindet Sephiroth mit Planeten — über die gemeinsame Planetenzuordnung lassen sich Temperamente ableiten. Zusätzlich haben die drei Mutterbuchstaben (Aleph, Mem, Shin) direkte Element-Entsprechungen.",
+      "mapping_typ": "nach_sephira",
+      "sephira_zu_temperament": {
+        "1_kether":   { "temperament": "keine_zuordnung", "note": "Über den Elementen — göttlicher Ursprung" },
+        "2_chokmah":  { "temperament": "sanguinisch",   "planet": "Neptun/Uranus", "element": "Luft/Feuer" },
+        "3_binah":    { "temperament": "melancholisch", "planet": "Saturn",        "element": "Erde" },
+        "4_chesed":   { "temperament": "sanguinisch",   "planet": "Jupiter",       "element": "Wasser/Luft" },
+        "5_geburah":  { "temperament": "cholerisch",    "planet": "Mars",          "element": "Feuer" },
+        "6_tiphareth":{ "temperament": "sanguinisch",   "planet": "Sonne",         "element": "Luft/Feuer" },
+        "7_netzach":  { "temperament": "phlegmatisch",  "planet": "Venus",         "element": "Wasser" },
+        "8_hod":      { "temperament": "sanguinisch",   "planet": "Merkur",        "element": "Luft" },
+        "9_yesod":    { "temperament": "phlegmatisch",  "planet": "Mond",          "element": "Wasser" },
+        "10_malkuth": { "temperament": "melancholisch", "planet": "Erde",          "element": "Erde" }
+      },
+      "mutterbuchstaben": {
+        "aleph": { "element": "Luft",   "temperament": "sanguinisch" },
+        "mem":   { "element": "Wasser", "temperament": "phlegmatisch" },
+        "shin":  { "element": "Feuer",  "temperament": "cholerisch" }
+      },
+      "konfidenz": 0.70,
+      "historische_note": "Die Sefer Yetzirah (Buch der Schöpfung, ~3.–6. Jhd.) weist den drei Mutterbuchstaben Luft, Wasser und Feuer zu — Erde fehlt als viertes Element. Spätere Kabbalisten ergänzten Malkuth als Erde-Sephira. Die Planeten-Entsprechungen wurden aus dem Zohar und der lurianischen Kabbalah übernommen."
+    },
+
+    "Arabisch": {
+      "beschreibung": "Arabische Astrologen wie Avicenna und Al-Kindi haben die griechische Humorallehre explizit mit der Astrologie verbunden — diese Zuordnung ist historisch am besten dokumentiert.",
+      "mapping_typ": "nach_firdaria_planet",
+      "planet_zu_temperament": {
+        "sonne":   { "temperament": "cholerisch",   "humor": "Gelbe Galle", "qualitaet": "heiß-trocken" },
+        "venus":   { "temperament": "phlegmatisch", "humor": "Schleim",     "qualitaet": "kalt-feucht",
+                     "note": "Venus ist in arabischer Tradition feucht-warm, daher teils sanguinisch" },
+        "merkur":  { "temperament": "variabel",     "humor": "variabel",    "qualitaet": "kalt-trocken oder heiß-feucht je nach Aspekt" },
+        "mond":    { "temperament": "phlegmatisch", "humor": "Schleim",     "qualitaet": "kalt-feucht" },
+        "saturn":  { "temperament": "melancholisch","humor": "Schwarze Galle","qualitaet": "kalt-trocken" },
+        "jupiter": { "temperament": "sanguinisch",  "humor": "Blut",        "qualitaet": "heiß-feucht" },
+        "mars":    { "temperament": "cholerisch",   "humor": "Gelbe Galle", "qualitaet": "heiß-trocken" }
+      },
+      "firdaria_alter_mapping": {
+        "note": "Die Firdaria-Periode bestimmt den aktuellen Planeten-Einfluss. Für das Natal-Temperament ist der Geburtsplanet (erster Firdaria-Herrscher) relevant.",
+        "0_10_jahre":   "sonne",
+        "10_19_jahre":  "venus",
+        "19_26_jahre":  "merkur",
+        "26_36_jahre":  "mond",
+        "36_45_jahre":  "saturn",
+        "45_57_jahre":  "jupiter",
+        "57_66_jahre":  "mars"
+      },
+      "konfidenz": 0.85,
+      "historische_note": "Avicennas Canon Medicinae (1025) verbindet Planetenpositionen direkt mit den vier Humoren und gibt Behandlungsempfehlungen basierend auf dem Geburtshoroskop. Dies ist die direkteste historische Verbindung zwischen Astrologie und Medizin."
+    },
+
+    "Hellenistisch": {
+      "beschreibung": "Die Hellenistische Astrologie kennt die Verbindung zu Temperamenten direkt durch das Sekt-System und die Planetenqualitäten nach Ptolemäus.",
+      "mapping_typ": "nach_sekt_und_zeichen",
+      "sekt_zu_tendenz": {
+        "tag_geburt": {
+          "note": "Tag-Geburten stehen unter Sonne, Jupiter, Saturn — aktiver, extravertierter",
+          "tendenz": ["cholerisch", "sanguinisch"]
+        },
+        "nacht_geburt": {
+          "note": "Nacht-Geburten stehen unter Mond, Venus, Mars — reaktiver, introvertierter",
+          "tendenz": ["phlegmatisch", "melancholisch"]
+        }
+      },
+      "profektions_haus_zu_temperament": {
+        "note": "Das aktive Profektionshaus (Lebensalter mod 12) gibt Hinweise auf die Jahres-Temperament-Tendenz",
+        "feuer_haeuser": { "haeuser": [1, 5, 9],  "temperament": "cholerisch" },
+        "luft_haeuser":  { "haeuser": [3, 7, 11], "temperament": "sanguinisch" },
+        "wasser_haeuser":{ "haeuser": [4, 8, 12], "temperament": "phlegmatisch" },
+        "erde_haeuser":  { "haeuser": [2, 6, 10], "temperament": "melancholisch" }
+      },
+      "qualitaeten_nach_ptolemaeus": {
+        "saturn":  ["kalt", "trocken"],
+        "jupiter": ["heiß", "feucht"],
+        "mars":    ["heiß", "trocken"],
+        "sonne":   ["heiß", "trocken"],
+        "venus":   ["heiß", "feucht"],
+        "merkur":  ["kalt", "trocken"],
+        "mond":    ["kalt", "feucht"]
+      },
+      "konfidenz": 0.90,
+      "historische_note": "Ptolemäus beschreibt im Tetrabiblos I.4–9 die thermischen und hygrischen Qualitäten jedes Planeten explizit und leitet daraus Charaktereigenschaften ab — die direkteste antike Verbindung zwischen Astrologie und Humoralpathologie."
+    },
+
+    "Japanisch": {
+      "beschreibung": "Jyotish kennt keine direkten Humoraltypen, aber die drei Doshas (Vata, Pitta, Kapha) der Ayurveda sind das indische Äquivalent und historisch mit Jyotish verbunden.",
+      "mapping_typ": "nach_nakshatra_dosha",
+      "dosha_zu_temperament": {
+        "pitta":      { "temperament": "cholerisch",   "note": "Feuer-Dosha: Intellekt, Ehrgeiz, Leidenschaft" },
+        "vata":       { "temperament": "sanguinisch",  "note": "Luft-Dosha: Beweglichkeit, Kreativität, Unbeständigkeit",
+                        "alternativ": "melancholisch",  "note2": "Bei überschuss: Angst, Unruhe, Erschöpfung" },
+        "kapha":      { "temperament": "phlegmatisch", "note": "Wasser/Erde-Dosha: Stabilität, Geduld, Schwere" }
+      },
+      "planet_zu_dosha": {
+        "sonne":    "pitta",
+        "mond":     "vata_kapha",
+        "mars":     "pitta",
+        "merkur":   "vata_pitta",
+        "jupiter":  "kapha",
+        "venus":    "vata_kapha",
+        "saturn":   "vata",
+        "rahu":     "vata",
+        "ketu":     "pitta"
+      },
+      "mahadasha_zu_dosha": {
+        "note": "Der aktuelle Mahadasha-Planet bestimmt die aktuelle Dosha-Dominanz",
+        "sonne_md":    "pitta",
+        "mond_md":     "kapha",
+        "mars_md":     "pitta",
+        "rahu_md":     "vata",
+        "jupiter_md":  "kapha",
+        "saturn_md":   "vata",
+        "merkur_md":   "vata_pitta",
+        "ketu_md":     "pitta",
+        "venus_md":    "kapha"
+      },
+      "konfidenz": 0.65,
+      "historische_note": "Ayurveda und Jyotish entstammen der gleichen vedischen Tradition und werden in klassischen Texten (Caraka Samhita, Ashtanga Hridayam) gemeinsam behandelt. Die Zuordnung von Planeten zu Doshas ist in diesen Texten explizit beschrieben."
+    }
+  },
+
+  "aggregation": {
+    "beschreibung": "Wie wird aus den 7 System-Temperamenten ein Gesamt-Temperament berechnet",
+    "methode": "gewichteter_modus",
+    "system_gewichte": {
+      "Westlich":      1.0,
+      "Hellenistisch": 0.95,
+      "Arabisch":      0.85,
+      "Kabbalah":      0.70,
+      "Bazi":          0.75,
+      "Numerologie":   0.60,
+      "Japanisch":     0.65
+    },
+    "misch_typen": {
+      "beschreibung": "Wenn kein Temperament >50% Gewicht hat — gemischte Typen",
+      "beispiele": [
+        "cholerisch-melancholisch: Analytischer Anführer — Entschlossenheit mit Tiefe",
+        "sanguinisch-phlegmatisch: Sozialer Vermittler — Kontaktfreude mit Besonnenheit",
+        "cholerisch-sanguinisch: Enthusiastischer Macher — Energie mit Optimismus",
+        "melancholisch-phlegmatisch: Stiller Beobachter — Tiefe mit Geduld"
+      ]
+    }
+  },
+
+  "temperament_profile": {
+    "cholerisch": {
+      "name": "Der Macher",
+      "element": "Feuer",
+      "humor": "Gelbe Galle",
+      "planet": "Mars",
+      "positive": ["Entschlusskraft", "Führungsstärke", "Energie", "Mut", "Begeisterungsfähigkeit"],
+      "herausforderungen": ["Ungeduld", "Jähzorn", "Rücksichtslosigkeit", "Überforderung"],
+      "dimensionen_vektor": {
+        "beruf": 4.4, "veraenderung": 4.5, "soziales": 3.8,
+        "finanzen": 3.9, "liebe": 3.2, "gesundheit": 3.7,
+        "kreativitaet": 3.5, "spiritualitaet": 2.8
+      },
+      "bekannte_typen": "Napoleon, Churchill, Aries-Archetyp",
+      "paracelsus_signatur": "Rotes Haar, rötliche Haut, kräftiger Körperbau — Zeichen des Mars"
+    },
+    "sanguinisch": {
+      "name": "Der Enthusiast",
+      "element": "Luft",
+      "humor": "Blut",
+      "planet": "Jupiter",
+      "positive": ["Geselligkeit", "Optimismus", "Kreativität", "Flexibilität", "Begeisterung"],
+      "herausforderungen": ["Oberflächlichkeit", "Unbeständigkeit", "Ablenkbarkeit", "Versprechen die nicht gehalten werden"],
+      "dimensionen_vektor": {
+        "liebe": 4.3, "soziales": 4.5, "kreativitaet": 4.2,
+        "veraenderung": 4.0, "beruf": 3.5, "spiritualitaet": 3.3,
+        "gesundheit": 3.4, "finanzen": 3.0
+      },
+      "bekannte_typen": "Mozart, Robin Williams, Gemini-Archetyp",
+      "paracelsus_signatur": "Blondes oder rotes Haar, helle Haut, lebhafte Augen — Zeichen des Jupiter"
+    },
+    "phlegmatisch": {
+      "name": "Der Bewahrer",
+      "element": "Wasser",
+      "humor": "Schleim",
+      "planet": "Mond",
+      "positive": ["Besonnenheit", "Loyalität", "Einfühlungsvermögen", "Geduld", "Verlässlichkeit"],
+      "herausforderungen": ["Passivität", "Sturheit", "Rückzug", "Entscheidungsschwäche"],
+      "dimensionen_vektor": {
+        "liebe": 4.4, "soziales": 4.0, "gesundheit": 3.8,
+        "spiritualitaet": 3.9, "finanzen": 3.5, "beruf": 3.2,
+        "kreativitaet": 3.3, "veraenderung": 2.5
+      },
+      "bekannte_typen": "Gandhi, Mutter Teresa, Cancer-Archetyp",
+      "paracelsus_signatur": "Blasses Gesicht, runde Formen, langsame Bewegungen — Zeichen des Mondes"
+    },
+    "melancholisch": {
+      "name": "Der Denker",
+      "element": "Erde",
+      "humor": "Schwarze Galle",
+      "planet": "Saturn",
+      "positive": ["Tiefgründigkeit", "Zuverlässigkeit", "Perfektionismus", "Analytik", "Ausdauer"],
+      "herausforderungen": ["Grübeln", "Pessimismus", "Überanalyse", "Soziale Isolation", "Selbstkritik"],
+      "dimensionen_vektor": {
+        "beruf": 4.2, "finanzen": 4.0, "kreativitaet": 4.1,
+        "spiritualitaet": 4.3, "gesundheit": 3.3, "liebe": 3.0,
+        "soziales": 2.8, "veraenderung": 2.6
+      },
+      "bekannte_typen": "Aristoteles, Kafka, Virgo-Archetyp",
+      "paracelsus_signatur": "Dunkles Haar, gelbliche oder blasse Haut, schmale Gestalt — Zeichen des Saturn"
+    }
+  }
+}

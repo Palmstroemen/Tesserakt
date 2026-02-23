@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "system": "Westlich",
+    "beschreibung": "Westliche Astrologie — Sonnenzeichen + Planetentransite",
+    "zeit_abhaengig": true
+  },
+  "vektor_quellen": [
+    {
+      "id": "zeichen_profil",
+      "schluessel": "natal_sign_interpretations",
+      "typ": "nach_zeichen",
+      "eingabe": "sonnenzeichen",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "planet_fallback",
+      "schluessel": "planets",
+      "typ": "nach_planet_herrscher",
+      "eingabe": "sonnenzeichen",
+      "herrscher_quelle": "planet_rulers_dignities",
+      "dim_feld": "dimensionen",
+      "gewicht": 0.4,
+      "nur_wenn_leer": true,
+      "pflicht": false
+    },
+    {
+      "id": "transite",
+      "schluessel": "transit_rules",
+      "typ": "transit",
+      "eingabe": "zieldatum",
+      "dim_feld": "vektor",
+      "gewicht": 0.6,
+      "gewicht_abnahme": 0.1,
+      "gewicht_minimum": 0.2,
+      "pflicht": false
+    }
+  ]
+}

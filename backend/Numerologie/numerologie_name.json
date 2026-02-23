@@ -1,0 +1,440 @@
+{
+  "_meta": {
+    "system": "numerologie",
+    "modul": "namens_numerologie",
+    "version": "1.0",
+    "gespraech": "N3",
+    "sources": [
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, Project Gutenberg #3203)",
+      "Cheiro (Count Louis Hamon) - Book of Numbers (1926, public domain AT/EU)",
+      "L. Dow Balliett - The Philosophy of Numbers (1908, public domain)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Namens-Numerologie: Pythagoräisches und Chaldäisches Buchstaben-Zahlen-Mapping, Seelendrang-, Ausdrucks-, Persönlichkeits- und Schicksalszahl mit Profilen und Deutungsregeln. ~70 Regeln.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog western_rules_complete.json und numerologie_basis.json"
+  },
+
+  "buchstaben_systeme": {
+
+    "pythagoraisch": {
+      "beschreibung": "Das pythagoräische System ordnet den 26 lateinischen Buchstaben zyklisch Zahlen 1–9 zu. Weit verbreitet im englischen und deutschen Sprachraum.",
+      "quelle": "Westcott S.44-48; Balliett S.30-35; Cheiro Kap.4",
+      "mapping": {
+        "A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9,
+        "J": 1, "K": 2, "L": 3, "M": 4, "N": 5, "O": 6, "P": 7, "Q": 8, "R": 9,
+        "S": 1, "T": 2, "U": 3, "V": 4, "W": 5, "X": 6, "Y": 7, "Z": 8
+      },
+      "vokale": ["A","E","I","O","U","Y"],
+      "konsonanten": ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Z"],
+      "hinweis_y": "Y gilt in manchen Traditionen als Vokal (wenn kein anderer Vokal im Silbenkern), in anderen als Konsonant. Cheiro behandelt Y als Konsonant; Balliett als Vokal. Für Konsistenz: Y = Vokal."
+    },
+
+    "chaldaeisch": {
+      "beschreibung": "Das chaldäische System (Cheiro-System) verwendet die ursprünglichen semitisch-babylonischen Zuordnungen. Die 9 wird keinem Buchstaben zugewiesen (gilt als heilige Zahl), daher Zahlen 1–8.",
+      "quelle": "Cheiro - Book of Numbers Kap.3-4",
+      "mapping": {
+        "A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 8, "G": 3, "H": 5, "I": 1,
+        "J": 1, "K": 2, "L": 3, "M": 4, "N": 5, "O": 7, "P": 8, "Q": 1, "R": 2,
+        "S": 3, "T": 4, "U": 6, "V": 6, "W": 6, "X": 5, "Y": 1, "Z": 7
+      },
+      "vokale": ["A","E","I","O","U"],
+      "besonderheit": "Im chaldäischen System wird die 9 als heilig betrachtet und keinem Buchstaben zugewiesen. Ergebnisse werden auf 1–8 reduziert (oder als Meisterzahl 11/22 belassen). Cheiro empfiehlt dieses System für Namensdeutungen, da es auf direkter Beobachtung beruhe.",
+      "hinweis_systemwahl": "Pythagoräisch: analytisch, logisch, für Charakteranalyse. Chaldäisch: karmisch, esoterisch, für Schicksalsaussagen. Beide Systeme können parallel verwendet werden."
+    }
+  },
+
+  "berechnungs_methoden": {
+
+    "allgemeine_regel": {
+      "beschreibung": "Alle Buchstaben eines Namens werden addiert, bis eine einstellige Zahl oder Meisterzahl (11, 22, 33) entsteht. Meisterzahlen werden NICHT weiter reduziert.",
+      "beispiel": "ANNA = 1+5+5+1 = 12 → 1+2 = 3",
+      "meisterzahl_beispiel": "KAREN = 2+1+9+5+5 = 22 → bleibt 22 (nicht 4)",
+      "quelle": "Westcott S.44; Cheiro Kap.4; Balliett S.30"
+    },
+
+    "seelendrang_zahl": {
+      "name_de": "Seelendrang-Zahl",
+      "name_en": "Soul Urge Number / Heart's Desire",
+      "berechnung": "Summe aller VOKALE im vollständigen Geburtsnamen (Vorname + ggf. Zweitname + Nachname), reduziert auf 1–9 oder Meisterzahl.",
+      "bedeutung": "Repräsentiert die innere Motivation, den tiefsten Herzenswnsch, das was die Seele anstrebt. Oft verborgen für andere, aber treibende Kraft hinter allen Entscheidungen.",
+      "beispiel": "MARIA SCHMIDT: Vokale = A+I+A+I = 1+9+1+9 = 20 → 2+0 = 2. Seelendrang = 2.",
+      "quelle": "Westcott S.45-48; Cheiro Kap.5; Balliett S.35-40"
+    },
+
+    "ausdrucks_zahl": {
+      "name_de": "Ausdrucks-Zahl",
+      "name_en": "Expression Number / Destiny Number",
+      "berechnung": "Summe ALLER Buchstaben im vollständigen Geburtsnamen, reduziert auf 1–9 oder Meisterzahl.",
+      "bedeutung": "Repräsentiert die äußere Persönlichkeit und die natürlichen Talente, die jemand in die Welt trägt. Das, was andere zuerst sehen. Zeigt die Mittel, mit denen die Lebensaufgabe erfüllt wird.",
+      "beispiel": "ANNA = 1+5+5+1 = 12 → 3. Ausdruckszahl = 3.",
+      "quelle": "Westcott S.44-48; Cheiro Kap.5; Balliett S.40-45"
+    },
+
+    "persoenlichkeits_zahl": {
+      "name_de": "Persönlichkeits-Zahl",
+      "name_en": "Personality Number",
+      "berechnung": "Summe aller KONSONANTEN im vollständigen Geburtsnamen, reduziert auf 1–9 oder Meisterzahl.",
+      "bedeutung": "Repräsentiert die Maske, die nach außen gezeigt wird — wie andere uns beim ersten Eindruck wahrnehmen. Die äußere Schale, bevor man jemanden wirklich kennt.",
+      "beispiel": "MARIA: Konsonanten M+R = 4+9 = 13 → 4. Persönlichkeitszahl = 4.",
+      "quelle": "Cheiro Kap.5; Balliett S.45-50"
+    },
+
+    "schicksals_zahl": {
+      "name_de": "Schicksals-Zahl",
+      "name_en": "Destiny / Life Purpose Number",
+      "berechnung": "Ausdrucks-Zahl + Lebenspfad-Zahl (aus Geburtsdatum, siehe numerologie_lebenspfad.json), reduziert auf 1–9 oder Meisterzahl.",
+      "bedeutung": "Zeigt die übergeordnete Lebensaufgabe und das karmische Ziel. Die Synthese aus dem, wer man ist (Ausdruckszahl) und dem Lebensweg (Lebenspfad). Der tiefste Zweck der Inkarnation.",
+      "quelle": "Westcott S.50; Cheiro Kap.6; Balliett S.50-55"
+    },
+
+    "geburtstags_zahl": {
+      "name_de": "Geburtstags-Zahl",
+      "name_en": "Birthday Number",
+      "berechnung": "Nur der Geburtstag (1–31), reduziert auf 1–9 oder Meisterzahl. Nicht zu verwechseln mit dem Lebenspfad.",
+      "bedeutung": "Ein spezifisches Talent oder eine Gabe, die die Person mitgebracht hat. Ergänzt den Lebenspfad.",
+      "quelle": "Cheiro Kap.3; Balliett S.55"
+    },
+
+    "reife_zahl": {
+      "name_de": "Reife-Zahl",
+      "name_en": "Maturity Number",
+      "berechnung": "Lebenspfad-Zahl + Ausdrucks-Zahl, reduziert auf 1–9 oder Meisterzahl.",
+      "bedeutung": "Zeigt, was im Alter von 35–45 Jahren an Reife und Verständnis erwartet wird. Die bewusstere Version des eigentlichen Ichs, das sich im Laufe des Lebens entfaltet.",
+      "quelle": "Westcott S.50-52; Cheiro Kap.7"
+    },
+
+    "verborgene_leidenschaft": {
+      "name_de": "Verborgene Leidenschaft",
+      "name_en": "Hidden Passion Number",
+      "berechnung": "Die Zahl (1–9), die am häufigsten im vollständigen Geburtsnamen vorkommt.",
+      "bedeutung": "Zeigt eine besondere Stärke, ein latentes Talent oder eine Obsession, die tief im Charakter verankert ist.",
+      "quelle": "Balliett S.60; Westcott S.52"
+    },
+
+    "karmaische_schulden_zahlen": {
+      "name_de": "Karmische Schulden-Zahlen",
+      "beschreibung": "Bestimmte Zahlen tragen karmische Schulden aus vergangenen Leben. Sie entstehen, wenn bestimmte Kernzahlen im Namen oder Geburtsdatum eine der Schuldenzahlen als Zwischensumme enthält.",
+      "schuldenzahlen": {
+        "13": "Faulheit und Negativismus in einem früheren Leben. Aufgabe: Fleißig sein, Verantwortung annehmen, aufbauen.",
+        "14": "Missbrauch von Freiheit oder anderen Menschen. Aufgabe: Beständigkeit entwickeln, Exzesse meiden.",
+        "16": "Selbstüberschätzung und Missbrauch von Liebe. Aufgabe: Ego auflösen, spirituelle Demut entwickeln.",
+        "19": "Missbrauch von Macht. Aufgabe: Unabhängigkeit mit Rücksicht verbinden, anderen dienen."
+      },
+      "quelle": "Westcott S.53-56; Cheiro Kap.8"
+    }
+  },
+
+  "seelendrang_profile": {
+    "beschreibung": "Profile für Seelendrang-Zahlen 1–9 und Meisterzahlen 11/22/33.",
+    "quelle_allgemein": "Westcott S.44-60; Cheiro Kap.5-8; Balliett S.35-60",
+
+    "1": {
+      "zahl": 1, "name": "Der innere Anführer",
+      "sehnsucht": "Unabhängigkeit, Originalität, der Erste zu sein, Anerkennung der eigenen Einzigartigkeit. Die Seele sehnt sich nach Führung und Autonomie.",
+      "schattenseite": "Kann egozentrisch werden, wenn das Bedürfnis nach Anerkennung nicht erfüllt wird.",
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":3},
+      "quelle": "Cheiro Kap.5; Westcott S.45"
+    },
+    "2": {
+      "zahl": 2, "name": "Die innere Friedensstifterin",
+      "sehnsucht": "Harmonie, Liebe, Partnerschaft, Zugehörigkeit. Die Seele sehnt sich nach echter emotionaler Verbindung und Frieden.",
+      "schattenseite": "Neigt zu emotionaler Abhängigkeit und Selbstaufgabe.",
+      "dimensionen_vektor": {"liebe":5,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":3,"veraenderung":2,"spiritualitaet":4},
+      "quelle": "Cheiro Kap.5; Balliett S.37"
+    },
+    "3": {
+      "zahl": 3, "name": "Die innere Schöpferin",
+      "sehnsucht": "Kreativität, Freude, Ausdruck, soziale Verbindung. Die Seele sehnt sich danach, gehört und gesehen zu werden.",
+      "schattenseite": "Kann oberflächlich werden, wenn der Ausdruck nicht in die Tiefe geht.",
+      "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3},
+      "quelle": "Cheiro Kap.5; Westcott S.47"
+    },
+    "4": {
+      "zahl": 4, "name": "Der innere Baumeister",
+      "sehnsucht": "Sicherheit, Ordnung, Struktur, solide Grundlagen schaffen. Die Seele sehnt sich nach Beständigkeit und Verlässlichkeit.",
+      "schattenseite": "Kann in Stagnation und Starrheit verfallen.",
+      "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":3,"kreativitaet":2,"veraenderung":1,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.5; Balliett S.38"
+    },
+    "5": {
+      "zahl": 5, "name": "Der innere Abenteurer",
+      "sehnsucht": "Freiheit, Vielfalt, Erfahrung, Sinnesreize. Die Seele sehnt sich nach einem Leben ohne Grenzen.",
+      "schattenseite": "Kann bindungsscheu werden und Verpflichtungen meiden.",
+      "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":5,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.5; Westcott S.49"
+    },
+    "6": {
+      "zahl": 6, "name": "Der innere Hüter",
+      "sehnsucht": "Fürsorge, Verantwortung, Schönheit, Häuslichkeit, Liebe geben. Die Seele sehnt sich nach Harmonie in Familie und Gemeinschaft.",
+      "schattenseite": "Kann zur Kontrolle und Aufopferung neigen.",
+      "dimensionen_vektor": {"liebe":5,"beruf":3,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3},
+      "quelle": "Cheiro Kap.5; Balliett S.39"
+    },
+    "7": {
+      "zahl": 7, "name": "Der innere Sucher",
+      "sehnsucht": "Wahrheit, Wissen, Stille, spirituelle Tiefe. Die Seele sehnt sich nach Erkenntnis und Kontemplation.",
+      "schattenseite": "Kann in Isolation und Zynismus abgleiten.",
+      "dimensionen_vektor": {"liebe":2,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5},
+      "quelle": "Cheiro Kap.5; Westcott S.51"
+    },
+    "8": {
+      "zahl": 8, "name": "Der innere Herrscher",
+      "sehnsucht": "Macht, Einfluss, materieller Erfolg, Gerechtigkeit. Die Seele sehnt sich nach Kontrolle über die materielle Welt.",
+      "schattenseite": "Kann materialistisch und dominant werden.",
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":3,"soziales":3,"kreativitaet":2,"veraenderung":4,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.5; Balliett S.40"
+    },
+    "9": {
+      "zahl": 9, "name": "Der innere Humanist",
+      "sehnsucht": "Universale Liebe, Weisheit, Dienst an der Menschheit, Vollendung. Die Seele sehnt sich nach Transzendenz.",
+      "schattenseite": "Kann selbstaufopfernd oder weltfremd werden.",
+      "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":4,"spiritualitaet":5},
+      "quelle": "Cheiro Kap.5; Westcott S.53"
+    },
+    "11": {
+      "zahl": 11, "name": "Der innere Visionär",
+      "sehnsucht": "Erleuchtung, Inspiration, spirituelle Wahrheit weitergeben. Die Seele sehnt sich danach, Licht in die Welt zu bringen.",
+      "schattenseite": "Hohe innere Spannung zwischen Idealismus und Realität.",
+      "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":2,"soziales":4,"kreativitaet":5,"veraenderung":4,"spiritualitaet":5},
+      "quelle": "Westcott S.60; Cheiro Kap.8"
+    },
+    "22": {
+      "zahl": 22, "name": "Der innere Meisterbauer",
+      "sehnsucht": "Großes für die Menschheit erschaffen, bleibende Strukturen bauen, Vision in Realität verwandeln.",
+      "schattenseite": "Kann unter dem immensen Druck kollabieren oder Visionen gar nicht erst beginnen.",
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":2,"soziales":4,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4},
+      "quelle": "Westcott S.62; Cheiro Kap.8"
+    },
+    "33": {
+      "zahl": 33, "name": "Der innere Meisterlehrer",
+      "sehnsucht": "Bedingungslose Liebe ausdrücken, andere heilen und erleuchten, höchster Dienst.",
+      "schattenseite": "Kann selbst vernachlässigt werden; Gefahr des Märtyrertums.",
+      "dimensionen_vektor": {"liebe":5,"beruf":4,"finanzen":3,"gesundheit":2,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5},
+      "quelle": "Westcott S.63; Cheiro Kap.8"
+    }
+  },
+
+  "ausdrucks_profile": {
+    "beschreibung": "Profile der Ausdrucks-Zahl (alle Buchstaben des Namens) — zeigt äußere Talente und wie die Person in der Welt wirkt.",
+    "quelle_allgemein": "Westcott S.44-60; Cheiro Kap.6; Balliett S.40-55",
+
+    "1": {
+      "zahl": 1, "name": "Der natürliche Anführer",
+      "ausdruck": "Wirkt selbstsicher, pionierartig, originell. Andere sehen jemanden mit Autorität und Entschlossenheit. Natürliches Talent für Führung, Selbständigkeit, neue Wege.",
+      "talente": ["Pionierarbeit", "Selbständigkeit", "Führung", "Innovation", "Mut"],
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":5,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.6; Westcott S.45"
+    },
+    "2": {
+      "zahl": 2, "name": "Der Diplomat",
+      "ausdruck": "Wirkt warmherzig, kooperativ, sensibel. Talent für Mediation, Zusammenarbeit, emotionale Intelligenz.",
+      "talente": ["Mediation", "Teamarbeit", "Einfühlungsvermögen", "Beratung", "Musik"],
+      "dimensionen_vektor": {"liebe":5,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":2,"spiritualitaet":4},
+      "quelle": "Cheiro Kap.6; Balliett S.42"
+    },
+    "3": {
+      "zahl": 3, "name": "Der Kommunikator",
+      "ausdruck": "Wirkt charmant, ausdrucksstark, kreativ. Talent für Sprache, Kunst, Unterhaltung, soziale Verbindung.",
+      "talente": ["Schreiben", "Sprechen", "Kunst", "Unterhaltung", "Lehren"],
+      "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3},
+      "quelle": "Cheiro Kap.6; Westcott S.47"
+    },
+    "4": {
+      "zahl": 4, "name": "Der Organisator",
+      "ausdruck": "Wirkt zuverlässig, methodisch, bodenständig. Talent für Planung, Verwaltung, handwerkliches Geschick.",
+      "talente": ["Organisation", "Management", "Handwerk", "Buchhaltung", "Ingenieurwesen"],
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":3,"kreativitaet":2,"veraenderung":1,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.6; Balliett S.43"
+    },
+    "5": {
+      "zahl": 5, "name": "Der Freigeist",
+      "ausdruck": "Wirkt vielseitig, anpassungsfähig, begeisternd. Talent für Kommunikation, Reise, Verkauf, Wandel.",
+      "talente": ["Verkauf", "Reise", "Journalismus", "Werbung", "Sport"],
+      "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":5,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.6; Westcott S.49"
+    },
+    "6": {
+      "zahl": 6, "name": "Der Versorger",
+      "ausdruck": "Wirkt verantwortungsvoll, fürsorglich, harmonisch. Talent für Heilung, Bildung, Heim und Gemeinschaft.",
+      "talente": ["Heilberufe", "Erziehung", "Kunst", "Gastronomie", "Sozialarbeit"],
+      "dimensionen_vektor": {"liebe":5,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3},
+      "quelle": "Cheiro Kap.6; Balliett S.44"
+    },
+    "7": {
+      "zahl": 7, "name": "Der Analysierer",
+      "ausdruck": "Wirkt geheimnisvoll, intellektuell, introspektiv. Talent für Forschung, Analyse, Spiritualität, Wissenschaft.",
+      "talente": ["Wissenschaft", "Forschung", "Philosophie", "Mystik", "Schreiben"],
+      "dimensionen_vektor": {"liebe":2,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5},
+      "quelle": "Cheiro Kap.6; Westcott S.51"
+    },
+    "8": {
+      "zahl": 8, "name": "Der Macher",
+      "ausdruck": "Wirkt autoritär, ehrgeizig, effizient. Talent für Business, Finanzen, Management auf großer Ebene.",
+      "talente": ["Unternehmensführung", "Finanzen", "Immobilien", "Recht", "Politik"],
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":2},
+      "quelle": "Cheiro Kap.6; Balliett S.45"
+    },
+    "9": {
+      "zahl": 9, "name": "Der Menschenfreund",
+      "ausdruck": "Wirkt weise, mitfühlend, inspirierend. Talent für humanitäre Arbeit, Kunst mit Tiefgang, Heilung.",
+      "talente": ["Humanitäre Arbeit", "Kunst", "Medizin", "Spiritualität", "Diplomatie"],
+      "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":4,"spiritualitaet":5},
+      "quelle": "Cheiro Kap.6; Westcott S.53"
+    },
+    "11": {
+      "zahl": 11, "name": "Der Inspirator",
+      "ausdruck": "Wirkt charismatisch, visionär, spirituell aufgeladen. Talent für Inspiration großer Gruppen, Kunst, Spiritualität.",
+      "talente": ["Spirituelles Lehren", "Kunst", "Medien", "Psychologie", "Erfindung"],
+      "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":2,"soziales":5,"kreativitaet":5,"veraenderung":4,"spiritualitaet":5},
+      "quelle": "Westcott S.60; Cheiro Kap.8"
+    },
+    "22": {
+      "zahl": 22, "name": "Der universale Baumeister",
+      "ausdruck": "Wirkt visionär und bodenständig zugleich. Talent für großangelegte Projekte, die Gesellschaften formen.",
+      "talente": ["Architektur", "Politik", "internationale Organisationen", "große Unternehmen"],
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":2,"soziales":4,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4},
+      "quelle": "Westcott S.62; Cheiro Kap.8"
+    }
+  },
+
+  "persoenlichkeits_profile": {
+    "beschreibung": "Profile der Persönlichkeits-Zahl (Konsonanten) — zeigt den äußeren Eindruck, die Fassade nach außen.",
+    "quelle_allgemein": "Cheiro Kap.5; Balliett S.45-50",
+
+    "1": {"zahl": 1, "eindruck": "Wirkt selbstsicher, unabhängig, etwas distanziert. Andere respektieren die Autorität, können aber auch Scheu empfinden.", "farbe_aura": "Goldgelb", "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":4,"spiritualitaet":2}},
+    "2": {"zahl": 2, "eindruck": "Wirkt sanft, freundlich, geduldig, manchmal schüchtern. Andere fühlen sich sofort wohl und öffnen sich.", "farbe_aura": "Silber/Weiß", "dimensionen_vektor": {"liebe":5,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":3,"veraenderung":2,"spiritualitaet":4}},
+    "3": {"zahl": 3, "eindruck": "Wirkt charmant, witzig, gesellig, manchmal flatterhaft. Andere sind sofort angezogen.", "farbe_aura": "Hellgelb/Pink", "dimensionen_vektor": {"liebe":4,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":2}},
+    "4": {"zahl": 4, "eindruck": "Wirkt ernsthaft, zuverlässig, konservativ. Andere vertrauen sofort auf Stabilität und Integrität.", "farbe_aura": "Erdbraun/Grün", "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":3,"kreativitaet":2,"veraenderung":1,"spiritualitaet":2}},
+    "5": {"zahl": 5, "eindruck": "Wirkt dynamisch, charismatisch, etwas unberechenbar. Andere empfinden spannende Energie.", "farbe_aura": "Türkis/Orange", "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":5,"spiritualitaet":2}},
+    "6": {"zahl": 6, "eindruck": "Wirkt warm, fürsorglich, vertrauenswürdig. Andere möchten sich anvertrauen und Hilfe erbitten.", "farbe_aura": "Rosa/Blaugrün", "dimensionen_vektor": {"liebe":5,"beruf":4,"finanzen":3,"gesundheit":4,"soziales":5,"kreativitaet":3,"veraenderung":2,"spiritualitaet":3}},
+    "7": {"zahl": 7, "eindruck": "Wirkt geheimnisvoll, intellektuell, etwas zurückgezogen. Andere empfinden Respekt und Neugier.", "farbe_aura": "Violett/Dunkelblau", "dimensionen_vektor": {"liebe":2,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":2,"spiritualitaet":5}},
+    "8": {"zahl": 8, "eindruck": "Wirkt mächtig, selbstbewusst, autoritär. Andere respektieren und sind manchmal eingeschüchtert.", "farbe_aura": "Schwarz/Dunkelgrau", "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":5,"gesundheit":3,"soziales":3,"kreativitaet":2,"veraenderung":4,"spiritualitaet":2}},
+    "9": {"zahl": 9, "eindruck": "Wirkt weise, mitfühlend, etwas entrückt. Andere fühlen tiefe Wärme und Ehrfurcht.", "farbe_aura": "Gold/Weinrot", "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5}}
+  },
+
+  "namenswechsel_regeln": {
+    "beschreibung": "Regeln für die Auswirkung von Namenswechseln (Heirat, Scheidung, Künstlername, Namensänderung) auf numerologische Profilveränderungen.",
+    "quelle": "Cheiro Kap.7; Westcott S.56-60; Balliett S.55-60",
+
+    "allgemeine_prinzipien": [
+      "Der Geburtsname bleibt immer die tiefste karmische Prägung — er wird durch Namenswechsel modifiziert, aber nie vollständig ersetzt.",
+      "Ein Namenswechsel ändert die Ausdrucks-Zahl und damit die äußere Energie. Seelendrang und Lebenspfad bleiben unberührt.",
+      "Günstig ist ein Namenswechsel, wenn die neue Ausdrucks-Zahl die Lebenspfad-Zahl ergänzt oder verstärkt.",
+      "Ungünstig ist ein Namenswechsel, wenn die neue Ausdrucks-Zahl der Lebenspfad-Zahl direkt widerspricht.",
+      "Cheiro empfiehlt: Prüfe sowohl das pythagoräische als auch das chaldäische System. Stimmen beide überein, ist die Aussage besonders stark."
+    ],
+
+    "heirat_namensaenderung": {
+      "foerderlich_wenn": [
+        "Die neue Ausdrucks-Zahl harmoniert mit der eigenen Lebenspfad-Zahl.",
+        "Die neue Ausdrucks-Zahl harmoniert mit der Lebenspfad-Zahl des Partners — beide stärken einander.",
+        "Die neue Ausdrucks-Zahl füllt eine Schwäche im persönlichen Profil (fehlendes Element)."
+      ],
+      "hemmend_wenn": [
+        "Die neue Ausdrucks-Zahl widerspricht der eigenen Lebenspfad-Zahl (z.B. Lebenspfad 1 + neue Ausdruckszahl 2 — Konflikt zwischen Eigenständigkeit und Abhängigkeit).",
+        "Die neue Ausdrucks-Zahl eine karmische Schuld (13, 14, 16, 19) einführt.",
+        "Das Gesamtbild (Ausdrucks-Zahl + Seelendrang) unausgeglichen wird."
+      ],
+      "quelle": "Cheiro Kap.7; Balliett S.56"
+    },
+
+    "kuenstlername": {
+      "beschreibung": "Künstlernamen werden vollständig wie Geburtsnamen berechnet. Sie können eine alternative Energie-Ebene eröffnen, die für die öffentliche Wirkung optimiert ist.",
+      "empfehlung": "Der Künstlername sollte so gewählt werden, dass seine Ausdrucks-Zahl mit dem beruflichen Lebensziel (Lebenspfad) und dem Seelendrang harmoniert.",
+      "bekannte_praxis": "Cheiro selbst verwendete seinen Künstlernamen, dessen Numerologie mit seiner Lebenspfad-Zahl 7 harmonierte.",
+      "quelle": "Cheiro Kap.7"
+    },
+
+    "namens_reduktion_scheidung": {
+      "beschreibung": "Nach einer Scheidung oder Rückkehr zum Geburtsnamen kehrt die ursprüngliche Geburtsname-Energie zurück. Die Übergangszeit kann numerologisch belastet sein.",
+      "quelle": "Balliett S.57; Westcott S.59"
+    },
+
+    "harmonie_tabelle_lebenspfad_ausdruck": {
+      "beschreibung": "Grundregel: Welche Ausdrucks-Zahlen harmonieren mit welchen Lebenspfad-Zahlen?",
+      "quelle": "Cheiro Kap.7; Balliett S.58-60",
+      "kombinationen": {
+        "lebenspfad_1": {"sehr_harmonisch": [1,4,7], "harmonisch": [2,9], "herausfordernd": [6,8]},
+        "lebenspfad_2": {"sehr_harmonisch": [2,6,9], "harmonisch": [1,4,7], "herausfordernd": [5,8]},
+        "lebenspfad_3": {"sehr_harmonisch": [3,6,9], "harmonisch": [1,2,5], "herausfordernd": [4,8]},
+        "lebenspfad_4": {"sehr_harmonisch": [4,1,8], "harmonisch": [2,6,7], "herausfordernd": [3,5,9]},
+        "lebenspfad_5": {"sehr_harmonisch": [5,1,3], "harmonisch": [7,9], "herausfordernd": [2,4,6]},
+        "lebenspfad_6": {"sehr_harmonisch": [6,2,9], "harmonisch": [3,4,8], "herausfordernd": [1,5]},
+        "lebenspfad_7": {"sehr_harmonisch": [7,2,9], "harmonisch": [1,4,5], "herausfordernd": [3,6,8]},
+        "lebenspfad_8": {"sehr_harmonisch": [8,4,6], "harmonisch": [1,3], "herausfordernd": [2,5,7]},
+        "lebenspfad_9": {"sehr_harmonisch": [9,3,6], "harmonisch": [2,5,7], "herausfordernd": [4,8]},
+        "lebenspfad_11": {"sehr_harmonisch": [11,2,7], "harmonisch": [1,3,9], "herausfordernd": [4,8]},
+        "lebenspfad_22": {"sehr_harmonisch": [22,4,8], "harmonisch": [2,6,11], "herausfordernd": [3,5,9]},
+        "lebenspfad_33": {"sehr_harmonisch": [33,6,9], "harmonisch": [3,11,22], "herausfordernd": [1,5,8]}
+      }
+    }
+  },
+
+  "fehlende_zahlen_analyse": {
+    "beschreibung": "Zahlen, die im vollständigen Geburtsnamen gar nicht vorkommen, zeigen Bereiche, in denen karmische Lücken oder Entwicklungsaufgaben liegen.",
+    "quelle": "Westcott S.52; Balliett S.60-62",
+    "profile": {
+      "fehlende_1": "Schwierigkeiten mit Selbstbehauptung, Unabhängigkeit und Führung. Aufgabe: Selbstvertrauen und Eigeninitiative entwickeln.",
+      "fehlende_2": "Schwierigkeiten mit Partnerschaft, Geduld und Zusammenarbeit. Aufgabe: Diplomatie und emotionale Offenheit lernen.",
+      "fehlende_3": "Schwierigkeiten mit Selbstausdruck und Kreativität. Aufgabe: Kommunikation und Freude kultivieren.",
+      "fehlende_4": "Schwierigkeiten mit Disziplin, Ordnung und Konsequenz. Aufgabe: Struktur und Zuverlässigkeit entwickeln.",
+      "fehlende_5": "Schwierigkeiten mit Anpassung, Freiheit und Veränderung. Aufgabe: Flexibilität und Offenheit für Neues lernen.",
+      "fehlende_6": "Schwierigkeiten mit Verantwortung, Fürsorge und Häuslichkeit. Aufgabe: Verantwortung als Geschenk annehmen.",
+      "fehlende_7": "Schwierigkeiten mit Introspektion, Analyse und Spiritualität. Aufgabe: Stille und innere Tiefe suchen.",
+      "fehlende_8": "Schwierigkeiten mit Macht, Finanzen und Ambition. Aufgabe: Gesunden Umgang mit Materie und Einfluss entwickeln.",
+      "fehlende_9": "Schwierigkeiten mit Mitgefühl, Loslassen und universaler Liebe. Aufgabe: Selbstlosigkeit und Toleranz üben."
+    }
+  },
+
+  "deutungsregeln_synthese": {
+    "beschreibung": "Übergeordnete Interpretationsregeln für die Kombination aller Namenszahlen untereinander und mit dem Lebenspfad.",
+    "quelle": "Cheiro Kap.7-8; Westcott S.56-60; Balliett S.60-65",
+
+    "regel_1_harmonie": {
+      "regel": "Wenn Seelendrang-, Ausdrucks- und Lebenspfad-Zahl harmonieren (gleiche Zahl oder kompatible Zahlen), leben Innen- und Außenwelt im Einklang. Die Person kann mit weniger Aufwand mehr erreichen.",
+      "beispiel": "Seelendrang 3 + Ausdruck 3 + Lebenspfad 6: Harmonisch — kreative Seele, kreativer Ausdruck, fürsorgliche Lebensaufgabe."
+    },
+    "regel_2_spannung": {
+      "regel": "Wenn Seelendrang und Ausdrucks-Zahl sich widersprechen (z.B. Seelendrang 4 / Ausdruck 5), lebt die Person im inneren Konflikt: sie sehnt sich nach Sicherheit, wirkt aber nach außen unstät.",
+      "loesung": "Bewusstsein für den Konflikt + bewusste Integration beider Energien ist der Heilungsweg."
+    },
+    "regel_3_meisterzahl_verantwortung": {
+      "regel": "Meisterzahlen in Namenspositionen (Seelendrang, Ausdruck, Persönlichkeit) erhöhen sowohl das Potenzial als auch den inneren Druck erheblich. Sie fordern mehr als 'normale' Zahlen.",
+      "warnung": "Meisterzahlen sollten nicht zwangsweise verliehen werden. Eine 11 im Seelendrang ohne spirituelle Entwicklung manifestiert sich meist als gespannte 2."
+    },
+    "regel_4_ausgleich_durch_namen": {
+      "regel": "Ein neuer Name (Kürzel, Pseudonym, Rufname) der im Alltag verwendet wird, kann Lücken im Geburtsnamenprofil ausgleichen, wenn er eine fehlende Zahl einführt.",
+      "beispiel": "Geburtsname ohne Zahl 8 → Rufname mit Ausdrucks-Zahl 8 stärkt finanzielle und mächtige Ausdrucksebene."
+    },
+    "regel_5_pythagoraeisch_vs_chaldaeisch": {
+      "regel": "Wenn pythagoräisches und chaldäisches System zu gleicher Ausdrucks-Zahl führen, ist die Aussage besonders gesichert. Bei Diskrepanz: Pythagoräisch für Charakter, Chaldäisch für äußere Ereignisse und Karma.",
+      "quelle": "Cheiro Kap.4"
+    },
+    "regel_6_vollstaendiger_name": {
+      "regel": "Für alle Berechnungen muss der vollständige Geburtsname (wie auf der Geburtsurkunde) verwendet werden — inklusive aller Vornamen. Spitznamen oder abgekürzte Namen ergeben ein schwächeres Bild.",
+      "ausnahme": "Für die Analyse des sozialen Ichs kann der Rufname (der täglich verwendete Name) separat berechnet werden."
+    }
+  },
+
+  "beispiel_vollanalyse": {
+    "beschreibung": "Exemplarische Vollanalyse zur Demonstration des Systems.",
+    "name": "MARIA ANNA SCHMIDT",
+    "system": "pythagoraeisch",
+    "buchstaben_werte": {
+      "M":4,"A":1,"R":9,"I":9,"A":1,
+      "A":1,"N":5,"N":5,"A":1,
+      "S":1,"C":3,"H":8,"M":4,"I":9,"D":4,"T":2
+    },
+    "vokale_werte": {"A":1,"I":9,"A":1,"A":1,"A":1,"I":9},
+    "konsonanten_werte": {"M":4,"R":9,"N":5,"N":5,"S":1,"C":3,"H":8,"M":4,"D":4,"T":2},
+    "seelendrang_berechnung": "1+9+1+1+1+9 = 22 → Meisterzahl 22",
+    "seelendrang_zahl": 22,
+    "ausdrucks_berechnung": "Alle Buchstaben = 4+1+9+9+1+1+5+5+1+1+3+8+4+9+4+2 = 67 → 6+7 = 13 → 1+3 = 4",
+    "ausdrucks_zahl": 4,
+    "persoenlichkeit_berechnung": "4+9+5+5+1+3+8+4+4+2 = 45 → 4+5 = 9",
+    "persoenlichkeit_zahl": 9,
+    "interpretation": "Seele einer Meisterbauerin (22 — will Großes erschaffen), wirkt nach außen wie eine bodenständige Organisatorin (Ausdruck 4), hinterlässt beim ersten Eindruck einen weisen, mitfühlenden Eindruck (Persönlichkeit 9). Der Konflikt: Die visionäre Seele steckt in einem sehr praktischen äußeren Gewand — dies kann als Zuverlässigkeit der Umwelt gelten, inner lich aber frustrierend sein."
+  }
+}

@@ -1,0 +1,1223 @@
+{
+  "_meta": {
+    "system": "kabbalah",
+    "modul": "gematria",
+    "version": "1.0",
+    "gespraech": "K3",
+    "sources": [
+      "S.L. MacGregor Mathers - The Kabbalah Unveiled (1887, public domain)",
+      "W. Wynn Westcott - Sepher Yetzirah, Übersetzung (1887, public domain)",
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, public domain)",
+      "Sefer Yetzirah - Originaltext (3.-6. Jhd., public domain, Westcott-Übersetzung)",
+      "Aleister Crowley - 777 and Other Qabalistic Writings (1909, public domain AT/EU)",
+      "William Stirling - The Canon (1897, public domain)",
+      "Papus (Gérard Encausse) - The Tarot of the Bohemians (1892, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Gematria — die kabbalistischen Zahlenmethoden. Vollständiges hebräisches Alphabet mit Zahlenwerten (Mispar Gadol bis Sofit-Werte), klassische bedeutungsvolle Gematria-Zahlen, Notarikon (Akronym-Methode), Temurah (Buchstabentausch), Namens-Analyse auf hebräisch, und Mapping-Regeln zwischen Gematria und westlicher Numerologie.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog kabbalah_sephiroth.json / kabbalah_pfade.json"
+  },
+
+  "gematria_system_uebersicht": {
+    "beschreibung": "Gematria (גִּימַטְרִיָּה) ist die kabbalistisch-hermeneutische Praxis, hebräischen Buchstaben numerische Werte zuzuordnen und daraus spirituelle Bedeutungen zu erschließen. Worte oder Phrasen mit gleichem Zahlenwert gelten als bedeutungsverwandt. Das System hat mehrere Varianten.",
+    "quelle": "Mathers - Kabbalah Unveiled S.1-10; Westcott - Numbers S.5-15; Crowley - 777 Einleitung",
+    "hauptvarianten": {
+      "mispar_hechrachi": {
+        "name": "Mispar Hechrachi / Mispar Gadol (Standardgematria)",
+        "beschreibung": "Jeder Buchstabe erhält seinen Standardwert (Aleph=1 bis Taw=400). Endformen (Sofit) zählen entweder als Standardwert oder als erweiterte Werte (500–900).",
+        "quelle": "Westcott - Sepher Yetzirah S.4-7; Mathers S.3"
+      },
+      "mispar_katan": {
+        "name": "Mispar Katan (Reduzierte Gematria)",
+        "beschreibung": "Alle mehrstelligen Werte werden auf eine Ziffer reduziert (Kaf=20→2, Shin=300→3 etc.). Entspricht dem pythagoräischen Zifferreduktionsprinzip der westlichen Numerologie.",
+        "quelle": "Westcott - Numbers S.12; Crowley - 777 Anmerkungen"
+      },
+      "mispar_siduri": {
+        "name": "Mispar Siduri (Ordinalwert)",
+        "beschreibung": "Buchstaben erhalten ihre ordinale Position: Aleph=1, Beth=2 ... Taw=22. Jeder Buchstabe zählt einfach nach Position.",
+        "quelle": "Mathers S.5; Westcott Sepher Yetzirah S.5"
+      },
+      "mispar_kolel": {
+        "name": "Mispar Kolel",
+        "beschreibung": "Standardgematria-Wert + 1 (für das Wort selbst) oder + Anzahl der Buchstaben im Wort. Ermöglicht zusätzliche Verknüpfungen.",
+        "quelle": "Westcott - Numbers S.14"
+      },
+      "atbash": {
+        "name": "At-Bash (Temurah-Variante)",
+        "beschreibung": "Aleph ↔ Taw, Beth ↔ Shin etc. — erster Buchstabe tauscht mit letztem. Gehört streng zu Temurah, wird aber häufig in Gematria-Analysen eingesetzt.",
+        "quelle": "Mathers - Kabbalah Unveiled S.8; Westcott Sepher Yetzirah S.8"
+      }
+    }
+  },
+
+  "hebraeisches_alphabet": {
+    "beschreibung": "Vollständiges hebräisches Alphabet mit allen relevanten Gematria-Werten. 22 Buchstaben + 5 Sofit-Formen. Jeder Buchstabe mit: hebräischem Schriftzeichen, Name, Deutsch-Bedeutung, Standardwert (Mispar Hechrachi), Ordinalwert (Mispar Siduri), Reduzierter Wert (Mispar Katan), Pfad am Baum des Lebens, Tarot-Entsprechung und elementarer/planetarer Zuordnung (aus Sefer Yetzirah).",
+    "quelle": "Westcott - Sepher Yetzirah S.4-40; Mathers - Kabbalah Unveiled S.1-20; Crowley - 777 Tabellen",
+
+    "buchstaben": {
+      "aleph": {
+        "position": 1,
+        "hebraeisch": "א",
+        "name": "Aleph",
+        "bedeutung_deutsch": "Ochse / Stier / Lebensatem",
+        "wert_standard": 1,
+        "wert_ordinal": 1,
+        "wert_reduziert": 1,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Mutter",
+        "element_planet": "Luft",
+        "pfad_baum": 11,
+        "tarot": "0 — Der Narr",
+        "note": "Stummer Buchstabe — trägt den Atem, nicht die Stimme. Symbol des göttlichen Atems (Neshamah).",
+        "quelle": "Westcott Sepher Yetzirah S.16; Crowley 777 Tabelle I"
+      },
+      "beth": {
+        "position": 2,
+        "hebraeisch": "ב",
+        "name": "Beth",
+        "bedeutung_deutsch": "Haus",
+        "wert_standard": 2,
+        "wert_ordinal": 2,
+        "wert_reduziert": 2,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Merkur",
+        "pfad_baum": 12,
+        "tarot": "I — Der Magier",
+        "note": "Erster Buchstabe der Tora (Bereshit). Doppelter Buchstabe: hart (B) und weich (V).",
+        "quelle": "Westcott Sepher Yetzirah S.22; Crowley 777"
+      },
+      "gimel": {
+        "position": 3,
+        "hebraeisch": "ג",
+        "name": "Gimel",
+        "bedeutung_deutsch": "Kamel",
+        "wert_standard": 3,
+        "wert_ordinal": 3,
+        "wert_reduziert": 3,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Mond",
+        "pfad_baum": 13,
+        "tarot": "II — Die Hohepriesterin",
+        "note": "Verbindet Kether mit Tiphereth — der längste Pfad. Symbol des Kamels, das durch die Wüste (den Abyssus) trägt.",
+        "quelle": "Westcott Sepher Yetzirah S.23; Crowley 777"
+      },
+      "daleth": {
+        "position": 4,
+        "hebraeisch": "ד",
+        "name": "Daleth",
+        "bedeutung_deutsch": "Tür / Tor",
+        "wert_standard": 4,
+        "wert_ordinal": 4,
+        "wert_reduziert": 4,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Venus",
+        "pfad_baum": 14,
+        "tarot": "III — Die Kaiserin",
+        "note": "Die Tür zwischen den Welten. Venus-Qualität: Schönheit, Empfang, fruchtbare Fülle.",
+        "quelle": "Westcott Sepher Yetzirah S.23; Crowley 777"
+      },
+      "he": {
+        "position": 5,
+        "hebraeisch": "ה",
+        "name": "He",
+        "bedeutung_deutsch": "Fenster / Loch",
+        "wert_standard": 5,
+        "wert_ordinal": 5,
+        "wert_reduziert": 5,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Widder (Aries)",
+        "pfad_baum": 15,
+        "tarot": "IV — Der Kaiser",
+        "note": "Doppelt im Gottesnamen JHWH: Yod-He-Vav-He. He = das Fenster durch das das göttliche Licht fällt.",
+        "quelle": "Westcott Sepher Yetzirah S.30; Crowley 777; Mathers S.9"
+      },
+      "vav": {
+        "position": 6,
+        "hebraeisch": "ו",
+        "name": "Vav / Waw",
+        "bedeutung_deutsch": "Nagel / Haken / Verbinder",
+        "wert_standard": 6,
+        "wert_ordinal": 6,
+        "wert_reduziert": 6,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Stier (Taurus)",
+        "pfad_baum": 16,
+        "tarot": "V — Der Hierophant",
+        "note": "Dritter Buchstabe im Gottesnamen JHWH. Der Nagel: verbindet Himmel und Erde. Wert 6 = Hexagramm.",
+        "quelle": "Westcott Sepher Yetzirah S.31; Crowley 777"
+      },
+      "zayin": {
+        "position": 7,
+        "hebraeisch": "ז",
+        "name": "Zayin",
+        "bedeutung_deutsch": "Schwert / Waffe",
+        "wert_standard": 7,
+        "wert_ordinal": 7,
+        "wert_reduziert": 7,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Zwillinge (Gemini)",
+        "pfad_baum": 17,
+        "tarot": "VI — Die Liebenden",
+        "note": "Schwert der Unterscheidung. 7 = mystische Zahl. Der Schnitt der Analyse trennend aber klar.",
+        "quelle": "Westcott Sepher Yetzirah S.31; Crowley 777"
+      },
+      "cheth": {
+        "position": 8,
+        "hebraeisch": "ח",
+        "name": "Cheth / Het",
+        "bedeutung_deutsch": "Zaun / Hecke / Eingehegtes",
+        "wert_standard": 8,
+        "wert_ordinal": 8,
+        "wert_reduziert": 8,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Krebs (Cancer)",
+        "pfad_baum": 18,
+        "tarot": "VII — Der Wagen",
+        "note": "Der Zaun der Schutz bietet. Gematria 8 = Macht und Erneuerung. Der Streitwagen der Merkabah.",
+        "quelle": "Westcott Sepher Yetzirah S.32; Crowley 777"
+      },
+      "teth": {
+        "position": 9,
+        "hebraeisch": "ט",
+        "name": "Teth",
+        "bedeutung_deutsch": "Schlange",
+        "wert_standard": 9,
+        "wert_ordinal": 9,
+        "wert_reduziert": 9,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Löwe (Leo)",
+        "pfad_baum": 19,
+        "tarot": "VIII — Die Kraft (Lust)",
+        "note": "Die Schlange der Weisheit, nicht der Verführung. Teth = 9 = Vollendung im Verborgenen.",
+        "quelle": "Westcott Sepher Yetzirah S.32; Crowley 777"
+      },
+      "yod": {
+        "position": 10,
+        "hebraeisch": "י",
+        "name": "Yod",
+        "bedeutung_deutsch": "Hand / Offene Hand",
+        "wert_standard": 10,
+        "wert_ordinal": 10,
+        "wert_reduziert": 1,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Jungfrau (Virgo)",
+        "pfad_baum": 20,
+        "tarot": "IX — Der Einsiedler",
+        "note": "Erster Buchstabe des Gottesnamens JHWH. Yod = göttlicher Funken / Flamme. Kleinster Buchstabe mit größter Bedeutung (vgl. Jota im NT). Alle Buchstaben entstammen dem Yod.",
+        "quelle": "Westcott Sepher Yetzirah S.33; Mathers S.8; Crowley 777"
+      },
+      "kaph": {
+        "position": 11,
+        "hebraeisch": "כ",
+        "name": "Kaph",
+        "bedeutung_deutsch": "Hohle Hand / Handfläche",
+        "wert_standard": 20,
+        "wert_ordinal": 11,
+        "wert_reduziert": 2,
+        "wert_sofit": 500,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Jupiter",
+        "pfad_baum": 21,
+        "tarot": "X — Das Rad des Schicksals",
+        "note": "Sofit-Form (ך) = 500. Jupiter-Buchstabe: Expansion, Fürsorge, königliche Großzügigkeit. Die empfangende Hand.",
+        "quelle": "Westcott Sepher Yetzirah S.24; Crowley 777"
+      },
+      "lamed": {
+        "position": 12,
+        "hebraeisch": "ל",
+        "name": "Lamed",
+        "bedeutung_deutsch": "Ochsenstachel / Lernzweig",
+        "wert_standard": 30,
+        "wert_ordinal": 12,
+        "wert_reduziert": 3,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Waage (Libra)",
+        "pfad_baum": 22,
+        "tarot": "XI — Die Gerechtigkeit",
+        "note": "Lamed = lernen, lehren, leiten. Der einzige Buchstabe der über den anderen steht (Großbuchstabe von Herz). Waage-Korrespondenz: Karma-Ausgleich.",
+        "quelle": "Westcott Sepher Yetzirah S.33; Crowley 777"
+      },
+      "mem": {
+        "position": 13,
+        "hebraeisch": "מ",
+        "name": "Mem",
+        "bedeutung_deutsch": "Wasser",
+        "wert_standard": 40,
+        "wert_ordinal": 13,
+        "wert_reduziert": 4,
+        "wert_sofit": 600,
+        "buchstaben_gruppe": "Mutter",
+        "element_planet": "Wasser",
+        "pfad_baum": 23,
+        "tarot": "XII — Der Gehängte",
+        "note": "Sofit-Form (ם) = 600. Mutterbuchstabe Wasser. Mem = das tiefe Wasser der Seele, Stille, weibliches Prinzip, Erinnerung.",
+        "quelle": "Westcott Sepher Yetzirah S.16-17; Crowley 777"
+      },
+      "nun": {
+        "position": 14,
+        "hebraeisch": "נ",
+        "name": "Nun",
+        "bedeutung_deutsch": "Fisch",
+        "wert_standard": 50,
+        "wert_ordinal": 14,
+        "wert_reduziert": 5,
+        "wert_sofit": 700,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Skorpion (Scorpio)",
+        "pfad_baum": 24,
+        "tarot": "XIII — Der Tod",
+        "note": "Sofit-Form (ן) = 700. Fisch im Wasser des Unbewussten. Skorpion/Tod = Transformation, Sterben und Wiedergeburt.",
+        "quelle": "Westcott Sepher Yetzirah S.34; Crowley 777"
+      },
+      "samekh": {
+        "position": 15,
+        "hebraeisch": "ס",
+        "name": "Samekh",
+        "bedeutung_deutsch": "Stütze / Prop",
+        "wert_standard": 60,
+        "wert_ordinal": 15,
+        "wert_reduziert": 6,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Schütze (Sagittarius)",
+        "pfad_baum": 25,
+        "tarot": "XIV — Die Mäßigkeit (Kunst)",
+        "note": "Der geschlossene Kreis — die Stütze die hält. Schütze: der Pfeil der Suche nach höherer Wahrheit.",
+        "quelle": "Westcott Sepher Yetzirah S.34; Crowley 777"
+      },
+      "ayin": {
+        "position": 16,
+        "hebraeisch": "ע",
+        "name": "Ayin",
+        "bedeutung_deutsch": "Auge / Quelle",
+        "wert_standard": 70,
+        "wert_ordinal": 16,
+        "wert_reduziert": 7,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Steinbock (Capricorn)",
+        "pfad_baum": 26,
+        "tarot": "XV — Der Teufel",
+        "note": "Ayin = Auge und Quelle. 70 = Geheimnisvolle Weisheit. Der Teufel repräsentiert das Sehen ins Dunkel — das ungeübte Auge sieht Fesseln wo der Eingeweihte Freiheit erkennt.",
+        "quelle": "Westcott Sepher Yetzirah S.35; Crowley 777"
+      },
+      "pe": {
+        "position": 17,
+        "hebraeisch": "פ",
+        "name": "Pe",
+        "bedeutung_deutsch": "Mund",
+        "wert_standard": 80,
+        "wert_ordinal": 17,
+        "wert_reduziert": 8,
+        "wert_sofit": 800,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Mars",
+        "pfad_baum": 27,
+        "tarot": "XVI — Der Turm",
+        "note": "Sofit-Form (ף) = 800. Mund = Wort als Kraft. Mars/Turm: das blitzartige Wort das Strukturen zerstört um Wahrheit zu enthüllen.",
+        "quelle": "Westcott Sepher Yetzirah S.25; Crowley 777"
+      },
+      "tzaddi": {
+        "position": 18,
+        "hebraeisch": "צ",
+        "name": "Tzaddi",
+        "bedeutung_deutsch": "Angelrute / Gebückter",
+        "wert_standard": 90,
+        "wert_ordinal": 18,
+        "wert_reduziert": 9,
+        "wert_sofit": 900,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Wassermann (Aquarius)",
+        "pfad_baum": 28,
+        "tarot": "XVII — Der Stern (nach Crowley: IV Der Kaiser)",
+        "note": "Sofit-Form (ץ) = 900. Höchster Sofit-Wert. Der Gerechte (Tzaddik) der sich bückt um zu dienen. Wassermann: Idealist und Menschheitsdiener.",
+        "quelle": "Westcott Sepher Yetzirah S.36; Crowley 777"
+      },
+      "qoph": {
+        "position": 19,
+        "hebraeisch": "ק",
+        "name": "Qoph",
+        "bedeutung_deutsch": "Hinterkopf / Affe",
+        "wert_standard": 100,
+        "wert_ordinal": 19,
+        "wert_reduziert": 1,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Einfach",
+        "element_planet": "Fische (Pisces)",
+        "pfad_baum": 29,
+        "tarot": "XVIII — Der Mond",
+        "note": "Qoph = das Unbewusste im Rücken des Schädels. Fische/Mond: Illusion, Traum, das Geheimnisvolle der Tiefsee.",
+        "quelle": "Westcott Sepher Yetzirah S.36; Crowley 777"
+      },
+      "resh": {
+        "position": 20,
+        "hebraeisch": "ר",
+        "name": "Resh",
+        "bedeutung_deutsch": "Kopf",
+        "wert_standard": 200,
+        "wert_ordinal": 20,
+        "wert_reduziert": 2,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Sonne",
+        "pfad_baum": 30,
+        "tarot": "XIX — Die Sonne",
+        "note": "Resh = Kopf, Anführer, Anfang. Sonne: Erleuchtung, Bewusstsein, Führerschaft. Sonne/Resh-Pfad führt von Hod zu Yesod.",
+        "quelle": "Westcott Sepher Yetzirah S.25; Crowley 777"
+      },
+      "shin": {
+        "position": 21,
+        "hebraeisch": "ש",
+        "name": "Shin",
+        "bedeutung_deutsch": "Zahn / Feuer",
+        "wert_standard": 300,
+        "wert_ordinal": 21,
+        "wert_reduziert": 3,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Mutter",
+        "element_planet": "Feuer",
+        "pfad_baum": 31,
+        "tarot": "XX — Das Gericht (Aeon)",
+        "note": "Mutterbuchstabe Feuer. Shin = das heilige Feuer (Ruach ha-Qodesh). Im Gottesnamen Shaddai (שַׁדַּי). Drei Zähne = Feuer in drei Dimensionen.",
+        "quelle": "Westcott Sepher Yetzirah S.16-18; Mathers S.8; Crowley 777"
+      },
+      "taw": {
+        "position": 22,
+        "hebraeisch": "ת",
+        "name": "Taw / Tau",
+        "bedeutung_deutsch": "Kreuz / Zeichen / Siegel",
+        "wert_standard": 400,
+        "wert_ordinal": 22,
+        "wert_reduziert": 4,
+        "wert_sofit": null,
+        "buchstaben_gruppe": "Doppelt",
+        "element_planet": "Saturn",
+        "pfad_baum": 32,
+        "tarot": "XXI — Die Welt (Das Universum)",
+        "note": "Letzter Buchstabe des Alphabets = Vollendung und Siegel. Taw = das Kreuz als Zeichen des Bundes. Saturn: Gesetz, Karma, Vollendung des Zyklus. Pfad 32 von Yesod zu Malkuth.",
+        "quelle": "Westcott Sepher Yetzirah S.26; Mathers S.10; Crowley 777"
+      }
+    },
+
+    "sofit_formen_tabelle": {
+      "beschreibung": "Fünf hebräische Buchstaben haben Sofit-Formen (Endformen, wenn sie am Wortende stehen) mit erweiterten Gematria-Werten 500–900.",
+      "quelle": "Westcott - Numbers S.8; Crowley - 777 Anmerkungen",
+      "tabelle": {
+        "kaph_sofit": {"buchstabe": "ך", "name": "Kaph Sofit", "standard_wert": 20, "sofit_wert": 500},
+        "mem_sofit": {"buchstabe": "ם", "name": "Mem Sofit", "standard_wert": 40, "sofit_wert": 600},
+        "nun_sofit": {"buchstabe": "ן", "name": "Nun Sofit", "standard_wert": 50, "sofit_wert": 700},
+        "pe_sofit": {"buchstabe": "ף", "name": "Pe Sofit", "standard_wert": 80, "sofit_wert": 800},
+        "tzaddi_sofit": {"buchstabe": "ץ", "name": "Tzaddi Sofit", "standard_wert": 90, "sofit_wert": 900}
+      }
+    },
+
+    "schnellreferenz_tabelle": {
+      "beschreibung": "Schnellreferenz aller 22 Buchstaben mit Standardwert und Ordinalwert.",
+      "quelle": "Westcott - Sepher Yetzirah; Crowley - 777",
+      "tabelle": [
+        {"pos": 1, "buchstabe": "א", "name": "Aleph", "standard": 1, "ordinal": 1},
+        {"pos": 2, "buchstabe": "ב", "name": "Beth", "standard": 2, "ordinal": 2},
+        {"pos": 3, "buchstabe": "ג", "name": "Gimel", "standard": 3, "ordinal": 3},
+        {"pos": 4, "buchstabe": "ד", "name": "Daleth", "standard": 4, "ordinal": 4},
+        {"pos": 5, "buchstabe": "ה", "name": "He", "standard": 5, "ordinal": 5},
+        {"pos": 6, "buchstabe": "ו", "name": "Vav", "standard": 6, "ordinal": 6},
+        {"pos": 7, "buchstabe": "ז", "name": "Zayin", "standard": 7, "ordinal": 7},
+        {"pos": 8, "buchstabe": "ח", "name": "Cheth", "standard": 8, "ordinal": 8},
+        {"pos": 9, "buchstabe": "ט", "name": "Teth", "standard": 9, "ordinal": 9},
+        {"pos": 10, "buchstabe": "י", "name": "Yod", "standard": 10, "ordinal": 10},
+        {"pos": 11, "buchstabe": "כ", "name": "Kaph", "standard": 20, "ordinal": 11},
+        {"pos": 12, "buchstabe": "ל", "name": "Lamed", "standard": 30, "ordinal": 12},
+        {"pos": 13, "buchstabe": "מ", "name": "Mem", "standard": 40, "ordinal": 13},
+        {"pos": 14, "buchstabe": "נ", "name": "Nun", "standard": 50, "ordinal": 14},
+        {"pos": 15, "buchstabe": "ס", "name": "Samekh", "standard": 60, "ordinal": 15},
+        {"pos": 16, "buchstabe": "ע", "name": "Ayin", "standard": 70, "ordinal": 16},
+        {"pos": 17, "buchstabe": "פ", "name": "Pe", "standard": 80, "ordinal": 17},
+        {"pos": 18, "buchstabe": "צ", "name": "Tzaddi", "standard": 90, "ordinal": 18},
+        {"pos": 19, "buchstabe": "ק", "name": "Qoph", "standard": 100, "ordinal": 19},
+        {"pos": 20, "buchstabe": "ר", "name": "Resh", "standard": 200, "ordinal": 20},
+        {"pos": 21, "buchstabe": "ש", "name": "Shin", "standard": 300, "ordinal": 21},
+        {"pos": 22, "buchstabe": "ת", "name": "Taw", "standard": 400, "ordinal": 22}
+      ]
+    }
+  },
+
+  "bedeutungsvolle_gematria_zahlen": {
+    "beschreibung": "Klassische kabbalistisch bedeutsame Zahlenwerte mit ihren spirituellen Bedeutungen, wichtigsten Wortäquivalenten und praktischer Deutung. Basis für systemübergreifende Analyse.",
+    "quelle": "Mathers - Kabbalah Unveiled S.2-30; Westcott - Numbers S.15-100; Crowley - 777; Stirling - The Canon",
+
+    "zahlen": {
+      "1": {
+        "wert": 1,
+        "bedeutung": "Aleph (א) = Göttlicher Atem. Kether — die Einheit des Seins. Alle Dinge emergieren aus der Einheit.",
+        "schluessel_woerter_hebraeisch": ["Aleph (א) = Ochse/Atem = 1"],
+        "sephira_verbindung": "Kether",
+        "spirituelle_qualitaet": "Göttliche Einheit, Quelle, der unbewegte Beweger",
+        "quelle": "Westcott Numbers S.18"
+      },
+      "3": {
+        "wert": 3,
+        "bedeutung": "Gimel (ג) = Dreifaltigkeit. In Kabbalah: die supernale Trias Kether-Chokmah-Binah. Drei Mutterbuchstaben.",
+        "schluessel_woerter_hebraeisch": ["ABI (אָבִי) = mein Vater = 13 (reduz. 4)"],
+        "sephira_verbindung": "Binah (3. Sephira)",
+        "spirituelle_qualitaet": "Dreifalt, Schöpfungstrias, Ausgleich zweier Pole",
+        "quelle": "Westcott Numbers S.22; Mathers S.12"
+      },
+      "7": {
+        "wert": 7,
+        "bedeutung": "JHWH + Elohim-Bezug. Zayin (ז) = 7. Sieben doppelte Buchstaben, sieben Planeten, sieben Sephiroth unter dem Abyssus.",
+        "schluessel_woerter_hebraeisch": ["Zayin (ז) = 7", "Shabbat (שַׁבָּת) = 702 (reduz. 9) — Ruhetag"],
+        "sephira_verbindung": "Netzach (7. Sephira)",
+        "spirituelle_qualitaet": "Vollendung, Heiligung, der kabbalistisch heilige Zyklus",
+        "quelle": "Westcott Numbers S.30; Sefer Yetzirah S.22-30"
+      },
+      "10": {
+        "wert": 10,
+        "bedeutung": "Yod (י) = 10. Die 10 Sephiroth des Baumes. Dezimalvollendung. Yod ist der göttliche Funken in allem.",
+        "schluessel_woerter_hebraeisch": ["Yod (י) = 10", "JHWH (יהוה) = 26"],
+        "sephira_verbindung": "Malkuth (10. Sephira)",
+        "spirituelle_qualitaet": "Vollendete Manifestation, Dekade als kosmisches Maß",
+        "quelle": "Westcott Numbers S.40; Mathers S.15"
+      },
+      "13": {
+        "wert": 13,
+        "bedeutung": "AHBH (אַהֲבָה) = Liebe = 13. ACHD (אֶחָד) = Einheit = 13. Liebe und Einheit sind kabbalistisch identisch.",
+        "schluessel_woerter_hebraeisch": [
+          "AHBH (אַהֲבָה) = Ahavah = Liebe = 13",
+          "ACHD (אֶחָד) = Echad = Einheit/Eins = 13"
+        ],
+        "sephira_verbindung": "Pfad 13 (Gimel) / Kether–Tiphereth",
+        "spirituelle_qualitaet": "Liebe als kosmische Einheitskraft. Transformation. In westl. Tradition: Glückszahl des Magiers.",
+        "praktische_deutung": "Ein Name oder Wort mit Gematriawert 13 trägt die Energie von Liebe-als-Einheit. Empfohlen für spirituelle Arbeit mit Herzöffnung.",
+        "quelle": "Mathers - Kabbalah Unveiled S.25; Westcott Numbers S.45",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "15": {
+        "wert": 15,
+        "bedeutung": "IH (יָהּ) = Yah = Kurzform des Gottesnamens JHWH = 15. Spirituelle Energie der Gnade und des höheren Schutzes.",
+        "schluessel_woerter_hebraeisch": ["IH (יָהּ) = Yah = 10+5 = 15"],
+        "sephira_verbindung": "Verbindung zu Kether und Chokmah (Yah = Gottesname von Chokmah)",
+        "spirituelle_qualitaet": "Göttliche Gnade, Schutz, Verbindung zur höchsten Weisheit",
+        "quelle": "Mathers S.12; Westcott Sepher Yetzirah S.22"
+      },
+      "16": {
+        "wert": 16,
+        "bedeutung": "Der Turm-Pfad (Pe=80→reduziert 8, Pfad 27). In Gematria: AIN (אַיִן) = Nichts = 61 (nicht 16); aber JHVH in bestimmter Permutation ergibt 16 als Quersumme → Turm-Energie.",
+        "schluessel_woerter_hebraeisch": ["IVD HH VV HH (יוד הה וו הה) = JHWH voll ausgeschrieben = 45"],
+        "spirituelle_qualitaet": "Plötzlicher Wandel, Sturz falscher Strukturen, Reinigung durch Feuer",
+        "quelle": "Crowley 777; Mathers S.20"
+      },
+      "18": {
+        "wert": 18,
+        "bedeutung": "ChI (חַי) = Chai = Leben = 18 (Cheth=8 + Yod=10). Einer der bekanntesten Gematria-Werte. Vielfache von 18 = Lebensmultiplikation.",
+        "schluessel_woerter_hebraeisch": ["ChI (חַי) = Chai = Leben = 18"],
+        "sephira_verbindung": "Yesod (Fundament des Lebens)",
+        "spirituelle_qualitaet": "Lebenskraft, Vitalität, Kontinuität. In jüdischer Tradition: Glückszahl par excellence.",
+        "praktische_deutung": "Namen oder Vorhaben mit Gematriawert 18 oder Vielfachen davon (36, 54, 72...) tragen Lebensenergie. Sehr günstig für Gesundheit und Langlebigkeit.",
+        "quelle": "Westcott Numbers S.50; Mathers S.18",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 5,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "21": {
+        "wert": 21,
+        "bedeutung": "AHIH (אֶהְיֶה) = Eheieh = 'Ich bin' = 21 (Aleph=1 + He=5 + Yod=10 + He=5). Gottesname von Kether. Spirituell: das reine Sein.",
+        "schluessel_woerter_hebraeisch": ["AHIH (אֶהְיֶה) = Eheieh = Ich bin = 21"],
+        "sephira_verbindung": "Kether — der Gottesname der höchsten Sephira",
+        "spirituelle_qualitaet": "Höchste spirituelle Autorität, das absolute Sein, Verbindung zur Gottheit",
+        "quelle": "Mathers - Kabbalah Unveiled S.12; Westcott Sepher Yetzirah S.22"
+      },
+      "26": {
+        "wert": 26,
+        "bedeutung": "JHWH (יהוה) = Yod-He-Vav-He = 10+5+6+5 = 26. Der heiligste Gottesname des Judentums (Tetragrammaton). Zentral in allen kabbalistischen Systemen.",
+        "schluessel_woerter_hebraeisch": [
+          "JHWH (יהוה) = Yod-He-Vav-He = 26",
+          "ADNI (אֲדֹנָי) = Adonai = Herr = 65 (Ersatzlesung für JHWH)"
+        ],
+        "sephira_verbindung": "Tiphereth (Mittelpunkt des Baumes, Sitz des Höheren Selbst)",
+        "spirituelle_qualitaet": "Das göttliche Quaternar. Vier Buchstaben = vier Welten = vier Elemente = vollständige Manifestation.",
+        "praktische_deutung": "26 ist die Zahl der göttlichen Vollständigkeit. Namen mit diesem Gematriawert tragen Führungspotenzial und spirituellen Auftrag. Stark in Beruf und Spiritualität.",
+        "quelle": "Mathers - Kabbalah Unveiled S.8-15; Westcott Numbers S.55; Crowley 777 Gottesnamen-Tabelle",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "31": {
+        "wert": 31,
+        "bedeutung": "AL (אֵל) = El = Gott = 31 (Aleph=1 + Lamed=30). Grundlegender Gottesname, besonders Chesed zugeordnet.",
+        "schluessel_woerter_hebraeisch": ["AL (אֵל) = El = Gott = 31", "LA (לֹא) = Lo = Nicht = 31 (Paradox: Gott und Nichts haben denselben Wert)"],
+        "sephira_verbindung": "Chesed (Gottesname El)",
+        "spirituelle_qualitaet": "Göttliche Stärke und Gnade. Paradox von Sein und Nichtsein.",
+        "quelle": "Mathers S.13; Westcott Numbers S.58"
+      },
+      "32": {
+        "wert": 32,
+        "bedeutung": "32 Pfade der Weisheit — 10 Sephiroth + 22 Pfade. Sefer Yetzirah beschreibt 32 'mystische Pfade der Weisheit' als Grundlage der Schöpfung.",
+        "schluessel_woerter_hebraeisch": ["LB (לֵב) = Lev = Herz = 32"],
+        "sephira_verbindung": "Gesamter Baum des Lebens (32 Wege)",
+        "spirituelle_qualitaet": "Das Herz als Zentrum. 32 Wege der Weisheit verbinden Spiritualität mit allen Lebensbereichen.",
+        "quelle": "Westcott - Sepher Yetzirah S.1-5 (Einleitung); Mathers S.5"
+      },
+      "36": {
+        "wert": 36,
+        "bedeutung": "Doppeltes Chai (18×2 = 36). In der jüdischen Tradition gibt es 36 gerechte Menschen (Lamed-Vavnikim) die die Welt am Leben erhalten.",
+        "schluessel_woerter_hebraeisch": ["36 = 2 × Chai (חַי = 18)"],
+        "spirituelle_qualitaet": "Gerechte Lebenskraft, verborgene Heiligkeit, Fundament der Welt",
+        "quelle": "Westcott Numbers S.60"
+      },
+      "49": {
+        "wert": 49,
+        "bedeutung": "7×7 = 49. Omer-Zählung: 49 Tage zwischen Pessach und Schawuot. Kabbalistisch: Vollendung aller sieben Sefirot der Konstruktion (Chesed bis Malkuth) in allen sieben Aspekten.",
+        "schluessel_woerter_hebraeisch": [],
+        "spirituelle_qualitaet": "Spirituelle Reife, vollständige Reinigung, Vorbereitung auf Offenbarung",
+        "quelle": "Mathers S.20; Westcott Numbers S.62"
+      },
+      "50": {
+        "wert": 50,
+        "bedeutung": "Nun (נ) = 50. Jubeljahr. 50 Tore des Verstehens (Sha'arei Binah). Binah hat 50 mystische Tore zur höheren Erkenntnis — Mosche konnte 49 öffnen.",
+        "schluessel_woerter_hebraeisch": ["Nun (נ) = 50", "50 Sha'arei Binah = 50 Tore des Verstehens"],
+        "sephira_verbindung": "Binah (50 Tore)",
+        "spirituelle_qualitaet": "Tiefes Verstehen, Grenzlinie zwischen menschlicher und göttlicher Erkenntnis, Freiheit (Jubeljahr)",
+        "quelle": "Mathers S.18; Westcott Numbers S.63"
+      },
+      "65": {
+        "wert": 65,
+        "bedeutung": "ADNI (אֲדֹנָי) = Adonai = Mein Herr = 65. Der Gottesname von Malkuth und die Ersatzlesung für den unaussprechlichen JHWH.",
+        "schluessel_woerter_hebraeisch": ["ADNI (אֲדֹנָי) = Adonai = 1+4+50+10 = 65"],
+        "sephira_verbindung": "Malkuth — die irdische Manifestation des Göttlichen",
+        "spirituelle_qualitaet": "Göttliche Herrschaft in der Materie. Das Heilige im Alltäglichen.",
+        "quelle": "Mathers - Kabbalah Unveiled S.16; Crowley 777 Gottesnamen-Tabelle"
+      },
+      "72": {
+        "wert": 72,
+        "bedeutung": "Die 72 Engelsnamen (Shemhamphorash). Aus Exodus 14:19-21 (drei Verse je 72 Buchstaben, rückwärts/vorwärts/rückwärts gelesen) entstehen 72 dreiletterige Gottesnamen — Basis der enochianischen Magie.",
+        "schluessel_woerter_hebraeisch": ["72 Shem HaMephorash — 72 explizite Gottesnamen/Engelsnamen"],
+        "sephira_verbindung": "Chesed und das gesamte Engelreich",
+        "spirituelle_qualitaet": "Magische Kraft par excellence. Zugang zum gesamten Engelreich. Kabbalistisch-magisches Meistersystem.",
+        "praktische_deutung": "72 ist die mächtigste magische Zahl der westlichen Tradition. Namen mit diesem Wert haben Zugang zu den höchsten spirituellen Ressourcen. Sehr stark für Spiritualität und Kreativität.",
+        "quelle": "Mathers - Kabbalah Unveiled S.30; Crowley - 777 Engelsnamen-Tabellen; Stirling - The Canon S.15",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "78": {
+        "wert": 78,
+        "bedeutung": "MZL (מַזָּל) = Mazzal = Stern/Schicksal = 77 (Mem=40+Zayin=7+Lamed=30). Ähnlich: 78 Karten im Tarot (nicht direkt Gematria, aber die Synchronizität ist bemerkenswert).",
+        "schluessel_woerter_hebraeisch": ["MZLA (מַזְלָא) = Mazzala = Schicksal/Glück = 78"],
+        "spirituelle_qualitaet": "Schicksalskraft, Sternenweisheit, der führende Stern",
+        "quelle": "Westcott Numbers S.68; Mathers S.22"
+      },
+      "91": {
+        "wert": 91,
+        "bedeutung": "JHWH (26) + ADNI (65) = 91. Die Vereinigung des unaussprechlichen Gottesnamens mit seiner Ausspracheform — höchste magische Synthesis.",
+        "schluessel_woerter_hebraeisch": ["JHWH (26) + ADNI (65) = 91 = AMN (אָמֵן) = Amen = 1+40+50 = 91"],
+        "sephira_verbindung": "Verbindung Kether–Malkuth (Himmel und Erde)",
+        "spirituelle_qualitaet": "Vollständige Einheit des Göttlichen und Weltlichen. Amen als Bekräftigung dieser Einheit.",
+        "quelle": "Mathers S.20; Westcott Numbers S.70; Crowley 777"
+      },
+      "111": {
+        "wert": 111,
+        "bedeutung": "ALP (אָלֶף) = Aleph voll ausgeschrieben = Aleph(1)+Lamed(30)+Pe(80) = 111. Die verborgene Kraft des ersten Buchstabens. Drei Einsen = 3D-Kether.",
+        "schluessel_woerter_hebraeisch": ["ALP (אָלֶף) = Aleph ausgeschrieben = 111"],
+        "sephira_verbindung": "Kether (Einheit in Dreifaltigkeit)",
+        "spirituelle_qualitaet": "Verborgene göttliche Macht, Dreiheit in Einheit, die Kraft hinter dem Atem",
+        "quelle": "Westcott Numbers S.72; Crowley 777"
+      },
+      "120": {
+        "wert": 120,
+        "bedeutung": "SMK (סָמֶך) = Samekh ausgeschrieben = 60+40+20 = 120. Auch: 5! (Fakultät von 5) = 120. Kabbalistisch: vollständige Stützung und Haltekraft.",
+        "schluessel_woerter_hebraeisch": ["SMK (סָמֶך) = Samekh ausgeschrieben = 120"],
+        "spirituelle_qualitaet": "Vollständiger Schutz, die tragende Stütze unter allem",
+        "quelle": "Westcott Numbers S.73"
+      },
+      "207": {
+        "wert": 207,
+        "bedeutung": "AVR (אוֹר) = Or = Licht = Aleph(1)+Vav(6)+Resh(200) = 207. Eines der fundamentalsten Wörter der Kabbalah. Das göttliche Licht (Or Ein Sof).",
+        "schluessel_woerter_hebraeisch": ["AVR (אוֹר) = Or = Licht = 207", "AIN SVP AVR (אֵין סוֹף אוֹר) = Unendliches Licht"],
+        "sephira_verbindung": "Kether — Or Ein Sof strahlt durch Kether in den Baum",
+        "spirituelle_qualitaet": "Göttliches Licht, Erleuchtung, der erste Schöpfungsimpuls",
+        "praktische_deutung": "Worte oder Namen mit Gematriawert 207 tragen die Qualität des Lichts. Höchste Energie für Spiritualität, Klarheit und Erleuchtung.",
+        "quelle": "Mathers - Kabbalah Unveiled S.5; Westcott Numbers S.80",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 4,
+          "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "216": {
+        "wert": 216,
+        "bedeutung": "6³ = 216. Die 216-buchstabige Version des Gottesnamens (72 Engelsnamen × 3 Buchstaben). Geheimster Gottesname der Kabbalah.",
+        "schluessel_woerter_hebraeisch": ["72 Namen × 3 Buchstaben = 216 — der verborgene 216-Buchstaben-Gottesname"],
+        "spirituelle_qualitaet": "Höchstes magisches Wissen, vollständige Offenbarung, das Herz des kabbalistischen Mysteriensystems",
+        "quelle": "Mathers S.30; Crowley - 777; Stirling - The Canon S.20"
+      },
+      "231": {
+        "wert": 231,
+        "bedeutung": "231 Tore (Sha'arim) — Sefer Yetzirah beschreibt 231 Kombinationen der 22 Buchstaben als Grundlage der Schöpfung (22×21/2 = 231 Buchstabenpaare).",
+        "schluessel_woerter_hebraeisch": ["231 Sha'arim = 231 mystische Tore nach Sefer Yetzirah"],
+        "spirituelle_qualitaet": "Totale Kombinationsweisheit, alle Schöpfungsmöglichkeiten",
+        "quelle": "Westcott - Sepher Yetzirah S.12-15; Mathers S.8"
+      },
+      "300": {
+        "wert": 300,
+        "bedeutung": "Shin (ש) = 300. Feuer. Ruach Elohim (רוּחַ אֱלֹהִים) = Geist Gottes = 300. Das Feuer des göttlichen Geistes.",
+        "schluessel_woerter_hebraeisch": ["Shin (ש) = 300", "RVCh ALHIM (רוּחַ אֱלֹהִים) = Ruach Elohim = Geist Gottes = 300"],
+        "sephira_verbindung": "Pfad 31 (Shin/Feuer) — Hod zu Malkuth",
+        "spirituelle_qualitaet": "Heiliger Geist, reinigendes Feuer, prophetische Inspiration",
+        "quelle": "Mathers S.8; Westcott Numbers S.85"
+      },
+      "314": {
+        "wert": 314,
+        "bedeutung": "ShDI (שַׁדַּי) = Shaddai = Allmächtiger Gott = Shin(300)+Daleth(4)+Yod(10) = 314. Gottesname von Yesod. Auch: π ≈ 3,14159 — Stirling The Canon weist auf diese Verbindung hin.",
+        "schluessel_woerter_hebraeisch": ["ShDI (שַׁדַּי) = Shaddai = 314"],
+        "sephira_verbindung": "Yesod — Gottesname Shaddai El Chai",
+        "spirituelle_qualitaet": "Allmächtige Kraft des Fundaments, Lebenskraft in der Form. Verbindung von Gottesname und mathematischer Konstante (Kreis/Pi).",
+        "quelle": "Mathers S.14; Stirling - The Canon S.25-30; Westcott Numbers S.87"
+      },
+      "358": {
+        "wert": 358,
+        "bedeutung": "MShICh (מָשִׁיחַ) = Maschiach = Messias = Mem(40)+Shin(300)+Yod(10)+Cheth(8) = 358. Kabbalistisch identisch mit NChSh (נָחָשׁ) = Nachash = Schlange = 358. Messias und Schlange = gleicher Wert — Erlösung durch das, was in uns kriecht.",
+        "schluessel_woerter_hebraeisch": [
+          "MShICh (מָשִׁיחַ) = Maschiach = Messias = 358",
+          "NChSh (נָחָשׁ) = Nachash = Schlange = 358"
+        ],
+        "spirituelle_qualitaet": "Paradox der Erlösung. Das Heilende entsteht aus dem Verwundenden. Transformation durch das was uns am meisten ängstigt.",
+        "quelle": "Mathers - Kabbalah Unveiled S.25; Westcott Numbers S.88"
+      },
+      "400": {
+        "wert": 400,
+        "bedeutung": "Taw (ת) = 400. Letzter Buchstabe = Vollendung des Alphabets. Taw = Kreuz, Siegel, das Zeichen des Bundes. Saturn-Kraft der Vollendung.",
+        "schluessel_woerter_hebraeisch": ["Taw (ת) = 400"],
+        "sephira_verbindung": "Pfad 32 (Taw) — Yesod zu Malkuth. Der letzte Schritt in die Manifestation.",
+        "spirituelle_qualitaet": "Vollendung, Siegel, Karma als abschließende Kraft",
+        "quelle": "Westcott Numbers S.90; Mathers S.10; Crowley 777"
+      },
+      "434": {
+        "wert": 434,
+        "bedeutung": "DLTh (דָּלֶת) = Daleth voll ausgeschrieben = Daleth(4)+Lamed(30)+Taw(400) = 434. Auch: ALPh (אָלֶף) + DLTh = 111+434 = 545 — das Geheimnis des ersten und vierten Buchstabens.",
+        "schluessel_woerter_hebraeisch": ["DLTh (דָּלֶת) = Daleth ausgeschrieben = 434"],
+        "spirituelle_qualitaet": "Die große Tür. Daleth voll entfaltet = der vollständige Übergang zwischen Welten.",
+        "quelle": "Westcott Numbers S.91; Crowley 777"
+      },
+      "496": {
+        "wert": 496,
+        "bedeutung": "MLKVTh (מַלְכוּת) = Malkuth = Königreich = Mem(40)+Lamed(30)+Kaph(20)+Vav(6)+Taw(400) = 496. Vollständiger Name der 10. Sephira. 496 ist auch eine vollkommene Zahl (perfect number) in der Mathematik.",
+        "schluessel_woerter_hebraeisch": ["MLKVTh (מַלְכוּת) = Malkuth = Königreich = 496"],
+        "sephira_verbindung": "Malkuth — die irdische Sphäre",
+        "spirituelle_qualitaet": "Vollendete Manifestation. Malkuth als vollkommene Zahl = die Erde ist vollkommen als Ausdruck des Göttlichen.",
+        "quelle": "Mathers S.17; Westcott Numbers S.92; Stirling - The Canon S.40"
+      },
+      "541": {
+        "wert": 541,
+        "bedeutung": "IShRAL (יִשְׂרָאֵל) = Israel = Yod(10)+Shin(300)+Resh(200)+Aleph(1)+Lamed(30) = 541. Name des jüdischen Volkes und gleichzeitig Bedeutung: 'der mit Gott ringt'.",
+        "schluessel_woerter_hebraeisch": ["IShRAL (יִשְׂרָאֵל) = Israel = 541"],
+        "spirituelle_qualitaet": "Das Ringen mit dem Göttlichen als Weg der Menschwerdung",
+        "quelle": "Mathers S.22; Westcott Numbers S.93"
+      },
+      "600": {
+        "wert": 600,
+        "bedeutung": "Mem Sofit (ם) = 600. In der Zahlenmystik: 6×100 = vollständige sechsfache Emanation. Auch: 600.000 Seelen aus dem Exodus — Symbol totaler kollektiver Transformation.",
+        "schluessel_woerter_hebraeisch": ["Mem Sofit (ם) = 600"],
+        "spirituelle_qualitaet": "Kollektive Transformation, Wasser der Vollendung, tiefste stille Weisheit",
+        "quelle": "Westcott Numbers S.95"
+      },
+      "666": {
+        "wert": 666,
+        "bedeutung": "ShMSh (שֶׁמֶשׁ) = Shemesh = Sonne = 640 (nicht 666 direkt). Klassisch: 666 = Sorath (שׁוּרַת) = Solar-Dämon in 777 nach Crowley. Auch: Dreieckszahl von 36 (Summe 1 bis 36). In Kabbalah: maximale Solarenergie — nicht böse, sondern extreme Manifestationskraft.",
+        "schluessel_woerter_hebraeisch": [
+          "SVRTh (סוּרַת) = Sorath = 666 (Crowley 777)",
+          "Dreieckszahl: 1+2+3+...+36 = 666"
+        ],
+        "spirituelle_qualitaet": "Extreme Manifestationskraft. Maximale Solarenergie auf der materiellen Ebene. In der Tradition: warnt vor unkontrollierter Ego-Kraft.",
+        "praktische_deutung": "Namen mit Gematriawert 666 tragen extreme Erdungs- und Manifestationsenergie. Sehr stark für Beruf und Finanzen, gefährlich für spirituelle Ausgewogenheit wenn nicht mit 777 balanciert.",
+        "quelle": "Crowley - 777 Tabellen; Mathers S.28; Stirling - The Canon S.50",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 2
+        }
+      },
+      "777": {
+        "wert": 777,
+        "bedeutung": "OzBVA (עֹזְבוּא) und andere Kompositionen. Nach Crowley: 777 = Gesamtsumme aller Pfade des Baumes des Lebens in bestimmter Zählung. Die perfekte Zahl: drei 7er = vollständige Mystik in drei Dimensionen.",
+        "schluessel_woerter_hebraeisch": ["777 = Titel von Crowleys Hauptwerk zur Kabbalah"],
+        "sephira_verbindung": "Synthese des gesamten Baumes des Lebens",
+        "spirituelle_qualitaet": "Vollständige mystische Vollendung. Dreifache Sieben = absolute spirituelle Meisterschaft. Ausgewogenheit aller Kräfte.",
+        "praktische_deutung": "777 ist das Gegengewicht zu 666 — spirituelle Meisterschaft balanciert Manifestationskraft. Höchste Energie für alle spirituellen Dimensionen.",
+        "quelle": "Crowley - 777 and Other Qabalistic Writings (Titel und Inhalt); Westcott Numbers S.98",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 4, "finanzen": 4, "gesundheit": 5,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 5
+        }
+      },
+      "888": {
+        "wert": 888,
+        "bedeutung": "In griechischer Gematria: IhSVS (Iesous = Jesus) = 888 (nicht Hebräisch, aber von Crowley und westlichen Kabbalisten inkorporiert). Acht × 111 = 8 × Aleph-Vollkraft. In Kabbalah: Hod (8) in dreifacher Entfaltung.",
+        "schluessel_woerter_hebraeisch": ["888 — primär griechische Isopsephy: Ιησούς = 888"],
+        "spirituelle_qualitaet": "Dreifache Hod-Energie: Intelligenz, Kommunikation, Healing durch Wort. Christus-Kraft im westlichen synkretistischen Kontext.",
+        "quelle": "Crowley - 777; Stirling - The Canon S.55"
+      },
+      "1000": {
+        "wert": 1000,
+        "bedeutung": "ALP (אָלֶף) = Aleph in seiner höchsten Potenz. 1000 = 10³ = vollständige Dekade in drei Dimensionen. Symbol der Unendlichkeit im Endlichen.",
+        "schluessel_woerter_hebraeisch": ["Aleph (א) in größter Potenz = 1000 (symbolisch)"],
+        "spirituelle_qualitaet": "Unendliche Einheit, kosmische Vollendung, göttliche Totalität",
+        "quelle": "Westcott Numbers S.100; Mathers S.5"
+      }
+    }
+  },
+
+  "notarikon": {
+    "beschreibung": "Notarikon (נוֹטָרִיקוֹן) — die kabbalistischen Akronym-Methoden. Zwei Hauptvarianten: (1) Jeder Buchstabe eines Wortes ist Anfangsbuchstabe eines anderen Wortes. (2) Die Anfangs- oder Endbuchstaben einer Phrase bilden ein neues Wort.",
+    "quelle": "Mathers - Kabbalah Unveiled S.5-8; Westcott - Sepher Yetzirah S.8; Westcott Numbers S.5-10",
+
+    "variante_1_akronym": {
+      "name": "Notarikon I — Auflösung (Akronym zu Satz)",
+      "beschreibung": "Jeder Buchstabe eines Wortes wird als Anfangsbuchstabe eines vollständigen Wortes interpretiert, sodass ein Satz oder eine Aussage entsteht.",
+      "beispiele": [
+        {
+          "wort": "BRAShITh (בְּרֵאשִׁית)",
+          "bedeutung_standard": "Im Anfang (erster Satz der Tora)",
+          "notarikon_aufloesung": "B=Bereshit (Im Anfang), R=Ra'ah (sah), A=Elohim (Gott), Sh=Shehu (dass er), I=Yitiv (gut sei), Th=Torah (die Torah) — eine kabbalistisch-midrashische Lesart",
+          "quelle": "Mathers S.6"
+        },
+        {
+          "wort": "AGLa (אַגְלָא)",
+          "bedeutung_standard": "Magische Formel / Gottesname in der praktischen Kabbalah",
+          "notarikon_aufloesung": "A=Atah (Du), G=Gibbor (mächtig), L=L'Olam (für immer), A=Adonai (Herr) — 'Du bist mächtig für immer, o Herr'",
+          "quelle": "Mathers S.7; Crowley 777"
+        }
+      ],
+      "praktische_anwendung": "Notarikon I wird verwendet um verborgene Bedeutungen in Schlüsselwörtern zu finden und magische Formeln zu entschlüsseln."
+    },
+
+    "variante_2_synthese": {
+      "name": "Notarikon II — Synthese (Satz zu Akronym)",
+      "beschreibung": "Die Anfangsbuchstaben (oder Endbuchstaben) einer Phrase werden zu einem neuen Wort zusammengesetzt, das eine verborgene Botschaft enthält.",
+      "beispiele": [
+        {
+          "phrase": "MI IOLH LNV HShMIMH (מִי יַעֲלֶה לָנוּ הַשָּׁמַיְמָה)",
+          "uebersetzung": "'Wer steigt für uns auf zum Himmel?' (Deuteronomium 30:12)",
+          "notarikon_anfang": "Anfangsbuchstaben: M-I-L-H = MILaH (מִילָה) = Beschneidung",
+          "notarikon_ende": "Endbuchstaben: I-H-V-H = JHWH (יהוה) = Gottesname",
+          "bedeutung": "Der Vers enthält verborgen den Gottesnamen und den Bund der Beschneidung — Zeichen des Bundes.",
+          "quelle": "Mathers S.7"
+        }
+      ],
+      "praktische_anwendung": "Notarikon II wird eingesetzt um in Schriftstellen verborgene Botschaften zu finden und magische Formeln aus Gebeten zu destillieren."
+    },
+
+    "bekannte_notarikon_formen": [
+      {"formel": "AGLa", "bedeutung": "Atah Gibbor L'Olam Adonai", "verwendung": "Bannformel der praktischen Kabbalah, besonders im Lesser Banishing Ritual"},
+      {"formel": "AMEN (אָמֵן)", "bedeutung": "Notarikon: Adonai Melech Ne'eman = Herr, treuer König", "gematria": 91},
+      {"formel": "IHShVH (יֵהשׁוּה)", "bedeutung": "JHWH + Shin = JHWH + Feuer = tetragrammatonische Erweiterung", "verwendung": "In christlicher Kabbalah: Jesus-Name als 5-buchstabige JHWH-Erweiterung"}
+    ]
+  },
+
+  "temurah": {
+    "beschreibung": "Temurah (תְּמוּרָה) — 'Austausch'. Kabbalistisches Buchstabentausch-System. Buchstaben werden nach festgelegten Regeln ausgetauscht um verborgene Bedeutungen zu enthüllen.",
+    "quelle": "Mathers - Kabbalah Unveiled S.8-10; Westcott - Sepher Yetzirah S.8-10; Crowley - 777 Anmerkungen",
+
+    "hauptmethoden": {
+      "atbash": {
+        "name": "At-Bash (אתב\"ש)",
+        "beschreibung": "Erster Buchstabe (Aleph) tauscht mit letztem (Taw), zweiter (Beth) mit vorletztem (Shin), etc. Das bekannteste Temurah-System.",
+        "schema": "Aleph↔Taw, Beth↔Shin, Gimel↔Resh, Daleth↔Qoph, He↔Tzaddi, Vav↔Ayin, Zayin↔Pe, Cheth↔Samekh, Teth↔Nun, Yod↔Mem, Kaph↔Lamed",
+        "beispiel": {
+          "wort": "BBL (בָּבֶל) = Babel = Babylon",
+          "atbash_ergebnis": "ShShK (שֵׁשַׁךְ) — Jeremia 25:26 verwendet ShShK statt Babel als verschlüsselter Prophetentext",
+          "bedeutung": "Der Prophet Jeremia verschlüsselte 'Babylon' als 'Sheshach' mittels At-Bash"
+        },
+        "quelle": "Mathers S.8; Westcott Sepher Yetzirah S.9"
+      },
+      "albam": {
+        "name": "Al-Bam (אלב\"ם)",
+        "beschreibung": "Alphabet in zwei Hälften geteilt: erste Hälfte (Aleph–Kaph) tauscht mit zweiter Hälfte (Lamed–Taw).",
+        "schema": "Aleph↔Lamed, Beth↔Mem, Gimel↔Nun, Daleth↔Samekh, He↔Ayin, Vav↔Pe, Zayin↔Tzaddi, Cheth↔Qoph, Teth↔Resh, Yod↔Shin, Kaph↔Taw",
+        "beispiel": {
+          "wort": "JHWH (יהוה)",
+          "albam_ergebnis": "ShMV (שׁמו) = 'Sein Name' — eine alternative Gottesnamenkodierung"
+        },
+        "quelle": "Mathers S.9; Westcott Sepher Yetzirah S.9"
+      },
+      "aiq_bekar": {
+        "name": "Aiq Bekar / Kabbalah der Neun Kammern (איק בכר)",
+        "beschreibung": "Alphabet in 9 Gruppen je 3 Buchstaben (nach ihrem numerischen Wert 1-9, 10-90, 100-900). Buchstaben derselben Kammer sind austauschbar.",
+        "schema": {
+          "kammer_1": ["Aleph(1)", "Yod(10)", "Qoph(100)"],
+          "kammer_2": ["Beth(2)", "Kaph(20)", "Resh(200)"],
+          "kammer_3": ["Gimel(3)", "Lamed(30)", "Shin(300)"],
+          "kammer_4": ["Daleth(4)", "Mem(40)", "Taw(400)"],
+          "kammer_5": ["He(5)", "Nun(50)", "Kaph Sofit(500)"],
+          "kammer_6": ["Vav(6)", "Samekh(60)", "Mem Sofit(600)"],
+          "kammer_7": ["Zayin(7)", "Ayin(70)", "Nun Sofit(700)"],
+          "kammer_8": ["Cheth(8)", "Pe(80)", "Pe Sofit(800)"],
+          "kammer_9": ["Teth(9)", "Tzaddi(90)", "Tzaddi Sofit(900)"]
+        },
+        "praktische_anwendung": "Aiq Bekar verbindet Buchstaben über Dezimalordnungen. Ein Aleph (1) ist kabbalistisch verwandt mit Yod (10) und Qoph (100) — sie sind Manifestationen derselben Urkraft auf verschiedenen Ebenen.",
+        "quelle": "Westcott - Sepher Yetzirah S.10; Mathers S.9; Crowley - 777"
+      }
+    },
+
+    "temurah_in_der_praxis": "Temurah wird verwendet um: (1) Schriftverse zu entschlüsseln, (2) göttliche Namen in ihre Äquivalente zu transformieren, (3) magische Formeln zu konstruieren. Es zeigt, dass Buchstaben nicht absolut sind, sondern Resonanzen innerhalb eines Systems."
+  },
+
+  "namensanalyse_hebraeisch": {
+    "beschreibung": "Methoden zur kabbalistischen Analyse von Eigennamen auf Hebräisch. Kombiniert Gematria, Buchstaben-Energie und Pfad-Korrespondenz. Anwendbar auf Geburtsnamen, gewählte hebräische Namen und transliterierte Namen.",
+    "quelle": "Westcott - Numbers S.10-15; Mathers - Kabbalah Unveiled S.20-25; Crowley - 777",
+
+    "analyseschritte": [
+      {
+        "schritt": 1,
+        "name": "Transliteration",
+        "beschreibung": "Den zu analysierenden Namen in hebräische Buchstaben übersetzen. Für nicht-hebräische Namen: phonetische Transliteration nach Konvention (z.B. David → DVD, Maria → MRIH).",
+        "hinweis": "Vokale sind im Hebräischen oft nicht geschrieben — bei Transliteration können Vokalbuchstaben (Aleph, Ayin, He, Vav, Yod) als Vokalträger verwendet werden."
+      },
+      {
+        "schritt": 2,
+        "name": "Gematria-Grundwert",
+        "beschreibung": "Standard-Gematria aller Buchstaben addieren. Dieser Wert gibt den 'Grundton' des Namens an.",
+        "beispiel": "David (DVD) = Daleth(4)+Vav(6)+Daleth(4) = 14"
+      },
+      {
+        "schritt": 3,
+        "name": "Reduktion zum Grundton",
+        "beschreibung": "Mehrstellige Werte auf eine Ziffer reduzieren (Mispar Katan). Ergibt die Verbindung zum Numerologie-Grundton.",
+        "beispiel": "David = 14 → 1+4 = 5 (Merkur/Kommunikation/Abenteuer)"
+      },
+      {
+        "schritt": 4,
+        "name": "Buchstaben-Pfad-Analyse",
+        "beschreibung": "Jeden Buchstaben des Namens seinem Pfad am Baum zuordnen. Die Abfolge der Buchstaben zeigt den 'Lebensweg' durch den Baum.",
+        "beispiel": "David (DVD): Daleth(Pfad 14, Venus) → Vav(Pfad 16, Stier) → Daleth(Pfad 14, Venus) = Venusweg mit Stier-Vertiefung"
+      },
+      {
+        "schritt": 5,
+        "name": "Erster und letzter Buchstabe",
+        "beschreibung": "Der erste Buchstabe zeigt den Beginn des Lebensweges (wo die Energie herkommt), der letzte Buchstabe das Ziel (wohin sie strebt).",
+        "quelle": "Westcott Numbers S.12"
+      },
+      {
+        "schritt": 6,
+        "name": "Verborgene Sephira-Verbindung",
+        "beschreibung": "Der Gematria-Wert des vollständigen Namens wird mit den bekannten kabbalistischen Schlüsselzahlen verglichen. Entspricht er einem Gottesnamen oder bedeutsamen Wert, zeigt das besondere spirituelle Qualitäten.",
+        "beispiel": "Ein Name mit Wert 26 = JHWH-Resonanz. Ein Name mit Wert 18 = Chai/Leben-Resonanz."
+      }
+    ],
+
+    "bekannte_beispiele": [
+      {
+        "name_lateinisch": "Adam",
+        "hebraeisch": "ADM (אָדָם)",
+        "gematria": 45,
+        "reduktion": 9,
+        "bedeutung": "Adam = 45 = IVD HH VV HH (JHWH voll ausgeschrieben auf eine Art) — der Mensch als Gefäß des vollständigen Gottesnamens. Reduktion 9 = Mars/Vollendung.",
+        "quelle": "Mathers S.22; Westcott Numbers S.55"
+      },
+      {
+        "name_lateinisch": "Eva / Chawah",
+        "hebraeisch": "ChVH (חַוָּה)",
+        "gematria": 19,
+        "reduktion": 1,
+        "bedeutung": "Chavah = 19 = Cheth(8)+Vav(6)+He(5). Die Lebendige — Mutter aller Lebenden. Reduktion 1 = Einheit, Ursprung.",
+        "quelle": "Mathers S.22"
+      },
+      {
+        "name_lateinisch": "Sara",
+        "hebraeisch": "ShRH (שָׂרָה)",
+        "gematria": 505,
+        "reduktion": 1,
+        "bedeutung": "Sarah = 505 = Shin(300)+Resh(200)+He(5). Prinzessin. He am Ende = göttliche Gnade. Reduktion 1 = Führungskraft aus Einheit.",
+        "quelle": "Westcott Numbers S.60"
+      }
+    ],
+
+    "dimensionen_vektor_namensanalyse": {
+      "beschreibung": "Allgemeiner Dimensionsvektor für kabbalistisch analysierte Namen — der Prozess der Namens-Analyse selbst stärkt diese Dimensionen.",
+      "vektor": {
+        "liebe": 4,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "hinweis": "Der konkrete Dimensionsvektor ergibt sich aus dem spezifischen Gematriawert des analysierten Namens und den zugehörigen Sephiroth/Pfad-Qualitäten."
+    }
+  },
+
+  "mapping_gematria_numerologie": {
+    "beschreibung": "Verbindungsregeln zwischen kabbalistischer Gematria und westlicher Numerologie. Ermöglicht systemübergreifende Deutung wenn sowohl Gematria-Wert als auch Numerologie-Zahl vorliegen.",
+    "quelle": "Westcott - Numbers Their Occult Power S.5-82; Sepharial - Kabalistic Astrology S.20-45; Crowley - 777; Mathers - Kabbalah Unveiled",
+
+    "reduktions_mapping": {
+      "beschreibung": "Über die Reduktion zum Einstelligen (Mispar Katan) verbinden sich Gematria und Numerologie direkt. Der reduzierte Gematriawert entspricht der westlichen Numerologie-Grundzahl.",
+      "quelle": "Westcott - Numbers S.12; eigene Synthesis",
+      "tabelle": [
+        {"gematria_reduziert": 1, "numerologie_zahl": 1, "planet": "Sonne", "sephira": "Tiphereth", "synthese": "Führungskraft, Ich-Stärke, Kreativität aus dem Zentrum"},
+        {"gematria_reduziert": 2, "numerologie_zahl": 2, "planet": "Mond", "sephira": "Yesod", "synthese": "Empfänglichkeit, Unterbewusstsein, Beziehungssinn"},
+        {"gematria_reduziert": 3, "numerologie_zahl": 3, "planet": "Jupiter", "sephira": "Chesed", "synthese": "Expansion, Kreativität, Freude, schöpferische Fülle"},
+        {"gematria_reduziert": 4, "numerologie_zahl": 4, "planet": "Uranus/Saturn", "sephira": "Chokmah/Binah", "synthese": "Struktur, Form, Durchhaltevermögen, Erdung"},
+        {"gematria_reduziert": 5, "numerologie_zahl": 5, "planet": "Merkur", "sephira": "Hod", "synthese": "Kommunikation, Wandel, Vielseitigkeit, magische Sprache"},
+        {"gematria_reduziert": 6, "numerologie_zahl": 6, "planet": "Venus", "sephira": "Netzach", "synthese": "Harmonie, Liebe, Schönheit, Heilung"},
+        {"gematria_reduziert": 7, "numerologie_zahl": 7, "planet": "Neptun", "sephira": "Kether/Da'ath", "synthese": "Mystik, Rückzug, verborgenes Wissen, spirituelle Tiefe"},
+        {"gematria_reduziert": 8, "numerologie_zahl": 8, "planet": "Saturn", "sephira": "Binah", "synthese": "Karma, Macht, materielle Manifestation, Prüfung"},
+        {"gematria_reduziert": 9, "numerologie_zahl": 9, "planet": "Mars", "sephira": "Geburah", "synthese": "Vollendung, humanitäre Kraft, Reinigung, Abschluss"}
+      ]
+    },
+
+    "schluesselzahlen_kabbalistisch_numerologisch": {
+      "beschreibung": "Spezifische Gematria-Schlüsselzahlen und ihre Entsprechungen in der westlichen Numerologie (via Reduktion und Planetverbindung).",
+      "quelle": "Sepharial - Kabalistic Astrology S.25-45; Westcott Numbers; Crowley 777",
+      "eintraege": [
+        {
+          "gematria_zahl": 13,
+          "woerter": ["Ahavah (Liebe)", "Echad (Einheit)"],
+          "reduktion": 4,
+          "numerologie_entsprechung": "Numerologie-4 (Uranus/Rebellion) + Ahavah = Liebe als revolutionäre Einheitskraft. Verbindet Chokmah (Uranus) mit dem Herzprinzip.",
+          "synthese_regel": "Namen/Worte mit Gematriawert 13 tragen die transformierende Kraft der Liebe. In der Deutung: emotionale Tiefe trotz oder durch Wandel."
+        },
+        {
+          "gematria_zahl": 18,
+          "woerter": ["Chai (Leben)"],
+          "reduktion": 9,
+          "numerologie_entsprechung": "Numerologie-9 (Mars/Vollendung) + Leben = Lebenskraft als vollendende Energie. Geburah als Wächterin des Lebens.",
+          "synthese_regel": "Chai-Energie (18) stärkt primär Gesundheit und Vitalität. Reduktion 9 zeigt: das Leben vollendet sich durch aktives Tun und Mut."
+        },
+        {
+          "gematria_zahl": 26,
+          "woerter": ["JHWH (Tetragrammaton)"],
+          "reduktion": 8,
+          "numerologie_entsprechung": "Numerologie-8 (Saturn/Karma) + JHWH = göttliche Ordnung als Karma-Lehrerin. Binah als Form des Unformbaren.",
+          "synthese_regel": "Der Gottesname JHWH (26) entspricht in der Reduktion der 8 — dies zeigt: wahre göttliche Kraft manifestiert sich durch Karmaarbeit und Formgebung."
+        },
+        {
+          "gematria_zahl": 72,
+          "woerter": ["Shemhamphorash (72 Engelsnamen)"],
+          "reduktion": 9,
+          "numerologie_entsprechung": "Numerologie-9 (Mars/Vollendung) + 72 Engelsnamen = vollständige magische Kraft. Geburah als Schwert der Engellegionen.",
+          "synthese_regel": "72-Energie verbindet die Vollendung der 9 mit Zugang zu allen Engelkräften. Sehr stark für spirituelle Praxis und Transformation."
+        },
+        {
+          "gematria_zahl": 314,
+          "woerter": ["Shaddai (Allmächtiger)"],
+          "reduktion": 8,
+          "numerologie_entsprechung": "Numerologie-8 (Saturn/Struktur) + Shaddai = allmächtige strukturierende Kraft. Yesod als Fundament der Manifestation.",
+          "synthese_regel": "Shaddai (314) verbindet Pi (3.14...) mit Saturn-Numerologie — die Kraft die Kreisförmigkeit (Zyklen) in Form (Quadrat, Struktur) bringt."
+        }
+      ]
+    },
+
+    "planetarer_bruecken_mapping": {
+      "beschreibung": "Vollständiges Mapping der Planeten als gemeinsame Sprache zwischen Numerologie, Kabbalah und Gematria.",
+      "quelle": "Sepharial - Kabalistic Astrology S.20-50; Westcott - Numbers S.50-80; Crowley - 777; Mathers - Kabbalah Unveiled",
+      "tabelle": [
+        {
+          "planet": "Sonne",
+          "numerologie_zahl": 1,
+          "sephira": "Tiphereth (6)",
+          "buchstabe": "Resh (ר)",
+          "buchstabe_wert": 200,
+          "gematria_schluessel": "200 → 2 → Mond-Resonanz (Paradox: Sonne-Buchstabe mit Mondreduktion = Bewusstes und Unbewusstes in Tiphereth vereint)",
+          "synthese": "Tiphereth ist das Herz — Sonne belebt das Herz, Mond reflektiert es. Das Höhere Selbst integriert beide."
+        },
+        {
+          "planet": "Mond",
+          "numerologie_zahl": 2,
+          "sephira": "Yesod (9)",
+          "buchstabe": "Gimel (ג)",
+          "buchstabe_wert": 3,
+          "gematria_schluessel": "3 = Gimel = Kamel das durch den Abyssus trägt. Mond trägt das Unbewusste durch die Nacht.",
+          "synthese": "Yesod/Gimel/Mond: die Verbindung zwischen Assiah (Erde) und Tiphereth (Bewusstsein) läuft durch das lunare Unbewusste."
+        },
+        {
+          "planet": "Merkur",
+          "numerologie_zahl": 5,
+          "sephira": "Hod (8)",
+          "buchstabe": "Beth (ב)",
+          "buchstabe_wert": 2,
+          "gematria_schluessel": "Beth (2) = das Haus des Geistes. Merkur baut Häuser aus Worten.",
+          "synthese": "Hod/Beth/Merkur: der Magier (Tarot I) wohnt im Haus des Geistes. Sprache und Magie sind identisch."
+        },
+        {
+          "planet": "Venus",
+          "numerologie_zahl": 6,
+          "sephira": "Netzach (7)",
+          "buchstabe": "Daleth (ד)",
+          "buchstabe_wert": 4,
+          "gematria_schluessel": "Daleth (4) = die Tür. Venus öffnet die Tür zum Herzen.",
+          "synthese": "Netzach/Daleth/Venus: Schönheit und Liebe sind Tore (Daleth) zur Seele. Netzach als emotionales Fundament aller Magie."
+        },
+        {
+          "planet": "Mars",
+          "numerologie_zahl": 9,
+          "sephira": "Geburah (5)",
+          "buchstabe": "Pe (פ)",
+          "buchstabe_wert": 80,
+          "gematria_schluessel": "Pe (80) = Mund/Wort als Waffe. Der Turm (Tarot XVI) = Mars zerstört durch sein Wort.",
+          "synthese": "Geburah/Pe/Mars: Gerechtigkeit spricht Urteil. Das Schwert und das Wort sind dieselbe Kraft."
+        },
+        {
+          "planet": "Jupiter",
+          "numerologie_zahl": 3,
+          "sephira": "Chesed (4)",
+          "buchstabe": "Kaph (כ)",
+          "buchstabe_wert": 20,
+          "gematria_schluessel": "Kaph (20) = empfangende Handfläche. Jupiter empfängt und verteilt göttliche Fülle.",
+          "synthese": "Chesed/Kaph/Jupiter: Großzügigkeit ist das Prinzip. Die hohle Hand gibt und empfängt gleichzeitig."
+        },
+        {
+          "planet": "Saturn",
+          "numerologie_zahl": 8,
+          "sephira": "Binah (3)",
+          "buchstabe": "Taw (ת)",
+          "buchstabe_wert": 400,
+          "gematria_schluessel": "Taw (400) = letzter Buchstabe = Vollendung des Karma. Saturn versiegelt die Ernte.",
+          "synthese": "Binah/Taw/Saturn: das Große Verstehen kommt durch Vollendung aller Zyklen. Taw ist das Kreuz = Karma als Lehrerin."
+        },
+        {
+          "planet": "Uranus",
+          "numerologie_zahl": 4,
+          "sephira": "Chokmah (2)",
+          "buchstabe": "Aleph (א)",
+          "buchstabe_wert": 1,
+          "gematria_schluessel": "Aleph (1) = der göttliche Funken der Revolution. Uranus-Weisheit kommt blitzartig wie Aleph.",
+          "synthese": "Chokmah/Aleph/Uranus: die erste Weisheit ist immer revolutionär. Der erste Buchstabe und der Planet der Erneuerung teilen dieselbe Urkraft."
+        },
+        {
+          "planet": "Neptun",
+          "numerologie_zahl": 7,
+          "sephira": "Kether (1) / Da'ath",
+          "buchstabe": "Mem (מ)",
+          "buchstabe_wert": 40,
+          "gematria_schluessel": "Mem (40) = Wasser des Unbewussten. Neptun ist das kosmische Meer.",
+          "synthese": "Kether/Mem/Neptun: die mystische Einheit erfahren wir im Wasser des Vergessens und Erinnerns. Da'ath = verborgenes Wissen im Nebel."
+        }
+      ]
+    },
+
+    "synthesis_regeln_gematria_numerologie": {
+      "beschreibung": "Praktische Regeln für die systemübergreifende Deutung wenn sowohl Gematria als auch Numerologie in einer Analyse vorliegen.",
+      "quelle": "Sepharial - Kabalistic Astrology; Westcott Numbers; eigene Synthesis",
+      "regeln": [
+        {
+          "regel_id": "G-N-01",
+          "titel": "Dominanz bei Übereinstimmung",
+          "regel": "Wenn Gematria-Reduktion UND westliche Numerologie-Zahl identisch sind, wird diese Qualität als dominant und bestätigend gewertet. Die Energie dieser Zahl ist doppelt kodiert und besonders ausgeprägt.",
+          "beispiel": "Name mit Gematriawert 36 (reduz. 9) + Lebenspfad 9 = Mars/Geburah-Energie ist das dominante Lebensprinzip."
+        },
+        {
+          "regel_id": "G-N-02",
+          "titel": "Ergänzung bei Differenz",
+          "regel": "Wenn Gematria-Reduktion und Numerologie-Zahl verschieden sind, ergänzen sich die Qualitäten. Die Gematria zeigt den spirituellen Auftrag (Sephira-Ebene), die Numerologie zeigt die weltliche Umsetzung (Planeten-Ebene).",
+          "beispiel": "Gematria 5 (Merkur/Hod) + Lebenspfad 8 (Saturn/Binah) = spirituell: Kommunikationsmeister; weltlich: Strukturaufbauer."
+        },
+        {
+          "regel_id": "G-N-03",
+          "titel": "Gottesname-Resonanz als Verstärker",
+          "regel": "Wenn der Gematriawert eines Namens mit einem klassischen Gottesnamen übereinstimmt (z.B. 26=JHWH, 21=Eheieh, 31=El, 65=Adonai), wird die Lebensaufgabe dieser Person kabbalistisch als besonders sakral betrachtet — unabhängig von ihrer Numerologie-Zahl.",
+          "beispiel": "Name mit Gematriawert 26 trägt JHWH-Resonanz: Die Person hat eine Führungsaufgabe von kosmischer Bedeutung."
+        },
+        {
+          "regel_id": "G-N-04",
+          "titel": "Chai-Multiplikation als Gesundheitsindikator",
+          "regel": "Gematriawerte die Vielfache von 18 (Chai = Leben) sind (18, 36, 54, 72, 90...) zeigen in der Gesundheitsdimension immer erhöhte Vitalitätskraft, unabhängig von anderen Faktoren.",
+          "beispiel": "Name mit Gematriawert 72 (= 4×Chai): Gesundheitsvektor automatisch auf 5 erhöht."
+        },
+        {
+          "regel_id": "G-N-05",
+          "titel": "Planetarer Resonanz-Check",
+          "regel": "Den Buchstaben-Wert des Anfangsbuchstabens eines Namens reduzieren und mit dem Numerologie-Lebensplaneten vergleichen. Stimmen beide überein: außergewöhnliche Kohärenz der Lebensenergie. Widersprechen sie sich: innere Spannung die als kreatives Potential wirkt.",
+          "beispiel": "Name beginnt mit Daleth (4=Venus-Reduktion) + Lebenspfad 6 (Venus): Vollständige Venus-Kohärenz = natürliche Harmonie, Liebestalent."
+        },
+        {
+          "regel_id": "G-N-06",
+          "titel": "Sephira-Weg-Analyse über Buchstabenfolge",
+          "regel": "Die Pfad-Nummern der Buchstaben eines Namens in Reihe zeigen den 'Baum-Lebensweg' — welche Sephiroth der Person zugänglich sind. Je mehr verschiedene Pfade ein Name enthält, desto vielseitiger die Lebensaufgabe.",
+          "beispiel": "Name enthält Aleph(11), Mem(23), Shin(31) = Drei Mutterbuchstaben = Zugang zu allen drei Elementen Luft/Wasser/Feuer = elementarer Magier."
+        }
+      ]
+    }
+  },
+
+  "vollstaendige_analyse_beispiele": {
+    "beschreibung": "Exemplarische vollständige Gematria-Analysen demonstrieren das Zusammenspiel aller Methoden.",
+    "quelle": "Westcott - Numbers; Mathers - Kabbalah Unveiled; Crowley - 777",
+
+    "beispiel_1": {
+      "name_analyse": "Name: MIRL (מִירְל) — Miriam/Mirjam (kabbalistische Kurzform)",
+      "hebraeisch": "מ-י-ר-ל",
+      "buchstaben_analyse": {
+        "Mem": {"wert": 40, "pfad": 23, "element": "Wasser", "tarot": "Der Gehängte"},
+        "Yod": {"wert": 10, "pfad": 20, "planet": "Jungfrau", "tarot": "Der Einsiedler"},
+        "Resh": {"wert": 200, "pfad": 30, "planet": "Sonne", "tarot": "Die Sonne"},
+        "Lamed": {"wert": 30, "pfad": 22, "planet": "Waage", "tarot": "Die Gerechtigkeit"}
+      },
+      "gematria_gesamt": 280,
+      "gematria_reduktion": 1,
+      "pfad_weg": "Wasser(Gehängter) → Jungfrau(Einsiedler) → Sonne → Gerechtigkeit",
+      "synthese": "280 = Resh+Mem+Pe (alternative Bedeutung: 'Tohu wa-Bohu' = das Chaos der Schöpfung). Reduktion 1 = Führerin aus dem Chaos. Der Weg: Tiefe des Wassers → Einsamkeit der Reife → Sonnenklarheit → Gerechtigkeit als Ziel.",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+        "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+      }
+    },
+
+    "beispiel_2": {
+      "name_analyse": "Name: SHLMH (שְׁלֹמֹה) — Shlomo / Salomo",
+      "hebraeisch": "ש-ל-מ-ה",
+      "buchstaben_analyse": {
+        "Shin": {"wert": 300, "pfad": 31, "element": "Feuer", "tarot": "Das Gericht"},
+        "Lamed": {"wert": 30, "pfad": 22, "planet": "Waage", "tarot": "Die Gerechtigkeit"},
+        "Mem": {"wert": 40, "pfad": 23, "element": "Wasser", "tarot": "Der Gehängte"},
+        "He": {"wert": 5, "pfad": 15, "planet": "Widder", "tarot": "Der Kaiser"}
+      },
+      "gematria_gesamt": 375,
+      "gematria_reduktion": 6,
+      "pfad_weg": "Feuer(Gericht) → Gerechtigkeit → Wasser(Gehängter) → Kaiser(Widder)",
+      "synthese": "375 = 3+7+5=15=6. Reduktion 6 = Venus/Netzach = Harmonie und Weisheit. Shin (Feuer/Geist) am Anfang: Inspiration und prophetische Gabe. He am Ende: göttliche Gnade als Abschluss. Kabbalistisch: Salomo trägt Feuer (Inspiration), Gerechtigkeit, Wassertiefe und kaiserliche Führung in sich — daher die Zuschreibung größter Weisheit.",
+      "dimensionen_vektor": {
+        "liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 5
+      }
+    }
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln und Datenpunkte in dieser Datei.",
+    "gesamt_regeln": 64,
+    "kategorien": {
+      "alphabet_profile": 22,
+      "sofit_formen": 5,
+      "bedeutungsvolle_zahlen_profile": 22,
+      "dimensionsvektoren_fuer_schluesselzahlen": 6,
+      "notarikon_regeln": 5,
+      "temurah_systeme": 3,
+      "namensanalyse_schritte": 6,
+      "bekannte_namensbeispiele": 3,
+      "gematria_numerologie_reduktions_mapping": 9,
+      "planetarer_bruecken_mapping": 9,
+      "synthesis_regeln": 6,
+      "vollstaendige_analysebeispiele": 2,
+      "aiq_bekar_kammern": 9,
+      "meta_systemregeln": 3
+    },
+    "hinweis": "Alphabet (22 Profile) + Schlüsselzahlen (22 Profile) + Mapping-Tabellen + Methoden-Regeln + Analysebeispiele = ~64 strukturierte Regeln/Datenpunkte."
+  }
+}

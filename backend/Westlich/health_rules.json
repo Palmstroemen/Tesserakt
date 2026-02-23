@@ -1,0 +1,583 @@
+{
+  "_meta": {
+    "system": "western",
+    "version": "1.0",
+    "datei": "health_rules.json",
+    "gespraech": 4,
+    "themen": ["III.II Konstitution", "III.III Gesundheit/Krankheit", "III.IV Planeten-Charakter vertieft"],
+    "regelanzahl": 82,
+    "sources": [
+      "Sepharial - Astrology: How to Make and Read Your Own Horoscope (Project Gutenberg #46963, 1920)",
+      "Raphael (Robert Cross Smith) - A Manual of Astrology (1828/1834)",
+      "Nicholas DeVore - Encyclopedia of Astrology (1947)",
+      "Claudius Ptolemy - Tetrabiblos (public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)"
+  },
+
+  "III_II_constitution": {
+    "_intro": "Körperliche Konstitution nach aufsteigendem Zeichen (Aszendent) und dominantem Planeten. Quelle: Sepharial S.69-75, Ptolemy Tetrabiblos II.",
+
+    "zeichen_konstitution": {
+      "widder": {
+        "koerper": "Kopf, Gesicht, Gehirn",
+        "konstitution": "Kräftig, muskulös, mittlere Statur. Markante Gesichtszüge, oft röte Haare oder lebhafte Augen. Hohes Energieniveau, aber anfällig für Erschöpfung durch Überarbeitung.",
+        "gesundheit_staerken": ["Große Vitalität", "Schnelle Erholung", "Starkes Immunsystem"],
+        "gesundheit_schwaechen": ["Kopfschmerzen", "Migräne", "Fiebererkrankungen", "Verletzungen an Kopf/Gesicht", "Überarbeitung"],
+        "empfehlung": "Regelmäßige Erholung einplanen; impulsive Handlungen vermeiden; ausreichend schlafen.",
+        "dimensionen": {"gesundheit": 4, "veraenderung": 3},
+        "quelle": "Sepharial S.69"
+      },
+      "stier": {
+        "koerper": "Hals, Nacken, Schilddrüse, Kehlkopf",
+        "konstitution": "Gedrungene, solide Statur. Breiter Nacken, angenehme Gesichtszüge. Große körperliche Ausdauer, langsamer Stoffwechsel.",
+        "gesundheit_staerken": ["Außergewöhnliche Ausdauer", "Robuste Gesundheit", "Widerstandsfähigkeit"],
+        "gesundheit_schwaechen": ["Hals- und Nackenleiden", "Schilddrüsenstörungen", "Adipositas durch Trägheit", "Kehlkopferkrankungen"],
+        "empfehlung": "Regelmäßige Bewegung erzwingen; auf Ernährung achten; Stress durch Naturaufenthalte abbauen.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 2},
+        "quelle": "Sepharial S.70"
+      },
+      "zwillinge": {
+        "koerper": "Lungen, Arme, Schultern, Hände, Nervensystem",
+        "konstitution": "Schlanke, bewegliche Statur. Lebhafte Augen und Gesten. Nervöse Konstitution, viel Energie in kurzen Schüben.",
+        "gesundheit_staerken": ["Geistige Beweglichkeit", "Schnelle Anpassung", "Hohe Aktivität"],
+        "gesundheit_schwaechen": ["Lungenerkrankungen", "Nervöse Erschöpfung", "Atemwegsprobleme", "Unruhiges Nervensystem", "Schulter-/Armschmerzen"],
+        "empfehlung": "Tiefes Atmen üben; Meditation oder Yoga; geistige Überarbeitung vermeiden.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 4},
+        "quelle": "Sepharial S.70"
+      },
+      "krebs": {
+        "koerper": "Magen, Brust, Verdauungssystem",
+        "konstitution": "Mittlere bis fülliger Statur, runde Gesichtszüge. Stark von Emotionen abhängige Gesundheit.",
+        "gesundheit_staerken": ["Intuitive Selbstwahrnehmung", "Pflegender Instinkt", "Regenerationsfähigkeit"],
+        "gesundheit_schwaechen": ["Magenbeschwerden", "Verdauungsstörungen", "Psychosomatische Leiden", "Brustkorbprobleme", "Wassereinlagerungen"],
+        "empfehlung": "Emotionale Hygiene pflegen; Ernährungsroutinen einhalten; Stressessen vermeiden.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 3},
+        "quelle": "Sepharial S.71"
+      },
+      "loewe": {
+        "koerper": "Herz, Rücken, Wirbelsäule, Kreislauf",
+        "konstitution": "Majestätische Statur, oft große oder aufrechte Haltung. Starke Lebenskraft, blühendes Aussehen.",
+        "gesundheit_staerken": ["Starke Konstitution", "Hohe Vitalität", "Natürliche Autorität und Selbstsicherheit"],
+        "gesundheit_schwaechen": ["Herzerkrankungen", "Rückenprobleme", "Bluthochdruck", "Kreislaufstörungen"],
+        "empfehlung": "Herz-Kreislauf-Übungen; Stressmanagement; Überanstrengung des Herzens vermeiden.",
+        "dimensionen": {"gesundheit": 4, "veraenderung": 2},
+        "quelle": "Sepharial S.71"
+      },
+      "jungfrau": {
+        "koerper": "Darm, Milz, Verdauungsorgane, Bauchspeicheldrüse",
+        "konstitution": "Schlanke, ordentliche Statur. Analytisches Auftreten. Gesundheitsbewusstsein sehr hoch, hypochondrische Tendenzen.",
+        "gesundheit_staerken": ["Ausgeprägtes Gesundheitsbewusstsein", "Sorgfalt im Alltag", "Analytisches Körpergefühl"],
+        "gesundheit_schwaechen": ["Darmprobleme", "Nervöse Verdauungsstörungen", "Hypochondrie", "Stressbedingtes Reizdarmsyndrom"],
+        "empfehlung": "Entspannungstechniken; natürliche Ernährung; Hypochondrie durch rationale Information begrenzen.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 2},
+        "quelle": "Sepharial S.72"
+      },
+      "waage": {
+        "koerper": "Nieren, Lendenbereich, Hormonhaushalt",
+        "konstitution": "Harmonische, angenehme Statur. Natürliche Eleganz. Anfällig für Ungleichgewichte.",
+        "gesundheit_staerken": ["Natürliches Gleichgewicht", "Soziale Gesundheit", "Ästhetische Lebensführung"],
+        "gesundheit_schwaechen": ["Nierenerkrankungen", "Lendenschmerzen", "Hormonelle Ungleichgewichte", "Gleichgewichtsstörungen"],
+        "empfehlung": "Flüssigkeitszufuhr sicherstellen; Extreme meiden; ausgewogene Work-Life-Balance.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 3},
+        "quelle": "Sepharial S.72"
+      },
+      "skorpion": {
+        "koerper": "Geschlechtsorgane, Harnwege, Darmausgang, Blut",
+        "konstitution": "Kräftige, intensive Statur. Durchdringende Augen. Tiefe Regenerationskraft nach Krankheiten.",
+        "gesundheit_staerken": ["Außergewöhnliche Regeneration", "Tiefe Resilienz", "Willenskraft in Krisen"],
+        "gesundheit_schwaechen": ["Geschlechtskrankheiten", "Harnwegsinfekte", "Bluterkrankungen", "Selbstzerstörerische Tendenzen", "Vergiftungen"],
+        "empfehlung": "Giftstoffe und Suchtmittel meiden; emotionale Intensität kanalisieren; regelmäßige Entgiftung.",
+        "dimensionen": {"gesundheit": 4, "veraenderung": 5},
+        "quelle": "Sepharial S.73"
+      },
+      "schuetze": {
+        "koerper": "Hüften, Oberschenkel, Leber",
+        "konstitution": "Große, athletische Statur. Ausgeprägter Bewegungsdrang. Optimismus fördert Gesundheit.",
+        "gesundheit_staerken": ["Optimistische Grundhaltung", "Sportlichkeit", "Große Lebensenergie"],
+        "gesundheit_schwaechen": ["Hüftprobleme", "Lebererkrankungen", "Übergewicht durch Exzesse", "Verletzungen durch Unvorsichtigkeit"],
+        "empfehlung": "Exzesse in Essen und Trinken begrenzen; Sport regelmäßig, nicht impulsiv; Leber schonen.",
+        "dimensionen": {"gesundheit": 4, "veraenderung": 3},
+        "quelle": "Sepharial S.73"
+      },
+      "steinbock": {
+        "koerper": "Knie, Knochen, Zähne, Haut, Gelenke",
+        "konstitution": "Schlanke, knochige Statur. Langsame Entwicklung aber robuste Konstitution im Alter.",
+        "gesundheit_staerken": ["Verbessert sich mit dem Alter", "Große Disziplin", "Ausdauer"],
+        "gesundheit_schwaechen": ["Knieprobleme", "Arthritis", "Hautkrankheiten", "Zahnprobleme", "Depression"],
+        "empfehlung": "Gelenkpflege; Sonnenlicht suchen; depressive Phasen aktiv begegnen; Knochengesundheit fördern.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 2},
+        "quelle": "Sepharial S.74"
+      },
+      "wassermann": {
+        "koerper": "Waden, Knöchel, Kreislaufsystem, Nervensystem",
+        "konstitution": "Schlanke, ungewöhnliche Statur. Nervöse Energie, unregelmäßige Gewohnheiten.",
+        "gesundheit_staerken": ["Mentale Stärke", "Originalität im Umgang mit Gesundheit", "Anpassung an Neues"],
+        "gesundheit_schwaechen": ["Kreislaufstörungen", "Nervöse Störungen", "Krampfadern", "Knöchelprobleme", "Burnout durch Idealismus"],
+        "empfehlung": "Regelmäßige Schlafzeiten; Erdung durch Natur; soziale Isolation vermeiden.",
+        "dimensionen": {"gesundheit": 3, "veraenderung": 4},
+        "quelle": "Sepharial S.74"
+      },
+      "fische": {
+        "koerper": "Füße, Lymphsystem, Immunsystem",
+        "konstitution": "Weiche, variable Statur. Hohe Empfindlichkeit für Umgebungseinflüsse und Emotionen.",
+        "gesundheit_staerken": ["Tiefe Intuition für Körpersignale", "Spirituelle Ressourcen", "Empathische Heilung"],
+        "gesundheit_schwaechen": ["Fußprobleme", "Lymphstörungen", "Suchtgefährdung", "Immunschwäche", "Psychosomatik"],
+        "empfehlung": "Alkohol und Drogen meiden; Grenzen setzen; Fußpflege; Immunsystem stärken.",
+        "dimensionen": {"gesundheit": 2, "veraenderung": 3},
+        "quelle": "Sepharial S.75"
+      }
+    }
+  },
+
+  "III_III_health_sickness": {
+    "_intro": "Krankheitssignaturen der Planeten. Welche Leiden entstehen wenn ein Planet schwach, afflicted oder dominant ist. Quelle: Sepharial S.76-82, Ptolemy Tetrabiblos III.12",
+
+    "planeten_krankheiten": {
+      "sonne_afflicted": {
+        "planet": "sonne",
+        "zustand": "afflicted (Quadrat, Opposition, Fall, Exil)",
+        "koerper_bereiche": ["Herz", "Augen (rechtes)", "Vitalität", "Wirbelsäule"],
+        "krankheiten": ["Herzkrankheiten", "Sehstörungen", "Ohnmacht", "Rückenprobleme", "Vitaminmangel"],
+        "charakter_auswirkung": "Übertriebenes Ego, Arroganz als Abwehr gegen Unsicherheit; oder totaler Vitalitätsverlust.",
+        "heilungsansatz": "Sonnenlicht, Bewegung im Freien, Herzmeditation, Selbstwert stärken.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.76"
+      },
+      "mond_afflicted": {
+        "planet": "mond",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Magen", "Brust (linke)", "Flüssigkeitshaushalt", "Fruchtbarkeit"],
+        "krankheiten": ["Magenbeschwerden", "Psychosomatik", "Lungenödem", "Menstruationsstörungen", "Emotionale Instabilität"],
+        "charakter_auswirkung": "Starke Stimmungsschwankungen, emotionale Abhängigkeit, chronische Unruhe.",
+        "heilungsansatz": "Emotionale Routinen, ausreichend Schlaf, Mondrhythmus beachten, Ernährungsdisziplin.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.76"
+      },
+      "merkur_afflicted": {
+        "planet": "merkur",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Nervensystem", "Lungen", "Hände", "Sprache"],
+        "krankheiten": ["Nervöse Erschöpfung", "Sprachstörungen", "Neuralgie", "Stottern", "Schlaflosigkeit", "Mentale Überarbeitung"],
+        "charakter_auswirkung": "Gedankenkarussell, Analyselähmung, Angststörungen, nervöse Tics.",
+        "heilungsansatz": "Digitale Auszeiten, Meditation, Schreiben zur Entleerung des Geistes, Atemübungen.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.77"
+      },
+      "venus_afflicted": {
+        "planet": "venus",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Nieren", "Kehle", "Haut", "Venöser Kreislauf"],
+        "krankheiten": ["Nierenerkrankungen", "Hautleiden", "Venenprobleme", "Übergewicht durch Genusssucht", "Hormonelles Ungleichgewicht"],
+        "charakter_auswirkung": "Exzessiver Genuss, Faulheit, Abhängigkeit von Schönheit und Luxus.",
+        "heilungsansatz": "Maßhalten beim Essen und Genuss; Hautpflege; viel Wasser trinken.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.77"
+      },
+      "mars_afflicted": {
+        "planet": "mars",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Blut", "Muskeln", "Kopf", "Gallenblase"],
+        "krankheiten": ["Entzündliche Erkrankungen", "Verletzungen", "Fieber", "Bluthochdruck", "Gallensteine", "Unfälle"],
+        "charakter_auswirkung": "Unkontrollierte Wut, Impulsivität, Unfallhäufigkeit, Gewalttendenz.",
+        "heilungsansatz": "Kampfsport oder körperliche Entladung; Wutmanagement; Achtsamkeit bei körperlichen Aktivitäten.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "Sepharial S.77"
+      },
+      "jupiter_afflicted": {
+        "planet": "jupiter",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Leber", "Blutzucker", "Fettgewebe"],
+        "krankheiten": ["Fettleibigkeit", "Diabetes", "Lebererkrankungen", "Überdehnte Leber durch Alkohol", "Exzessive Ernährung"],
+        "charakter_auswirkung": "Maßlosigkeit, Überheblichkeit, Tendenz zu übertriebenen Versprechen.",
+        "heilungsansatz": "Maßhalten; Leber durch Entgiftung unterstützen; Zuckerkonsum reduzieren.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.78"
+      },
+      "saturn_afflicted": {
+        "planet": "saturn",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Knochen", "Zähne", "Gelenke", "Haut", "Ohren"],
+        "krankheiten": ["Arthritis", "Rheuma", "Osteoporose", "Depression", "Chronische Erkrankungen", "Zahnprobleme"],
+        "charakter_auswirkung": "Chronischer Pessimismus, Isolation, Rigidität, Selbstzweifel bis zur Lähmung.",
+        "heilungsansatz": "Regelmäßige Wärme (Sonne, Sauna); Vitamin D; soziale Kontakte aufrechterhalten.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "Sepharial S.78"
+      },
+      "uranus_afflicted": {
+        "planet": "uranus",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Nervensystem (höheres)", "Wirbelsäule", "Kreislauf"],
+        "krankheiten": ["Nervenschocks", "Epilepsie", "Plötzliche Lähmungen", "Unerwartete Erkrankungen", "Elektrische Unfälle"],
+        "charakter_auswirkung": "Extremes Nervosität, unberechenbares Verhalten, Revolutionismus gegen eigene Gesundheitsinteressen.",
+        "heilungsansatz": "Erdung und Routine; technologische Auszeiten; Schocks durch Stabilität abpuffern.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.79"
+      },
+      "neptun_afflicted": {
+        "planet": "neptun",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Lymphsystem", "Drüsen", "Gehirnflüssigkeit"],
+        "krankheiten": ["Vergiftungen", "Suchterkrankungen", "Parasiten", "Geheimnisvolle/unklare Erkrankungen", "Psychosen"],
+        "charakter_auswirkung": "Suchtgefährdung, Realitätsflucht, Täuschbarkeit, diffuse Ängste.",
+        "heilungsansatz": "Strenge Realitätschecks; Suchtprävention; keine Schlafmittel oder psychoaktive Substanzen ohne Aufsicht.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "Sepharial S.79"
+      },
+      "pluto_afflicted": {
+        "planet": "pluto",
+        "zustand": "afflicted",
+        "koerper_bereiche": ["Zellen", "Fortpflanzungssystem", "Tiefes Immunsystem"],
+        "krankheiten": ["Tumorerkrankungen", "Chronische Transformationskrisen", "Tiefe psychische Wunden", "Zerstörerische Muster"],
+        "charakter_auswirkung": "Zwanghafte Selbstzerstörung oder Kontrolle, tiefe Traumata die körperlich manifestieren.",
+        "heilungsansatz": "Psychotherapie; Traumaarbeit; Transformationsprozesse bewusst begleiten lassen.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "DeVore Encyclopaedia"
+      }
+    },
+
+    "kritische_aspekte_gesundheit": [
+      {
+        "id": "h_asp_01",
+        "signatur": "Saturn □ oder ☍ Sonne",
+        "bedeutung": "Chronische Vitalitätsprobleme; Herzbelastung; Depression; Widerstand gegen das eigene Lebenslicht.",
+        "empfehlung": "Herz-Check regelmäßig; Depressionsvorsorge; Lebensfreude aktiv kultivieren.",
+        "dimensionen": {"gesundheit": 1, "spiritualitaet": 2},
+        "quelle": "Sepharial S.80"
+      },
+      {
+        "id": "h_asp_02",
+        "signatur": "Mars □ oder ☍ Mond",
+        "bedeutung": "Emotionale Inflammationen; Magenblutungen möglich; weibliche Beschwerden; unkontrollierte Emotionen.",
+        "empfehlung": "Emotionale Selbstregulation; Magenpflege; bei Frauen gynäkologische Vorsorge.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "Sepharial S.80"
+      },
+      {
+        "id": "h_asp_03",
+        "signatur": "Neptun □ oder ☍ Merkur",
+        "bedeutung": "Verwirrung, mentale Nebel, Anfälligkeit für Drogen und Schmerzmittel; diffuse Denkstörungen.",
+        "empfehlung": "Klar strukturierter Alltag; keine psychoaktiven Substanzen; kognitive Hygiene.",
+        "dimensionen": {"gesundheit": 1},
+        "quelle": "Sepharial S.81"
+      },
+      {
+        "id": "h_asp_04",
+        "signatur": "Jupiter △ Sonne",
+        "bedeutung": "Natürliche Vitalität; Schutz vor schweren Krankheiten; Erholung nach Krisen; positive Grundkonstitution.",
+        "empfehlung": "Günstiger Gesundheitsauftrieb; kleine Unvorsichtigkeiten bleiben meist folgenlos.",
+        "dimensionen": {"gesundheit": 5},
+        "quelle": "Sepharial S.81"
+      },
+      {
+        "id": "h_asp_05",
+        "signatur": "Venus △ Mond",
+        "bedeutung": "Harmonisches Verhältnis zu eigenem Körper; weibliche Gesundheit gestärkt; emotionales Gleichgewicht.",
+        "empfehlung": "Selbstfürsorge genießen; Körper mit Freude pflegen.",
+        "dimensionen": {"gesundheit": 4, "liebe": 4},
+        "quelle": "Sepharial S.81"
+      },
+      {
+        "id": "h_asp_06",
+        "signatur": "Saturn im 6. Haus",
+        "bedeutung": "Chronische Erkrankungen als Lebensthema; Arbeit als Gesundheitsfaktor; mühsame aber lehrreiche Genesungen.",
+        "empfehlung": "Chronische Leiden früh ernst nehmen; Arbeitsbedingungen sorgfältig wählen.",
+        "dimensionen": {"gesundheit": 2, "beruf": 2},
+        "quelle": "Sepharial S.82"
+      },
+      {
+        "id": "h_asp_07",
+        "signatur": "Mars im 6. Haus",
+        "bedeutung": "Anfälligkeit für akute Entzündungen und Verletzungen; aber auch rasche Genesung; chirurgisches Talent.",
+        "empfehlung": "Sicherheitsmaßnahmen am Arbeitsplatz; Unfallvorsorge; Energie kanalisieren.",
+        "dimensionen": {"gesundheit": 2},
+        "quelle": "Sepharial S.82"
+      },
+      {
+        "id": "h_asp_08",
+        "signatur": "Jupiter im 6. Haus",
+        "bedeutung": "Meist gute Konstitution; Risiko von Übergewicht und Leberbelastung; Übertreibung als Hauptgefahr.",
+        "empfehlung": "Maßhalten bei Essen und Genüssen; Leber regelmäßig entlasten.",
+        "dimensionen": {"gesundheit": 4},
+        "quelle": "Sepharial S.82"
+      }
+    ]
+  },
+
+  "III_IV_planeten_charakter": {
+    "_intro": "Vertiefter Planeten-Charakter: Nicht nur welches Zeichen dominiert, sondern welcher Planet am stärksten ist — entweder als Herrscher, durch Stellung oder durch Häufung von Aspekten. Quelle: Sepharial S.83-95, Raphael S.72-80.",
+
+    "dominanter_planet_charakter": {
+      "sonne_dominant": {
+        "planet": "sonne",
+        "charakter_kern": "Solarischer Mensch: Der natürliche Anführer und Lebenskünstler.",
+        "positive_eigenschaften": [
+          "Natürliche Autorität und Würde",
+          "Großzügigkeit gegenüber Untergebenen",
+          "Treue und Verlässlichkeit",
+          "Ambition mit Integrität",
+          "Ehrenhaftigkeit in allen Dingen"
+        ],
+        "negative_eigenschaften": [
+          "Arroganz und Hochmut",
+          "Unempfänglich für Kritik",
+          "Verschwenderische Großzügigkeit",
+          "Sturheit in Führungsfragen"
+        ],
+        "beruf_neigung": ["Führungspositionen", "Regierung und Verwaltung", "Goldschmiedekunst", "Medizin", "Schauspielerei"],
+        "beziehung_stil": "Sucht Bewunderung; loyal und treu wenn respektiert; Dominanz in der Partnerschaft.",
+        "spirituell": "Verbindung mit dem Höheren Selbst; Lebensaufgabe ist Selbstausdruck und Würde.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3},
+        "quelle": "Sepharial S.83-84"
+      },
+      "mond_dominant": {
+        "planet": "mond",
+        "charakter_kern": "Lunarer Mensch: Der Empfindsame, Intuitive und Pflegende.",
+        "positive_eigenschaften": [
+          "Tiefe Empathie und Mitgefühl",
+          "Starke Intuition und Ahnung",
+          "Anpassungsfähigkeit",
+          "Fürsorge für andere",
+          "Starke Phantasie und Kreativität"
+        ],
+        "negative_eigenschaften": [
+          "Übermäßige Stimmungsschwankungen",
+          "Klammernde Abhängigkeit",
+          "Vergänglichkeit von Entscheidungen",
+          "Übertriebene Emotionalität"
+        ],
+        "beruf_neigung": ["Krankenpflege", "Hauswirtschaft", "Seefahrt", "Gastronomie", "Sozialdienste", "Poesie"],
+        "beziehung_stil": "Tief emotional gebunden; sucht Sicherheit und Geborgenheit; klammert leicht.",
+        "spirituell": "Verbindung zur kollektiven Seele; Traumarbeit und Intuition als spirituelle Wege.",
+        "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 4},
+        "quelle": "Sepharial S.84-85"
+      },
+      "merkur_dominant": {
+        "planet": "merkur",
+        "charakter_kern": "Merkurialer Mensch: Der Denker, Kommunikator und Vermittler.",
+        "positive_eigenschaften": [
+          "Schnelle Auffassungsgabe",
+          "Rhetorische Brillanz",
+          "Vielseitige Interessen",
+          "Geschäftlicher Scharfsinn",
+          "Beweglicher Geist"
+        ],
+        "negative_eigenschaften": [
+          "Unbeständigkeit und Flatterhaftigkeit",
+          "Oberflächlichkeit",
+          "Nervosität und Rastlosigkeit",
+          "Tendenz zur Übertreibung"
+        ],
+        "beruf_neigung": ["Journalismus", "Handel", "Buchhaltung", "Schriftstellerei", "Lehramt", "Sekretariat"],
+        "beziehung_stil": "Intellektueller Austausch als Fundament; wechselhaft in Zuneigungen; heiratet oft jung oder gar nicht.",
+        "spirituell": "Wissen als spiritueller Weg; Schreiben, Lernen und Lehren als Meditation.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 2},
+        "quelle": "Sepharial S.85-86"
+      },
+      "venus_dominant": {
+        "planet": "venus",
+        "charakter_kern": "Venusischer Mensch: Der Liebende, Künstler und Genießer.",
+        "positive_eigenschaften": [
+          "Natürliche Schönheit und Anmut",
+          "Kunstsinn und Ästhetik",
+          "Soziale Harmonie",
+          "Warmherzigkeit",
+          "Fähigkeit zu echter Liebe"
+        ],
+        "negative_eigenschaften": [
+          "Faulheit und Bequemlichkeit",
+          "Genusssucht",
+          "Eitelkeit",
+          "Vermeidung von Konflikten auf Kosten der Wahrheit"
+        ],
+        "beruf_neigung": ["Kunst und Design", "Mode", "Schönheitsindustrie", "Musik", "Diplomatie", "Juwelierhandwerk"],
+        "beziehung_stil": "Liebevoll und harmonisch; braucht Schönheit in der Beziehung; meidet Konflikt; treu wenn glücklich.",
+        "spirituell": "Schönheit als Gotteserscheinung; Kunst und Liebe als Zugang zur Transzendenz.",
+        "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 3, "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3},
+        "quelle": "Sepharial S.86-87"
+      },
+      "mars_dominant": {
+        "planet": "mars",
+        "charakter_kern": "Martialischer Mensch: Der Krieger, Pionier und Vollstrecker.",
+        "positive_eigenschaften": [
+          "Unerschrockener Mut",
+          "Pioniergeist und Initiative",
+          "Direkte Ehrlichkeit",
+          "Physische Kraft und Energie",
+          "Entschlossenheit in Krisen"
+        ],
+        "negative_eigenschaften": [
+          "Jähzorn und Gewalt",
+          "Impulsivität",
+          "Rücksichtslosigkeit",
+          "Streitlust"
+        ],
+        "beruf_neigung": ["Militär", "Chirurgie", "Metallbearbeitung", "Sport", "Feuerwehr", "Unternehmertum"],
+        "beziehung_stil": "Leidenschaftlich aber dominant; direkte Werbung; eifersüchtig; braucht starken Partner.",
+        "spirituell": "Kampf als spiritueller Weg; Krieger-Archetyp; Dienst an einer höheren Sache durch Taten.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 2},
+        "quelle": "Sepharial S.87-88"
+      },
+      "jupiter_dominant": {
+        "planet": "jupiter",
+        "charakter_kern": "Jovialischer Mensch: Der Weise, Großzügige und Glückliche.",
+        "positive_eigenschaften": [
+          "Natürlicher Optimismus",
+          "Großzügigkeit und Freigiebigkeit",
+          "Weisheit und Weitblick",
+          "Geselligkeit und Humor",
+          "Natürliches Glück in Unternehmungen"
+        ],
+        "negative_eigenschaften": [
+          "Maßlosigkeit",
+          "Versprechen die nicht gehalten werden",
+          "Überheblichkeit",
+          "Spielsucht oder übertriebener Risikofreude"
+        ],
+        "beruf_neigung": ["Recht", "Kirche und Religion", "Bankwesen", "Philosophie", "Pädagogik", "Staatsdienst"],
+        "beziehung_stil": "Warmherzig und großzügig; sucht moralisch integren Partner; polyamor gefährdet durch Optimismus.",
+        "spirituell": "Suche nach Weisheit; Reisen als Initiation; Religion und Philosophie als Lebensweg.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4, "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5},
+        "quelle": "Sepharial S.88-89"
+      },
+      "saturn_dominant": {
+        "planet": "saturn",
+        "charakter_kern": "Saturnischer Mensch: Der Asket, Realist und Erbauer.",
+        "positive_eigenschaften": [
+          "Unerschütterliche Disziplin",
+          "Langfristiges Denken",
+          "Tiefe Verlässlichkeit",
+          "Methodisches Vorgehen",
+          "Meisterschaft durch Ausdauer"
+        ],
+        "negative_eigenschaften": [
+          "Pessimismus und Schwere",
+          "Emotionale Kälte",
+          "Geiz",
+          "Misstrauen",
+          "Isolationstendenzen"
+        ],
+        "beruf_neigung": ["Bergbau", "Landwirtschaft", "Immobilien", "Altenversorgung", "Mathematik", "Philosophie"],
+        "beziehung_stil": "Langsam und vorsichtig in Liebe; zeigt Liebe durch Verlässlichkeit nicht Zärtlichkeit; Treue über Jahrzehnte.",
+        "spirituell": "Einsamkeit als Weg; Askese; Zeit als Lehrer; Karma-Arbeit als spirituelle Mission.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4},
+        "quelle": "Sepharial S.89-90"
+      },
+      "uranus_dominant": {
+        "planet": "uranus",
+        "charakter_kern": "Uranischer Mensch: Der Revolutionär, Erfinder und Rebell.",
+        "positive_eigenschaften": [
+          "Bahnbrechende Originalität",
+          "Visionärer Weitblick",
+          "Freiheitsliebe",
+          "Technische Genialität",
+          "Humanistisches Denken"
+        ],
+        "negative_eigenschaften": [
+          "Extreme Unberechenbarkeit",
+          "Bindungsunfähigkeit",
+          "Rücksichtslose Eigenständigkeit",
+          "Extremismus"
+        ],
+        "beruf_neigung": ["Technologie und Innovation", "Wissenschaft", "Astrologie", "Elektrik", "Sozialreform", "Erfindungen"],
+        "beziehung_stil": "Braucht absolute Freiheit; unkonventionelle Beziehungsmodelle; oft plötzliche Trennungen.",
+        "spirituell": "Erwachen als spirituelles Ereignis; Quantendenken; Befreiung von allen Strukturen.",
+        "dimensionen_vektor": {"liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 4},
+        "quelle": "Sepharial S.91, DeVore"
+      },
+      "neptun_dominant": {
+        "planet": "neptun",
+        "charakter_kern": "Neptunischer Mensch: Der Mystiker, Künstler und Träumer.",
+        "positive_eigenschaften": [
+          "Tiefe Empathie bis zur Telepathie",
+          "Künstlerische Hochbegabung",
+          "Spirituelle Sensibilität",
+          "Selbstlosigkeit",
+          "Visionäre Phantasie"
+        ],
+        "negative_eigenschaften": [
+          "Selbsttäuschung und Illusionen",
+          "Suchtgefährdung",
+          "Grenzlosigkeit",
+          "Manipulation durch andere",
+          "Realitätsverlust"
+        ],
+        "beruf_neigung": ["Musik", "Film", "Spiritualität", "Meeresberufe", "Psychiatrie", "Fotografie"],
+        "beziehung_stil": "Romantisch-idealistisch; verschmilzt mit dem Partner; schwierig in praktischen Alltagsfragen.",
+        "spirituell": "Auflösung des Egos; mystische Einheitserfahrungen; Dienst am Kollektiv.",
+        "dimensionen_vektor": {"liebe": 4, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5},
+        "quelle": "Sepharial S.92, DeVore"
+      },
+      "pluto_dominant": {
+        "planet": "pluto",
+        "charakter_kern": "Plutonischer Mensch: Der Transformator, Detektiv und Machtmensch.",
+        "positive_eigenschaften": [
+          "Tiefe Transformationskraft",
+          "Psychologische Brillanz",
+          "Unerschrockene Wahrheitssuche",
+          "Krisenbeständigkeit",
+          "Regenerationsfähigkeit"
+        ],
+        "negative_eigenschaften": [
+          "Machtmissbrauch",
+          "Obsessivität",
+          "Manipulativer Kontrollzwang",
+          "Zerstörende Intensität",
+          "Schwierigkeit loszulassen"
+        ],
+        "beruf_neigung": ["Psychologie", "Kriminologie", "Kernforschung", "Finanzmacht", "Geheimdienste", "Bestattungswesen"],
+        "beziehung_stil": "Besitzergreifend und intensiv; tiefe Bindungen oder vollständige Trennung; keine Graubereiche.",
+        "spirituell": "Tod und Wiedergeburt als spiritueller Weg; schamanische Arbeit; Unterweltreisen.",
+        "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3, "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5},
+        "quelle": "DeVore Encyclopaedia"
+      }
+    },
+
+    "planet_charakter_modifikatoren": {
+      "_intro": "Wie Zeichenstellung die Planetennatur modifiziert (Dignität und Debilität).",
+      "regeln": [
+        {
+          "id": "mod_01",
+          "signatur": "Planet in Domizil",
+          "bedeutung": "Planet exprimiert seine Natur unverfälscht und vollständig. Positive und negative Qualitäten beide verstärkt.",
+          "beispiel": "Sonne in Löwe: Maximum solarischer Ausdruck — Großzügigkeit, Würde, aber auch Arroganzgefahr.",
+          "staerke_multiplikator": 1.3,
+          "quelle": "Ptolemy Tetrabiblos I.17"
+        },
+        {
+          "id": "mod_02",
+          "signatur": "Planet in Exaltation",
+          "bedeutung": "Planet wirkt auf höchstem positiven Niveau; positive Qualitäten stark, negative unterdrückt.",
+          "beispiel": "Jupiter in Krebs: Fürsorgliche Weisheit, maximale Mildtätigkeit und Schutz.",
+          "staerke_multiplikator": 1.4,
+          "quelle": "Ptolemy Tetrabiblos I.17"
+        },
+        {
+          "id": "mod_03",
+          "signatur": "Planet in Exil (Detriment)",
+          "bedeutung": "Planet kämpft gegen fremde Natur; Energie muss kompensiert werden; negative Qualitäten wahrscheinlicher.",
+          "beispiel": "Saturn in Loewe: Strenge trifft auf Selbstdarstellung — Ergebnis oft Ehrgeiz mit Kälte.",
+          "staerke_multiplikator": 0.7,
+          "quelle": "Ptolemy Tetrabiblos I.17"
+        },
+        {
+          "id": "mod_04",
+          "signatur": "Planet im Fall",
+          "bedeutung": "Planetenqualitäten am schwächsten und schwierigsten zu integrieren; erfordert bewusste Arbeit.",
+          "beispiel": "Mars in Krebs: Aggressivität wird defensiv und indirekt; innere Konflikte.",
+          "staerke_multiplikator": 0.6,
+          "quelle": "Ptolemy Tetrabiblos I.17"
+        },
+        {
+          "id": "mod_05",
+          "signatur": "Planet retrograd",
+          "bedeutung": "Planetenqualitäten werden verinnerlicht und reflektiert statt direkt ausgedrückt; oft tiefere aber langsamere Wirkung.",
+          "beispiel": "Merkur retrograd: Kommunikation nach innen gerichtet; tiefes Denken aber Kommunikationsmissverständnisse.",
+          "staerke_multiplikator": 0.8,
+          "quelle": "Sepharial S.95, DeVore"
+        }
+      ]
+    }
+  }
+}

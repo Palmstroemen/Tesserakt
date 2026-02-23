@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "system": "Hellenistisch",
+    "beschreibung": "Hellenistische Astrologie — Profektionen + Lose + Sekt",
+    "zeit_abhaengig": true
+  },
+  "vektor_quellen": [
+    {
+      "id": "jaehrliche_profektionen",
+      "schluessel": "jaehrliche_profektionen",
+      "typ": "profektionen",
+      "eingabe": "lebensalter",
+      "zyklus": 12,
+      "schluessel_format": "haus_{n}",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 1.0,
+      "pflicht": true
+    },
+    {
+      "id": "lot_glueck",
+      "schluessel": "lot_des_gluecks",
+      "typ": "direkter_vektor",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "sekt",
+      "schluessel": "sekt_system",
+      "typ": "sekt",
+      "eingabe": "geburts_stunde",
+      "tag_schluessel": "dimensionen_vektor_tag",
+      "nacht_schluessel": "dimensionen_vektor_nacht",
+      "gewicht": 0.33,
+      "pflicht": false
+    }
+  ]
+}

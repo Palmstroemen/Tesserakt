@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "system": "chinese_bazi",
+    "version": "0.1",
+    "sources": [
+      "Joey Yap - Bazi The Destiny Code (public summaries)",
+      "Traditional Tong Shu almanac interpretations",
+      "Five Element theory classical texts"
+    ],
+    "structure": "Bazi = 4 Pillars (Jahr, Monat, Tag, Stunde), je ein Heavenly Stem + Earthly Branch",
+    "dimensions": ["liebe", "beruf", "finanzen", "gesundheit", "soziales", "kreativitaet", "veraenderung", "spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)"
+  },
+
+  "heavenly_stems": {
+    "jia":  { "element": "holz_yang",  "symbol": "甲", "qualitaet": "Wachstum, Pionier, Aufrichtigkeit",
+              "persoenlichkeit": { "initiative": 5, "ausdauer": 3, "empathie": 3, "ordnung": 3, "kreativitaet": 4 } },
+    "yi":   { "element": "holz_yin",   "symbol": "乙", "qualitaet": "Anpassung, Flexibilität, Diplomatie",
+              "persoenlichkeit": { "initiative": 3, "ausdauer": 4, "empathie": 5, "ordnung": 3, "kreativitaet": 4 } },
+    "bing": { "element": "feuer_yang", "symbol": "丙", "qualitaet": "Wärme, Charisma, Großzügigkeit",
+              "persoenlichkeit": { "initiative": 4, "ausdauer": 3, "empathie": 4, "ordnung": 2, "kreativitaet": 5 } },
+    "ding": { "element": "feuer_yin",  "symbol": "丁", "qualitaet": "Präzision, Intuition, Beharrlichkeit",
+              "persoenlichkeit": { "initiative": 3, "ausdauer": 5, "empathie": 4, "ordnung": 4, "kreativitaet": 3 } },
+    "wu":   { "element": "erde_yang",  "symbol": "戊", "qualitaet": "Stabilität, Verlässlichkeit, Grenze",
+              "persoenlichkeit": { "initiative": 2, "ausdauer": 5, "empathie": 3, "ordnung": 5, "kreativitaet": 2 } },
+    "ji":   { "element": "erde_yin",   "symbol": "己", "qualitaet": "Fürsorge, Detailgenauigkeit, Vorsicht",
+              "persoenlichkeit": { "initiative": 2, "ausdauer": 5, "empathie": 5, "ordnung": 5, "kreativitaet": 2 } },
+    "geng": { "element": "metall_yang","symbol": "庚", "qualitaet": "Entschlossenheit, Gerechtigkeit, Kraft",
+              "persoenlichkeit": { "initiative": 5, "ausdauer": 4, "empathie": 2, "ordnung": 4, "kreativitaet": 3 } },
+    "xin":  { "element": "metall_yin", "symbol": "辛", "qualitaet": "Ästhetik, Perfektion, Sensibilität",
+              "persoenlichkeit": { "initiative": 3, "ausdauer": 4, "empathie": 4, "ordnung": 5, "kreativitaet": 4 } },
+    "ren":  { "element": "wasser_yang","symbol": "壬", "qualitaet": "Intelligenz, Freiheit, Anpassung",
+              "persoenlichkeit": { "initiative": 4, "ausdauer": 3, "empathie": 3, "ordnung": 2, "kreativitaet": 5 } },
+    "gui":  { "element": "wasser_yin", "symbol": "癸", "qualitaet": "Intuition, Stille, Tiefe",
+              "persoenlichkeit": { "initiative": 2, "ausdauer": 4, "empathie": 5, "ordnung": 3, "kreativitaet": 5 } }
+  },
+
+  "earthly_branches": {
+    "zi":   { "tier": "ratte",   "element": "wasser", "monat": 11, "symbol": "子",
+              "liebe": 3, "beruf": 4, "finanzen": 4, "text": "Klug, schöpferisch, opportunistisch" },
+    "chou": { "tier": "bueffel", "element": "erde",   "monat": 12, "symbol": "丑",
+              "liebe": 3, "beruf": 5, "finanzen": 4, "text": "Geduldig, ausdauernd, stur, zuverlässig" },
+    "yin":  { "tier": "tiger",   "element": "holz",   "monat":  1, "symbol": "寅",
+              "liebe": 3, "beruf": 4, "finanzen": 3, "text": "Mutig, charismatisch, impulsiv" },
+    "mao":  { "tier": "hase",    "element": "holz",   "monat":  2, "symbol": "卯",
+              "liebe": 5, "beruf": 3, "finanzen": 3, "text": "Sanft, diplomatisch, künstlerisch, sozial" },
+    "chen": { "tier": "drache",  "element": "erde",   "monat":  3, "symbol": "辰",
+              "liebe": 3, "beruf": 5, "finanzen": 4, "text": "Visionär, leidenschaftlich, eigenwillig" },
+    "si":   { "tier": "schlange","element": "feuer",  "monat":  4, "symbol": "巳",
+              "liebe": 4, "beruf": 4, "finanzen": 4, "text": "Intuitiv, tiefgründig, berechnend" },
+    "wu":   { "tier": "pferd",   "element": "feuer",  "monat":  5, "symbol": "午",
+              "liebe": 3, "beruf": 4, "finanzen": 3, "text": "Energetisch, freiheitsliebend, unbeständig" },
+    "wei":  { "tier": "ziege",   "element": "erde",   "monat":  6, "symbol": "未",
+              "liebe": 5, "beruf": 3, "finanzen": 3, "text": "Empathisch, kreativ, fürsorglich, sensibel" },
+    "shen": { "tier": "affe",    "element": "metall", "monat":  7, "symbol": "申",
+              "liebe": 3, "beruf": 5, "finanzen": 4, "text": "Clever, vielseitig, opportunistisch" },
+    "you":  { "tier": "hahn",    "element": "metall", "monat":  8, "symbol": "酉",
+              "liebe": 3, "beruf": 5, "finanzen": 5, "text": "Perfektionistisch, analytisch, direkt" },
+    "xu":   { "tier": "hund",    "element": "erde",   "monat":  9, "symbol": "戌",
+              "liebe": 4, "beruf": 4, "finanzen": 3, "text": "Loyal, gerecht, beschützend, ängstlich" },
+    "hai":  { "tier": "schwein", "element": "wasser", "monat": 10, "symbol": "亥",
+              "liebe": 5, "beruf": 3, "finanzen": 3, "text": "Großzügig, aufrichtig, naiv, spirituell" }
+  },
+
+  "five_element_interactions": {
+    "generierend": {
+      "holz_feuer":    { "vektor": { "kreativitaet": 5, "liebe": 4 }, "text": "Holz nährt Feuer: Kreativität und Leidenschaft wachsen" },
+      "feuer_erde":    { "vektor": { "beruf": 4, "finanzen": 4 }, "text": "Feuer nährt Erde: Projekte gedeihen, Stabilität entsteht" },
+      "erde_metall":   { "vektor": { "finanzen": 5, "beruf": 4 }, "text": "Erde nährt Metall: Materieller Aufbau und Qualität" },
+      "metall_wasser": { "vektor": { "spiritualitaet": 4, "kreativitaet": 4 }, "text": "Metall nährt Wasser: Tiefe Einsicht, Intuition stärkt sich" },
+      "wasser_holz":   { "vektor": { "veraenderung": 4, "gesundheit": 4 }, "text": "Wasser nährt Holz: Wachstum und Erneuerung" }
+    },
+    "kontrollierend": {
+      "holz_erde":     { "vektor": { "beruf": 2, "finanzen": 2 }, "text": "Holz kontrolliert Erde: Einschränkungen bei Ressourcen" },
+      "erde_wasser":   { "vektor": { "soziales": 2, "kreativitaet": 2 }, "text": "Erde blockiert Wasser: Kommunikation und Fluss gehemmt" },
+      "wasser_feuer":  { "vektor": { "liebe": 2, "kreativitaet": 2 }, "text": "Wasser löscht Feuer: Begeisterung gedämpft" },
+      "feuer_metall":  { "vektor": { "beruf": 2, "finanzen": 2 }, "text": "Feuer schmilzt Metall: Strukturen unter Druck" },
+      "metall_holz":   { "vektor": { "veraenderung": 3, "gesundheit": 2 }, "text": "Metall schneidet Holz: Erzwungene Veränderungen" }
+    }
+  },
+
+  "annual_pillar_effects": {
+    "zi_ratte": {
+      "2020": { "vektor": { "liebe": 3, "beruf": 3, "veraenderung": 5 }, "text": "Ratjahr: Neue Zyklen beginnen, Anpassungsfähigkeit gefragt" }
+    },
+    "generell": {
+      "holz_jahr":   { "vektor": { "kreativitaet": 4, "veraenderung": 4, "liebe": 3 }, "text": "Holzjahr: Wachstum, neue Projekte, soziale Expansion" },
+      "feuer_jahr":  { "vektor": { "liebe": 4, "kreativitaet": 5, "beruf": 4 }, "text": "Feuerjahr: Leidenschaft, Sichtbarkeit, Anerkennung" },
+      "erde_jahr":   { "vektor": { "finanzen": 4, "beruf": 4, "gesundheit": 3 }, "text": "Erdjahr: Stabilisierung, Absicherung, Aufbau" },
+      "metall_jahr": { "vektor": { "beruf": 5, "finanzen": 4, "veraenderung": 3 }, "text": "Metalljahr: Struktur, Präzision, berufliche Chancen" },
+      "wasser_jahr": { "vektor": { "spiritualitaet": 5, "kreativitaet": 4, "liebe": 3 }, "text": "Wasserjahr: Intuition, Tiefe, innere Reise" }
+    }
+  },
+
+  "day_master_profiles": {
+    "holz": {
+      "staerken": "Wachstum, Kreativität, Mitgefühl, Teamfähigkeit",
+      "schwaechen": "Unentschlossenheit, Überanpassung, mangelnde Grenzen",
+      "liebe": 4, "beruf": 3, "finanzen": 3,
+      "guenstige_elemente": ["wasser", "holz"],
+      "unguenstige_elemente": ["metall", "feuer"]
+    },
+    "feuer": {
+      "staerken": "Charisma, Leidenschaft, Führung, Inspiration",
+      "schwaechen": "Impulsivität, Ungeduld, Erschöpfung",
+      "liebe": 4, "beruf": 5, "finanzen": 3,
+      "guenstige_elemente": ["holz", "feuer"],
+      "unguenstige_elemente": ["wasser", "erde"]
+    },
+    "erde": {
+      "staerken": "Zuverlässigkeit, Ausdauer, Praktisches Denken, Fürsorge",
+      "schwaechen": "Sturheit, Veränderungsresistenz, Übergrübelei",
+      "liebe": 3, "beruf": 4, "finanzen": 5,
+      "guenstige_elemente": ["feuer", "erde"],
+      "unguenstige_elemente": ["holz", "wasser"]
+    },
+    "metall": {
+      "staerken": "Präzision, Entschlossenheit, Gerechtigkeit, Integrität",
+      "schwaechen": "Rigidität, Kompromisslosigkeit, Gefühlskälte",
+      "liebe": 2, "beruf": 5, "finanzen": 5,
+      "guenstige_elemente": ["erde", "metall"],
+      "unguenstige_elemente": ["feuer", "holz"]
+    },
+    "wasser": {
+      "staerken": "Intelligenz, Intuition, Anpassungsfähigkeit, Tiefe",
+      "schwaechen": "Unbeständigkeit, Angst, übermäßige Grübelei",
+      "liebe": 3, "beruf": 4, "finanzen": 3,
+      "guenstige_elemente": ["metall", "wasser"],
+      "unguenstige_elemente": ["erde", "feuer"]
+    }
+  },
+
+  "clash_and_combination": {
+    "clashes_branches": {
+      "zi_wu":   { "typ": "clash", "text": "Ratte-Pferd: Instabilität, Aufruhr", "vektor": { "veraenderung": 5, "liebe": 2 } },
+      "chou_wei": { "typ": "clash", "text": "Büffel-Ziege: Finanzielle Spannungen", "vektor": { "finanzen": 2, "beruf": 2 } },
+      "yin_shen": { "typ": "clash", "text": "Tiger-Affe: Reiseunruhen, Konflikte", "vektor": { "soziales": 2, "veraenderung": 4 } },
+      "mao_you":  { "typ": "clash", "text": "Hase-Hahn: Beziehungsspannungen", "vektor": { "liebe": 1, "soziales": 2 } },
+      "chen_xu":  { "typ": "clash", "text": "Drache-Hund: Heimprobleme, Ärger", "vektor": { "soziales": 2, "veraenderung": 4 } },
+      "si_hai":   { "typ": "clash", "text": "Schlange-Schwein: Gesundheit, Stress", "vektor": { "gesundheit": 2, "veraenderung": 4 } }
+    },
+    "combinations_branches": {
+      "zi_chou":    { "typ": "combination", "element": "erde", "text": "Ratte-Büffel: Harmonische Verbindung, Teamwork", "vektor": { "beruf": 4, "soziales": 4 } },
+      "yin_hai":    { "typ": "combination", "element": "holz", "text": "Tiger-Schwein: Kreative Energie", "vektor": { "kreativitaet": 4, "liebe": 4 } },
+      "mao_xu":     { "typ": "combination", "element": "feuer", "text": "Hase-Hund: Romantische Verbindung", "vektor": { "liebe": 5, "kreativitaet": 4 } },
+      "chen_you":   { "typ": "combination", "element": "metall", "text": "Drache-Hahn: Finanzieller Erfolg", "vektor": { "finanzen": 5, "beruf": 4 } },
+      "si_shen":    { "typ": "combination", "element": "wasser", "text": "Schlange-Affe: Intelligenz, Strategie", "vektor": { "beruf": 5, "kreativitaet": 4 } },
+      "wu_wei":     { "typ": "combination", "element": "feuer", "text": "Pferd-Ziege: Leidenschaft, Abenteuer", "vektor": { "liebe": 4, "soziales": 5 } }
+    }
+  }
+}

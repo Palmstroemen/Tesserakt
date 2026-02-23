@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "system": "Japanisch",
+    "beschreibung": "Jyotish / Vedische Astrologie — Vimshottari Mahadasha + Nakshatras",
+    "zeit_abhaengig": true
+  },
+  "vektor_quellen": [
+    {
+      "id": "mahadasha_aktiv",
+      "schluessel": "mahadasha_profile",
+      "typ": "mahadasha",
+      "eingabe": "lebensalter",
+      "dauern_schluessel": "mahadasha_dauern",
+      "profil_format": "{planet}_mahadasha",
+      "zyklus_jahre": 120,
+      "geburt_offset_basis": 1900,
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 1.0,
+      "pflicht": true
+    },
+    {
+      "id": "nakshatra",
+      "schluessel": "nakshatras",
+      "typ": "nakshatra",
+      "eingabe": "geburts_tag_des_jahres",
+      "anzahl": 27,
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    }
+  ]
+}

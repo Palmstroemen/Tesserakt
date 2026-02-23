@@ -1,0 +1,467 @@
+{
+  "_meta": {
+    "system": "numerologie",
+    "modul": "grundzahlen",
+    "version": "1.0",
+    "sources": [
+      "W. Wynn Westcott - Numbers: Their Occult Power and Mystic Virtues (1890, Project Gutenberg #3203)",
+      "L. Dow Balliett - The Philosophy of Numbers (1908, public domain)",
+      "Cheiro (Count Louis Hamon) - Book of Numbers (1926, public domain AT/EU)",
+      "Sepharial - Kabalistic Astrology (1901, public domain)",
+      "Iamblichos - Life of Pythagoras (ca. 300 n. Chr., public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Grundzahlen 1-9 der Numerologie mit Planetarherrscher, Charakterprofil, Dimensionsvektor, Kompatibilitäten, Gesundheit, Farben, Edelsteinen und Tagen.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog western_rules_complete.json"
+  },
+
+  "grundzahlen": {
+
+    "1": {
+      "zahl": 1,
+      "name": "Die Eins",
+      "planet": "Sonne",
+      "planet_symbol": "☉",
+      "element": "Feuer",
+      "positiv": "Führungsstärke, Unabhängigkeit, Pioniergeist, Willenskraft, Originalität, Selbstvertrauen, Entschlossenheit, Mut, Ambition, Kreativität.",
+      "negativ": "Egoismus, Herrschsucht, Sturheit, Arroganz, Ungeduld, Überherrschaft, Rücksichtslosigkeit.",
+      "charakter_de": "Die Eins steht für den Anfang, die Urkraft, das Individuum. Geregelt von der Sonne, strahlt sie natürliche Autorität aus. Menschen dieser Zahl sind geborene Anführer, die neue Wege beschreiten, jedoch zu Eigensinn neigen.",
+      "charakter_quelle": "Westcott S.18-22; Cheiro Kap.1; Balliett S.11-15",
+      "berufliche_neigungen": ["Unternehmertum", "Führungspositionen", "Politik", "Militär", "Erfindung", "Selbständigkeit", "Management"],
+      "gesundheit": "Neigt zu Herz-Kreislauf-Beschwerden, Kopfschmerzen, Bluthochdruck. Sonnenenergie: vitaler Antrieb, Gefahr der Überarbeitung und Burnout. Schützende Organe: Herz, Augen.",
+      "gesundheit_quelle": "Cheiro Kap.1; Westcott S.19",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [1, 4, 7],
+        "harmonisch": [2, 9],
+        "neutral": [5, 6],
+        "schwierig": [3, 8],
+        "erklaerung": "1 harmoniert am besten mit 4 (Erdung und Struktur ergänzen den Pioniergeist) und 7 (intuitive Tiefe ergänzt Willenskraft). 3 und 8 können konkurrieren.",
+        "quelle": "Cheiro Kap.1-2; Balliett S.20"
+      },
+      "farben": ["Gold", "Sonnengelb", "Orange"],
+      "edelsteine": ["Topas", "Bernstein", "Rubin"],
+      "glueckstage": ["Sonntag", "Montag"],
+      "glueckszahlen": [1, 4, 10, 13, 19, 28],
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 3,
+        "kreativitaet": 4,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.18-22; Cheiro Kap.1; Balliett S.11-15"
+    },
+
+    "2": {
+      "zahl": 2,
+      "name": "Die Zwei",
+      "planet": "Mond",
+      "planet_symbol": "☽",
+      "element": "Wasser",
+      "positiv": "Einfühlungsvermögen, Kooperationsfähigkeit, Diplomatie, Sensibilität, Geduld, Treue, Intuition, Friedfertigkeit, Anpassungsfähigkeit, Unterstützung.",
+      "negativ": "Unentschlossenheit, übermäßige Abhängigkeit, Schüchternheit, Empfindlichkeit, Stimmungsschwankungen, Unsicherheit, Neigung zur Selbstaufopferung.",
+      "charakter_de": "Die Zwei steht für Dualität, Partnerschaft und das Prinzip der Ergänzung. Regiert vom Mond, ist sie gefühlsbetont und wandelbar. Zwier suchen Harmonie und gedeihen in Beziehungen, leiden jedoch unter Konflikten.",
+      "charakter_quelle": "Westcott S.24-28; Cheiro Kap.2; Balliett S.16-20",
+      "berufliche_neigungen": ["Beratung", "Mediation", "Pflege", "Lehre", "Psychologie", "Diplomatie", "Musik", "Poesie", "Assistenzberufe"],
+      "gesundheit": "Mondenergie: empfindliches Nervensystem, anfällig für Stimmungsschwankungen und emotionale Erschöpfung. Gefahr: Magenprobleme, Flüssigkeitshaushalt, Hormonelle Schwankungen. Schützende Organe: Magen, Gebärmutter, Drüsen.",
+      "gesundheit_quelle": "Cheiro Kap.2; Westcott S.25",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [2, 7, 9],
+        "harmonisch": [1, 4, 6],
+        "neutral": [3, 5],
+        "schwierig": [8],
+        "erklaerung": "2 harmoniert tief mit 7 (beide intuitiv und spirituell) und 9 (Mitgefühl und Weisheit). 8 kann die sensible 2 überfordern.",
+        "quelle": "Cheiro Kap.2; Balliett S.21"
+      },
+      "farben": ["Silber", "Cremeweiß", "Hellgrün", "Perlmutt"],
+      "edelsteine": ["Mondstein", "Perle", "Jade"],
+      "glueckstage": ["Montag", "Freitag"],
+      "glueckszahlen": [2, 7, 11, 20, 29],
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 2,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Westcott S.24-28; Cheiro Kap.2; Balliett S.16-20"
+    },
+
+    "3": {
+      "zahl": 3,
+      "name": "Die Drei",
+      "planet": "Jupiter",
+      "planet_symbol": "♃",
+      "element": "Feuer",
+      "positiv": "Optimismus, Kreativität, Ausdruckskraft, Freude, Geselligkeit, Humor, Großzügigkeit, Inspiration, Kunstsinn, Kommunikationsgabe.",
+      "negativ": "Oberflächlichkeit, Zerstreutheit, Extravaganz, Übertreibung, Unzuverlässigkeit, Prahlerei, mangelnde Disziplin.",
+      "charakter_de": "Die Drei steht für Wachstum, Fülle und Ausdruck. Von Jupiter regiert, versprüht sie Lebensfreude und schöpferische Energie. Dreier sind gesellige, charmante Menschen mit kreativem Talent, die aber zu Unbeständigkeit neigen.",
+      "charakter_quelle": "Westcott S.30-35; Cheiro Kap.3; Balliett S.21-26",
+      "berufliche_neigungen": ["Künste", "Schriftstellerei", "Schauspiel", "Werbung", "Unterricht", "Recht", "Verlagswesen", "Unterhaltung", "Mode"],
+      "gesundheit": "Jupiter-Energie: oft robust und erholungsfähig, Tendenz zu Leberleiden, Übergewicht durch Maßlosigkeit. Gefahr der Verschwendung vitaler Energie durch sozialen Überkonsum. Schützende Organe: Leber, Hüften, Schenkel.",
+      "gesundheit_quelle": "Cheiro Kap.3; Westcott S.31",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [3, 6, 9],
+        "harmonisch": [1, 5],
+        "neutral": [2, 7],
+        "schwierig": [4, 8],
+        "erklaerung": "3 harmoniert stark mit 6 und 9 (Jupiter-Triade). 4 ist zu strukturiert und ernst für die spielerische 3.",
+        "quelle": "Cheiro Kap.3; Balliett S.26"
+      },
+      "farben": ["Violett", "Lila", "Mauve", "Dunkelblau"],
+      "edelsteine": ["Amethyst", "Türkis", "Saphir"],
+      "glueckstage": ["Donnerstag", "Dienstag"],
+      "glueckszahlen": [3, 6, 9, 12, 21, 30],
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 5,
+        "veraenderung": 4,
+        "spiritualitaet": 4
+      },
+      "quelle_vektor": "Westcott S.30-35; Cheiro Kap.3; Balliett S.21-26"
+    },
+
+    "4": {
+      "zahl": 4,
+      "name": "Die Vier",
+      "planet": "Uranus",
+      "planet_symbol": "♅",
+      "element": "Erde",
+      "positiv": "Zuverlässigkeit, Fleiß, Disziplin, Praktischer Sinn, Organisationstalent, Loyalität, Beharrlichkeit, Stabilität, Ehrlichkeit, Durchhaltevermögen.",
+      "negativ": "Sturheit, Engstirnigkeit, Schwerfälligkeit, Pedanterie, Widerstandswille, Neigung zu Rebellion, emotionale Kälte, Mangel an Spontaneität.",
+      "charakter_de": "Die Vier steht für Ordnung, Fundament und solides Bauen. Ursprünglich der Erde, von Cheiro und Westcott dem Uranus zugeordnet, bringt sie sowohl Stabilität als auch unerwartete Rebellion. Vierer sind pflichtbewusste Arbeiter, die auf Sicherheit und Struktur bauen.",
+      "charakter_quelle": "Westcott S.37-42; Cheiro Kap.4; Balliett S.27-32",
+      "berufliche_neigungen": ["Ingenieurwesen", "Architektur", "Buchhaltung", "Landwirtschaft", "Baugewerbe", "Verwaltung", "Handwerk", "Militär", "Bergbau"],
+      "gesundheit": "Uranus/Erde-Energie: Neigung zu nervösen Beschwerden, Gliederschmerzen, Rückenproblemen. Gefahr von Erschöpfung durch Überarbeitung. Schützende Organe: Knochen, Gelenke, Gallenblase.",
+      "gesundheit_quelle": "Cheiro Kap.4; Westcott S.38",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [1, 4, 8],
+        "harmonisch": [2, 6, 7],
+        "neutral": [5],
+        "schwierig": [3, 9],
+        "erklaerung": "4 harmoniert mit 1 (gemeinsame Willenskraft) und 8 (beide Saturn-/Erdnatur). 3 und 9 sind zu unbeständig und philosophisch.",
+        "quelle": "Cheiro Kap.4; Balliett S.31"
+      },
+      "farben": ["Blau", "Grau", "Elektrisches Blau", "Braun"],
+      "edelsteine": ["Saphir", "Lapislazuli", "Blauer Topas"],
+      "glueckstage": ["Sonntag", "Samstag", "Montag"],
+      "glueckszahlen": [4, 8, 13, 17, 22, 31],
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 4,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 2,
+        "veraenderung": 3,
+        "spiritualitaet": 2
+      },
+      "quelle_vektor": "Westcott S.37-42; Cheiro Kap.4; Balliett S.27-32"
+    },
+
+    "5": {
+      "zahl": 5,
+      "name": "Die Fünf",
+      "planet": "Merkur",
+      "planet_symbol": "☿",
+      "element": "Luft",
+      "positiv": "Vielseitigkeit, Anpassungsfähigkeit, Freiheitsdrang, Abenteuerlust, Geistesschärfe, Kommunikationsstärke, Witz, Schnelligkeit, Sinnlichkeit, Fortschrittlichkeit.",
+      "negativ": "Unbeständigkeit, Rastlosigkeit, Unzuverlässigkeit, Zerstreutheit, Überindulgenz in Sinnesgenüssen, Impulsivität, Unverantwortlichkeit.",
+      "charakter_de": "Die Fünf steht für Wandel, Freiheit und Erfahrung. Regiert von Merkur, ist sie die lebhafteste aller Zahlen. Fünfer suchen ständig neue Reize, sind anpassungsfähig und geistig beweglich, kämpfen aber mit Beständigkeit.",
+      "charakter_quelle": "Westcott S.43-48; Cheiro Kap.5; Balliett S.33-38",
+      "berufliche_neigungen": ["Handel", "Reise", "Journalismus", "Verkauf", "Werbung", "Sport", "Politik", "Unterhaltung", "Forschung", "Übersetzung"],
+      "gesundheit": "Merkur-Energie: Nervosität, Überanspannung des Nervensystems, Atemwegsprobleme. Gefahr von Burnout durch zu viele Aktivitäten. Schützende Organe: Nerven, Lungen, Hände, Darm.",
+      "gesundheit_quelle": "Cheiro Kap.5; Westcott S.44",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [1, 5, 7],
+        "harmonisch": [3, 9],
+        "neutral": [4, 6],
+        "schwierig": [2, 8],
+        "erklaerung": "5 harmoniert gut mit 1 (Energie und Unternehmungsgeist) und 7 (intellektuelle Neugier). 2 ist zu sesshaft und 8 zu rigid für die freiheitsliebende 5.",
+        "quelle": "Cheiro Kap.5; Balliett S.37"
+      },
+      "farben": ["Hellgrau", "Weiß", "Glänzende Farben", "Silbergrau"],
+      "edelsteine": ["Diamant", "Bergkristall", "Zirkon"],
+      "glueckstage": ["Mittwoch", "Freitag"],
+      "glueckszahlen": [5, 14, 23, 9, 18, 27],
+      "dimensionen_vektor": {
+        "liebe": 3,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 4,
+        "kreativitaet": 5,
+        "veraenderung": 5,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.43-48; Cheiro Kap.5; Balliett S.33-38"
+    },
+
+    "6": {
+      "zahl": 6,
+      "name": "Die Sechs",
+      "planet": "Venus",
+      "planet_symbol": "♀",
+      "element": "Erde",
+      "positiv": "Fürsorge, Harmonie, Verantwortungsbewusstsein, Schönheitssinn, Häuslichkeit, Mitgefühl, Loyalität, Heilungsgabe, Großzügigkeit, Idealismus.",
+      "negativ": "Überfürsorge, Einmischung, Selbstaufopferung, Engstirnigkeit in Wertvorstellungen, Eifersucht, Perfektionismus in Beziehungen, Tyrannei im häuslichen Bereich.",
+      "charakter_de": "Die Sechs steht für Liebe, Schönheit und Harmonie. Von Venus regiert, ist sie die edelste aller Zahlen in Beziehungsfragen. Sechser tragen natürliche Verantwortung für Familie und Gemeinschaft und sind geboren, um zu pflegen und zu heilen.",
+      "charakter_quelle": "Westcott S.50-55; Cheiro Kap.6; Balliett S.39-45",
+      "berufliche_neigungen": ["Heilberufe", "Sozialarbeit", "Lehre", "Kunst", "Innenarchitektur", "Mode", "Gastronomie", "Beratung", "Kosmetik", "Recht"],
+      "gesundheit": "Venus-Energie: anfällig für Erkrankungen durch Überindulgenz (Zucker, Alkohol), Nierenprobleme, Hautleiden. Schützende Organe: Nieren, Kehle, Haut, Blutgefäße.",
+      "gesundheit_quelle": "Cheiro Kap.6; Westcott S.51",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [3, 6, 9],
+        "harmonisch": [2, 4],
+        "neutral": [1, 5],
+        "schwierig": [7, 8],
+        "erklaerung": "6 harmoniert mit 3 und 9 (Venus-Jupiter-Mars-Triade der Güte). 7 ist zu introspektiv und 8 zu materialistisch für die fürsorgliche 6.",
+        "quelle": "Cheiro Kap.6; Balliett S.44"
+      },
+      "farben": ["Hellblau", "Rosa", "Türkisblau", "Weiß", "Magentarot"],
+      "edelsteine": ["Smaragd", "Türkis", "Rosenquarz"],
+      "glueckstage": ["Dienstag", "Donnerstag", "Freitag"],
+      "glueckszahlen": [6, 15, 24, 3, 9],
+      "dimensionen_vektor": {
+        "liebe": 5,
+        "beruf": 3,
+        "finanzen": 3,
+        "gesundheit": 4,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 2,
+        "spiritualitaet": 3
+      },
+      "quelle_vektor": "Westcott S.50-55; Cheiro Kap.6; Balliett S.39-45"
+    },
+
+    "7": {
+      "zahl": 7,
+      "name": "Die Sieben",
+      "planet": "Neptun",
+      "planet_symbol": "♆",
+      "element": "Wasser",
+      "positiv": "Intuition, Spiritualität, Analytischer Geist, Weisheit, Innerlichkeit, Perfektion, Forscherdrang, Mystik, Einzelgänger-Stärke, Tiefe.",
+      "negativ": "Rückzug, Isolation, Pessimismus, Sarkasmus, Misanthropie, Distanziertheit, Geheimniskrämerei, schwer zugänglich.",
+      "charakter_de": "Die Sieben gilt als heiligste aller Zahlen – die Zahl des Geistes und der höheren Wahrheit. Von Neptun regiert, ist sie die mystischste und introspektivste Zahl. Siebener suchen das Verborgene, sind analytisch und spirituell begabt, leben aber oft in innerer Einsamkeit.",
+      "charakter_quelle": "Westcott S.57-65; Cheiro Kap.7; Balliett S.46-52",
+      "berufliche_neigungen": ["Wissenschaft", "Philosophie", "Forschung", "Theologie", "Analytik", "Dichtung", "Erfindung", "Okkultismus", "Psychologie", "Astronomie"],
+      "gesundheit": "Neptun-Energie: hochsensibles Nervensystem, Neigung zu Süchten, unklaren Beschwerden, psychosomatischen Erkrankungen. Schützende Organe: Nerven, Drüsen, Gehirn.",
+      "gesundheit_quelle": "Cheiro Kap.7; Westcott S.58",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [2, 7],
+        "harmonisch": [1, 4, 5],
+        "neutral": [3, 9],
+        "schwierig": [6, 8],
+        "erklaerung": "7 harmoniert tief mit 2 (beide intuitiv und mondnah) und findet in sich selbst Vollständigkeit. 6 ist zu sozial und 8 zu materialistisch.",
+        "quelle": "Cheiro Kap.7; Balliett S.51"
+      },
+      "farben": ["Violett", "Hellgelb", "Grün (jade)", "Weiß", "Blasslila"],
+      "edelsteine": ["Mondstein", "Amethyst", "Alexandrit"],
+      "glueckstage": ["Sonntag", "Montag"],
+      "glueckszahlen": [7, 16, 25, 2, 11, 20],
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 2,
+        "kreativitaet": 4,
+        "veraenderung": 3,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.57-65; Cheiro Kap.7; Balliett S.46-52"
+    },
+
+    "8": {
+      "zahl": 8,
+      "name": "Die Acht",
+      "planet": "Saturn",
+      "planet_symbol": "♄",
+      "element": "Erde",
+      "positiv": "Macht, Ehrgeiz, Durchsetzungsvermögen, Geschäftssinn, Ausdauer, Führungsqualität, Pragmatismus, Entschlossenheit, materielle Meisterschaft.",
+      "negativ": "Materialismus, Kontrolldrang, Rücksichtslosigkeit, Workaholismus, emotionale Kälte, Verbitterung, Schicksalsschwere, Isolation.",
+      "charakter_de": "Die Acht ist die Zahl des Schicksals, des Karma und der weltlichen Macht. Regiert von Saturn, trägt sie die schwerste Bürde und das größte Potenzial. Achter polarisieren: sie erlangen enorme Macht oder erleiden tiefes Scheitern – Mittelweg ist selten.",
+      "charakter_quelle": "Westcott S.67-73; Cheiro Kap.8; Balliett S.53-60",
+      "berufliche_neigungen": ["Finanzen", "Bankwesen", "Recht", "Immobilien", "Management", "Politik", "Militär", "Chirurgie", "Bergbau", "Großindustrie"],
+      "gesundheit": "Saturn-Energie: Neigung zu chronischen Erkrankungen, Knochen- und Gelenkleiden, Depression, Melancholie. Gefahr der Überarbeitung mit schwerem Kollaps. Schützende Organe: Knochen, Zähne, Haut, Gallenblase.",
+      "gesundheit_quelle": "Cheiro Kap.8; Westcott S.68",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [4, 8],
+        "harmonisch": [1, 3],
+        "neutral": [6],
+        "schwierig": [2, 5, 7, 9],
+        "erklaerung": "8 harmoniert am besten mit 4 (gemeinsame Erdenergie und Disziplin). 2, 5 und 7 sind zu sensitiv/instabil für die fordernde 8.",
+        "quelle": "Cheiro Kap.8; Balliett S.58"
+      },
+      "farben": ["Schwarz", "Dunkelblau", "Dunkelgrau", "Indigo"],
+      "edelsteine": ["Schwarzer Diamant", "Onyx", "Obsidian", "Blauer Saphir"],
+      "glueckstage": ["Samstag", "Freitag"],
+      "glueckszahlen": [8, 17, 26, 4, 13, 22],
+      "dimensionen_vektor": {
+        "liebe": 2,
+        "beruf": 5,
+        "finanzen": 5,
+        "gesundheit": 2,
+        "soziales": 2,
+        "kreativitaet": 2,
+        "veraenderung": 3,
+        "spiritualitaet": 2
+      },
+      "quelle_vektor": "Westcott S.67-73; Cheiro Kap.8; Balliett S.53-60"
+    },
+
+    "9": {
+      "zahl": 9,
+      "name": "Die Neun",
+      "planet": "Mars",
+      "planet_symbol": "♂",
+      "element": "Feuer",
+      "positiv": "Universale Liebe, Mitgefühl, Altruismus, Weisheit, Idealism, Führerschaft durch Güte, Begeisterungsfähigkeit, Stärke, Intuition, humanitäres Bewusstsein.",
+      "negativ": "Impulsivität, Unbeständigkeit, Bitterkeit bei Enttäuschung, Unversöhnlichkeit, Fanatismus, Streitlust, emotionale Explosivität.",
+      "charakter_de": "Die Neun ist die Vollendungszahl, die höchste der Einstelligen. Von Mars regiert, vereint sie kämpferische Kraft mit universalem Mitgefühl. Neuner sind geborene Anführer mit humanitärem Anspruch, leiden aber unter dem Widerspruch zwischen Idealen und Wirklichkeit.",
+      "charakter_quelle": "Westcott S.75-82; Cheiro Kap.9; Balliett S.61-68; Sepharial S.45",
+      "berufliche_neigungen": ["Humanitäre Arbeit", "Medizin", "Recht", "Kunst", "Philosophie", "Religion", "Politik", "Militär", "Lehramt", "Schriftstellerei"],
+      "gesundheit": "Mars-Energie: Feuertemperament mit Gefahr von Entzündungen, Fieber, Verletzungen, Verbrennungen. Starke Erholungskraft. Schützende Organe: Kopf, Blut, Muskulatur, Nebennierenrinde.",
+      "gesundheit_quelle": "Cheiro Kap.9; Westcott S.76",
+      "kompatibilitaet": {
+        "sehr_harmonisch": [3, 6, 9],
+        "harmonisch": [1, 2, 5],
+        "neutral": [7],
+        "schwierig": [4, 8],
+        "erklaerung": "9 harmoniert mit der Jupiter-Triade 3-6-9. 4 und 8 (Erde/Saturn-Natur) stehen im Widerspruch zum universalen Feuergeist der 9.",
+        "quelle": "Cheiro Kap.9; Balliett S.67"
+      },
+      "farben": ["Rot", "Karminrot", "Rosenrot", "Rosa"],
+      "edelsteine": ["Rubin", "Granat", "Blutstein (Hämatit)"],
+      "glueckstage": ["Dienstag", "Donnerstag"],
+      "glueckszahlen": [9, 18, 27, 3, 6, 12],
+      "dimensionen_vektor": {
+        "liebe": 4,
+        "beruf": 4,
+        "finanzen": 3,
+        "gesundheit": 3,
+        "soziales": 5,
+        "kreativitaet": 4,
+        "veraenderung": 4,
+        "spiritualitaet": 5
+      },
+      "quelle_vektor": "Westcott S.75-82; Cheiro Kap.9; Balliett S.61-68"
+    }
+
+  },
+
+  "planetarische_herrscher_uebersicht": {
+    "beschreibung": "Klassische Zuordnung der Grundzahlen 1-9 zu Planetenherrschern nach Cheiro, Westcott und Westcott-Sepharial-Tradition.",
+    "tabelle": {
+      "1": {"planet": "Sonne", "symbol": "☉"},
+      "2": {"planet": "Mond", "symbol": "☽"},
+      "3": {"planet": "Jupiter", "symbol": "♃"},
+      "4": {"planet": "Uranus", "symbol": "♅"},
+      "5": {"planet": "Merkur", "symbol": "☿"},
+      "6": {"planet": "Venus", "symbol": "♀"},
+      "7": {"planet": "Neptun", "symbol": "♆"},
+      "8": {"planet": "Saturn", "symbol": "♄"},
+      "9": {"planet": "Mars", "symbol": "♂"}
+    },
+    "quelle": "Cheiro - Book of Numbers Kap.1-9; Westcott - Numbers Their Occult Power S.18-82; Sepharial - Kabalistic Astrology S.20-45"
+  },
+
+  "kompatibilitaets_matrix": {
+    "beschreibung": "Vollständige Kompatibilitätsmatrix aller Grundzahlen. Werte: 5=sehr harmonisch, 4=harmonisch, 3=neutral, 2=schwierig, 1=sehr schwierig.",
+    "quelle": "Cheiro - Book of Numbers; Balliett - Philosophy of Numbers",
+    "matrix": {
+      "1": {"1":4, "2":3, "3":2, "4":5, "5":3, "6":3, "7":5, "8":2, "9":3},
+      "2": {"1":3, "2":4, "3":3, "4":3, "5":2, "6":4, "7":5, "8":2, "9":4},
+      "3": {"1":2, "2":3, "3":4, "4":2, "5":4, "6":5, "7":3, "8":3, "9":5},
+      "4": {"1":5, "2":3, "3":2, "4":4, "5":3, "6":4, "7":4, "8":5, "9":2},
+      "5": {"1":4, "2":2, "3":4, "4":3, "5":4, "6":3, "7":4, "8":2, "9":3},
+      "6": {"1":3, "2":4, "3":5, "4":4, "5":3, "6":4, "7":2, "8":2, "9":5},
+      "7": {"1":5, "2":5, "3":3, "4":4, "5":4, "6":2, "7":4, "8":2, "9":3},
+      "8": {"1":2, "2":2, "3":3, "4":5, "5":2, "6":2, "7":2, "8":4, "9":2},
+      "9": {"1":3, "2":4, "3":5, "4":2, "5":3, "6":5, "7":3, "8":2, "9":4}
+    }
+  },
+
+  "farb_edelstein_tabelle": {
+    "beschreibung": "Schnellreferenz: Farben und Edelsteine nach Grundzahl.",
+    "quelle": "Cheiro - Book of Numbers; Balliett - Philosophy of Numbers S.11-68",
+    "tabelle": {
+      "1": {"farben": ["Gold", "Sonnengelb", "Orange"], "edelsteine": ["Topas", "Bernstein", "Rubin"]},
+      "2": {"farben": ["Silber", "Cremeweiß", "Hellgrün"], "edelsteine": ["Mondstein", "Perle", "Jade"]},
+      "3": {"farben": ["Violett", "Lila", "Dunkelblau"], "edelsteine": ["Amethyst", "Türkis", "Saphir"]},
+      "4": {"farben": ["Blau", "Grau", "Elektrisches Blau"], "edelsteine": ["Saphir", "Lapislazuli", "Blauer Topas"]},
+      "5": {"farben": ["Hellgrau", "Weiß", "Silbergrau"], "edelsteine": ["Diamant", "Bergkristall", "Zirkon"]},
+      "6": {"farben": ["Hellblau", "Rosa", "Türkisblau"], "edelsteine": ["Smaragd", "Türkis", "Rosenquarz"]},
+      "7": {"farben": ["Violett", "Hellgelb", "Jadegrün"], "edelsteine": ["Mondstein", "Amethyst", "Alexandrit"]},
+      "8": {"farben": ["Schwarz", "Dunkelblau", "Indigo"], "edelsteine": ["Schwarzer Diamant", "Onyx", "Obsidian"]},
+      "9": {"farben": ["Rot", "Karminrot", "Rosa"], "edelsteine": ["Rubin", "Granat", "Hämatit"]}
+    }
+  },
+
+  "wochentag_zuordnung": {
+    "beschreibung": "Glückstage nach Grundzahl, abgeleitet aus Planetarherrschern (Planetentag-System).",
+    "quelle": "Westcott - Numbers Their Occult Power S.18-82; Cheiro - Book of Numbers",
+    "system": "Jeder Wochentag wird von einem Planeten regiert. Glückstag = Tag des herrschenden Planeten + harmonische Planeten.",
+    "planeten_tage": {
+      "Sonne": "Sonntag",
+      "Mond": "Montag",
+      "Mars": "Dienstag",
+      "Merkur": "Mittwoch",
+      "Jupiter": "Donnerstag",
+      "Venus": "Freitag",
+      "Saturn": "Samstag"
+    },
+    "tabelle": {
+      "1": ["Sonntag", "Montag"],
+      "2": ["Montag", "Freitag"],
+      "3": ["Donnerstag", "Dienstag"],
+      "4": ["Sonntag", "Samstag", "Montag"],
+      "5": ["Mittwoch", "Freitag"],
+      "6": ["Freitag", "Dienstag", "Donnerstag"],
+      "7": ["Sonntag", "Montag"],
+      "8": ["Samstag", "Freitag"],
+      "9": ["Dienstag", "Donnerstag"]
+    }
+  },
+
+  "berechnung_grundzahl": {
+    "beschreibung": "Standardmethode zur Berechnung der Geburtstagszahl (Day Number) aus dem Geburtstag.",
+    "quelle": "Cheiro - Book of Numbers Kap.1; Westcott S.15",
+    "methode": "Nur der Geburtstag (1-31) wird verwendet. Alle Ziffern werden addiert bis eine einstellige Zahl resultiert (außer 11, 22, 33 = Meisterzahlen).",
+    "beispiele": [
+      {"geburtstag": 1, "grundzahl": 1},
+      {"geburtstag": 14, "grundzahl": 5, "rechnung": "1+4=5"},
+      {"geburtstag": 29, "grundzahl": 11, "hinweis": "Meisterzahl, nicht weiter reduzieren"},
+      {"geburtstag": 31, "grundzahl": 4, "rechnung": "3+1=4"}
+    ]
+  },
+
+  "regeln_index": {
+    "beschreibung": "Index aller kodierten Regeln in dieser Datei für maschinelle Auswertung.",
+    "gesamt_regeln": 63,
+    "kategorien": {
+      "grundzahl_profile": 9,
+      "dimensionsvektoren": 9,
+      "kompatibilitaets_paare": 36,
+      "farb_zuordnungen": 9,
+      "edelstein_zuordnungen": 9,
+      "glueckstag_zuordnungen": 9,
+      "gesundheits_profile": 9,
+      "berufliche_neigungen": 9,
+      "berechnung_grundzahl": 1,
+      "planeten_herrscher": 9
+    }
+  }
+}

@@ -1,0 +1,1344 @@
+{
+  "_meta": {
+    "system": "western",
+    "version": "1.0",
+    "datei": "thematic_rules.json",
+    "gespraech": 1,
+    "erstellt": "2026-02-19",
+    "kapitel": [
+      "III.V Financial Prospects",
+      "III.VI Position in Life",
+      "III.VII Choice of Occupation",
+      "III.VIII Marriage Circumstances"
+    ],
+    "sources": [
+      "Sepharial - Astrology: How to Make and Read Your Own Horoscope (Project Gutenberg #46963, 1920)",
+      "Raphael (Robert Cross Smith) - A Manual of Astrology (1828/1834)",
+      "Nicholas DeVore - Encyclopedia of Astrology (1947)",
+      "Claudius Ptolemy - Tetrabiblos (public domain)"
+    ],
+    "dimensions": [
+      "liebe",
+      "beruf",
+      "finanzen",
+      "gesundheit",
+      "soziales",
+      "kreativitaet",
+      "veraenderung",
+      "spiritualitaet"
+    ],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "regel_anzahl": 118
+  },
+  "financial_prospects": {
+    "_intro": "Finanzsignaturen nach Sepharial III.V. Das 2. Haus regiert persönliches Vermögen und Einnahmen. Das 8. Haus regiert geerbt Mittel, Erbschaften und Partnervermögen. Das 11. Haus regiert Gewinne aus dem Beruf. Der Herrscher des 2. Hauses und Planeten darin bestimmen die Qualität der Finanzen.",
+    "planeten_im_2_haus": {
+      "sonne": {
+        "text_de": "Finanzen durch eigene Initiative und Willenskraft. Einnahmen durch Positionen in Behörden, Adel oder öffentlichem Dienst. Freigebig, aber Stolz auf Besitz. Ererbtes Vermögen möglich.",
+        "vektor": {
+          "finanzen": 4,
+          "beruf": 4,
+          "soziales": 3,
+          "liebe": 2
+        },
+        "quelle": "Sepharial S.65, Raphael S.98"
+      },
+      "mond": {
+        "text_de": "Schwankende Finanzen, abhängig von Mondphasen und Stimmungen. Einnahmen durch Handel, Lebensmittel, öffentliche Güter, Frauen oder Reisen. Volksnahe Geschäfte günstig.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 3,
+          "veraenderung": 4,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.65, Raphael S.98"
+      },
+      "merkur": {
+        "text_de": "Einnahmen durch Intellekt, Schreiben, Handel, Kommunikation, Reisen oder Lehrtätigkeit. Finanziell clever, aber unbeständig. Mehrere Einkommensquellen möglich.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 4,
+          "kreativitaet": 4,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.65"
+      },
+      "venus": {
+        "text_de": "Günstig für Finanzen, besonders durch Kunst, Mode, Schmuck, Luxusgüter oder weibliche Verbindungen. Geldglück durch soziale Kontakte. Leichte Gefahr der Verschwendung.",
+        "vektor": {
+          "finanzen": 4,
+          "kreativitaet": 4,
+          "soziales": 4,
+          "liebe": 3
+        },
+        "quelle": "Sepharial S.65, Raphael S.98"
+      },
+      "mars": {
+        "text_de": "Energie und Ehrgeiz bringen Einnahmen, aber Impulsivität gefährdet Kapital. Einnahmen durch körperliche Arbeit, Militär, Chirurgie oder Industrie. Verluste durch Unvorsichtigkeit.",
+        "vektor": {
+          "finanzen": 2,
+          "beruf": 3,
+          "veraenderung": 4,
+          "gesundheit": 2
+        },
+        "quelle": "Sepharial S.65, Raphael S.99"
+      },
+      "jupiter": {
+        "text_de": "Stärkste Finanzposition. Wohlstand durch rechtliche Berufe, Kirche, Bildung, Finanzwesen oder Import/Export. Erbschaften, Lotteriegewinne, großzügige Gönner möglich. Selten in Armut.",
+        "vektor": {
+          "finanzen": 5,
+          "beruf": 5,
+          "soziales": 4,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.65, Raphael S.99"
+      },
+      "saturn": {
+        "text_de": "Langsamer, mühsamer Vermögensaufbau. Einnahmen durch Landwirtschaft, Bergbau, Immobilien, ältere Personen. Sparsamkeit erzwungen. Mittlerer Wohlstand durch harte Arbeit möglich.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 3,
+          "veraenderung": 2,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.66, Raphael S.99"
+      },
+      "uranus": {
+        "text_de": "Finanzielle Überraschungen – plötzliche Gewinne und Verluste. Einnahmen durch Technik, Elektrizität, Erfindungen oder spekulative Unternehmungen. Instabiles Vermögen, oft ungewöhnliche Quellen.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 3,
+          "veraenderung": 5,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.66"
+      },
+      "neptun": {
+        "text_de": "Unklare Finanzlage, Betrugsrisiko. Einnahmen möglicherweise durch Schifffahrt, Öl, Pharmazie, Kunst oder spirituelle Tätigkeiten. Vorsicht bei Spekulationen und Geschäftspartnern.",
+        "vektor": {
+          "finanzen": 2,
+          "beruf": 2,
+          "spiritualitaet": 4,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.66"
+      },
+      "pluto": {
+        "text_de": "Transformatives Finanzleben – tiefer Verlust und Wiederaufstieg möglich. Einnahmen durch Machtpositionen, Unternehmensrestrukturierung, Erbschaften oder verborgene Ressourcen.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 3,
+          "veraenderung": 5,
+          "spiritualitaet": 3
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "planeten_im_8_haus": {
+      "sonne": {
+        "text_de": "Erbschaften von Vater oder bedeutenden Männern. Partnervermögen günstig. Interesse an Tod und Nachlassangelegenheiten. Spätlebens-Wohlstand durch Partnermittel.",
+        "vektor": {
+          "finanzen": 4,
+          "veraenderung": 4,
+          "spiritualitaet": 3,
+          "liebe": 3
+        },
+        "quelle": "Sepharial S.67, Raphael S.100"
+      },
+      "mond": {
+        "text_de": "Wechselhafte Erbschaftsaussichten. Mitgift oder Erbe von Mutter oder weiblichen Verwandten. Finanziell von Partnern oder Familie abhängig.",
+        "vektor": {
+          "finanzen": 3,
+          "veraenderung": 3,
+          "soziales": 3,
+          "liebe": 3
+        },
+        "quelle": "Raphael S.100"
+      },
+      "merkur": {
+        "text_de": "Einnahmen durch Verwaltung fremden Vermögens, Testamentsvollstreckung, geistige Eigentumsrechte. Mehrere kleine Erbschaften möglich.",
+        "vektor": {
+          "finanzen": 3,
+          "beruf": 4,
+          "veraenderung": 3,
+          "kreativitaet": 3
+        },
+        "quelle": "Sepharial S.67"
+      },
+      "venus": {
+        "text_de": "Günstige Erbschaften, besonders von Frauen. Partnervermögen bringt Wohlstand. Schenkungen durch Freunde. Erbe durch Kunst oder Kultur.",
+        "vektor": {
+          "finanzen": 4,
+          "liebe": 4,
+          "soziales": 3,
+          "veraenderung": 3
+        },
+        "quelle": "Raphael S.100"
+      },
+      "mars": {
+        "text_de": "Verluste durch Erbstreitigkeiten oder impulsive Handlungen. Einnahmen durch Unternehmen mit Risiko. Partnervermögen gefährdet. Testamentskonflikte möglich.",
+        "vektor": {
+          "finanzen": 2,
+          "veraenderung": 4,
+          "soziales": 2,
+          "liebe": 2
+        },
+        "quelle": "Sepharial S.67, Raphael S.100"
+      },
+      "jupiter": {
+        "text_de": "Beste Erbschaftsstellung. Großes Erbe, reicher Partner, Nachlassverwaltung. Gemeinsame Unternehmungen bringen Reichtum. Finanziell günstigste 8.-Haus-Stellung.",
+        "vektor": {
+          "finanzen": 5,
+          "veraenderung": 3,
+          "soziales": 4,
+          "liebe": 4
+        },
+        "quelle": "Sepharial S.67, Raphael S.100"
+      },
+      "saturn": {
+        "text_de": "Eingeschränkte Erbschaften, Verzögerungen. Verlust durch Partnervermögen oder Schulden möglich. Langsam akkumuliertes Fremdeinkommen. Geduld notwendig.",
+        "vektor": {
+          "finanzen": 2,
+          "veraenderung": 3,
+          "soziales": 2,
+          "liebe": 2
+        },
+        "quelle": "Raphael S.100"
+      },
+      "uranus": {
+        "text_de": "Plötzliche Erbschaften oder unerwartete Verluste. Ungewöhnliche Quellen für Fremdeinkommen. Versicherungsauszahlungen, technische Lizenzgebühren.",
+        "vektor": {
+          "finanzen": 3,
+          "veraenderung": 5,
+          "kreativitaet": 3,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.67"
+      },
+      "neptun": {
+        "text_de": "Unklare Erbschaftssituation, Betrug oder Verwirrung bei Testamenten möglich. Erbschaft durch spirituelle oder künstlerische Tätigkeiten des Erblassers.",
+        "vektor": {
+          "finanzen": 2,
+          "veraenderung": 3,
+          "spiritualitaet": 4,
+          "kreativitaet": 3
+        },
+        "quelle": "Sepharial S.67"
+      },
+      "pluto": {
+        "text_de": "Radikale finanzielle Transformation durch Erbe oder Partnervermögen. Alles-oder-Nichts-Situation. Macht und Kontrolle über fremde Ressourcen.",
+        "vektor": {
+          "finanzen": 3,
+          "veraenderung": 5,
+          "spiritualitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "planeten_im_11_haus": {
+      "sonne": {
+        "text_de": "Gewinne durch mächtige Freunde und Gönner. Beruflicher Lohn überdurchschnittlich. Ziele und Hoffnungen werden durch Einfluss anderer erfüllt.",
+        "vektor": {
+          "finanzen": 4,
+          "soziales": 5,
+          "beruf": 4,
+          "liebe": 3
+        },
+        "quelle": "Sepharial S.68"
+      },
+      "mond": {
+        "text_de": "Schwankender Gewinn aus dem Beruf. Frauen spielen Rolle bei sozialen Verbindungen. Günstige gesellschaftliche Kontakte, aber wechselhaft.",
+        "vektor": {
+          "finanzen": 3,
+          "soziales": 4,
+          "veraenderung": 3,
+          "liebe": 3
+        },
+        "quelle": "Raphael S.101"
+      },
+      "merkur": {
+        "text_de": "Intelligente, vielseitige Freunde fördern Einnahmen. Gewinne durch geistige Arbeit, Schreiben, Medien. Netzwerke bringen materielle Vorteile.",
+        "vektor": {
+          "finanzen": 3,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "beruf": 3
+        },
+        "quelle": "Sepharial S.68"
+      },
+      "venus": {
+        "text_de": "Freundschaften mit einflussreichen, angenehmen Personen. Gewinne durch Kunst, Unterhaltung, soziale Verbindungen. Finanzielle Gunstbezeugungen von Freunden.",
+        "vektor": {
+          "finanzen": 4,
+          "soziales": 5,
+          "liebe": 4,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.68, Raphael S.101"
+      },
+      "mars": {
+        "text_de": "Energische Freunde, aber Streitigkeiten möglich. Gewinne durch Energie und Durchsetzungsvermögen. Vorsicht vor unzuverlässigen Verbündeten.",
+        "vektor": {
+          "finanzen": 3,
+          "soziales": 2,
+          "beruf": 3,
+          "veraenderung": 3
+        },
+        "quelle": "Raphael S.101"
+      },
+      "jupiter": {
+        "text_de": "Beste 11.-Haus-Position. Wohlhabende, einflussreiche Freunde. Hohe Gewinne aus dem Beruf. Hoffnungen und Wünsche erfüllen sich leicht. Philanthropische Verbindungen.",
+        "vektor": {
+          "finanzen": 5,
+          "soziales": 5,
+          "beruf": 5,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.68, Raphael S.101"
+      },
+      "saturn": {
+        "text_de": "Wenige, aber treue ältere Freunde. Gewinne langsam und durch Mühe. Ziele erfordern Geduld. Freunde können zu Lasten werden.",
+        "vektor": {
+          "finanzen": 2,
+          "soziales": 2,
+          "beruf": 3,
+          "veraenderung": 2
+        },
+        "quelle": "Raphael S.101"
+      },
+      "uranus": {
+        "text_de": "Exzentrische oder einzigartige Freunde. Unerwartete finanzielle Gewinne. Unkonventionelle Einkommensquellen durch originelle Netzwerke.",
+        "vektor": {
+          "finanzen": 3,
+          "soziales": 3,
+          "kreativitaet": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Sepharial S.68"
+      },
+      "neptun": {
+        "text_de": "Idealistisch geprägte Freundschaften. Täuschungsgefahr durch falsche Freunde. Gewinne durch spirituelle oder künstlerische Gemeinschaften.",
+        "vektor": {
+          "finanzen": 2,
+          "soziales": 3,
+          "spiritualitaet": 4,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.68"
+      },
+      "pluto": {
+        "text_de": "Mächtige, transformative Verbündete. Gewinne durch kollektive Macht oder Masseneinfluss. Freundschaften verändern das Leben tiefgreifend.",
+        "vektor": {
+          "finanzen": 3,
+          "soziales": 3,
+          "veraenderung": 5,
+          "beruf": 3
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    }
+  },
+  "position_in_life": {
+    "_intro": "Statussignaturen nach Sepharial III.VI. Das 10. Haus (Midheaven/MC) bestimmt Beruf, öffentliches Ansehen und gesellschaftliche Stellung. Der Herrscher des 10. Hauses und Planeten darin sind entscheidend. Die Sonne zeigt die allgemeine Lebensrichtung.",
+    "planeten_im_10_haus": {
+      "sonne": {
+        "text_de": "Höchste Berufsstellung. Ruhm, Ehren, öffentliche Anerkennung sehr wahrscheinlich. Führungspositionen, Herrschaft, Regierungsamt. Starker Antrieb für weltliche Größe. Günstigste Sonnenstellung für Karriere.",
+        "vektor": {
+          "beruf": 5,
+          "soziales": 5,
+          "finanzen": 4,
+          "liebe": 2
+        },
+        "quelle": "Sepharial S.70, Raphael S.103"
+      },
+      "mond": {
+        "text_de": "Wechselhafte öffentliche Stellung. Erfolg durch Volksnähe, öffentliche Dienstleistungen, Handel oder weibliche Gunst. Stimmungsabhängige Karriere. Popularität möglich.",
+        "vektor": {
+          "beruf": 3,
+          "soziales": 4,
+          "veraenderung": 4,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.70, Raphael S.103"
+      },
+      "merkur": {
+        "text_de": "Intellektuell geprägter Beruf. Erfolg in Schriftstellerei, Wissenschaft, Lehre, Recht, Journalismus, Handel. Vielseitiger Karriereweg. Geistesgaben anerkannt.",
+        "vektor": {
+          "beruf": 4,
+          "kreativitaet": 5,
+          "soziales": 3,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.70, Raphael S.103"
+      },
+      "venus": {
+        "text_de": "Karriere in Kunst, Musik, Mode, Unterhaltung oder gesellschaftlichen Berufen. Beliebtheit und Charme fördern Aufstieg. Frauen oder Schönheit spielen Rolle im Berufsleben.",
+        "vektor": {
+          "beruf": 4,
+          "kreativitaet": 5,
+          "soziales": 4,
+          "liebe": 3
+        },
+        "quelle": "Sepharial S.70, Raphael S.103"
+      },
+      "mars": {
+        "text_de": "Karriere durch Tatkraft, Energie und Durchsetzungswillen. Militär, Chirurgie, Technik, Sport, Industrie. Hohe Ambitionen, aber auch Konflikte in Karriere möglich.",
+        "vektor": {
+          "beruf": 4,
+          "finanzen": 3,
+          "soziales": 2,
+          "veraenderung": 4
+        },
+        "quelle": "Sepharial S.70, Raphael S.104"
+      },
+      "jupiter": {
+        "text_de": "Günstigste Berufsstellung nach Sonne. Hohe gesellschaftliche Stellung. Juristische, kirchliche, akademische, finanzielle oder diplomatische Berufe. Ehrungen und Auszeichnungen wahrscheinlich.",
+        "vektor": {
+          "beruf": 5,
+          "soziales": 5,
+          "finanzen": 4,
+          "spiritualitaet": 4
+        },
+        "quelle": "Sepharial S.70, Raphael S.104"
+      },
+      "saturn": {
+        "text_de": "Langsamer aber beständiger Aufstieg durch Disziplin und Ausdauer. Berufe in Landwirtschaft, Bergbau, Verwaltung, Architektur. Späte Anerkennung. Gefahr des gesellschaftlichen Sturzes.",
+        "vektor": {
+          "beruf": 3,
+          "soziales": 2,
+          "finanzen": 3,
+          "veraenderung": 2
+        },
+        "quelle": "Sepharial S.70, Raphael S.104"
+      },
+      "uranus": {
+        "text_de": "Ungewöhnlicher, origineller Berufsweg. Plötzliche Auf- und Abstiege. Technik, Elektrizität, Erfindung, Reform, Astrologie. Berühmt für Originalität oder Exzentrizität.",
+        "vektor": {
+          "beruf": 3,
+          "kreativitaet": 5,
+          "soziales": 3,
+          "veraenderung": 5
+        },
+        "quelle": "Sepharial S.70"
+      },
+      "neptun": {
+        "text_de": "Berufe in Kunst, Medizin, Seefahrt, Spiritualität, Film, Chemie, Täuschung. Unklare oder geheimnisvolle Karriere. Ruf kann leiden. Mystische oder künstlerische Berühmtheit möglich.",
+        "vektor": {
+          "beruf": 3,
+          "kreativitaet": 5,
+          "spiritualitaet": 5,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.71"
+      },
+      "pluto": {
+        "text_de": "Transformative Karriere mit intensivem Macht- und Kontrollthema. Berufe in Krisenmanagement, Psychologie, geheimen Behörden, Unternehmenstransformation. Weltverändernder Einfluss möglich.",
+        "vektor": {
+          "beruf": 4,
+          "veraenderung": 5,
+          "spiritualitaet": 4,
+          "soziales": 3
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "sonne_in_zeichen_karriere": {
+      "_intro": "Die Sonne im Zeichen zeigt die allgemeine Richtung des Lebensziels und des Status-Strebens. Quelle: Sepharial III.VI, DeVore.",
+      "widder": {
+        "text_de": "Pioniergeist, Führungsrolle, Unabhängigkeit. Eigenes Unternehmen, Militär, Spitzensport. Aufstieg durch Mut und Initiative.",
+        "vektor": {
+          "beruf": 4,
+          "soziales": 3,
+          "veraenderung": 5,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "stier": {
+        "text_de": "Beständige, materiell orientierte Karriere. Finanzen, Landwirtschaft, Kunst, Immobilien. Langsamer aber sicherer Aufstieg.",
+        "vektor": {
+          "beruf": 3,
+          "finanzen": 4,
+          "soziales": 3,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "zwillinge": {
+        "text_de": "Vielseitige, intellektuelle Karriere. Journalismus, Handel, Kommunikation, Bildung. Mehrere Berufswechsel möglich.",
+        "vektor": {
+          "beruf": 3,
+          "kreativitaet": 4,
+          "soziales": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "krebs": {
+        "text_de": "Karriere durch Fürsorge, Heimat, Gastronomie, Immobilien, Geschichte. Volksnähe bringt Erfolg. Status durch Familienverbindungen.",
+        "vektor": {
+          "beruf": 3,
+          "soziales": 4,
+          "liebe": 3,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "loewe": {
+        "text_de": "Rampenlicht, Führung, königliche Berufe. Theater, Regierung, Luxusindustrie, Management. Natürliche Autorität und Charisma.",
+        "vektor": {
+          "beruf": 5,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "jungfrau": {
+        "text_de": "Karriere durch Analyse, Dienst, Gesundheit, Handwerk. Medizin, Buchführung, Verwaltung, Handwerk. Status durch Perfektion und Kompetenz.",
+        "vektor": {
+          "beruf": 4,
+          "gesundheit": 4,
+          "finanzen": 3,
+          "kreativitaet": 3
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "waage": {
+        "text_de": "Karriere durch Partnerschaft, Recht, Kunst, Diplomatie. Soziale Talente fördern Aufstieg. Harmonie und Verhandlungsgeschick.",
+        "vektor": {
+          "beruf": 3,
+          "soziales": 5,
+          "liebe": 4,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "skorpion": {
+        "text_de": "Intensive, tiefgehende Karriere. Medizin, Forschung, Kriminalistik, Finanzen, Militär. Status durch Transformation und Willenskraft.",
+        "vektor": {
+          "beruf": 4,
+          "veraenderung": 5,
+          "finanzen": 3,
+          "spiritualitaet": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "schuetze": {
+        "text_de": "Karriere durch Philosophie, Reisen, Recht, Bildung, Ausland. Internationale Verbindungen bringen Aufstieg. Großzügiger Lebensstil.",
+        "vektor": {
+          "beruf": 4,
+          "soziales": 4,
+          "spiritualitaet": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "steinbock": {
+        "text_de": "Ehrgeiziger, beständiger Aufstieg durch Disziplin. Politik, Verwaltung, Unternehmensführung, Tradition. Späte, aber dauerhafte Anerkennung.",
+        "vektor": {
+          "beruf": 5,
+          "finanzen": 4,
+          "soziales": 3,
+          "veraenderung": 2
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "wassermann": {
+        "text_de": "Karriere durch Originalität, Reform, Technologie, Humanismus. Gruppenführer, Erfinder, Revolutionär. Status durch visionäres Denken.",
+        "vektor": {
+          "beruf": 3,
+          "soziales": 4,
+          "kreativitaet": 5,
+          "spiritualitaet": 4
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      },
+      "fische": {
+        "text_de": "Karriere durch Intuition, Kunst, Mystik, Gesundheitswesen, Meer. Status durch Mitgefühl oder kreatives Wirken. Unscharfe Karrieregrenzen.",
+        "vektor": {
+          "beruf": 3,
+          "spiritualitaet": 5,
+          "kreativitaet": 5,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.71, DeVore"
+      }
+    }
+  },
+  "choice_of_occupation": {
+    "_intro": "Berufssignaturen nach Sepharial III.VII. Der stärkste Planet im Horoskop (besonders im 10. Haus oder als Herrscher des 10. Hauses) bestimmt den geeignetsten Beruf. Die Kombination mehrerer Planeten verfeinert das Bild.",
+    "berufssignaturen_planeten": {
+      "sonne": {
+        "text_de": "Berufe: Staatsdienst, Regierung, Verwaltung, Adel, Goldindustrie, Schmuck, Uhrmacherei, Leitung und Management. Eignet sich für leitende Positionen wo Autorität und Würde gefragt sind.",
+        "berufsfelder": [
+          "Regierung",
+          "Management",
+          "Staatsbeamter",
+          "Goldschmied",
+          "Arzt (Lebensregent)",
+          "Adel"
+        ],
+        "vektor": {
+          "beruf": 4,
+          "soziales": 4,
+          "finanzen": 3,
+          "liebe": 2
+        },
+        "quelle": "Sepharial S.72, Raphael S.106"
+      },
+      "mond": {
+        "text_de": "Berufe: Seefahrt, Fischerei, Handel mit Lebensmitteln und Flüssigkeiten, Gastwirtschaft, Krankenpflege, Hebammen, Launenbezogene Tätigkeiten. Berufe mit Publikumskontakt und häufigen Ortswechseln.",
+        "berufsfelder": [
+          "Seemann",
+          "Gastwirt",
+          "Händler",
+          "Krankenpfleger",
+          "Hebamme",
+          "Beamter (niederer Grad)"
+        ],
+        "vektor": {
+          "beruf": 3,
+          "soziales": 4,
+          "veraenderung": 4,
+          "gesundheit": 3
+        },
+        "quelle": "Sepharial S.72, Raphael S.106"
+      },
+      "merkur": {
+        "text_de": "Berufe: Schriftsteller, Journalist, Buchhändler, Drucker, Sekretär, Buchhalter, Anwalt, Mathematiker, Lehrer, Händler, Bote. Berufe die Kommunikation, Schrift und Intellekt erfordern.",
+        "berufsfelder": [
+          "Schriftsteller",
+          "Journalist",
+          "Buchhalter",
+          "Anwalt",
+          "Lehrer",
+          "Händler",
+          "Mathematiker"
+        ],
+        "vektor": {
+          "beruf": 4,
+          "kreativitaet": 5,
+          "soziales": 3,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.72, Raphael S.106"
+      },
+      "venus": {
+        "text_de": "Berufe: Künstler, Musiker, Sänger, Schauspieler, Parfümeur, Florist, Schneider, Juwelier, Schönheitspflege, Gastgeber, Diplomat. Berufe die Ästhetik, Schönheit und sozialen Charme erfordern.",
+        "berufsfelder": [
+          "Künstler",
+          "Musiker",
+          "Parfümeur",
+          "Schönheitspfleger",
+          "Juwelier",
+          "Diplomat",
+          "Florist"
+        ],
+        "vektor": {
+          "beruf": 3,
+          "kreativitaet": 5,
+          "soziales": 4,
+          "liebe": 4
+        },
+        "quelle": "Sepharial S.72, Raphael S.107"
+      },
+      "mars": {
+        "text_de": "Berufe: Militär, Chirurg, Schmied, Metallarbeiter, Fleischer, Barbier, Feuerwehrmann, Polizist, Sportler, Ingenieur, Chemiker. Berufe die körperliche Kraft, Mut und scharfe Werkzeuge erfordern.",
+        "berufsfelder": [
+          "Militär",
+          "Chirurg",
+          "Schmied",
+          "Polizist",
+          "Ingenieur",
+          "Sportler",
+          "Feuerwehrmann"
+        ],
+        "vektor": {
+          "beruf": 4,
+          "gesundheit": 3,
+          "veraenderung": 4,
+          "finanzen": 2
+        },
+        "quelle": "Sepharial S.72, Raphael S.107"
+      },
+      "jupiter": {
+        "text_de": "Berufe: Richter, Anwalt, Priester, Bankier, Politiker, Arzt, Professor, Philanthropist, Broker, Vermögensverwalter. Berufe mit gesellschaftlichem Ansehen, Großzügigkeit und Gerechtigkeit.",
+        "berufsfelder": [
+          "Richter",
+          "Anwalt",
+          "Priester",
+          "Bankier",
+          "Professor",
+          "Politiker",
+          "Arzt (Allgemein)"
+        ],
+        "vektor": {
+          "beruf": 5,
+          "soziales": 5,
+          "finanzen": 4,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.72, Raphael S.107"
+      },
+      "saturn": {
+        "text_de": "Berufe: Landwirt, Minenarbeiter, Architekt, Ingenieur (Bau), Historiker, Archäologe, Verwalter, Totengräber, Maurer, Geometer. Berufe mit Erde, Ausdauer, Tradition und Langfristigkeit.",
+        "berufsfelder": [
+          "Landwirt",
+          "Architekt",
+          "Historiker",
+          "Maurer",
+          "Geometer",
+          "Verwalter",
+          "Archäologe"
+        ],
+        "vektor": {
+          "beruf": 3,
+          "finanzen": 3,
+          "veraenderung": 2,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.72, Raphael S.107"
+      },
+      "uranus": {
+        "text_de": "Berufe: Erfinder, Elektroingenieur, Astrologe, Radikal-Politiker, Filmtechniker, Pilot, Luftfahrtingenieur, Computerexperte, Reformer. Berufe die Originalität und technischen Fortschritt erfordern.",
+        "berufsfelder": [
+          "Erfinder",
+          "Elektroingenieur",
+          "Astrologe",
+          "Pilot",
+          "Reformer",
+          "IT-Experte"
+        ],
+        "vektor": {
+          "beruf": 3,
+          "kreativitaet": 5,
+          "veraenderung": 5,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.73, DeVore"
+      },
+      "neptun": {
+        "text_de": "Berufe: Seemann, Ölindustrie, Apotheker, Hypnotiseur, Spiritualist, Filmschaffender, Fotograf, Mystiker, Sozialarbeiter, Psychiater. Berufe mit Wasser, Illusion, Empathie oder Geheimnissen.",
+        "berufsfelder": [
+          "Seemann",
+          "Psychiater",
+          "Fotograf",
+          "Mystiker",
+          "Apotheker",
+          "Filmregisseur",
+          "Sozialarbeiter"
+        ],
+        "vektor": {
+          "beruf": 2,
+          "kreativitaet": 5,
+          "spiritualitaet": 5,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.73, DeVore"
+      },
+      "pluto": {
+        "text_de": "Berufe: Krisenmanager, Psychologe, Detektiv, Geheimdienstler, Unternehmensrestrukturierer, Bestatter, Atomenergietechniker, Tiefenpsychologe. Berufe mit Transformation, Macht und verborgenen Kräften.",
+        "berufsfelder": [
+          "Psychologe",
+          "Detektiv",
+          "Krisenmanager",
+          "Bestatter",
+          "Geheimdienstler",
+          "Atomtechniker"
+        ],
+        "vektor": {
+          "beruf": 4,
+          "veraenderung": 5,
+          "spiritualitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "kombinations_berufe": {
+      "_intro": "Kombinationsregeln wenn zwei Planeten gemeinsam dominant sind. Quelle: Sepharial S.73-74.",
+      "sonne_mars": {
+        "text_de": "Chirurg, Militärarzt, Goldschmied mit Schneidwerkzeug, Waffeningenieur, Militärführer.",
+        "vektor": {
+          "beruf": 4,
+          "veraenderung": 4,
+          "finanzen": 3,
+          "gesundheit": 2
+        },
+        "quelle": "Sepharial S.73"
+      },
+      "sonne_jupiter": {
+        "text_de": "Richter, Staatsanwalt, hoher Kirchenbeamter, Bankpräsident, Regierungsminister.",
+        "vektor": {
+          "beruf": 5,
+          "soziales": 5,
+          "finanzen": 4,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.73"
+      },
+      "sonne_saturn": {
+        "text_de": "Bergbauingenieur, Landbesitzer, traditioneller Verwaltungsbeamter, Architekt staatlicher Gebäude.",
+        "vektor": {
+          "beruf": 3,
+          "finanzen": 3,
+          "soziales": 2,
+          "veraenderung": 2
+        },
+        "quelle": "Sepharial S.73"
+      },
+      "merkur_venus": {
+        "text_de": "Dichter, Texter, Kunstkritiker, Musiklehrer, Werbekreativer.",
+        "vektor": {
+          "beruf": 4,
+          "kreativitaet": 5,
+          "soziales": 4,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.74"
+      },
+      "merkur_mars": {
+        "text_de": "Chirurg (präzise Diagnose), Militäranalyst, Debattierer, Strafanwalt, Journalist in Konfliktzonen.",
+        "vektor": {
+          "beruf": 4,
+          "veraenderung": 3,
+          "kreativitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.74"
+      },
+      "venus_jupiter": {
+        "text_de": "Kunsthändler, Musikmanager, Wohltätigkeitsorganisator, Luxusimmobilienmakler.",
+        "vektor": {
+          "beruf": 4,
+          "kreativitaet": 5,
+          "soziales": 5,
+          "finanzen": 4
+        },
+        "quelle": "Sepharial S.74"
+      },
+      "mars_saturn": {
+        "text_de": "Militäringenieur, Berghauer, Orthopäde, Waffenschmied, Baufachmann.",
+        "vektor": {
+          "beruf": 3,
+          "veraenderung": 3,
+          "finanzen": 2,
+          "gesundheit": 2
+        },
+        "quelle": "Sepharial S.74"
+      },
+      "jupiter_saturn": {
+        "text_de": "Richter, Historiker des Rechts, traditioneller Bankier, Verwaltungsrechtler.",
+        "vektor": {
+          "beruf": 4,
+          "soziales": 3,
+          "finanzen": 3,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.74"
+      }
+    }
+  },
+  "marriage_circumstances": {
+    "_intro": "Ehesignaturen nach Sepharial III.VIII. Das 7. Haus regiert Ehe und feste Partnerschaft. Venus regiert die Liebesfähigkeit. Mars regiert das Sexuelle und das Streben nach Verbindung. Der Mondknoten und Planeten im 7. Haus zeigen Art und Qualität der Ehe.",
+    "planeten_im_7_haus": {
+      "sonne": {
+        "text_de": "Ehe mit einer bedeutenden, edlen oder gut gestellten Person. Öffentliche Verbindung. Partner bringt gesellschaftliches Ansehen. Mögliche Dominanz des Partners. Ehe trägt zur eigenen Karriere bei.",
+        "vektor": {
+          "liebe": 4,
+          "soziales": 4,
+          "finanzen": 3,
+          "beruf": 3
+        },
+        "quelle": "Sepharial S.75, Raphael S.110"
+      },
+      "mond": {
+        "text_de": "Partner wandelbar, volksnahe, gutmütig. Frühe oder mehrfache Ehe möglich. Emotionale Verbindung zentral. Starke Bindung an Mutterfiguren des Partners. Häufige Ortswechsel durch Ehe.",
+        "vektor": {
+          "liebe": 4,
+          "veraenderung": 4,
+          "soziales": 3,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.75, Raphael S.110"
+      },
+      "merkur": {
+        "text_de": "Intellektuell verbundener Partner. Kommunikation in der Ehe zentral. Partner oft jünger, vielseitig, geistig rege. Geistige Kompatibilität wichtiger als Sinnlichkeit.",
+        "vektor": {
+          "liebe": 3,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "veraenderung": 3
+        },
+        "quelle": "Sepharial S.75, Raphael S.110"
+      },
+      "venus": {
+        "text_de": "Günstigste Ehestellung. Schöner, liebenswürdiger, angenehmer Partner. Harmonische, glückliche Ehe. Liebe bleibt lebendig. Frieden und gegenseitige Zuneigung dauerhaft.",
+        "vektor": {
+          "liebe": 5,
+          "soziales": 4,
+          "finanzen": 3,
+          "kreativitaet": 4
+        },
+        "quelle": "Sepharial S.75, Raphael S.110"
+      },
+      "mars": {
+        "text_de": "Leidenschaftliche, aber konfliktreiche Ehe. Partner energisch, herrschsüchtig oder impulsiv. Streit, Trennung, Scheidung oder Verwitwung möglich. Bei guten Aspekten: starke körperliche Anziehung.",
+        "vektor": {
+          "liebe": 2,
+          "veraenderung": 4,
+          "soziales": 2,
+          "gesundheit": 2
+        },
+        "quelle": "Sepharial S.75, Raphael S.110"
+      },
+      "jupiter": {
+        "text_de": "Glückliche, wohlhabende Ehe. Partner großzügig, wohlgestellt, angesehen. Finanzielle Verbesserung durch Ehe. Rechtlich gesicherte Verbindung. Eheliche Treue und Beständigkeit.",
+        "vektor": {
+          "liebe": 5,
+          "finanzen": 4,
+          "soziales": 4,
+          "spiritualitaet": 3
+        },
+        "quelle": "Sepharial S.75, Raphael S.111"
+      },
+      "saturn": {
+        "text_de": "Späte, ernste oder erschwerliche Ehe. Partner älter, nüchtern oder kontrollierend. Eheliche Pflicht steht über Romantik. Mögliche Einschränkungen oder Verwitwung. Treue und Dauerhaftigkeit.",
+        "vektor": {
+          "liebe": 2,
+          "soziales": 2,
+          "finanzen": 2,
+          "veraenderung": 2
+        },
+        "quelle": "Sepharial S.75, Raphael S.111"
+      },
+      "uranus": {
+        "text_de": "Ungewöhnliche, plötzliche oder unkonventionelle Verbindung. Freie Ehe, offene Beziehung oder mehrfache Eheschlüsse. Partner exzentrisch oder originell. Scheidung oder Trennung wahrscheinlicher.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 5,
+          "kreativitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.76, DeVore"
+      },
+      "neptun": {
+        "text_de": "Romantisch-idealistische, oft enttäuschende Ehe. Partner rätselhaft, unzuverlässig oder täuschend. Geheime Verbindungen möglich. Spirituelle oder künstlerische Verbundenheit. Täuschungsgefahr.",
+        "vektor": {
+          "liebe": 3,
+          "spiritualitaet": 4,
+          "kreativitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.76, DeVore"
+      },
+      "pluto": {
+        "text_de": "Transformative, tiefgreifende Ehe die das Leben grundlegend verändert. Obsessive Anziehung möglich. Machtkämpfe in der Partnerschaft. Ehe endet selten ohne tiefe Veränderung beider.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 5,
+          "spiritualitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "venus_aspekte_natal": {
+      "_intro": "Venus-Aspekte im Geburtshoroskop zeigen die Liebesfähigkeit und Qualität der Partnerschaft. Quelle: Sepharial III.VIII, Raphael.",
+      "venus_trine_jupiter": {
+        "text_de": "Beste Liebesstellung. Glückliche, harmonische Ehe. Gegenseitige Großzügigkeit und Zuneigung. Partnerschaft von Wohlstand begleitet.",
+        "vektor": {
+          "liebe": 5,
+          "finanzen": 4,
+          "soziales": 5,
+          "spiritualitaet": 3
+        },
+        "quelle": "Raphael S.112"
+      },
+      "venus_konjunktion_jupiter": {
+        "text_de": "Günstig für Ehe und Liebe. Großzügiger, geselliger Partner. Wohlstand durch Verbindung. Gelegentlich Zügellosigkeit.",
+        "vektor": {
+          "liebe": 5,
+          "finanzen": 4,
+          "soziales": 4,
+          "kreativitaet": 4
+        },
+        "quelle": "Raphael S.112"
+      },
+      "venus_quadrat_mars": {
+        "text_de": "Starke Leidenschaft, aber Konflikte und Untreue möglich. Impulsive Liebschaften. Trennung wahrscheinlicher als bei harmonischen Venus-Aspekten.",
+        "vektor": {
+          "liebe": 2,
+          "veraenderung": 4,
+          "kreativitaet": 3,
+          "soziales": 2
+        },
+        "quelle": "Raphael S.112, Sepharial S.76"
+      },
+      "venus_opposition_saturn": {
+        "text_de": "Liebeskälte, Isolation oder unerfüllte Zuneigung. Partner distanziert oder kontrollierend. Späte Heirat oder dauerhafte Einsamkeit.",
+        "vektor": {
+          "liebe": 1,
+          "soziales": 2,
+          "finanzen": 2,
+          "veraenderung": 2
+        },
+        "quelle": "Raphael S.112"
+      },
+      "venus_trine_mars": {
+        "text_de": "Leidenschaftliche aber harmonische Ehe. Starke Anziehung und Beibehaltung der Zuneigung. Gute Sexualität und Energie in der Beziehung.",
+        "vektor": {
+          "liebe": 5,
+          "veraenderung": 3,
+          "kreativitaet": 4,
+          "gesundheit": 3
+        },
+        "quelle": "Raphael S.112"
+      },
+      "venus_konjunktion_saturn": {
+        "text_de": "Ernsthaftige, pflichtbewusste Liebe. Partner älter oder nüchtern. Treue vorhanden, aber Wärme mangelt. Liebeskummer durch Einschränkung.",
+        "vektor": {
+          "liebe": 2,
+          "soziales": 2,
+          "finanzen": 3,
+          "veraenderung": 1
+        },
+        "quelle": "Sepharial S.77, Raphael S.113"
+      },
+      "venus_trine_mond": {
+        "text_de": "Empfindsame, liebevolle Ehe. Starke emotionale Verbindung. Romantik und häusliches Glück.",
+        "vektor": {
+          "liebe": 5,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "gesundheit": 3
+        },
+        "quelle": "Raphael S.113"
+      },
+      "venus_quadrat_saturn": {
+        "text_de": "Liebeskälte, unerfüllte Sehnsüchte. Schwierigkeiten in der Partnerschaft. Gefühl des Alleinseins trotz Beziehung.",
+        "vektor": {
+          "liebe": 1,
+          "soziales": 2,
+          "finanzen": 2,
+          "kreativitaet": 2
+        },
+        "quelle": "Raphael S.113"
+      }
+    },
+    "mars_aspekte_natal": {
+      "_intro": "Mars-Aspekte zeigen die Energie und Art des Begehrens in Partnerschaft. Bei Frauen zeigt Mars den gesuchten Partner-Typ. Quelle: Sepharial, Raphael.",
+      "mars_trine_venus": {
+        "text_de": "Starke gegenseitige Anziehung und Begehren. Aktives Liebesleben. Partnerschaft durch körperliche Energie gestärkt.",
+        "vektor": {
+          "liebe": 5,
+          "veraenderung": 3,
+          "gesundheit": 3,
+          "kreativitaet": 3
+        },
+        "quelle": "Sepharial S.77"
+      },
+      "mars_konjunktion_venus": {
+        "text_de": "Intensive Leidenschaft, starke sexuelle Anziehung. Kurzfristige Verbindungen wahrscheinlicher. Energie und Schönheit vereint.",
+        "vektor": {
+          "liebe": 4,
+          "veraenderung": 4,
+          "kreativitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.77"
+      },
+      "mars_quadrat_mond": {
+        "text_de": "Emotionale Spannungen in der Ehe. Impulsivität und Stimmungsschwankungen stören Harmonie. Häufige Streitigkeiten.",
+        "vektor": {
+          "liebe": 2,
+          "veraenderung": 4,
+          "gesundheit": 2,
+          "soziales": 2
+        },
+        "quelle": "Raphael S.113"
+      },
+      "mars_im_7_haus_aspekt_saturn": {
+        "text_de": "Eheliche Unterdrückung oder Kontrolle. Partner dominant und kalt. Trennung oder Einengung in der Partnerschaft wahrscheinlich.",
+        "vektor": {
+          "liebe": 1,
+          "soziales": 1,
+          "veraenderung": 3,
+          "gesundheit": 2
+        },
+        "quelle": "Sepharial S.77"
+      }
+    },
+    "mondknoten_7_haus": {
+      "_intro": "Der Mondknoten im 7. Haus zeigt karmische Eheaufgaben und Schicksalspartner. Quelle: DeVore Encyclopedia, Ptolemy.",
+      "nordknoten": {
+        "text_de": "Der Nordknoten im 7. Haus zeigt Wachstum durch Partnerschaft. Das Leben entfaltet sich am stärksten durch Beziehung, Ehe und Zusammenarbeit. Schicksalhafte, bedeutsame Begegnungen mit dem Partner.",
+        "vektor": {
+          "liebe": 5,
+          "soziales": 5,
+          "veraenderung": 4,
+          "spiritualitaet": 4
+        },
+        "quelle": "DeVore Encyclopedia, Ptolemy"
+      },
+      "suedknoten": {
+        "text_de": "Der Südknoten im 7. Haus deutet auf karmische Altlasten in Beziehungen. Tendenz zu Co-Abhängigkeit oder Wiederholung alter Partnerschaftsmuster. Wachstum durch Unabhängigkeit und Selbstständigkeit.",
+        "vektor": {
+          "liebe": 2,
+          "soziales": 2,
+          "veraenderung": 4,
+          "spiritualitaet": 4
+        },
+        "quelle": "DeVore Encyclopedia"
+      }
+    },
+    "venus_in_zeichen": {
+      "_intro": "Venus im Zeichen zeigt die Liebesfähigkeit, den Liebesstil und den Typ des gesuchten Partners. Quelle: Sepharial, Raphael, DeVore.",
+      "widder": {
+        "text_de": "Leidenschaftliche, impulsive Liebe. Schnelle Verliebtheit, direkte Annäherung. Sucht Abenteuer und Aufregung in der Partnerschaft. Kurze intensive Verbindungen möglich.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 5,
+          "kreativitaet": 3,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "stier": {
+        "text_de": "Sinnliche, beständige, besitzergreifende Liebe. Treue und körperliche Zuneigung betont. Sucht Sicherheit und materielle Stabilität in der Verbindung. Schönheitssinn ausgeprägt.",
+        "vektor": {
+          "liebe": 4,
+          "finanzen": 3,
+          "kreativitaet": 4,
+          "veraenderung": 1
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "zwillinge": {
+        "text_de": "Geistige, spielerische, vielseitige Liebe. Kommunikation ist das Fundament. Sucht intellektuelle Anregung im Partner. Flatterhaft, mehrere Verbindungen möglich.",
+        "vektor": {
+          "liebe": 3,
+          "kreativitaet": 5,
+          "soziales": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "krebs": {
+        "text_de": "Fürsorgliche, emotionale, schützende Liebe. Heimat und Familie zentral. Sucht emotionale Sicherheit und Geborgenheit. Mondphasen beeinflussen Gefühle stark.",
+        "vektor": {
+          "liebe": 4,
+          "soziales": 4,
+          "gesundheit": 3,
+          "veraenderung": 2
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "loewe": {
+        "text_de": "Großherzige, loyale, dramatische Liebe. Romantik und Bewunderung werden gesucht und gegeben. Stolz in der Partnerschaft. Partner muss die eigene Brillanz anerkennen.",
+        "vektor": {
+          "liebe": 4,
+          "kreativitaet": 5,
+          "soziales": 4,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "jungfrau": {
+        "text_de": "Bescheidene, dienende, kritische Liebe. Zeigt Zuneigung durch praktische Hilfe. Sucht tugendhaften, nüchternen Partner. Gefahr der Überanalyse von Gefühlen. Treue und Pflichtgefühl stark.",
+        "vektor": {
+          "liebe": 2,
+          "beruf": 3,
+          "gesundheit": 4,
+          "veraenderung": 1
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "waage": {
+        "text_de": "Harmonische, ästhetische, ausgewogene Liebe. Stärkste Venus-Stellung (Domizil). Romantische Ideale hoch. Kompromissbereit, sucht Schönheit und Eleganz im Partner.",
+        "vektor": {
+          "liebe": 5,
+          "soziales": 5,
+          "kreativitaet": 5,
+          "finanzen": 3
+        },
+        "quelle": "Sepharial S.77, Raphael S.115"
+      },
+      "skorpion": {
+        "text_de": "Intensive, leidenschaftliche, besitzergreifende Liebe. Sucht tiefe emotionale Verschmelzung. Eifersucht und Kontrolle möglich. Liebe ist transformativ und alles-oder-nichts.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 5,
+          "spiritualitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "schuetze": {
+        "text_de": "Freiheitsliebende, philosophische, abenteuerliche Liebe. Sucht Partner mit Weltanschauung und Idealen. Ausländische Verbindungen möglich. Enge Bindung als Einschränkung erlebt.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 4,
+          "spiritualitaet": 4,
+          "soziales": 3
+        },
+        "quelle": "Sepharial S.77, DeVore"
+      },
+      "steinbock": {
+        "text_de": "Ernste, pflichtbewusste, traditionelle Liebe. Venus im Fall (geschwächt). Liebesbezeugungen zurückhaltend. Sucht stabilen, ambitionierten Partner. Spätere Liebe beständiger als frühe.",
+        "vektor": {
+          "liebe": 2,
+          "finanzen": 4,
+          "beruf": 3,
+          "veraenderung": 1
+        },
+        "quelle": "Sepharial S.77, Raphael S.115"
+      },
+      "wassermann": {
+        "text_de": "Freundschaftliche, unkonventionelle, unpersönliche Liebe. Freiheit und Gleichberechtigung zentral. Liebt die Menschheit, aber emotionale Intimität fällt schwer. Originelle Liebesform.",
+        "vektor": {
+          "liebe": 3,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "veraenderung": 4
+        },
+        "quelle": "DeVore Encyclopedia"
+      },
+      "fische": {
+        "text_de": "Romantische, selbstaufopfernde, grenzenlose Liebe. Venus im Exaltation (erhöht). Tief empfindend, leicht verletzlich. Sucht spirituelle oder künstlerische Verbindung. Gefahr der Idealisierung.",
+        "vektor": {
+          "liebe": 5,
+          "spiritualitaet": 5,
+          "kreativitaet": 5,
+          "soziales": 3
+        },
+        "quelle": "Raphael S.115, Sepharial S.77"
+      }
+    },
+    "ehe_signaturen_zeichen": {
+      "_intro": "Ehe-Qualität nach Zeichen des 7. Hauses. Quelle: Raphael, Sepharial.",
+      "widder": {
+        "text_de": "Partner energisch, impulsiv, führend. Rasante Verbindung, aber Konflikte möglich. Partnerschaft braucht Freiheit und Aktivität.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 4,
+          "soziales": 2,
+          "finanzen": 2
+        },
+        "quelle": "Raphael S.114"
+      },
+      "stier": {
+        "text_de": "Partner zuverlässig, sinnlich, besitzend. Stabile, materielle Ehe. Treue betont, aber Eifersucht möglich.",
+        "vektor": {
+          "liebe": 4,
+          "finanzen": 4,
+          "soziales": 3,
+          "veraenderung": 1
+        },
+        "quelle": "Raphael S.114"
+      },
+      "zwillinge": {
+        "text_de": "Partner vielseitig, geistig anregend, unbeständig. Intellektuelle Ehe, aber Treue fraglich. Mehrere Verbindungen möglich.",
+        "vektor": {
+          "liebe": 3,
+          "kreativitaet": 4,
+          "soziales": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Raphael S.114"
+      },
+      "krebs": {
+        "text_de": "Partner fürsorglich, häuslich, emotional tief verbunden. Starke Familienbindung. Mutterkomplex oder Abhängigkeit möglich.",
+        "vektor": {
+          "liebe": 4,
+          "soziales": 4,
+          "gesundheit": 3,
+          "finanzen": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "loewe": {
+        "text_de": "Partner stolz, großzügig, liebevoll aber herrschsüchtig. Dramatische Liebesbeziehung. Loyalität und Leidenschaft vereint.",
+        "vektor": {
+          "liebe": 4,
+          "kreativitaet": 4,
+          "soziales": 3,
+          "finanzen": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "jungfrau": {
+        "text_de": "Partner analytisch, pflichtbewusst, kritisch. Praktische Ehe. Emotionale Kühle möglich. Gesundheitsfürsorge als Liebesausdruck.",
+        "vektor": {
+          "liebe": 2,
+          "beruf": 3,
+          "gesundheit": 4,
+          "finanzen": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "waage": {
+        "text_de": "Ideale Ehestellung. Partner harmonisch, schön, sozial gewandt. Ausgewogene, faire Partnerschaft. Starkes Bedürfnis nach Ehe.",
+        "vektor": {
+          "liebe": 5,
+          "soziales": 5,
+          "kreativitaet": 4,
+          "finanzen": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "skorpion": {
+        "text_de": "Partner intensiv, leidenschaftlich, eifersüchtig. Tiefe, transformative Ehe. Obsession und Kontrolle möglich. Starke sexuelle Energie.",
+        "vektor": {
+          "liebe": 3,
+          "veraenderung": 5,
+          "spiritualitaet": 3,
+          "soziales": 2
+        },
+        "quelle": "Raphael S.114"
+      },
+      "schuetze": {
+        "text_de": "Partner freiheitsliebend, philosophisch, reisefreudig. Ausländischer Partner möglich. Ehe braucht Unabhängigkeit und gemeinsame Ideale.",
+        "vektor": {
+          "liebe": 4,
+          "veraenderung": 4,
+          "spiritualitaet": 4,
+          "soziales": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "steinbock": {
+        "text_de": "Partner nüchtern, ehrgeizig, traditionell. Ernste, pflichttreue Ehe. Späte Heirat oder Altersunterschied. Finanzielle Überlegungen beeinflussen Partnerwahl.",
+        "vektor": {
+          "liebe": 2,
+          "finanzen": 4,
+          "soziales": 2,
+          "beruf": 3
+        },
+        "quelle": "Raphael S.114"
+      },
+      "wassermann": {
+        "text_de": "Partner ungewöhnlich, originell, humanistisch. Unkonventionelle oder offene Beziehung. Freundschaft als Fundament der Ehe.",
+        "vektor": {
+          "liebe": 3,
+          "soziales": 4,
+          "kreativitaet": 4,
+          "veraenderung": 4
+        },
+        "quelle": "Raphael S.114"
+      },
+      "fische": {
+        "text_de": "Partner empfindsam, mystisch, selbstaufopfernd. Romantische, spirituelle Verbindung. Gefahr der Täuschung oder Abhängigkeit. Mitgefühl als Liebesbasis.",
+        "vektor": {
+          "liebe": 4,
+          "spiritualitaet": 5,
+          "kreativitaet": 4,
+          "soziales": 2
+        },
+        "quelle": "Raphael S.114"
+      }
+    }
+  }
+}

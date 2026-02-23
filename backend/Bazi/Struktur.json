@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "system": "Bazi",
+    "beschreibung": "Bazi / Chinesische Astrologie — Day Master + Erdzweige + Fünf-Elemente",
+    "zeit_abhaengig": true
+  },
+  "vektor_quellen": [
+    {
+      "id": "day_master",
+      "schluessel": "day_master_profiles",
+      "typ": "nach_day_master",
+      "eingabe": "day_master_element",
+      "dim_feld": "direkt",
+      "gewicht": 1.0,
+      "pflicht": true
+    },
+    {
+      "id": "geburts_branch",
+      "schluessel": "earthly_branches",
+      "typ": "nach_branch",
+      "eingabe": "geburts_year_branch",
+      "dim_felder": ["liebe", "beruf", "finanzen"],
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "element_interaktion",
+      "schluessel": "five_element_interactions",
+      "typ": "element_interaktion",
+      "eingabe": ["aktuelles_year_element", "day_master_element"],
+      "dim_feld": "vektor",
+      "gewicht_generierend": 0.5,
+      "gewicht_kontrollierend": 0.4,
+      "pflicht": false
+    },
+    {
+      "id": "monats_branch",
+      "schluessel": "earthly_branches",
+      "typ": "nach_branch",
+      "eingabe": "aktueller_month_branch",
+      "dim_felder": ["liebe", "beruf", "finanzen"],
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "clash_combination",
+      "schluessel": "clash_and_combination",
+      "typ": "clash_combination",
+      "eingabe": ["geburts_year_branch", "aktuelles_year_branch"],
+      "dim_feld": "vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    }
+  ]
+}

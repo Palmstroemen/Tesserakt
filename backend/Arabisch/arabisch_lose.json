@@ -1,0 +1,1007 @@
+{
+  "_meta": {
+    "system": "arabische_astrologie",
+    "modul": "arabische_lose",
+    "version": "1.0",
+    "gespraech": "A1",
+    "sources": [
+      "Abu Ma'shar (Albumasar) - Introductorium in Astronomiam (ca. 850 n. Chr., Originaltext public domain; Lemay Übersetzung 1962, public domain AT/EU)",
+      "Al-Biruni - Book of Instruction in the Elements of the Art of Astrology (1029 n. Chr., R. Ramsay Wright Übersetzung 1934, public domain AT/EU)",
+      "Sahl ibn Bishr (Zahel) - Introduction to the Science of the Judgments of the Stars (ca. 820 n. Chr., Originaltext public domain)",
+      "Masha'allah ibn Athari - On Reception (ca. 800 n. Chr., public domain)",
+      "Guido Bonatti - Liber Astronomiae (ca. 1277 n. Chr., Originaltext public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Arabische Astrologie — Das vollständige System der Arabischen Lose (Sahm, pl. Ashm / Sihām). Enthält: 7 Haupt-Lose nach Al-Biruni und Sahl ibn Bishr, berufsspezifische Lose, Schicksals-Lose sowie Aktivierungs- und Timing-Regeln. Baut auf der hellenistischen Lot-Tradition auf (hell_lots.json) und erweitert diese im arabischen System auf 97+ Lose. Alle Lose sind horoskopbasiert und erfordern ASC, Sonne und Mond als Mindestangaben.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog hell_lots.json",
+    "bezug_zu_anderen_modulen": {
+      "hell_lots_json": "Vorläufersystem — hellenistische Lots; arabische Tradition baut direkt darauf auf und erweitert es",
+      "arabisch_firdaria_json": "Firdaria-Herrscher aktivieren Lose durch ihre Perioden — Querverbindung in A2",
+      "arabisch_techniken_json": "Almuten und Direktionen als Lot-Aktivierungsmethoden — A3",
+      "hell_wuerden_json": "Würde des Lot-Herrschers entscheidet über Lot-Qualität — Grundregel aus H1"
+    }
+  },
+
+  "system_uebersicht": {
+    "beschreibung": "Die Arabischen Lose (arab. Sahm, pl. Sihām — wörtlich: Pfeil, Wurf) sind sensitive Punkte im Horoskop, die durch eine Dreiecksformel aus drei anderen Punkten berechnet werden. Die arabische Tradition übernahm das System von den hellenistischen Astrologen (Valens, Dorotheus, Ptolemy) und erweiterte es erheblich: Al-Biruni listet 97 Lose, Abu Ma'shar kennt noch mehr. Der 'Pfeil' trifft einen bestimmten Grad des Tierkreises und zeigt dort einen Fokuspunkt für den betreffenden Lebensbereich.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 476-488 (Wright S.279-302); Sahl ibn Bishr - Introduction, Teil II; Abu Ma'shar - Introductorium VIII.1-4",
+
+    "grundprinzip_berechnung": {
+      "beschreibung": "Alle Lose folgen derselben Formel: ASC + Faktor_A − Faktor_B. Die Tag/Nacht-Umkehrung ist für die meisten Lose bindend — Al-Biruni macht dies zu einem systematischen Prinzip. Bei Tag wird immer der schnellere von beiden Faktoren genommen, bei Nacht der langsamere — mit Ausnahme des Glückslots (Sonne = langsam, Mond = schnell).",
+      "tag_nacht_bestimmung": "Tag-Horoskop: Sonne über dem Horizont (Häuser 7–12 gezählt von ASC). Nacht-Horoskop: Sonne unter dem Horizont (Häuser 1–6). Identisch mit hell_lots.json — direkt übertragbar.",
+      "umrechnung": "Falls Ergebnis negativ: +360°. Falls >360°: −360°. Das Ergebnis ist immer zwischen 0° und 359°59'.",
+      "whole_sign_haeuser": "Die Lot-Position wird in Whole-Sign-Häusern gezählt — das ist die arabische Standardmethode nach Abu Ma'shar und Al-Biruni."
+    },
+
+    "unterschied_zur_hellenistischen_tradition": {
+      "beschreibung": "Die arabische Tradition übernimmt die hellenistischen Lots vollständig, entwickelt aber drei wesentliche Erweiterungen:",
+      "erweiterung_1": "Systematisierung: Al-Biruni ordnet alle Lose in Kategorien (Körper, Geist, Beziehungen, Beruf, Schicksal) — klarer als Valens' eher unsystematische Liste.",
+      "erweiterung_2": "Quantitative Ausweitung: 97+ Lose bei Al-Biruni vs. ca. 30 bei Valens — fast jeder Lebensbereich erhält einen eigenen Fokuspunkt.",
+      "erweiterung_3": "Timing-Integration: Arabische Astrologen verbinden Lose explizit mit Firdaria-Perioden und Direktionen (vgl. A2, A3). Valens nutzt Profektionen; arabische Tradition nutzt beides.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 476; Sahl ibn Bishr - Introduction, Vorwort zu Teil II"
+    },
+
+    "rolle_des_lot_herrschers": {
+      "beschreibung": "Der Herrscher des Zeichens, in dem das Lot fällt, ist der Lot-Herrscher (arab. Sahib al-Sahm — 'Herr des Pfeils'). Seine Stellung im Horoskop ist entscheidend: Lot und Herrscher müssen gemeinsam beurteilt werden. Al-Biruni: 'Betrachte immer zuerst den Ort des Lots, dann seinen Herrn — der Herr ist der Vollstrecker.'",
+      "herrscher_in_wuerde": "Lot-Herrscher in Domizil oder Exaltation: maximale Lot-Wirkung. Dimensionsmodifikator: +1 auf alle Werte (max. 5).",
+      "herrscher_in_neutral": "Lot-Herrscher ohne besondere Würde oder Schwäche: Lot wirkt gemäß Hausstellung ohne Modifikation.",
+      "herrscher_in_schwaeche": "Lot-Herrscher in Detriment oder Fall: Lot stark beeinträchtigt. Dimensionsmodifikator: −1 auf alle Werte (min. 1).",
+      "herrscher_aspektiert_lot": "Lot-Herrscher in Konjunktion, Trigon oder Sextil zum Lot: besondere Stärke — Herrscher und Lot kommunizieren direkt. Sahl: 'dann ist der Pfeil scharf und trifft sein Ziel'. Modifikator: +1 auf primäre Dimension.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 479; Sahl ibn Bishr - Introduction II.3"
+    }
+  },
+
+  "lot_des_gluecks": {
+    "name": "Lot des Glücks",
+    "arabisch": "Sahm al-Sa'ada",
+    "lateinisch": "Pars Fortunae",
+    "symbol": "⊕",
+    "beschreibung": "Das Lot des Glücks ist das erste und wichtigste aller arabischen Lose. Es zeigt die materielle Grundlage des Lebens, Körper und Gesundheit sowie das, was dem Menschen ohne aktiven Willen zufließt — Gunst, Ressourcen, Unterstützung. Al-Biruni: 'Es ist das Wichtigste unter allen Losen, denn es zeigt das Los des Körpers und der irdischen Mittel.' Sahl: 'Das Glückslot regiert Geld, Körper, Leben und Wohlstand.'",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 476 (Wright S.279-281); Sahl ibn Bishr - Introduction II.1; Abu Ma'shar - Introductorium VIII.1",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Mond − Sonne",
+      "nacht_horoskop": "ASC + Sonne − Mond",
+      "begruendung": "Sonne = Quelle des Lichts (aktiv/Tag), Mond = Empfänger/Reflektor (passiv/Nacht). Bei Tag misst die Formel die Distanz vom aktiven zum empfangenden Prinzip — bei Nacht kehrt sich die Richtung um. Identisch mit hellenistischer Formel; arabische Tradition übernimmt sie vollständig.",
+      "quelle": "Al-Biruni Kap. 476; Sahl II.1"
+    },
+
+    "primaere_themen": {
+      "koerper_gesundheit": "Vitalität, körperliche Widerstandskraft, allgemeines Wohlbefinden",
+      "materielle_ressourcen": "Geld, Besitz, Einnahmen ohne aktive Mühe",
+      "gunst_und_glueck": "Unerwartete Unterstützung, Begünstigungen, Zufallsglück",
+      "grundlage_des_lebens": "Die materielle und physische Basis, auf der alles andere ruht"
+    },
+
+    "deutung_nach_haeusern": {
+      "beschreibung": "Das Lot des Glücks in jedem der 12 Whole-Sign-Häuser zeigt, in welchem Lebensbereich das Glück am stärksten und unmittelbarsten wirkt.",
+
+      "haus_1": {
+        "position": "Lot des Glücks im 1. Haus",
+        "deutung": "Glück ist direkt mit der Person, ihrem Körper und ihrer Erscheinung verbunden. Körperliche Ausstrahlung und persönliche Initiative sind vom Schicksal begünstigt. Al-Biruni: 'Das Glück liegt in der Person selbst — der Körper ist sein Kanal.' Sahl: 'Günstig für Lebenskraft und Selbstdarstellung.' Spontane Erfolge durch Eigeninitiative. Günstig für alles, was von der Person selbst ausgeht.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.1",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 5,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_2": {
+        "position": "Lot des Glücks im 2. Haus",
+        "deutung": "Klassisch günstig für materielle Ressourcen, Besitzerwerb und Finanzen. Das Glück manifestiert sich durch Geld und Eigentum. Sahl: 'Diese Stellung ist eine der günstigsten für Reichtum — der Pfeil zeigt direkt auf das Haus der Mittel.' Stabile Einnahmen, Unterstützung durch Ressourcen, Glück beim Aufbau von Vermögen.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 5, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "position": "Lot des Glücks im 3. Haus",
+        "deutung": "Glück durch Geschwister, kurze Reisen, Kommunikation und Handel im Nahfeld. Botschaften und Informationen kommen günstig. Gut für Händler, Schreiber und Reisende in der näheren Umgebung. Mündliche und schriftliche Kommunikation steht unter gutem Stern.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_4": {
+        "position": "Lot des Glücks im 4. Haus",
+        "deutung": "Glück durch Familie, Erbschaft, Grundbesitz und das Ende der Dinge. Das Fundament des Lebens ist glücklich bestellt. Günstig für Immobilien und familiäre Unterstützung. Al-Biruni: 'Winkelhaus — das Glück ist stabil und sicher verankert.' Gutes Ende von Unternehmungen.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "position": "Lot des Glücks im 5. Haus",
+        "deutung": "Glück durch Kinder, kreative Werke, Freude und Liebesabenteuer. Das Schicksal schenkt Freude und Ausdrucksvermögen. Sahl: 'Günstig für Nachkommen und für alles, was Freude bereitet.' Gut für künstlerische Projekte, Liebesbeziehungen und den Kinderwunsch.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "position": "Lot des Glücks im 6. Haus",
+        "deutung": "Gemischte Stellung. Glück muss durch Dienst, Fleiß und Gesundheitspflege erarbeitet werden. Mögliche körperliche Schwächen, aber Glück durch Unterordnung unter größere Strukturen. Sahl: 'Das 6. Haus schwächt das Lot — Glück kommt, aber mit Mühe und Widerstand.' Gut für Heiler, Dienstleister und Handwerker.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_7": {
+        "position": "Lot des Glücks im 7. Haus",
+        "deutung": "Glück durch Partnerschaft, Ehe, Kooperationen und Verträge. Der andere Mensch ist der Kanal des Glücks. Al-Biruni: 'Günstig für Heirat und Partnerschaft — der andere bringt das Glück.' Gut für Geschäftspartner, Rechtsangelegenheiten und öffentliche Sichtbarkeit durch andere.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "position": "Lot des Glücks im 8. Haus",
+        "deutung": "Schwierige Stellung. Das 8. Haus (Haus des Todes, des Verborgenen) beeinträchtigt das Glück erheblich. Mögliches Glück durch Erbschaften, Krisenüberwindung oder verborgene Ressourcen. Sahl: 'Das Lot im 8. Haus leidet — es ist das Haus, das dem Glückslot abgewandt ist.' Transformation durch Verlust.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_9": {
+        "position": "Lot des Glücks im 9. Haus",
+        "deutung": "Glück durch weite Reisen, höhere Bildung, Religion und Ausland. Das Schicksal öffnet sich im Fernen und Großen. Abu Ma'shar: 'Sehr günstig für Reisende, Gelehrte und Gläubige.' Glück durch das Überschreiten von Grenzen — geographisch und geistig.",
+        "quelle": "Al-Biruni Kap. 477; Abu Ma'shar Introductorium VIII.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "position": "Lot des Glücks im 10. Haus",
+        "deutung": "Stärkste Winkel-Stellung. Glück durch Karriere, öffentliche Anerkennung und Status. Sahl: 'Ausgezeichnete Stellung — das Lot ist im Haus der Handlungen und des Ansehens.' Al-Biruni: 'Das Glück erscheint öffentlich und wirkt auf die Gemeinschaft.' Massiv günstig für weltlichen Aufstieg, Amt und Führung.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2; Abu Ma'shar VIII.2",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_11": {
+        "position": "Lot des Glücks im 11. Haus",
+        "deutung": "Sehr günstige Stellung. Das 11. Haus ist das Haus der Hoffnungen und Freunde (arab. al-Khayr — das Gute). Glück durch Netzwerke, Freunde und Unterstützer. Sahl: 'Das 11. Haus ist dem Glückslot befreundet — Hoffnungen werden erfüllt.' Günstig für soziale Anerkennung und kollektive Projekte.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "position": "Lot des Glücks im 12. Haus",
+        "deutung": "Schwächste Stellung. Das 12. Haus (Haus des Verborgenen, der Feinde und der Isolation) blockiert das Lot. Glück ist verborgen oder nur durch Rückzug und spirituelle Praxis zugänglich. Sahl: 'Das Lot im 12. Haus wird vergraben — es wirkt im Verborgenen, wenn überhaupt.' Spirituelles Potenzial, aber weltliche Einschränkung.",
+        "quelle": "Al-Biruni Kap. 477; Sahl II.2",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    }
+  },
+
+  "lot_des_geistes": {
+    "name": "Lot des Geistes",
+    "arabisch": "Sahm al-'Aql",
+    "lateinisch": "Pars Spiritus / Pars Daemonis",
+    "beschreibung": "Das Lot des Geistes ist die Umkehrung des Glückslots. Während das Glückslot zeigt, was einem Menschen zufließt (passives Prinzip), zeigt das Lot des Geistes, was der Mensch aktiv will und bewirkt (aktives Prinzip). Al-Biruni: 'Das Lot des Geistes regiert die Seele, den Intellekt und die bewusste Handlung.' Sahl: 'Es zeigt, was du mit eigener Kraft erreichst — nicht was dir gegeben wird.' In der arabischen Tradition ist das Lot des Geistes eng mit geistiger Kapazität, religiöser Überzeugung und bewusstem Handeln verbunden.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 476 (Wright S.281-283); Sahl ibn Bishr - Introduction II.1; Abu Ma'shar - Introductorium VIII.2",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Sonne − Mond (Inverse des Glückslots bei Tag)",
+      "nacht_horoskop": "ASC + Mond − Sonne (Inverse des Glückslots bei Nacht)",
+      "quelle": "Al-Biruni Kap. 476; Sahl II.1"
+    },
+
+    "glueck_vs_geist": {
+      "lot_des_gluecks": "Körper, Material, passiver Empfang — was das Schicksal gibt",
+      "lot_des_geistes": "Seele, Intellekt, aktive Entscheidung — was der Mensch selbst bewirkt",
+      "arabische_besonderheit": "In der arabischen Tradition wird das Lot des Geistes stärker mit religiöser Überzeugung und moralischer Handlung verbunden als in der hellenistischen Tradition. Abu Ma'shar setzt es in Beziehung zur 'inneren Wahrheit' des Menschen.",
+      "quelle": "Abu Ma'shar - Introductorium VIII.2; Al-Biruni Kap. 476"
+    },
+
+    "deutung_nach_haeusern": {
+      "beschreibung": "Das Lot des Geistes in jedem Haus zeigt, wo der aktive Wille und die Handlungskraft am stärksten wirken.",
+
+      "haus_1": {
+        "deutung": "Wille ist auf die eigene Person und Identität gerichtet. Selbstbehauptung, aktive Lebensgestaltung aus eigener Kraft. Der Mensch ergreift sein Schicksal selbst.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "haus_2": {
+        "deutung": "Aktiver Ressourcenaufbau und bewusste Finanzverwaltung. Der Wille richtet sich auf materielle Unabhängigkeit. Handeln aus eigenem Antrieb zum Vermögensaufbau.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "deutung": "Wille richtet sich auf Kommunikation, Lehre und Wissenstransfer. Aktives Schreiben, Reden, Reisen im Nahfeld. Günstig für Gelehrte und Händler.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_4": {
+        "deutung": "Wille auf Familie, Wurzeln und das Private ausgerichtet. Der Mensch baut aktiv an seinem inneren Fundament. Tatkraft in häuslichen und familiären Angelegenheiten.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "deutung": "Wille auf Ausdruck, Freude und kreatives Schaffen gerichtet. Liebesbeziehungen und Kunstprojekte werden energisch verfolgt. Abu Ma'shar: 'Günstig für das Erschaffen von Werken und das Zeugen von Nachkommen.'",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "deutung": "Wille auf Dienst, Routine und Pflicht ausgerichtet. Handlung durch Unterordnung und Detailarbeit. Sahl: 'Der Geist im 6. Haus arbeitet, aber findet keine Freiheit — er dient.' Günstig für Heiler und Handwerker, schwierig für freie Initiative.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 4,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 3
+        }
+      },
+      "haus_7": {
+        "deutung": "Wille auf Partnerschaft und Beziehungen ausgerichtet. Bewusste Entscheidungen in Ehe und Kooperation. Der Andere ist das Ziel der aktiven Handlung.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "deutung": "Wille richtet sich auf das Verborgene, Transformative und Tiefe. Aktive Auseinandersetzung mit Tod, Krise und Erbe. Sahl: 'Schwierig — der Geist kämpft gegen Hindernisse des 8. Hauses.' Potenzial für tiefe Erneuerung.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+        }
+      },
+      "haus_9": {
+        "deutung": "Wille auf höheres Wissen, Reisen und Glauben ausgerichtet. Al-Biruni: 'Sehr günstig — der Geist strebt nach Gott und Wahrheit.' Aktive religiöse oder philosophische Suche. Günstig für Gelehrte, Reisende und Theologen.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "deutung": "Wille auf Karriere, Status und öffentliche Wirkung ausgerichtet. Starke Energie für Führung und öffentliches Wirken. Abu Ma'shar: 'Das 10. Haus ist der stärkste Ort für den Geist — er kann in der Welt wirken.' Günstig für Herrscher, Führungspersönlichkeiten und alle, die öffentlich handeln.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_11": {
+        "deutung": "Wille auf Hoffnungen, Freunde und Gemeinschaft ausgerichtet. Aktives Netzwerken und kollektives Handeln. Günstig für soziale Reformer und Gemeinschaftsprojekte.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "deutung": "Wille ins Verborgene, ins Innere, ins Spirituelle gerichtet. Sahl: 'Der Geist im 12. Haus wirkt im Stillen oder im Exil — er kann nicht öffentlich erscheinen.' Mystische Neigung, Rückzug, klösterliches oder einsames Wirken.",
+        "dimensionen_vektor": {
+          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    }
+  },
+
+  "lot_der_liebe": {
+    "name": "Lot der Liebe",
+    "arabisch": "Sahm al-Hubb",
+    "beschreibung": "Das Lot der Liebe zeigt den Bereich und die Qualität romantischer und affektiver Zuneigung. Es ist nicht identisch mit dem Lot der Ehe — es zeigt die emotionale Liebesfähigkeit und die Art der Anziehung, nicht die institutionelle Partnerschaft. Al-Biruni ordnet es dem Lebensbereich 'emotionale Verbindungen' zu.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 480 (Wright S.287); Sahl ibn Bishr - Introduction II.4",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Venus − Sonne",
+      "nacht_horoskop": "ASC + Sonne − Venus",
+      "begruendung": "Venus ist der natürliche Signifikator der Liebe. Die Formel misst die Distanz zwischen Sonne (Identität) und Venus (Begehren) vom Aszendenten aus.",
+      "quelle": "Al-Biruni Kap. 480; Sahl II.4"
+    },
+
+    "deutung_nach_haeusern": {
+      "haus_1": {
+        "deutung": "Liebe beginnt beim Selbst — starkes Charisma und natürliche Anziehungskraft. Die Person wird geliebt durch ihre bloße Gegenwart. Selbstliebe als Grundlage.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_2": {
+        "deutung": "Liebe verbindet sich mit materiellen Werten. Zuneigung durch Sicherheit, Besitz, Stabilität. Liebe wächst durch geteilte Ressourcen und praktische Fürsorge.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2
+        }
+      },
+      "haus_3": {
+        "deutung": "Liebe entsteht durch Kommunikation, gemeinsames Lernen, Geschwisterlichkeit. Intellektuelle Verbindung als Liebesbasis. Kurze Liebesepisoden, lebhafte Liebeskorrespondenz.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_4": {
+        "deutung": "Liebe im familiären Kontext verwurzelt. Zuneigung durch Heimat, Schutz und Kontinuität. Tiefe, beständige Bindungen. Günstig für Familienliebe und langjährige Beziehungen.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 4
+        }
+      },
+      "haus_5": {
+        "deutung": "Stärkste Position für romantische Liebe. Das 5. Haus ist das Haus der Freude, Liebe und Kreativität. Leidenschaftliche, freudvolle Liebeserfahrungen. Sahl: 'Das Lot der Liebe liebt das 5. Haus — hier blüht es.'",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_6": {
+        "deutung": "Liebe durch Dienst und Pflege. Zuneigung, die sich durch Fürsorge und Hingabe ausdrückt. Schwierig für freie, unbelastete Liebeserfahrungen — Liebe trägt oft Bürde.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_7": {
+        "deutung": "Liebe in der formalen Partnerschaft — Ehe und langfristige Bindung. Die romantische Liebe sucht ihren Ausdruck in der institutionellen Verbindung. Günstig für dauerhaftes Liebesglück.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "deutung": "Liebe verbindet sich mit Intensität, Obsession und Tiefe. Leidenschaftliche, transformative Liebeserfahrungen. Al-Biruni: 'Nicht leicht — Liebe hier ist intensiv aber krisenhaft.' Erotische Tiefe, aber auch Verlust und Schmerz.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_9": {
+        "deutung": "Liebe im Kontext von Reisen, Ausland und spiritueller Suche. Liebe zu Fremden, Fernreisenden, philosophisch inspirierten Menschen. Idealistische, suchende Liebesqualität.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      },
+      "haus_10": {
+        "deutung": "Liebe im öffentlichen Kontext — Verbindungen mit Personen des öffentlichen Lebens oder Liebe, die öffentlich sichtbar wird. Status spielt in der Partnerschaft eine Rolle.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2
+        }
+      },
+      "haus_11": {
+        "deutung": "Liebe aus Freundschaft entstehend — tiefe affektive Bindungen im Freundeskreis. Platon'sche und spirituelle Liebesqualität. Günstig für Liebesbeziehungen, die aus Freundschaft wachsen.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "deutung": "Verborgene, geheime oder leidvolle Liebe. Liebe im Exil, hinter Mauern oder unter Opfer. Al-Biruni: 'Das Lot der Liebe leidet im 12. Haus — es kann sich nicht zeigen.' Mystische Liebessehnsucht möglich.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    }
+  },
+
+  "lot_der_ehe": {
+    "name": "Lot der Ehe",
+    "arabisch": "Sahm al-Nikah",
+    "beschreibung": "Das Lot der Ehe unterscheidet sich je nach Geschlecht des Geborenen. Arabische Astrologen folgen hier der hellenistischen Tradition (Dorotheus), die zwei separate Formeln für Mann und Frau kennt. Das Lot zeigt die Qualität und das Timing von Eheschließungen und formalen Partnerschaften — nicht die romantische Qualität (vgl. Lot der Liebe), sondern den institutionellen Akt.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 481 (Wright S.289-291); Sahl ibn Bishr - Introduction II.5; Abu Ma'shar - Introductorium VIII.3",
+
+    "berechnung_fuer_maenner": {
+      "beschreibung": "Für Männer zeigt das Lot der Ehe die Ehefrau und die Qualität der formalen Partnerschaft.",
+      "tag_horoskop": "ASC + Venus − Saturn",
+      "nacht_horoskop": "ASC + Saturn − Venus",
+      "begruendung": "Saturn regiert Verpflichtung, Beständigkeit und Vertrag; Venus regiert Zuneigung. Die Formel misst das Spannungsfeld zwischen Wunsch (Venus) und Verpflichtung (Saturn) — das ist die Ehe für den Mann.",
+      "quelle": "Al-Biruni Kap. 481; Sahl II.5"
+    },
+
+    "berechnung_fuer_frauen": {
+      "beschreibung": "Für Frauen zeigt das Lot die Qualität des Ehemannes und der formalen Bindung.",
+      "tag_horoskop": "ASC + Mars − Saturn",
+      "nacht_horoskop": "ASC + Saturn − Mars",
+      "begruendung": "Mars regiert den männlichen Prinzip und Initiative; Saturn die Verpflichtung. Die Formel zeigt, wie sich die Frau den Mann und die Ehe erlebt.",
+      "quelle": "Al-Biruni Kap. 481; Sahl II.5"
+    },
+
+    "deutung_nach_haeusern": {
+      "beschreibung": "Gilt für beide Lot-Varianten (Mann und Frau). Das Haus zeigt den Kontext, in dem die Ehe stattfindet.",
+      "haus_1": {
+        "deutung": "Ehe ist eng mit der eigenen Identität verknüpft. Frühzeitige Heirat, oft aus eigenem starken Antrieb. Der Ehepartner spiegelt das Selbst.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
+          "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_2": {
+        "deutung": "Ehe verbindet sich mit Ressourcen und Besitz. Finanzielle Stabilität in der Ehe wichtig. Heirat um materielle Sicherheit zu erlangen oder zu sichern. Günstig für gemeinsamen Vermögensaufbau.",
+        "dimensionen_vektor": {
+          "liebe": 4, "beruf": 3, "finanzen": 5, "gesundheit": 3,
+          "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2
+        }
+      },
+      "haus_5": {
+        "deutung": "Ehe entsteht aus romantischer Liebe und Freude. Glückliche, liebevolle Verbindung mit starker romantischer Komponente. Sahl: 'Günstig — die Ehe trägt den Charakter der Freude.' Günstig für Kinder in der Ehe.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 2, "finanzen": 3, "gesundheit": 3,
+          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+        }
+      },
+      "haus_7": {
+        "deutung": "Ideale Stellung für das Lot der Ehe. Das 7. Haus ist das natürliche Haus der Partnerschaft. Al-Biruni: 'Das stärkste Zeichen für eine stabile, glückliche Ehe.' Ehe kommt zum richtigen Zeitpunkt und in der richtigen Form.",
+        "dimensionen_vektor": {
+          "liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 3,
+          "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+        }
+      },
+      "haus_8": {
+        "deutung": "Schwierige Stellung. Ehe mit krisenhaften Elementen — Verlust, Trennung, Erbschaft durch Ehe. Abu Ma'shar: 'Das 8. Haus zeigt Enden in der Ehe — Tod des Partners oder Scheidung.' Intensive, transformative Ehe.",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 4
+        }
+      },
+      "haus_12": {
+        "deutung": "Verdeckte oder leidvolle Ehe. Heirat im Verborgenen, heimliche Verbindungen oder Ehe unter Opfer und Einschränkung. Sahl: 'Das 12. Haus verbirgt die Ehe — sie findet statt, aber ohne Licht.'",
+        "dimensionen_vektor": {
+          "liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 5
+        }
+      }
+    }
+  },
+
+  "lot_der_kinder": {
+    "name": "Lot der Kinder",
+    "arabisch": "Sahm al-Awlad",
+    "beschreibung": "Das Lot der Kinder zeigt die Kapazität für Nachkommen und das Verhältnis zu Kindern. Al-Biruni: 'Es zeigt, ob Nachkommen wahrscheinlich sind und wie das Verhältnis zu ihnen sein wird.' Nicht nur biologische Kinder — auch geistige Nachkommen, Schüler und kreative Werke.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 482 (Wright S.291-292); Sahl ibn Bishr - Introduction II.6",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Jupiter − Saturn",
+      "nacht_horoskop": "ASC + Saturn − Jupiter",
+      "begruendung": "Jupiter regiert Fruchtbarkeit und Wachstum; Saturn Einschränkung und Zeit. Die Formel zeigt das Spannungsfeld zwischen dem Potential zur Fruchtbarkeit und den strukturellen Einschränkungen.",
+      "quelle": "Al-Biruni Kap. 482; Sahl II.6"
+    },
+
+    "deutung_allgemein": {
+      "jupiter_als_herrscher": "Wenn Jupiter das Lot beherrscht oder das Lot im Zeichen von Jupiter fällt: viele Kinder, fruchtbares Verhältnis, segensreiche Nachkommen.",
+      "saturn_als_herrscher": "Wenn Saturn das Lot beherrscht: Verzögerung bei Kindern, mögliche Unfruchtbarkeit oder Trennung von Kindern. Al-Biruni: 'Saturn im Lot der Kinder zeigt Leid durch oder um Kinder.'",
+      "lot_im_5_haus": "Stärkste Stellung — direkter Bezug zum natürlichen Haus der Kinder.",
+      "quelle": "Al-Biruni Kap. 482; Sahl II.6"
+    },
+
+    "dimensionen_vektor_standard": {
+      "liebe": 4, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+      "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+    }
+  },
+
+  "lot_des_vaters": {
+    "name": "Lot des Vaters",
+    "arabisch": "Sahm al-Ab",
+    "beschreibung": "Das Lot des Vaters zeigt die Qualität der Vaterbeziehung, das väterliche Erbe und den sozialen Status durch den Vater. Al-Biruni ordnet es dem 4. Haus und Saturn zu — Saturn repräsentiert in der arabischen Tradition den Vater (als Gegengewicht zu Sonne und Jupiter als Väterlichkeit).",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 483 (Wright S.293); Sahl ibn Bishr - Introduction II.7",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Saturn − Sonne",
+      "nacht_horoskop": "ASC + Sonne − Saturn",
+      "begruendung": "Sonne = leuchtende väterliche Autorität; Saturn = Pflicht, Erbschaft, Last des Vaters. Die Formel misst das Verhältnis zwischen diesen beiden väterlichen Prinzipien.",
+      "quelle": "Al-Biruni Kap. 483; Sahl II.7"
+    },
+
+    "deutung_allgemein": {
+      "guenstig": "Lot gut aspektiert, Herrscher in Würde: unterstützender, ehrenhafter Vater; gutes Erbe; Status durch väterliche Linie.",
+      "unguenstig": "Lot im 6., 8. oder 12. Haus, Herrscher in Schwäche: Verlust des Vaters, schwieriges Vaterverhältnis, geringe Erbschaft oder belastendes Erbe.",
+      "quelle": "Al-Biruni Kap. 483"
+    },
+
+    "dimensionen_vektor_standard": {
+      "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+      "soziales": 4, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3
+    }
+  },
+
+  "lot_der_mutter": {
+    "name": "Lot der Mutter",
+    "arabisch": "Sahm al-Umm",
+    "beschreibung": "Das Lot der Mutter zeigt die Qualität der Mutterbeziehung und das mütterliche Erbe. Mond und Venus als weibliche Planeten bilden die Grundlage der Formel.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 484 (Wright S.294); Sahl ibn Bishr - Introduction II.7",
+
+    "berechnung": {
+      "tag_horoskop": "ASC + Mond − Venus",
+      "nacht_horoskop": "ASC + Venus − Mond",
+      "begruendung": "Mond = natürliche Mutter, emotionale Grundlage; Venus = Fürsorge, Schönheit, weibliche Wärme. Die Formel misst das Zusammenspiel beider weiblichen Prinzipien.",
+      "quelle": "Al-Biruni Kap. 484; Sahl II.7"
+    },
+
+    "deutung_allgemein": {
+      "guenstig": "Lot gut positioniert, Herrscher in Würde: liebevolle, gesunde Mutter; starke emotionale Grundlage; Geborgenheit durch die mütterliche Linie.",
+      "unguenstig": "Lot im 8. oder 12. Haus, Herrscher in Schwäche: früher Verlust der Mutter, schwieriges Mutterverhältnis oder emotionale Wunden durch die mütterliche Linie.",
+      "quelle": "Al-Biruni Kap. 484"
+    },
+
+    "dimensionen_vektor_standard": {
+      "liebe": 4, "beruf": 2, "finanzen": 3, "gesundheit": 4,
+      "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+    }
+  },
+
+  "berufslose": {
+    "beschreibung": "Die arabische Tradition entwickelt eine Reihe von Losen für berufliche und wirtschaftliche Themen, die über das hellenistische System hinausgehen. Abu Ma'shar und Al-Biruni unterscheiden zwischen Handwerk, Handel, Status und materiellem Reichtum als je eigene Lot-Bereiche.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 485-488 (Wright S.295-302); Abu Ma'shar - Introductorium VIII.3-4; Sahl ibn Bishr - Introduction II.8-10",
+
+    "lot_des_berufs": {
+      "name": "Lot des Berufs / der Tätigkeit",
+      "arabisch": "Sahm al-'Amal",
+      "beschreibung": "Zeigt die berufliche Hauptrichtung und die Art der Tätigkeit, aus der Lebensunterhalt und Ansehen entstehen. Abu Ma'shar: 'Es zeigt, womit sich ein Mensch in der Welt ernährt und wie er tätig ist.' In der arabischen Tradition eng mit dem Lot des Geistes (Sahm al-'Aql) verbunden — Tätigkeit folgt dem Willen.",
+      "quelle": "Al-Biruni Kap. 485; Abu Ma'shar VIII.3; Sahl II.8",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Mars − Sonne",
+        "nacht_horoskop": "ASC + Sonne − Mars",
+        "begruendung": "Mars = Tatkraft, Handlung, Beruf; Sonne = Lebensenergie und Identität. Die Formel misst die auf die Tätigkeit gerichtete Kraft.",
+        "quelle": "Al-Biruni Kap. 485; Sahl II.8"
+      },
+
+      "deutung_nach_zeichen": {
+        "feuerzeichen": "Beruf in Führung, Militär, Sport, öffentlichem Amt, Verwaltung. Energie und Initiative prägen den Berufsweg.",
+        "erdzeichen": "Beruf in Landwirtschaft, Handwerk, Bau, Handel mit Gütern. Praktische, materielle Arbeit. Geduld und Beständigkeit.",
+        "luftzeichen": "Beruf in Kommunikation, Handel, Recht, Bildung, Musik. Intellektuelle und soziale Tätigkeiten.",
+        "wasserzeichen": "Beruf in Heilkunde, See- und Flusshandel, religiösem Dienst, verborgenen Künsten. Intuition und Fühlen bestimmen den Berufsweg.",
+        "quelle": "Al-Biruni Kap. 485; Abu Ma'shar VIII.3"
+      },
+
+      "deutung_nach_haeusern": {
+        "haus_1": {
+          "deutung": "Beruf eng mit der Person und ihrem direkten Auftritt verbunden. Selbstständigkeit und Unternehmer­tum. Der Mensch ist sein eigenes Produkt.",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
+            "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 2
+          }
+        },
+        "haus_2": {
+          "deutung": "Beruf direkt mit Finanzen und Ressourcen verbunden. Handel, Bankwesen, Ressourcenverwaltung. Einkommen aus dem Umgang mit materiellem Besitz.",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+            "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 1
+          }
+        },
+        "haus_3": {
+          "deutung": "Beruf in Kommunikation, Schreiben, Handel, Reise. Boten, Kaufleute, Lehrer im Nahfeld. Bewegter, vielseitiger Berufsweg.",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+            "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 2
+          }
+        },
+        "haus_6": {
+          "deutung": "Beruf im Dienst an anderen — Heiler, Handwerker, Dienstleistungen. Sahl: 'Nützliche Tätigkeit, aber ohne großes Ansehen.' Fleißige, zuverlässige Arbeit im Hintergrund.",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 4,
+            "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+          }
+        },
+        "haus_9": {
+          "deutung": "Beruf in Bildung, Religion, Reisen, Recht. Gelehrte, Richter, Fernhändler. Abu Ma'shar: 'Günstig für hohe geistige und religiöse Berufe.'",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 5, "finanzen": 3, "gesundheit": 3,
+            "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+          }
+        },
+        "haus_10": {
+          "deutung": "Stärkste Stellung. Beruf bringt öffentliches Ansehen und Autorität. Herrscheramt, öffentliche Führung, hohes Amt. Al-Biruni: 'Das Lot des Berufs im 10. Haus — das ist der König oder der große Würdenträger.'",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+            "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+          }
+        }
+      }
+    },
+
+    "lot_des_reichtums": {
+      "name": "Lot des Reichtums",
+      "arabisch": "Sahm al-Mal",
+      "beschreibung": "Zeigt die Möglichkeit zu materiellem Wohlstand und finanzieller Fülle. Unterscheidet sich vom Lot des Glücks (das die Grundlage zeigt) durch den Fokus auf aktiv angehäuften, wachsenden Reichtum. Al-Biruni: 'Das Glückslot zeigt das Vorhandene; das Lot des Reichtums zeigt das Wachsende.'",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 486 (Wright S.297-298); Sahl ibn Bishr - Introduction II.9",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Jupiter − Mond",
+        "nacht_horoskop": "ASC + Mond − Jupiter",
+        "begruendung": "Jupiter = Expansionskraft und Wohlstand; Mond = Fluss, Bewegung, Umlauf des Reichtums. Die Formel misst das Wachstumspotenzial.",
+        "quelle": "Al-Biruni Kap. 486; Sahl II.9"
+      },
+
+      "deutung_nach_haeusern": {
+        "haus_1": {
+          "deutung": "Reichtum durch persönliche Initiative und direktes Handeln. Eigene Unternehmungen bringen Wohlstand. Früher finanzieller Erfolg aus eigenem Antrieb.",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 4, "finanzen": 5, "gesundheit": 4,
+            "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2
+          }
+        },
+        "haus_2": {
+          "deutung": "Stärkste Stellung für das Lot des Reichtums. Direkter Zustrom materieller Mittel. Sahl: 'Wenn das Lot des Reichtums im 2. Haus liegt, ist der Mensch reich oder wird reich sein.' Stabile Einnahmen und Vermögensaufbau.",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 4, "finanzen": 5, "gesundheit": 3,
+            "soziales": 3, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2
+          }
+        },
+        "haus_5": {
+          "deutung": "Reichtum durch Kreativität, Spekulation und Kinder. Günstig für Investitionen und kreative Unternehmungen. Al-Biruni: 'Das 5. Haus bringt Reichtum durch Freude und Spiel.'",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 3, "finanzen": 4, "gesundheit": 3,
+            "soziales": 3, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+          }
+        },
+        "haus_8": {
+          "deutung": "Reichtum durch Erbschaft, Tod des Partners oder verborgene Ressourcen. Schwieriger Weg zum Wohlstand — oft durch Krise oder Verlust anderer.",
+          "dimensionen_vektor": {
+            "liebe": 2, "beruf": 2, "finanzen": 4, "gesundheit": 2,
+            "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 3
+          }
+        },
+        "haus_10": {
+          "deutung": "Reichtum durch Amt, Status und öffentliche Tätigkeit. Abu Ma'shar: 'Der Mensch wird reich durch seinen Rang.' Einkommen korreliert mit Ansehen und öffentlicher Position.",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
+            "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2
+          }
+        },
+        "haus_11": {
+          "deutung": "Reichtum durch Netzwerke, Freunde und Gemeinschaft. Günstig für kollektive Unternehmungen und Unterstützung durch einflussreiche Freunde.",
+          "dimensionen_vektor": {
+            "liebe": 3, "beruf": 4, "finanzen": 4, "gesundheit": 3,
+            "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+          }
+        }
+      }
+    },
+
+    "lot_der_autoritaet": {
+      "name": "Lot der Autorität / des Königs",
+      "arabisch": "Sahm al-Sulthan",
+      "beschreibung": "Zeigt den Zugang zu Macht, Amt und gesellschaftlichem Status. Al-Biruni: 'Es zeigt, ob ein Mensch Macht über andere erlangen wird und welcher Art diese Macht ist.' In der arabischen Tradition: nicht nur politische Macht, sondern auch religiöse und intellektuelle Autorität.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 487 (Wright S.299); Abu Ma'shar - Introductorium VIII.4",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Jupiter − Sonne",
+        "nacht_horoskop": "ASC + Sonne − Jupiter",
+        "begruendung": "Sonne = Königtum und sichtbare Autorität; Jupiter = Rechtmäßigkeit, Würde und Rangerhöhung. Die Formel misst das Potenzial für legitime, anerkannte Machtausübung.",
+        "quelle": "Al-Biruni Kap. 487; Abu Ma'shar VIII.4"
+      },
+
+      "guenstige_zeichen": {
+        "beschreibung": "Lot in Löwe, Widder, Schütze (Feuerzeichen): Herrschaftsautorität. In Waage, Zwillinge, Wassermann (Luftzeichen): intellektuelle und rechtliche Autorität. In Erdzeichen: wirtschaftliche Macht.",
+        "quelle": "Al-Biruni Kap. 487"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
+        "soziales": 5, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+      }
+    },
+
+    "lot_des_handels": {
+      "name": "Lot des Handels",
+      "arabisch": "Sahm al-Tijara",
+      "beschreibung": "Spezifisches Lot für Kaufleute, Händler und alle, die ihren Lebensunterhalt durch Austausch von Gütern verdienen. Sahl ibn Bishr nennt es als eigenes Lot neben dem allgemeineren Lot des Berufs.",
+      "quelle": "Sahl ibn Bishr - Introduction II.10; Bonatti - Liber Astronomiae IV.3",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Merkur − Mond",
+        "nacht_horoskop": "ASC + Mond − Merkur",
+        "begruendung": "Merkur = Handel, Kommunikation, Tausch; Mond = Umlauf, Zirkulation, Bevölkerung (Käufer und Verkäufer). Die Formel misst die Kapazität für erfolgreichen Warenaustausch.",
+        "quelle": "Sahl II.10"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 1
+      }
+    },
+
+    "lot_der_reisen": {
+      "name": "Lot der Reisen",
+      "arabisch": "Sahm al-Safar",
+      "beschreibung": "Zeigt, ob und wie Reisen im Leben eine zentrale Rolle spielen und ob sie günstig verlaufen. Al-Biruni unterscheidet kurze Reisen (3. Haus) und weite Reisen (9. Haus) — das Lot der Reisen bezieht sich primär auf Fernreisen.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 488 (Wright S.301); Sahl ibn Bishr - Introduction II.11",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Mond − Saturn",
+        "nacht_horoskop": "ASC + Saturn − Mond",
+        "begruendung": "Mond = Bewegung, Wandel, Reise; Saturn = Entfernung, Ausdauer, Fremde. Die Formel misst das Verhältnis zwischen dem Drang zur Bewegung und den Hindernissen der Ferne.",
+        "quelle": "Al-Biruni Kap. 488; Sahl II.11"
+      },
+
+      "deutung_allgemein": {
+        "guenstig": "Lot im 9. Haus oder in einem beweglichen Zeichen (Widder, Krebs, Waage, Steinbock): Reisen sind häufig und günstig. Günstige Erfahrungen in der Fremde.",
+        "unguenstig": "Lot im 6., 8. oder 12. Haus oder Saturn als Herrscher in Schwäche: Reisen sind mühsam, gefährlich oder bringen keinen Gewinn. Al-Biruni: 'Vermeide lange Reisen, wenn das Lot der Reisen im 12. Haus liegt.'",
+        "quelle": "Al-Biruni Kap. 488"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
+        "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+      }
+    }
+  },
+
+  "schicksalslose": {
+    "beschreibung": "Die arabische Tradition entwickelt eine Gruppe von Losen, die über die praktischen Lebensbereiche hinausgehen und das Schicksal im tiefsten Sinne beleuchten: Leben und Tod, Verborgenheit und Schicksal. Diese Lose sind besonders bei Abu Ma'shar und Al-Biruni präsent und werden von Bonatti für die mittelalterliche Horarpraxis übernommen.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 489-491; Abu Ma'shar - Introductorium VIII.5; Bonatti - Liber Astronomiae IV.4-6",
+
+    "lot_des_lebens": {
+      "name": "Lot des Lebens",
+      "arabisch": "Sahm al-Hayy",
+      "beschreibung": "Das Lot des Lebens zeigt die Vitalität, Lebensdauer und die fundamentale Lebenskraft. Al-Biruni: 'Es zeigt, wie stark das Leben ist und wie lange der Körper trägt.' In der arabischen Tradition wird dieses Lot zur Beurteilung von Gesundheit und Lebenserwartung herangezogen — stets in Kombination mit dem Lot des Glücks und dem 1. und 8. Haus.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 489 (Wright S.301-302); Abu Ma'shar - Introductorium VIII.5",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Jupiter − Mars",
+        "nacht_horoskop": "ASC + Mars − Jupiter",
+        "begruendung": "Jupiter = Lebenserhaltung, Wachstum, Wohlwollen; Mars = Aggression, Krankheit, Unfall. Die Formel misst das Überwiegen von Vitalisierung (Jupiter) gegenüber Bedrohung (Mars).",
+        "quelle": "Al-Biruni Kap. 489; Abu Ma'shar VIII.5"
+      },
+
+      "deutung_allgemein": {
+        "lot_in_winkeln": "Lot im 1., 4., 7. oder 10. Haus: starke Lebenskraft, gute Gesundheit, lange Lebensdauer wahrscheinlich. Al-Biruni: 'Die Winkel geben dem Lot des Lebens seine volle Kraft.'",
+        "lot_in_leidenden_haeusern": "Lot im 6., 8. oder 12. Haus: Lebenskraft beeinträchtigt, mögliche chronische Schwäche oder frühzeitige Krise. Sahl: 'Das 8. Haus schwächt das Lot des Lebens am stärksten.'",
+        "jupiter_herrscher": "Jupiter als Herrscher des Lots: Vitales, gesundes, langes Leben. Großzügige Natur der Lebenskraft.",
+        "mars_herrscher": "Mars als Herrscher des Lots: Verletzungsrisiken, Entzündungen, impulsive Gesundheitskrisen. Aber auch: starke Regenerationskraft nach Krisen.",
+        "quelle": "Al-Biruni Kap. 489"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 5,
+        "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+      }
+    },
+
+    "lot_des_todes": {
+      "name": "Lot des Todes / der gefährlichen Zeiten",
+      "arabisch": "Sahm al-Mawt",
+      "beschreibung": "Das Lot des Todes zeigt nicht zwingend physischen Tod, sondern gefährliche Perioden, tiefe Krisen und Phasen des Endes und Übergangs. In der arabischen Tradition wird es für die Bestimmung kritischer Lebensphasen verwendet — immer in Kombination mit anderen Faktoren, nie als alleiniges Urteil. Al-Biruni warnt: 'Urteile niemals allein aus dem Lot des Todes — es braucht viele Zeugen.'",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 490 (Wright S.302); Abu Ma'shar - Introductorium VIII.5; Bonatti - Liber Astronomiae IV.5",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Mond − Herrscher_des_8_Hauses",
+        "nacht_horoskop": "ASC + Herrscher_des_8_Hauses − Mond",
+        "hinweis": "Der Herrscher des 8. Hauses variiert je nach Aszendenten-Zeichen. Für jeden Aszendenten ist der Herrscher des 8. Whole-Sign-Hauses zu ermitteln.",
+        "quelle": "Al-Biruni Kap. 490; Abu Ma'shar VIII.5"
+      },
+
+      "deutung_allgemein": {
+        "lot_aktiviert": "Wenn das Lot des Todes durch Transits, Firdaria-Herrscher oder Direktionen aktiviert wird: kritische Lebensphase. Nicht zwingend physischer Tod — auch Ende einer Phase, Krise, Transformation.",
+        "lot_in_4_oder_8": "Im 4. Haus (Ende der Dinge) oder 8. Haus: direkte Verbindung mit dem Thema Ende und Übergang. Intensivste Wirkung.",
+        "lot_gut_aspektiert": "Wird das Lot durch Jupiter oder Venus aspektiert: Krise ist überwindbar; es gibt Schutz. Sahl: 'Jupiter schützt den Menschen selbst in schweren Zeiten.'",
+        "quelle": "Al-Biruni Kap. 490; Bonatti IV.5"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
+        "soziales": 2, "kreativitaet": 2, "veraenderung": 5, "spiritualitaet": 5
+      }
+    },
+
+    "lot_der_verborgenheit": {
+      "name": "Lot der Verborgenheit / Exil",
+      "arabisch": "Sahm al-Ghayba",
+      "beschreibung": "Zeigt Isolation, Verbannung, Gefangenschaft und Verborgensein. In der arabischen Tradition als Gegenpol zum Lot der Autorität — wo jenes öffentliche Macht zeigt, zeigt dieses den Rückzug aus der Welt. Abu Ma'shar: 'Das Lot der Verborgenheit zeigt, was einem Menschen entzogen wird — Freiheit, Sichtbarkeit, Gemeinschaft.'",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 491; Abu Ma'shar - Introductorium VIII.5; Bonatti - Liber Astronomiae IV.6",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Saturn − Mond",
+        "nacht_horoskop": "ASC + Mond − Saturn",
+        "begruendung": "Saturn = Isolierung, Einschränkung, Dunkelheit; Mond = Sichtbarkeit, Fluss, Gemeinschaft. Die Formel misst das Maß der saturnischen Isolierung gegen die mondhafte Verbindung.",
+        "quelle": "Al-Biruni Kap. 491"
+      },
+
+      "deutung_allgemein": {
+        "lot_aktiviert_guenstig": "Wenn das Lot der Verborgenheit durch Jupiter oder Venus aktiviert wird: der Rückzug ist heilsam — Meditation, spirituelle Einkehr, produktive Isolation.",
+        "lot_aktiviert_unguenstig": "Aktivierung durch Saturn oder Mars: erzwungenes Exil, Gefangenschaft, unfreiwilliger Rückzug aus dem sozialen Leben.",
+        "lot_im_12_haus": "Im 12. Haus: maximale Verborgenheit — das ganze Leben tendiert zu Rückzug oder wirkt im Verborgenen. Sahl: 'Dies ist das Lot des Einsiedlers oder des Gefangenen.'",
+        "quelle": "Al-Biruni Kap. 491; Bonatti IV.6"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 3,
+        "soziales": 1, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 5
+      }
+    },
+
+    "lot_der_nemesis": {
+      "name": "Lot der Nemesis",
+      "arabisch": "Sahm al-Qadar",
+      "beschreibung": "Das Lot der Nemesis zeigt das unausweichliche Schicksal — was einem Menschen nicht erspart bleibt und was ihn einholt, egal wie sehr er versucht es zu vermeiden. In der arabischen Tradition verbindet sich dieses Lot mit dem Konzept des Qadar (Schicksal, göttliches Vorherwissen). Al-Biruni: 'Es zeigt das, was Gott beschlossen hat — der Mensch kann es nicht ändern, nur würdig empfangen.'",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 491; Abu Ma'shar - Introductorium VIII.5",
+
+      "berechnung": {
+        "tag_horoskop": "ASC + Saturn − Sonne",
+        "nacht_horoskop": "ASC + Sonne − Saturn",
+        "hinweis": "Formel identisch mit Lot des Vaters — arabische Tradition nutzt dieselbe Formel und deutet sie je nach Fragestellung entweder als väterliches Erbe oder als unausweichliches Schicksal.",
+        "quelle": "Al-Biruni Kap. 491"
+      },
+
+      "deutung_allgemein": {
+        "lot_in_steilem_haus": "Im 1., 4., 7. oder 10. Haus: das Schicksal ist sehr präsent und deutlich erkennbar. Der Mensch begegnet seinem Karma direkt und früh.",
+        "lot_in_kadenthaus": "Im 3., 6., 9. oder 12. Haus: das Schicksal wirkt im Hintergrund oder in Lebensphasen des Übergangs. Es kommt, aber langsam.",
+        "lot_gut_aspektiert": "Jupiter aspektiert das Lot: das Schicksal bringt Gnade — auch die schwierigen Wendungen haben Sinn und bringen letztlich Wachstum.",
+        "lot_schlecht_aspektiert": "Saturn oder Mars aspektiert das Lot: das Schicksal bringt Prüfungen ohne offensichtliche Gnade. Al-Biruni: 'Dann trägt der Mensch eine schwere Last.'",
+        "quelle": "Al-Biruni Kap. 491; Abu Ma'shar VIII.5"
+      },
+
+      "dimensionen_vektor_standard": {
+        "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
+        "soziales": 3, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 5
+      }
+    }
+  },
+
+  "lot_aktivierung_und_timing": {
+    "beschreibung": "Die arabischen Astrologen entwickeln ein kohärentes System zur Aktivierung von Losen durch Transits, Direktionen und Firdaria. Sahl ibn Bishr: 'Das Lot zeigt das Potential — die Aktivierung zeigt, wann es sich manifestiert.' Ein Lot ohne Aktivierung bleibt latent; Aktivierung bringt es zum Ausdruck.",
+    "quelle": "Al-Biruni - Book of Instruction Kap. 492-495; Sahl ibn Bishr - Introduction III.1-4; Bonatti - Liber Astronomiae V.1-3",
+
+    "aktivierung_durch_transit": {
+      "name": "Lot-Aktivierung durch Transit",
+      "beschreibung": "Ein Lot wird aktiviert, wenn ein Transitplanet über die genaue Lot-Position zieht — besonders durch Konjunktion, Trigon oder Sextil.",
+      "quelle": "Sahl ibn Bishr - Introduction III.1",
+
+      "regeln": {
+        "transit_jupiter_ueber_lot": {
+          "wirkung": "Jupiter über ein Lot: das Lotthema entfaltet sich günstig und großzügig. Sahl: 'Jupiter über dem Lot — die Tür öffnet sich.' Typisch: Glücksmomente, Chancen, Expansion im Lotthema.",
+          "dimensionen_modifikator": "+1 auf primäre Lot-Dimensionen für die Transitperiode",
+          "quelle": "Sahl III.1"
+        },
+        "transit_venus_ueber_lot": {
+          "wirkung": "Venus über ein Lot: Harmonie, Freude und soziale Gunst im Lotthema. Besonders wirksam bei Lot der Liebe, Ehe, Kinder.",
+          "dimensionen_modifikator": "+1 auf Liebe und Soziales für die Transitperiode",
+          "quelle": "Sahl III.1"
+        },
+        "transit_saturn_ueber_lot": {
+          "wirkung": "Saturn über ein Lot: Prüfung, Verzögerung oder Einschränkung im Lotthema. Al-Biruni: 'Saturn über dem Lot bremst — was kommen sollte, kommt mit Last.' Aber: Saturn kann auch Stabilisierung und Reifung bringen.",
+          "dimensionen_modifikator": "−1 auf alle Lot-Dimensionen für die Transitperiode",
+          "quelle": "Al-Biruni Kap. 492; Sahl III.1"
+        },
+        "transit_mars_ueber_lot": {
+          "wirkung": "Mars über ein Lot: plötzliche, kraftvolle Aktivierung — oft krisenhaft oder impulsiv. Günstig für Lot des Berufs und Lot der Autorität; gefährlich für Lot des Lebens und Lot der Ehe.",
+          "dimensionen_modifikator": "+2 Veränderung, −1 Stabilität für die Transitperiode",
+          "quelle": "Sahl III.1"
+        },
+        "transit_mond_ueber_lot": {
+          "wirkung": "Mond über ein Lot: kurzfristige, emotionale Aktivierung. Häufig — monatlich wiederkehrend. Zeigt Schwingungen im Lotthema an, nicht dauerhafte Veränderung.",
+          "dauer": "2-3 Tage",
+          "quelle": "Sahl III.1"
+        }
+      }
+    },
+
+    "aktivierung_durch_profektionen": {
+      "name": "Lot-Aktivierung durch Profektionen",
+      "beschreibung": "Die Profektionsmethode (aus der hellenistischen Tradition, vgl. hell_zeitherren.json) wird von arabischen Astrologen zur Lot-Aktivierung verwendet. Wenn das Profektions-ASC über die Lot-Position zieht oder der Jahr-Herrscher das Zeichen des Lots beherrscht, wird das Lot für das entsprechende Jahr aktiviert.",
+      "quelle": "Abu Ma'shar - Introductorium VIII.6; Sahl ibn Bishr - Introduction III.2",
+
+      "profektions_aktivierung": {
+        "ast_ueber_lot": {
+          "beschreibung": "Das Profektions-ASC erreicht das Zeichen, in dem ein Lot liegt: Aktivierungsjahr für das jeweilige Lot.",
+          "wirkung": "Das gesamte Jahr steht im Zeichen des aktivierten Lots — die Lotthemen dominieren.",
+          "quelle": "Abu Ma'shar VIII.6"
+        },
+        "jahresherr_als_lotherr": {
+          "beschreibung": "Der Jahr-Herrscher der Profektion ist gleichzeitig der Herrscher eines wichtigen Lots.",
+          "wirkung": "Doppelaktivierung: der Jahr-Herrscher handelt sowohl in seiner normalen Funktion als auch als Lot-Herrscher. Al-Biruni: 'Wenn der Jahr-Herrscher das Lot beherrscht, ist es ein besonders wichtiges Jahr für das Lot-Thema.'",
+          "quelle": "Al-Biruni Kap. 493"
+        }
+      }
+    },
+
+    "aktivierung_durch_firdaria": {
+      "name": "Lot-Aktivierung durch Firdaria",
+      "beschreibung": "Die Firdaria-Perioden (vgl. arabisch_firdaria.json — A2) aktivieren Lose, wenn der aktuelle Firdaria-Herrscher gleichzeitig der Herrscher eines Lots ist. Dies ist die stärkste Form der Lot-Aktivierung in der arabischen Tradition.",
+      "quelle": "Abu Ma'shar - Introductorium VIII.6; Sahl ibn Bishr - Introduction III.3",
+
+      "regeln": {
+        "firdaria_herrscher_ist_lot_herrscher": {
+          "beschreibung": "Wenn der aktuelle Haupt-Firdaria-Herrscher das Zeichen beherrscht, in dem ein wichtiges Lot liegt: das Lot-Thema dominiert die gesamte Firdaria-Periode.",
+          "dauer": "Entspricht der Firdaria-Hauptperiode (z.B. 10 Jahre bei Sonne, 8 Jahre bei Venus)",
+          "wirkung": "Das Lot manifestiert sich über eine längere Lebensphase — nachhaltige Wirkung, nicht nur Episode.",
+          "quelle": "Abu Ma'shar VIII.6; Sahl III.3"
+        },
+        "sub_firdaria_aktivierung": {
+          "beschreibung": "Der Unter-Firdaria-Herrscher ist der Lot-Herrscher: kürzere, aber intensive Aktivierung innerhalb der Hauptperiode.",
+          "wirkung": "Spezifisches Ereignis im Bereich des Lots innerhalb der Haupt-Firdaria-Periode.",
+          "quelle": "Sahl III.3"
+        },
+        "doppelaktivierung": {
+          "beschreibung": "Firdaria-Aktivierung + Profektions-Aktivierung im selben Jahr + Transit über das Lot.",
+          "wirkung": "Maximale Manifestation — Al-Biruni: 'Drei Zeugen für dasselbe Lot im selben Jahr: dann ist das Ereignis sicher und stark.' Bedeutendste Lebensereignisse entstehen durch solche Dreifach-Aktivierungen.",
+          "quelle": "Al-Biruni Kap. 494; Bonatti V.2"
+        }
+      }
+    },
+
+    "aktivierung_durch_direktionen": {
+      "name": "Lot-Aktivierung durch Direktionen",
+      "beschreibung": "Primäre Direktionen (vgl. arabisch_techniken.json — A3) zum Lot sind die präziseste Timing-Methode. Wenn ein Planet durch Direktion auf die exakte Lot-Position trifft, ist das Lot maximal aktiviert — oft auf den Monat genau.",
+      "quelle": "Al-Biruni - Book of Instruction Kap. 495; Bonatti - Liber Astronomiae V.3",
+
+      "grundregel": {
+        "beschreibung": "1° Direktionsbogen = 1 Jahr (Ptolemäische Methode). Wenn ein Planet durch primäre Direktion das Lot eines anderen Lebensbreichs erreicht, verbinden sich die Themen beider.",
+        "beispiel": "Jupiter dirigiert zum Lot des Reichtums im Alter von 38 Jahren: ein Jahr des finanziellen Aufstiegs und der Expansion.",
+        "quelle": "Al-Biruni Kap. 495; Bonatti V.3"
+      }
+    },
+
+    "synthese_timing_regeln": {
+      "beschreibung": "Zusammenfassung der Aktivierungsregeln für die Praxis",
+      "quelle": "Sahl ibn Bishr - Introduction III.4; Al-Biruni Kap. 494",
+
+      "regel_1": {
+        "name": "Ein Zeuge reicht nicht",
+        "beschreibung": "Sahl: 'Ein einzelner Hinweis auf ein Ereignis — z.B. nur Transit über das Lot — ist kein hinreichendes Urteil. Suche mindestens zwei Zeugen.' Erst wenn zwei der drei Aktivierungsmethoden (Transit + Profektion, Transit + Firdaria, oder Firdaria + Profektion) dasselbe Lot im selben Zeitraum aktivieren, ist das Urteil stark.",
+        "quelle": "Sahl III.4"
+      },
+      "regel_2": {
+        "name": "Der Lot-Herrscher ist der Vollstrecker",
+        "beschreibung": "Al-Biruni: 'Das Lot zeigt das Potenzial; sein Herrscher ist der Akteur, der es zum Leben erweckt.' Beurteilung des Lot-Herrschers — Stärke, Haus, Transits — ist immer Teil der Lot-Analyse.",
+        "quelle": "Al-Biruni Kap. 494"
+      },
+      "regel_3": {
+        "name": "Benef-Aktivierung vs. Malef-Aktivierung",
+        "beschreibung": "Dieselbe Aktivierungsmethode bringt unterschiedliche Ergebnisse je nach aktivierendem Planeten. Jupiter/Venus aktivieren: das Lot-Thema entfaltet sich günstig. Saturn/Mars aktivieren: das Lot-Thema wird durch Krise, Prüfung oder Verlust erfahrbar.",
+        "quelle": "Sahl III.4; Bonatti V.1"
+      },
+      "regel_4": {
+        "name": "Dreifach-Aktivierung als Lebensschlüsselmoment",
+        "beschreibung": "Wenn Firdaria, Profektion und Transit gleichzeitig dasselbe Lot aktivieren: dieser Zeitpunkt ist einer der bedeutendsten des gesamten Lebens im betreffenden Thema. Al-Biruni: 'Dann hat Gott es so bestimmt.'",
+        "quelle": "Al-Biruni Kap. 494; Bonatti V.2"
+      },
+      "regel_5": {
+        "name": "Lot-Aktivierung und Hausthema zusammen beurteilen",
+        "beschreibung": "Die Aktivierung eines Lots muss immer im Kontext seiner Hausstellung beurteilt werden. Ein aktiviertes Lot im 10. Haus bringt öffentliche Ereignisse; dasselbe Lot im 12. Haus bringt verborgene oder private Ereignisse.",
+        "quelle": "Sahl III.4"
+      }
+    }
+  },
+
+  "integration_mit_anderen_systemen": {
+    "beschreibung": "Die arabischen Lose stehen in engem Bezug zu den anderen astrologischen Systemen dieses Projekts.",
+    "quelle": "Syntheseregel nach Projektplan",
+
+    "arabisch_zu_hellenistisch": {
+      "beschreibung": "Die arabischen Lose sind direkte Nachfolger der hellenistischen Lots (hell_lots.json). Die Grundformeln sind identisch — die arabische Tradition erweitert das System quantitativ und integriert es systematischer in das Timing-System (Firdaria).",
+      "identische_lose": "Pars Fortunae = Sahm al-Sa'ada; Pars Spiritus = Sahm al-'Aql — Namen verschieden, Formeln und Bedeutung identisch.",
+      "erweiterung": "Arabisch fügt hinzu: berufsspezifische Lose (Sahm al-'Amal, Sahm al-Mal, Sahm al-Sulthan), Schicksalslose (Sahm al-Hayy, Sahm al-Mawt) und das systematische Timing-System."
+    },
+
+    "arabisch_zu_westlich": {
+      "beschreibung": "Die wichtigsten arabischen Lose (Pars Fortunae, Pars Spiritus) sind direkt im modernen westlichen Horoskop anwendbar. Moderne westliche Astrologie hat sie teilweise übernommen — oft aber ohne das Tag/Nacht-Prinzip korrekt anzuwenden.",
+      "hinweis": "Im westlichen System werden Lose oft als fixe Punkte behandelt. Die arabische (und hellenistische) Tradition betont: Ohne Lot-Herrscher-Analyse und Timing-Aktivierung fehlt die Hälfte der Aussagekraft."
+    },
+
+    "arabisch_zu_jyotish": {
+      "beschreibung": "Jyotish kennt keine direkten Lot-Äquivalente. Funktionale Ähnlichkeit: Arudha Lagna (Jyotish) = spiegelungspunkt im Horoskop ähnlich einem Lot. Sahm al-Sa'ada ist in seiner Funktion dem Chandra Lagna (Mond-Aszendent) verwandt — beide zeigen die materielle und emotionale Grundlage.",
+      "timing_parallele": "Lot-Aktivierung durch Firdaria ↔ Lot-Themen unter bestimmtem Vimshottari Dasha-Herrn: ähnliches Prinzip — planetare Periode aktiviert bestimmte Horoskop-Punkte."
+    },
+
+    "arabisch_zu_bazi": {
+      "beschreibung": "Bazi kennt keine Lots. Die nächste Analogie: die 'Günstige Gottheit' (Yong Shen) im Bazi-System ist der wichtigste hilfreiche Faktor — ähnlich wie der Herrscher des Lots des Glücks der wichtigste Lot-Herrscher ist. Beide zeigen: welche Kraft dem Menschen am günstigsten hilft."
+    }
+  }
+}

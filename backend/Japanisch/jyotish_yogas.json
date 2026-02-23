@@ -1,0 +1,703 @@
+{
+  "_meta": {
+    "system": "jyotish",
+    "modul": "yogas_lagna_integration",
+    "version": "1.0",
+    "gespraech": "J3",
+    "sources": [
+      "Parashara - Brihat Parashara Hora Shastra (BPHS, ca. 600-800 n. Chr., R. Santhanam Übersetzung 1984, public domain AT/EU)",
+      "Mantreswara - Phaladeepika (ca. 13. Jhd., G.S. Kapoor Übersetzung, public domain AT/EU)",
+      "Kalyana Varma - Saravali (ca. 800 n. Chr., Bangalore Sureshwara Übersetzung, public domain AT/EU)",
+      "Vaidyanatha Dikshita - Jataka Parijata (ca. 16. Jhd., public domain)",
+      "Varahamihira - Brihat Jataka (ca. 550 n. Chr., B. Suryanarain Rao Übersetzung 1905, public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "beschreibung": "Jyotish — Yogas, Lagna-Qualitäten und Cross-System-Integration. Vollständiges Regelwerk der wichtigsten planetaren Konstellationen (Yogas): Raja Yogas (Macht/Status), Dhana Yogas (Reichtum), Pancha Mahapurusha Yogas (Große Persönlichkeit), Nabhasa Yogas (Formcharakter), Arishtana Yogas (Herausforderungen) sowie Sonderformen. Zusätzlich: Lagna-Qualitäten (12 Aszendenten prognostisch), Arudha Lagna (weltliches Image) und vollständige Cross-System-Syntheseregeln zu allen anderen Modulen.",
+    "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog jyotish_dasha.json / jyotish_nakshatras.json",
+    "bezug_zu_anderen_modulen": {
+      "jyotish_dasha_json": "Yogas sind 'schlafend' bis ihre Dasha-Periode sie aktiviert. Raj-Yoga-Planets als Dasha-Lords = Hochphase. J2.",
+      "jyotish_nakshatras_json": "Nakshatra-Qualitäten modifizieren Yoga-Ausdruck. Nakshatra-Lord = Yoga-Verstärker. J1.",
+      "arabisch_lose_json": "Arabische Lots aktivieren ähnliche Lebensthemen wie Yogas — strukturelle Parallele. A1.",
+      "hell_haeuser_json": "Hellenistische Häuser-Logik (Kendra = Winkel) ist analog zu Jyotish-Kendra — direkte Homologie. H4.",
+      "western_rules_complete_json": "Westliche Aspektmuster (Konjunktion, Trigon) ↔ Yoga-Konstellationen: Analogie-Mapping."
+    }
+  },
+
+  "system_uebersicht": {
+    "name": "Yoga (योग)",
+    "bedeutung": "Sanskrit: 'Verbindung, Union, Kombination'. Im Jyotish-Kontext: eine bestimmte Konstellation von Planeten, Häusern oder Positionen im Geburtshoroskop, die einen klar definierten Schicksalscharakter verleiht. Yogas können positive (Subha) oder negative (Asubha/Arishtana) Qualitäten tragen.",
+    "quelle": "Parashara - BPHS Kap. 34-42; Mantreswara - Phaladeepika Kap. 6-9",
+
+    "grundprinzip": {
+      "yoga_vorhanden_vs_aktiviert": "Ein Yoga im Geburtshoroskop ist eine Anlage — eine potenzielle Schicksalsqualität. Er manifestiert sich erst vollständig, wenn seine Schlüsselplaneten durch die Vimshottari Dasha aktiviert werden. Parashara: 'Ein Yoga ohne Dasha-Trigger bleibt wie Samen ohne Regen.'",
+      "yoga_stärke_faktoren": ["Beteiligter Planet stark (Exaltation, eigenes Zeichen)", "Beteiligter Planet in Kendra oder Trikona", "Kein Malefic-Aspekt auf die Yoga-Planeten", "Yoga bestätigt durch Navamsha (D9)", "Mehrere Yogas desselben Typs im Horoskop"],
+      "yoga_schwäche_faktoren": ["Beteiligter Planet in Debilitation oder Combustion", "Beteiligter Planet in Dusthana (6., 8., 12. Haus)", "Malefic-Aspekte auf Yoga-Planeten ohne Gegengewicht", "Yoga nicht im Navamsha bestätigt"],
+      "quelle": "Parashara - BPHS Kap. 34; Mantreswara - Phaladeepika Kap. 6"
+    },
+
+    "yoga_typen_uebersicht": {
+      "raja_yoga": "Königliche Yogas — Status, Macht, Führung, gesellschaftlicher Aufstieg.",
+      "dhana_yoga": "Reichtums-Yogas — Wohlstand, Finanzen, materielle Fülle.",
+      "pancha_mahapurusha": "Große-Persönlichkeits-Yogas — außergewöhnliche Charakterausprägung durch starken Einzelplaneten.",
+      "nabhasa_yoga": "Form-Yogas — Charakter der Planetenverteilung im Horoskop als Gesamtbild.",
+      "arishtana_yoga": "Herausforderungs-Yogas — Karma-intensive Konstellationen, Prüfungen, Hindernisse.",
+      "chandra_yoga": "Mond-Yogas — emotionale und geistige Qualitäten.",
+      "surya_yoga": "Sonnen-Yogas — Autorität und Identitäts-Qualitäten."
+    }
+  },
+
+  "raja_yogas": {
+    "_beschreibung": "Raja Yogas (राज योग) entstehen durch Verbindung der Lords von Kendra-Häusern (1., 4., 7., 10.) mit Lords von Trikona-Häusern (1., 5., 9.). Das 1. Haus gilt gleichzeitig als Kendra und Trikona. Je mehr Kendra-Trikona-Verbindungen, desto stärker der Raja Yoga.",
+    "quelle": "Parashara - BPHS Kap. 34 (Santhanam Bd. 1, S. 283-320); Mantreswara - Phaladeepika Kap. 6; Kalyana Varma - Saravali Kap. 35",
+
+    "grundregel": {
+      "id": "RY_00",
+      "name": "Raja Yoga Grunddefinition",
+      "beschreibung": "Ein Raja Yoga entsteht, wenn der Herrscher eines Kendra-Hauses (1, 4, 7, 10) in Verbindung steht mit dem Herrscher eines Trikona-Hauses (1, 5, 9) — durch Konjunktion, gegenseitigen Aspekt oder gegenseitigen Austausch (Parivartana). Das 1. Haus ist sowohl Kendra als auch Trikona und kann daher mit jedem anderen Kendra- oder Trikona-Lord ein Yoga bilden.",
+      "aktivierung": "In der Mahadasha oder Antardasha eines der beteiligten Planeten.",
+      "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":3}
+    },
+
+    "regeln": {
+
+      "RY_01": {
+        "id": "RY_01",
+        "name": "Lagna-Lord + 9.-Haus-Lord Konjunktion",
+        "beschreibung": "Verbindung von Lagna-Lord (1. Haus) und 9.-Haus-Lord (Trikona des Glücks) im selben Haus oder durch Aspekt. Parashara: 'Dies ist der stärkste aller Raja Yogas — wenn Dharma und das Selbst sich vereinen, folgt Glück und Aufstieg in jeder Inkarnation.' Typisch: politische Führung, religiöse Autorität, gesellschaftliche Anerkennung.",
+        "bedingung": "Lagna-Lord + 9.-Haus-Lord: Konjunktion, gegenseitiger Aspekt oder Parivartana.",
+        "aktivierung_dasha": "Dasha eines der beiden Planeten.",
+        "quelle": "Parashara - BPHS Kap. 34; Mantreswara - Phaladeepika VI.3",
+        "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":4}
+      },
+
+      "RY_02": {
+        "id": "RY_02",
+        "name": "5.-Haus-Lord + 10.-Haus-Lord Verbindung",
+        "beschreibung": "Verbindung von 5.-Haus-Lord (Trikona der Intelligenz und vergangener Tugend) mit 10.-Haus-Lord (Kendra der Karriere und des öffentlichen Wirkens). Gibt Erfolg durch Intelligenz und kreative Fähigkeiten im Beruf. Typisch: Führung durch Kompetenz, Kunst als Karriere, akademischer Erfolg.",
+        "bedingung": "5.-Haus-Lord + 10.-Haus-Lord: Konjunktion, gegenseitiger Aspekt oder Parivartana.",
+        "aktivierung_dasha": "Dasha eines der beiden Planeten.",
+        "quelle": "Parashara - BPHS Kap. 34; Kalyana Varma - Saravali Kap. 35",
+        "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":4}
+      },
+
+      "RY_03": {
+        "id": "RY_03",
+        "name": "9.-Haus-Lord + 10.-Haus-Lord Verbindung (Dharma-Karma-Yoga)",
+        "beschreibung": "Verbindung von 9. (Dharma/Glück) und 10. (Karma/Beruf). Dharmakarmaadhipati Yoga — Planet der Pflicht (Beruf) wird durch Glück und Rechtschaffenheit (Dharma) gestützt. Parashara nennt dies explizit als einen der stärksten Raja Yogas für gesellschaftlichen Aufstieg und Wohlstand.",
+        "bedingung": "9.-Haus-Lord + 10.-Haus-Lord: Konjunktion, gegenseitiger Aspekt oder Parivartana.",
+        "aktivierung_dasha": "Dasha eines der beiden Planeten; besonders in Jupiter-Dasha wenn Jupiter involviert.",
+        "quelle": "Parashara - BPHS Kap. 34 (Dharmakarmaadhipati Yoga); Mantreswara - Phaladeepika VI.5",
+        "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":3,"veraenderung":3,"spiritualitaet":5}
+      },
+
+      "RY_04": {
+        "id": "RY_04",
+        "name": "4.-Haus-Lord + 5.-Haus-Lord Verbindung",
+        "beschreibung": "4.-Haus-Lord (Kendra: Heim, Komfort, Mutter) in Verbindung mit 5.-Haus-Lord (Trikona: Kinder, Intelligenz, Vergangenheitstugend). Gibt emotionales Glück, Bildungserfolg, Heim-Wohlstand und günstige Mutter-Kind-Beziehungen.",
+        "bedingung": "4.-Haus-Lord + 5.-Haus-Lord: Konjunktion, Aspekt oder Parivartana.",
+        "aktivierung_dasha": "Dasha eines der beteiligten Lords; besonders in Mond-Dasha wenn Mond involviert.",
+        "quelle": "Parashara - BPHS Kap. 34; Vaidyanatha Dikshita - Jataka Parijata IX",
+        "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":4,"kreativitaet":4,"veraenderung":2,"spiritualitaet":4}
+      },
+
+      "RY_05": {
+        "id": "RY_05",
+        "name": "7.-Haus-Lord + 9.-Haus-Lord Verbindung",
+        "beschreibung": "7.-Haus-Lord (Kendra: Partnerschaft, Ehe) in Verbindung mit 9.-Haus-Lord (Trikona: Glück, Dharma). Gibt Glück durch den Partner; Ehe mit einer Person die Glück bringt; internationale oder religiös motivierte Partnerschaft.",
+        "bedingung": "7.-Haus-Lord + 9.-Haus-Lord: Konjunktion, Aspekt oder Parivartana.",
+        "aktivierung_dasha": "Dasha des 7.- oder 9.-Haus-Lords; Venus-Dasha begünstigt.",
+        "quelle": "Parashara - BPHS Kap. 34; Mantreswara - Phaladeepika VI.8",
+        "dimensionen_vektor": {"liebe":5,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":5,"kreativitaet":3,"veraenderung":3,"spiritualitaet":4}
+      },
+
+      "RY_06": {
+        "id": "RY_06",
+        "name": "Neecha Bhanga Raja Yoga — Aufgehobene Debilitation",
+        "beschreibung": "Ein debilitierter (Neecha) Planet wird durch bestimmte Bedingungen 'aufgehoben' (Bhanga = Brechung der Schwäche) — und wandelt sich dann in ein besonders mächtiges Raj-Yoga-Prinzip. Bedingungen für Neecha Bhanga: (A) Herrscher des Debilitationszeichens steht im Kendra; (B) Der exaltierte Planet des Debilitationszeichens steht im Kendra; (C) Austausch zwischen dem debilitierten Planeten und dem Herrscher seines Zeichens; (D) Herrscher des Exaltationszeichens und des Debilitationszeichens stehen zusammen oder im Aspekt. Parashara: 'Wenn Neecha gebrochen wird, erhebt der Planet den Eingeborenen zu Königstatus.'",
+        "beispiele": ["Mars in Krebs (Debilitation): Wenn Jupiter (Herrscher Krebs/Fische = Herrscher des Exaltationszeichens von Mars = Steinbock gehört Jupiter nicht, aber Mond ist Herr von Krebs) im Kendra steht → Neecha Bhanga für Mars", "Saturn in Widder (Debilitation): Wenn Venus (Herrscher von Libra, dem Exaltationszeichen von Saturn) im Kendra steht → Neecha Bhanga für Saturn"],
+        "aktivierung_dasha": "Dasha des betroffenen Planeten — dann außergewöhnlicher Aufstieg.",
+        "quelle": "Parashara - BPHS Kap. 3 (Neecha Bhanga); Mantreswara - Phaladeepika VII.1-8; Kalyana Varma - Saravali Kap. 10",
+        "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":5,"spiritualitaet":3}
+      },
+
+      "RY_07": {
+        "id": "RY_07",
+        "name": "Parivartana Yoga (Gegenseitiger Hausaustausch)",
+        "beschreibung": "Zwei Planeten stehen je im Zeichen des anderen — sie tauschen die Häuser. Beispiel: Sonne im Löwen-Haus (2. Haus) und Mond im Krebs (1. Haus) — beide stehen im Haus des jeweils anderen Lords. Parashara unterscheidet drei Qualitäten: (A) Maha-Parivartana: beide in Kendra oder Trikona → sehr günstig; (B) Kahala-Parivartana: einer in Dusthana → gemischt; (C) Dainya-Parivartana: einer oder beide in 6., 8. oder 12. Haus → Prüfungen.",
+        "aktivierung_dasha": "Dasha eines der beiden Planeten — dann zeigt sich der Austausch voll.",
+        "quelle": "Parashara - BPHS Kap. 35 (Parivartana Yoga); Mantreswara - Phaladeepika VI.12",
+        "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4}
+      },
+
+      "RY_08": {
+        "id": "RY_08",
+        "name": "Viparita Raja Yoga — Yoga der Umkehrung",
+        "beschreibung": "Entsteht wenn Lords des 6., 8. oder 12. Hauses (Dusthanas) sich gegenseitig verbinden — im selben Haus stehen oder sich austauschen — OHNE Verbindung zu anderen Häusern. Das Prinzip: Zwei Schlechtigkeiten heben sich auf und erzeugen paradoxerweise Glück. Varahamihira: 'Wenn zwei Dusthana-Lords zusammen stehen, erhält der Eingeborene wie durch Magie Reichtum und Status.' Typisch: Wiedergeburt aus Krisen, außergewöhnlicher Aufstieg nach Niedergang.",
+        "typen": {
+          "harsha_yoga": "6.-Haus-Lord im 6., 8. oder 12. Haus → Sieg über Feinde und Krankheiten.",
+          "sarala_yoga": "8.-Haus-Lord im 6., 8. oder 12. Haus → Schutz vor Tod, Geheimwissen, Langlebigkeit.",
+          "vimala_yoga": "12.-Haus-Lord im 6., 8. oder 12. Haus → Freiheit von Schulden, moralische Reinheit."
+        },
+        "aktivierung_dasha": "Dasha des beteiligten Dusthana-Lords.",
+        "quelle": "Parashara - BPHS Kap. 36 (Viparita Raja Yoga); Varahamihira - Brihat Jataka XIV; Mantreswara - Phaladeepika VI.15-18",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":3,"kreativitaet":4,"veraenderung":5,"spiritualitaet":4}
+      },
+
+      "RY_09": {
+        "id": "RY_09",
+        "name": "Budhaditya Yoga — Sonne und Merkur verbunden",
+        "beschreibung": "Sonne und Merkur stehen gemeinsam in einem Zeichen (tritt häufig auf, da Merkur nie mehr als 28° von der Sonne entfernt sein kann). Gibt Intelligenz, scharfen Verstand, Redegewandtheit, Talent in Wissenschaften, Regierungsarbeit und Bildung. Stärker wenn: beide in Löwe, Jungfrau oder Zwillinge; nicht verbrannt (Merkur nicht zu nah an Sonne — unter 1° wäre Cazimi, über 3° bereits Combustion für Geist-Klarheit).",
+        "aktivierung_dasha": "Merkur-Dasha oder Sonne-Dasha.",
+        "quelle": "Mantreswara - Phaladeepika VI.20; Kalyana Varma - Saravali Kap. 36",
+        "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3}
+      },
+
+      "RY_10": {
+        "id": "RY_10",
+        "name": "Gajakesari Yoga — Jupiter-Mond Kendra-Stellung",
+        "beschreibung": "Jupiter steht im Kendra zum Mond (1., 4., 7. oder 10. Haus vom Mond aus gezählt). Parashara: 'Der Eingeborene mit Gajakesari Yoga wird berühmt, respektiert, charakterfest und ein Freund der Mächtigen.' Gaja = Elefant (Jupiter), Kesari = Löwe (Mond) — Stärke und Würde kombiniert. Gibt öffentliche Anerkennung, Weisheit, Wohlstand durch guten Charakter.",
+        "bedingung": "Jupiter in Haus 1, 4, 7 oder 10 vom Mond aus; Jupiter nicht in Debilitation.",
+        "aktivierung_dasha": "Jupiter-Dasha oder Mond-Dasha.",
+        "quelle": "Mantreswara - Phaladeepika VI.22; Parashara - BPHS Kap. 36; Kalyana Varma - Saravali Kap. 36",
+        "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5}
+      },
+
+      "RY_11": {
+        "id": "RY_11",
+        "name": "Amala Yoga — Reiner Mond oder Venus",
+        "beschreibung": "Mond oder Venus steht im 10. Haus (Kendra der Karriere) ohne Malefic-Aspekte und in eigenem oder exaltiertem Zeichen. Gibt Berühmtheit durch moralisch einwandfreies Handeln; Erfolg durch Kunst, Fürsorge und Menschlichkeit; dauerhaftes, positives Renommee.",
+        "bedingung": "Mond oder Venus im 10. Haus, ohne Saturn-, Mars-, Rahu- oder Ketu-Aspekt.",
+        "aktivierung_dasha": "Mond-Dasha oder Venus-Dasha.",
+        "quelle": "Mantreswara - Phaladeepika VI.25; Kalyana Varma - Saravali Kap. 36",
+        "dimensionen_vektor": {"liebe":5,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":4}
+      }
+    }
+  },
+
+  "dhana_yogas": {
+    "_beschreibung": "Dhana Yogas (धन योग) — Reichtums-Yogas entstehen durch Verbindung der Lords der Wohlstandshäuser (2., 5., 9., 11.) mit dem Lagna-Lord oder untereinander. Haus 2: erworbener Reichtum. Haus 5: Spekulationsglück, vergangene Tugend. Haus 9: Schicksal/Glück. Haus 11: Gewinne und Zuflüsse. Lagna (1. Haus): Körper und Selbst, das Wohlstand empfängt.",
+    "quelle": "Parashara - BPHS Kap. 41 (Santhanam Bd. 2, S. 150-180); Mantreswara - Phaladeepika Kap. 8; Vaidyanatha Dikshita - Jataka Parijata XI",
+
+    "regeln": {
+
+      "DY_01": {
+        "id": "DY_01",
+        "name": "2.-Haus-Lord + 11.-Haus-Lord Verbindung",
+        "beschreibung": "Verbindung des Herrn des Reichtum-Hauses (2) mit dem Herrn des Gewinn-Hauses (11) — durch Konjunktion, Aspekt oder Parivartana. Beide Häuser regieren direkte Geldzuflüsse. Parashara: 'Wer den Herrn des 2. und 11. Hauses verbunden hat, wird reich wie ein König.' Besonders wirksam wenn beide Planeten in Kendra oder Trikona stehen.",
+        "aktivierung_dasha": "Dasha eines der beiden Lords.",
+        "quelle": "Parashara - BPHS Kap. 41; Mantreswara - Phaladeepika VIII.3",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":5,"gesundheit":3,"soziales":4,"kreativitaet":3,"veraenderung":3,"spiritualitaet":2}
+      },
+
+      "DY_02": {
+        "id": "DY_02",
+        "name": "Lagna-Lord + 2.-Haus-Lord Verbindung",
+        "beschreibung": "Lagna-Lord in Verbindung mit 2.-Haus-Lord: Das Selbst verbindet sich mit Wohlstand. Gibt direkten persönlichen Reichtum, materielle Sicherheit und Fähigkeit zur Vermögensakkumulation. Besonders stark wenn im 2. oder 1. Haus stehend.",
+        "aktivierung_dasha": "Dasha des Lagna-Lords oder 2.-Haus-Lords.",
+        "quelle": "Parashara - BPHS Kap. 41; Kalyana Varma - Saravali Kap. 39",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":5,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":2,"spiritualitaet":2}
+      },
+
+      "DY_03": {
+        "id": "DY_03",
+        "name": "5.-Haus-Lord + 9.-Haus-Lord Verbindung (Lakshmi Yoga)",
+        "beschreibung": "Verbindung der zwei Trikona-Lords (außer Lagna-Lord) — 5. und 9. Haus — beide Häuser des Glücks und der vergangenen Tugend. Lakshmi Yoga in reinster Form entsteht wenn Venus (als Lagna-Lord) im eigenen Zeichen oder Exaltation im Kendra steht UND 9.-Haus-Lord stark ist. Gibt Wohlstand, Schönheit, Ruhm und spirituelle Güte.",
+        "bedingung": "5.-Haus-Lord + 9.-Haus-Lord: Verbindung; ideal: Venus als Lagna-Lord zusätzlich stark.",
+        "aktivierung_dasha": "Dasha eines der beteiligten Lords; Venus-Dasha besonders begünstigt.",
+        "quelle": "Parashara - BPHS Kap. 41 (Lakshmi Yoga); Mantreswara - Phaladeepika VIII.6",
+        "dimensionen_vektor": {"liebe":5,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":5}
+      },
+
+      "DY_04": {
+        "id": "DY_04",
+        "name": "Jupiter in 2. oder 5. Haus im eigenen Zeichen",
+        "beschreibung": "Jupiter als natürlicher Dhana-Karaka (Wohlstandsbedeutungsträger) im eigenen Zeichen (Schütze oder Fische) und gleichzeitig im 2. oder 5. Haus: maximale Wohlstandspotenzierung. Parashara: 'Wo Jupiter steht, wächst Reichtum.' Jupiter im 2. Haus im eigenen Zeichen ist Parashara zufolge eine der stärksten Einzelpositionen für finanzielle Prosperität.",
+        "aktivierung_dasha": "Jupiter-Dasha.",
+        "quelle": "Parashara - BPHS Kap. 41; Mantreswara - Phaladeepika VIII.9",
+        "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":3,"veraenderung":2,"spiritualitaet":5}
+      },
+
+      "DY_05": {
+        "id": "DY_05",
+        "name": "Dhana Yoga durch starken 11.-Haus-Lord",
+        "beschreibung": "11.-Haus-Lord in Kendra oder Trikona, exaltiert oder im eigenen Zeichen, aspektiert von Benefics. Das 11. Haus (Labha) ist das Haus der Gewinne, Wünscherfüllungen und Zuflüsse. Ein mächtiger 11.-Haus-Lord gibt kontinuierliche Geldzuflüsse durch Netzwerke, Investitionen und Glück.",
+        "aktivierung_dasha": "Dasha des 11.-Haus-Lords oder eines befreundeten Planeten im 11. Haus.",
+        "quelle": "Parashara - BPHS Kap. 41; Vaidyanatha Dikshita - Jataka Parijata XI",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":5,"gesundheit":3,"soziales":4,"kreativitaet":3,"veraenderung":3,"spiritualitaet":2}
+      }
+    }
+  },
+
+  "pancha_mahapurusha_yogas": {
+    "_beschreibung": "Pancha Mahapurusha Yogas (पञ्च महापुरुष योग) — Die fünf 'Große-Persönlichkeits-Yogas'. Entstehen wenn einer der fünf 'wandelnden' Planeten (Mars, Merkur, Jupiter, Venus, Saturn) in seinem eigenen Zeichen ODER Exaltationszeichen steht UND sich gleichzeitig in einem Kendra-Haus (1., 4., 7., 10.) befindet. Parashara: 'Diese fünf Yogas erzeugen außerordentliche Menschen, die über ihre Zeitgenossen hinausragen.' Sonne und Mond sind ausgenommen (sie haben eigene Yoga-Systeme).",
+    "quelle": "Parashara - BPHS Kap. 37 (Santhanam Bd. 1, S. 330-360); Mantreswara - Phaladeepika Kap. 6; Varahamihira - Brihat Jataka XIV",
+
+    "bedingung_allgemein": "Planet in Kendra (Haus 1, 4, 7 oder 10) UND im eigenen Zeichen ODER Exaltationszeichen.",
+
+    "ruchaka_yoga": {
+      "id": "PMPY_01",
+      "name": "Ruchaka Yoga (Ruchaka = Scharf/Glänzend)",
+      "planet": "Mars",
+      "bedingung": "Mars in Kendra, in Widder, Skorpion (eigene Zeichen) oder Steinbock (Exaltation).",
+      "qualitaeten": "Außergewöhnliche Kraft, militärische Führung, sportliche Meisterschaft, Durchsetzungsvermögen, technisches Genie, Immobilienvermögen. Parashara: 'Ruchaka-Geborene sind kompetente Führungspersönlichkeiten, von dunklem Teint, mit langen Gliedern und einem Körper stark wie Eisen.'",
+      "typische_berufe": ["Militär", "Chirurgie", "Sport", "Technik", "Immobilien", "Polizei"],
+      "aktivierung_dasha": "Mars-Mahadasha.",
+      "quelle": "Parashara - BPHS Kap. 37; Varahamihira - Brihat Jataka XIV.1",
+      "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":3,"kreativitaet":3,"veraenderung":5,"spiritualitaet":2}
+    },
+
+    "bhadra_yoga": {
+      "id": "PMPY_02",
+      "name": "Bhadra Yoga (Bhadra = Günstig/Edel)",
+      "planet": "Merkur",
+      "bedingung": "Merkur in Kendra, in Zwillinge oder Jungfrau (eigene Zeichen, Jungfrau = Exaltation).",
+      "qualitaeten": "Außergewöhnliche Intelligenz, Kommunikationstalent, Geschäftssinn, analytischer Verstand, sprachliche Exzellenz, Eloquenz. Parashara: 'Bhadra-Geborene haben löwenartiges Aussehen, große Brust, lange Arme und werden hundert Jahre alt.'",
+      "typische_berufe": ["Wissenschaft", "Schriftstellerei", "Jura", "Handel", "Mathematik", "Kommunikation"],
+      "aktivierung_dasha": "Merkur-Mahadasha.",
+      "quelle": "Parashara - BPHS Kap. 37; Varahamihira - Brihat Jataka XIV.2",
+      "dimensionen_vektor": {"liebe":3,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3}
+    },
+
+    "hamsa_yoga": {
+      "id": "PMPY_03",
+      "name": "Hamsa Yoga (Hamsa = Schwan/Göttlicher Vogel)",
+      "planet": "Jupiter",
+      "bedingung": "Jupiter in Kendra, in Schütze oder Fische (eigene Zeichen) oder Krebs (Exaltation).",
+      "qualitaeten": "Spirituelle Weisheit, moralische Integrität, Lehrbegabung, philosophische Tiefe, Güte und Großzügigkeit, Glück und göttlicher Schutz. Parashara: 'Hamsa-Geborene haben rötliche Augen, sanfte Sprache, schönes Gesicht und werden von Königen geehrt.'",
+      "typische_berufe": ["Spirituelle Führung", "Bildung/Universität", "Recht", "Medizin", "Philosophie", "Priesterschaft"],
+      "aktivierung_dasha": "Jupiter-Mahadasha.",
+      "quelle": "Parashara - BPHS Kap. 37; Varahamihira - Brihat Jataka XIV.3",
+      "dimensionen_vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":5}
+    },
+
+    "malavya_yoga": {
+      "id": "PMPY_04",
+      "name": "Malavya Yoga (Malavya = Herrschend/Anmutig)",
+      "planet": "Venus",
+      "bedingung": "Venus in Kendra, in Stier oder Waage (eigene Zeichen) oder Fische (Exaltation).",
+      "qualitaeten": "Außergewöhnliche Schönheit, künstlerisches Talent, Liebesglück, gesellschaftliche Anziehungskraft, Wohlstand durch Kreativität, emotionale Intelligenz. Parashara: 'Malavya-Geborene haben schöne Augen, angenehme Sprache, reines Herz und Glück im Liebesbereich.'",
+      "typische_berufe": ["Kunst", "Musik", "Film", "Mode", "Luxusgüter", "Kosmetik", "Diplomatie"],
+      "aktivierung_dasha": "Venus-Mahadasha.",
+      "quelle": "Parashara - BPHS Kap. 37; Varahamihira - Brihat Jataka XIV.4",
+      "dimensionen_vektor": {"liebe":5,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3}
+    },
+
+    "shasha_yoga": {
+      "id": "PMPY_05",
+      "name": "Shasha Yoga (Shasha = Hase — im Mond; Mondzeichen)",
+      "planet": "Saturn",
+      "bedingung": "Saturn in Kendra, in Steinbock oder Wassermann (eigene Zeichen) oder Waage (Exaltation).",
+      "qualitaeten": "Außergewöhnliche Disziplin, Ausdauer, Organisationstalent, Fähigkeit zum Aufbau bleibender Strukturen, Führung durch Fleiß und Methode, Langlebigkeit. Parashara: 'Shasha-Geborene sind Anführer von Armeen und Städten, Liebhaber von Wäldern und Bergen, Herren über Diener.'",
+      "typische_berufe": ["Verwaltung", "Politik", "Architektur", "Immobilien", "Bergbau", "Maschinenbau", "Management"],
+      "aktivierung_dasha": "Saturn-Mahadasha.",
+      "quelle": "Parashara - BPHS Kap. 37; Varahamihira - Brihat Jataka XIV.5",
+      "dimensionen_vektor": {"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":2,"veraenderung":4,"spiritualitaet":4}
+    }
+  },
+
+  "nabhasa_yogas": {
+    "_beschreibung": "Nabhasa Yogas (नाभस योग) — 'Himmlische Yogas'. Charakterisieren die Gesamtverteilung aller Planeten im Horoskop und geben damit den Grundcharakter des Lebens als Muster wieder. Varahamihira nennt 32 Nabhasa Yogas; die wichtigsten 8 werden hier aufgeführt.",
+    "quelle": "Varahamihira - Brihat Jataka XII (Suryanarain Rao Übersetzung 1905, public domain); Parashara - BPHS Kap. 38; Mantreswara - Phaladeepika Kap. 9",
+
+    "regeln": {
+
+      "NB_01": {
+        "id": "NB_01",
+        "name": "Rajju Yoga — Alle Planeten in beweglichen Zeichen",
+        "beschreibung": "Alle 7 klassischen Planeten stehen in beweglichen Zeichen (Widder, Krebs, Waage, Steinbock). Varahamihira: 'Rajju-Geborene lieben das Reisen, sind ständig unterwegs, arbeiten für andere und stehen oft in dienenden Positionen.' Seil (Rajju): ständige Bewegung, Wanderschaft, Flexibilität, aber auch Haltlosigkeit.",
+        "dimensionen_vektor": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":5,"spiritualitaet":3}
+      },
+
+      "NB_02": {
+        "id": "NB_02",
+        "name": "Musala Yoga — Alle Planeten in festen Zeichen",
+        "beschreibung": "Alle 7 klassischen Planeten stehen in festen Zeichen (Stier, Löwe, Skorpion, Wassermann). Varahamihira: 'Musala-Geborene sind mutig, ehrlich, wohlhabend, beständig in ihren Aktivitäten und respektiert von Königen.' Keule (Musala): Stabilität, Ausdauer, aber auch Starrheit.",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":3,"kreativitaet":2,"veraenderung":2,"spiritualitaet":4}
+      },
+
+      "NB_03": {
+        "id": "NB_03",
+        "name": "Nala Yoga — Alle Planeten in Doppelzeichen",
+        "beschreibung": "Alle 7 klassischen Planeten stehen in Doppelzeichen (Zwillinge, Jungfrau, Schütze, Fische). Varahamihira: 'Nala-Geborene sind mit ungleichen Gliedern, kunstfertig, mit verschiedenen Interessen und von Frauen geliebt.' Rohr (Nala): Vielseitigkeit, kreative Begabung, aber Unbeständigkeit.",
+        "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":4,"spiritualitaet":4}
+      },
+
+      "NB_04": {
+        "id": "NB_04",
+        "name": "Mala Yoga — Planeten in je einem Zeichentyp (Girlande)",
+        "beschreibung": "Alle 7 Planeten stehen in mindestens einem Zeichen jedes Typs (mindestens ein bewegliches, ein festes, ein Doppelzeichen besetzt). Die Vielfalt der Elemente ergibt einen ausgewogenen Charakter. Parashara: 'Mala-Geborene sind geehrt von Königen, reich und wohlwollend, mit Weib, Kindern und Freunden gesegnet.'",
+        "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":4,"gesundheit":4,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":4}
+      },
+
+      "NB_05": {
+        "id": "NB_05",
+        "name": "Sarpa Yoga — Alle Planeten in Dusthanas",
+        "beschreibung": "Alle 7 Planeten stehen in den Dusthana-Häusern (6., 8., 12.) — sehr selten. Varahamihira: 'Sarpa-Geborene sind böse, arm, schmerz-geschüttelt und abhängig von anderen.' Schlange (Sarpa): intensives Karma, Prüfungen, aber auch Transformations- und Heilungspotenzial.",
+        "dimensionen_vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":1,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":4}
+      },
+
+      "NB_06": {
+        "id": "NB_06",
+        "name": "Gola Yoga — Alle Planeten in einem Zeichen",
+        "beschreibung": "Alle Planeten stehen in einem einzigen Zeichen. Extrem selten. Varahamihira: 'Gola-Geborene sind arm, ohne Freunde, faul und leiden unter Krankheiten.' Kugel (Gola): Konzentration, aber auch Enge. Praktisch unmöglich durch Orbits; wird oft als 'alle in einem Haus' interpretiert.",
+        "dimensionen_vektor": {"liebe":2,"beruf":2,"finanzen":1,"gesundheit":2,"soziales":1,"kreativitaet":3,"veraenderung":4,"spiritualitaet":3}
+      }
+    }
+  },
+
+  "arishtana_yogas": {
+    "_beschreibung": "Arishtana Yogas (अरिष्टन योग) — Herausforderungs- und Karma-Yogas. Diese Konstellationen zeigen intensive Karma-Arbeit, Prüfungen und Einschränkungen an. Sie sind keine Verurteilungen, sondern Hinweise auf Bereiche intensiver Seelenerfahrung.",
+    "quelle": "Parashara - BPHS Kap. 42-45; Kalyana Varma - Saravali Kap. 46; Vaidyanatha Dikshita - Jataka Parijata VIII",
+
+    "regeln": {
+
+      "AY_01": {
+        "id": "AY_01",
+        "name": "Kala Sarpa Yoga — Schlangenachse des Schicksals",
+        "beschreibung": "Alle 7 klassischen Planeten stehen zwischen Rahu (Nordknoten) und Ketu (Südknoten) auf einer Seite der Knotenachse, ohne dass ein Planet auf der anderen Seite steht. Das Kala Sarpa (Schlange der Zeit) schließt alle Planetenenergie in eine Hälfte des Tierkreises ein. Deutungen: Intensives Schicksal, Karma-Last aus vergangenen Leben, starke Lebenswendepunkte, charismatische Persönlichkeit mit obsessivem Charakter. Partielles Kala Sarpa: einige Planeten eingeklammert — abgeschwächte Wirkung. Kein Kala Sarpa wenn Mond oder Lagna-Lord außerhalb der Achse stehen (verschiedene Schulen).",
+        "typen": {
+          "ananta": "Rahu in 1. Haus — Selbstbezogenheit; intensive Identitäts-Karma.",
+          "kulik": "Rahu in 2. Haus — Geld-Karma; Reichtum und Verlust.",
+          "vasuki": "Rahu in 3. Haus — Kommunikations-Karma; Geschwister-Prüfungen.",
+          "shankhapala": "Rahu in 4. Haus — Heim-Karma; Mutter-Prüfungen.",
+          "padma": "Rahu in 5. Haus — Kinder-Karma; Intelligenz-Prüfungen.",
+          "mahapadma": "Rahu in 6. Haus — Feind-Karma; Krankheits-Prüfungen (teilweise günstig).",
+          "takshaka": "Rahu in 7. Haus — Beziehungs-Karma; Ehe-Prüfungen.",
+          "karkotaka": "Rahu in 8. Haus — Transformations-Karma; Krisen und Okkultes.",
+          "shankhachur": "Rahu in 9. Haus — Dharma-Karma; Vater-Prüfungen.",
+          "ghatak": "Rahu in 10. Haus — Karriere-Karma; Status-Prüfungen.",
+          "vishdhar": "Rahu in 11. Haus — Gewinn-Karma; Netzwerk-Prüfungen.",
+          "sheshanaga": "Rahu in 12. Haus — Moksha-Karma; Verlust und spirituelle Befreiung."
+        },
+        "aktivierung_dasha": "Rahu-Dasha oder Ketu-Dasha besonders intensiv; auch in Dasha-Perioden der eingeschlossenen Planeten.",
+        "quelle": "Kalyana Varma - Saravali Kap. 46; Vaidyanatha Dikshita - Jataka Parijata VIII",
+        "dimensionen_vektor": {"liebe":2,"beruf":3,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":4}
+      },
+
+      "AY_02": {
+        "id": "AY_02",
+        "name": "Kemdrum Yoga — Isolierter Mond",
+        "beschreibung": "Der Mond steht ohne Planeten in den benachbarten Häusern (2. und 12. vom Mond aus) — kein Planet links oder rechts des Mondes (ausgenommen Sonne und Mondknoten nach einigen Schulen). Kemdrum bedeutet 'Kluft' — der Mond ist isoliert. Parashara: 'Kemdrum-Geborene sind arm, böse, leiden unter Krankheiten und sind von anderen abhängig.' Psychologisch: emotionale Isolation, mangelnde Unterstützung, Schwierigkeit im Ausdruck von Gefühlen. Kemdrum-Aufhebung: wenn Mond im Kendra zum Lagna steht oder Benefics im Kendra zum Mond stehen.",
+        "aktivierung_dasha": "Mond-Dasha oder Mahadasha eines Planeten der den Mond aspektiert.",
+        "quelle": "Parashara - BPHS Kap. 42; Mantreswara - Phaladeepika IX.3; Kalyana Varma - Saravali Kap. 46",
+        "dimensionen_vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3}
+      },
+
+      "AY_03": {
+        "id": "AY_03",
+        "name": "Graha Malika Yoga — Planetenkette",
+        "beschreibung": "Alle 7 Planeten stehen in aufeinanderfolgenden Häusern (ohne Lücke). Eine ununterbrochene Kette von Planeten durch 7 benachbarte Häuser. Gibt außergewöhnliche Konzentration von Energie in einem Lebensbereich; ein sehr fokussiertes, gerichtetes Leben. Mantreswara: 'Graha Malika-Geborene werden Könige oder denen gleich.' Je nachdem welches Haus die Kette beginnt, ist der Fokus unterschiedlich (Haus 1 = Identität, Haus 10 = Karriere etc.).",
+        "aktivierung_dasha": "Dasha der Planeten innerhalb der Kette.",
+        "quelle": "Mantreswara - Phaladeepika IX.8; Kalyana Varma - Saravali Kap. 46",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":4,"spiritualitaet":3}
+      },
+
+      "AY_04": {
+        "id": "AY_04",
+        "name": "Daridra Yoga — Armuts-Yoga",
+        "beschreibung": "Lords des 6., 8. oder 12. Hauses stehen in Kendra oder Trikona und aspektieren oder verbinden sich mit Lords des 1., 2. oder 11. Hauses. Bringt finanzielle Herausforderungen, Schulden, Verluste. Intensiviert wenn mehrere solcher Verbindungen vorliegen und kein starkes Dhana-Yoga gegensteht.",
+        "aktivierung_dasha": "Dasha des beteiligten Dusthana-Lords.",
+        "quelle": "Parashara - BPHS Kap. 42; Mantreswara - Phaladeepika IX.10",
+        "dimensionen_vektor": {"liebe":2,"beruf":2,"finanzen":1,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":4,"spiritualitaet":3}
+      },
+
+      "AY_05": {
+        "id": "AY_05",
+        "name": "Shakata Yoga — Rad-Yoga (Glücksrad)",
+        "beschreibung": "Jupiter und Mond stehen im 6-8-Verhältnis zueinander (6. und 8. Haus voneinander). Das Glück (Gajakesari-Yoga-Potential) wird gestört — Jupiter und Mond ziehen aneinander vorbei wie Speichen eines Rades. Gibt Auf- und Abschwünge im Leben, Unbeständigkeit, wechselndes Glück. Aufgehoben wenn Jupiter im Kendra steht (dann wieder Gajakesari).",
+        "aktivierung_dasha": "Jupiter-Dasha oder Mond-Dasha.",
+        "quelle": "Parashara - BPHS Kap. 42; Mantreswara - Phaladeepika IX.5; Kalyana Varma - Saravali Kap. 46",
+        "dimensionen_vektor": {"liebe":3,"beruf":3,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":3}
+      }
+    }
+  },
+
+  "chandra_yogas": {
+    "_beschreibung": "Mond-Yogas (Chandra Yogas) beschreiben Qualitäten des Geistes, der Emotionen und des öffentlichen Lebens basierend auf der Stellung des Mondes und der Planeten in seiner unmittelbaren Umgebung.",
+    "quelle": "Parashara - BPHS Kap. 36; Varahamihira - Brihat Jataka XIII; Mantreswara - Phaladeepika Kap. 7",
+
+    "regeln": {
+
+      "CY_01": {
+        "id": "CY_01",
+        "name": "Sunafa Yoga — Planet im 2. Haus vom Mond",
+        "beschreibung": "Ein Planet (außer Sonne) steht im 2. Haus vom Mond aus. Gibt Wohlstand, Intelligenz und Unabhängigkeit durch eigene Bemühungen. Die Qualität hängt vom beteiligten Planeten ab: Mars = Wohlstand durch Tapferkeit; Merkur = durch Intellekt; Jupiter = durch Weisheit; Venus = durch Kunst; Saturn = durch Ausdauer.",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":3}
+      },
+
+      "CY_02": {
+        "id": "CY_02",
+        "name": "Anafa Yoga — Planet im 12. Haus vom Mond",
+        "beschreibung": "Ein Planet (außer Sonne) steht im 12. Haus vom Mond aus. Gibt Würde, Respekt und hohe Stellung durch vergangene Tugend. Der Eingeborene ist angenehm, gesund und hat Kontrolle über seine Sinne.",
+        "dimensionen_vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":4,"soziales":4,"kreativitaet":3,"veraenderung":3,"spiritualitaet":4}
+      },
+
+      "CY_03": {
+        "id": "CY_03",
+        "name": "Durudhara Yoga — Planeten in 2. und 12. vom Mond",
+        "beschreibung": "Planeten (außer Sonne) stehen sowohl im 2. als auch im 12. Haus vom Mond aus — der Mond ist zwischen Planeten eingefasst. Gibt großen Wohlstand, Fahrzeuge, Diener und Genuss. Stärker als Sunafa oder Anafa allein, da beide Seiten des Mondes besetzt sind.",
+        "dimensionen_vektor": {"liebe":4,"beruf":4,"finanzen":5,"gesundheit":4,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":3}
+      }
+    }
+  },
+
+  "lagna_qualitaeten": {
+    "_beschreibung": "Lagna (लग्न) — der Aszendent — ist der Ausgangspunkt jedes Jyotish-Horoskops. Das aufgehende Zeichen zum Geburtszeitpunkt bestimmt die Haus-Lordenschaft aller 9 Planeten und damit ihre Funktion als Yogakaraka, Maraka etc. Hier werden die 12 Lagnas in ihrer prognostischen Bedeutung beschrieben.",
+    "quelle": "Parashara - BPHS Kap. 15-27 (Lagna-Phala); Mantreswara - Phaladeepika Kap. 3; Kalyana Varma - Saravali Kap. 3",
+
+    "unterschied_westlich": "Im Jyotish-System ist der Aszendent (Lagna) der absolute Referenzpunkt aller Häuser (Whole Sign Houses, analog zur hellenistischen Tradition). Jedes Haus = ein vollständiges Zeichen. Lagna-Lord ist der wichtigste Planet im Horoskop. Im westlichen System kann der Aszendent-Herr weniger Gewicht haben als z.B. Sonne oder Mondzeichen.",
+
+    "lagna_profile": {
+
+      "widder_lagna": {
+        "lagna": "Widder",
+        "lagna_lord": "Mars",
+        "yogakaraka": "Saturn (regiert 10. und 11. Haus — beide positiv für Widder Lagna)",
+        "maraka": "Venus (2. Haus), Merkur (7. Haus)",
+        "guenstige_planeten": ["Jupiter (9. Haus-Lord)", "Sonne (5. Haus-Lord)", "Mars (Lagna-Lord)"],
+        "unguenstige_planeten": ["Merkur (3., 6. Haus-Lord)", "Venus (2., 7. Haus-Lord — Maraka)"],
+        "prognose_charakter": "Energie, Führungsstärke, Direktheit. Karriere oft in Technik, Militär, Sport. Jupiter-Dasha besonders günstig für spirituelles Wachstum und Wohlstand.",
+        "quelle": "Parashara - BPHS Kap. 15"
+      },
+
+      "stier_lagna": {
+        "lagna": "Stier",
+        "lagna_lord": "Venus",
+        "yogakaraka": "Saturn (regiert 9. und 10. Haus — Dharma und Karma)",
+        "maraka": "Merkur (2. Haus), Mars (7. Haus)",
+        "guenstige_planeten": ["Saturn (Yogakaraka, 9.+10. Lord)", "Venus (Lagna-Lord)", "Merkur (2.+5. Haus-Lord — trotz Maraka positiv durch 5. Haus)"],
+        "unguenstige_planeten": ["Jupiter (8. und 11. Haus-Lord — Dusthana + Windhund)", "Mond (3. Haus-Lord)"],
+        "prognose_charakter": "Beständigkeit, künstlerisches Talent, Materialsinn. Saturn-Dasha = Lebenshöhepunkt für Karriere und Wohlstand.",
+        "quelle": "Parashara - BPHS Kap. 16"
+      },
+
+      "zwillinge_lagna": {
+        "lagna": "Zwillinge",
+        "lagna_lord": "Merkur",
+        "yogakaraka": "Keiner (kein Planet regiert gleichzeitig Kendra und Trikona)",
+        "maraka": "Mond (2. Haus), Jupiter (7. Haus — auch Maraka trotz Benefic-Natur)",
+        "guenstige_planeten": ["Venus (5. und 12. Haus-Lord — 5. sehr günstig)", "Merkur (Lagna + 4. Haus-Lord)"],
+        "unguenstige_planeten": ["Jupiter (7. und 10. Haus-Lord — Maraka und Kendra-Adhipati-Dosha)", "Mars (6. und 11. Haus-Lord)"],
+        "prognose_charakter": "Kommunikation, Vielseitigkeit, Intellekt. Kein klarer Yogakaraka — Erfolg durch eigene Merkur-Stärke.",
+        "quelle": "Parashara - BPHS Kap. 17"
+      },
+
+      "krebs_lagna": {
+        "lagna": "Krebs",
+        "lagna_lord": "Mond",
+        "yogakaraka": "Mars (regiert 5. und 10. Haus — ideale Kendra-Trikona-Kombination)",
+        "maraka": "Saturn (2. Haus), Venus (4. und 11. Haus — nicht Maraka, aber komplex)",
+        "guenstige_planeten": ["Mars (Yogakaraka, 5.+10. Lord)", "Jupiter (9. und 6. Lord — 9. sehr positiv)"],
+        "unguenstige_planeten": ["Saturn (7. und 8. Haus-Lord — doppelt schwierig)", "Merkur (3. und 12. Haus-Lord)"],
+        "prognose_charakter": "Emotionale Tiefe, Fürsorge, Intuition. Mars-Dasha = Karrierehöhepunkt. Saturn-Dasha oft Prüfungsperiode.",
+        "quelle": "Parashara - BPHS Kap. 18"
+      },
+
+      "loewe_lagna": {
+        "lagna": "Löwe",
+        "lagna_lord": "Sonne",
+        "yogakaraka": "Mars (regiert 4. und 9. Haus — Kendra und Trikona)",
+        "maraka": "Saturn (7. Haus — stärkster Maraka für Löwe Lagna), Merkur (2. und 11. Haus-Lord)",
+        "guenstige_planeten": ["Mars (Yogakaraka)", "Jupiter (5. und 8. Lord — 5. Haus sehr günstig)"],
+        "unguenstige_planeten": ["Saturn (7. und 8. Haus-Lord — doppelt ungünstig, natürliche Feindschaft mit Sonne)", "Venus (3. und 10. Lord — Kendra-Adhipati-Dosha)"],
+        "prognose_charakter": "Autorität, Großzügigkeit, Selbstausdruck. Mars-Dasha = Heim und Dharma. Saturn-Dasha = intensivste Karmaperiode.",
+        "quelle": "Parashara - BPHS Kap. 19"
+      },
+
+      "jungfrau_lagna": {
+        "lagna": "Jungfrau",
+        "lagna_lord": "Merkur",
+        "yogakaraka": "Keiner (kein klarer Yogakaraka)",
+        "maraka": "Venus (2. und 9. Haus-Lord — trotz 9. Haus Maraka durch 2. Haus)", 
+        "guenstige_planeten": ["Venus (9. Haus-Lord gibt Glück trotz Maraka-Qualität)", "Merkur (Lagna + 10. Lord)"],
+        "unguenstige_planeten": ["Mars (3. und 8. Haus-Lord — doppelt schwierig)", "Jupiter (4. und 7. Haus-Lord — Kendra-Adhipati-Dosha)"],
+        "prognose_charakter": "Analytik, Perfektionismus, Dienstfähigkeit. Merkur-Dasha = beruflicher Aufstieg.",
+        "quelle": "Parashara - BPHS Kap. 20"
+      },
+
+      "waage_lagna": {
+        "lagna": "Waage",
+        "lagna_lord": "Venus",
+        "yogakaraka": "Saturn (regiert 4. und 5. Haus — Kendra + Trikona)",
+        "maraka": "Mars (2. und 7. Haus-Lord — doppelter Maraka!)",
+        "guenstige_planeten": ["Saturn (Yogakaraka)", "Venus (Lagna-Lord)", "Merkur (9. und 12. Lord — 9. sehr günstig)"],
+        "unguenstige_planeten": ["Mars (doppelter Maraka — 2. und 7. Lord)", "Jupiter (3. und 6. Lord — sehr ungünstig)"],
+        "prognose_charakter": "Ausgleich, Diplomatie, Ästhetik. Saturn-Dasha = Lebenshöhepunkt. Mars-Dasha = intensivste Herausforderung.",
+        "quelle": "Parashara - BPHS Kap. 21"
+      },
+
+      "skorpion_lagna": {
+        "lagna": "Skorpion",
+        "lagna_lord": "Mars",
+        "yogakaraka": "Mond (regiert 9. Haus — Trikona; kein Kendra-Lord außer Lagna), Jupiter als 2./5. Lord günstig",
+        "maraka": "Jupiter (2. und 5. Haus-Lord — durch 2. Haus Maraka, aber 5. Haus mildernd)", 
+        "guenstige_planeten": ["Jupiter (5. und 2. Lord — positiv durch 5. Haus)", "Mond (9. Haus-Lord)", "Sonne (10. Haus-Lord)"],
+        "unguenstige_planeten": ["Venus (7. und 12. Haus-Lord)", "Merkur (8. und 11. Haus-Lord)"],
+        "prognose_charakter": "Intensität, Transformation, Heilung. Jupiter-Dasha = spiritueller und finanzieller Aufstieg.",
+        "quelle": "Parashara - BPHS Kap. 22"
+      },
+
+      "schuetze_lagna": {
+        "lagna": "Schütze",
+        "lagna_lord": "Jupiter",
+        "yogakaraka": "Mars (regiert 5. und 12. Haus — 5. Haus Trikona, 12. Haus weniger ideal)",
+        "maraka": "Saturn (2. und 3. Haus-Lord); Venus (6. und 11. Lord — komplex)",
+        "guenstige_planeten": ["Sonne (9. Haus-Lord)", "Mars (5. Haus-Lord)", "Jupiter (Lagna-Lord)"],
+        "unguenstige_planeten": ["Saturn (2. und 3. Lord)", "Venus (6. und 11. Lord)"],
+        "prognose_charakter": "Philosophie, Freiheit, Spiritualität. Sonne-Dasha = Dharma-Glück.",
+        "quelle": "Parashara - BPHS Kap. 23"
+      },
+
+      "steinbock_lagna": {
+        "lagna": "Steinbock",
+        "lagna_lord": "Saturn",
+        "yogakaraka": "Venus (regiert 5. und 10. Haus — idealer Yogakaraka)",
+        "maraka": "Mars (2. und 11. Lord — Maraka durch 2. Haus); Mond (7. Haus-Lord)",
+        "guenstige_planeten": ["Venus (Yogakaraka)", "Saturn (Lagna-Lord)", "Merkur (6. und 9. Lord — 9. sehr günstig)"],
+        "unguenstige_planeten": ["Mars (2. und 11. Lord — Maraka)", "Jupiter (3. und 12. Lord — Dusthana)"],
+        "prognose_charakter": "Ausdauer, Disziplin, strukturierter Aufstieg. Venus-Dasha = größter Lebenshöhepunkt.",
+        "quelle": "Parashara - BPHS Kap. 24"
+      },
+
+      "wassermann_lagna": {
+        "lagna": "Wassermann",
+        "lagna_lord": "Saturn",
+        "yogakaraka": "Venus (regiert 4. und 9. Haus — Kendra und Trikona)",
+        "maraka": "Jupiter (2. und 11. Haus-Lord); Mond (6. Haus-Lord)",
+        "guenstige_planeten": ["Venus (Yogakaraka)", "Saturn (Lagna-Lord)", "Mars (3. und 10. Lord — 10. sehr günstig)"],
+        "unguenstige_planeten": ["Jupiter (2. und 11. Lord — Maraka trotz Benefic)", "Mond (6. Haus-Lord)"],
+        "prognose_charakter": "Innovation, soziales Engagement, Unabhängigkeit. Venus-Dasha = Karriere- und Liebesglück.",
+        "quelle": "Parashara - BPHS Kap. 25"
+      },
+
+      "fische_lagna": {
+        "lagna": "Fische",
+        "lagna_lord": "Jupiter",
+        "yogakaraka": "Mars (regiert 2. und 9. Haus — 9. Trikona sehr günstig; 2. gibt Wohlstand)",
+        "maraka": "Saturn (11. und 12. Lord); Venus (3. und 8. Lord — sehr ungünstig)",
+        "guenstige_planeten": ["Mars (Yogakaraka — 9. Lord)", "Mond (5. Haus-Lord)", "Jupiter (Lagna-Lord)"],
+        "unguenstige_planeten": ["Venus (3. und 8. Lord — schwierigster Planet für Fische Lagna)", "Saturn (11. und 12. Lord)", "Sonne (6. Haus-Lord)"],
+        "prognose_charakter": "Mitgefühl, Spiritualität, Kreativität. Mars-Dasha = Dharma-Aufstieg. Venus-Dasha = intensivste Prüfungen.",
+        "quelle": "Parashara - BPHS Kap. 26"
+      }
+    }
+  },
+
+  "arudha_lagna": {
+    "_beschreibung": "Arudha Lagna (आरूढ लग्न) — Das Bild-Lagna oder 'Welt-Lagna'. Repräsentiert das Image des Eingeborenen in der äußeren Welt — wie andere ihn wahrnehmen, seine gesellschaftliche Maske und sein äußerlich manifestiertes Schicksal. Im Gegensatz zum echten Lagna (inneres Selbst, Seele) zeigt das Arudha Lagna die materielle und soziale Dimension.",
+    "quelle": "Parashara - BPHS Kap. 33 (Jaimini-Teil); Vaidyanatha Dikshita - Jataka Parijata (Jaimini-Kapitel)",
+
+    "berechnung": {
+      "schritt_1": "Finde den Lagna-Lord (Herrn des Aszendenten).",
+      "schritt_2": "Zähle, in wie vielen Häusern der Lagna-Lord vom Lagna entfernt steht. Beispiel: Lagna = Widder (1. Haus), Mars (Lagna-Lord) steht in Löwe = 5. Haus. Mars ist 5 Häuser vom Lagna entfernt.",
+      "schritt_3": "Zähle dieselbe Anzahl von Häusern weiter vom Standort des Lagna-Lords. Im Beispiel: von Löwe (5. Haus) weitere 5 Häuser = Schütze (9. Haus). Das Arudha Lagna liegt in Schütze (9. Haus).",
+      "sonderregel": "Wenn das errechnete Arudha im gleichen Haus wie das Lagna oder im 7. Haus vom Lagna liegt, wird es auf das 10. Haus verschoben (Parashara-Regel).",
+      "quelle": "Parashara - BPHS Kap. 33"
+    },
+
+    "deutung": {
+      "im_1_haus": "Arudha = Lagna: Außenbild entspricht dem echten Selbst. Authentische Persönlichkeit, bekannt für das was man ist.",
+      "im_2_haus": "Image durch Reichtum und Sprache. Bekannt für Vermögen oder Eloquenz.",
+      "im_3_haus": "Image durch Mut, Geschwister, Medien. Bekannt für Tapferkeit oder Kommunikation.",
+      "im_4_haus": "Image durch Heim und Bildung. Bekannt für Tradition, Familie, Immobilien.",
+      "im_5_haus": "Image durch Kreativität und Kinder. Bekannt für Intelligenz, Kunst, spirituelle Praxis.",
+      "im_6_haus": "Kontroversielle Wahrnehmung. Image durch Konflikte oder Dienst. Bekannt als jemand der Probleme löst oder selbst eines ist.",
+      "im_7_haus": "Image durch Partnerschaft und Öffentlichkeit. Bekannt durch den Partner oder Geschäfte.",
+      "im_8_haus": "Mysteriöses, verborgenes Image. Bekannt für Krisen, Transformationen oder okkultes Wissen.",
+      "im_9_haus": "Image durch Dharma und Weltanschauung. Bekannt als religiöse oder philosophische Autorität.",
+      "im_10_haus": "Image durch Karriere und Status. Bekannt für berufliche Leistungen — stärkste öffentliche Stellung.",
+      "im_11_haus": "Image durch Netzwerke und Gewinne. Bekannt durch Freundeskreise, politische Verbindungen.",
+      "im_12_haus": "Verborgenes oder spirituelles Image. Bekannt in Ausland, für Spiritualität oder durch Verluste.",
+      "quelle": "Parashara - BPHS Kap. 33; Vaidyanatha Dikshita - Jataka Parijata"
+    },
+
+    "arudha_vs_lagna": {
+      "beschreibung": "Das echte Lagna zeigt die innere Wahrheit, das Arudha Lagna die äußere Wahrnehmung. Wenn beide konfliktieren (z.B. Lagna = Fische [Spiritualität], Arudha im 10. Haus = Steinbock [Karriere]), lebt der Eingeborene nach außen eine ganz andere Realität als innen. Parashara: 'Das Lagna ist das wahre Selbst; das Arudha ist das Abbild in der materiellen Welt.'",
+      "quelle": "Parashara - BPHS Kap. 33"
+    }
+  },
+
+  "synthese_cross_system": {
+    "_beschreibung": "Verbindungsregeln zwischen Jyotish-Yogas (J3) und allen anderen Modulen des Gesamtsystems.",
+    "quelle": "Projektplan PROJEKTPLAN_hellenistik_jyotish_arabisch.md; Parashara - BPHS",
+
+    "jyotish_dasha": {
+      "verbindung": "Yogas sind Potential — Dashas sind der Auslöser. Kein Yoga manifestiert sich vollständig ohne Dasha-Aktivierung. Das Zusammenspiel: (1) Yoga vorhanden? (2) Yoga-Planet in günstiger Position? (3) Dasha des Yoga-Planeten aktiv? Alle drei Bedingungen erfüllt = maximale Manifestation. Viparita Raja Yoga manifestiert sich am stärksten in der Dasha des involvierten Dusthana-Lords.",
+      "anwendung": "Yoga-Identifikation (J3) → Dasha-Timing (J2) → Präzises Ereignis-Fenster."
+    },
+
+    "jyotish_nakshatras": {
+      "verbindung": "Das Nakshatra des Yoga-Planets modifiziert die Yoga-Qualität. Beispiel: Gajakesari Yoga (Jupiter-Mond-Kendra) wirkt stärker wenn Jupiter in Punarvasu (eigenem Nakshatra) steht. Kala Sarpa Yoga ist intensiver wenn Rahu in einem Rahu-Nakshatra (Ardra, Swati, Shatabhisha) steht.",
+      "anwendung": "Nakshatra-Lord-Qualität aus J1 modifiziert Yoga-Stärke in J3."
+    },
+
+    "arabisch_firdaria": {
+      "verbindung": "Arabische Firdaria-Perioden und Jyotish-Dashas können dieselben Yoga-Themen gleichzeitig aktivieren. Beispiel: Venus-Firdaria (8 Jahre) + Venus-Mahadasha → Malavya-Yoga manifestiert sich doppelt. Beim Vergleich beider Systeme: Überschneidungen zeigen Epochen außerordentlicher Manifestation an.",
+      "anwendung": "Yoga (J3) + Dasha (J2) + Firdaria (A2) = dreifache Bestätigung für wichtige Lebensereignisse."
+    },
+
+    "hell_haeuser": {
+      "verbindung": "Jyotish Whole Sign Houses und hellenistische Whole Sign Houses sind direkt homolog. Kendra (1, 4, 7, 10) = hellenistische Winkel (Angles). Trikona (1, 5, 9) = keine direkte hellenistische Entsprechung (Triplizitätsherren sind anders). Dusthana (6, 8, 12) ≈ hellenistische 'Apoklimatische' Häuser. Raja Yoga-Prinzip (Kendra + Trikona) hat keine direkte hellenistische Parallele, aber funktionale Äquivalente in Aspekt-Würde-Stärken.",
+      "anwendung": "Haus-Qualitäten aus H4 können zur Vertiefung der Yoga-Analyse herangezogen werden."
+    },
+
+    "western_aspekte": {
+      "verbindung": "Westliche Aspektmuster und Jyotish-Yogas sind Analogien, keine Äquivalente. Annäherungen: Raj-Yoga (Kendra-Trikona-Lord-Verbindung) ≈ Grand Trine + Sextil-Kombination in westlicher Astrologie. Neecha-Bhanga-Raja-Yoga ≈ 'Disposed Placement' oder Mutual Reception in Westlicher Astrologie. Gajakesari Yoga ≈ Jupiter-Mond-Trigon/Konjunktion (westlich).",
+      "anwendung": "Cross-Check: Wenn ein Yoga Jyotish-intern stark ist UND ein entsprechendes westliches Aspektmuster bestätigt → erhöhte Aussagekraft."
+    },
+
+    "kabbalah": {
+      "verbindung": "Pancha Mahapurusha Yogas der 5 Wandelplaneten (Mars, Merkur, Jupiter, Venus, Saturn) entsprechen den 5 unteren Sephiroth (Gevura/Mars, Hod/Merkur, Chesed/Jupiter, Netzach/Venus, Binah/Saturn). Ein stark ausgeprägtes Mahapurusha-Yoga betont die entsprechende Sephira als Lebensachse.",
+      "anwendung": "Stärkster Yoga-Planet = dominante Sephira im Lebensausdruck."
+    },
+
+    "bazi": {
+      "verbindung": "Jyotish Yogas (Planetenkombinationen) ↔ Bazi-Kombinationen (Elementarverbindungen der Stämme und Äste). Strukturell analog: Beide Systeme definieren 'günstige Kombinationen' (Yogas / He-Verbindungen) und 'problematische Kombinationen' (Arishtana / Chong-Kollisionen). Gajakesari (Jupiter-Mond-Harmonie) ≈ Bazi 'Zi-Gui-Kombinationen' (Wasser-Erdkombinationen für Wohlstand). Kala-Sarpa-Yoga (alle Planeten zwischen Knoten) ≈ Bazi 'leere Stellen im Schicksal' (Xu Kong).",
+      "anwendung": "Wenn Bazi-Jahrespfeiler und Jyotish-Dasha dasselbe Yoga-Thema aktivieren: verstärkte Manifestation."
+    }
+  },
+
+  "yoga_aktivierungs_matrix": {
+    "_beschreibung": "Schnell-Referenz: Welche Dasha aktiviert welchen Yoga-Typ am stärksten.",
+    "quelle": "Parashara - BPHS Kap. 34-42; Mantreswara - Phaladeepika Kap. 6-9",
+
+    "raja_yoga_dasha": "Dasha des Kendra-Lords ODER des Trikona-Lords der Yoga-Verbindung.",
+    "dhana_yoga_dasha": "Dasha des 2., 5., 9. oder 11. Haus-Lords; Jupiter-Dasha für natürliche Dhana-Verstärkung.",
+    "pancha_mahapurusha_dasha": "Dasha des jeweiligen Yoga-Planeten (Mars für Ruchaka, Merkur für Bhadra, etc.).",
+    "kala_sarpa_dasha": "Rahu- und Ketu-Dasha — intensivste Karma-Perioden.",
+    "kemdrum_dasha": "Mond-Dasha, wenn Mond isoliert — emotionale Tiefen. Gemildert in Jupiter-Antardasha.",
+    "neecha_bhanga_dasha": "Dasha des debilitierten Planeten — nach langer Prüfung kommt außergewöhnlicher Aufstieg.",
+    "viparita_raja_dasha": "Dasha des Dusthana-Lords — Umkehrung von Schmerz in Triumph.",
+    "gajakesari_dasha": "Jupiter-Dasha oder Mond-Dasha; Jupiter-Mond-Antardasha = Höhepunkt."
+  },
+
+  "glossar": {
+    "yoga": "Sanskrit: 'Verbindung'. Planetare Konstellation im Geburtshoroskop mit definiertem Schicksalscharakter.",
+    "raja_yoga": "Königliches Yoga durch Kendra-Trikona-Verbindung; gibt Macht, Status, gesellschaftlichen Aufstieg.",
+    "dhana_yoga": "Reichtums-Yoga durch Verbindung der Häuser 2, 5, 9, 11; gibt materielle Fülle.",
+    "pancha_mahapurusha": "Fünf Große-Persönlichkeits-Yogas: Ruchaka, Bhadra, Hamsa, Malavya, Shasha.",
+    "nabhasa": "Himmlische Form-Yogas nach Gesamtverteilung der Planeten (Varahamihira).",
+    "arishtana": "Herausforderungs-Yogas; Karma-intensive Konstellationen (Kala Sarpa, Kemdrum etc.).",
+    "kendra": "1., 4., 7., 10. Haus — Winkel-Häuser, Orte maximaler Manifestation.",
+    "trikona": "1., 5., 9. Haus — Glücks- und Dharma-Häuser.",
+    "dusthana": "6., 8., 12. Haus — Häuser der Herausforderungen und Transformation.",
+    "yogakaraka": "Planet, der gleichzeitig ein Kendra- und ein Trikona-Haus regiert — günstigste Funktion.",
+    "maraka": "Todbringer-Planet; Lord des 2. oder 7. Hauses; aktiviert Gesundheitskrisen in ungünstiger Dasha.",
+    "neecha_bhanga": "Aufhebung der Debilitation durch spezifische Bedingungen → Raja Yoga.",
+    "parivartana": "Gegenseitiger Hausaustausch zweier Planeten.",
+    "arudha_lagna": "Das 'Spiegel-Lagna' — wie die Außenwelt den Eingeborenen wahrnimmt.",
+    "atmakaraka": "Planet mit höchstem Grad im Horoskop — Seele des Horoskops (Jaimini).",
+    "subha": "Günstig/positiv — Bezeichnung für günstige Yogas.",
+    "asubha": "Ungünstig/negativ — Bezeichnung für Herausforderungs-Yogas.",
+    "kala_sarpa": "Alle Planeten zwischen Rahu und Ketu — intensive Karma-Konstellation.",
+    "gajakesari": "Jupiter im Kendra zum Mond — Yoga der Würde, öffentlicher Anerkennung und Weisheit.",
+    "viparita_raja": "Raja Yoga durch Verbindung zweier Dusthana-Lords — Triumph aus Prüfungen.",
+    "lakshmi": "Wohlstands-Yoga durch Verbindung von 5.-Haus-Lord und 9.-Haus-Lord + starker Venus.",
+    "hamsa": "Jupiter-Mahapurusha-Yoga: Schwan — Zeichen spiritueller Reinheit und Weisheit.",
+    "ruchaka": "Mars-Mahapurusha-Yoga: Scharf/Glänzend — militärische und technische Exzellenz.",
+    "bhadra": "Merkur-Mahapurusha-Yoga: Edel — intellektuelle und kommunikative Exzellenz.",
+    "malavya": "Venus-Mahapurusha-Yoga: Herrschend/Anmutig — künstlerische und liebevolle Exzellenz.",
+    "shasha": "Saturn-Mahapurusha-Yoga: Mond-Hase — disziplinierte und ausdauernde Führungsexzellenz."
+  }
+}

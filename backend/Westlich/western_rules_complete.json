@@ -1,0 +1,807 @@
+{
+  "_meta": {
+    "system": "western",
+    "version": "1.0",
+    "sources": [
+      "Sepharial - Astrology: How to Make and Read Your Own Horoscope (Project Gutenberg #46963, 1920)",
+      "Raphael (Robert Cross Smith) - A Manual of Astrology (1828/1834)",
+      "Nicholas DeVore - Encyclopedia of Astrology (1947)",
+      "Claudius Ptolemy - Tetrabiblos (public domain)"
+    ],
+    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "extraction_method": "Direkte Quellenextraktion + strukturierte Kodierung"
+  },
+
+  "planets": {
+    "sonne": {
+      "symbol": "☉", "typ": "benefic", "herrscher_von": ["loewe"],
+      "natur": "Magnanimous, noble, proud, loyal, truthful, fearless. Honours and favour of dignitaries. Controls vital principle.",
+      "natur_de": "Großmütig, edel, stolz, loyal, wahrhaftig, furchtlos. Bringt Ehren und Gunst der Obrigkeiten. Regiert das Lebensprinzip.",
+      "dimensionen": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":4,"soziales":4,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+      "quelle": "Sepharial S.22"
+    },
+    "mond": {
+      "symbol": "☽", "typ": "benefic", "herrscher_von": ["krebs"],
+      "natur": "Gracefulness, suavity of speech, softness, adaptability, variableness, love of change, romance, adventure, exploration.",
+      "natur_de": "Anmut, Sanftheit der Rede, Weichheit, Anpassungsfähigkeit, Wandelbarkeit, Abenteuerliebe, Romantik.",
+      "dimensionen": {"liebe":4,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":4,"spiritualitaet":3},
+      "quelle": "Sepharial S.22"
+    },
+    "merkur": {
+      "symbol": "☿", "typ": "neutral", "herrscher_von": ["zwillinge","jungfrau"],
+      "natur": "Active, versatile, apt and business-like, commerce, pursuit of knowledge; alert, well-informed. Variable: takes on nature of planet in nearest aspect.",
+      "natur_de": "Aktiv, vielseitig, geschäftstüchtig, handelsfreudig, wissbegieirig, aufgeweckt, gut informiert. Veränderlich: nimmt Natur des nächsten aspektierten Planeten an.",
+      "dimensionen": {"liebe":2,"beruf":5,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":2},
+      "quelle": "Sepharial S.21"
+    },
+    "venus": {
+      "symbol": "♀", "typ": "benefic", "herrscher_von": ["stier","waage"],
+      "natur": "Poesy, good taste, fine feeling, artistic powers, gentleness, dalliance, love of pleasure. Renders affairs pleasant and prosperous. Most benefic after Jupiter.",
+      "natur_de": "Poesie, guter Geschmack, Kunstsinn, Sanftheit, Sinnenfreude. Macht Angelegenheiten angenehm und erfolgreich. Zweitgrößte Wohltat nach Jupiter.",
+      "dimensionen": {"liebe":5,"beruf":3,"finanzen":4,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3},
+      "quelle": "Sepharial S.21"
+    },
+    "mars": {
+      "symbol": "♂", "typ": "malefic", "herrscher_von": ["widder","skorpion"],
+      "natur": "Sense of freedom, ambition, executive ability, frankness, truthfulness. Forceful, militant mind. Stimulates new projects and enterprises.",
+      "natur_de": "Freiheitssinn, Ehrgeiz, Durchsetzungsvermögen, Offenheit, Wahrhaftigkeit. Kraftvoller, kämpferischer Geist. Regt neue Projekte an.",
+      "dimensionen": {"liebe":2,"beruf":4,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":1},
+      "quelle": "Sepharial S.21"
+    },
+    "jupiter": {
+      "symbol": "♃", "typ": "benefic", "herrscher_von": ["schuetze","fische"],
+      "natur": "Joviality, optimism, bountifulness, generosity, rich and fruitful mind. Renders subject fortunate, giving success and frequently opulence. 'Never goes under.'",
+      "natur_de": "Fröhlichkeit, Optimismus, Freigebigkeit, Großzügigkeit, reicher Geist. Macht erfolgreich und häufig wohlhabend. 'Geht nie unter.'",
+      "dimensionen": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":3,"spiritualitaet":4},
+      "quelle": "Sepharial S.21"
+    },
+    "saturn": {
+      "symbol": "♄", "typ": "malefic", "herrscher_von": ["steinbock","wassermann"],
+      "natur": "Thoughtful, sober, ponderable mind; steadfastness, patience, endurance; routine, method. Financial: steady results commensurate with labour, slow but sure success, hardships, privations.",
+      "natur_de": "Besonnener, nüchterner Geist; Beständigkeit, Geduld, Ausdauer; Routine, Methode. Finanziell: stetige Ergebnisse gemäß Arbeit, langsamer aber sicherer Erfolg, Entbehrungen.",
+      "dimensionen": {"liebe":2,"beruf":4,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":3,"spiritualitaet":3},
+      "quelle": "Sepharial S.20"
+    },
+    "uranus": {
+      "symbol": "♅", "typ": "malefic_conditional",
+      "natur": "Eccentric mind, waywardness, originality, inventiveness. In business: sudden and unexpected developments, irregularities, rapid rise and fall, instability. Unexpected turns of fortune.",
+      "natur_de": "Exzentrischer Geist, Eigensinn, Originalität, Erfindungsgeist. Geschäftlich: plötzliche Entwicklungen, Instabilität, rasches Auf und Ab. Unerwartete Glückswendungen.",
+      "dimensionen": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":5,"veraenderung":5,"spiritualitaet":4},
+      "quelle": "Sepharial S.20"
+    },
+    "neptun": {
+      "symbol": "♆", "typ": "malefic_conditional",
+      "natur": "Highly-strung nervous temperament, allied to insanity or genius. Complications in business, involved state of affairs. Fraud, double-dealing, irresponsible actions.",
+      "natur_de": "Hochgespanntes Nervensystem, nahe Genie oder Wahnsinn. Geschäftliche Komplikationen. Tendenz zu Betrug, Doppelzüngigkeit, unverantwortlichem Handeln.",
+      "dimensionen": {"liebe":3,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":5,"veraenderung":4,"spiritualitaet":5},
+      "quelle": "Sepharial S.20"
+    },
+    "pluto": {
+      "symbol": "♇", "typ": "malefic_conditional",
+      "natur": "Transformation, depth, regeneration. Rules collective power, hidden forces, death and rebirth of patterns. Compulsive and irreversible change.",
+      "natur_de": "Transformation, Tiefe, Regeneration. Regiert kollektive Macht, verborgene Kräfte, Tod und Wiedergeburt von Mustern. Zwanghafter und unwiderruflicher Wandel.",
+      "dimensionen": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":5},
+      "quelle": "DeVore Encyclopaedia"
+    }
+  },
+
+  "houses": {
+    "1": {
+      "name": "Aszendent / Das Selbst",
+      "koerper": "Gesicht, Kopf, persönliche Erscheinung",
+      "themen": ["Persönlichkeit", "Erscheinungsbild", "Vitalität", "Selbstdarstellung"],
+      "primaer_dimensionen": ["gesundheit", "veraenderung"],
+      "bedeutung_de": "Regiert persönliche Erscheinung, Charakter, allgemeine Disposition und den Körper, besonders Kopf und Gesicht.",
+      "quelle": "Sepharial S.29"
+    },
+    "2": {
+      "name": "Finanzen und Werte",
+      "koerper": "Hals, Nacken",
+      "themen": ["Geld", "Besitz", "materielle Sicherheit", "Eigene Werte"],
+      "primaer_dimensionen": ["finanzen"],
+      "bedeutung_de": "Regiert Finanzen, bewegliche Güter, Handel und materiellen Besitz.",
+      "quelle": "Sepharial S.29"
+    },
+    "3": {
+      "name": "Kommunikation und Geschwister",
+      "koerper": "Arme, Lungen",
+      "themen": ["Geschwister", "kurze Reisen", "Briefe", "Kommunikation", "Nachbarn"],
+      "primaer_dimensionen": ["soziales", "kreativitaet"],
+      "bedeutung_de": "Regiert kurze Reisen, Kommunikation, Briefe, Geschwister und Nachbarn.",
+      "quelle": "Sepharial S.29"
+    },
+    "4": {
+      "name": "Zuhause und Familie",
+      "koerper": "Brust, Thorax",
+      "themen": ["Immobilien", "Wohnung", "Mutter", "Wurzeln", "Ende des Lebens"],
+      "primaer_dimensionen": ["soziales"],
+      "bedeutung_de": "Regiert Immobilien, Heimstatt, Ertrag der Erde, Mutter und Ende des Lebens.",
+      "quelle": "Sepharial S.29"
+    },
+    "5": {
+      "name": "Kreativität, Liebe und Kinder",
+      "koerper": "Rücken, Herz",
+      "themen": ["Kinder", "Sexualtrieb", "Romanzen", "soziale Vergnügungen", "Spiel"],
+      "primaer_dimensionen": ["liebe", "kreativitaet"],
+      "bedeutung_de": "Regiert Nachkommen, Sexualtrieb, häusliche Beziehungen, gesellschaftliche Vergnügungen und kreative Selbstdarstellung.",
+      "quelle": "Sepharial S.29"
+    },
+    "6": {
+      "name": "Arbeit und Gesundheit",
+      "koerper": "Bauch, Unterleib",
+      "themen": ["Gesundheit", "Dienstleistung", "Routine", "Untergebene", "Hygiene"],
+      "primaer_dimensionen": ["beruf", "gesundheit"],
+      "bedeutung_de": "Regiert Gesundheit, Dienstpersonal, persönliche Annehmlichkeiten, Nahrung, Kleidung und Körperpflege.",
+      "quelle": "Sepharial S.30"
+    },
+    "7": {
+      "name": "Partnerschaft und Ehe",
+      "koerper": "Lende, Nieren",
+      "themen": ["Ehe", "Verträge", "Partner", "offene Feinde", "Geschäftspartner"],
+      "primaer_dimensionen": ["liebe", "soziales"],
+      "bedeutung_de": "Regiert Ehe, Verträge, Vereinbarungen, Partner und Tauschgeschäfte.",
+      "quelle": "Sepharial S.30"
+    },
+    "8": {
+      "name": "Tod, Erbe und Transformation",
+      "koerper": "Ausscheidungssystem",
+      "themen": ["Tod", "Verlust", "Erbschaften", "Mitgift", "Transformation"],
+      "primaer_dimensionen": ["veraenderung", "finanzen"],
+      "bedeutung_de": "Regiert Tod, Verlust, Erbschaften, Mitgift und Dinge, die mit dem Verstorbenen zusammenhängen.",
+      "quelle": "Sepharial S.30"
+    },
+    "9": {
+      "name": "Philosophie und weite Reisen",
+      "koerper": "Oberschenkel",
+      "themen": ["Fernreisen", "Veröffentlichungen", "Religion", "Ausland", "Rechtswesen"],
+      "primaer_dimensionen": ["spiritualitaet", "kreativitaet"],
+      "bedeutung_de": "Regiert weite Reisen, Veröffentlichungen, religiöse Überzeugungen, fremde Länder und Rechtswesen.",
+      "quelle": "Sepharial S.30"
+    },
+    "10": {
+      "name": "Karriere und öffentliches Leben",
+      "koerper": "Knie",
+      "themen": ["Position", "Ehre", "Ruhm", "Beruf", "Vater", "Vorgesetzte"],
+      "primaer_dimensionen": ["beruf"],
+      "bedeutung_de": "Regiert gesellschaftliche Stellung, Ehre, Ruhm, Beruf, Vater und alle Arten von Vorgesetzten.",
+      "quelle": "Sepharial S.30"
+    },
+    "11": {
+      "name": "Freunde und Gesellschaft",
+      "koerper": "Bein (Wade bis Knöchel)",
+      "themen": ["Freunde", "soziale Beziehungen", "Gruppen", "Gesellschaften", "Hoffnungen"],
+      "primaer_dimensionen": ["soziales"],
+      "bedeutung_de": "Regiert Freunde, soziale Beziehungen, Gesellschaften und Vereinigungen.",
+      "quelle": "Sepharial S.30"
+    },
+    "12": {
+      "name": "Verborgenes und Einschränkungen",
+      "koerper": "Knöchel, Füße",
+      "themen": ["Hinterhalte", "Gefangenschaft", "Einschränkungen", "heimliche Feinde", "Isolation"],
+      "primaer_dimensionen": ["spiritualitaet", "gesundheit"],
+      "bedeutung_de": "Regiert Hinterhalte, Einschränkungen, Entbehrungen, Gefangenschaft und alle Grenzen der persönlichen Freiheit.",
+      "quelle": "Sepharial S.30"
+    }
+  },
+
+  "planets_in_houses": {
+    "sonne": {
+      "1":  {"text_de":"Starke Persönlichkeit, Stolz, Führungsanspruch. Gesundheit gut. Selbstbewusstsein ausgeprägt.",                          "vektor":{"gesundheit":4,"beruf":4,"liebe":3,"soziales":3},"quelle":"Sepharial/Raphael"},
+      "2":  {"text_de":"Günstig für Finanzen durch eigene Anstrengung. Stolz auf Besitz. Freigebigkeit möglich.",                             "vektor":{"finanzen":4,"beruf":3,"liebe":2},"quelle":"Sepharial/Raphael"},
+      "3":  {"text_de":"Lebhafte Kommunikation, Reisen. Gute Beziehungen zu Geschwistern. Schreibtalent.",                                     "vektor":{"soziales":4,"kreativitaet":4,"beruf":3},"quelle":"Sepharial"},
+      "4":  {"text_de":"Heimatliebe. Spätere Lebenshälfte günstiger. Immobilien können Glück bringen.",                                        "vektor":{"soziales":3,"finanzen":3,"veraenderung":2},"quelle":"Raphael"},
+      "5":  {"text_de":"Lebhaftes Liebesleben. Glück mit Kindern. Kreativität und Vergnügen hervorgehoben.",                                   "vektor":{"liebe":4,"kreativitaet":5,"soziales":4},"quelle":"Sepharial"},
+      "6":  {"text_de":"Gesundheitsbewusst. Arbeitsethos stark. Beruf in Dienst oder Gesundheitswesen möglich.",                              "vektor":{"gesundheit":3,"beruf":4,"finanzen":3},"quelle":"Raphael"},
+      "7":  {"text_de":"Ehe mit bedeutender oder wohlhabender Person. Offene Feindschaft möglich. Partnerschaft im Fokus.",                    "vektor":{"liebe":4,"soziales":3,"finanzen":3},"quelle":"Sepharial"},
+      "8":  {"text_de":"Erbschaften möglich. Interesse an Okkultem. Transformative Lebenserfahrungen.",                                        "vektor":{"finanzen":4,"veraenderung":4,"spiritualitaet":4},"quelle":"Raphael"},
+      "9":  {"text_de":"Reiselust, Philosophie, höhere Bildung. Ausländische Verbindungen günstig. Rechtswesen.",                             "vektor":{"spiritualitaet":4,"kreativitaet":4,"beruf":3},"quelle":"Sepharial"},
+      "10": {"text_de":"Stärkste Berufsposition des Horoskops. Ruhm, Erfolg und öffentliche Anerkennung wahrscheinlich.",                      "vektor":{"beruf":5,"soziales":4,"finanzen":4},"quelle":"Sepharial"},
+      "11": {"text_de":"Günstige Freundschaften mit Einflussreichen. Soziale Ziele erreicht. Hoffnungen erfüllt sich.",                       "vektor":{"soziales":5,"beruf":4,"liebe":3},"quelle":"Raphael"},
+      "12": {"text_de":"Verborgene Stärken. Gefahr durch Feinde oder Isolation. Klosterleben oder Rückzug möglich.",                          "vektor":{"spiritualitaet":4,"gesundheit":2,"soziales":2},"quelle":"Sepharial"}
+    },
+    "mond": {
+      "1":  {"text_de":"Emotionale, wandelbare Natur. Empfindlichkeit. Gute Vorstellungskraft. Öffentliches Leben begünstigt.",                "vektor":{"liebe":4,"soziales":4,"kreativitaet":4,"gesundheit":3},"quelle":"Raphael"},
+      "2":  {"text_de":"Finanzen schwankend aber oft günstig. Verdienst durch Öffentlichkeit oder Frauen. Mond beeinflusst Geldfluss.",        "vektor":{"finanzen":3,"beruf":3,"veraenderung":3},"quelle":"Sepharial"},
+      "3":  {"text_de":"Viele kurze Reisen. Lebhafte Kommunikation. Geschwisterbeziehungen wichtig. Schreibetalent.",                          "vektor":{"soziales":4,"kreativitaet":4,"veraenderung":3},"quelle":"Raphael"},
+      "4":  {"text_de":"Starke Heimatbindung. Mutter sehr einflussreich. Spätlebensglück durch Immobilien.",                                  "vektor":{"soziales":4,"finanzen":3,"veraenderung":2},"quelle":"Sepharial"},
+      "5":  {"text_de":"Romantisch, liebevoll. Viele Affären möglich. Kreativität und Vergnügen. Kinderreichtum.",                            "vektor":{"liebe":5,"kreativitaet":4,"soziales":4},"quelle":"Raphael"},
+      "6":  {"text_de":"Gesundheit empfindlich, besonders Magen. Dienst an anderen. Beruf durch Frauen beeinflusst.",                         "vektor":{"gesundheit":2,"beruf":3,"soziales":3},"quelle":"Sepharial"},
+      "7":  {"text_de":"Ehe mit angepasstem, anpassungsfähigem Partner. Öffentliche Beliebtheit. Häufige Partnerwechsel möglich.",            "vektor":{"liebe":4,"soziales":5,"beruf":3},"quelle":"Raphael"},
+      "8":  {"text_de":"Erbschaft durch Frauen. Intensives Innenleben. Psychische Sensibilität. Lebensende ruhig.",                            "vektor":{"finanzen":3,"spiritualitaet":4,"gesundheit":3},"quelle":"Sepharial"},
+      "9":  {"text_de":"Viele Reisen, Wanderlust. Philosophische oder religiöse Interessen. Kontakt mit dem Ausland.",                         "vektor":{"veraenderung":4,"spiritualitaet":3,"kreativitaet":3},"quelle":"Raphael"},
+      "10": {"text_de":"Öffentlichkeit wichtig für den Beruf. Schwankender aber oft bedeutender Ruf. Berühmtheit möglich.",                    "vektor":{"beruf":4,"soziales":4,"veraenderung":4},"quelle":"Sepharial"},
+      "11": {"text_de":"Viele Freundschaften, besonders mit Frauen. Soziale Kontakte wandelbar. Hoffnungen wechselnd.",                        "vektor":{"soziales":4,"liebe":3,"veraenderung":3},"quelle":"Raphael"},
+      "12": {"text_de":"Rückzug, Einsamkeit. Verborgene Feinde. Fürsorge für Benachteiligte. Psychische Sensibilität.",                       "vektor":{"spiritualitaet":4,"gesundheit":2,"soziales":2},"quelle":"Sepharial"}
+    },
+    "merkur": {
+      "1":  {"text_de":"Scharfer, aktiver Geist. Redegewandtheit. Vielseitig und geistig rege. Reise- und Handelsneigung.",                   "vektor":{"kreativitaet":5,"beruf":4,"soziales":4},"quelle":"Raphael"},
+      "2":  {"text_de":"Verdienst durch Geist und Feder. Handel, Schreiben, Kommunikation einträglich. Finanziell variabel.",                 "vektor":{"beruf":4,"finanzen":3,"kreativitaet":4},"quelle":"Sepharial"},
+      "3":  {"text_de":"Exzellente Kommunikationsfähigkeiten. Schreiben, Reden, Lernen sehr günstig. Viele kurze Reisen.",                    "vektor":{"kreativitaet":5,"soziales":5,"beruf":4},"quelle":"Raphael"},
+      "4":  {"text_de":"Intellektuelle Familienatmosphäre. Studium von Geschichte und Traditionen. Spät im Leben schreibend.",                 "vektor":{"kreativitaet":3,"soziales":3,"spiritualitaet":3},"quelle":"Sepharial"},
+      "5":  {"text_de":"Kreatives Schreiben, Pädagogik. Intellektuelle Liebesbeziehungen. Spiele des Geistes.",                               "vektor":{"kreativitaet":5,"liebe":3,"beruf":4},"quelle":"Raphael"},
+      "6":  {"text_de":"Arbeit erfordert Denken und Kommunikation. Gesundheit durch Nervensystem beeinflusst. Analytisch im Beruf.",          "vektor":{"beruf":4,"gesundheit":3,"kreativitaet":4},"quelle":"Sepharial"},
+      "7":  {"text_de":"Intelligenter Partner. Verträge wichtig. Juristische Auseinandersetzungen möglich. Geistige Partnerschaften.",         "vektor":{"liebe":3,"beruf":4,"soziales":3},"quelle":"Raphael"},
+      "8":  {"text_de":"Interesse an Okkultismus, Tod und Transformation. Erbschaftsangelegenheiten kompliziert.",                            "vektor":{"spiritualitaet":4,"finanzen":3,"veraenderung":3},"quelle":"Sepharial"},
+      "9":  {"text_de":"Philosophisches Denken. Schreiben und Publizieren günstig. Weite Reisen intellektuell bereichend.",                   "vektor":{"kreativitaet":5,"spiritualitaet":4,"beruf":4},"quelle":"Raphael"},
+      "10": {"text_de":"Erfolg durch Geist und Kommunikation. Beruf in Schreiben, Recht, Handel. Öffentliche Bekanntheit.",                   "vektor":{"beruf":5,"kreativitaet":5,"soziales":4},"quelle":"Sepharial"},
+      "11": {"text_de":"Freundschaften mit Intellektuellen. Gruppen und Vereinigungen. Netzwerken günstig.",                                   "vektor":{"soziales":4,"kreativitaet":4,"beruf":3},"quelle":"Raphael"},
+      "12": {"text_de":"Verborgene geistige Arbeit. Geheime Studien. Gefahr durch falsche Freunde. Isolation des Geistes.",                   "vektor":{"spiritualitaet":4,"kreativitaet":3,"soziales":2},"quelle":"Sepharial"}
+    },
+    "venus": {
+      "1":  {"text_de":"Anziehend, liebevoll, ästhetisch. Beliebt und charmant. Guter Geschmack in allem.",                                   "vektor":{"liebe":5,"soziales":5,"kreativitaet":4},"quelle":"Sepharial"},
+      "2":  {"text_de":"Günstig für Finanzen. Verdienst durch Kunst, Schönheit oder Frauen. Freigebig aber auch verschwenderisch.",           "vektor":{"finanzen":5,"kreativitaet":4,"liebe":3},"quelle":"Raphael"},
+      "3":  {"text_de":"Liebevolle Geschwisterbeziehungen. Angenehme Reisen. Künstlerische Kommunikation. Liebeskorrespondenz.",             "vektor":{"liebe":4,"soziales":4,"kreativitaet":4},"quelle":"Sepharial"},
+      "4":  {"text_de":"Harmonisches Zuhause. Schöne Häuslichkeit. Familienleben erfreulich. Gute Beziehung zur Mutter.",                    "vektor":{"liebe":4,"soziales":4,"finanzen":3},"quelle":"Raphael"},
+      "5":  {"text_de":"Romantisches Liebesleben. Künstlerische Begabung. Vergnügen und Freude. Glück mit Kindern.",                          "vektor":{"liebe":5,"kreativitaet":5,"soziales":4},"quelle":"Sepharial"},
+      "6":  {"text_de":"Angenehme Arbeitsbedingungen. Beliebte unter Kollegen. Gesundheit gut. Ästhetik im Beruf.",                          "vektor":{"beruf":4,"gesundheit":4,"soziales":4},"quelle":"Raphael"},
+      "7":  {"text_de":"Günstigste Position für Ehe. Liebevoller, schöner Partner. Harmonische Partnerschaft. Vergnügliche Ehe.",             "vektor":{"liebe":5,"soziales":5,"finanzen":3},"quelle":"Sepharial"},
+      "8":  {"text_de":"Günstige Erbschaften. Finanzielle Hilfe durch Partner. Transformation durch Liebe.",                                 "vektor":{"finanzen":4,"liebe":4,"spiritualitaet":3},"quelle":"Raphael"},
+      "9":  {"text_de":"Liebe zu Philosophie und Religion. Romantische Auslandserfahrungen. Künstlerische Reisen.",                           "vektor":{"spiritualitaet":4,"liebe":4,"kreativitaet":4},"quelle":"Sepharial"},
+      "10": {"text_de":"Erfolg durch Kunst, Schönheit oder weibliche Qualitäten. Öffentliche Beliebtheit. Berufsglück.",                     "vektor":{"beruf":4,"soziales":5,"kreativitaet":5},"quelle":"Raphael"},
+      "11": {"text_de":"Viele Freunde, besonders Frauen. Soziale Kreise angenehm. Wünsche werden erfüllt durch Freunde.",                    "vektor":{"soziales":5,"liebe":4,"finanzen":3},"quelle":"Sepharial"},
+      "12": {"text_de":"Verborgene Liebesaffären. Romantische Geheimnisse. Selbstaufopferung in Liebe.",                                     "vektor":{"liebe":3,"spiritualitaet":4,"soziales":2},"quelle":"Raphael"}
+    },
+    "mars": {
+      "1":  {"text_de":"Energisch, mutig, kämpferisch. Verletzungsrisiko am Gesicht. Initiativ und unerschrocken. Streitbar.",                "vektor":{"beruf":4,"gesundheit":2,"veraenderung":4,"liebe":2},"quelle":"Sepharial"},
+      "2":  {"text_de":"Verdienst durch Energie und Unternehmung, aber auch Verluste durch Leichtsinn. Geld kommt und geht.",                 "vektor":{"finanzen":3,"beruf":3,"veraenderung":3},"quelle":"Raphael"},
+      "3":  {"text_de":"Scharfe Zunge. Streit mit Geschwistern oder Nachbarn. Reiselust. Technisches Schreiben.",                            "vektor":{"soziales":2,"kreativitaet":3,"veraenderung":3},"quelle":"Sepharial"},
+      "4":  {"text_de":"Unruhiges Familienleben. Konflikte im Haus. Immobilienaktivität. Ende des Lebens aktiv.",                            "vektor":{"soziales":2,"finanzen":3,"veraenderung":4},"quelle":"Raphael"},
+      "5":  {"text_de":"Leidenschaftliche Liebesbeziehungen. Risikosportarten. Kreative Energie. Gefahren durch Spiel.",                     "vektor":{"liebe":3,"kreativitaet":4,"gesundheit":2},"quelle":"Sepharial"},
+      "6":  {"text_de":"Fieberhafte Erkrankungen. Konflikte mit Untergebenen. Harte Arbeitsmoral. Verletzungsrisiko.",                       "vektor":{"gesundheit":2,"beruf":3,"soziales":2},"quelle":"Raphael"},
+      "7":  {"text_de":"Streit in der Ehe. Kämpferischer Partner. Offene Feinde. Ehe nach Konflikten möglich.",                              "vektor":{"liebe":2,"soziales":2,"veraenderung":4},"quelle":"Sepharial"},
+      "8":  {"text_de":"Gefahr durch Gewalt. Erbe durch Streit gefährdet. Intensive Transformation. Sexuelle Stärke.",                       "vektor":{"gesundheit":2,"finanzen":2,"veraenderung":5},"quelle":"Raphael"},
+      "9":  {"text_de":"Religiöse Streitigkeiten. Abenteuerliche Reisen. Durchsetzungsstark in Überzeugungen.",                              "vektor":{"spiritualitaet":3,"veraenderung":4,"beruf":2},"quelle":"Sepharial"},
+      "10": {"text_de":"Ehrgeizige Karriere. Durchsetzungskraft im Beruf. Mögliche Feinde in höheren Positionen. Militärisches.",           "vektor":{"beruf":4,"veraenderung":4,"soziales":2},"quelle":"Raphael"},
+      "11": {"text_de":"Streit mit Freunden. Kämpferische soziale Umgebung. Energie in Gruppenaktivitäten.",                                 "vektor":{"soziales":2,"beruf":3,"veraenderung":3},"quelle":"Sepharial"},
+      "12": {"text_de":"Verborgene Feinde. Selbstuntergrabende Impulse. Aktivität hinter den Kulissen. Stärke in der Stille.",              "vektor":{"spiritualitaet":3,"gesundheit":2,"veraenderung":4},"quelle":"Raphael"}
+    },
+    "jupiter": {
+      "1":  {"text_de":"Glückliches, gutmütiges Wesen. Körperfülle möglich. Optimismus und Großzügigkeit. Gute Gesundheit.",                 "vektor":{"gesundheit":4,"soziales":4,"beruf":4,"liebe":4},"quelle":"Sepharial"},
+      "2":  {"text_de":"Beste Position für Wohlstand. Reichtum durch Großzügigkeit der Umwelt. Finanzglück.",                               "vektor":{"finanzen":5,"beruf":4,"liebe":3},"quelle":"Raphael"},
+      "3":  {"text_de":"Erfolg durch Kommunikation. Günstige kurze Reisen. Gute Geschwisterbeziehungen. Bildungsglück.",                    "vektor":{"soziales":4,"kreativitaet":4,"beruf":4},"quelle":"Sepharial"},
+      "4":  {"text_de":"Glückliches Familienleben. Reichtum durch Immobilien. Wohlstand im Alter. Schützende Familienatmosphäre.",          "vektor":{"soziales":4,"finanzen":4,"veraenderung":2},"quelle":"Raphael"},
+      "5":  {"text_de":"Viel Freude, Vergnügen, Glück in der Liebe. Kreativität aufgewertet. Kinder als Segen.",                           "vektor":{"liebe":5,"kreativitaet":5,"soziales":4},"quelle":"Sepharial"},
+      "6":  {"text_de":"Hervorragende Gesundheit. Beliebt bei Untergebenen. Angenehme Arbeit. Beruf im Dienst an anderen.",                 "vektor":{"gesundheit":5,"beruf":4,"soziales":4},"quelle":"Raphael"},
+      "7":  {"text_de":"Sehr günstig für Ehe mit wohlhabender Person. Harmonische Partnerschaften. Glück durch Partner.",                   "vektor":{"liebe":5,"finanzen":4,"soziales":4},"quelle":"Sepharial"},
+      "8":  {"text_de":"Günstige Erbschaften. Glück in Todesfällen anderer. Lange Lebensdauer. Ruhiges Lebensende.",                        "vektor":{"finanzen":4,"gesundheit":4,"spiritualitaet":3},"quelle":"Raphael"},
+      "9":  {"text_de":"Stärkste geistig-spirituelle Position. Philosophie, Recht, Auslandsreisen sehr günstig. Bildungserfolg.",           "vektor":{"spiritualitaet":5,"kreativitaet":4,"beruf":4},"quelle":"Sepharial"},
+      "10": {"text_de":"Berufsglück und öffentliche Anerkennung. Erfolg in gehobenen Positionen. Ehrungen möglich.",                        "vektor":{"beruf":5,"soziales":5,"finanzen":4},"quelle":"Raphael"},
+      "11": {"text_de":"Beste Position für Freundschaft. Einflussreiche Bekannte. Soziale Ziele erfüllt. Popularität.",                      "vektor":{"soziales":5,"beruf":4,"finanzen":3},"quelle":"Sepharial"},
+      "12": {"text_de":"Schutz vor verborgenen Feinden. Wohltätige Aktivitäten. Stärke in Isolation. Spirituelle Einsicht.",               "vektor":{"spiritualitaet":5,"gesundheit":4,"soziales":3},"quelle":"Raphael"}
+    },
+    "saturn": {
+      "1":  {"text_de":"Ernst, zurückhaltend, methodisch. Gesundheit empfindlich. Lebensweg durch Disziplin geprägt.",                       "vektor":{"gesundheit":2,"beruf":4,"liebe":2,"veraenderung":3},"quelle":"Sepharial"},
+      "2":  {"text_de":"Langsamer aber beständiger finanzieller Aufbau. Geiz möglich. Verdienst durch Beharrlichkeit.",                     "vektor":{"finanzen":3,"beruf":4,"liebe":2},"quelle":"Raphael"},
+      "3":  {"text_de":"Schwere Gedanken, melancholische Kommunikation. Probleme mit Geschwistern oder Nachbarn. Gründlichkeit.",            "vektor":{"soziales":2,"kreativitaet":3,"veraenderung":2},"quelle":"Sepharial"},
+      "4":  {"text_de":"Schwere Kindheit oder Heimverhältnisse. Einschränkungen durch Familie. Späteres Heimglück möglich.",               "vektor":{"soziales":2,"finanzen":2,"veraenderung":3},"quelle":"Raphael"},
+      "5":  {"text_de":"Wenige Kinder oder späte Elternschaft. Ernsthafter Zugang zu Liebe. Kreativität durch Beschränkungen.",             "vektor":{"liebe":2,"kreativitaet":3,"veraenderung":2},"quelle":"Sepharial"},
+      "6":  {"text_de":"Chronische Gesundheitsprobleme möglich. Harte Arbeitsbedingungen. Pflichtbewusstsein im Beruf.",                    "vektor":{"gesundheit":2,"beruf":3,"soziales":2},"quelle":"Raphael"},
+      "7":  {"text_de":"Späte Ehe mit älterem oder ernstem Partner. Eheliche Pflichten und Einschränkungen. Scheidungsrisiko.",             "vektor":{"liebe":2,"soziales":2,"veraenderung":3},"quelle":"Sepharial"},
+      "8":  {"text_de":"Eingeschränkte Erbschaften. Lebensende nach langer Krankheit möglich. Interesse an Tod und Vergänglichkeit.",       "vektor":{"finanzen":2,"gesundheit":2,"spiritualitaet":4},"quelle":"Raphael"},
+      "9":  {"text_de":"Orthodoxe religiöse Ansichten. Schwere Reisen. Rechtliche Einschränkungen. Ernsthafter Bildungsweg.",              "vektor":{"spiritualitaet":3,"veraenderung":2,"beruf":3},"quelle":"Sepharial"},
+      "10": {"text_de":"Langsamer, beständiger Berufsaufstieg. Späterer Erfolg durch Ausdauer. Führungspositionen durch Geduld.",           "vektor":{"beruf":4,"veraenderung":2,"soziales":2},"quelle":"Raphael"},
+      "11": {"text_de":"Wenige aber loyale Freunde. Soziale Einschränkungen. Ältere Freundeskreise. Ziele durch Disziplin.",               "vektor":{"soziales":2,"beruf":3,"veraenderung":2},"quelle":"Sepharial"},
+      "12": {"text_de":"Isolation und Einschränkungen. Verborgene Feinde. Karma. Stärke durch Rückzug und Kontemplation.",                 "vektor":{"spiritualitaet":4,"gesundheit":2,"soziales":1},"quelle":"Raphael"}
+    },
+    "uranus": {
+      "1":  {"text_de":"Exzentrische, originelle Persönlichkeit. Unerwartete Lebenswendungen. Elektrische Ausstrahlung. Unberechenbar.",    "vektor":{"veraenderung":5,"kreativitaet":5,"soziales":3},"quelle":"DeVore"},
+      "2":  {"text_de":"Plötzliche finanzielle Gewinne und Verluste. Ungewöhnliche Einkommensquellen. Instabile Finanzen.",                 "vektor":{"finanzen":3,"veraenderung":5,"beruf":3},"quelle":"DeVore"},
+      "3":  {"text_de":"Geniale, originelle Ideen. Ungewöhnliche Kommunikationsformen. Technologie in Kommunikation.",                     "vektor":{"kreativitaet":5,"soziales":3,"veraenderung":4},"quelle":"DeVore"},
+      "4":  {"text_de":"Häufige Umzüge. Ungewöhnliche Heimverhältnisse. Plötzliche Änderungen im Familienleben.",                          "vektor":{"veraenderung":5,"soziales":2,"finanzen":3},"quelle":"DeVore"},
+      "5":  {"text_de":"Ungewöhnliche Liebesbeziehungen. Kreativität und Originalität in Kunst. Exzentrische Kinder.",                     "vektor":{"liebe":3,"kreativitaet":5,"veraenderung":4},"quelle":"DeVore"},
+      "6":  {"text_de":"Nervöse Gesundheitsprobleme. Ungewöhnliche Berufe. Technologie im Arbeitsalltag. Spontane Berufswechsel.",          "vektor":{"gesundheit":3,"beruf":3,"veraenderung":4},"quelle":"DeVore"},
+      "7":  {"text_de":"Unkonventionelle Ehe oder Partnerschaft. Häufige Trennungen. Partner originell oder exzentrisch.",                 "vektor":{"liebe":3,"veraenderung":5,"soziales":3},"quelle":"DeVore"},
+      "8":  {"text_de":"Unerwartete Erbschaften oder Verluste. Interesse an Okkultem und Transformation.",                                 "vektor":{"finanzen":3,"veraenderung":5,"spiritualitaet":4},"quelle":"DeVore"},
+      "9":  {"text_de":"Reformerische Weltanschauung. Ungewöhnliche Religion. Plötzliche weite Reisen. Revolutionäre Ideen.",              "vektor":{"spiritualitaet":4,"kreativitaet":5,"veraenderung":4},"quelle":"DeVore"},
+      "10": {"text_de":"Ungewöhnliche Karriere. Plötzlicher Aufstieg oder Fall. Originalität im Beruf. Technologieführer.",               "vektor":{"beruf":4,"veraenderung":5,"kreativitaet":5},"quelle":"DeVore"},
+      "11": {"text_de":"Ungewöhnliche Freundeskreise. Revolutionäre Gruppen. Originelle soziale Ziele.",                                  "vektor":{"soziales":3,"kreativitaet":4,"veraenderung":4},"quelle":"DeVore"},
+      "12": {"text_de":"Verborgene revolutionäre Kräfte. Plötzliche Einschränkungen. Unerwartete Befreiungen. Okkulte Stärken.",           "vektor":{"spiritualitaet":5,"veraenderung":5,"gesundheit":3},"quelle":"DeVore"}
+    },
+    "neptun": {
+      "1":  {"text_de":"Sensitiv, mediumistisch, idealistisch. Selbsttäuschung möglich. Künstlerische, mystische Ausstrahlung.",           "vektor":{"spiritualitaet":5,"kreativitaet":5,"gesundheit":2},"quelle":"DeVore"},
+      "2":  {"text_de":"Finanzielle Unklarheiten und Täuschungen. Idealistisches Verhältnis zu Geld. Verluste durch Betrug möglich.",      "vektor":{"finanzen":2,"spiritualitaet":3,"veraenderung":3},"quelle":"DeVore"},
+      "3":  {"text_de":"Mediale Kommunikation. Traumhafte Gedanken. Mystische Reisen. Doppelzüngige Geschwister möglich.",                 "vektor":{"kreativitaet":5,"spiritualitaet":4,"soziales":2},"quelle":"DeVore"},
+      "4":  {"text_de":"Mystisches Zuhause. Undurchsichtige Familienverhältnisse. Spirituelle Heimatbindung.",                            "vektor":{"spiritualitaet":4,"soziales":3,"veraenderung":3},"quelle":"DeVore"},
+      "5":  {"text_de":"Romantische Illusionen in Liebe. Künstlerische Inspiration. Mystische Liebesbeziehungen.",                        "vektor":{"liebe":4,"kreativitaet":5,"spiritualitaet":4},"quelle":"DeVore"},
+      "6":  {"text_de":"Mysteriöse Erkrankungen. Psychosomatische Beschwerden. Dienst am Nächsten durch spirituelle Berufung.",           "vektor":{"gesundheit":2,"spiritualitaet":4,"beruf":3},"quelle":"DeVore"},
+      "7":  {"text_de":"Idealisierter oder täuschender Partner. Mystische Verbindung in Ehe. Auflösung von Partnerschaften.",             "vektor":{"liebe":3,"spiritualitaet":4,"veraenderung":4},"quelle":"DeVore"},
+      "8":  {"text_de":"Undurchsichtige Erbschaftsangelegenheiten. Intensives spirituelles Erleben. Mystischer Tod.",                     "vektor":{"spiritualitaet":5,"finanzen":2,"veraenderung":4},"quelle":"DeVore"},
+      "9":  {"text_de":"Mystische Philosophie und Religion. Psychische Reisen. Visionäre Weltanschauung.",                                "vektor":{"spiritualitaet":5,"kreativitaet":5,"veraenderung":3},"quelle":"DeVore"},
+      "10": {"text_de":"Beruf in Spiritualität, Kunst, Medizin. Öffentliche Täuschungen möglich. Mystischer Ruf.",                        "vektor":{"beruf":3,"spiritualitaet":4,"veraenderung":4},"quelle":"DeVore"},
+      "11": {"text_de":"Idealistische Freundschaften. Spirituelle Gruppen. Täuschungen durch Freunde. Mystische soziale Ziele.",          "vektor":{"soziales":3,"spiritualitaet":4,"veraenderung":3},"quelle":"DeVore"},
+      "12": {"text_de":"Stärkste Position für Neptun. Tiefe Spiritualität. Verborgene Kräfte. Mystische Einsichten. Isolation.",          "vektor":{"spiritualitaet":5,"gesundheit":2,"veraenderung":4},"quelle":"DeVore"}
+    }
+  },
+
+  "transit_rules": {
+    "_intro": "Transite beschreiben den Einfluss aktuell bewegender Planeten auf die Geburtsposition (Natal) von Planeten und Häusern. Quelle: Sepharial Section IV Chapter II; Raphael Chapter V",
+    "sonne": {
+      "konjunktion": {
+        "text_de": "Verstärkte Lebenskraft, Selbstbewusstsein und Vitalität. Die eigene Sonne-Energie wird belebt. Günstig für neue Anfänge und Selbstdarstellung. Günstiger Zeitraum für Gesundheit und Vitalität.",
+        "vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":4,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":3},
+        "quelle":"Sepharial S.101, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Harmonischer Fluss der Lebensenergie. Dinge gelingen mit wenig Aufwand. Kreativität und soziale Anziehungskraft hoch. Gunst von Autoritätspersonen.",
+        "vektor": {"liebe":4,"beruf":4,"finanzen":3,"gesundheit":4,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.101, Raphael S.166"
+      },
+      "sextil": {
+        "text_de": "Günstige Gelegenheiten durch eigene Initiative. Kontakte mit Einflussreichen. Kleiner Glückszeitraum.",
+        "vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":3,"spiritualitaet":2},
+        "quelle":"Sepharial S.101"
+      },
+      "quadrat": {
+        "text_de": "Spannungen zwischen Wille und äußeren Umständen. Autoritätskonflikte. Anstrengung nötig, aber Wachstum möglich. Gesundheitliche Belastungen.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":4,"spiritualitaet":2},
+        "quelle":"Sepharial S.101, Raphael S.166"
+      },
+      "opposition": {
+        "text_de": "Konflikte mit anderen oder innere Polarität zwischen Ich und Welt. Kompromisse und Anpassung gefordert. Partnerschaftsprobleme möglich.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.101"
+      },
+      "halbquadrat": {
+        "text_de": "Leichte Reibung und Irritationen. Kleine Hindernisse. Geduld gefragt.",
+        "vektor": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":2,"spiritualitaet":3},
+        "quelle":"Raphael S.166"
+      }
+    },
+    "mond": {
+      "konjunktion": {
+        "text_de": "Erhöhte Emotionalität und Intuition. Familienleben im Fokus. Träume lebhafter. Stimmungssensibilität. Mutterthemen werden aktiviert.",
+        "vektor": {"liebe":4,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.103, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Emotionale Harmonie und Ausgeglichenheit. Gute Zeit für Familiäres und Beziehungspflege. Intuition treffsicher. Wohlbefinden hoch.",
+        "vektor": {"liebe":5,"beruf":3,"finanzen":3,"gesundheit":4,"soziales":5,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3},
+        "quelle":"Sepharial S.103"
+      },
+      "sextil": {
+        "text_de": "Angenehme Begegnungen, besonders mit Frauen. Emotionale Leichtigkeit. Günstig für Alltag und Routinen.",
+        "vektor": {"liebe":4,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":3,"veraenderung":2,"spiritualitaet":2},
+        "quelle":"Raphael S.166"
+      },
+      "quadrat": {
+        "text_de": "Emotionale Irritationen und Launenhaftigkeit. Missverständnisse in Beziehungen. Nerven angespannt. Häusliche Spannungen.",
+        "vektor": {"liebe":2,"beruf":3,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.103, Raphael S.166"
+      },
+      "opposition": {
+        "text_de": "Emotionale Überforderung oder Entfremdung. Frauen oder Familienmitglieder als Spannungsquelle. Heimliche Schwermut.",
+        "vektor": {"liebe":2,"beruf":3,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.103"
+      },
+      "konjunktion_mond": {
+        "text_de": "Mondumläufe (monatlich) über Geburtsmond: Besonders emotionaler Monatsperiod. Gefühle intensiviert. Guter Zeitpunkt für emotionale Entscheidungen.",
+        "vektor": {"liebe":4,"gesundheit":3,"soziales":4,"kreativitaet":4,"spiritualitaet":3},
+        "quelle":"Raphael S.167"
+      }
+    },
+    "merkur": {
+      "konjunktion": {
+        "text_de": "Geistiger Fokus und Kommunikationsfreude. Verträge und Gespräche günstig. Reisen nützlich. Neue Ideen und Pläne entstehen.",
+        "vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":2},
+        "quelle":"Sepharial S.102, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Klares Denken und überzeugende Kommunikation. Lernen, Reisen und geistige Arbeit sehr günstig. Geschäftliche Gespräche erfolgreich.",
+        "vektor": {"liebe":3,"beruf":5,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.102"
+      },
+      "sextil": {
+        "text_de": "Gelegenheiten durch Kommunikation und Vernetzung. Gute Zeit für Verhandlungen und schriftliche Arbeit.",
+        "vektor": {"beruf":4,"soziales":4,"kreativitaet":4,"finanzen":3},
+        "quelle":"Raphael S.166"
+      },
+      "quadrat": {
+        "text_de": "Missverständnisse und Vertragsstreitigkeiten. Reiseverzögerungen. Nervöse Überbelastung. Dokumente sorgfältig prüfen.",
+        "vektor": {"liebe":3,"beruf":2,"finanzen":3,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":2,"spiritualitaet":2},
+        "quelle":"Sepharial S.102, Raphael S.167"
+      },
+      "opposition": {
+        "text_de": "Meinungsverschiedenheiten und Missverständnisse. Andere hören kaum zu. Geistige Erschöpfung möglich.",
+        "vektor": {"beruf":2,"soziales":2,"kreativitaet":3,"finanzen":3},
+        "quelle":"Sepharial S.102"
+      },
+      "retrograd": {
+        "text_de": "Merkur rückläufig: Kommunikation, Technik und Verträge fehleranfällig. Nichts Neues unterschreiben. Revision und Nachdenken günstig.",
+        "vektor": {"beruf":2,"soziales":2,"kreativitaet":3,"finanzen":2,"veraenderung":3},
+        "quelle":"Allgemein anerkannte Astrologie-Tradition"
+      }
+    },
+    "venus": {
+      "konjunktion": {
+        "text_de": "Liebesleben aufblühend und intensiviert. Schönheit, Harmonie und soziale Erfolge günstig. Finanzielle Gewinne möglich. Kunstschaffende Zeit.",
+        "vektor": {"liebe":5,"beruf":3,"finanzen":4,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3},
+        "quelle":"Sepharial S.102, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Harmonische Liebesenergie und gesellschaftliche Beliebtheit. Geld fließt leichter. Künstlerische Inspiration hoch. Glückliche soziale Anlässe.",
+        "vektor": {"liebe":5,"beruf":3,"finanzen":4,"gesundheit":4,"soziales":5,"kreativitaet":5,"veraenderung":2,"spiritualitaet":3},
+        "quelle":"Sepharial S.102"
+      },
+      "sextil": {
+        "text_de": "Angenehme soziale Kontakte. Liebesbeziehungen durch eigenes Zutun begünstigt. Ästhetik und Vergnügen im Alltag.",
+        "vektor": {"liebe":4,"finanzen":3,"soziales":4,"kreativitaet":4},
+        "quelle":"Raphael S.166"
+      },
+      "quadrat": {
+        "text_de": "Liebesstreitigkeiten und Eifersucht. Geldausgaben impulsiv und übertrieben. Soziale Missverständnisse. Genuss über Pflicht gestellt.",
+        "vektor": {"liebe":2,"beruf":3,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":2,"spiritualitaet":2},
+        "quelle":"Sepharial S.102, Raphael S.167"
+      },
+      "opposition": {
+        "text_de": "Beziehungsspannungen und Unzufriedenheit des Partners. Genuss gegen Pflicht abwägen. Finanzielle Abhängigkeiten.",
+        "vektor": {"liebe":1,"beruf":3,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":2},
+        "quelle":"Sepharial S.102"
+      }
+    },
+    "mars": {
+      "konjunktion": {
+        "text_de": "Hohe Energie, Tatendrang und Entschlossenheit. Achtung: Impulsivität, Aggressivität und Streitsucht. Neue Unternehmungen begünstigt. Verletzungsrisiko.",
+        "vektor": {"liebe":2,"beruf":4,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":1},
+        "quelle":"Sepharial S.103, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Zielgerichtete Energie ohne Aggression. Sportliche, handwerkliche und berufliche Leistungen hoch. Mutige Entscheidungen gelingen.",
+        "vektor": {"liebe":3,"beruf":5,"finanzen":3,"gesundheit":4,"soziales":3,"kreativitaet":4,"veraenderung":4,"spiritualitaet":2},
+        "quelle":"Sepharial S.103"
+      },
+      "sextil": {
+        "text_de": "Konstruktive Energie für Projekte. Initiative und Selbstsicherheit. Günstig für körperliche Aktivitäten.",
+        "vektor": {"beruf":4,"gesundheit":4,"kreativitaet":3,"veraenderung":3},
+        "quelle":"Raphael S.166"
+      },
+      "quadrat": {
+        "text_de": "Konflikte, Streit und Misshelligkeiten. Erhöhte Unfallgefahr. Impulshandlungen mit schlechten Folgen. Aggression von außen möglich.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":1,"kreativitaet":2,"veraenderung":4,"spiritualitaet":1},
+        "quelle":"Sepharial S.103, Raphael S.167"
+      },
+      "opposition": {
+        "text_de": "Feindschaft oder Konfrontation von außen. Offene Auseinandersetzungen mit Gegnern. Gefahr durch Streit und Gewalt. Geduld gefragt.",
+        "vektor": {"liebe":1,"beruf":1,"finanzen":2,"gesundheit":2,"soziales":1,"kreativitaet":2,"veraenderung":4,"spiritualitaet":1},
+        "quelle":"Sepharial S.103, Raphael S.167"
+      }
+    },
+    "jupiter": {
+      "konjunktion": {
+        "text_de": "Großes Glück, Expansion und Optimismus. Einer der günstigsten Transite überhaupt. Neue Möglichkeiten und Reichtum erschließen sich. Gesundheit hervorragend.",
+        "vektor": {"liebe":4,"beruf":5,"finanzen":5,"gesundheit":5,"soziales":5,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4},
+        "quelle":"Sepharial S.103, Raphael S.166"
+      },
+      "trine": {
+        "text_de": "Fluss von Glück und Wohlwollen. Erfolg ohne große Anstrengung. Günstige Gelegenheiten öffnen sich. Optimistische Grundstimmung.",
+        "vektor": {"liebe":4,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":4},
+        "quelle":"Sepharial S.103"
+      },
+      "sextil": {
+        "text_de": "Günstige Gelegenheiten in Beruf und sozialem Umfeld. Kleine Glücksmomente. Optimismus und Wohlwollen.",
+        "vektor": {"beruf":4,"finanzen":4,"soziales":4,"spiritualitaet":3},
+        "quelle":"Raphael S.166"
+      },
+      "quadrat": {
+        "text_de": "Übertreibung, Selbstüberschätzung und Verschwendung. Juristische Probleme möglich. Überexpansion führt zu Rückschlägen. Maß halten.",
+        "vektor": {"liebe":3,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.104, Raphael S.167"
+      },
+      "opposition": {
+        "text_de": "Zu große Erwartungen und Enttäuschungen. Verschwendung durch anderen. Juristische Auseinandersetzungen. Anmaßung.",
+        "vektor": {"liebe":3,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.104"
+      }
+    },
+    "saturn": {
+      "konjunktion": {
+        "text_de": "Prüfungen, Einschränkungen und Verantwortung. Saturn-Rückkehr (ca. 29 Jahre) als Lebenswende. Langfristig lehrreich. Gesundheitliche und finanzielle Belastungen.",
+        "vektor": {"liebe":2,"beruf":3,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":4,"spiritualitaet":4},
+        "quelle":"Sepharial S.104, Raphael S.167"
+      },
+      "trine": {
+        "text_de": "Stabilität und Struktur durch Disziplin. Langfristige Ziele kommen in Reichweite. Berufsglück durch Beharrlichkeit. Konservative Stärke.",
+        "vektor": {"liebe":3,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":3,"kreativitaet":2,"veraenderung":2,"spiritualitaet":3},
+        "quelle":"Sepharial S.104"
+      },
+      "sextil": {
+        "text_de": "Strukturiertes Vorankommen. Zuverlässige Allianzen. Gute Zeit für langfristige Planung.",
+        "vektor": {"beruf":4,"finanzen":4,"gesundheit":3,"soziales":3},
+        "quelle":"Raphael S.167"
+      },
+      "quadrat": {
+        "text_de": "Hindernisse, Rückschläge und Erschöpfung. Einschränkungen von allen Seiten. Geduld und Ausdauer erforderlich. Finanzielle Engpässe.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":2,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.104, Raphael S.167"
+      },
+      "opposition": {
+        "text_de": "Äußere Widerstände und schwierige Autoritäten. Isolation und Einsamkeit. Beziehungsbelastungen durch Pflichten. Schwere Prüfung.",
+        "vektor": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":1,"kreativitaet":2,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"Sepharial S.104, Raphael S.167"
+      }
+    },
+    "uranus": {
+      "konjunktion": {
+        "text_de": "Plötzliche und unerwartete Veränderungen. Umbrüche in Struktur und Gewohnheiten. Befreiung aus alten Mustern. Unvorhersehbare Ereignisse.",
+        "vektor": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":5,"veraenderung":5,"spiritualitaet":4},
+        "quelle":"DeVore S.341"
+      },
+      "trine": {
+        "text_de": "Innovative Energie und originelle Lösungen. Plötzlich günstige Wendungen. Freiheitliches Denken führt zum Erfolg. Originalität belohnt.",
+        "vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":5,"veraenderung":4,"spiritualitaet":4},
+        "quelle":"DeVore S.342"
+      },
+      "sextil": {
+        "text_de": "Ungewöhnliche Gelegenheiten. Kontakte mit Originellen. Technologische Vorteile.",
+        "vektor": {"beruf":4,"kreativitaet":4,"veraenderung":3},
+        "quelle":"DeVore S.342"
+      },
+      "quadrat": {
+        "text_de": "Aufruhr, Rebellion und unerwartete Krisen. Festhalten an Gewohnheiten hilft nicht. Plötzliche Verluste oder Brüche. Innere und äußere Spannungen.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":3},
+        "quelle":"DeVore S.342"
+      },
+      "opposition": {
+        "text_de": "Starke Polarität zwischen Freiheit und Bindung. Trennungen oder Brüche in Beziehungen. Extremer Drang nach Unabhängigkeit.",
+        "vektor": {"liebe":1,"beruf":2,"finanzen":2,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":3},
+        "quelle":"DeVore S.343"
+      }
+    },
+    "neptun": {
+      "konjunktion": {
+        "text_de": "Auflösung von Grenzen und Strukturen. Idealismus und spirituelle Öffnung. Selbsttäuschungen und Illusionen möglich. Kreativität und Inspiration sehr hoch.",
+        "vektor": {"liebe":4,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":3,"kreativitaet":5,"veraenderung":4,"spiritualitaet":5},
+        "quelle":"DeVore S.290"
+      },
+      "trine": {
+        "text_de": "Spirituelle Harmonie und mystische Erfahrungen. Künstlerische Inspiration auf Höchstniveau. Romantischer Idealismus beflügelt.",
+        "vektor": {"liebe":4,"beruf":3,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":5,"veraenderung":3,"spiritualitaet":5},
+        "quelle":"DeVore S.291"
+      },
+      "sextil": {
+        "text_de": "Spirituelle Gelegenheiten. Künstlerische Impulse. Mitgefühl und Einfühlungsvermögen erhöht.",
+        "vektor": {"kreativitaet":4,"spiritualitaet":4,"liebe":3},
+        "quelle":"DeVore S.291"
+      },
+      "quadrat": {
+        "text_de": "Selbsttäuschung, Verwirrung und Flucht in Illusionen. Realitätsverlust möglich. Suchtgefährdung. Täuschungen durch andere.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"DeVore S.292"
+      },
+      "opposition": {
+        "text_de": "Täuschungen durch andere. Betrug und Illusionen in Beziehungen. Undurchsichtige Situationen. Grenzauflösung.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":1,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":3,"spiritualitaet":3},
+        "quelle":"DeVore S.292"
+      }
+    },
+    "pluto": {
+      "konjunktion": {
+        "text_de": "Tiefe Transformation und erzwungener Wandel. Tod und Wiedergeburt alter Lebensmuster. Mächtige, oft schmerzhafte Veränderung. Kein Zurück.",
+        "vektor": {"liebe":3,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":5},
+        "quelle":"DeVore S.310"
+      },
+      "trine": {
+        "text_de": "Transformative Energie fließt harmonisch. Tiefe Erneuerung ohne Trauma. Verborgene Stärken werden nutzbar.",
+        "vektor": {"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":3,"kreativitaet":4,"veraenderung":4,"spiritualitaet":5},
+        "quelle":"DeVore S.311"
+      },
+      "sextil": {
+        "text_de": "Gelegenheit zur Transformation. Verborgene Ressourcen zugänglich. Tiefgreifende Einblicke möglich.",
+        "vektor": {"veraenderung":4,"spiritualitaet":4,"kreativitaet":3},
+        "quelle":"DeVore S.311"
+      },
+      "quadrat": {
+        "text_de": "Machtkämpfe, Zwang und Kontrollverlust. Tiefgreifende Krisen. Altes muss sterben, damit Neues entsteht. Widerstand oft sinnlos.",
+        "vektor": {"liebe":2,"beruf":2,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":4},
+        "quelle":"DeVore S.312"
+      },
+      "opposition": {
+        "text_de": "Externe Mächte erzwingen Transformation. Widerstand ist meist zwecklos. Machtkämpfe mit anderen. Tiefgreifende Systemkrise.",
+        "vektor": {"liebe":2,"beruf":1,"finanzen":2,"gesundheit":2,"soziales":2,"kreativitaet":3,"veraenderung":5,"spiritualitaet":4},
+        "quelle":"DeVore S.312"
+      }
+    }
+  },
+
+  "aspects_to_natal_planets": {
+    "_intro": "Wenn ein Transit-Planet einen Aspekt zum Natal-Planeten bildet, kombinieren sich die Naturen beider Planeten. Die Hausposition des Natal-Planeten verstärkt den Effekt.",
+    "venus_zu_mars": {
+      "trine":    {"text_de":"Leidenschaft und Harmonie verbunden. Liebesenergie mit Tatendrang. Romantik und Abenteuerlust.",              "vektor":{"liebe":5,"kreativitaet":4}},
+      "quadrat":  {"text_de":"Spannungen zwischen Liebe und Begehren. Eifersucht. Impulsive romantische Entscheidungen.",                  "vektor":{"liebe":2,"veraenderung":4}},
+      "opposition":{"text_de":"Anziehung und Abstoßung gleichzeitig. Leidenschaftliche Konflikte. Wunsch nach Liebe vs. Freiheit.",        "vektor":{"liebe":3,"veraenderung":4}}
+    },
+    "jupiter_zu_saturn": {
+      "trine":    {"text_de":"Optimismus trifft Struktur. Expansion mit Beständigkeit. Langfristiger Erfolg durch große Pläne.",           "vektor":{"beruf":5,"finanzen":4}},
+      "quadrat":  {"text_de":"Expansion vs. Einschränkung. Frustrierte Ambitionen. Vorsicht mit Überexpansion.",                          "vektor":{"beruf":2,"finanzen":2}},
+      "konjunktion":{"text_de":"Große Lebenszyklen (20 Jahre). Neuausrichtung zwischen Wachstum und Begrenzung.",                         "vektor":{"beruf":3,"veraenderung":5}}
+    },
+    "saturn_zu_mond": {
+      "trine":    {"text_de":"Emotionale Reife und Stabilität. Familienpflichten erfüllt. Sicherheit durch Beständigkeit.",               "vektor":{"soziales":4,"gesundheit":4}},
+      "quadrat":  {"text_de":"Emotionale Kälte oder Schwere. Familiäre Belastungen. Einschränkungen im Gefühlsleben.",                    "vektor":{"liebe":2,"gesundheit":2}},
+      "konjunktion":{"text_de":"Saturn-Mond-Periode: Ernste Lebensphase. Pflichten dominieren. Melancholie möglich.",                    "vektor":{"liebe":2,"soziales":2,"veraenderung":3}}
+    },
+    "uranus_zu_sonne": {
+      "trine":    {"text_de":"Befreiung und Originalität. Plötzliche Gelegenheiten. Authentizität wird belohnt.",                         "vektor":{"beruf":4,"kreativitaet":5,"veraenderung":4}},
+      "quadrat":  {"text_de":"Aufruhr in Identität und Ego. Plötzliche Brüche. Rebellion gegen Autoritäten.",                             "vektor":{"beruf":2,"veraenderung":5}},
+      "opposition":{"text_de":"Midlife-Crisis-Energie (ca. 42 Jahre). Drang nach Freiheit und Neuanfang. Lebenswende.",                  "vektor":{"veraenderung":5,"liebe":2}}
+    }
+  },
+
+  "natal_sign_interpretations": {
+    "_intro": "Vollständige Charakterinterpretationen aller 12 Zeichen nach Sepharial, Raphael und DeVore.",
+    "widder": {
+      "symbol":"♈", "element":"feuer", "qualitaet":"kardinal", "herrscher":"mars",
+      "charakter_de":"Dynamisch, pionierfreudig, direkt, impulsiv, mutig, ungeduldig, durchsetzungsstark, egoistisch, begeisterungsfähig.",
+      "staerken":["Initiative","Mut","Führungsqualität","Begeisterung","Direktheit"],
+      "schwaechen":["Ungeduld","Impulsivität","Rücksichtslosigkeit","Egoismus","Ungeduld"],
+      "liebe_de":"Leidenschaftlich aber ungeduldig; sucht Abenteuer in Beziehungen; braucht Unabhängigkeit.",
+      "beruf_de":"Pionier, Unternehmer, Führungskraft; langweilt sich bei Routine; stark beim Beginn von Projekten.",
+      "persoenlichkeit_vektor":{"durchsetzung":5,"geduld":1,"initiative":5,"ausdauer":2,"empathie":2,"kreativitaet":3,"ordnung":2,"soziales":3},
+      "dimensionen_vektor":{"liebe":3,"beruf":4,"finanzen":2,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":4,"spiritualitaet":2},
+      "quelle":"Sepharial S.45-46, Raphael S.61"
+    },
+    "stier": {
+      "symbol":"♉", "element":"erde", "qualitaet":"fix", "herrscher":"venus",
+      "charakter_de":"Beständig, sinnenfreudig, geduldig, zuverlässig, stur, besitzergreifend, genussorientiert, materiell.",
+      "staerken":["Zuverlässigkeit","Geduld","Ausdauer","Sinnesfreude","Praktisches Denken"],
+      "schwaechen":["Sturheit","Materialismus","Eifersucht","Veränderungsresistenz","Besitzgier"],
+      "liebe_de":"Treu, sinnlich und besitzergreifend; braucht Sicherheit und Beständigkeit; sehr eifersüchtig wenn bedroht.",
+      "beruf_de":"Ausdauernd und zuverlässig in allem; sehr gut in Finanzen, Landwirtschaft, Kunst und handwerklichen Berufen.",
+      "persoenlichkeit_vektor":{"durchsetzung":2,"geduld":5,"initiative":2,"ausdauer":5,"empathie":3,"kreativitaet":3,"ordnung":4,"soziales":3},
+      "dimensionen_vektor":{"liebe":4,"beruf":4,"finanzen":5,"gesundheit":3,"soziales":3,"kreativitaet":3,"veraenderung":1,"spiritualitaet":2},
+      "quelle":"Sepharial S.47-48, Raphael S.62"
+    },
+    "zwillinge": {
+      "symbol":"♊", "element":"luft", "qualitaet":"mutable", "herrscher":"merkur",
+      "charakter_de":"Vielseitig, kommunikativ, neugierig, unbeständig, geistreich, anpassungsfähig, oberflächlich, doppelseitig.",
+      "staerken":["Vielseitigkeit","Kommunikation","Intelligenz","Anpassungsfähigkeit","Neugier"],
+      "schwaechen":["Unbeständigkeit","Oberflächlichkeit","Unzuverlässigkeit","Zerstreutheit","Doppelzüngigkeit"],
+      "liebe_de":"Braucht geistige Stimulation und Abwechslung; Schwierigkeiten mit tiefer Bindung; viele Liebeserfahrungen.",
+      "beruf_de":"Exzellent in Kommunikation, Schreiben, Handel, Lehre; langweilt sich schnell und braucht Abwechslung.",
+      "persoenlichkeit_vektor":{"durchsetzung":3,"geduld":2,"initiative":4,"ausdauer":2,"empathie":3,"kreativitaet":5,"ordnung":2,"soziales":5},
+      "dimensionen_vektor":{"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":3,"spiritualitaet":2},
+      "quelle":"Sepharial S.49-50, Raphael S.63"
+    },
+    "krebs": {
+      "symbol":"♋", "element":"wasser", "qualitaet":"kardinal", "herrscher":"mond",
+      "charakter_de":"Einfühlsam, familiär, schützend, empfindlich, intuitiv, launisch, anhänglich, nachtragend.",
+      "staerken":["Empathie","Intuition","Fürsorge","Familiensinn","Emotionale Tiefe"],
+      "schwaechen":["Launenhaftigkeit","Anhänglichkeit","Empfindlichkeit","Nachtragen","Rückzug"],
+      "liebe_de":"Tief emotional und fürsorglich; sucht Geborgenheit und Familie; sehr anhänglich und bedürftig.",
+      "beruf_de":"Gut in pflegenden Berufen, Gastronomie, Immobilien; braucht emotionale Sicherheit am Arbeitsplatz.",
+      "persoenlichkeit_vektor":{"durchsetzung":2,"geduld":3,"initiative":3,"ausdauer":4,"empathie":5,"kreativitaet":4,"ordnung":3,"soziales":4},
+      "dimensionen_vektor":{"liebe":4,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":4,"kreativitaet":4,"veraenderung":3,"spiritualitaet":4},
+      "quelle":"Sepharial S.51-52, Raphael S.64"
+    },
+    "loewe": {
+      "symbol":"♌", "element":"feuer", "qualitaet":"fix", "herrscher":"sonne",
+      "charakter_de":"Großzügig, kreativ, stolz, dominant, dramatisch, herzlich, herrschsüchtig, ritterlich.",
+      "staerken":["Großzügigkeit","Führungsstärke","Kreativität","Herzlichkeit","Charisma"],
+      "schwaechen":["Arroganz","Herrschsucht","Eitelkeit","Dramatik","Sturheit"],
+      "liebe_de":"Leidenschaftlich und großzügig; braucht Bewunderung und Anerkennung; zeigt Liebe durch Gesten und Großzügigkeit.",
+      "beruf_de":"Naturgegebene Führungskraft; exzellent in Kreativberufen, Schauspiel, Führungspositionen, alle Bereiche mit Rampenlicht.",
+      "persoenlichkeit_vektor":{"durchsetzung":5,"geduld":2,"initiative":4,"ausdauer":4,"empathie":3,"kreativitaet":5,"ordnung":3,"soziales":4},
+      "dimensionen_vektor":{"liebe":4,"beruf":5,"finanzen":3,"gesundheit":4,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":2},
+      "quelle":"Sepharial S.53-54, Raphael S.64"
+    },
+    "jungfrau": {
+      "symbol":"♍", "element":"erde", "qualitaet":"mutable", "herrscher":"merkur",
+      "charakter_de":"Analytisch, perfektionistisch, hilfsbereit, kritisch, praktisch, bescheiden, fleißig, pedantisch.",
+      "staerken":["Analytisches Denken","Detailgenauigkeit","Fleiß","Hilfsbereitschaft","Praktisches Handeln"],
+      "schwaechen":["Perfektionismus","Kritiksucht","Bescheidenheit bis zur Selbstverleugnung","Pedanterie","Sorgenneigung"],
+      "liebe_de":"Zeigt Liebe durch Taten statt Worte; sehr hohe Standards; schwer zu beeindrucken; schüchtern in Liebesdingen.",
+      "beruf_de":"Detailorientiert und zuverlässig; excellent in Analyse, Medizin, Handwerk, Buchführung, Verwaltung.",
+      "persoenlichkeit_vektor":{"durchsetzung":2,"geduld":4,"initiative":3,"ausdauer":5,"empathie":4,"kreativitaet":3,"ordnung":5,"soziales":3},
+      "dimensionen_vektor":{"liebe":3,"beruf":5,"finanzen":4,"gesundheit":4,"soziales":3,"kreativitaet":3,"veraenderung":2,"spiritualitaet":3},
+      "quelle":"Sepharial S.55-56, Raphael S.65"
+    },
+    "waage": {
+      "symbol":"♎", "element":"luft", "qualitaet":"kardinal", "herrscher":"venus",
+      "charakter_de":"Harmonisch, ästhetisch, gerecht, unentschlossen, charmant, sozial, diplomatisch, idealistisch.",
+      "staerken":["Diplomatie","Ästhetischer Sinn","Gerechtigkeitsliebe","Charme","Teamfähigkeit"],
+      "schwaechen":["Unentschlossenheit","Konfliktscheu","Abhängigkeit von Partner","Oberflächlichkeit","Selbstverleugnung"],
+      "liebe_de":"Partnerschaftsorientiert; braucht Harmonie und Balance; vermeidet Konflikte oft zu sehr; romantischer Idealist.",
+      "beruf_de":"Exzellent in Diplomatie, Recht, Kunst, Design; gut im Team; entscheidungsschwach wenn allein.",
+      "persoenlichkeit_vektor":{"durchsetzung":2,"geduld":4,"initiative":2,"ausdauer":3,"empathie":5,"kreativitaet":4,"ordnung":3,"soziales":5},
+      "dimensionen_vektor":{"liebe":5,"beruf":3,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":2,"spiritualitaet":3},
+      "quelle":"Sepharial S.57-58, Raphael S.66"
+    },
+    "skorpion": {
+      "symbol":"♏", "element":"wasser", "qualitaet":"fix", "herrscher":"mars_pluto",
+      "charakter_de":"Intensiv, tiefgründig, leidenschaftlich, misstrauisch, transformativ, eifersüchtig, rachsüchtig, psychisch mächtig.",
+      "staerken":["Tiefe","Leidenschaft","Psychologische Einsicht","Ausdauer","Krisenstärke"],
+      "schwaechen":["Eifersucht","Rachsucht","Misstrauen","Obsession","Manipulationsneigung"],
+      "liebe_de":"All-oder-nichts; intensive, transformative Bindungen; Eifersucht und Leidenschaft gleichzeitig; schwierig aber tief.",
+      "beruf_de":"Exzellent in Forschung, Psychologie, Medizin, Kriminalistik, Finanzen; stark in Krisenzeiten.",
+      "persoenlichkeit_vektor":{"durchsetzung":5,"geduld":3,"initiative":4,"ausdauer":5,"empathie":4,"kreativitaet":4,"ordnung":3,"soziales":2},
+      "dimensionen_vektor":{"liebe":4,"beruf":4,"finanzen":4,"gesundheit":3,"soziales":2,"kreativitaet":4,"veraenderung":5,"spiritualitaet":5},
+      "quelle":"Sepharial S.59-60, Raphael S.66"
+    },
+    "schuetze": {
+      "symbol":"♐", "element":"feuer", "qualitaet":"mutable", "herrscher":"jupiter",
+      "charakter_de":"Optimistisch, freiheitsliebend, philosophisch, unvorsichtig, großzügig, aufrichtig, unbeständig.",
+      "staerken":["Optimismus","Weitsicht","Philosophisches Denken","Ehrlichkeit","Abenteuergeist"],
+      "schwaechen":["Unvorsichtigkeit","Bindungsangst","Übertreibung","Taktlosigkeit","Unbeständigkeit"],
+      "liebe_de":"Abenteuerlustig und ehrlich in Liebe; braucht Freiheit und Unabhängigkeit; Angst vor Bindung; philosophische Verbindungen.",
+      "beruf_de":"Exzellent in Lehre, Philosophie, Recht, Verlagswesen, Reisen, Sport; braucht Freiheit und große Ziele.",
+      "persoenlichkeit_vektor":{"durchsetzung":3,"geduld":2,"initiative":4,"ausdauer":3,"empathie":3,"kreativitaet":4,"ordnung":2,"soziales":5},
+      "dimensionen_vektor":{"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":4,"veraenderung":4,"spiritualitaet":4},
+      "quelle":"Sepharial S.61-62, Raphael S.67"
+    },
+    "steinbock": {
+      "symbol":"♑", "element":"erde", "qualitaet":"kardinal", "herrscher":"saturn",
+      "charakter_de":"Ehrgeizig, diszipliniert, praktisch, pessimistisch, verantwortungsvoll, konservativ, geduldig, kalt wirkend.",
+      "staerken":["Ehrgeiz","Disziplin","Verantwortungsbewusstsein","Ausdauer","Praktisches Denken"],
+      "schwaechen":["Pessimismus","Emotionale Kälte","Materialismus","Rigidität","Schwerfälligkeit"],
+      "liebe_de":"Reserviert und langsam in Liebe; zeigt Liebe durch Verlässlichkeit und Versorgung; Karriere geht oft vor Liebe.",
+      "beruf_de":"Größte Karriereambitionen des Tierkreises; Führungspositionen, Management, Politik; langsamer aber sicherer Aufstieg.",
+      "persoenlichkeit_vektor":{"durchsetzung":4,"geduld":5,"initiative":3,"ausdauer":5,"empathie":2,"kreativitaet":3,"ordnung":5,"soziales":2},
+      "dimensionen_vektor":{"liebe":2,"beruf":5,"finanzen":4,"gesundheit":3,"soziales":2,"kreativitaet":3,"veraenderung":2,"spiritualitaet":2},
+      "quelle":"Sepharial S.63-64, Raphael S.68"
+    },
+    "wassermann": {
+      "symbol":"♒", "element":"luft", "qualitaet":"fix", "herrscher":"saturn_uranus",
+      "charakter_de":"Unabhängig, humanistisch, originell, unberechenbar, idealistisch, unpersönlich, zukunftsorientiert.",
+      "staerken":["Originalität","Humanismus","Zukunftsdenken","Unabhängigkeit","Intellekt"],
+      "schwaechen":["Emotionale Distanz","Eigensinn","Unberechenbarkeit","Unpersönlichkeit","Sturheit"],
+      "liebe_de":"Unkonventionell; Freundschaft als Basis für Liebe; Angst vor Bindung; braucht intellektuelle Verbindung.",
+      "beruf_de":"Exzellent in Innovation, Technologie, Sozialwesen, Wissenschaft; braucht Freiheit und Originalität.",
+      "persoenlichkeit_vektor":{"durchsetzung":3,"geduld":3,"initiative":4,"ausdauer":3,"empathie":4,"kreativitaet":5,"ordnung":2,"soziales":5},
+      "dimensionen_vektor":{"liebe":3,"beruf":4,"finanzen":3,"gesundheit":3,"soziales":5,"kreativitaet":5,"veraenderung":4,"spiritualitaet":3},
+      "quelle":"Sepharial S.65-66, Raphael S.68"
+    },
+    "fische": {
+      "symbol":"♓", "element":"wasser", "qualitaet":"mutable", "herrscher":"jupiter_neptun",
+      "charakter_de":"Einfühlsam, träumerisch, intuitiv, selbstlos, grenzlos, kreativ, spirituell, flüchtig.",
+      "staerken":["Empathie","Kreativität","Spiritualität","Selbstlosigkeit","Intuition"],
+      "schwaechen":["Grenzenlosigkeit","Selbsttäuschung","Flucht vor Realität","Opferrolle","Antriebsmangel"],
+      "liebe_de":"Romantisch-idealistisch; schmilzt in Beziehungen auf; Grenzen setzen schwer; tiefe spirituelle Liebe möglich.",
+      "beruf_de":"Exzellent in Künsten, Pflege, Spiritualität, Musik, Film; braucht sinnvolle und inspirierende Arbeit.",
+      "persoenlichkeit_vektor":{"durchsetzung":1,"geduld":4,"initiative":2,"ausdauer":3,"empathie":5,"kreativitaet":5,"ordnung":1,"soziales":4},
+      "dimensionen_vektor":{"liebe":5,"beruf":3,"finanzen":2,"gesundheit":3,"soziales":4,"kreativitaet":5,"veraenderung":3,"spiritualitaet":5},
+      "quelle":"Sepharial S.67-68, Raphael S.69"
+    }
+  },
+
+  "aspect_weights": {
+    "konjunktion":   {"grad":0,   "orb":8, "staerke":1.0, "typ":"neutral",  "symbol":"☌", "beschreibung":"Verschmelzung und Verstärkung der Planetennaturen"},
+    "trine":         {"grad":120, "orb":8, "staerke":0.8, "typ":"positiv",  "symbol":"△", "beschreibung":"Harmonie und leichter Fluss — die günstigste Beziehung"},
+    "sextil":        {"grad":60,  "orb":6, "staerke":0.6, "typ":"positiv",  "symbol":"⚹", "beschreibung":"Gelegenheit und Unterstützung durch eigene Initiative"},
+    "quadrat":       {"grad":90,  "orb":8, "staerke":0.8, "typ":"negativ",  "symbol":"□", "beschreibung":"Spannung und Herausforderung — Wachstum durch Konflikt"},
+    "opposition":    {"grad":180, "orb":8, "staerke":1.0, "typ":"negativ",  "symbol":"☍", "beschreibung":"Polarität und Konflikt — Bewusstsein durch Gegensatz"},
+    "halbquadrat":   {"grad":45,  "orb":4, "staerke":0.4, "typ":"negativ",  "symbol":"∠", "beschreibung":"Leichte Reibung und Irritation"},
+    "sesquiquadrat": {"grad":135, "orb":4, "staerke":0.4, "typ":"negativ",  "symbol":"⊼", "beschreibung":"Innere Reibung und Anpassungsdruck"},
+    "quincunx":      {"grad":150, "orb":3, "staerke":0.5, "typ":"negativ",  "symbol":"⚻", "beschreibung":"Anpassungsdruck zwischen unvereinbaren Prinzipien"},
+    "parallel_dekl": {"grad":0,   "orb":1, "staerke":0.8, "typ":"neutral",  "symbol":"Pb", "beschreibung":"Parallele Deklination — wirkt wie Konjunktion"},
+    "quelle": "Sepharial S.31-32, Raphael S.60"
+  },
+
+  "planet_rulers_dignities": {
+    "_intro": "Planeten wirken stärker in Zeichen, die sie regieren (Domizil), schwächer in Gegensatzzeichen (Exil/Detriment), am stärksten in Exaltation, am schwächsten in Fall (Detriment).",
+    "sonne":    {"domizil":"loewe",       "exil":"wassermann", "exaltation":"widder",   "fall":"waage"},
+    "mond":     {"domizil":"krebs",       "exil":"steinbock",  "exaltation":"stier",    "fall":"skorpion"},
+    "merkur":   {"domizil":["zwillinge","jungfrau"], "exil":["schuetze","fische"], "exaltation":"jungfrau", "fall":"fische"},
+    "venus":    {"domizil":["stier","waage"],         "exil":["skorpion","widder"], "exaltation":"fische",   "fall":"jungfrau"},
+    "mars":     {"domizil":["widder","skorpion"],     "exil":["waage","stier"],     "exaltation":"steinbock","fall":"krebs"},
+    "jupiter":  {"domizil":["schuetze","fische"],     "exil":["zwillinge","jungfrau"],"exaltation":"krebs",  "fall":"steinbock"},
+    "saturn":   {"domizil":["steinbock","wassermann"],"exil":["krebs","loewe"],     "exaltation":"waage",    "fall":"widder"},
+    "uranus":   {"domizil":"wassermann",  "exil":"loewe"},
+    "neptun":   {"domizil":"fische",      "exil":"jungfrau"},
+    "pluto":    {"domizil":"skorpion",    "exil":"stier"},
+    "quelle": "Sepharial S.28, Raphael S.59, DeVore"
+  },
+
+  "character_traits_mapping": {
+    "_intro": "Abbildung von Persönlichkeitseigenschaften auf Frage-Templates für das Spielinterface",
+    "traits": {
+      "durchsetzung":  {"hoch":"Setzt eigene Interessen klar und direkt durch",             "niedrig":"Tritt eher in den Hintergrund und gibt nach"},
+      "geduld":        {"hoch":"Kann sehr gut abwarten und langfristig denken",              "niedrig":"Wird leicht ungeduldig und will sofortige Ergebnisse"},
+      "initiative":    {"hoch":"Startet Dinge gerne von sich aus, ohne zu warten",           "niedrig":"Reagiert lieber, statt selbst die Initiative zu ergreifen"},
+      "ausdauer":      {"hoch":"Hält auch bei Schwierigkeiten beharrlich durch",             "niedrig":"Gibt bei Hindernissen eher auf und sucht Neues"},
+      "empathie":      {"hoch":"Spürt sehr gut, wie es anderen geht",                        "niedrig":"Hat Mühe, sich in andere hineinzuversetzen"},
+      "kreativitaet":  {"hoch":"Findet häufig originelle und ungewöhnliche Lösungen",        "niedrig":"Bevorzugt bewährte Wege vor neuen Ideen"},
+      "ordnung":       {"hoch":"Strukturiert und organisiert seinen Alltag sehr sorgfältig", "niedrig":"Denkt wenig an Ordnung und Strukturen"},
+      "soziales":      {"hoch":"Fühlt sich in Gruppen sehr wohl und sucht Kontakt",          "niedrig":"Schätzt Einsamkeit und braucht viel Zeit für sich"}
+    }
+  }
+}
