@@ -21,7 +21,7 @@ SUBFOLDERS = [
     "Kabbalah",
     "Arabisch",
     "Hellenistisch",
-    "Japanisch",
+    "Vedisch",
 ]
 
 # Schlüssel die die rule_engine.py erwartet, pro System
@@ -34,7 +34,7 @@ EXPECTED_KEYS = {
     "Kabbalah":      ["sephiroth"],
     "Arabisch":      ["signs", "zeichen", "profile", "natal_signs"],
     "Hellenistisch": ["signs", "zeichen", "profile", "natal_signs"],
-    "Japanisch":     ["signs", "zeichen", "profile", "natal_signs"],
+    "Vedisch":     ["signs", "zeichen", "profile", "natal_signs"],
 }
 
 

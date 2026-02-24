@@ -186,7 +186,7 @@
       "historische_note": "Ptolemäus beschreibt im Tetrabiblos I.4–9 die thermischen und hygrischen Qualitäten jedes Planeten explizit und leitet daraus Charaktereigenschaften ab — die direkteste antike Verbindung zwischen Astrologie und Humoralpathologie."
     },
 
-    "Japanisch": {
+    "Vedisch": {
       "beschreibung": "Jyotish kennt keine direkten Humoraltypen, aber die drei Doshas (Vata, Pitta, Kapha) der Ayurveda sind das indische Äquivalent und historisch mit Jyotish verbunden.",
       "mapping_typ": "nach_nakshatra_dosha",
       "dosha_zu_temperament": {
@@ -233,7 +233,7 @@
       "Kabbalah":      0.70,
       "Bazi":          0.75,
       "Numerologie":   0.60,
-      "Japanisch":     0.65
+      "Vedisch":     0.65
     },
     "misch_typen": {
       "beschreibung": "Wenn kein Temperament >50% Gewicht hat — gemischte Typen",

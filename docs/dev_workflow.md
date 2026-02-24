@@ -48,6 +48,6 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 - System-Coverage und Neutralitaetsdiagnose:
   - `python3 tools/system_diagnostics.py --runs 1200 --seed 42`
 - Fokusdiagnose auf ein Systemset:
-  - `python3 tools/system_diagnostics.py --runs 1500 --systems Japanisch Hellenistisch --seed 42`
+  - `python3 tools/system_diagnostics.py --runs 1500 --systems Vedisch Hellenistisch --seed 42`
 
 Hinweis: Die lokale Persistenz laeuft aktuell ueber `backend/assessment.db` (SQLite) fuer schnelle Entwicklungszyklen.

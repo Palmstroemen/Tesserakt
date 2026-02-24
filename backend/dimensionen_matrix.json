@@ -2,7 +2,7 @@
   "_meta": {
     "beschreibung": "Kompatibilitäts-Matrix der Dimensionen über alle Systeme",
     "version": "1.0",
-    "systeme": ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Japanisch"],
+    "systeme": ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"],
     "eigene_dimensionen_pro_system": {
       "Westlich":      ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
       "Bazi":          ["liebe","beruf","finanzen","gesundheit","veraenderung"],
@@ -10,14 +10,14 @@
       "Kabbalah":      ["liebe","beruf","finanzen","spiritualitaet","veraenderung","kreativitaet"],
       "Arabisch":      ["liebe","beruf","finanzen","soziales","veraenderung"],
       "Hellenistisch": ["liebe","beruf","finanzen","gesundheit","soziales","veraenderung"],
-      "Japanisch":     ["liebe","beruf","finanzen","gesundheit","spiritualitaet","veraenderung"]
+      "Vedisch":     ["liebe","beruf","finanzen","gesundheit","spiritualitaet","veraenderung"]
     },
     "hinweis": "Fehlende Dimensionen bedeuten nicht dass das System dazu nichts sagt, sondern dass die Regelwerke keinen direkten dimensionen_vektor liefern. Abdeckung über Proxy-Dimensionen möglich."
   },
 
   "dimensionen_abdeckung": {
     "liebe": {
-      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Vedisch"],
       "nicht_verfuegbar":  [],
       "abdeckung_prozent": 100,
       "qualitaet": {
@@ -27,11 +27,11 @@
         "Kabbalah":      "mittel — Sephira Netzach (Venus)",
         "Arabisch":      "mittel — Lot der Liebe, Lot der Ehe",
         "Hellenistisch": "hoch — Haus 7, Venus-Würden, Lot der Ehe",
-        "Japanisch":     "mittel — Mahadasha Venus-Periode"
+        "Vedisch":     "mittel — Mahadasha Venus-Periode"
       }
     },
     "beruf": {
-      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Vedisch"],
       "nicht_verfuegbar":  [],
       "abdeckung_prozent": 100,
       "qualitaet": {
@@ -41,11 +41,11 @@
         "Kabbalah":      "mittel — Sephira Hod (Merkur)",
         "Arabisch":      "hoch — Lot des Berufs, Lot der Autorität",
         "Hellenistisch": "hoch — Haus 10, Profektionen",
-        "Japanisch":     "hoch — Raja Yogas, Mahadasha Saturn/Merkur"
+        "Vedisch":     "hoch — Raja Yogas, Mahadasha Saturn/Merkur"
       }
     },
     "finanzen": {
-      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Vedisch"],
       "nicht_verfuegbar":  [],
       "abdeckung_prozent": 100,
       "qualitaet": {
@@ -55,11 +55,11 @@
         "Kabbalah":      "mittel — Sephira Chesed (Jupiter)",
         "Arabisch":      "hoch — Lot des Reichtums, Lot des Glücks",
         "Hellenistisch": "hoch — Lot des Glücks, Haus 2",
-        "Japanisch":     "hoch — Dhana Yogas, Mahadasha Jupiter"
+        "Vedisch":     "hoch — Dhana Yogas, Mahadasha Jupiter"
       }
     },
     "gesundheit": {
-      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Hellenistisch","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Hellenistisch","Vedisch"],
       "nicht_verfuegbar":  ["Kabbalah","Arabisch"],
       "proxy_moeglich": {
         "Kabbalah":  "Sephira Yesod (Vitalität) + Qliphoth-Analyse",
@@ -71,16 +71,16 @@
         "Bazi":          "mittel — Element-Balance als Gesundheitsindikator",
         "Numerologie":   "mittel — Lebenspfad-Gesundheitstendenzen",
         "Hellenistisch": "mittel — Haus 6, Sekt-Qualität",
-        "Japanisch":     "hoch — Arishtana Yogas, Mahadasha Saturn"
+        "Vedisch":     "hoch — Arishtana Yogas, Mahadasha Saturn"
       }
     },
     "soziales": {
       "direkt_verfuegbar": ["Westlich","Numerologie","Arabisch","Hellenistisch"],
-      "nicht_verfuegbar":  ["Bazi","Kabbalah","Japanisch"],
+      "nicht_verfuegbar":  ["Bazi","Kabbalah","Vedisch"],
       "proxy_moeglich": {
         "Bazi":     "Erdzweig-Tier-Kompatibilitäten als Sozial-Proxy",
         "Kabbalah": "Sephira Chesed (Liebe zum Nächsten) + Tiphareth",
-        "Japanisch":"Vashya-Kompatibilität im Nakshatra-System"
+        "Vedisch":"Vashya-Kompatibilität im Nakshatra-System"
       },
       "abdeckung_prozent": 57,
       "qualitaet": {
@@ -92,12 +92,12 @@
     },
     "kreativitaet": {
       "direkt_verfuegbar": ["Westlich","Numerologie","Kabbalah"],
-      "nicht_verfuegbar":  ["Bazi","Arabisch","Hellenistisch","Japanisch"],
+      "nicht_verfuegbar":  ["Bazi","Arabisch","Hellenistisch","Vedisch"],
       "proxy_moeglich": {
         "Bazi":          "Holz-Element + Yi-Stamm als Kreativitäts-Proxy",
         "Arabisch":      "Lot des Geistes (mentale Kreativität)",
         "Hellenistisch": "Merkur-Würden, Haus 5",
-        "Japanisch":     "Nakshatras Ardra/Punarvasu (kreative Energie)"
+        "Vedisch":     "Nakshatras Ardra/Punarvasu (kreative Energie)"
       },
       "abdeckung_prozent": 43,
       "qualitaet": {
@@ -107,7 +107,7 @@
       }
     },
     "veraenderung": {
-      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Vedisch"],
       "nicht_verfuegbar":  [],
       "abdeckung_prozent": 100,
       "qualitaet": {
@@ -117,11 +117,11 @@
         "Kabbalah":      "mittel — Pfade des Baumes, Transformation",
         "Arabisch":      "hoch — Firdaria-Wechsel, Primäre Direktionen",
         "Hellenistisch": "hoch — Zodiacal Releasing, Profektionswechsel",
-        "Japanisch":     "hoch — Mahadasha-Wechsel, Gochara-Transite"
+        "Vedisch":     "hoch — Mahadasha-Wechsel, Gochara-Transite"
       }
     },
     "spiritualitaet": {
-      "direkt_verfuegbar": ["Westlich","Numerologie","Kabbalah","Japanisch"],
+      "direkt_verfuegbar": ["Westlich","Numerologie","Kabbalah","Vedisch"],
       "nicht_verfuegbar":  ["Bazi","Arabisch","Hellenistisch"],
       "proxy_moeglich": {
         "Bazi":          "Wasser-Element + Gui-Stamm als Spiritualitäts-Proxy",
@@ -133,7 +133,7 @@
         "Westlich":      "hoch — Neptun, Haus 12, Fische",
         "Numerologie":   "hoch — Meisterzahlen 11/22/33, Lebenspfad 7/9",
         "Kabbalah":      "sehr hoch — Kether, Binah, alle Pfade",
-        "Japanisch":     "hoch — Moksha-Häuser, Ketu-Mahadasha"
+        "Vedisch":     "hoch — Moksha-Häuser, Ketu-Mahadasha"
       }
     }
   },
@@ -145,7 +145,7 @@
         "id": "C1",
         "name": "Lebensenergie & Vitalität",
         "dimensionen": ["gesundheit","veraenderung"],
-        "stark_in": ["Westlich","Japanisch","Hellenistisch"],
+        "stark_in": ["Westlich","Vedisch","Hellenistisch"],
         "schwach_in": ["Kabbalah","Arabisch"],
         "konsens_moeglich": true
       },
@@ -153,7 +153,7 @@
         "id": "C2",
         "name": "Materielles & Karriere",
         "dimensionen": ["beruf","finanzen"],
-        "stark_in": ["Westlich","Bazi","Arabisch","Hellenistisch","Japanisch"],
+        "stark_in": ["Westlich","Bazi","Arabisch","Hellenistisch","Vedisch"],
         "schwach_in": [],
         "konsens_moeglich": true,
         "hinweis": "Alle 7 Systeme liefern direkte Werte — bester Konsens-Kandidat"
@@ -163,7 +163,7 @@
         "name": "Beziehung & Soziales",
         "dimensionen": ["liebe","soziales"],
         "stark_in": ["Westlich","Numerologie","Hellenistisch"],
-        "schwach_in": ["Bazi","Kabbalah","Japanisch"],
+        "schwach_in": ["Bazi","Kabbalah","Vedisch"],
         "konsens_moeglich": "teilweise",
         "hinweis": "Soziales nur in 4 von 7 Systemen direkt verfügbar"
       },
@@ -172,7 +172,7 @@
         "name": "Kreativität & Ausdruck",
         "dimensionen": ["kreativitaet"],
         "stark_in": ["Westlich","Numerologie","Kabbalah"],
-        "schwach_in": ["Bazi","Arabisch","Hellenistisch","Japanisch"],
+        "schwach_in": ["Bazi","Arabisch","Hellenistisch","Vedisch"],
         "konsens_moeglich": "eingeschränkt",
         "hinweis": "Nur 3 Systeme liefern direkten Wert — Proxy-Werte für Rest nötig"
       },
@@ -180,7 +180,7 @@
         "id": "C5",
         "name": "Innenwelt & Transzendenz",
         "dimensionen": ["spiritualitaet"],
-        "stark_in": ["Kabbalah","Westlich","Numerologie","Japanisch"],
+        "stark_in": ["Kabbalah","Westlich","Numerologie","Vedisch"],
         "schwach_in": ["Bazi","Arabisch","Hellenistisch"],
         "konsens_moeglich": "teilweise",
         "hinweis": "Kabbalah ist hier das stärkste System — sollte höher gewichtet werden"
@@ -196,18 +196,18 @@
     "Kabbalah":      {"staerkste_dimensionen":["spiritualitaet","kreativitaet","veraenderung"],"vollstaendige_abdeckung":false,"zeitliche_praezision":"niedrig",    "beste_fuer":["Spirituelle Entwicklung","Tiefencharakter","Seelenaufgabe"]},
     "Arabisch":      {"staerkste_dimensionen":["beruf","finanzen","liebe","veraenderung"],    "vollstaendige_abdeckung":false, "zeitliche_praezision":"hoch",      "beste_fuer":["Lebensabschnitte","Partnerschaft","Berufliche Chancen"]},
     "Hellenistisch": {"staerkste_dimensionen":["beruf","finanzen","liebe","veraenderung"],    "vollstaendige_abdeckung":false, "zeitliche_praezision":"sehr hoch", "beste_fuer":["Jahresprognosen","Karriere-Timing","Schicksalsjahre"]},
-    "Japanisch":     {"staerkste_dimensionen":["beruf","veraenderung","spiritualitaet","gesundheit"],"vollstaendige_abdeckung":false,"zeitliche_praezision":"sehr hoch","beste_fuer":["Lebensphasen","Spiritualität","Gesundheit"]}
+    "Vedisch":     {"staerkste_dimensionen":["beruf","veraenderung","spiritualitaet","gesundheit"],"vollstaendige_abdeckung":false,"zeitliche_praezision":"sehr hoch","beste_fuer":["Lebensphasen","Spiritualität","Gesundheit"]}
   },
 
   "konsens_gewichtung": {
     "_beschreibung": "Empfohlene Gewichtung pro Dimension wenn alle Systeme zu einem Konsens-Wert zusammengeführt werden. Gewichte summieren sich pro Dimension auf 1.0. Systeme ohne direkte Abdeckung erhalten Gewicht 0.",
-    "liebe":          {"Westlich":0.25,"Bazi":0.10,"Numerologie":0.20,"Kabbalah":0.10,"Arabisch":0.15,"Hellenistisch":0.15,"Japanisch":0.05},
-    "beruf":          {"Westlich":0.20,"Bazi":0.20,"Numerologie":0.15,"Kabbalah":0.05,"Arabisch":0.15,"Hellenistisch":0.15,"Japanisch":0.10},
-    "finanzen":       {"Westlich":0.20,"Bazi":0.20,"Numerologie":0.15,"Kabbalah":0.05,"Arabisch":0.15,"Hellenistisch":0.15,"Japanisch":0.10},
-    "gesundheit":     {"Westlich":0.35,"Bazi":0.15,"Numerologie":0.15,"Kabbalah":0.00,"Arabisch":0.00,"Hellenistisch":0.15,"Japanisch":0.20},
-    "soziales":       {"Westlich":0.30,"Bazi":0.00,"Numerologie":0.30,"Kabbalah":0.00,"Arabisch":0.20,"Hellenistisch":0.20,"Japanisch":0.00},
-    "kreativitaet":   {"Westlich":0.40,"Bazi":0.00,"Numerologie":0.35,"Kabbalah":0.25,"Arabisch":0.00,"Hellenistisch":0.00,"Japanisch":0.00},
-    "veraenderung":   {"Westlich":0.15,"Bazi":0.20,"Numerologie":0.10,"Kabbalah":0.10,"Arabisch":0.15,"Hellenistisch":0.15,"Japanisch":0.15},
-    "spiritualitaet": {"Westlich":0.20,"Bazi":0.00,"Numerologie":0.20,"Kabbalah":0.40,"Arabisch":0.00,"Hellenistisch":0.00,"Japanisch":0.20}
+    "liebe":          {"Westlich":0.25,"Bazi":0.10,"Numerologie":0.20,"Kabbalah":0.10,"Arabisch":0.15,"Hellenistisch":0.15,"Vedisch":0.05},
+    "beruf":          {"Westlich":0.20,"Bazi":0.20,"Numerologie":0.15,"Kabbalah":0.05,"Arabisch":0.15,"Hellenistisch":0.15,"Vedisch":0.10},
+    "finanzen":       {"Westlich":0.20,"Bazi":0.20,"Numerologie":0.15,"Kabbalah":0.05,"Arabisch":0.15,"Hellenistisch":0.15,"Vedisch":0.10},
+    "gesundheit":     {"Westlich":0.35,"Bazi":0.15,"Numerologie":0.15,"Kabbalah":0.00,"Arabisch":0.00,"Hellenistisch":0.15,"Vedisch":0.20},
+    "soziales":       {"Westlich":0.30,"Bazi":0.00,"Numerologie":0.30,"Kabbalah":0.00,"Arabisch":0.20,"Hellenistisch":0.20,"Vedisch":0.00},
+    "kreativitaet":   {"Westlich":0.40,"Bazi":0.00,"Numerologie":0.35,"Kabbalah":0.25,"Arabisch":0.00,"Hellenistisch":0.00,"Vedisch":0.00},
+    "veraenderung":   {"Westlich":0.15,"Bazi":0.20,"Numerologie":0.10,"Kabbalah":0.10,"Arabisch":0.15,"Hellenistisch":0.15,"Vedisch":0.15},
+    "spiritualitaet": {"Westlich":0.20,"Bazi":0.00,"Numerologie":0.20,"Kabbalah":0.40,"Arabisch":0.00,"Hellenistisch":0.00,"Vedisch":0.20}
   }
 }

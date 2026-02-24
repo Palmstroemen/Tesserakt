@@ -84,7 +84,7 @@ Empfehlung:
 4. Kabbalah
 5. Hellenistisch
 6. Arabisch
-7. Japanisch
+7. Vedisch
 8. Finale: gesamtes Ranking inkl. KO-Aufklaerung
 
 Hinweis:

@@ -108,10 +108,10 @@ Horoskop Assessment verbindet Spielerlebnis mit Citizen-Science:
 - Kabbalah
 - Arabisch
 - Hellenistisch
-- Japanisch
+- Vedisch
 - KO (Kontrollgruppe, keine Weissagelogik)
 
-Hinweis: Der oeffentliche Name fuer "Japanisch" kann spaeter als Produktentscheidung angepasst werden, intern bleibt die Benennung konsistent.
+Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidung angepasst werden, intern bleibt die Benennung konsistent.
 
 **Status:** MVP live (A), erweitert in B/C  
 **Abhaengigkeiten:** Regeldateien, Diagnosetools, UX-Texte

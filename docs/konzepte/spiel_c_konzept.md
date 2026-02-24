@@ -147,7 +147,7 @@ Pflichtprinzipien:
 1. Welche C-Funktionen sind Teil von 3a (MVP fuer C)?
 2. Wann wird Aspekte/Synastrie zugeschaltet?
 3. Wird Humoraltypen in C als gleichrangiges System oder als Zusatzanalyse gezeigt?
-4. Welcher oeffentliche Name soll fuer "Japanisch" verwendet werden?
+4. Welcher oeffentliche Name soll fuer "Vedisch" verwendet werden?
 
 **Status:** offen  
 **Abhaengigkeiten:** Product, Research, Content

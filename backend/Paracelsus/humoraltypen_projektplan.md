@@ -17,7 +17,7 @@ Numerologie → cholerisch  ║→ Gewichteter Modus → CHOLERISCH (mit melanch
 Kabbalah    → melancholisch║
 Arabisch    → cholerisch  ║
 Hellenistisch→ cholerisch ║
-Japanisch   → phlegmatisch╝
+Vedisch   → phlegmatisch╝
 ```
 
 Der Spieler sieht am Ende nicht nur "Westliche Astrologie trifft dich am besten" — sondern auch: "Über alle Systeme hinweg bist du überwiegend **cholerisch** — das Feuer-Temperament nach Hippokrates. Dieses Konzept ist 2.400 Jahre alt und ist der gemeinsame Vorfahre aller Systeme die du gerade gespielt hast."
@@ -44,7 +44,7 @@ Das `humoraltypen_mapping.json` ist inhaltlich fundiert aber noch nicht in der P
 
 - **Bazi**: Die Erde-Zuordnung (melancholisch/phlegmatisch) ist interpretativ. In manchen Bazi-Schulen gilt Erde als zentralisierend ohne klare Temperament-Entsprechung.
 - **Kabbalah**: Kether hat bewusst keine Zuordnung. Prüfen ob das für Spieler mit Kether-Sephira (Lebenspfadzahl 1, bestimmte Konstellationen) befriedigend kommuniziert werden kann.
-- **Japanisch/Doshas**: Die Vata-Zuordnung ist zweideutig (sanguinisch bei Balance, melancholisch bei Überschuss). Entscheiden: Primär-Zuordnung sanguinisch, mit Hinweis auf Schattenseite?
+- **Vedisch/Doshas**: Die Vata-Zuordnung ist zweideutig (sanguinisch bei Balance, melancholisch bei Überschuss). Entscheiden: Primär-Zuordnung sanguinisch, mit Hinweis auf Schattenseite?
 - **Merkur** (Westlich, Arabisch, Hellenistisch): Gilt überall als "variabel" — er nimmt die Qualitäten seiner Aspektpartner an. Für die Implementierung braucht man einen Fallback: z.B. das Zeichen in dem Merkur steht.
 
 Konkrete Review-Fragen pro System:
@@ -56,7 +56,7 @@ Numerologie:   LPZ 5 als sanguinisch plausibel? (Merkur-Energie, aber sehr Luft-
 Kabbalah:      Chesed (Jupiter) als sanguinisch — Konsens?
 Arabisch:      Venus als phlegmatisch (kalt-feucht) — arabische vs. griechische Tradition?
 Hellenistisch: Sekt-System als primärer Marker — oder Sonnenzeichen stärker gewichten?
-Japanisch:     Rahu als Vata — gängige vedische Zuordnung bestätigen
+Vedisch:     Rahu als Vata — gängige vedische Zuordnung bestätigen
 ```
 
 ---
@@ -157,12 +157,12 @@ def get_temperament_arabisch(geburtsdatum: date, heute: date, mapping: dict) -> 
     return mapping["system_mappings"]["Arabisch"]["planet_zu_temperament"][planet]["temperament"]
 ```
 
-**Japanisch** (Dosha aus Mahadasha-Planet):
+**Vedisch** (Dosha aus Mahadasha-Planet):
 ```python
-def get_temperament_japanisch(mahadasha_planet: str, mapping: dict) -> str:
+def get_temperament_vedisch(mahadasha_planet: str, mapping: dict) -> str:
     dosha_key = f"{mahadasha_planet}_md"
-    dosha = mapping["system_mappings"]["Japanisch"]["mahadasha_zu_dosha"][dosha_key]
-    return mapping["system_mappings"]["Japanisch"]["dosha_zu_temperament"][dosha.split("_")[0]]["temperament"]
+    dosha = mapping["system_mappings"]["Vedisch"]["mahadasha_zu_dosha"][dosha_key]
+    return mapping["system_mappings"]["Vedisch"]["dosha_zu_temperament"][dosha.split("_")[0]]["temperament"]
 ```
 
 ---

@@ -27,11 +27,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ══════════════════════════════════════════════════════════════════════
 
 SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah",
-           "Arabisch", "Hellenistisch", "Japanisch"]
+           "Arabisch", "Hellenistisch", "Vedisch"]
 
 SYSTEM_KUERZEL = {
     "Westlich":"A","Bazi":"B","Numerologie":"N","Kabbalah":"K",
-    "Arabisch":"AR","Hellenistisch":"H","Japanisch":"J"
+    "Arabisch":"AR","Hellenistisch":"H","Vedisch":"J"
 }
 KUERZEL_SYSTEM = {v: k for k, v in SYSTEM_KUERZEL.items()}
 
@@ -62,104 +62,104 @@ FRAGEN = [
         "text":      "Ich bin ein liebevoller und einfühlsamer Mensch in Beziehungen.",
         "dimension": "liebe",
         "gewichte":  {"Westlich":1.0,"Bazi":0.5,"Numerologie":1.0,
-                      "Kabbalah":0.8,"Arabisch":0.9,"Hellenistisch":1.0,"Japanisch":0.5},
+                      "Kabbalah":0.8,"Arabisch":0.9,"Hellenistisch":1.0,"Vedisch":0.5},
     },
     {
         "text":      "Romantische Verbindungen entstehen in meinem Leben eher leicht.",
         "dimension": "liebe",
         "gewichte":  {"Westlich":0.9,"Bazi":0.8,"Numerologie":0.7,
-                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":0.9,"Japanisch":0.7},
+                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":0.9,"Vedisch":0.7},
     },
     # ── BERUF ─────────────────────────────────────────────────────────
     {
         "text":      "Ich bin ehrgeizig und setze mir klare berufliche Ziele.",
         "dimension": "beruf",
         "gewichte":  {"Westlich":1.0,"Bazi":1.0,"Numerologie":0.9,
-                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":1.0,"Japanisch":1.0},
+                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":1.0,"Vedisch":1.0},
     },
     {
         "text":      "Andere Menschen respektieren meine fachliche Kompetenz.",
         "dimension": "beruf",
         "gewichte":  {"Westlich":0.8,"Bazi":0.9,"Numerologie":1.0,
-                      "Kabbalah":0.6,"Arabisch":0.8,"Hellenistisch":0.9,"Japanisch":0.9},
+                      "Kabbalah":0.6,"Arabisch":0.8,"Hellenistisch":0.9,"Vedisch":0.9},
     },
     # ── FINANZEN ──────────────────────────────────────────────────────
     {
         "text":      "Ich halte mich für geschickt in finanziellen Angelegenheiten.",
         "dimension": "finanzen",
         "gewichte":  {"Westlich":1.0,"Bazi":1.0,"Numerologie":0.9,
-                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":1.0,"Japanisch":1.0},
+                      "Kabbalah":0.5,"Arabisch":1.0,"Hellenistisch":1.0,"Vedisch":1.0},
     },
     {
         "text":      "Geld und materielle Sicherheit kommen in meinem Leben eher von selbst.",
         "dimension": "finanzen",
         "gewichte":  {"Westlich":0.9,"Bazi":1.0,"Numerologie":0.8,
-                      "Kabbalah":0.4,"Arabisch":1.0,"Hellenistisch":1.0,"Japanisch":0.9},
+                      "Kabbalah":0.4,"Arabisch":1.0,"Hellenistisch":1.0,"Vedisch":0.9},
     },
     # ── GESUNDHEIT ────────────────────────────────────────────────────
     {
         "text":      "Ich habe generell viel Energie und körperliche Vitalität.",
         "dimension": "gesundheit",
         "gewichte":  {"Westlich":1.0,"Bazi":0.7,"Numerologie":0.7,
-                      "Kabbalah":0.0,"Arabisch":0.0,"Hellenistisch":0.8,"Japanisch":1.0},
+                      "Kabbalah":0.0,"Arabisch":0.0,"Hellenistisch":0.8,"Vedisch":1.0},
     },
     {
         "text":      "Ich erhole mich nach Krankheiten oder Belastungen schnell.",
         "dimension": "gesundheit",
         "gewichte":  {"Westlich":1.0,"Bazi":0.8,"Numerologie":0.6,
-                      "Kabbalah":0.0,"Arabisch":0.0,"Hellenistisch":0.7,"Japanisch":0.9},
+                      "Kabbalah":0.0,"Arabisch":0.0,"Hellenistisch":0.7,"Vedisch":0.9},
     },
     # ── SOZIALES ──────────────────────────────────────────────────────
     {
         "text":      "Ich bin gerne unter Menschen und fühle mich in Gruppen wohl.",
         "dimension": "soziales",
         "gewichte":  {"Westlich":1.0,"Bazi":0.0,"Numerologie":1.0,
-                      "Kabbalah":0.0,"Arabisch":0.8,"Hellenistisch":0.8,"Japanisch":0.0},
+                      "Kabbalah":0.0,"Arabisch":0.8,"Hellenistisch":0.8,"Vedisch":0.0},
     },
     {
         "text":      "Ich knüpfe leicht neue Bekanntschaften und halte Kontakt aufrecht.",
         "dimension": "soziales",
         "gewichte":  {"Westlich":0.9,"Bazi":0.0,"Numerologie":1.0,
-                      "Kabbalah":0.0,"Arabisch":0.9,"Hellenistisch":0.7,"Japanisch":0.0},
+                      "Kabbalah":0.0,"Arabisch":0.9,"Hellenistisch":0.7,"Vedisch":0.0},
     },
     # ── KREATIVITÄT ───────────────────────────────────────────────────
     {
         "text":      "Ich halte mich für einen kreativen Menschen.",
         "dimension": "kreativitaet",
         "gewichte":  {"Westlich":1.0,"Bazi":0.0,"Numerologie":1.0,
-                      "Kabbalah":1.0,"Arabisch":0.0,"Hellenistisch":0.0,"Japanisch":0.0},
+                      "Kabbalah":1.0,"Arabisch":0.0,"Hellenistisch":0.0,"Vedisch":0.0},
     },
     {
         "text":      "Ich finde spontan und intuitiv unkonventionelle Lösungen für Probleme.",
         "dimension": "kreativitaet",
         "gewichte":  {"Westlich":0.8,"Bazi":0.3,"Numerologie":0.9,
-                      "Kabbalah":0.8,"Arabisch":0.3,"Hellenistisch":0.3,"Japanisch":0.3},
+                      "Kabbalah":0.8,"Arabisch":0.3,"Hellenistisch":0.3,"Vedisch":0.3},
     },
     # ── VERÄNDERUNG ───────────────────────────────────────────────────
     {
         "text":      "In meinem Leben passieren häufig bedeutende Veränderungen.",
         "dimension": "veraenderung",
         "gewichte":  {"Westlich":0.9,"Bazi":1.0,"Numerologie":0.8,
-                      "Kabbalah":0.7,"Arabisch":1.0,"Hellenistisch":1.0,"Japanisch":1.0},
+                      "Kabbalah":0.7,"Arabisch":1.0,"Hellenistisch":1.0,"Vedisch":1.0},
     },
     {
         "text":      "Ich bin offen für Neues und passe mich gut an veränderte Umstände an.",
         "dimension": "veraenderung",
         "gewichte":  {"Westlich":0.8,"Bazi":0.7,"Numerologie":0.9,
-                      "Kabbalah":0.8,"Arabisch":0.7,"Hellenistisch":0.8,"Japanisch":0.8},
+                      "Kabbalah":0.8,"Arabisch":0.7,"Hellenistisch":0.8,"Vedisch":0.8},
     },
     # ── SPIRITUALITÄT ─────────────────────────────────────────────────
     {
         "text":      "Spirituelle oder metaphysische Themen sind ein wichtiger Teil meines Lebens.",
         "dimension": "spiritualitaet",
         "gewichte":  {"Westlich":0.8,"Bazi":0.0,"Numerologie":0.9,
-                      "Kabbalah":1.0,"Arabisch":0.0,"Hellenistisch":0.0,"Japanisch":1.0},
+                      "Kabbalah":1.0,"Arabisch":0.0,"Hellenistisch":0.0,"Vedisch":1.0},
     },
     {
         "text":      "Ich vertraue oft meiner Intuition und inneren Stimme.",
         "dimension": "spiritualitaet",
         "gewichte":  {"Westlich":0.7,"Bazi":0.0,"Numerologie":0.8,
-                      "Kabbalah":0.9,"Arabisch":0.0,"Hellenistisch":0.0,"Japanisch":0.8},
+                      "Kabbalah":0.9,"Arabisch":0.0,"Hellenistisch":0.0,"Vedisch":0.8},
     },
 ]
 
@@ -452,7 +452,7 @@ def load_all_systems(birth_date: datetime) -> Dict:
     inputs  = build_inputs(birth_date, today)
     vektoren = {}
     geladen  = []
-    for folder in ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Japanisch"]:
+    for folder in ["Westlich","Bazi","Numerologie","Kabbalah","Arabisch","Hellenistisch","Vedisch"]:
         struktur = load_struktur(folder)
         rules    = load_rules(folder)
         if struktur:
@@ -559,7 +559,7 @@ SYSTEM_FARBE = {   # ANSI-Farben für Terminal
     "Kabbalah":     "\033[95m",   # magenta
     "Arabisch":     "\033[93m",   # gelb
     "Hellenistisch":"\033[96m",   # cyan
-    "Japanisch":    "\033[97m",   # weiß
+    "Vedisch":    "\033[97m",   # weiß
 }
 RESET = "\033[0m"
 BOLD  = "\033[1m"

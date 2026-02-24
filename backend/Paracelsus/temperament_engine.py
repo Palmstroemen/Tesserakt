@@ -24,7 +24,7 @@ Verwendung:
         "Kabbalah":      engine.get_temperament_kabbalah("6_tiphareth"),
         "Arabisch":      engine.get_temperament_arabisch(date(1990, 6, 15), date.today()),
         "Hellenistisch": engine.get_temperament_hellenistisch("mars", sekt_konform=True),
-        "Japanisch":     engine.get_temperament_japanisch("mars_md"),
+        "Vedisch":     engine.get_temperament_vedisch("mars_md"),
     }
 
     # Schritt 2: Aggregieren
@@ -273,7 +273,7 @@ class TemperamentEngine:
             return None
         return t
 
-    def get_temperament_japanisch(
+    def get_temperament_vedisch(
         self, mahadasha_planet: str
     ) -> Optional[str]:
         """
@@ -292,7 +292,7 @@ class TemperamentEngine:
         if not md_key.endswith("_md"):
             md_key = f"{md_key}_md"
 
-        md_mapping = self.system_mappings["Japanisch"]["mahadasha_zu_dosha"]
+        md_mapping = self.system_mappings["Vedisch"]["mahadasha_zu_dosha"]
         dosha = md_mapping.get(md_key)
         if not dosha or dosha == "note":
             return None
@@ -300,7 +300,7 @@ class TemperamentEngine:
         # Gemischte Doshas auflösen
         dosha_primaer = self._dosha_aufloesen(dosha)
 
-        dt_mapping = self.system_mappings["Japanisch"]["dosha_zu_temperament"]
+        dt_mapping = self.system_mappings["Vedisch"]["dosha_zu_temperament"]
         eintrag = dt_mapping.get(dosha_primaer)
         if eintrag:
             return eintrag["temperament"]
@@ -347,7 +347,7 @@ class TemperamentEngine:
                                "Kabbalah":      None,          # Kether
                                "Arabisch":      "cholerisch",
                                "Hellenistisch": "cholerisch",
-                               "Japanisch":     "phlegmatisch",
+                               "Vedisch":     "phlegmatisch",
                              }
 
         Returns:
@@ -552,7 +552,7 @@ if __name__ == "__main__":
                              tagesgeburt=True
                          ),
         "Hellenistisch": engine.get_temperament_hellenistisch("mars"),
-        "Japanisch":     engine.get_temperament_japanisch("mars_md"),
+        "Vedisch":     engine.get_temperament_vedisch("mars_md"),
     }
 
     print("\nSYSTEM-ZUORDNUNGEN:")
@@ -623,11 +623,11 @@ if __name__ == "__main__":
     print(f"  Meisterzahl 22:        {mz22!r}  → melancholisch")
 
     # Vata_Pitta (Merkur-Mahadasha) → pitta dominiert → cholerisch
-    vp = engine.get_temperament_japanisch("merkur_md")
+    vp = engine.get_temperament_vedisch("merkur_md")
     print(f"  Merkur-Mahadasha:      {vp!r}  → cholerisch (pitta über vata)")
 
     # Vata_Kapha (Venus-Mahadasha) → kapha dominiert → phlegmatisch
-    vk = engine.get_temperament_japanisch("venus_md")
+    vk = engine.get_temperament_vedisch("venus_md")
     print(f"  Venus-Mahadasha:       {vk!r}  → phlegmatisch (kapha über vata)")
 
     # Alle Systeme None → Fehler-Handling

@@ -45,7 +45,7 @@ export default function App() {
     "Kabbalah",
     "Arabisch",
     "Hellenistisch",
-    "Japanisch",
+    "Vedisch",
     "KO",
   ]);
   const [selectedSystems, setSelectedSystems] = useState(["Westlich", "Bazi", "Numerologie"]);

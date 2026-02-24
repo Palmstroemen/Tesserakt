@@ -98,7 +98,7 @@ Tonalitaet:
 - Arabisch: geometrisch-ornamental.
 - Numerologie: mathematisch/diagrammatisch.
 - Kabbalah: Baumstruktur/gravurhaft.
-- Japanisch: feinlinig, symbolisch, materialitaetsbetont.
+- Vedisch: feinlinig, symbolisch, materialitaetsbetont.
 
 Hinweis:
 - Diese Stilfamilien sind Designrichtungen, keine Produktpflicht im MVP.
@@ -132,7 +132,7 @@ Hinweis:
 
 ## 8. Decision Backlog
 
-1. Oeffentliche Produktbezeichnung fuer "Japanisch" final festlegen.
+1. Oeffentliche Produktbezeichnung fuer "Vedisch" final festlegen.
 2. Storyname fuer KO final festlegen (falls nicht rein als KO angezeigt).
 3. Rolle von Humoraltypen final festlegen (Meta-System vs Zusatzanalyse).
 
@@ -151,7 +151,7 @@ Eine Webseite, die aufgrund des eingegebenen Geburtsdatums und der eingegebenen 
 
 Klassische Astrologie: A
 Chinesische Astrologie: C
-Weitere Astrologien: Indische Veden, Hellenistische, Arabische, Japanische
+Weitere Astrologien: Indische Veden, Hellenistische, Arabische, Vedische
 Weitere Numerologien: Numerologie, Kabbalah
 Kontrollgruppe: K
 
@@ -186,7 +186,7 @@ Nach Eingabe der Daten folgt die Auflösung:
 	       ^=                               chinesische Astrologie
                    ^=             Kontrollgruppe (P)
 
-Die Auflösung kann durch hübsche magische Symbole erfolgen entsprechend dem Stil der Astrologie. Steine, Tonscherben, Chinesisches Zeichen in Metall, Japanische Malerei, 
+Die Auflösung kann durch hübsche magische Symbole erfolgen entsprechend dem Stil der Astrologie. Steine, Tonscherben, Chinesisches Zeichen in Metall, Vedische Malerei, 
 
 ### Spiele 1 Monat zurück
 Im Hintergrund werden die nächsten Horoskope für 30 Tage in der Vergangenheit berechnet. 
@@ -222,10 +222,10 @@ Nach Eingabe des Datums beginnt sich das astrologische Diagramm zu drehen. Die P
 Sobald Uhrzeit und Datum eingegeben sind, bewegen sich wieder einige Dinge langsam auf die entsprechende Uhrzeit.
 
 Für andere Astrologien entsprechend andere Darstellungen.
-Etwa wie auf einer griechischen Tonvase, einem Japanischen Gemälde, Chinesische Zeichen in Metall eingraviert, Indische Steinsymbole.
+Etwa wie auf einer griechischen Tonvase, einem Vedischen Gemälde, Chinesische Zeichen in Metall eingraviert, Indische Steinsymbole.
 
 ## Ausarbeitung
-Ich möchte eine visuell ansprechende Webseite machen, die verschiedene Astrologien und Systeme wie Numerologie oder Kabbalah einander gegenüberstellt. Dazu suche ich nach gewissen visuell eindeutigen und ikonischen Darstellungsstilen, die weltweit funktionieren und verstanden werden. Dies sind die Systeme: Westlich Westliche Astrologie. Basis: Sonnenzeichen (12 Tierkreiszeichen) + Planetentransite. Stärken: Liebe, Gesundheit, Kreativität, Beruf. Zeitliche Präzision: hoch (Transite tagesgenau). Voll abgedeckte Dimensionen: alle 8. Bazi Bazi / Chinesische Astrologie. Basis: Day Master (Geburtsstamm) + Erdzweige + Fünf-Elemente-Wechselwirkungen. Stärken: Beruf, Finanzen, Veränderung, Timing. Zeitliche Präzision: sehr hoch (Jahres-/Monatssäulen). Direkte Dimensionen: 5 von 8. Numerologie Klassische Numerologie. Basis: Lebenspfadzahl aus Geburtsdatum, optional Ausdrucks- und Seelenzahl aus Name. Stärken: Charakteranalyse, breite Abdeckung. Zeitliche Präzision: mittel (Persönliches Jahr). Voll abgedeckte Dimensionen: alle 8. Kabbalah Kabbalah / Baum des Lebens. Basis: Lebenspfadzahl → Sephira (1–10). Stärken: Spiritualität, Kreativität, Tiefencharakter. Schwächen: Gesundheit, Soziales nicht abgedeckt. Zeitliche Präzision: niedrig (eher Charakterbeschreibung). Direkte Dimensionen: 6 von 8. Arabisch Arabische Astrologie. Basis: Firdaria-Perioden (75-Jahres-Zyklus) + Arabische Lose. Stärken: Lebensabschnitte, Finanzen, Beruf, Partnerschaft. Schwächen: Kreativität, Spiritualität, Gesundheit fehlen. Zeitliche Präzision: hoch (Firdaria jahresgenau). Direkte Dimensionen: 5 von 8. Hellenistisch Hellenistische Astrologie. Basis: Jährliche Profektionen (Alter mod 12 → aktives Haus) + Sekt-System (Tag/Nacht-Geburt). Stärken: Jahresprognosen, Karriere, Partnerschaft. Schwächen: Kreativität, Spiritualität fehlen. Zeitliche Präzision: sehr hoch (Profektionen monatsgenau). Direkte Dimensionen: 6 von 8. Japanisch Jyotish / Vedische Astrologie. Basis: Vimshottari Mahadasha (120-Jahres-Zyklus) + Nakshatras (27 Mondhäuser). Stärken: Lebensphasen, Spiritualität, Gesundheit, Timing. Schwächen: Soziales fehlt. Zeitliche Präzision: sehr hoch (Antardasha monatsgenau). Direkte Dimensionen: 6 von 8. Meine Gedanken dazu wären: Alle Darstellungen irgendwie kreisförmig. Westliche Astrologie: schwarzvioletter Hintergrund, Planetenzeichen, leuchtende Punkte und Linien in verschiedenen Farben (je nach Planeten) Japanisch: Japanische Zeichnungen auf Seidenpapir mit Sternen. (analog Kirschblütenbäumen, Wellen, ...) Hellenistisch: Griechische Vasenmalereien, Tonscherben mit solchen Malereien, evtl. Mosaike. Vielleicht Götterbilder von Schützen, Fischen udgl. Chinesisch: Chinesische Schriftzeichen. Vielleicht auf vertikalen Fahnen, Drachen, usw. Arabisch: Arabische Schriftzeichen, ornamental, bemalte Kacheln und Fliesen, Numerologie: Eher mathematisch. Schwarzblauer Hintergrund, leuchtende Ziffern darauf, auch in verschiedenen Farben. Ähnlich Westlich, aber mehr mathematische Symbole. Uhrähnlich. Kabbalah: Jüdische Schriftzeichen. Pergament? Silbergravuren, Treibmetall, ... Was wir auch mal hatten, was vielleicht zu einer Art besser passen könnte: * Steine, Steingravuren, Steinmalerei, * Stoffmalerei, Tücher, ... * alte Bücher, Leder, ... Was fällt dir dazu ein?
+Ich möchte eine visuell ansprechende Webseite machen, die verschiedene Astrologien und Systeme wie Numerologie oder Kabbalah einander gegenüberstellt. Dazu suche ich nach gewissen visuell eindeutigen und ikonischen Darstellungsstilen, die weltweit funktionieren und verstanden werden. Dies sind die Systeme: Westlich Westliche Astrologie. Basis: Sonnenzeichen (12 Tierkreiszeichen) + Planetentransite. Stärken: Liebe, Gesundheit, Kreativität, Beruf. Zeitliche Präzision: hoch (Transite tagesgenau). Voll abgedeckte Dimensionen: alle 8. Bazi Bazi / Chinesische Astrologie. Basis: Day Master (Geburtsstamm) + Erdzweige + Fünf-Elemente-Wechselwirkungen. Stärken: Beruf, Finanzen, Veränderung, Timing. Zeitliche Präzision: sehr hoch (Jahres-/Monatssäulen). Direkte Dimensionen: 5 von 8. Numerologie Klassische Numerologie. Basis: Lebenspfadzahl aus Geburtsdatum, optional Ausdrucks- und Seelenzahl aus Name. Stärken: Charakteranalyse, breite Abdeckung. Zeitliche Präzision: mittel (Persönliches Jahr). Voll abgedeckte Dimensionen: alle 8. Kabbalah Kabbalah / Baum des Lebens. Basis: Lebenspfadzahl → Sephira (1–10). Stärken: Spiritualität, Kreativität, Tiefencharakter. Schwächen: Gesundheit, Soziales nicht abgedeckt. Zeitliche Präzision: niedrig (eher Charakterbeschreibung). Direkte Dimensionen: 6 von 8. Arabisch Arabische Astrologie. Basis: Firdaria-Perioden (75-Jahres-Zyklus) + Arabische Lose. Stärken: Lebensabschnitte, Finanzen, Beruf, Partnerschaft. Schwächen: Kreativität, Spiritualität, Gesundheit fehlen. Zeitliche Präzision: hoch (Firdaria jahresgenau). Direkte Dimensionen: 5 von 8. Hellenistisch Hellenistische Astrologie. Basis: Jährliche Profektionen (Alter mod 12 → aktives Haus) + Sekt-System (Tag/Nacht-Geburt). Stärken: Jahresprognosen, Karriere, Partnerschaft. Schwächen: Kreativität, Spiritualität fehlen. Zeitliche Präzision: sehr hoch (Profektionen monatsgenau). Direkte Dimensionen: 6 von 8. Vedisch Jyotish / Vedische Astrologie. Basis: Vimshottari Mahadasha (120-Jahres-Zyklus) + Nakshatras (27 Mondhäuser). Stärken: Lebensphasen, Spiritualität, Gesundheit, Timing. Schwächen: Soziales fehlt. Zeitliche Präzision: sehr hoch (Antardasha monatsgenau). Direkte Dimensionen: 6 von 8. Meine Gedanken dazu wären: Alle Darstellungen irgendwie kreisförmig. Westliche Astrologie: schwarzvioletter Hintergrund, Planetenzeichen, leuchtende Punkte und Linien in verschiedenen Farben (je nach Planeten) Vedisch: Vedische Zeichnungen auf Seidenpapir mit Sternen. (analog Kirschblütenbäumen, Wellen, ...) Hellenistisch: Griechische Vasenmalereien, Tonscherben mit solchen Malereien, evtl. Mosaike. Vielleicht Götterbilder von Schützen, Fischen udgl. Chinesisch: Chinesische Schriftzeichen. Vielleicht auf vertikalen Fahnen, Drachen, usw. Arabisch: Arabische Schriftzeichen, ornamental, bemalte Kacheln und Fliesen, Numerologie: Eher mathematisch. Schwarzblauer Hintergrund, leuchtende Ziffern darauf, auch in verschiedenen Farben. Ähnlich Westlich, aber mehr mathematische Symbole. Uhrähnlich. Kabbalah: Jüdische Schriftzeichen. Pergament? Silbergravuren, Treibmetall, ... Was wir auch mal hatten, was vielleicht zu einer Art besser passen könnte: * Steine, Steingravuren, Steinmalerei, * Stoffmalerei, Tücher, ... * alte Bücher, Leder, ... Was fällt dir dazu ein?
 
 Das ist ein wunderbares und sehr durchdachtes Projekt! Die Idee, diese verschiedenen Systeme visuell gegenüberzustellen, ist hervorragend. Die kreisförmige Anordnung als verbindendes Element ist ein starker und intuitiver Ansatz, der die zyklische Natur vieler dieser Systeme (Tierkreis, Planetenzyklen, Dashas, etc.) perfekt widerspiegelt.
 
@@ -254,17 +254,17 @@ Stell dir vor, jeder Eintrag oder Vergleich beginnt mit einem großen, dominiere
 - **Stimmung:** "Deep Space", wissenschaftlich, aber mystisch.
     
 
-#### 2. Japanische Astrologie (Jyotish)
+#### 2. Vedische Astrologie (Jyotish)
 
-- **Deine Idee (wunderbar):** Japanische Zeichnungen auf Seidenpapier mit Sternen.
+- **Deine Idee (wunderbar):** Vedische Zeichnungen auf Seidenpapier mit Sternen.
     
 - **Weiterentwicklung:** Der Kreis wirkt wie ein **rundes Stück edelsten, leicht vergilbten Seidenpapiers**, das auf die Webseite gelegt wurde. Die Ränder sind leicht eingerissen oder unregelmäßig. Darauf sind zarte, detaillierte Tuschezeichnungen:
     
-    - Die 27 Nakshatras (Mondhäuser) könnten durch 27 verschiedene, hochsymbolische japanische Motive dargestellt werden: ein Kirschblütenzweig, eine Welle, ein Kranich, eine stilisierte Chrysantheme, ein Bambuswald. Jedes Motiv ist hauchdünn und präzise mit Gold- oder Silberfarbe gezeichnet.
+    - Die 27 Nakshatras (Mondhäuser) könnten durch 27 verschiedene, hochsymbolische vedische Motive dargestellt werden: ein Kirschblütenzweig, eine Welle, ein Kranich, eine stilisierte Chrysantheme, ein Bambuswald. Jedes Motiv ist hauchdünn und präzise mit Gold- oder Silberfarbe gezeichnet.
         
     - Ein zarter, rot lackierter Kreis oder Halbkreis (die "Sonne" Japans) könnte die Position der Sonne markieren.
         
-- **Typografie:** Feine, vertikal geschriebene japanische Kalligrafie-Zeichen (mit lesbarer, kleiner lateinischer Umschrift darunter) für die Namen der Nakshatras.
+- **Typografie:** Feine, vertikal geschriebene vedische Kalligrafie-Zeichen (mit lesbarer, kleiner lateinischer Umschrift darunter) für die Namen der Nakshatras.
     
 - **Stimmung:** "Wabi-Sabi", Poesie, Vergänglichkeit, Eleganz.
     
@@ -354,7 +354,7 @@ Deine Alternativ-Ideen sind fantastisch und bieten eine ganz andere, vielleicht 
     
     - **Westlich:** Die Planeten sind als einfache, universelle Symbole (☉, ☽, ♂, ♀) in den Stein geritzt.
         
-    - **Japanisch:** Die Nakshatras sind als feine, lineare japanische Zeichnungen in den Stein graviert.
+    - **Vedisch:** Die Nakshatras sind als feine, lineare vedische Zeichnungen in den Stein graviert.
         
     - **Hellenistisch:** Die Götterdarstellungen sind als flaches Relief in den Stein gemeißelt.
         
@@ -513,13 +513,13 @@ Statt zum erstbesten, bekanntesten Stereotyp zu greifen, suchen wir nach einem s
 - **Respektvoller Ansatz:** Wir verwenden **weniger bekannte Meisterwerke oder Details**. Statt der ganzen Venus nur ihr Gesicht oder ihre Hand. Statt eines offensichtlichen Freskos von Raffael im Vatikan, nehmen wir eine seiner feinen Rötelzeichnungen oder Kartons (Vorzeichnungen), die einen Engel oder eine Figur für ein Tierkreiszeichen zeigen. Das zeigt: Wir kennen nicht nur die berühmten Gemälde, sondern auch den künstlerischen Prozess. Für den Widder könnte man eine Skizze von Pisanello wählen, der für seine detaillierten Tierstudien bekannt war. Es geht um die **feine, meisterhafte Handschrift** der Künstler, nicht um das touristische Bild.
     
 
-#### 2. Japanische Astrologie (Jyotish - Vedisch)
+#### 2. Vedische Astrologie (Jyotish - Vedisch)
 
 - **Klischee-Falle:** Kirschblüten, Wellen (Hokusai), Mount Fuji, Geishas. Das sind die absoluten Standard-Bilder, die jeder von Japan kennt. Für einen Japaner sind sie oft abgenutzt und werden für Touristen produziert.
     
-- **Respektvoller Ansatz:** Wir tauchen ein in die Welt der **spezifischen japanischen Astrologie (was in Japan oft _Koyomi_ oder _Rekijutsu_ ist, nicht direkt _Jyotish_, das ist indisch - hier ist Fingerspitzengefühl nötig!).**
+- **Respektvoller Ansatz:** Wir tauchen ein in die Welt der **spezifischen vedischen Astrologie (was in Japan oft _Koyomi_ oder _Rekijutsu_ ist, nicht direkt _Jyotish_, das ist indisch - hier ist Fingerspitzengefühl nötig!).**
     
-    - Statt Kirschblüten verwenden wir die **exakten Pflanzensymbole der 27 Mondhäuser (Nakshatras)**, die es auch in der japanischen Tradition gibt. Das sind sehr spezifische Pflanzen wie "Der heilige Bambus" oder "Die rote Blüte". Ein Kenner würde das sofort erkennen und sich freuen, dass diese Tiefe beachtet wurde.
+    - Statt Kirschblüten verwenden wir die **exakten Pflanzensymbole der 27 Mondhäuser (Nakshatras)**, die es auch in der vedischen Tradition gibt. Das sind sehr spezifische Pflanzen wie "Der heilige Bambus" oder "Die rote Blüte". Ein Kenner würde das sofort erkennen und sich freuen, dass diese Tiefe beachtet wurde.
         
     - Stilistisch orientieren wir uns an der **Rimpa-Schule** (dekorativ mit Blattgold) oder der **Kano-Schule** (kraftvolle Tuschemalerei auf Goldgrund) – das sind höchst kunstvolle, traditionelle Stile, die Respekt ausstrahlen, und nicht die populären Holzschnitte.
         
@@ -654,11 +654,11 @@ Hier sind die authentischen, respektvollen Darstellungsstile, die bei einem indi
 - **Ästhetik:** Feine, erhabene Metallgravur in Gold.
     
 
-### Die Verknüpfung: Warum es "Japanisch" heißen könnte (und warum das irreführend ist)
+### Die Verknüpfung: Warum es "Vedisch" heißen könnte (und warum das irreführend ist)
 
-Ihre Quelle hat vielleicht "Japanisch" geschrieben, weil:
+Ihre Quelle hat vielleicht "Vedisch" geschrieben, weil:
 
-1. **Japan hat eine eigene, aber andere astrologische Tradition** – die **Koyomi** (japanischer Kalender) und **Rekijutsu** (japanische Astrologie), die stark vom chinesischen System beeinflusst ist.
+1. **Japan hat eine eigene, aber andere astrologische Tradition** – die **Koyomi** (vedischer Kalender) und **Rekijutsu** (vedische Astrologie), die stark vom chinesischen System beeinflusst ist.
     
 2. **Verwechslung durch ähnliche Aussprache** – unwahrscheinlich.
     

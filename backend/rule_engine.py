@@ -14,7 +14,7 @@ Ordnerstruktur:
   /Kabbalah/        Struktur.json + kabbalah_sephiroth.json + ...
   /Arabisch/        Struktur.json + arabisch_firdaria.json + ...
   /Hellenistisch/   Struktur.json + hell_haeuser.json + ...
-  /Japanisch/       Struktur.json + jyotish_dasha.json + ...
+  /Vedisch/       Struktur.json + jyotish_dasha.json + ...
 """
 
 import json
@@ -26,7 +26,7 @@ from typing import Dict, Tuple, List, Optional
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SUBFOLDERS = ["Westlich", "Bazi", "Numerologie", "Kabbalah",
-              "Arabisch", "Hellenistisch", "Japanisch"]
+              "Arabisch", "Hellenistisch", "Vedisch"]
 
 DIMENSIONS = ["liebe","beruf","finanzen","gesundheit","soziales",
               "kreativitaet","veraenderung","spiritualitaet"]
@@ -34,7 +34,7 @@ DIMENSIONS = ["liebe","beruf","finanzen","gesundheit","soziales",
 # Systemkürzel für Ausgabe
 SYSTEM_KUERZEL = {
     "Westlich": "A", "Bazi": "B", "Numerologie": "N",
-    "Kabbalah": "K", "Arabisch": "AR", "Hellenistisch": "H", "Japanisch": "J"
+    "Kabbalah": "K", "Arabisch": "AR", "Hellenistisch": "H", "Vedisch": "J"
 }
 
 

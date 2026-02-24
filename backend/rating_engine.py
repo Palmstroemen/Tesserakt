@@ -28,11 +28,11 @@ from typing import Dict, List, Optional
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah",
-           "Arabisch", "Hellenistisch", "Japanisch"]
+           "Arabisch", "Hellenistisch", "Vedisch"]
 
 SYSTEM_KUERZEL = {
     "Westlich":"A", "Bazi":"B", "Numerologie":"N",
-    "Kabbalah":"K", "Arabisch":"AR", "Hellenistisch":"H", "Japanisch":"J"
+    "Kabbalah":"K", "Arabisch":"AR", "Hellenistisch":"H", "Vedisch":"J"
 }
 KUERZEL_SYSTEM = {v: k for k, v in SYSTEM_KUERZEL.items()}
 
@@ -357,7 +357,7 @@ if __name__ == "__main__":
             "selbsteinschaetzung": 2.0,
             "system_werte": {
                 "Westlich":2.8, "Bazi":3.5, "Numerologie":2.3,
-                "Kabbalah":3.0, "Arabisch":3.5, "Hellenistisch":3.2, "Japanisch":2.9
+                "Kabbalah":3.0, "Arabisch":3.5, "Hellenistisch":3.2, "Vedisch":2.9
             }
         },
         {
@@ -366,7 +366,7 @@ if __name__ == "__main__":
             "selbsteinschaetzung": 4.5,
             "system_werte": {
                 "Westlich":4.2, "Numerologie":3.8, "Kabbalah":4.1
-                # Bazi, Arabisch, Hellenistisch, Japanisch fehlen → kein Beitrag
+                # Bazi, Arabisch, Hellenistisch, Vedisch fehlen → kein Beitrag
             }
         },
         {
@@ -384,7 +384,7 @@ if __name__ == "__main__":
             "selbsteinschaetzung": 4.0,
             "system_werte": {
                 "Westlich":3.8, "Bazi":4.2, "Numerologie":3.5,
-                "Kabbalah":3.0, "Arabisch":4.0, "Hellenistisch":3.9, "Japanisch":4.1
+                "Kabbalah":3.0, "Arabisch":4.0, "Hellenistisch":3.9, "Vedisch":4.1
             }
         },
         {
@@ -393,7 +393,7 @@ if __name__ == "__main__":
             "selbsteinschaetzung": 4.0,
             "system_werte": {
                 "Westlich":3.5, "Numerologie":4.2,
-                "Kabbalah":4.5, "Japanisch":3.8
+                "Kabbalah":4.5, "Vedisch":3.8
             }
         },
     ]

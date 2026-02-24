@@ -30,7 +30,7 @@ Diese Begriffe gelten in allen Konzepten identisch:
 - **Spiel A - Persoenlichkeit**: 1-Personen-Profil (aktueller Hauptflow).
 - **Spiel B - Prognose/Zeit**: Rueckblick auf vergangene Zeitfenster (nicht live im MVP).
 - **Spiel C - Beziehung**: 2-Personen-Kompatibilitaet (Konzeptphase).
-- **Systeme**: Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Japanisch.
+- **Systeme**: Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch.
 - **KO (Kontrollgruppe)**: deterministische Zufalls-Baseline ohne astrologische Bedeutung.
 - **Fit (absolut)**: absolute Naehe zur Selbsteinschaetzung.
 - **Skill vs Zufall**: Leistung relativ zur Zufalls-Baseline.
@@ -143,7 +143,7 @@ Behalten:
 Anpassen:
 - als **Phase 2+** kennzeichnen (nicht MVP-Status),
 - Freischalttexte auf aktuelle Kennzahlen (Fit/Skill/KO) ausrichten,
-- Terminologie "Japanisch/Jyotish" konsistent halten.
+- Terminologie "Vedisch/Jyotish" konsistent halten.
 
 ## 7.3 `spiel_c_konzept.md`
 
@@ -200,7 +200,7 @@ Anpassen:
 
 Diese drei Punkte sollten einmal final beschlossen werden:
 
-1. Offizieller Nutzername fuer das System `Japanisch` (z. B. "Jyotish (Vedisch)").
+1. Offizieller Nutzername fuer das System `Vedisch` (z. B. "Jyotish (Vedisch)").
 2. Storyname der KO im Frontend (falls nicht direkt als "Kontrollgruppe" sichtbar).
 3. Ob Humoraltypen als eigenes Meta-System in A und C gleichrangig gefuehrt wird oder nur als Zusatzanalyse.
 
