@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "1.0",
+  "sessionId": "uuid",
+  "generatedAt": "2026-02-23T12:34:56Z",
+  "systems": [
+    {
+      "systemId": "westlich",
+      "displayName": "Westlich",
+      "scores": {
+        "fit": 67.4,
+        "randomAdvantage": 31.2,
+        "deltaFitToKO": 12.1,
+        "deltaRandomAdvantageToKO": 18.4
+      },
+      "qualityFlags": {
+        "birthTimeKnown": true,
+        "modelType": "computed",
+        "ephemerisMode": "precise"
+      },
+      "explanation": {
+        "short": "Kurztext (2-4 Saetze)",
+        "long": "Langtext optional"
+      },
+      "visualPayload": {
+        "chartType": "radixWheel",
+        "zodiac": {
+          "type": "tropical",
+          "startAngleDeg": 0,
+          "signs": [
+            {
+              "id": "aries",
+              "startDeg": 0,
+              "endDeg": 30,
+              "label": "Widder"
+            }
+          ]
+        },
+        "houses": {
+          "system": "placidus",
+          "cuspsDeg": [
+            12.3, 40.1, 69.2, 98.0, 127.4, 156.3,
+            192.3, 220.1, 249.2, 278.0, 307.4, 336.3
+          ],
+          "anglesDeg": {
+            "asc": 12.3,
+            "mc": 278.0,
+            "dc": 192.3,
+            "ic": 98.0
+          }
+        },
+        "planets": [
+          {
+            "id": "sun",
+            "label": "Sonne",
+            "longitudeDeg": 104.52,
+            "signId": "cancer",
+            "house": 10,
+            "retrograde": false
+          }
+        ],
+        "aspects": [
+          {
+            "a": "sun",
+            "b": "moon",
+            "type": "trine",
+            "exactAngleDeg": 120,
+            "orbDeg": 2.1,
+            "applying": true
+          }
+        ],
+        "renderHints": {
+          "showAspectGrid": true,
+          "showMinorAspects": false
+        }
+      }
+    },
+    {
+      "systemId": "hellenistisch",
+      "displayName": "Hellenistisch",
+      "scores": {
+        "fit": 64.8,
+        "randomAdvantage": 27.3,
+        "deltaFitToKO": 9.5,
+        "deltaRandomAdvantageToKO": 14.2
+      },
+      "qualityFlags": {
+        "birthTimeKnown": true,
+        "modelType": "computed",
+        "ephemerisMode": "simplified"
+      },
+      "explanation": {
+        "short": "Kurztext (2-4 Saetze)",
+        "long": "Langtext optional"
+      },
+      "visualPayload": {
+        "chartType": "radixWheel",
+        "zodiac": {
+          "type": "tropical",
+          "startAngleDeg": 0,
+          "signs": []
+        },
+        "houses": {
+          "system": "wholeSign",
+          "cuspsDeg": [],
+          "anglesDeg": {
+            "asc": 0,
+            "mc": 0,
+            "dc": 0,
+            "ic": 0
+          }
+        },
+        "planets": [],
+        "aspects": [],
+        "chronokrators": {
+          "profections": {
+            "age": 34,
+            "activeHouse": 11,
+            "activeSignId": "virgo",
+            "lordPlanetId": "mercury"
+          }
+        },
+        "sect": {
+          "isDayChart": true,
+          "sectLight": "sun",
+          "notes": "Taghoroskop"
+        },
+        "lots": [
+          {
+            "id": "fortune",
+            "label": "Lot des Gluecks",
+            "longitudeDeg": 251.4,
+            "house": 6
+          }
+        ]
+      }
+    },
+    {
+      "systemId": "bazi",
+      "displayName": "Bazi",
+      "scores": {
+        "fit": 62.0,
+        "randomAdvantage": 24.8,
+        "deltaFitToKO": 9.4,
+        "deltaRandomAdvantageToKO": 12.3
+      },
+      "qualityFlags": {
+        "birthTimeKnown": false,
+        "modelType": "computed",
+        "ephemerisMode": "na"
+      },
+      "explanation": {
+        "short": "Kurztext (2-4 Saetze)",
+        "long": "Langtext optional"
+      },
+      "visualPayload": {
+        "chartType": "fourPillars",
+        "pillars": {
+          "year": {
+            "stem": "jia",
+            "branch": "zi",
+            "stemElement": "wood",
+            "branchElement": "water"
+          },
+          "month": {
+            "stem": "bing",
+            "branch": "yin",
+            "stemElement": "fire",
+            "branchElement": "wood"
+          },
+          "day": {
+            "stem": "xin",
+            "branch": "hai",
+            "stemElement": "metal",
+            "branchElement": "water"
+          },
+          "hour": {
+            "stem": "unknown",
+            "branch": "unknown",
+            "estimated": true
+          }
+        },
+        "dayMaster": {
+          "stem": "xin",
+          "element": "metal",
+          "strength": "medium"
+        },
+        "fiveElements": {
+          "wood": 0.28,
+          "fire": 0.14,
+          "earth": 0.18,
+          "metal": 0.24,
+          "water": 0.16
+        },
+        "interactions": [
+          {
+            "type": "support",
+            "from": "water",
+            "to": "wood",
+            "weight": 0.7
+          },
+          {
+            "type": "control",
+            "from": "metal",
+            "to": "wood",
+            "weight": 0.5
+          }
+        ],
+        "luckPillars": [
+          {
+            "startAge": 26,
+            "endAge": 35,
+            "stem": "wu",
+            "branch": "chen"
+          },
+          {
+            "startAge": 36,
+            "endAge": 45,
+            "stem": "ji",
+            "branch": "si"
+          }
+        ],
+        "renderHints": {
+          "showCycleDiagram": true,
+          "showElementBars": true
+        }
+      }
+    }
+  ]
+}
