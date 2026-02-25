@@ -45,7 +45,7 @@ export function useRating(vektoren, antworten, inputs) {
     const base = calculateRating(vektoren ?? {}, antworten ?? [], matrix);
     const temperament = calculateTemperament(base, inputs ?? {});
     return {
-      ranking: base.ranking,
+      ranking: (base.ranking ?? []).filter((s) => s !== "KO"),
       systemDetails: base.systemDetails,
       fitVsKO: base.fitVsKO ?? {},
       skillVsKO: base.skillVsKO ?? {},

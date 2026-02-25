@@ -3,6 +3,8 @@
 
 Ziel: Wiederverwendbare, mehrsprachige Textgenerierung mit geringer Serverlast und hoher Kontrollierbarkeit.
 
+**Runtime-Quellen:** Laufzeitrelevante JSON-Dateien (Claims, Evidence, Framing, Systemtexte) liegen unter `content/horoscope/de/` (z. B. `text_blocks_v1.json`, `system_texts_v1.json`). Diese Doku beschreibt Konzept und Architektur; die konkreten Daten werden zur Laufzeit aus `/content` geladen.
+
 ---
 
 ## 1) Prinzip

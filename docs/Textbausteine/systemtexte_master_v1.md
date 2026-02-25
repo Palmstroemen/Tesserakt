@@ -110,15 +110,15 @@ Hinweis:
 
 ## 5. Mapping: System -> Datei -> Inhaltsbloecke
 
-| System | Datei | Intro | 8 Dimensionen | Paracelsus-Outro |
+| System | Runtime-Quelle | Intro | 8 Dimensionen | Paracelsus-Outro |
 |---|---|---|---|---|
-| Westlich | `docs/Textbausteine/systeme/westlich_v1.md` | ja | ja | ja |
-| Bazi | `docs/Textbausteine/systeme/bazi_v1.md` | ja | ja | ja |
-| Numerologie | `docs/Textbausteine/systeme/numerologie_v1.md` | ja | ja | ja |
-| Kabbalah | `docs/Textbausteine/systeme/kabbalah_v1.md` | ja | ja | ja |
-| Arabisch | `docs/Textbausteine/systeme/arabisch_v1.md` | ja | ja | ja |
-| Hellenistisch | `docs/Textbausteine/systeme/hellenistisch_v1.md` | ja | ja | ja |
-| Vedisch | `docs/Textbausteine/systeme/vedisch_v1.md` | ja | ja | ja |
+| Westlich | `content/horoscope/de/system_texts_v1.json` (systems.Westlich) | ja | ja | ja |
+| Bazi | `content/horoscope/de/system_texts_v1.json` (systems.Bazi) | ja | ja | ja |
+| Numerologie | `content/horoscope/de/system_texts_v1.json` (systems.Numerologie) | ja | ja | ja |
+| Kabbalah | `content/horoscope/de/system_texts_v1.json` (systems.Kabbalah) | ja | ja | ja |
+| Arabisch | `content/horoscope/de/system_texts_v1.json` (systems.Arabisch) | ja | ja | ja |
+| Hellenistisch | `content/horoscope/de/system_texts_v1.json` (systems.Hellenistisch) | ja | ja | ja |
+| Vedisch | `content/horoscope/de/system_texts_v1.json` (systems.Vedisch) | ja | ja | ja |
 
 ---
 

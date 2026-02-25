@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "de",
+  "textVersion": "v1",
+  "notes": "Starterset fuer die regelbasierte Textengine. Claims sind systemneutral, Evidence und Framing systemspezifisch.",
+  "lexicon": {
+    "de": {
+      "systems": {
+        "Westlich": { "nom": "die westliche Astrologie", "dat": "der westlichen Astrologie" },
+        "Hellenistisch": { "nom": "die hellenistische Astrologie", "dat": "der hellenistischen Astrologie" },
+        "Bazi": { "nom": "die chinesische Astrologie", "dat": "der chinesischen Astrologie" },
+        "Numerologie": { "nom": "die Numerologie", "dat": "der Numerologie" },
+        "Kabbalah": { "nom": "die Kabbalah", "dat": "der Kabbalah" },
+        "Arabisch": { "nom": "die arabische Astrologie", "dat": "der arabischen Astrologie" },
+        "Vedisch": { "nom": "die vedische Astrologie", "dat": "der vedischen Astrologie" }
+      }
+    }
+  },
+  "claims": [
+    { "id": "claim.liebe.conflict_tendency.low", "dimension": "liebe", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "liebe_conflict_tendency", "text": "In Beziehungen koennten gelegentlich Reibungen auftreten." },
+    { "id": "claim.liebe.conflict_tendency.medium", "dimension": "liebe", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "liebe_conflict_tendency", "text": "Du koenntest in Beziehungen wiederholt in Konfliktsituationen geraten." },
+    { "id": "claim.liebe.conflict_tendency.high", "dimension": "liebe", "polarity": "mixed", "strengthBand": "high", "dedupeKey": "liebe_conflict_tendency", "text": "Spannungen in Beziehungen koennten bei dir ein zentrales Entwicklungsthema sein." },
+    { "id": "claim.liebe.attachment_tendency.medium", "dimension": "liebe", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "liebe_attachment_tendency", "text": "Du neigst dazu, Bindungen ernst zu nehmen und Beziehungen langfristig zu denken." },
+    { "id": "claim.beruf.structure_orientation.medium", "dimension": "beruf", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "beruf_structure_orientation", "text": "Im Beruf koennte eine klare Struktur dir besonders helfen." },
+    { "id": "claim.beruf.structure_orientation.high", "dimension": "beruf", "polarity": "positive", "strengthBand": "high", "dedupeKey": "beruf_structure_orientation", "text": "Du wirkst beruflich besonders stark, wenn Rollen, Ziele und Prozesse klar definiert sind." },
+    { "id": "claim.finanzen.risk_control.medium", "dimension": "finanzen", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "finanzen_risk_control", "text": "Bei finanziellen Entscheidungen koennte ein Balancepunkt zwischen Sicherheit und Mut entscheidend sein." },
+    { "id": "claim.gesundheit.energy_cycle.medium", "dimension": "gesundheit", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "gesundheit_energy_cycle", "text": "Deine Energie scheint eher in Wellen zu verlaufen als konstant linear." },
+    { "id": "claim.soziales.group_comfort.low", "dimension": "soziales", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "soziales_group_comfort", "text": "In groesseren Gruppen kannst du phasenweise eher zurueckhaltend sein." },
+    { "id": "claim.kreativitaet.pattern_break.high", "dimension": "kreativitaet", "polarity": "positive", "strengthBand": "high", "dedupeKey": "kreativitaet_pattern_break", "text": "Du hast ein starkes Potenzial, festgefahrene Muster kreativ zu durchbrechen." },
+    { "id": "claim.veraenderung.transition_skill.medium", "dimension": "veraenderung", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "veraenderung_transition_skill", "text": "Uebergaenge und Neuanfaenge koennten dir besser gelingen, wenn du sie aktiv gestaltest." },
+    { "id": "claim.spiritualitaet.intuition_channel.medium", "dimension": "spiritualitaet", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "spiritualitaet_intuition_channel", "text": "Intuitive Eindruecke scheinen fuer dich ein relevanter Orientierungskanal zu sein." }
+  ],
+  "evidence": [
+    { "id": "ev.westlich.mars_house_sign", "system": "Westlich", "code": "mars_house_sign", "slotSchema": ["planet", "house", "sign"], "text": "weil dein {planet} im {house}. Haus im Zeichen {sign} steht" },
+    { "id": "ev.westlich.venus_aspect_mars", "system": "Westlich", "code": "venus_aspect_mars", "slotSchema": ["aspectType", "orbDeg"], "text": "weil Venus und Mars einen {aspectType}-Aspekt mit einem Orb von {orbDeg} Grad bilden" },
+    { "id": "ev.hellenistisch.profection_house", "system": "Hellenistisch", "code": "profection_house", "slotSchema": ["activeHouse", "lordPlanet"], "text": "weil in deiner aktuellen Profektion das {activeHouse}. Haus aktiv ist und von {lordPlanet} regiert wird" },
+    { "id": "ev.hellenistisch.sect_status", "system": "Hellenistisch", "code": "sect_status", "slotSchema": ["sectType"], "text": "weil dein Horoskop als {sectType}-Geburt im Sekt-System anders gewichtet wird" },
+    { "id": "ev.bazi.day_master_element", "system": "Bazi", "code": "day_master_element", "slotSchema": ["dayMasterElement"], "text": "weil dein Day Master dem Element {dayMasterElement} zugeordnet ist" },
+    { "id": "ev.bazi.element_interaction", "system": "Bazi", "code": "element_interaction", "slotSchema": ["fromElement", "toElement", "interactionType"], "text": "weil im Elementmuster {fromElement} und {toElement} eher {interactionType} wirken" },
+    { "id": "ev.numerologie.birth_sum_month_combo", "system": "Numerologie", "code": "birth_sum_month_combo", "slotSchema": ["sumNumber", "monthNumber"], "text": "weil die {sumNumber} aus deinem Geburtsdatum zusammen mit der {monthNumber} im Monat so gelesen wird" },
+    { "id": "ev.numerologie.life_path", "system": "Numerologie", "code": "life_path", "slotSchema": ["lifePath"], "text": "weil deine Lebenspfadzahl {lifePath} in dieser Dimension eine deutliche Tendenz zeigt" },
+    { "id": "ev.kabbalah.sephira", "system": "Kabbalah", "code": "sephira", "slotSchema": ["sephiraName"], "text": "weil die Zuordnung zur Sephira {sephiraName} hier besonders betont wird" },
+    { "id": "ev.arabisch.firdaria_period", "system": "Arabisch", "code": "firdaria_period", "slotSchema": ["periodLord"], "text": "weil deine aktuelle Firdaria-Periode unter {periodLord} steht" },
+    { "id": "ev.vedisch.mahadasha_planet", "system": "Vedisch", "code": "mahadasha_planet", "slotSchema": ["mahadashaPlanet"], "text": "weil in deiner aktuellen Mahadasha die Planetenkraft von {mahadashaPlanet} dominiert" },
+    { "id": "ev.vedisch.nakshatra", "system": "Vedisch", "code": "nakshatra", "slotSchema": ["nakshatraName"], "text": "weil dein Nakshatra-Profil in {nakshatraName} diese Tendenz verstaerkt" }
+  ],
+  "framing": [
+    { "id": "fr.assumption.nom.nahelegen", "text": "wuerde {system.nom} nahelegen", "requiresSlots": ["system.nom"] },
+    { "id": "fr.assumption.dat.angenommen", "text": "wird in {system.dat} angenommen", "requiresSlots": ["system.dat"] },
+    { "id": "fr.assumption.nom.deuten", "text": "wuerde {system.nom} so deuten", "requiresSlots": ["system.nom"] },
+    { "id": "fr.assumption.dat.lesen", "text": "wird in {system.dat} in diese Richtung gelesen", "requiresSlots": ["system.dat"] }
+  ],
+  "patterns": [
+    { "id": "pattern.claim_then_evidence", "template": "{CLAIM} {EVIDENCE}." },
+    { "id": "pattern.evidence_then_claim", "template": "{EVIDENCE}, {CLAIM}." },
+    { "id": "pattern.framed_claim", "template": "{EVIDENCE}, {FRAMING} {CLAIM}." },
+    { "id": "pattern.claim_plus_bullet_evidence", "template": "{CLAIM}", "postFormat": "bulletedEvidence" }
+  ],
+  "dedupeRules": { "maxSameDedupeKey": 1, "mergeEvidenceForSameClaim": true, "maxClaimsPerDimension": 2 },
+  "safetyRules": { "useHedgingLanguage": true, "forbidDeterministicPhrasing": true, "appendMethodHintIfLowConfidence": true }
+}

@@ -9,6 +9,7 @@ import VergleichsGruppeViz from "./components/VergleichsGruppeViz";
 import Zwischenstand from "./components/Zwischenstand";
 import RankingTabelle from "./components/RankingTabelle";
 import TemperamentProfil from "./components/TemperamentProfil";
+import SystemDeutungTabs, { useSystemTexts } from "./components/SystemDeutungTabs";
 import { useVektoren } from "./hooks/useVektoren";
 import { useRating } from "./hooks/useRating";
 import { FRAGEN } from "./logic/questions";
@@ -46,7 +47,6 @@ export default function App() {
     "Arabisch",
     "Hellenistisch",
     "Vedisch",
-    "KO",
   ]);
   const [selectedSystems, setSelectedSystems] = useState(["Westlich", "Bazi", "Numerologie"]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -90,6 +90,12 @@ export default function App() {
     assessmentStarted &&
     questionOrder.length > 0 &&
     currentIndex >= questionOrder.length;
+
+  const { systemTexts, loading: textsLoading, error: textsError } = useSystemTexts(
+    isFinished ? rating.ranking : null,
+    isFinished
+  );
+
   const doy = useMemo(() => (birthDate ? dayOfYear(birthDate) : null), [birthDate]);
   const stunde = useMemo(() => Number((birthTime || "12:00").split(":")[0]), [birthTime]);
   const currentQuestionWeights = useMemo(() => {
@@ -165,6 +171,17 @@ export default function App() {
   }
 
   function backToGameSelection() {
+    setSelectedGame(null);
+    setAssessmentStarted(false);
+    setCurrentIndex(0);
+    setQuestionOrder([]);
+    setAnswers([]);
+    setRatingHistory([]);
+    setSaved(false);
+  }
+
+  /** Spiel komplett zuruecksetzen: zurueck zur Spielauswahl, gleiches Geburtsdatum. */
+  function restartGame() {
     setSelectedGame(null);
     setAssessmentStarted(false);
     setCurrentIndex(0);
@@ -277,17 +294,40 @@ export default function App() {
       ) : null}
 
       {selectedGame === "personality" && assessmentStarted && isFinished ? (
-        <section className="card">
-          <h2>Ergebnis</h2>
-          <RankingTabelle
-            systeme={rating.systemDetails}
-            ranking={rating.ranking}
-            fitVsKO={rating.fitVsKO}
-            skillVsKO={rating.skillVsKO}
-          />
-          <TemperamentProfil temperament={rating.temperament} />
-          <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>
-        </section>
+        <>
+          <section className="card">
+            <h2>Ergebnis</h2>
+            <RankingTabelle
+              systeme={rating.systemDetails}
+              ranking={rating.ranking}
+              fitVsKO={rating.fitVsKO}
+              skillVsKO={rating.skillVsKO}
+            />
+            <TemperamentProfil temperament={rating.temperament} />
+            <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>
+            <p className="science-link">
+              <a href={import.meta.env.VITE_SCIENCE_URL ?? "#"} target="_blank" rel="noopener noreferrer">
+                Zum wissenschaftlichen Hintergrund und zu Ergebnissen des Projekts
+              </a>
+            </p>
+            <p>
+              <button type="button" className="button-restart" onClick={restartGame}>
+                Spiel neu starten
+              </button>
+            </p>
+          </section>
+          {textsLoading ? (
+            <section className="card">
+              <p>Systemtexte werden geladen...</p>
+            </section>
+          ) : textsError ? (
+            <section className="card">
+              <p className="error">Systemtexte konnten nicht geladen werden: {textsError}</p>
+            </section>
+          ) : (
+            <SystemDeutungTabs ranking={rating.ranking} systemTexts={systemTexts} />
+          )}
+        </>
       ) : null}
     </main>
   );

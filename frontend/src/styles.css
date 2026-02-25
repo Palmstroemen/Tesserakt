@@ -119,6 +119,26 @@ button {
   color: #9f1d35;
 }
 
+.science-link {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.science-link a {
+  color: #5772d5;
+}
+
+.button-restart {
+  margin-top: 8px;
+  background: #fff;
+  color: #5772d5;
+  border: 1px solid #5772d5;
+}
+
+.button-restart:hover {
+  background: #ecf0fc;
+}
+
 .checkbox-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));

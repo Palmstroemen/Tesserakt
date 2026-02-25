@@ -1,0 +1,148 @@
+import { useState, useEffect } from "react";
+
+const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+
+/** Entfernt [TAG] Zeilen aus dem Text fuer die Anzeige. */
+function stripTagLines(text) {
+  if (!text || typeof text !== "string") return "";
+  return text
+    .replace(/\n\[TAG\]\s*\S+[^\n]*/g, "")
+    .replace(/\[TAG\]\s*\S+[^\n]*/g, "")
+    .trim();
+}
+
+/** Rendert einen Block Fliesstext (Absaetze durch Doppelumbrueche). */
+function Paragraphs({ text }) {
+  const cleaned = stripTagLines(text);
+  if (!cleaned) return null;
+  const blocks = cleaned.split(/\n\n+/).filter(Boolean);
+  return (
+    <>
+      {blocks.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </>
+  );
+}
+
+const DIMENSION_ORDER = [
+  "liebe",
+  "beruf",
+  "finanzen",
+  "gesundheit",
+  "soziales",
+  "kreativitaet",
+  "veraenderung",
+  "spiritualitaet",
+];
+
+export default function SystemDeutungTabs({ ranking, systemTexts }) {
+  // Nur Systeme anzeigen, die sowohl im Ranking als auch in den Texten vorkommen (KO hat keine Texte)
+  const systems = (ranking || []).filter(
+    (s) => s !== "KO" && systemTexts?.systems?.[s]
+  );
+  const [activeSystem, setActiveSystem] = useState(systems[0] ?? null);
+
+  // Aktiven Tab zuruecksetzen, wenn sich die Systemliste aendert
+  useEffect(() => {
+    if (systems.length === 0) return;
+    if (!activeSystem || !systems.includes(activeSystem)) {
+      setActiveSystem(systems[0]);
+    }
+  }, [systems, activeSystem]);
+
+  const activeData = activeSystem && systemTexts?.systems?.[activeSystem];
+
+  if (systems.length === 0) {
+    return (
+      <section className="card">
+        <h2>Deutung nach System</h2>
+        <p>Keine Systemtexte geladen. Nur gewaehlte Systeme (ohne KO) werden hier angezeigt.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="card system-deutung-tabs">
+      <h2>Deutung nach System</h2>
+      <p className="tabs-hint">Nur die von dir gewaehlten Systeme; Reihenfolge entspricht dem Ranking.</p>
+      <div className="tabs-header" role="tablist">
+        {systems.map((system) => (
+          <button
+            key={system}
+            type="button"
+            role="tab"
+            aria-selected={activeSystem === system}
+            className={activeSystem === system ? "tab active" : "tab"}
+            onClick={() => setActiveSystem(system)}
+          >
+            {system}
+          </button>
+        ))}
+      </div>
+      {activeData && (
+        <div className="tabs-content" role="tabpanel">
+          <h3>{activeSystem}</h3>
+          <div className="bild-stub">
+            [Bild folgt: Diagramm fuer {activeSystem}]
+          </div>
+          <div className="deutung-intro">
+            <Paragraphs text={activeData.intro} />
+          </div>
+          {DIMENSION_ORDER.map((dimKey) => {
+            const block = activeData.dimensions?.[dimKey];
+            if (!block) return null;
+            const cleaned = stripTagLines(block);
+            const lines = cleaned.split(/\n/).map((s) => s.trim()).filter(Boolean);
+            const firstLine = lines[0];
+            const restLines = lines.slice(1);
+            return (
+              <div key={dimKey} className="deutung-dimension">
+                <h4>{firstLine || dimKey}</h4>
+                {restLines.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            );
+          })}
+          <div className="deutung-outro">
+            <Paragraphs text={activeData.paracelsus_outro} />
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** Hook: Systemtexte vom Backend laden (einmalig bei isFinished). */
+export function useSystemTexts(ranking, isFinished) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!isFinished || !ranking?.length) {
+      return;
+    }
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    fetch(`${API_BASE}/horoscope/texts?locale=de`)
+      .then((r) => {
+        if (!r.ok) throw new Error(r.statusText);
+        return r.json();
+      })
+      .then((json) => {
+        if (!cancelled) setData(json);
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [isFinished, ranking?.length]);
+
+  return { systemTexts: data, loading, error };
+}

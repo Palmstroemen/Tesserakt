@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "de",
+  "textVersion": "v1",
+  "systems": {
+    "Westlich": {
+      "intro": "[TAG] INTRO_WESTLICH_CORE\n\nDie westliche Astrologie arbeitet mit Tierkreis, Haeusern und Planetenmustern, um Persoenlichkeitsachsen sichtbar zu machen. Das System beschreibt keine festen Schicksalsurteile, sondern eher wiederkehrende Tendenzen, die sich je nach Lebensphase unterschiedlich stark zeigen koennten.\n\nIm Vergleich zu anderen Systemen ist die westliche Astrologie im Prototyp besonders gut geeignet, weil viele Nutzer die Symbolik bereits kennen und deshalb leichter einsteigen.\n\n[TAG] INTRO_WESTLICH_SPECIAL\n\nEine interessante Besonderheit ist die Kombination aus Struktur und Dynamik: Das Geburtsthema bleibt als Grundkarte stabil, waehrend Transite, Aspekte und Schwerpunktverschiebungen immer wieder neue Akzente setzen koennten.\n\nDemnach muesstest du westliche Aussagen weniger als Etikett lesen, sondern eher als Navigationshilfe fuer Situationen, in denen sich bekannte Muster erneut zeigen.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt fuer Beziehungen eine Tendenz zu intensiven Lernmomenten, besonders wenn Naehe und Eigenstaendigkeit gleichzeitig wichtig werden.  \nDemnach muesstest du in Beziehungsfragen haeufig dann klarer werden, wenn Spannungen bereits sichtbar sind.  \nDas muss nicht bedeuten, dass du grundsaetzlich konflikthaft bist, aber du koenntest eher die Rolle uebernehmen, Dinge offen anzusprechen.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_HIGH  \nDie westliche Deutung wuerde nahelegen, dass berufliche Wirkung bei dir stark an Struktur, Verantwortung und klares Priorisieren gebunden sein koennte.  \nDemnach muesstest du in Arbeitskontexten besonders dann aufblühen, wenn Ziele sauber definiert sind.  \nDas muss nicht heissen, dass du nur in starren Systemen funktionierst, aber du koenntest klare Leitplanken als Produktivitaetsbooster erleben.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_MEDIUM  \nDas System beschreibt im finanziellen Bereich eher eine Balanceaufgabe zwischen Sicherheitsbeduerfnis und opportunem Handeln.  \nDemnach muesstest du bessere Entscheidungen treffen, wenn du grosse Schritte in kleinere Etappen zerlegst.  \nDas muss nicht bedeuten, dass du vorsichtig oder risikofreudig \"bist\", sondern dass Timing und Taktung den Unterschied machen koennten.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nDie westliche Perspektive wuerde andeuten, dass Energie und Belastbarkeit in Wellen statt linear verlaufen koennten.  \nDemnach muesstest du staerker profitieren, wenn Aktivitaet und Regeneration bewusst rhythmisiert werden.  \nDas muss nicht auf Schwaeche hinweisen, sondern auf die Notwendigkeit, Belastung und Ausgleich fein zu dosieren.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_MEDIUM  \nDas System beschreibt soziale Kompetenz eher qualitativ als quantitativ: Tiefe Kontakte koennten dir mehr geben als dauernde Gruppenpraesenz.  \nDemnach muesstest du in grossen Settings phasenweise selektiver werden, ohne den Anschluss zu verlieren.  \nDas muss nicht bedeuten, dass du unsozial waerst, aber du koenntest bewusster zwischen Resonanz und reiner Verfuegbarkeit unterscheiden.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_HIGH  \nDie westliche Astrologie wuerde in kreativen Feldern ein Potenzial zur Musterunterbrechung beschreiben.  \nDemnach muesstest du dann besonders originell arbeiten, wenn Standardloesungen nicht mehr tragen.  \nDas muss nicht heissen, dass alles neu sein muss, aber du koenntest bestehende Ideen überdurchschnittlich gut neu kombinieren.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nDas System beschreibt Veraenderung eher als aktive Gestaltung denn als reines Reagieren auf Umstaende.  \nDemnach muesstest du Uebergaenge stabiler erleben, wenn du ihnen eine klare innere Struktur gibst.  \nDas muss nicht bedeuten, dass Wandel leicht ist, aber du koenntest mit bewusst gesetzten Etappen mehr Sicherheit gewinnen.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_MEDIUM  \nDie westliche Deutung wuerde Spiritualitaet bei dir als leisen Orientierungsfaktor lesen, nicht zwingend als lautes Weltbild.  \nDemnach muesstest du Intuition vor allem in Schluesselmomenten als nuetzlichen Kompass wahrnehmen.  \nDas muss nicht auf ein festes Glaubenssystem hinauslaufen, aber auf eine wiederkehrende innere Rueckkopplung."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_BALANCE  \nIm Paracelsus-Rahmen koennte sich dein Profil als Mischung aus strukturierender und beweglicher Signatur zeigen: genug Feuer fuer Initiative, genug Erdung fuer Umsetzung.  \nDemnach muesstest du langfristig profitieren, wenn du Temperament nicht als Etikett, sondern als regulares Kalibrierungsinstrument nutzt.  \nDas muss nicht bedeuten, dass eine Signatur \"richtig\" und eine andere \"falsch\" ist; vielmehr koenntest du je nach Lebensbereich unterschiedliche Kraefte gezielt in Balance bringen.",
+      "tags": [
+        "INTRO_WESTLICH_CORE",
+        "INTRO_WESTLICH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_MEDIUM",
+        "OUTRO_PARACELSUS_BALANCE"
+      ]
+    },
+    "Bazi": {
+      "intro": "[TAG] INTRO_BAZI_CORE\n\nBazi (chinesische Astrologie) beschreibt Persoenlichkeitsmuster ueber die vier Saeulen von Jahr, Monat, Tag und Stunde sowie ueber die Dynamik der fuenf Elemente. Das System betrachtet weniger statische Eigenschaften als energetische Verhaeltnisse, die sich in Zyklen und Kontexten unterschiedlich ausdruecken koennten.\n\nIm Vergleich zur westlichen Astrologie liegt der Fokus staerker auf elementaren Wechselwirkungen und Lebensrhythmen statt auf Aspektgeometrie im Rad.\n\n[TAG] INTRO_BAZI_SPECIAL\n\nEine Besonderheit ist die Relation der Elemente untereinander: Naehrung, Kontrolle, Abschwaechung und Resonanz koennen als Muster gelesen werden, die sich in Alltag, Beziehungen und Entscheidungen spiegeln.\n\nDemnach muesstest du Bazi eher als Prozessmodell lesen: Nicht \"wer du bist\", sondern wie deine Kraefte in bestimmten Umstaenden zueinander stehen koennten.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt fuer Beziehungen eine Tendenz zu Dynamik, wenn unterschiedliche Beduerfnisse nach Stabilitaet und Bewegung zusammentreffen.  \nDemnach muesstest du in Partnerschaften besonders dort lernen, wo Fuehrung und Nachgeben im Wechsel gebraucht werden.  \nDas muss nicht bedeuten, dass es haeufig eskaliert, aber du koenntest frueh erkennen, wann Balance aktiv hergestellt werden sollte.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_HIGH  \nBazi wuerde beruflich nahelegen, dass Leistungsstaerke vor allem in klaren Rollen mit nachvollziehbarer Verantwortung sichtbar werden koennte.  \nDemnach muesstest du mit klarer Aufgabenlogik und planbarer Entwicklung besonders verlaesslich performen.  \nDas muss nicht heissen, dass du nur lineare Karrierewege brauchst, aber dass strukturierte Entwicklung dir meist besser bekommt als chaotischer Druck.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_MEDIUM  \nDas System beschreibt Finanzthemen als Frage des Elementgleichgewichts zwischen Sammeln, Halten und Zirkulieren.  \nDemnach muesstest du stabile Ergebnisse eher erreichen, wenn Entscheidungen nicht impulsiv, sondern in aufeinander abgestimmten Schritten erfolgen.  \nDas muss nicht bedeuten, dass Risiko falsch ist, aber dass ungefilterte Ausschlaege eher unguenstig sein koennten.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nBazi wuerde Gesundheit als Ausdruck von Rhythmus und Ausgleich lesen: zu viel eines Elements koennte auf Dauer einseitig wirken.  \nDemnach muesstest du von regelmaessigen Mikroanpassungen mehr profitieren als von kurzfristigen Extremphasen.  \nDas muss nicht auf Defizit hindeuten, aber auf die Bedeutung von Kontinuitaet.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_LOW  \nDas System beschreibt soziale Wirksamkeit eher situativ: In stimmigen Konstellationen koennte Verbindung leicht entstehen, in unpassenden eher zaeh wirken.  \nDemnach muesstest du nicht jede Gruppe gleich intensiv bedienen, sondern passende Resonanzraeume priorisieren.  \nDas muss nicht bedeuten, dass du dich zurueckziehst, aber dass Selektivitaet ein staerkender Faktor sein koennte.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_MEDIUM  \nBazi wuerde kreative Energie als Produkt aus Spannung und Harmonie der Elemente deuten.  \nDemnach muesstest du besonders dann neue Ideen entwickeln, wenn du Gegensatzpaare bewusst kombinierst statt sie zu glätten.  \nDas muss nicht heissen, dass jede Idee sofort tragfaehig ist, aber dass Experimentierfenster fuer dich wertvoll sein koennten.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nDas System beschreibt Veraenderung als zyklischen Prozess mit Phasen von Aufbau, Verdichtung und Umschichtung.  \nDemnach muesstest du Wandel erfolgreicher gestalten, wenn du Timing und Reihenfolge ernst nimmst.  \nDas muss nicht bedeuten, dass alles planbar ist, aber dass gute Uebergaenge selten zufaellig passieren.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_MEDIUM  \nBazi wuerde spirituelle Orientierung weniger dogmatisch als harmonisierende Perspektive lesen.  \nDemnach muesstest du Sinn oft dort finden, wo innere und aeussere Ordnung wieder in Einklang kommen.  \nDas muss nicht auf esoterische Praxis hinauslaufen, aber auf ein feines Gespuer fuer stimmige Ausrichtung."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_CYCLIC  \nIm Paracelsus-Blick koennte dein Profil als Wechselspiel aus Waermeimpuls, Strukturkraft und adaptiver Beweglichkeit erscheinen.  \nDemnach muesstest du in fordernden Phasen weniger \"gegen\" ein Temperament arbeiten als dessen Schattenseite bewusst ausbalancieren.  \nDas muss nicht bedeuten, dass ein Element dominiert; eher koenntest du je nach Aufgabe gezielt unterschiedliche Signaturen aktivieren.",
+      "tags": [
+        "INTRO_BAZI_CORE",
+        "INTRO_BAZI_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_LOW",
+        "DIM_KREATIVITAET_MEDIUM",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_MEDIUM",
+        "OUTRO_PARACELSUS_CYCLIC"
+      ]
+    },
+    "Numerologie": {
+      "intro": "[TAG] INTRO_NUMEROLOGIE_CORE\n\nDie Numerologie beschreibt Persoenlichkeitsmuster ueber Zahlensignaturen aus Geburtsdatum (und optional Namensanteilen). Sie arbeitet weniger mit astronomischen Positionen und mehr mit symbolischen Zahlenfeldern, die als wiederkehrende Themenachsen interpretiert werden koennten.\n\nIm Vergleich zur westlichen Astrologie ist der Zugang abstrakter, aber oft direkt verstaendlich, weil Zahlen als klare Struktur erlebt werden.\n\n[TAG] INTRO_NUMEROLOGIE_SPECIAL\n\nEine interessante Besonderheit ist die Kombination von Kernzahl und Nebenachsen: dieselbe Zahl kann in unterschiedlichen Kontexten unterschiedlich wirken.\n\nDemnach muesstest du numerologische Aussagen eher als Musterkarte lesen, nicht als lineares Urteil.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt in Beziehungsthemen haeufig eine Lernachse zwischen Naehe, Eigenraum und Erwartungsklarheit.  \nDemnach muesstest du in Partnerschaften vor allem dort Stabilitaet finden, wo Rollen und Beduerfnisse offen benannt werden.  \nDas muss nicht bedeuten, dass Beziehungen schwierig waeren, aber dass unausgesprochene Annahmen eher zu Reibung fuehren koennten.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_MEDIUM  \nNumerologisch wuerde nahegelegt, dass beruflicher Erfolg stark mit Sinnbezug und innerer Konsistenz gekoppelt sein koennte.  \nDemnach muesstest du auf Dauer dort am besten sein, wo Aufgabe, Wert und Verantwortung zusammenpassen.  \nDas muss nicht heissen, dass jede Taetigkeit \"Berufung\" sein muss, aber dass reine Zwecklogik allein dich eher unterfordert.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_MEDIUM  \nDas System beschreibt Finanzen als Spiegel von Entscheidungsstil und Selbststeuerung.  \nDemnach muesstest du solide Resultate eher erzielen, wenn Ausgaben, Sicherheit und Entwicklungsziele bewusst ausbalanciert werden.  \nDas muss nicht auf Strenge hinauslaufen, aber auf eine transparente Priorisierung.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_LOW  \nNumerologisch wird Gesundheit oft indirekt ueber Lebensrhythmus, Belastungsstil und Erholungsdisziplin gelesen.  \nDemnach muesstest du von klaren Routinen besonders dann profitieren, wenn dein Alltag stark variiert.  \nDas muss nicht bedeuten, dass Belastbarkeit gering ist, aber dass Unregelmaessigkeit schneller zu Energieverlust fuehren koennte.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_MEDIUM  \nDas System beschreibt soziale Wirkung als Wechsel zwischen Sichtbarkeit und selektiver Tiefe.  \nDemnach muesstest du in Gruppen leichter wirksam sein, wenn du nicht nur reagierst, sondern bewusst Position beziehst.  \nDas muss nicht auf Dominanz zielen, aber auf eine klarere Selbstplatzierung.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_HIGH  \nNumerologisch koennte Kreativitaet als starke Kernressource erscheinen, besonders in der Verbindung von Intuition und Struktur.  \nDemnach muesstest du Ideen dann am besten umsetzen, wenn du ihnen ein klares Format gibst.  \nDas muss nicht bedeuten, dass jede Idee neu sein muss, aber dass deine Kombination aus Mustererkennung und Umdeutung besonders produktiv sein koennte.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nDas System beschreibt Veraenderung weniger als Bruch, sondern als Sequenz von Reifeschritten.  \nDemnach muesstest du Uebergaenge besser integrieren, wenn du alte Rollen bewusst abschliesst, statt sie nur zu verlassen.  \nDas muss nicht heissen, dass Wandel langsam sein muss, aber dass innere Ordnung den Unterschied macht.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nNumerologisch wird Spiritualitaet oft als Sinn- und Orientierungstiefe verstanden, nicht zwingend als institutioneller Glaube.  \nDemnach muesstest du in entscheidenden Momenten auf innere Plausibilitaet staerker reagieren als auf aussen gesetzte Standards.  \nDas muss nicht bedeuten, dass Rationalitaet fehlt, sondern dass Intuition als zweite Pruefinstanz aktiv bleibt."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_PATTERN  \nIm Paracelsus-Rahmen koennte deine Signaturmischung auf ein produktives Zusammenspiel von Luft (Deutung), Feuer (Impuls) und Erde (Formgebung) hinweisen.  \nDemnach muesstest du besonders dann klar bleiben, wenn du zwischen Idee und Umsetzung eine verbindende Zwischenstufe einziehst.  \nDas muss nicht auf Perfektion zielen; eher koennte konsistente Kalibrierung dein staerkster Hebel sein.",
+      "tags": [
+        "INTRO_NUMEROLOGIE_CORE",
+        "INTRO_NUMEROLOGIE_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_MEDIUM",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_PATTERN"
+      ]
+    },
+    "Kabbalah": {
+      "intro": "[TAG] INTRO_KABBALAH_CORE\n\nDie kabbalistische Lesart ordnet Persoenlichkeitsmuster entlang des Lebensbaums und seiner Sphären, also als Beziehung zwischen inneren Kraeften und ihrer Auspraegung in der Welt. Das System beschreibt weniger Verhalten im engeren Sinn und eher Entwicklungsachsen zwischen Erkenntnis, Handlung und Verantwortung.\n\nIm Vergleich zur westlichen Astrologie liegt der Schwerpunkt staerker auf innerer Struktur und spiritueller Reifung als auf konkreter Ereigniszeitung.\n\n[TAG] INTRO_KABBALAH_SPECIAL\n\nEine Besonderheit ist die Perspektive auf Polaritaeten: Milde und Strenge, Expansion und Begrenzung, Hingabe und Klarheit koennten als Paare gelesen werden, die ausbalanciert werden wollen.\n\nDemnach muesstest du kabbalistische Aussagen als Einladung zur Feinausrichtung verstehen, nicht als starres Urteil.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt fuer Beziehungen eine Tendenz, dass Bindung dann tragfaehig wird, wenn Herzoffenheit und Grenzbewusstsein zusammenwirken.  \nDemnach muesstest du in Naehekontexten von klaren Absprachen profitieren, ohne Waerme zu verlieren.  \nDas muss nicht bedeuten, dass du kontrollierend waerst, aber dass Struktur als Schutzraum fuer Verbundenheit dienen koennte.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_LOW  \nDie kabbalistische Perspektive beschreibt Beruf weniger als Statusfrage und mehr als Verantwortungspfad.  \nDemnach muesstest du Arbeitszufriedenheit eher dann erleben, wenn Taetigkeit und Werte hierarchisch zusammenpassen.  \nDas muss nicht bedeuten, dass Karriere unwichtig ist, aber dass reine Aussenwirkung auf Dauer nicht ausreicht.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_LOW  \nDas System beschreibt finanzielle Themen nur indirekt, meist als Spiegel von Haltung zu Sicherheit, Vertrauen und Mass.  \nDemnach muesstest du in Geldfragen besonders gewinnen, wenn innere Prioritaeten vor kurzfristiger Impulssteuerung geklaert sind.  \nDas muss nicht auf Verzicht hinauslaufen, aber auf bewusstere Gewichtung.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_LOW  \nKabbalistisch wird Gesundheit eher als Folge von Balance zwischen innerer und aeusserer Ordnung verstanden.  \nDemnach muesstest du auf stabilisierende Rituale besonders positiv reagieren, wenn Belastung steigt.  \nDas muss nicht bedeuten, dass koerperliche Faktoren zweitrangig sind, aber dass Sinn- und Stressregulation oft mitwirken koennten.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_MEDIUM  \nDas System beschreibt soziale Rollen als Ausdruck von Reifegraden: Wann fuehrst du, wann empfaengst du, wann vermittelst du.  \nDemnach muesstest du in Gruppen an Wirksamkeit gewinnen, wenn du diese Rollen bewusst wechseln kannst.  \nDas muss nicht heissen, dass du dich verstellen sollst, aber dass flexible Perspektivwechsel eine Ressource sein koennten.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_HIGH  \nDie kabbalistische Lesart wuerde Kreativitaet als Kanal zwischen Idee und Form deuten.  \nDemnach muesstest du besonders dann starke Ergebnisse erzeugen, wenn Inspiration in konkrete Praxis uebersetzt wird.  \nDas muss nicht bedeuten, dass alles kunstfoermig sein muss, aber dass Gestaltung bei dir oft Erkenntnisarbeit ist.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nDas System beschreibt Veraenderung als stufenweisen Uebergang statt als abrupten Identitaetswechsel.  \nDemnach muesstest du Transformationsphasen stabiler durchlaufen, wenn du Zwischenschritte sichtbar machst.  \nDas muss nicht heissen, dass Wandel langsam sein muss, aber dass Integration Zeitfenster braucht.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nKabbalah wuerde Spiritualitaet als Kernachse deuten: Orientierung ueber Bedeutung, Verantwortung und innere Kohärenz.  \nDemnach muesstest du Entscheidungen langfristig eher danach bewerten, ob sie innerlich stimmig sind.  \nDas muss nicht auf Dogmatik hinauslaufen, aber auf konsequente Sinnpruefung."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_AXIS  \nIm Paracelsus-Bild koennte dein Muster als Wechselspiel von Feuerkraft (Initiative), Wasserkraft (Resonanz) und Erdung (Umsetzung) erscheinen.  \nDemnach muesstest du am meisten profitieren, wenn innere Einsicht in kleine, wiederholbare Handlungen uebersetzt wird.  \nDas muss nicht bedeuten, dass immer Gleichgewicht herrscht; eher koennte bewusste Nachjustierung selbst Teil deiner Reifungsdynamik sein.",
+      "tags": [
+        "INTRO_KABBALAH_CORE",
+        "INTRO_KABBALAH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_LOW",
+        "DIM_FINANZEN_LOW",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_AXIS"
+      ]
+    },
+    "Arabisch": {
+      "intro": "[TAG] INTRO_ARABISCH_CORE\n\nDie arabische Astrologie verbindet ueberlieferte Techniken wie Firdaria-Perioden und Lose zu einem Zeit- und Schwerpunktmodell. Das System beschreibt oft, welche Themen in bestimmten Lebensabschnitten in den Vordergrund ruecken koennten.\n\nIm Vergleich zur westlichen Astrologie liegt die Staerke weniger im breiten Charakterprofil und eher in periodischer Akzentsetzung.\n\n[TAG] INTRO_ARABISCH_SPECIAL\n\nEine Besonderheit ist die Arbeit mit Periodenherrschern: nicht alles ist immer gleich stark, sondern manches wird in bestimmten Zeitfenstern plausibler.\n\nDemnach muesstest du Aussagen dieser Richtung als \"wann und wo wird etwas wahrscheinlicher\" lesen, nicht als permanente Grundeigenschaft.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt Beziehungsthemen oft als zeitlich moduliert: In manchen Phasen koennten Naehe, in anderen eher Klaerung und Distanzarbeit dominieren.  \nDemnach muesstest du Beziehungsdynamik besser verstehen, wenn du sie im Kontext eines Abschnitts statt als Dauerzustand betrachtest.  \nDas muss nicht bedeuten, dass Instabilitaet vorliegt, aber dass Rhythmus und Timing eine groessere Rolle spielen koennten.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_HIGH  \nDie arabische Deutung wuerde beruflich nahelegen, dass bestimmte Perioden besonders gut fuer Aufbau, Sichtbarkeit oder Konsolidierung geeignet sein koennten.  \nDemnach muesstest du vor allem dann profitieren, wenn strategische Schritte mit dem \"richtigen Fenster\" synchronisiert werden.  \nDas muss nicht heissen, dass ausserhalb dieser Fenster nichts moeglich ist, aber dass Aufwand und Ertrag unterschiedlich ausfallen koennten.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_HIGH  \nDas System beschreibt Finanzthemen oft klar periodisiert: Expansion, Stabilisierung und Vorsicht koennten wechselnd plausibel sein.  \nDemnach muesstest du in Geldfragen staerker gewinnen, wenn Entscheidungen kontextsensitiv statt uniform getroffen werden.  \nDas muss nicht bedeuten, dass alles taktisch sein muss, aber dass starre Einheitsstrategien eher nachteilig sein koennten.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_LOW  \nArabische Techniken beschreiben Gesundheit im Prototyp eher indirekt und nicht als zentrale Kernachse.  \nDemnach muesstest du gesundheitliche Aussagen hier als Begleitinformation lesen, nicht als Hauptindikator.  \nDas muss nicht auf fehlende Relevanz hindeuten, aber auf begrenzte Aussagebreite in diesem speziellen Modell.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_MEDIUM  \nDas System beschreibt soziale Wirkung oft über Rolle und Position in einer Phase: Vermittlung, Fuehrung oder Rueckzug koennten je nach Abschnitt wechseln.  \nDemnach muesstest du in Gruppenkontexten wirksamer sein, wenn du die jeweilige Funktion bewusst annimmst.  \nDas muss nicht heissen, dass du dich verbiegen sollst, aber dass situative Rollenklarheit Vorteile bringen koennte.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_LOW  \nDie arabische Lesart setzt Kreativitaet im engeren Sinn nicht immer als Hauptfokus, sondern eher als Nebenwirkung starker Zeitqualitaeten.  \nDemnach muesstest du kreative Schuebe vor allem dann erwarten, wenn andere Achsen (z. B. Beruf/Veränderung) gleichzeitig aktiviert sind.  \nDas muss nicht bedeuten, dass Kreativitaet fehlt, aber dass sie hier weniger eigenstaendig modelliert wird.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nDas System beschreibt Veraenderung als sequenziellen Verlauf mit klar unterscheidbaren Abschnitten.  \nDemnach muesstest du grosse Wechsel stabiler managen, wenn du \"Uebergangsphasen\" als eigenen Modus akzeptierst.  \nDas muss nicht bedeuten, dass Wandel immer geplant ist, aber dass Phasenbewusstsein Orientierung geben koennte.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_LOW  \nIn der arabischen Astrologie ist Spiritualitaet im Prototyp eher indirekt und nicht durchgaengig als Kernvektor abgebildet.  \nDemnach muesstest du spirituelle Aussagen hier mit anderen Systemen gegenlesen, wenn dieses Feld fuer dich zentral ist.  \nDas muss nicht auf fehlende Tiefe hindeuten, aber auf einen anderen Schwerpunkt der Methode."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_TIMING  \nIm Paracelsus-Rahmen koennte dein Muster als zeitlich modulierte Mischung aus disziplinierender Erdung und impulsiver Feuerkraft erscheinen.  \nDemnach muesstest du in starken Phasen nicht nur \"mehr\" machen, sondern passender dosieren, um Uebersteuerung zu vermeiden.  \nDas muss nicht bedeuten, dass du dich begrenzen sollst; eher koennte kluges Timing deine Signaturen besser zur Wirkung bringen.",
+      "tags": [
+        "INTRO_ARABISCH_CORE",
+        "INTRO_ARABISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_HIGH",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_LOW",
+        "OUTRO_PARACELSUS_TIMING"
+      ]
+    },
+    "Hellenistisch": {
+      "intro": "[TAG] INTRO_HELLENISTISCH_CORE\n\nDie hellenistische Astrologie arbeitet mit fruehen traditionellen Techniken wie Whole-Sign-Hausern, Sekt (Tag/Nacht) und Profektionen. Das System beschreibt oft nicht nur \"was\", sondern auch \"welche Achse ist gerade aktiv\".\n\nIm Vergleich zur modernen westlichen Astrologie ist der Zugriff haeufig technischer und auf Zeitlogik sowie Herrscherbeziehungen fokussiert.\n\n[TAG] INTRO_HELLENISTISCH_SPECIAL\n\nEine Besonderheit liegt im Zusammenspiel von Hausaktivierung und Zeitherrschaft: dieselbe Grundanlage kann in unterschiedlichen Jahren anders zum Tragen kommen.\n\nDemnach muesstest du hellenistische Aussagen als strukturierte Kontextdeutung lesen, nicht als pauschales Dauerlabel.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt Beziehungsthemen oft ueber Haus- und Herrscherbezug: Bindung, Vertraglichkeit und Aushandlung koennten je nach Aktivierung wechseln.  \nDemnach muesstest du in Partnerschaften dann klarer werden, wenn Erwartungen und Grenzen explizit benannt sind.  \nDas muss nicht bedeuten, dass Beziehungen sachlich statt lebendig sind, aber dass Klarheit Konflikte frueh abfedern koennte.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_HIGH  \nHellenistisch wuerde beruflich nahelegen, dass Verantwortung, Statusdynamik und Timing eng gekoppelt sein koennten.  \nDemnach muesstest du dann besonders wirksam sein, wenn Rolle, Autoritaet und Zielbild sauber ausgerichtet werden.  \nDas muss nicht auf Starrheit hinauslaufen, aber auf die Wirksamkeit klarer Ordnung.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_MEDIUM  \nDas System beschreibt Finanzfragen eher ueber Ressourcenhaeuser und deren Aktivierungen als ueber spontane Einzelimpulse.  \nDemnach muesstest du stabile Resultate eher durch Kontinuitaet als durch schnelle Kurswechsel erreichen.  \nDas muss nicht bedeuten, dass Dynamik vermieden werden soll, aber dass Strukturkosten oft unterschaetzt werden koennten.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nDie hellenistische Lesart wuerde Gesundheit als Feld beschreiben, in dem Rhythmen, Belastungsfenster und Regeneration zeitlich mitgedacht werden sollten.  \nDemnach muesstest du von vorausschauender Steuerung profitieren, statt erst auf Ueberlastung zu reagieren.  \nDas muss nicht auf Fragilitaet hindeuten, aber auf die Bedeutung von Praevention im richtigen Abschnitt.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_MEDIUM  \nDas System beschreibt soziale Wirkung oft entlang von Zugehoerigkeit, Loyalitaet und Position in Netzwerken.  \nDemnach muesstest du in Gruppenkontexten erfolgreicher sein, wenn Rolle und Erwartung nicht implizit bleiben.  \nDas muss nicht bedeuten, dass du formal sein musst, aber dass klare Zugehoerigkeitsmarker Reibung senken koennten.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_LOW  \nHellenistische Techniken modellieren Kreativitaet im Prototyp weniger direkt als andere Bereiche.  \nDemnach muesstest du kreative Impulse eher als Nebenprodukt starker Berufs- oder Veraenderungsachsen lesen.  \nDas muss nicht bedeuten, dass Kreativitaet gering ist, aber dass diese Methodik hier weniger fein aufloest.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nDas System beschreibt Veraenderung als strukturierte Abfolge von Aktivierungen, nicht als zufaellige Kurve.  \nDemnach muesstest du Umbruchphasen besser navigieren, wenn du sie in Vorlauf, Kernwechsel und Nachstabilisierung gliederst.  \nDas muss nicht heissen, dass alles vorhersehbar ist, aber dass Muster im Rueckblick oft klarer werden.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_LOW  \nSpiritualitaet wird in diesem Modell haeufig indirekt mitgefuehrt und steht nicht immer als Hauptdimension im Vordergrund.  \nDemnach muesstest du spirituelle Deutung eher im Zusammenspiel mit anderen Systemen vertiefen, wenn dieses Feld zentral ist.  \nDas muss nicht auf inhaltliche Leere hindeuten, aber auf methodischen Schwerpunkt anderswo."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_STRUCTURE  \nIm Paracelsus-Rahmen koennte dein Muster auf ein starkes Zusammenspiel von Erd- und Feueranteilen hinweisen: Formkraft plus Handlungsimpuls.  \nDemnach muesstest du besonders profitieren, wenn du innere Entschlossenheit mit realistischer Taktung verbindest.  \nDas muss nicht bedeuten, dass du immer im Hochmodus sein solltest; eher koennte dosierte Intensitaet dein stabilster Weg sein.",
+      "tags": [
+        "INTRO_HELLENISTISCH_CORE",
+        "INTRO_HELLENISTISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_LOW",
+        "OUTRO_PARACELSUS_STRUCTURE"
+      ]
+    },
+    "Vedisch": {
+      "intro": "[TAG] INTRO_VEDISCH_CORE\n\nDie vedische Astrologie (Jyotish) arbeitet mit Zeitqualitaeten, Planetenkraeften und Nakshatra-Bezuegen, um Muster von Entwicklung und Prioritaet sichtbar zu machen. Das System beschreibt dabei haeufig Phasenlogik: Nicht jedes Thema ist jederzeit gleich aktiv.\n\nIm Vergleich zur westlichen Astrologie wird weniger ueber Aspektgrafik und staerker ueber periodische Aktivierung und Deutungstiefe gearbeitet.\n\n[TAG] INTRO_VEDISCH_SPECIAL\n\nEine Besonderheit ist die Dasha-Logik: bestimmte Planetenkraefte koennten abschnittsweise den Ton setzen und dadurch einzelne Lebensfelder hervorheben.\n\nDemnach muesstest du vedische Aussagen als \"Welcher Fokus ist jetzt plausibel?\" lesen, nicht als unveraenderliche Eigenschaft.",
+      "dimensions": {
+        "liebe": "Liebe\n\n[TAG] DIM_LIEBE_MEDIUM  \nDas System beschreibt Beziehungsthemen als Zusammenspiel von Bindungswunsch, Verantwortung und emotionaler Fuehrung.  \nDemnach muesstest du in Naehefragen oft dort Klarheit gewinnen, wo Rollen und Erwartungen aktiv verhandelt werden.  \nDas muss nicht bedeuten, dass du dominieren willst, aber du koenntest haeufiger den Impuls haben, Richtung zu geben.",
+        "beruf": "Beruf\n\n[TAG] DIM_BERUF_HIGH  \nDie vedische Deutung wuerde beruflich nahelegen, dass Arbeit in Phasen unterschiedlich stark in den Vordergrund ruecken koennte.  \nDemnach muesstest du besonders dann Fortschritt sehen, wenn strategische Schritte an aktive Zeitqualitaeten gekoppelt werden.  \nDas muss nicht heissen, dass Erfolg \"automatisch\" kommt, aber dass Timing den Wirkungsgrad beeinflussen koennte.",
+        "finanzen": "Finanzen\n\n[TAG] DIM_FINANZEN_MEDIUM  \nDas System beschreibt finanzielle Entwicklung oft als Folge von Disziplin, Weitsicht und passenden Entscheidungsfenstern.  \nDemnach muesstest du stabile Ergebnisse eher erreichen, wenn Planung und Flexibilitaet kombiniert werden.  \nDas muss nicht auf Vorsicht allein hinauslaufen, aber auf bewusstes Kalibrieren statt impulsiver Ausschlaege.",
+        "gesundheit": "Gesundheit\n\n[TAG] DIM_GESUNDHEIT_HIGH  \nVedisch wuerde Gesundheit als sensiblen Resonanzbereich lesen, in dem Rhythmus, Belastung und Regeneration direkt aufeinander wirken koennten.  \nDemnach muesstest du staerker profitieren, wenn Regeneration nicht als Restzeit, sondern als aktiver Teil der Leistung gedacht wird.  \nDas muss nicht bedeuten, dass du fragil waerst, aber dass Balancemanagement hier besonders wirksam sein koennte.",
+        "soziales": "Soziales\n\n[TAG] DIM_SOZIALES_LOW  \nIm Prototyp wird Soziales vedisch nicht immer als staerkste Primarachse modelliert.  \nDemnach muesstest du soziale Aussagen dieses Systems eher als Kontextinformation lesen als als Haupttreiber.  \nDas muss nicht bedeuten, dass soziale Kompetenz fehlt, aber dass andere Dimensionen in dieser Lesart prominenter sein koennten.",
+        "kreativitaet": "Kreativitaet\n\n[TAG] DIM_KREATIVITAET_LOW  \nDas System beschreibt Kreativitaet oft indirekt ueber andere Aktivierungen und weniger als eigenstaendigen Leitvektor.  \nDemnach muesstest du kreative Spitzen eher in Kombination mit Veraenderungs- oder Spiritualitaetsphasen erwarten.  \nDas muss nicht bedeuten, dass Kreativitaet klein ist, aber dass die Methodik hier weniger fein separat skaliert.",
+        "veraenderung": "Veraenderung\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nVedische Deutung wuerde Veraenderung als periodisch gegliederten Uebergang lesen: Phasenwechsel koennten als realer Taktgeber wirken.  \nDemnach muesstest du grosse Schritte stabiler gestalten, wenn du sie entlang klarer Sequenzen planst.  \nDas muss nicht heissen, dass alles berechenbar ist, aber dass Abschnittsdenken Orientierung liefern koennte.",
+        "spiritualitaet": "Spiritualitaet\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nDas System beschreibt Spiritualitaet oft als tragende Sinnachse und nicht nur als Nebenmotiv.  \nDemnach muesstest du in wichtigen Entscheidungen auf innere Stimmigkeit staerker reagieren als auf kurzfristige Aussenimpulse.  \nDas muss nicht auf Religiositaet im engen Sinn hinauslaufen, aber auf eine stabile innere Bezugslinie."
+      },
+      "paracelsus_outro": "Paracelsus-Signaturen\n\n[TAG] OUTRO_PARACELSUS_PHASED  \nIm Paracelsus-Rahmen koennte dein Profil als phasenweise Verschiebung zwischen Feuerimpuls, Wasserresonanz und Erdordnung verstanden werden.  \nDemnach muesstest du langfristig profitieren, wenn du Temperament nicht fix definierst, sondern je Abschnitt bewusst dosierst.  \nDas muss nicht bedeuten, dass jede Phase \"richtig\" gedeutet werden muss; eher koennte die wiederholte Selbstkalibrierung dein staerkster Hebel sein.",
+      "tags": [
+        "INTRO_VEDISCH_CORE",
+        "INTRO_VEDISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_HIGH",
+        "DIM_SOZIALES_LOW",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_PHASED"
+      ]
+    }
+  }
+}

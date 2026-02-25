@@ -40,3 +40,4 @@ pnpm-debug.log*
 *.swp
 .~lock*
 backend/assessment.db
+logs/

@@ -18,10 +18,11 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme) {
       setLoading(true);
       setError(null);
       try {
+        const systemeToRequest = [...(systeme || []), "KO"];
         const response = await fetch(`${API_BASE}/vektor`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ geburtsdatum, uhrzeit, systeme }),
+          body: JSON.stringify({ geburtsdatum, uhrzeit, systeme: systemeToRequest }),
           signal: controller.signal,
         });
         if (!response.ok) {

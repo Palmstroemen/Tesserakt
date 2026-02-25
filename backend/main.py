@@ -34,6 +34,8 @@ app.add_middleware(
 
 DEFAULT_SYSTEMS = ["Westlich", "Bazi", "Numerologie"]
 SUPPORTED_SYSTEMS = [*SUBFOLDERS, "KO"]
+# Fuer die UI: nur waehlbare Systeme (KO wird intern fuer Delta-Metriken genutzt, nicht anzeigen)
+AVAILABLE_FOR_SELECTION = [s for s in SUPPORTED_SYSTEMS if s != "KO"]
 
 
 class VektorRequest(BaseModel):
@@ -161,9 +163,26 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
 @app.get("/systeme")
 def get_systeme() -> Dict[str, object]:
     return {
-        "verfuegbar": SUPPORTED_SYSTEMS,
+        "verfuegbar": AVAILABLE_FOR_SELECTION,
         "default": DEFAULT_SYSTEMS,
     }
+
+
+def _content_root() -> Path:
+    return Path(__file__).resolve().parent.parent
+
+
+@app.get("/horoscope/texts")
+def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
+    """Liefert Systemtexte fuer die Deutungs-Tabs (intro, dimensions, paracelsus_outro)."""
+    if locale != "de":
+        raise HTTPException(status_code=404, detail="Nur locale=de verfuegbar")
+    path = _content_root() / "content" / "horoscope" / "de" / "system_texts_v1.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="system_texts_v1.json nicht gefunden")
+    import json
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return data
 
 
 @app.get("/fragen")
