@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import RadixWheel from "./RadixWheel";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
@@ -36,7 +37,7 @@ const DIMENSION_ORDER = [
   "spiritualitaet",
 ];
 
-export default function SystemDeutungTabs({ ranking, systemTexts }) {
+export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads }) {
   // Nur Systeme anzeigen, die sowohl im Ranking als auch in den Texten vorkommen (KO hat keine Texte)
   const systems = (ranking || []).filter(
     (s) => s !== "KO" && systemTexts?.systems?.[s]
@@ -83,9 +84,14 @@ export default function SystemDeutungTabs({ ranking, systemTexts }) {
       {activeData && (
         <div className="tabs-content" role="tabpanel">
           <h3>{activeSystem}</h3>
-          <div className="bild-stub">
-            [Bild folgt: Diagramm fuer {activeSystem}]
-          </div>
+          {activeSystem === "Westlich" &&
+          visualPayloads?.Westlich?.chartType === "radixWheel" ? (
+            <RadixWheel payload={visualPayloads.Westlich} />
+          ) : (
+            <div className="bild-stub">
+              [Bild folgt: Diagramm fuer {activeSystem}]
+            </div>
+          )}
           <div className="deutung-intro">
             <Paragraphs text={activeData.intro} />
           </div>

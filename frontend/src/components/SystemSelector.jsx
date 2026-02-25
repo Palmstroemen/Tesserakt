@@ -16,7 +16,7 @@ export default function SystemSelector({ systems, selectedSystems, onToggle, onS
         ))}
       </div>
       <button type="button" disabled={!selectedSystems.length} onClick={onStart}>
-        Test starten ({selectedSystems.length} Systeme)
+        Starte deine Analyse
       </button>
     </section>
   );

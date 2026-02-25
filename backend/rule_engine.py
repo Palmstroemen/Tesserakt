@@ -156,8 +156,14 @@ def estimate_transits(target_date: datetime) -> List[Tuple[str,str]]:
     return [(p, aspects[int(((target_date-base).days % c)/c * 5) % 5])
             for p, c in cycles.items()]
 
-def build_inputs(birth_date: datetime, target_date: datetime) -> dict:
-    """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen."""
+def build_inputs(
+    birth_date: datetime,
+    target_date: datetime,
+    ephemeris_sonnenzeichen: Optional[str] = None,
+) -> dict:
+    """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
+    Wenn ephemeris_sonnenzeichen gesetzt ist (z.B. aus Swiss Ephemeris Sonnenposition),
+    wird es für sonnenzeichen verwendet; sonst Datumsgrenzen."""
     ys, yb = year_pillar(birth_date.year)
     ms, mb = month_pillar(birth_date.year, birth_date.month)
     ds_val  = day_stem(birth_date)
@@ -166,8 +172,9 @@ def build_inputs(birth_date: datetime, target_date: datetime) -> dict:
     tms, tmb = month_pillar(target_date.year, target_date.month)
     age     = target_date.year - birth_date.year
     lpn     = life_path(birth_date)
+    sonnenz = ephemeris_sonnenzeichen if ephemeris_sonnenzeichen else sun_sign(birth_date)
     return {
-        "sonnenzeichen":          sun_sign(birth_date),
+        "sonnenzeichen":          sonnenz,
         "geburts_year_stem":      ys,
         "geburts_year_branch":    yb,
         "geburts_month_stem":     ms,

@@ -49,10 +49,6 @@ button {
   cursor: pointer;
 }
 
-.slider {
-  margin: 8px 0 12px;
-}
-
 .bars {
   display: flex;
   flex-direction: column;
@@ -66,9 +62,28 @@ button {
   gap: 8px;
 }
 
+.bar-middle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.bar-weight-inline {
+  color: #4c556a;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
 .bar-weight {
   color: #4c556a;
   font-size: 12px;
+}
+
+.slider-input {
+  margin-top: 4px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .bar-track {
@@ -82,12 +97,6 @@ button {
   display: block;
   height: 100%;
   background: #5772d5;
-}
-
-.self-line {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #4c556a;
 }
 
 .compare-box {
@@ -170,4 +179,78 @@ button {
 
 .game-option.active {
   border-color: #2f4ec6;
+}
+
+/* Radix wheel (western chart) */
+.radix-wheel {
+  margin: 12px 0;
+}
+
+.radix-wheel__svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+}
+
+.radix-wheel__outer-ring {
+  stroke: #1a1d24;
+  stroke-width: 1.5;
+}
+
+.radix-wheel__inner-ring {
+  stroke: #4c556a;
+  stroke-width: 1;
+}
+
+.radix-wheel__sign {
+  fill: rgba(87, 114, 213, 0.06);
+  stroke: none;
+}
+
+.radix-wheel__sign:nth-child(odd) {
+  fill: rgba(87, 114, 213, 0.1);
+}
+
+.radix-wheel__cusp {
+  stroke: #bec9e8;
+  stroke-width: 0.8;
+}
+
+.radix-wheel__aspect {
+  stroke: #4c556a;
+  stroke-width: 1;
+}
+
+.radix-wheel__planet-symbol {
+  font-size: 18px;
+  fill: #1a1d24;
+}
+
+.radix-wheel__retrograde {
+  font-size: 10px;
+  fill: #9f1d35;
+}
+
+.radix-wheel__sign-label {
+  font-size: 11px;
+  fill: #4c556a;
+}
+
+.radix-wheel--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Deutungs-Tabs auf der Ergebnis-Seite */
+.system-deutung-tabs .tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.system-deutung-tabs .tabs-header .tab {
+  margin: 0;
 }

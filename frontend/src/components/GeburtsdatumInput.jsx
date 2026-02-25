@@ -18,7 +18,7 @@ export default function GeburtsdatumInput({ value, timeValue, onConfirm }) {
         </label>
       </div>
       <button type="button" onClick={() => onConfirm(date, time)} disabled={!date}>
-        Vektoren berechnen
+        Wähle eine Analyse.
       </button>
     </section>
   );

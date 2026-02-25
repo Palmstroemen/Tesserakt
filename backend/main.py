@@ -11,6 +11,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from chart import build_radix_wheel
+from ephemeris import compute as ephemeris_compute, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
     SUBFOLDERS,
@@ -43,6 +45,8 @@ class VektorRequest(BaseModel):
     uhrzeit: Optional[str] = Field(default="12:00", examples=["14:30"])
     session_id: Optional[str] = Field(default=None, description="Optional for deterministic KO values")
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
+    latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (fuer Placidus-Haeuser)")
+    longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
 
 
 class VektorResponse(BaseModel):
@@ -137,7 +141,21 @@ def _startup() -> None:
 def post_vektor(payload: VektorRequest) -> VektorResponse:
     birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
-    inputs = build_inputs(birth_dt, now)
+
+    # Precompute ephemeris when Westlich is requested (same run as vectors → no extra wait on result page)
+    ephemeris_result = None
+    if "Westlich" in payload.systeme:
+        ephemeris_result = ephemeris_compute(
+            birth_dt,
+            latitude_deg=payload.latitude,
+            longitude_deg=payload.longitude,
+        )
+        ephemeris_sonnenzeichen = sun_sign_from_longitude(
+            next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
+        )
+        inputs = build_inputs(birth_dt, now, ephemeris_sonnenzeichen=ephemeris_sonnenzeichen)
+    else:
+        inputs = build_inputs(birth_dt, now)
 
     session_id = payload.session_id or str(uuid4())
     requested = payload.systeme
@@ -157,6 +175,13 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs = _serialize_inputs(inputs)
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
+
+    # Attach precomputed chart payloads (radix for Westlich) so frontend has them without extra request
+    visual_payloads: Dict[str, Any] = {}
+    if ephemeris_result is not None:
+        visual_payloads["Westlich"] = build_radix_wheel(ephemeris_result)
+    response_inputs["visualPayloads"] = visual_payloads
+
     return VektorResponse(vektoren=vektoren, inputs=response_inputs)
 
 

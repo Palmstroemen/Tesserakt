@@ -1,18 +1,23 @@
 const GAME_OPTIONS = [
   {
     id: "personality",
-    title: "1. Persoenlichkeitseinschaetzung",
-    description: "Aktiver Spielmodus mit Selbsteinschaetzung und Systemvergleich.",
+    title: "Geburtshoroskop für mich",
+    description: "(Selbsteinschätzung)",
+  },
+  {
+    id: "fremd",
+    title: "Geburtshoroskop für jemanden anderen",
+    description: "(Fremdeinschätzung)",
   },
   {
     id: "forecast",
-    title: "2. Prognose und Zeiteinschaetzung",
-    description: "Geplanter Modus fuer zeitbezogene Auswertung.",
+    title: "Zeitenhoroskope und Prognose",
+    description: "",
   },
   {
     id: "relationship",
-    title: "3. Beziehungseinschaetzung",
-    description: "Geplanter Modus fuer Beziehungs- und Kompatibilitaetsfragen.",
+    title: "Beziehungshoroskop",
+    description: "",
   },
 ];
 

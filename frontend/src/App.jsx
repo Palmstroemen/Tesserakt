@@ -5,8 +5,6 @@ import GamePlaceholder from "./components/GamePlaceholder";
 import SystemSelector from "./components/SystemSelector";
 import SelbsteinschaetzungSlider from "./components/SelbsteinschaetzungSlider";
 import SystemVergleichBalken from "./components/SystemVergleichBalken";
-import VergleichsGruppeViz from "./components/VergleichsGruppeViz";
-import Zwischenstand from "./components/Zwischenstand";
 import RankingTabelle from "./components/RankingTabelle";
 import TemperamentProfil from "./components/TemperamentProfil";
 import SystemDeutungTabs, { useSystemTexts } from "./components/SystemDeutungTabs";
@@ -84,9 +82,10 @@ export default function App() {
   );
   const rating = useRating(vektoren, answers, inputs);
 
+  const isAssessmentGame = selectedGame === "personality" || selectedGame === "fremd";
   const activeFrage = questionOrder[currentIndex];
   const isFinished =
-    selectedGame === "personality" &&
+    isAssessmentGame &&
     assessmentStarted &&
     questionOrder.length > 0 &&
     currentIndex >= questionOrder.length;
@@ -116,17 +115,20 @@ export default function App() {
   }, [answers.length, rating.ranking.join("|")]);
 
   useEffect(() => {
-    if (selectedGame !== "personality" || !isFinished || saved || !inputs?.session_id) {
+    if (!isAssessmentGame || !isFinished || saved || !inputs?.session_id) {
       return;
     }
 
     async function saveSession() {
+      const metadaten = { dsgvo_zustimmung: true };
+      if (selectedGame === "personality") metadaten.spieltyp = "Selbstbild";
+      if (selectedGame === "fremd") metadaten.spieltyp = "Fremdbild";
       const payload = {
         session_id: inputs.session_id,
         geburtsdatum: birthDate,
         geburtszeit: birthTime,
         antworten: answers,
-        metadaten: { dsgvo_zustimmung: true },
+        metadaten,
         inputs,
         rating,
         temperament: rating.temperament,
@@ -145,7 +147,7 @@ export default function App() {
     }
 
     saveSession();
-  }, [selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating]);
+  }, [isAssessmentGame, selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating]);
 
   function handleConfirm(date, time) {
     setBirthDate(date);
@@ -198,7 +200,7 @@ export default function App() {
   }
 
   function startAssessment() {
-    if (selectedGame !== "personality" || !selectedSystems.length) {
+    if (!isAssessmentGame || !selectedSystems.length) {
       return;
     }
     setQuestionOrder(shuffleQuestions(FRAGEN));
@@ -243,7 +245,7 @@ export default function App() {
       {setupReady ? (
         <>
           <GameSelector selectedGame={selectedGame} onSelect={handleGameSelect} />
-          {selectedGame === "personality" ? (
+          {isAssessmentGame ? (
             <SystemSelector
               systems={availableSystems}
               selectedSystems={selectedSystems}
@@ -252,10 +254,10 @@ export default function App() {
             />
           ) : null}
           {selectedGame === "forecast" ? (
-            <GamePlaceholder title="Prognose und Zeiteinschaetzung" onBack={backToGameSelection} />
+            <GamePlaceholder title="Zeitenhoroskope und Prognose" onBack={backToGameSelection} />
           ) : null}
           {selectedGame === "relationship" ? (
-            <GamePlaceholder title="Beziehungseinschaetzung" onBack={backToGameSelection} />
+            <GamePlaceholder title="Beziehungshoroskop" onBack={backToGameSelection} />
           ) : null}
         </>
       ) : null}
@@ -263,7 +265,7 @@ export default function App() {
       {loading ? <p>Vektoren werden berechnet...</p> : null}
       {error ? <p className="error">{error}</p> : null}
 
-      {selectedGame === "personality" && assessmentStarted && !loading && vektoren && !isFinished ? (
+      {isAssessmentGame && assessmentStarted && !loading && vektoren && !isFinished ? (
         <section className="card">
           <h2>
             Frage {currentIndex + 1}/{questionOrder.length}
@@ -275,13 +277,6 @@ export default function App() {
               selectedSystems.map((system) => [system, vektoren?.[system]?.[activeFrage.dimension]])
             )}
             systemGewichte={currentQuestionWeights}
-            selbst={currentValue}
-          />
-          <VergleichsGruppeViz
-            doy={doy}
-            stunde={stunde}
-            frage_id={activeFrage.id}
-            selbst={currentValue}
           />
           <button type="button" onClick={submitAnswer}>
             Antwort speichern und weiter
@@ -289,11 +284,7 @@ export default function App() {
         </section>
       ) : null}
 
-      {selectedGame === "personality" && assessmentStarted ? (
-        <Zwischenstand ratingHistory={ratingHistory} />
-      ) : null}
-
-      {selectedGame === "personality" && assessmentStarted && isFinished ? (
+      {isAssessmentGame && assessmentStarted && isFinished ? (
         <>
           <section className="card">
             <h2>Ergebnis</h2>
@@ -325,7 +316,11 @@ export default function App() {
               <p className="error">Systemtexte konnten nicht geladen werden: {textsError}</p>
             </section>
           ) : (
-            <SystemDeutungTabs ranking={rating.ranking} systemTexts={systemTexts} />
+            <SystemDeutungTabs
+              ranking={rating.ranking}
+              systemTexts={systemTexts}
+              visualPayloads={inputs?.visualPayloads}
+            />
           )}
         </>
       ) : null}
