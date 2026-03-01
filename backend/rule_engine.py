@@ -68,25 +68,78 @@ def load_rules(subfolder: str) -> dict:
 # ── Hilfsfunktionen ────────────────────────────────────────────────────────────
 
 def neutral_vector() -> Dict[str, float]:
-    return {d: 3.0 for d in DIMENSIONS}
+    return {d: 0.0 for d in DIMENSIONS}
 
 def clamp(v: float) -> float:
-    return round(min(5.0, max(1.0, v)), 2)
+    return round(min(1.0, max(-1.0, v)), 2)
+
+# Optionale Kalibrierung pro Dimension (offset + multiplier), lazy geladen
+_kalibrierung_cache: Optional[dict] = None
+
+def _load_kalibrierung() -> Optional[dict]:
+    """Laedt kalibrierung_dimensionen.json falls vorhanden. Sonst None."""
+    global _kalibrierung_cache
+    if _kalibrierung_cache is not None:
+        return _kalibrierung_cache
+    path = os.path.join(BASE_DIR, "kalibrierung_dimensionen.json")
+    if not os.path.exists(path):
+        _kalibrierung_cache = {}
+        return _kalibrierung_cache
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        _kalibrierung_cache = data
+        return data
+    except (json.JSONDecodeError, OSError):
+        _kalibrierung_cache = {}
+        return _kalibrierung_cache
+
+def _apply_kalibrierung(vector: Dict[str, float], system_name: Optional[str] = None) -> Dict[str, float]:
+    """
+    Wendet Kalibrierung an. Wenn system_name gesetzt und in kalibrierung["systeme"],
+    ein Offset/Multiplikator fuer alle Dimensionen; sonst pro Dimension aus kalibrierung.
+    v' = clamp(offset + multiplier * v).
+    """
+    kal = _load_kalibrierung()
+    if not kal:
+        return vector
+    result = {}
+    systeme = kal.get("systeme") or {}
+    if system_name and system_name in systeme:
+        cfg = systeme[system_name]
+        off = float(cfg.get("offset", 0.0))
+        mult = float(cfg.get("multiplier", 1.0))
+        for d in DIMENSIONS:
+            v = vector.get(d, 0.0)
+            result[d] = clamp(off + mult * v)
+        return result
+    for d in DIMENSIONS:
+        v = vector.get(d, 0.0)
+        cfg = kal.get(d, {}) if isinstance(kal.get(d), dict) else {}
+        off = float(cfg.get("offset", 0.0))
+        mult = float(cfg.get("multiplier", 1.0))
+        result[d] = clamp(off + mult * v)
+    return result
 
 def blend(base: Dict, overlay: Dict, gewicht: float) -> Dict:
     """Mischt overlay in base mit gegebenem Gewicht."""
     result = {}
     for d in DIMENSIONS:
-        b = base.get(d, 3.0)
-        o = overlay.get(d, 3.0)
+        b = base.get(d, 0.0)
+        o = overlay.get(d, 0.0)
         result[d] = clamp(b * (1 - gewicht) + o * gewicht)
     return result
 
+def _rule_value_to_signed(v: float) -> float:
+    """Mappt Regelwert 0..1 (ungünstig..günstig) auf -1..+1."""
+    return 2.0 * float(v) - 1.0
+
 def extract_dims(data: dict, dim_feld: str) -> Dict[str, float]:
-    """Extrahiert Dimensionswerte aus einem Dict anhand des konfigurierten Feldnamens."""
+    """Extrahiert Dimensionswerte aus einem Dict; konvertiert 0..1 -> -1..+1."""
     if dim_feld == "direkt":
-        return {d: float(data[d]) for d in DIMENSIONS if d in data}
-    return {d: float(v) for d, v in data.get(dim_feld, {}).items() if d in DIMENSIONS}
+        return {d: _rule_value_to_signed(data[d]) for d in DIMENSIONS if d in data}
+    raw = {d: float(v) for d, v in data.get(dim_feld, {}).items() if d in DIMENSIONS}
+    return {d: _rule_value_to_signed(v) for d, v in raw.items()}
 
 def find_by_prefix(container: dict, n: int) -> dict:
     """Sucht Eintrag nach numerischem Präfix: '1_kether', '2_chokmah' etc."""
@@ -244,7 +297,7 @@ def handle_nach_branch(quelle: dict, rules: dict, inputs: dict) -> Dict[str, flo
     container = rules.get(quelle["schluessel"], {})
     data = container.get(branch, {})
     felder = quelle.get("dim_felder", DIMENSIONS)
-    return {d: float(data[d]) for d in felder if d in data}
+    return {d: _rule_value_to_signed(data[d]) for d in felder if d in data}
 
 def handle_element_interaktion(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     eingaben = quelle.get("eingabe", [])
@@ -260,7 +313,7 @@ def handle_element_interaktion(quelle: dict, rules: dict, inputs: dict) -> Dict[
             if combo in [f"{el_aktuell}{el_dm}", f"{el_dm}{el_aktuell}"]:
                 dims = extract_dims(data, quelle.get("dim_feld","vektor"))
                 for d, v in dims.items():
-                    result[d] = round((result.get(d,3.0) + v * w) / (1 + w), 2)
+                    result[d] = round((result.get(d, 0.0) + v * w) / (1 + w), 2)
     return result
 
 def handle_clash_combination(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
@@ -275,7 +328,7 @@ def handle_clash_combination(quelle: dict, rules: dict, inputs: dict) -> Dict[st
             if set(k.split("_")) == pair:
                 dims = extract_dims(data, quelle.get("dim_feld","vektor"))
                 for d, v in dims.items():
-                    result[d] = round((result.get(d,3.0) + v) / 2, 2)
+                    result[d] = round((result.get(d, 0.0) + v) / 2, 2)
     return result
 
 def handle_nach_lebenspfadzahl(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
@@ -335,31 +388,32 @@ def handle_sekt(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     ist_tag = 6 <= stunde <= 18
     container = rules.get(quelle["schluessel"], {})
     feld = quelle.get("tag_schluessel" if ist_tag else "nacht_schluessel", "")
-    dims = {d: float(v) for d, v in container.get(feld, {}).items() if d in DIMENSIONS}
+    raw = container.get(feld, {})
+    dims = {d: _rule_value_to_signed(v) for d, v in raw.items() if d in DIMENSIONS}
     if dims:
         return dims
 
-    # Fallback when rule files contain only qualitative sekt text but no explicit vectors.
+    # Fallback when rule files contain only qualitative sekt text but no explicit vectors (-1..+1).
     if ist_tag:
         return {
-            "liebe": 3.0,
-            "beruf": 3.5,
-            "finanzen": 3.3,
-            "gesundheit": 3.1,
-            "soziales": 3.4,
-            "kreativitaet": 3.0,
-            "veraenderung": 3.3,
-            "spiritualitaet": 2.9,
+            "liebe": 0.0,
+            "beruf": 0.24,
+            "finanzen": 0.16,
+            "gesundheit": 0.04,
+            "soziales": 0.2,
+            "kreativitaet": 0.0,
+            "veraenderung": 0.16,
+            "spiritualitaet": -0.04,
         }
     return {
-        "liebe": 3.4,
-        "beruf": 2.9,
-        "finanzen": 2.9,
-        "gesundheit": 3.3,
-        "soziales": 3.1,
-        "kreativitaet": 3.2,
-        "veraenderung": 2.8,
-        "spiritualitaet": 3.4,
+        "liebe": 0.2,
+        "beruf": -0.04,
+        "finanzen": -0.04,
+        "gesundheit": 0.16,
+        "soziales": 0.04,
+        "kreativitaet": 0.1,
+        "veraenderung": -0.1,
+        "spiritualitaet": 0.2,
     }
 
 def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
@@ -441,10 +495,11 @@ HANDLER = {
 
 # ── Kern-Berechnung ────────────────────────────────────────────────────────────
 
-def compute_vector(struktur: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+def compute_vector(struktur: dict, rules: dict, inputs: dict, system_name: Optional[str] = None) -> Dict[str, float]:
     """
     Berechnet Vektor für ein System anhand seiner Struktur.json.
     Iteriert durch vektor_quellen, ruft Handler auf, blendet Ergebnisse.
+    system_name optional für systemweite Kalibrierung (z. B. Westlich, Bazi).
     """
     base = neutral_vector()
     hat_werte = False
@@ -477,7 +532,9 @@ def compute_vector(struktur: dict, rules: dict, inputs: dict) -> Dict[str, float
 
         hat_werte = True
 
-    return {d: clamp(base[d]) for d in DIMENSIONS}
+    result = {d: clamp(base[d]) for d in DIMENSIONS}
+    result = _apply_kalibrierung(result, system_name=system_name)
+    return result
 
 
 # ── Kontrollgruppe ─────────────────────────────────────────────────────────────
@@ -485,7 +542,7 @@ def compute_vector(struktur: dict, rules: dict, inputs: dict) -> Dict[str, float
 def control_vector(seed: int) -> Dict[str, float]:
     import random
     rng = random.Random(seed)
-    return {d: round(rng.uniform(2.2, 3.8), 2) for d in DIMENSIONS}
+    return {d: round(min(1.0, max(-1.0, rng.gauss(0.0, 0.3))), 2) for d in DIMENSIONS}
 
 
 # ── Haupt-API ──────────────────────────────────────────────────────────────────
@@ -517,13 +574,13 @@ def generate_all_vectors(birth_date: datetime, birth_time_hour: int = 12) -> Dic
 
         if ist_zeitabh:
             result[kuerzel] = {
-                "T0": compute_vector(struktur, rules, build_inputs(birth_date, today)),
-                "T1": compute_vector(struktur, rules, build_inputs(birth_date, t1)),
-                "T3": compute_vector(struktur, rules, build_inputs(birth_date, t3)),
+                "T0": compute_vector(struktur, rules, build_inputs(birth_date, today), system_name=folder),
+                "T1": compute_vector(struktur, rules, build_inputs(birth_date, t1), system_name=folder),
+                "T3": compute_vector(struktur, rules, build_inputs(birth_date, t3), system_name=folder),
             }
         else:
             # Zeitunabhängige Systeme (Numerologie, Kabbalah): T0=T1=T3
-            v = compute_vector(struktur, rules, build_inputs(birth_date, today))
+            v = compute_vector(struktur, rules, build_inputs(birth_date, today), system_name=folder)
             result[kuerzel] = {"T0": v, "T1": v, "T3": v}
 
     # Kontrollgruppe
@@ -573,15 +630,15 @@ def vector_to_questions(vektor: Dict[str,float], system: str, zeitfenster: str, 
         "spiritualitaet":{"hoch":"Hast du intensive innere Erlebnisse oder spirituelle Momente gehabt?",
                           "niedrig":"War dein Alltag eher nüchtern und wenig nach innen gerichtet?"},
     }
-    deviations = sorted([(d, abs(v-3.0), v) for d,v in vektor.items()],
+    deviations = sorted([(d, abs(v), v) for d, v in vektor.items()],
                         key=lambda x: x[1], reverse=True)
     questions = []
     for dim, _, value in deviations[:n]:
-        direction = "hoch" if value >= 3.0 else "niedrig"
+        direction = "hoch" if value >= 0.0 else "niedrig"
         questions.append({
             "dimension":         dim,
             "frage":             templates.get(dim,{}).get(direction, f"Frage zu {dim}"),
-            "erwartete_antwort": round(value),
+            "erwartete_antwort": round(value, 2),
             "invertiert":        direction == "niedrig",
             "system":            system,
             "zeitfenster":       zeitfenster,
@@ -614,7 +671,7 @@ if __name__ == "__main__":
     print(header)
     print("─" * 72)
     for d in DIMENSIONS:
-        row = f"{d:<16}" + "".join(f" {result[k]['T0'].get(d,3.0):>7.2f}" for k in sys_keys)
+        row = f"{d:<16}" + "".join(f" {result[k]['T0'].get(d, 0.0):>7.2f}" for k in sys_keys)
         print(row)
 
     print("\n" + "─" * 72)

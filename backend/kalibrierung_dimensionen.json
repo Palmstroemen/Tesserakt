@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "beschreibung": "Optionale Rekalibrierung. systeme: ein Offset/Mult pro System (Westlich, Bazi). dimensionen: Fallback pro Dimension. Skala -1..+1, Offsets auf 0."
+  },
+  "systeme": {
+    "Westlich": { "offset": 0, "multiplier": 4.3478 },
+    "Bazi": { "offset": 0, "multiplier": 3.0303 },
+    "Numerologie": { "offset": 0, "multiplier": 1 },
+    "Kabbalah": { "offset": 0, "multiplier": 1.27 },
+    "Arabisch": { "offset": 0, "multiplier": 1.3333 },
+    "Vedisch": { "offset": 0, "multiplier": 1.6129 }
+  },
+  "liebe": { "offset": 0, "multiplier": 1 },
+  "beruf": { "offset": 0, "multiplier": 1 },
+  "finanzen": { "offset": 0, "multiplier": 1 },
+  "gesundheit": { "offset": 0, "multiplier": 1 },
+  "soziales": { "offset": 0, "multiplier": 1 },
+  "kreativitaet": { "offset": 0, "multiplier": 1 },
+  "veraenderung": { "offset": 0, "multiplier": 1 },
+  "spiritualitaet": { "offset": 0, "multiplier": 1 }
+}

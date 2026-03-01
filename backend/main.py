@@ -11,7 +11,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from arabic_chart import build_firdaria_chart
+from bazi_chart import build_four_pillars
 from chart import build_radix_wheel
+from hellenistisch_chart import build_profection_chart
+from kabbalah_chart import build_kabbalah_chart
+from numerology_chart import build_numerology_chart
+from vedisch_chart import build_dasha_chart
 from ephemeris import compute as ephemeris_compute, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
@@ -54,10 +60,25 @@ class VektorResponse(BaseModel):
     inputs: Dict[str, object]
 
 
+class PartnerRequest(BaseModel):
+    geburtsdatum_a: str = Field(examples=["1985-03-15"])
+    uhrzeit_a: Optional[str] = Field(default="12:00", examples=["14:30"])
+    geburtsdatum_b: str = Field(examples=["1990-07-20"])
+    uhrzeit_b: Optional[str] = Field(default="12:00", examples=["09:00"])
+    systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
+
+
+class PartnerResponse(BaseModel):
+    vektorenA: Dict[str, Dict[str, float]]
+    vektorenB: Dict[str, Dict[str, float]]
+    inputsA: Dict[str, object]
+    inputsB: Dict[str, object]
+
+
 class AntwortPayload(BaseModel):
     frage_id: int
     dimension: str
-    selbst_wert: float
+    selbst_wert: float = Field(ge=-1.0, le=1.0, description="User rating -1 (disagree) to +1 (agree)")
     system_werte: Dict[str, float] = Field(default_factory=dict)
 
 
@@ -106,9 +127,8 @@ def _compute_system_vector(system_name: str, inputs: Dict[str, object]) -> Dict[
         raise HTTPException(status_code=400, detail=f"Unbekanntes oder unvollstaendiges System: {system_name}")
 
     rules = load_rules(system_name)
-    vector = compute_vector(struktur, rules, inputs)
-    # Defensive normalize in case future rule files miss dimensions.
-    return {dim: float(vector.get(dim, 3.0)) for dim in DIMENSIONS}
+    vector = compute_vector(struktur, rules, inputs, system_name=system_name)
+    return {dim: float(vector.get(dim, 0.0)) for dim in DIMENSIONS}
 
 
 def _stable_seed(seed_key: str) -> int:
@@ -119,10 +139,10 @@ def _stable_seed(seed_key: str) -> int:
 def _ko_vector(session_id: str) -> Dict[str, float]:
     vector: Dict[str, float] = {}
     for index, dim in enumerate(DIMENSIONS):
-        # Reproducible baseline values around 3.0 with moderate variance.
+        # Reproducible baseline values in -1..+1 (moderate variance around 0).
         seed = _stable_seed(f"{session_id}:{index}:{dim}")
         rng = random.Random(seed)
-        value = min(5.0, max(1.0, rng.gauss(3.0, 0.8)))
+        value = min(1.0, max(-1.0, rng.gauss(0.0, 0.3)))
         vector[dim] = round(value, 2)
     return vector
 
@@ -176,13 +196,64 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
 
-    # Attach precomputed chart payloads (radix for Westlich) so frontend has them without extra request
+    # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}
     if ephemeris_result is not None:
         visual_payloads["Westlich"] = build_radix_wheel(ephemeris_result)
+    if "Bazi" in payload.systeme:
+        visual_payloads["Bazi"] = build_four_pillars(birth_dt)
+    if "Numerologie" in payload.systeme:
+        visual_payloads["Numerologie"] = build_numerology_chart(birth_dt)
+    if "Kabbalah" in payload.systeme:
+        visual_payloads["Kabbalah"] = build_kabbalah_chart(birth_dt)
+    if "Hellenistisch" in payload.systeme:
+        visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt)
+    if "Arabisch" in payload.systeme:
+        visual_payloads["Arabisch"] = build_firdaria_chart(birth_dt)
+    if "Vedisch" in payload.systeme:
+        visual_payloads["Vedisch"] = build_dasha_chart(birth_dt)
     response_inputs["visualPayloads"] = visual_payloads
 
     return VektorResponse(vektoren=vektoren, inputs=response_inputs)
+
+
+@app.post("/partner", response_model=PartnerResponse)
+def post_partner(payload: PartnerRequest) -> PartnerResponse:
+    """Zwei Geburtsdaten; liefert Vektoren und Inputs fuer Person A (User) und Person B (Partner)."""
+    birth_dt_a = parse_birth_datetime(payload.geburtsdatum_a, payload.uhrzeit_a)
+    birth_dt_b = parse_birth_datetime(payload.geburtsdatum_b, payload.uhrzeit_b)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+
+    requested = payload.systeme or DEFAULT_SYSTEMS.copy()
+    unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
+    system_list = [s for s in requested if s != "KO"]
+
+    def inputs_and_vektoren(birth_dt: datetime):
+        ephemeris_result = None
+        if "Westlich" in system_list:
+            ephemeris_result = ephemeris_compute(birth_dt, latitude_deg=None, longitude_deg=None)
+            ephemeris_sonnenzeichen = sun_sign_from_longitude(
+                next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
+            )
+            inp = build_inputs(birth_dt, now, ephemeris_sonnenzeichen=ephemeris_sonnenzeichen)
+        else:
+            inp = build_inputs(birth_dt, now)
+        vektoren: Dict[str, Dict[str, float]] = {}
+        for system_name in system_list:
+            vektoren[system_name] = _compute_system_vector(system_name, inp)
+        return _serialize_inputs(inp), vektoren
+
+    inputs_a, vektoren_a = inputs_and_vektoren(birth_dt_a)
+    inputs_b, vektoren_b = inputs_and_vektoren(birth_dt_b)
+
+    return PartnerResponse(
+        vektorenA=vektoren_a,
+        vektorenB=vektoren_b,
+        inputsA=inputs_a,
+        inputsB=inputs_b,
+    )
 
 
 @app.get("/systeme")
@@ -205,6 +276,19 @@ def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
     path = _content_root() / "content" / "horoscope" / "de" / "system_texts_v1.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail="system_texts_v1.json nicht gefunden")
+    import json
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return data
+
+
+@app.get("/horoscope/spiel_c/texts")
+def get_spiel_c_texts(locale: str = "de") -> Dict[str, object]:
+    """Liefert Partnerschaftstexte fuer Spiel C (by_system)."""
+    if locale != "de":
+        raise HTTPException(status_code=404, detail="Nur locale=de verfuegbar")
+    path = _content_root() / "content" / "horoscope" / "de" / "spiel_c" / "system_texts_v1.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="spiel_c/system_texts_v1.json nicht gefunden")
     import json
     data = json.loads(path.read_text(encoding="utf-8"))
     return data

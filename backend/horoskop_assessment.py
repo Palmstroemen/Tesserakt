@@ -169,23 +169,33 @@ FRAGEN = [
 # ══════════════════════════════════════════════════════════════════════
 
 def neutral_vector() -> Dict[str, float]:
-    return {d: 3.0 for d in DIMENSIONS}
+    return {d: 0.0 for d in DIMENSIONS}
 
 def clamp(v: float) -> float:
-    return round(min(5.0, max(1.0, v)), 2)
+    return round(min(1.0, max(-1.0, v)), 2)
 
 def blend(base: Dict, overlay: Dict, gewicht: float) -> Dict:
     result = {}
     for d in DIMENSIONS:
-        b = base.get(d, 3.0)
-        o = overlay.get(d, 3.0)
+        b = base.get(d, 0.0)
+        o = overlay.get(d, 0.0)
         result[d] = clamp(b * (1 - gewicht) + o * gewicht)
     return result
 
+def _rule_value_to_signed(v: float) -> float:
+    """Mappt Regelwert 0..1 auf -1..+1; oder 1..5 auf -1..+1."""
+    v = float(v)
+    if 0 <= v <= 1:
+        return 2.0 * v - 1.0
+    if 1 < v <= 5:
+        return (v - 3.0) / 2.0
+    return 0.0
+
 def extract_dims(data: dict, dim_feld: str) -> Dict[str, float]:
     if dim_feld == "direkt":
-        return {d: float(data[d]) for d in DIMENSIONS if d in data}
-    return {d: float(v) for d, v in data.get(dim_feld, {}).items() if d in DIMENSIONS}
+        return {d: _rule_value_to_signed(data[d]) for d in DIMENSIONS if d in data}
+    raw = {d: float(v) for d, v in data.get(dim_feld, {}).items() if d in DIMENSIONS}
+    return {d: _rule_value_to_signed(v) for d, v in raw.items()}
 
 def find_by_prefix(container: dict, n: int) -> dict:
     for key, val in container.items():
@@ -315,7 +325,7 @@ def handle_element_interaktion(q, rules, inputs):
             combo = key.replace("_","")
             if combo in [f"{el_aktuell}{el_dm}",f"{el_dm}{el_aktuell}"]:
                 for d, v in extract_dims(data, q.get("dim_feld","vektor")).items():
-                    result[d] = round((result.get(d,3.0)+v*w)/(1+w),2)
+                    result[d] = round((result.get(d,0.0)+v*w)/(1+w),2)
     return result
 
 def handle_clash_combination(q, rules, inputs):
@@ -327,7 +337,7 @@ def handle_clash_combination(q, rules, inputs):
         for k, data in rules.get(q["schluessel"],{}).get(subkey,{}).items():
             if set(k.split("_")) == pair:
                 for d, v in extract_dims(data, q.get("dim_feld","vektor")).items():
-                    result[d] = round((result.get(d,3.0)+v)/2,2)
+                    result[d] = round((result.get(d,0.0)+v)/2,2)
     return result
 
 def handle_nach_lebenspfadzahl(q, rules, inputs):
@@ -499,6 +509,7 @@ class RatingSession:
             "werte":  {},
             "fehler": {},
         }
+        expected = float(selbst)  # user and system values -1..+1
         for system in SYSTEME:
             w = get_gewicht(matrix, system, dim, frage["gewichte"])
             wert = system_werte.get(system)
@@ -506,7 +517,7 @@ class RatingSession:
                 eintrag["werte"][system]  = None
                 eintrag["fehler"][system] = None
                 continue
-            diff   = selbst - wert
+            diff   = expected - float(wert)
             fehler = diff**2 if self.methode == "quadratisch" else abs(diff)
             self.kumul_fehler[system]  += fehler * w
             self.kumul_gewicht[system] += w
@@ -565,30 +576,34 @@ RESET = "\033[0m"
 BOLD  = "\033[1m"
 
 def balken(wert: float, selbst: float = None, breite: int = 20) -> str:
-    """Visualisiert einen Wert 1-5 als Balken, markiert Selbsteinschätzung."""
-    gefuellt = round((wert - 1) / 4 * breite)
-    balken   = "█" * gefuellt + "░" * (breite - gefuellt)
-    marker   = ""
+    """Visualisiert einen Wert -1..+1 als Balken; selbst -1..+1 optional markiert."""
+    pos_01 = (float(wert) + 1.0) / 2.0
+    gefuellt = round(pos_01 * breite)
+    gefuellt = min(breite, max(0, gefuellt))
+    balken_str = "█" * gefuellt + "░" * (breite - gefuellt)
+    marker = ""
     if selbst is not None:
-        pos = round((selbst - 1) / 4 * breite)
-        marker = f"  ◄ du: {selbst:.0f}"
-    return f"[{balken}] {wert:.2f}{marker}"
+        pos = round((float(selbst) + 1) / 2 * breite)
+        pos = min(breite, max(0, pos))
+        marker = f"  ◄ du: {selbst:+.1f}"
+    return f"[{balken_str}] {wert:+.2f}{marker}"
 
 def zeige_system_werte(system_werte: Dict[str, float], dimension: str,
                        selbst: float, geladen: List[str]):
-    """Zeigt nach einer Frage die Systemwerte im Vergleich zur Selbsteinschätzung."""
+    """Zeigt nach einer Frage die Systemwerte (-1..+1) im Vergleich zur Selbsteinschätzung (-1..+1)."""
     print(f"\n  {'System':<14} {'Vorhersage':>10}   Visualisierung")
     print(f"  {TRENNLINIE[:60]}")
+    expected = float(selbst)
     for system in geladen:
         wert = system_werte.get(system)
         if wert is None:
             print(f"  {system:<14} {'—':>10}   (keine Daten)")
             continue
-        diff = selbst - wert
-        pfeil = "▲" if diff < -0.3 else ("▼" if diff > 0.3 else "≈")
+        diff = expected - float(wert)
+        pfeil = "▲" if diff < -0.15 else ("▼" if diff > 0.15 else "≈")
         farbe = SYSTEM_FARBE.get(system, "")
-        print(f"  {farbe}{system:<14}{RESET} {wert:>8.2f}/5  {pfeil}  {balken(wert, breite=16)}")
-    print(f"\n  Deine Einschätzung:  {selbst:.0f}/5  {balken(selbst, breite=16)}")
+        print(f"  {farbe}{system:<14}{RESET} {wert:>8.2f}    {pfeil}  {balken(wert, breite=16)}")
+    print(f"\n  Deine Einschätzung:  {selbst:+.1f}  {balken(expected, selbst=selbst, breite=16)}")
 
 def zeige_zwischenstand(session: RatingSession):
     """Zeigt kumuliertes Rating nach jeder Frage."""
@@ -741,24 +756,22 @@ def frage_geburtsdatum() -> datetime:
     return dt
 
 def frage_bewertung(nr: int, gesamt: int, frage_text: str) -> float:
-    """Fragt den User nach einer Selbstbewertung 1-5."""
+    """Fragt den User nach einer Selbstbewertung -1 (nicht) bis +1 (voll)."""
     print(f"\n{TRENNLINIE}")
     print(f"  Frage {nr}/{gesamt}")
     print(f"\n  {BOLD}{frage_text}{RESET}")
     print()
-    print("  1 = trifft gar nicht zu")
-    print("  2 = trifft wenig zu")
-    print("  3 = teils/teils")
-    print("  4 = trifft weitgehend zu")
-    print("  5 = trifft voll zu")
+    print("  -1 = trifft gar nicht zu")
+    print("   0 = teils/teils")
+    print("  +1 = trifft voll zu")
     print()
     while True:
-        raw = input("  Deine Einschätzung (1-5): ").strip()
+        raw = input("  Deine Einschätzung (-1 bis +1): ").strip()
         try:
-            wert = float(raw.replace(",","."))
-            if 1.0 <= wert <= 5.0:
+            wert = float(raw.replace(",", "."))
+            if -1.0 <= wert <= 1.0:
                 return wert
-            print("  ✗ Bitte eine Zahl zwischen 1 und 5 eingeben.")
+            print("  ✗ Bitte eine Zahl zwischen -1 und +1 eingeben.")
         except ValueError:
             print("  ✗ Ungültige Eingabe.")
 
@@ -803,7 +816,7 @@ def main():
 
     print(f"\n{DOPPELLINIE}")
     print(f"{BOLD}  START DES ASSESSMENTS — {len(FRAGEN)} Fragen{RESET}")
-    print(f"  Bewerte jede Aussage auf einer Skala von 1 (gar nicht) bis 5 (voll).")
+    print(f"  Bewerte jede Aussage von -1 (gar nicht) bis +1 (voll).")
     print(DOPPELLINIE)
 
     # Fragen stellen

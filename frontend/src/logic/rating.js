@@ -22,8 +22,9 @@ export function getQuestionWeights(systems, dimension, frageGewichte, matrix) {
   return Object.fromEntries(raws.map((item) => [item.system, item.raw / sum]));
 }
 
-// For two independent U(1,5) variables: E[(X-Y)^2] = 8/3.
-const RANDOM_BASELINE_MSE = 8 / 3;
+// User and vector scale -1..+1. expected = user value directly.
+// For two independent U(-1,1): E[(X-Y)^2] = 2/3.
+const RANDOM_BASELINE_MSE = 2 / 3;
 
 export function calculateRating(vektoren, antworten, matrix) {
   const systems = Object.keys(vektoren ?? {});
@@ -31,12 +32,13 @@ export function calculateRating(vektoren, antworten, matrix) {
   const kumulGewicht = Object.fromEntries(systems.map((s) => [s, 0]));
 
   for (const eintrag of antworten) {
-    const selbst = Number(eintrag.selbst_wert);
+    const selbst = Number(eintrag.selbst_wert); // -1..+1
+    const expected = selbst;
     const frageGewichte = eintrag.gewichte ?? {};
     const questionWeights = getQuestionWeights(systems, eintrag.dimension, frageGewichte, matrix);
 
     for (const system of systems) {
-      const wert = Number(eintrag.system_werte?.[system]);
+      const wert = Number(eintrag.system_werte?.[system]); // -1..+1
       if (Number.isNaN(wert)) {
         continue;
       }
@@ -44,7 +46,7 @@ export function calculateRating(vektoren, antworten, matrix) {
       if (!w) {
         continue;
       }
-      const diff = selbst - wert;
+      const diff = expected - wert;
       const fehler = diff ** 2;
       kumulFehler[system] += fehler * w;
       kumulGewicht[system] += w;
@@ -70,8 +72,8 @@ export function calculateRating(vektoren, antworten, matrix) {
     }
     const mse = normiert[system];
     const rmse = Math.sqrt(normiert[system]);
-    const fitScore = Math.max(0, 100 * (1 - rmse / 4));
-    const skillScore = Math.max(0, 100 * (1 - mse / RANDOM_BASELINE_MSE));
+    const fitScore = Math.max(0, 100 * (1 - rmse / 2)); // max deviation = 2
+    const skillScore = 100 * (1 - mse / RANDOM_BASELINE_MSE);
     systemDetails[system] = {
       fitScore: Number(fitScore.toFixed(1)),
       skillScore: Number(skillScore.toFixed(1)),
