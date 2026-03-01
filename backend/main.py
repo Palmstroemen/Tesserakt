@@ -26,6 +26,7 @@ from rule_engine import (
     compute_vector,
     load_rules,
     load_struktur,
+    luck_pillar_for_both_sexes,
 )
 from store import compare_group, init_db, persist_session
 from horoskop_assessment import FRAGEN
@@ -162,8 +163,20 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
 
+    # Bazi: four pillars and Da Yun for both sexes (no gender in request)
+    bazi_pillars = None
+    bazi_luck_male: Optional[tuple] = None
+    bazi_luck_female: Optional[tuple] = None
+    if "Bazi" in payload.systeme:
+        bazi_pillars = build_four_pillars(birth_dt)
+        bazi_luck_male, bazi_luck_female = luck_pillar_for_both_sexes(birth_dt, now)
+    bazi_day_branch = bazi_pillars["pillars"]["day"]["branch"] if bazi_pillars else None
+    bazi_hour_stem = bazi_pillars["pillars"]["hour"]["stem"] if bazi_pillars else None
+    bazi_hour_branch = bazi_pillars["pillars"]["hour"]["branch"] if bazi_pillars else None
+
     # Precompute ephemeris when Westlich is requested (same run as vectors → no extra wait on result page)
     ephemeris_result = None
+    radix = None
     if "Westlich" in payload.systeme:
         ephemeris_result = ephemeris_compute(
             birth_dt,
@@ -173,9 +186,23 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
         ephemeris_sonnenzeichen = sun_sign_from_longitude(
             next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
         )
-        inputs = build_inputs(birth_dt, now, ephemeris_sonnenzeichen=ephemeris_sonnenzeichen)
+        radix = build_radix_wheel(ephemeris_result)
+        inputs = build_inputs(
+            birth_dt, now,
+            ephemeris_sonnenzeichen=ephemeris_sonnenzeichen,
+            radix_planets=radix.get("planets"),
+            radix_aspects=radix.get("aspects"),
+            bazi_day_branch=bazi_day_branch,
+            bazi_hour_stem=bazi_hour_stem,
+            bazi_hour_branch=bazi_hour_branch,
+        )
     else:
-        inputs = build_inputs(birth_dt, now)
+        inputs = build_inputs(
+            birth_dt, now,
+            bazi_day_branch=bazi_day_branch,
+            bazi_hour_stem=bazi_hour_stem,
+            bazi_hour_branch=bazi_hour_branch,
+        )
 
     session_id = payload.session_id or str(uuid4())
     requested = payload.systeme
@@ -190,6 +217,16 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
         if system_name == "KO":
             vektoren["KO"] = _ko_vector(session_id)
             continue
+        if system_name == "Bazi":
+            # Two vectors: male and female Da Yun direction (no gender in request)
+            assert bazi_luck_male is not None and bazi_luck_female is not None
+            male_stem, male_branch = bazi_luck_male
+            female_stem, female_branch = bazi_luck_female
+            inputs_male = {**inputs, "luck_pillar_stem": male_stem, "luck_pillar_branch": male_branch}
+            inputs_female = {**inputs, "luck_pillar_stem": female_stem, "luck_pillar_branch": female_branch}
+            vektoren["Bazi_male"] = _compute_system_vector("Bazi", inputs_male)
+            vektoren["Bazi_female"] = _compute_system_vector("Bazi", inputs_female)
+            continue
         vektoren[system_name] = _compute_system_vector(system_name, inputs)
 
     response_inputs = _serialize_inputs(inputs)
@@ -198,10 +235,10 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
 
     # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}
-    if ephemeris_result is not None:
-        visual_payloads["Westlich"] = build_radix_wheel(ephemeris_result)
-    if "Bazi" in payload.systeme:
-        visual_payloads["Bazi"] = build_four_pillars(birth_dt)
+    if radix is not None:
+        visual_payloads["Westlich"] = radix
+    if "Bazi" in payload.systeme and bazi_pillars is not None:
+        visual_payloads["Bazi"] = bazi_pillars
     if "Numerologie" in payload.systeme:
         visual_payloads["Numerologie"] = build_numerology_chart(birth_dt)
     if "Kabbalah" in payload.systeme:
@@ -231,17 +268,44 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
     system_list = [s for s in requested if s != "KO"]
 
     def inputs_and_vektoren(birth_dt: datetime):
+        bazi_p = None
+        bazi_luck_m: Optional[tuple] = None
+        bazi_luck_f: Optional[tuple] = None
+        if "Bazi" in system_list:
+            bazi_p = build_four_pillars(birth_dt)
+            bazi_luck_m, bazi_luck_f = luck_pillar_for_both_sexes(birth_dt, now)
+        db = bazi_p["pillars"]["day"]["branch"] if bazi_p else None
+        hs = bazi_p["pillars"]["hour"]["stem"] if bazi_p else None
+        hb = bazi_p["pillars"]["hour"]["branch"] if bazi_p else None
         ephemeris_result = None
         if "Westlich" in system_list:
             ephemeris_result = ephemeris_compute(birth_dt, latitude_deg=None, longitude_deg=None)
             ephemeris_sonnenzeichen = sun_sign_from_longitude(
                 next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
             )
-            inp = build_inputs(birth_dt, now, ephemeris_sonnenzeichen=ephemeris_sonnenzeichen)
+            radix = build_radix_wheel(ephemeris_result)
+            inp = build_inputs(
+                birth_dt, now,
+                ephemeris_sonnenzeichen=ephemeris_sonnenzeichen,
+                radix_planets=radix.get("planets"),
+                radix_aspects=radix.get("aspects"),
+                bazi_day_branch=db,
+                bazi_hour_stem=hs,
+                bazi_hour_branch=hb,
+            )
         else:
-            inp = build_inputs(birth_dt, now)
+            inp = build_inputs(birth_dt, now, bazi_day_branch=db, bazi_hour_stem=hs, bazi_hour_branch=hb)
         vektoren: Dict[str, Dict[str, float]] = {}
         for system_name in system_list:
+            if system_name == "Bazi":
+                assert bazi_luck_m is not None and bazi_luck_f is not None
+                ms, mb = bazi_luck_m
+                fs, fb = bazi_luck_f
+                inp_m = {**inp, "luck_pillar_stem": ms, "luck_pillar_branch": mb}
+                inp_f = {**inp, "luck_pillar_stem": fs, "luck_pillar_branch": fb}
+                vektoren["Bazi_male"] = _compute_system_vector("Bazi", inp_m)
+                vektoren["Bazi_female"] = _compute_system_vector("Bazi", inp_f)
+                continue
             vektoren[system_name] = _compute_system_vector(system_name, inp)
         return _serialize_inputs(inp), vektoren
 

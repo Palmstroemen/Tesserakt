@@ -131,8 +131,13 @@ def blend(base: Dict, overlay: Dict, gewicht: float) -> Dict:
     return result
 
 def _rule_value_to_signed(v: float) -> float:
-    """Mappt Regelwert 0..1 (ungünstig..günstig) auf -1..+1."""
-    return 2.0 * float(v) - 1.0
+    """Mappt Regelwert 0..1 oder 1..5 (ungünstig..günstig) auf -1..+1."""
+    v = float(v)
+    if 0 <= v <= 1:
+        return 2.0 * v - 1.0
+    if 1 < v <= 5:
+        return (v - 3.0) / 2.0  # 1→-1, 3→0, 5→+1
+    return 0.0
 
 def extract_dims(data: dict, dim_feld: str) -> Dict[str, float]:
     """Extrahiert Dimensionswerte aus einem Dict; konvertiert 0..1 -> -1..+1."""
@@ -195,6 +200,35 @@ def stem_to_element(stem: str) -> str:
             "wu":"erde","ji":"erde","geng":"metall","xin":"metall",
             "ren":"wasser","gui":"wasser"}.get(stem, "erde")
 
+# Yang year stems (male forward, female backward when born in Yang year)
+YANG_STEMS = ("jia", "bing", "wu", "geng", "ren")
+
+def luck_pillar_for_both_sexes(
+    birth_date: datetime, target_date: datetime
+) -> Tuple[Tuple[str, str], Tuple[str, str]]:
+    """
+    Da Yun (Luck Pillar) for current 10-year block: (male_stem, male_branch), (female_stem, female_branch).
+    Start from month pillar at birth; male/female use forward or backward by Yang/Yin year.
+    """
+    age = target_date.year - birth_date.year
+    block = max(0, age // 10)
+    ys, _ = year_pillar(birth_date.year)
+    ms, mb = month_pillar(birth_date.year, birth_date.month)
+    stem_idx = STEMS.index(ms) if ms in STEMS else 0
+    branch_idx = BRANCHES.index(mb) if mb in BRANCHES else 0
+    forward_stem = STEMS[(stem_idx + block) % 10]
+    forward_branch = BRANCHES[(branch_idx + block) % 12]
+    backward_stem = STEMS[(stem_idx - block) % 10]
+    backward_branch = BRANCHES[(branch_idx - block) % 12]
+    yang_year = ys in YANG_STEMS
+    if yang_year:
+        male_stem, male_branch = forward_stem, forward_branch
+        female_stem, female_branch = backward_stem, backward_branch
+    else:
+        male_stem, male_branch = backward_stem, backward_branch
+        female_stem, female_branch = forward_stem, forward_branch
+    return (male_stem, male_branch), (female_stem, female_branch)
+
 def life_path(birth_date: datetime) -> int:
     def ds(n):
         while n > 9 and n not in (11,22,33):
@@ -209,14 +243,61 @@ def estimate_transits(target_date: datetime) -> List[Tuple[str,str]]:
     return [(p, aspects[int(((target_date-base).days % c)/c * 5) % 5])
             for p, c in cycles.items()]
 
+# Radix: Ephemeris/Chart use English ids; Western rules use German keys.
+_PLANET_ID_TO_DE = {
+    "sun": "sonne", "moon": "mond", "mercury": "merkur", "venus": "venus",
+    "mars": "mars", "jupiter": "jupiter", "saturn": "saturn",
+    "uranus": "uranus", "neptune": "neptun", "pluto": "pluto",
+}
+_ASPECT_TYPE_TO_DE = {
+    "conjunction": "konjunktion", "sextile": "sextil", "square": "quadrat",
+    "trine": "trigon", "opposition": "opposition",
+}
+
+def _radix_to_planets_in_houses(radix_planets: List[dict]) -> List[Tuple[str, int]]:
+    """From radix wheel planets list (id, house) -> [(planet_key_de, house_1_12), ...]."""
+    out: List[Tuple[str, int]] = []
+    for p in radix_planets or []:
+        pid = p.get("id")
+        house = p.get("house")
+        if house is None:
+            continue
+        key = _PLANET_ID_TO_DE.get(pid)
+        if key:
+            out.append((key, int(house)))
+    return out
+
+def _radix_to_natal_aspects(radix_aspects: List[dict]) -> List[Tuple[str, str, str]]:
+    """From radix aspects (a, b, type) -> [(planet_a_de, planet_b_de, aspect_de), ...]."""
+    out: List[Tuple[str, str, str]] = []
+    for asp in radix_aspects or []:
+        a_id = asp.get("a")
+        b_id = asp.get("b")
+        typ = asp.get("type")
+        if not a_id or not b_id or not typ:
+            continue
+        a_de = _PLANET_ID_TO_DE.get(a_id)
+        b_de = _PLANET_ID_TO_DE.get(b_id)
+        typ_de = _ASPECT_TYPE_TO_DE.get(typ)
+        if a_de and b_de and typ_de:
+            out.append((a_de, b_de, typ_de))
+    return out
+
 def build_inputs(
     birth_date: datetime,
     target_date: datetime,
     ephemeris_sonnenzeichen: Optional[str] = None,
+    radix_planets: Optional[List[dict]] = None,
+    radix_aspects: Optional[List[dict]] = None,
+    bazi_day_branch: Optional[str] = None,
+    bazi_hour_stem: Optional[str] = None,
+    bazi_hour_branch: Optional[str] = None,
 ) -> dict:
     """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
     Wenn ephemeris_sonnenzeichen gesetzt ist (z.B. aus Swiss Ephemeris Sonnenposition),
-    wird es für sonnenzeichen verwendet; sonst Datumsgrenzen."""
+    wird es für sonnenzeichen verwendet; sonst Datumsgrenzen.
+    radix_planets/radix_aspects: von build_radix_wheel (planets, aspects) für Westlich.
+    bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi."""
     ys, yb = year_pillar(birth_date.year)
     ms, mb = month_pillar(birth_date.year, birth_date.month)
     ds_val  = day_stem(birth_date)
@@ -226,7 +307,7 @@ def build_inputs(
     age     = target_date.year - birth_date.year
     lpn     = life_path(birth_date)
     sonnenz = ephemeris_sonnenzeichen if ephemeris_sonnenzeichen else sun_sign(birth_date)
-    return {
+    base = {
         "sonnenzeichen":          sonnenz,
         "geburts_year_stem":      ys,
         "geburts_year_branch":    yb,
@@ -246,6 +327,17 @@ def build_inputs(
         "geburts_tag_des_jahres": birth_date.timetuple().tm_yday,
         "transits":               estimate_transits(target_date),
     }
+    if radix_planets is not None:
+        base["planets_in_houses"] = _radix_to_planets_in_houses(radix_planets)
+    if radix_aspects is not None:
+        base["natal_aspects"] = _radix_to_natal_aspects(radix_aspects)
+    if bazi_day_branch is not None:
+        base["geburts_day_branch"] = bazi_day_branch
+    if bazi_hour_stem is not None:
+        base["geburts_hour_stem"] = bazi_hour_stem
+    if bazi_hour_branch is not None:
+        base["geburts_hour_branch"] = bazi_hour_branch
+    return base
 
 
 # ── Typ-Handler ────────────────────────────────────────────────────────────────
@@ -282,6 +374,48 @@ def handle_transit(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
             transit_rules.get(planet, {}).get(aspect, {}),
             quelle.get("dim_feld", "vektor")
         )
+        if dims:
+            basis = blend(basis, dims, gewicht)
+            gewicht = max(minimum, gewicht - abnahme)
+    return basis
+
+def handle_natal_aspekte(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Natale Planet×Planet-Aspekte aus inputs['natal_aspects'] (p1_de, p2_de, aspect_de); Lookup in planet_planet_aspekte.kombinationen."""
+    natal = inputs.get("natal_aspects", [])
+    container = rules.get(quelle.get("schluessel", "planet_planet_aspekte"), {})
+    kombinationen = container.get("kombinationen", {})
+    basis = neutral_vector()
+    gewicht = quelle.get("gewicht", 0.4)
+    abnahme = quelle.get("gewicht_abnahme", 0.05)
+    minimum = quelle.get("gewicht_minimum", 0.2)
+    dim_feld = quelle.get("dim_feld", "vektor")
+    for item in natal:
+        if len(item) != 3:
+            continue
+        p1, p2, aspect = item[0], item[1], item[2]
+        pair_key = "_".join(sorted([p1, p2]))
+        payload = kombinationen.get(pair_key, {}).get(aspect, {})
+        dims = extract_dims(payload, dim_feld)
+        if dims:
+            basis = blend(basis, dims, gewicht)
+            gewicht = max(minimum, gewicht - abnahme)
+    return basis
+
+def handle_planeten_in_haeusern(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Planeten in Häusern aus inputs['planets_in_houses'] (planet_key, house_1_12); Lookup in planeten_im_N_haus[planet]."""
+    pairs = inputs.get("planets_in_houses", [])
+    basis = neutral_vector()
+    gewicht = quelle.get("gewicht", 0.5)
+    abnahme = quelle.get("gewicht_abnahme", 0.03)
+    minimum = quelle.get("gewicht_minimum", 0.2)
+    dim_feld = quelle.get("dim_feld", "vektor")
+    for item in pairs:
+        if len(item) != 2:
+            continue
+        planet_key, house_num = item[0], item[1]
+        key = f"planeten_im_{house_num}_haus"
+        payload = rules.get(key, {}).get(planet_key, {})
+        dims = extract_dims(payload, dim_feld)
         if dims:
             basis = blend(basis, dims, gewicht)
             gewicht = max(minimum, gewicht - abnahme)
@@ -329,6 +463,24 @@ def handle_clash_combination(quelle: dict, rules: dict, inputs: dict) -> Dict[st
                 dims = extract_dims(data, quelle.get("dim_feld","vektor"))
                 for d, v in dims.items():
                     result[d] = round((result.get(d, 0.0) + v) / 2, 2)
+    return result
+
+def handle_luck_pillar(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Luck Pillar (Da Yun): stem + branch vectors from inputs, blended. Branch 'wu' → key 'wu_branch' in rules."""
+    stem = inputs.get("luck_pillar_stem", "")
+    branch = inputs.get("luck_pillar_branch", "")
+    lp = rules.get(quelle["schluessel"], {})
+    stem_data = lp.get("stem_luck_pillars", {}).get(stem, {})
+    branch_key = "wu_branch" if branch == "wu" else branch
+    branch_data = lp.get("branch_luck_pillars", {}).get(branch_key, {})
+    dim_feld = quelle.get("dim_feld", "vektor")
+    stem_vec = extract_dims(stem_data, dim_feld)
+    branch_vec = extract_dims(branch_data, dim_feld)
+    w = quelle.get("gewicht", 0.5)
+    result = neutral_vector()
+    for d in DIMENSIONS:
+        v = w * stem_vec.get(d, 0.0) + w * branch_vec.get(d, 0.0)
+        result[d] = clamp(v)
     return result
 
 def handle_nach_lebenspfadzahl(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
@@ -473,15 +625,45 @@ def handle_direkter_vektor(quelle: dict, rules: dict, inputs: dict) -> Dict[str,
     return {}
 
 
+# Whole-sign house lords: 1=Aries=Mars, 2=Taurus=Venus, 3=Gemini=Mercury, 4=Cancer=Moon, 5=Leo=Sun,
+# 6=Virgo=Mercury, 7=Libra=Venus, 8=Scorpio=Mars, 9=Sagittarius=Jupiter, 10=Capricorn=Saturn,
+# 11=Aquarius=Saturn, 12=Pisces=Jupiter
+_HOUSE_LORD = ["mars", "venus", "merkur", "mond", "sonne", "merkur", "venus", "mars", "jupiter", "saturn", "saturn", "jupiter"]
+
+
+def handle_thematic_profektion(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Profektionshaus + Jahresherrscher: lookup planeten_im_N_haus[lord] (Lord of Year = house ruler)."""
+    alter = inputs.get("lebensalter", 0)
+    n = (alter % 12) + 1
+    lord = _HOUSE_LORD[n - 1]
+    key = quelle.get("schluessel_format", "planeten_im_{n}_haus").replace("{n}", str(n))
+    container = rules.get(key, {})
+    payload = container.get(lord, {})
+    return extract_dims(payload, quelle.get("dim_feld", "vektor"))
+
+
+def handle_jahresherrscher(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Lord of the Year aus Profektionshaus: alter → haus 1..12 → lord (Mars, Venus, …) → jahresherrscher_profile[lord]."""
+    alter = inputs.get("lebensalter", 0)
+    n = (alter % 12) + 1
+    lord = _HOUSE_LORD[n - 1]
+    container = rules.get(quelle.get("schluessel", "jahresherrscher_profile"), {})
+    payload = container.get(lord, {})
+    return extract_dims(payload, quelle.get("dim_feld", "dimensionen_vektor"))
+
+
 # Registry aller Handler
 HANDLER = {
     "nach_zeichen":          handle_nach_zeichen,
     "nach_planet_herrscher": handle_nach_planet_herrscher,
     "transit":               handle_transit,
+    "natal_aspekte":         handle_natal_aspekte,
+    "planeten_in_haeusern":  handle_planeten_in_haeusern,
     "nach_day_master":       handle_nach_day_master,
     "nach_branch":           handle_nach_branch,
     "element_interaktion":   handle_element_interaktion,
     "clash_combination":     handle_clash_combination,
+    "luck_pillar":           handle_luck_pillar,
     "nach_lebenspfadzahl":   handle_nach_lebenspfadzahl,
     "nach_sephira":          handle_nach_sephira,
     "firdaria":              handle_firdaria,
@@ -490,6 +672,8 @@ HANDLER = {
     "mahadasha":             handle_mahadasha,
     "nakshatra":             handle_nakshatra,
     "direkter_vektor":       handle_direkter_vektor,
+    "thematic_profektion":   handle_thematic_profektion,
+    "jahresherrscher":       handle_jahresherrscher,
 }
 
 

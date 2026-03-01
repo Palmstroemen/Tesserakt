@@ -24,6 +24,32 @@
       "pflicht": false
     },
     {
+      "id": "day_branch",
+      "schluessel": "earthly_branches",
+      "typ": "nach_branch",
+      "eingabe": "geburts_day_branch",
+      "dim_felder": ["liebe", "beruf", "finanzen"],
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "hour_branch",
+      "schluessel": "earthly_branches",
+      "typ": "nach_branch",
+      "eingabe": "geburts_hour_branch",
+      "dim_felder": ["liebe", "beruf", "finanzen"],
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "luck_pillar",
+      "schluessel": "luck_pillars",
+      "typ": "luck_pillar",
+      "dim_feld": "vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
       "id": "element_interaktion",
       "schluessel": "five_element_interactions",
       "typ": "element_interaktion",

@@ -36,6 +36,8 @@ def get_vektoren_for_birth_date(
     birth_dt: datetime,
     *,
     build_inputs,
+    build_four_pillars,
+    luck_pillar_for_both_sexes,
     load_struktur,
     load_rules,
     compute_vector,
@@ -44,9 +46,39 @@ def get_vektoren_for_birth_date(
 ) -> Dict[str, Dict[str, float]]:
     """Berechnet für ein Geburtsdatum die Vektoren aller Systeme (ohne Ephemeris)."""
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
-    inputs = build_inputs(birth_dt, now)
+    # Bazi: Four Pillars + Da Yun wie in main.py, damit day_branch, hour_branch, luck_pillar greifen
+    bazi_pillars = None
+    bazi_luck_male = None
+    bazi_luck_female = None
+    if "Bazi" in SUBFOLDERS:
+        bazi_pillars = build_four_pillars(birth_dt)
+        bazi_luck_male, bazi_luck_female = luck_pillar_for_both_sexes(birth_dt, now)
+    bazi_day_branch = bazi_pillars["pillars"]["day"]["branch"] if bazi_pillars else None
+    bazi_hour_stem = bazi_pillars["pillars"]["hour"]["stem"] if bazi_pillars else None
+    bazi_hour_branch = bazi_pillars["pillars"]["hour"]["branch"] if bazi_pillars else None
+    inputs = build_inputs(
+        birth_dt, now,
+        bazi_day_branch=bazi_day_branch,
+        bazi_hour_stem=bazi_hour_stem,
+        bazi_hour_branch=bazi_hour_branch,
+    )
     vektoren: Dict[str, Dict[str, float]] = {}
     for system_name in SUBFOLDERS:
+        if system_name == "Bazi":
+            if bazi_luck_male is None or bazi_luck_female is None:
+                continue
+            male_stem, male_branch = bazi_luck_male
+            female_stem, female_branch = bazi_luck_female
+            inp_m = {**inputs, "luck_pillar_stem": male_stem, "luck_pillar_branch": male_branch}
+            inp_f = {**inputs, "luck_pillar_stem": female_stem, "luck_pillar_branch": female_branch}
+            struktur = load_struktur("Bazi")
+            rules = load_rules("Bazi")
+            if struktur and rules:
+                vm = compute_vector(struktur, rules, inp_m, system_name="Bazi")
+                vf = compute_vector(struktur, rules, inp_f, system_name="Bazi")
+                vektoren["Bazi_male"] = {dim: float(vm.get(dim, 0.0)) for dim in DIMENSIONS}
+                vektoren["Bazi_female"] = {dim: float(vf.get(dim, 0.0)) for dim in DIMENSIONS}
+            continue
         struktur = load_struktur(system_name)
         if not struktur:
             continue
@@ -86,11 +118,16 @@ def run_simulation(
         compute_vector,
         load_rules,
         load_struktur,
+        luck_pillar_for_both_sexes,
     )
+    from bazi_chart import build_four_pillars  # pylint: disable=import-error
 
     rng = random.Random(seed)
+    # Bazi liefert Bazi_male + Bazi_female statt Bazi; rest wie SUBFOLDERS
+    system_names = [s if s != "Bazi" else "Bazi_male" for s in SUBFOLDERS]
+    system_names = list(dict.fromkeys(system_names + ["Bazi_female"]))  # Bazi_male, dann Bazi_female
     values_per_system_dim: Dict[str, Dict[str, List[float]]] = {
-        s: {d: [] for d in DIMENSIONS} for s in SUBFOLDERS
+        s: {d: [] for d in DIMENSIONS} for s in system_names
     }
 
     for _ in range(runs):
@@ -98,6 +135,8 @@ def run_simulation(
         vektoren = get_vektoren_for_birth_date(
             birth_dt,
             build_inputs=build_inputs,
+            build_four_pillars=build_four_pillars,
+            luck_pillar_for_both_sexes=luck_pillar_for_both_sexes,
             load_struktur=load_struktur,
             load_rules=load_rules,
             compute_vector=compute_vector,
@@ -105,10 +144,12 @@ def run_simulation(
             SUBFOLDERS=SUBFOLDERS,
         )
         for system, vec in vektoren.items():
+            if system not in values_per_system_dim:
+                values_per_system_dim[system] = {d: [] for d in DIMENSIONS}
             for dim, val in vec.items():
                 values_per_system_dim[system][dim].append(val)
 
-    systems = [s for s in SUBFOLDERS if any(values_per_system_dim[s][d] for d in DIMENSIONS)]
+    systems = [s for s in values_per_system_dim if any(values_per_system_dim[s][d] for d in DIMENSIONS)]
     return values_per_system_dim, systems, DIMENSIONS
 
 
@@ -211,6 +252,11 @@ def main() -> None:
             ax_gesamt.set_ylabel("Gesamt", fontsize=8)
         ax_gesamt.set_xlabel("-1..+1", fontsize=7)
         ax_gesamt.tick_params(axis="both", labelsize=6)
+
+    # X-Achse aller Subplots fest auf -1 bis 1 fixieren
+    for ax in axes.flat:
+        ax.set_xlim(-1.0, 1.0)
+        ax.set_xticks([-1.0, 0.0, 1.0])
 
     plt.tight_layout()
     out = Path(args.output) if args.output else OUTPUT_DIR / "vector_value_histogram.png"
