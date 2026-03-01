@@ -184,3 +184,22 @@ def sun_sign_from_longitude(longitude_deg: float) -> str:
     """Return German sign key (e.g. 'widder') from ecliptic longitude, for rule engine."""
     _, sign_id = _longitude_to_sign(longitude_deg)
     return _SIGN_ID_TO_DE.get(sign_id, "widder")
+
+
+# Nakshatra: 27 equal segments of 360°/27 ≈ 13°20'. Siderical longitude = tropical - Ayanamsha.
+NAKSHATRA_DEG = 360.0 / 27.0
+
+
+def moon_nakshatra(jd: float, moon_longitude_deg: float) -> Tuple[int, float]:
+    """
+    Compute nakshatra index (0-26) and fraction within nakshatra (0-1) from Julian day and tropical moon longitude.
+    Uses Swiss Ephemeris Ayanamsha (Lahari-equivalent); sidereal = tropical - ayanamsha.
+    Returns (index, anteil) where anteil is how far the moon has progressed through the nakshatra (0 = start, 1 = end).
+    """
+    import swisseph as swe
+    ayanamsha_deg = swe.get_ayanamsa_ut(jd)
+    sidereal_lon = (moon_longitude_deg - ayanamsha_deg) % 360.0
+    segment = sidereal_lon % NAKSHATRA_DEG
+    index = int(sidereal_lon // NAKSHATRA_DEG) % 27
+    anteil = segment / NAKSHATRA_DEG
+    return index, anteil

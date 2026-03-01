@@ -15,7 +15,7 @@
       "zyklus_jahre": 120,
       "geburt_offset_basis": 1900,
       "dim_feld": "dimensionen_vektor",
-      "gewicht": 1.0,
+      "gewicht": 1,
       "pflicht": true
     },
     {
@@ -24,6 +24,23 @@
       "typ": "nakshatra",
       "eingabe": "geburts_tag_des_jahres",
       "anzahl": 27,
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "raja_yoga_basis",
+      "schluessel": "raja_yogas",
+      "typ": "yoga_grundregel",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.4,
+      "pflicht": false
+    },
+    {
+      "id": "yogas_aktiv",
+      "schluessel": "raja_yogas",
+      "typ": "yogas",
+      "eingabe": "aktivierte_yogas",
       "dim_feld": "dimensionen_vektor",
       "gewicht": 0.5,
       "pflicht": false

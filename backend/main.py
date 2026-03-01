@@ -11,14 +11,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from arabic_chart import build_firdaria_chart
+from arabic_chart import build_firdaria_chart, compute_lot_houses
 from bazi_chart import build_four_pillars
 from chart import build_radix_wheel
 from hellenistisch_chart import build_profection_chart
 from kabbalah_chart import build_kabbalah_chart
 from numerology_chart import build_numerology_chart
-from vedisch_chart import build_dasha_chart
-from ephemeris import compute as ephemeris_compute, sun_sign_from_longitude
+from vedisch_chart import build_dasha_chart, compute_aktivierte_yogas, vimshottari_position_now
+from ephemeris import compute as ephemeris_compute, moon_nakshatra, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
     SUBFOLDERS,
@@ -177,15 +177,16 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     bazi_hour_stem = bazi_pillars["pillars"]["hour"]["stem"] if bazi_pillars else None
     bazi_hour_branch = bazi_pillars["pillars"]["hour"]["branch"] if bazi_pillars else None
 
-    # Precompute ephemeris when Westlich is requested (same run as vectors → no extra wait on result page)
+    # Precompute ephemeris when Westlich or Vedisch is requested (one run per request)
     ephemeris_result = None
     radix = None
-    if "Westlich" in payload.systeme:
+    if "Westlich" in payload.systeme or "Vedisch" in payload.systeme or "Arabisch" in payload.systeme:
         ephemeris_result = ephemeris_compute(
             birth_dt,
             latitude_deg=payload.latitude,
             longitude_deg=payload.longitude,
         )
+    if "Westlich" in payload.systeme and ephemeris_result is not None:
         ephemeris_sonnenzeichen = sun_sign_from_longitude(
             next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
         )
@@ -208,6 +209,24 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             bazi_hour_branch=bazi_hour_branch,
             geburtsname=payload.geburtsname,
         )
+    # Vedisch: nakshatra, Vimshottari position, and activated Yogas from ephemeris when available
+    if ephemeris_result and "Vedisch" in payload.systeme:
+        moon = next((p for p in ephemeris_result.planets if p.id == "moon"), None)
+        if moon is not None:
+            idx, anteil = moon_nakshatra(ephemeris_result.jd, moon.longitude_deg)
+            inputs["mond_nakshatra_index"] = idx
+            inputs["mond_nakshatra_anteil"] = anteil
+            alter = inputs.get("lebensalter", 0)
+            inputs["vimshottari_position"] = vimshottari_position_now(idx, anteil, alter)
+        inputs["aktivierte_yogas"] = compute_aktivierte_yogas(ephemeris_result.asc_deg, ephemeris_result.planets)
+    # Arabisch: Lot des Glücks und Lot des Geistes aus Ephemeris (Whole-Sign-Haus 1–12)
+    if ephemeris_result and "Arabisch" in payload.systeme:
+        sun = next((p for p in ephemeris_result.planets if p.id == "sun"), None)
+        moon = next((p for p in ephemeris_result.planets if p.id == "moon"), None)
+        if sun is not None and moon is not None:
+            lots = compute_lot_houses(ephemeris_result.asc_deg, sun.longitude_deg, moon.longitude_deg)
+            inputs["lot_glueck_haus"] = lots["lot_glueck_haus"]
+            inputs["lot_geist_haus"] = lots["lot_geist_haus"]
 
     session_id = payload.session_id or str(uuid4())
     requested = payload.systeme
@@ -253,7 +272,13 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     if "Arabisch" in payload.systeme:
         visual_payloads["Arabisch"] = build_firdaria_chart(birth_dt)
     if "Vedisch" in payload.systeme:
-        visual_payloads["Vedisch"] = build_dasha_chart(birth_dt)
+        nakshatra_index = inputs.get("mond_nakshatra_index")
+        nakshatra_anteil = inputs.get("mond_nakshatra_anteil")
+        visual_payloads["Vedisch"] = build_dasha_chart(
+            birth_dt,
+            nakshatra_index=nakshatra_index if nakshatra_index is not None else None,
+            nakshatra_anteil=nakshatra_anteil if nakshatra_anteil is not None else None,
+        )
     response_inputs["visualPayloads"] = visual_payloads
 
     return VektorResponse(vektoren=vektoren, inputs=response_inputs)

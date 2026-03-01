@@ -404,6 +404,8 @@ def build_inputs(
         "zieldatum":              target_date,
         "geburts_stunde":         birth_date.hour,
         "geburts_tag_des_jahres": birth_date.timetuple().tm_yday,
+        "geburtsjahr":             birth_date.year,
+        "pfad_index":              int((birth_date.timetuple().tm_yday - 1) * 22 / 365) % 22,
         "transits":               estimate_transits(target_date),
     }
     if radix_planets is not None:
@@ -607,6 +609,23 @@ def handle_nach_sephira(quelle: dict, rules: dict, inputs: dict) -> Dict[str, fl
     container = rules.get(quelle["schluessel"], {})
     return extract_dims(find_by_prefix(container, n), quelle.get("dim_feld","dimensionen_vektor"))
 
+# 22 Pfade in kabbalah_pfade.json: keys "11" .. "32"
+PFAD_ORDER = [str(n) for n in range(11, 33)]
+
+def handle_nach_pfad(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Lookup one of 22 paths by pfad_index (0–21). Returns dimensionen_vektor from rules[schluessel][key]."""
+    idx = min(21, max(0, int(inputs.get(quelle.get("eingabe", "pfad_index"), 0))))
+    container = rules.get(quelle.get("schluessel", "pfade"), {})
+    key = PFAD_ORDER[idx] if idx < len(PFAD_ORDER) else "11"
+    return extract_dims(container.get(key, {}), quelle.get("dim_feld", "dimensionen_vektor"))
+
+def handle_gematria_namensanalyse(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """When geburtsname is set, return dimensionen_vektor from namensanalyse_hebraeisch.dimensionen_vektor_namensanalyse (vektor)."""
+    if not (inputs.get("geburtsname") or "").strip():
+        return {}
+    container = rules.get(quelle.get("schluessel", "namensanalyse_hebraeisch"), {}).get("dimensionen_vektor_namensanalyse", {})
+    return extract_dims(container, quelle.get("dim_feld", "vektor"))
+
 def handle_firdaria(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     alter = inputs.get("lebensalter", 0)
     zyklus = quelle.get("zyklus_jahre", 75)
@@ -671,9 +690,10 @@ def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float
     alter   = inputs.get("lebensalter", 0)
     zyklus  = quelle.get("zyklus_jahre", 120)
     basis   = quelle.get("geburt_offset_basis", 1900)
-    birth_y = inputs.get("geburts_year_stem","")  # nicht direkt verfügbar — nutze Alter
-    # Geschätzte Position im Zyklus
-    position = (alter + (datetime.now().year - basis)) % zyklus
+    position = inputs.get("vimshottari_position")
+    if position is None:
+        jahr = inputs.get("geburtsjahr", datetime.now().year)
+        position = (alter + (jahr - basis)) % zyklus
     dauern   = rules.get(quelle.get("dauern_schluessel","mahadasha_dauern"), {})
     profile  = rules.get(quelle["schluessel"], {})
     fmt      = quelle.get("profil_format", "{planet}_mahadasha")
@@ -698,15 +718,61 @@ def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float
         laufzeit += dauer_jahre
     return {}
 
+# Fixed order of 27 nakshatras (index 0–26) as in jyotish_nakshatras.json
+NAKSHATRA_ORDER = [
+    "ashwini", "bharani", "krittika", "rohini", "mrigashira", "ardra", "punarvasu",
+    "pushya", "ashlesha", "magha", "purva_phalguni", "uttara_phalguni", "hasta",
+    "chitra", "swati", "vishakha", "anuradha", "jyeshtha", "mula", "purva_ashadha",
+    "uttara_ashadha", "shravana", "dhanishta", "shatabhisha", "purva_bhadrapada",
+    "uttara_bhadrapada", "revati",
+]
+
+
 def handle_nakshatra(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    tag = inputs.get("geburts_tag_des_jahres", 1)
-    anzahl = quelle.get("anzahl", 27)
-    idx = int((tag / 365) * anzahl)
     container = rules.get(quelle["schluessel"], {})
-    keys = list(container.keys())
+    anzahl = quelle.get("anzahl", 27)
+    if "mond_nakshatra_index" in inputs:
+        idx = int(inputs["mond_nakshatra_index"]) % 27
+        keys = NAKSHATRA_ORDER
+    else:
+        tag = inputs.get("geburts_tag_des_jahres", 1)
+        idx = min(int((tag / 365) * anzahl), 26)
+        keys = NAKSHATRA_ORDER if len(NAKSHATRA_ORDER) >= anzahl else list(container.keys())
     if idx < len(keys):
-        return extract_dims(container[keys[idx]], quelle.get("dim_feld","dimensionen_vektor"))
+        key = keys[idx]
+        return extract_dims(container.get(key, {}), quelle.get("dim_feld", "dimensionen_vektor"))
     return {}
+
+def handle_yoga_grundregel(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Raja-Yoga-Grundregel: dimensionen_vektor from rules[schluessel].grundregel (e.g. raja_yogas.grundregel)."""
+    container = rules.get(quelle.get("schluessel", "raja_yogas"), {})
+    sub = container.get("grundregel", {})
+    return extract_dims(sub, quelle.get("dim_feld", "dimensionen_vektor"))
+
+
+def handle_yogas(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Aktivierte Raja-Yogas aus Inputs: blend dimensionen_vektor from raja_yogas.regeln[id] for each id in aktivierte_yogas."""
+    ids = inputs.get("aktivierte_yogas", [])
+    if not ids:
+        return {}
+    raja = rules.get(quelle.get("schluessel", "raja_yogas"), {})
+    regeln = raja.get("regeln", {})
+    vectors: List[Dict[str, float]] = []
+    for yid in ids:
+        entry = regeln.get(yid, {})
+        if not entry:
+            continue
+        dims = extract_dims(entry, quelle.get("dim_feld", "dimensionen_vektor"))
+        if dims:
+            vectors.append(dims)
+    if not vectors:
+        return {}
+    result = {}
+    for d in DIMENSIONS:
+        vals = [v.get(d, 0.0) for v in vectors]
+        result[d] = clamp(sum(vals) / len(vectors))
+    return result
+
 
 def handle_direkter_vektor(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     container = rules.get(quelle["schluessel"], {})
@@ -717,8 +783,12 @@ def handle_direkter_vektor(quelle: dict, rules: dict, inputs: dict) -> Dict[str,
     # Fallback for nested house maps (e.g. lot_des_gluecks -> deutung_nach_haeusern -> haus_n)
     haeuser = container.get("deutung_nach_haeusern", {})
     if isinstance(haeuser, dict):
-        alter = inputs.get("lebensalter", 0)
-        haus_idx = (alter % 12) + 1
+        haus_eingabe = quelle.get("haus_eingabe")
+        if haus_eingabe and haus_eingabe in inputs:
+            haus_idx = max(1, min(12, int(inputs[haus_eingabe])))
+        else:
+            alter = inputs.get("lebensalter", 0)
+            haus_idx = (alter % 12) + 1
         haus_key = f"haus_{haus_idx}"
         return extract_dims(haeuser.get(haus_key, {}), quelle.get("dim_feld","dimensionen_vektor"))
     return {}
@@ -766,11 +836,15 @@ HANDLER = {
     "nach_lebenspfadzahl":   handle_nach_lebenspfadzahl,
     "nach_zyklus":           handle_nach_zyklus,
     "nach_sephira":          handle_nach_sephira,
+    "nach_pfad":             handle_nach_pfad,
+    "gematria_namensanalyse": handle_gematria_namensanalyse,
     "firdaria":              handle_firdaria,
     "profektionen":          handle_profektionen,
     "sekt":                  handle_sekt,
     "mahadasha":             handle_mahadasha,
     "nakshatra":             handle_nakshatra,
+    "yoga_grundregel":       handle_yoga_grundregel,
+    "yogas":                 handle_yogas,
     "direkter_vektor":       handle_direkter_vektor,
     "thematic_profektion":   handle_thematic_profektion,
     "jahresherrscher":       handle_jahresherrscher,

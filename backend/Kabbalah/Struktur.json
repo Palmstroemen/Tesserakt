@@ -12,9 +12,29 @@
       "eingabe": "lebenspfadzahl",
       "schluessel_format": "{n}_{name}",
       "dim_feld": "dimensionen_vektor",
-      "gewicht": 1.0,
+      "gewicht": 1,
       "pflicht": true,
-      "reduktion": { "max": 10, "meisterzahlen_mapping": {"11": 2, "22": 4, "33": 6} }
+      "reduktion": {
+        "max": 10,
+        "meisterzahlen_mapping": {"11": 2, "22": 4, "33": 6}
+      }
+    },
+    {
+      "id": "pfad",
+      "schluessel": "pfade",
+      "typ": "nach_pfad",
+      "eingabe": "pfad_index",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "gematria_namensanalyse",
+      "schluessel": "namensanalyse_hebraeisch",
+      "typ": "gematria_namensanalyse",
+      "dim_feld": "vektor",
+      "gewicht": 0.4,
+      "pflicht": false
     }
   ]
 }
