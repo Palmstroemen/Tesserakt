@@ -54,6 +54,7 @@ class VektorRequest(BaseModel):
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
     latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (fuer Placidus-Haeuser)")
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
+    geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
 
 
 class VektorResponse(BaseModel):
@@ -64,8 +65,10 @@ class VektorResponse(BaseModel):
 class PartnerRequest(BaseModel):
     geburtsdatum_a: str = Field(examples=["1985-03-15"])
     uhrzeit_a: Optional[str] = Field(default="12:00", examples=["14:30"])
+    geburtsname_a: Optional[str] = Field(default=None, description="Geburtsname Person A (Numerologie)")
     geburtsdatum_b: str = Field(examples=["1990-07-20"])
     uhrzeit_b: Optional[str] = Field(default="12:00", examples=["09:00"])
+    geburtsname_b: Optional[str] = Field(default=None, description="Geburtsname Person B (Numerologie)")
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
 
 
@@ -195,6 +198,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             bazi_day_branch=bazi_day_branch,
             bazi_hour_stem=bazi_hour_stem,
             bazi_hour_branch=bazi_hour_branch,
+            geburtsname=payload.geburtsname,
         )
     else:
         inputs = build_inputs(
@@ -202,6 +206,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             bazi_day_branch=bazi_day_branch,
             bazi_hour_stem=bazi_hour_stem,
             bazi_hour_branch=bazi_hour_branch,
+            geburtsname=payload.geburtsname,
         )
 
     session_id = payload.session_id or str(uuid4())
@@ -267,7 +272,7 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
         raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
     system_list = [s for s in requested if s != "KO"]
 
-    def inputs_and_vektoren(birth_dt: datetime):
+    def inputs_and_vektoren(birth_dt: datetime, geburtsname: Optional[str] = None):
         bazi_p = None
         bazi_luck_m: Optional[tuple] = None
         bazi_luck_f: Optional[tuple] = None
@@ -292,9 +297,10 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
                 bazi_day_branch=db,
                 bazi_hour_stem=hs,
                 bazi_hour_branch=hb,
+                geburtsname=geburtsname,
             )
         else:
-            inp = build_inputs(birth_dt, now, bazi_day_branch=db, bazi_hour_stem=hs, bazi_hour_branch=hb)
+            inp = build_inputs(birth_dt, now, bazi_day_branch=db, bazi_hour_stem=hs, bazi_hour_branch=hb, geburtsname=geburtsname)
         vektoren: Dict[str, Dict[str, float]] = {}
         for system_name in system_list:
             if system_name == "Bazi":
@@ -309,8 +315,8 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
             vektoren[system_name] = _compute_system_vector(system_name, inp)
         return _serialize_inputs(inp), vektoren
 
-    inputs_a, vektoren_a = inputs_and_vektoren(birth_dt_a)
-    inputs_b, vektoren_b = inputs_and_vektoren(birth_dt_b)
+    inputs_a, vektoren_a = inputs_and_vektoren(birth_dt_a, payload.geburtsname_a)
+    inputs_b, vektoren_b = inputs_and_vektoren(birth_dt_b, payload.geburtsname_b)
 
     return PartnerResponse(
         vektorenA=vektoren_a,

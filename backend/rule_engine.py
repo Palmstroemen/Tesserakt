@@ -236,6 +236,77 @@ def life_path(birth_date: datetime) -> int:
         return n
     return ds(ds(birth_date.day) + ds(birth_date.month) + ds(birth_date.year))
 
+# Pythagoräisches Buchstaben–Zahlen-Mapping (1–9, A=1 … Z=8); Y = Vokal
+_PYTHAG_VOWELS = frozenset("AEIOUY")
+_PYTHAG_MAP = {
+    "A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9,
+    "J": 1, "K": 2, "L": 3, "M": 4, "N": 5, "O": 6, "P": 7, "Q": 8, "R": 9,
+    "S": 1, "T": 2, "U": 3, "V": 4, "W": 5, "X": 6, "Y": 7, "Z": 8,
+}
+
+def _reduce_numerology(n: int) -> int:
+    """Reduce to 1–9 or keep master numbers 11, 22, 33."""
+    while n > 9 and n not in (11, 22, 33):
+        n = sum(int(x) for x in str(n))
+    return n
+
+def personal_year(birth_date: datetime, target_date: datetime) -> int:
+    """Persönliches Jahr: Geburtsmonat + Geburtstag + Zieldatum-Jahr (jeweils reduziert), dann summiert und reduziert."""
+    m = _reduce_numerology(birth_date.month)
+    d = _reduce_numerology(birth_date.day)
+    y = sum(int(x) for x in str(target_date.year))
+    y = _reduce_numerology(y)
+    return _reduce_numerology(m + d + y)
+
+def personal_month(persoenliches_jahr: int, target_month: int) -> int:
+    """Persönlicher Monat: Persönliches Jahr + Kalendermonat (reduziert)."""
+    monat_red = _reduce_numerology(target_month)
+    return _reduce_numerology(persoenliches_jahr + monat_red)
+
+def current_pinnacle_number(birth_date: datetime, target_date: datetime, life_path: int) -> int:
+    """
+    Aktueller Pinnacle (1–4): welche Pinnacle-Zahl (1–9 oder 11/22) gilt im aktuellen Alter.
+    P1 = M+T, P2 = T+J, P3 = P1+P2, P4 = M+J. P1 endet mit 36 - Lebenspfad (11→25, 22→14, 33→3).
+    """
+    m = _reduce_numerology(birth_date.month)
+    t = _reduce_numerology(birth_date.day)
+    j = _reduce_numerology(birth_date.year)
+    p1_num = _reduce_numerology(m + t)
+    p2_num = _reduce_numerology(t + j)
+    p3_num = _reduce_numerology(p1_num + p2_num)
+    p4_num = _reduce_numerology(m + j)
+    # P1 length: 36 - life_path (master numbers 11,22,33 subtract as-is)
+    p1_end = max(0, 36 - life_path)
+    p2_end = p1_end + 9
+    p3_end = p2_end + 9
+    age = target_date.year - birth_date.year
+    if age < p1_end:
+        return p1_num
+    if age < p2_end:
+        return p2_num
+    if age < p3_end:
+        return p3_num
+    return p4_num
+
+def name_to_numerology(geburtsname: str) -> Dict[str, int]:
+    """
+    Seelendrang (vowels), Ausdruckszahl (all letters), Persönlichkeitszahl (consonants).
+    Returns dict with seelendrang_zahl, ausdrucks_zahl, persoenlichkeits_zahl (1–9 or 11/22/33).
+    """
+    s = (geburtsname or "").strip().upper()
+    s = s.replace("Ä", "A").replace("Ö", "O").replace("Ü", "U").replace("ß", "SS")
+    letters = [c for c in s if c in _PYTHAG_MAP]
+    if not letters:
+        return {}
+    vowel_sum = sum(_PYTHAG_MAP[c] for c in letters if c in _PYTHAG_VOWELS)
+    all_sum = sum(_PYTHAG_MAP[c] for c in letters)
+    consonant_sum = sum(_PYTHAG_MAP[c] for c in letters if c not in _PYTHAG_VOWELS)
+    return {
+        "seelendrang_zahl": _reduce_numerology(vowel_sum) if vowel_sum else 0,
+        "ausdrucks_zahl": _reduce_numerology(all_sum),
+        "persoenlichkeits_zahl": _reduce_numerology(consonant_sum) if consonant_sum else 0,
+    }
+
 def estimate_transits(target_date: datetime) -> List[Tuple[str,str]]:
     cycles = {"merkur":88,"venus":225,"mars":687,"jupiter":4333,"saturn":10759}
     aspects = ["konjunktion","sextil","quadrat","trine","opposition"]
@@ -292,12 +363,14 @@ def build_inputs(
     bazi_day_branch: Optional[str] = None,
     bazi_hour_stem: Optional[str] = None,
     bazi_hour_branch: Optional[str] = None,
+    geburtsname: Optional[str] = None,
 ) -> dict:
     """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
     Wenn ephemeris_sonnenzeichen gesetzt ist (z.B. aus Swiss Ephemeris Sonnenposition),
     wird es für sonnenzeichen verwendet; sonst Datumsgrenzen.
     radix_planets/radix_aspects: von build_radix_wheel (planets, aspects) für Westlich.
-    bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi."""
+    bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi.
+    geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit)."""
     ys, yb = year_pillar(birth_date.year)
     ms, mb = month_pillar(birth_date.year, birth_date.month)
     ds_val  = day_stem(birth_date)
@@ -306,6 +379,9 @@ def build_inputs(
     tms, tmb = month_pillar(target_date.year, target_date.month)
     age     = target_date.year - birth_date.year
     lpn     = life_path(birth_date)
+    pj      = personal_year(birth_date, target_date)
+    pm      = personal_month(pj, target_date.month)
+    pinnacle_zahl = current_pinnacle_number(birth_date, target_date, lpn)
     sonnenz = ephemeris_sonnenzeichen if ephemeris_sonnenzeichen else sun_sign(birth_date)
     base = {
         "sonnenzeichen":          sonnenz,
@@ -322,6 +398,9 @@ def build_inputs(
         "aktueller_month_branch": tmb,
         "lebensalter":            age,
         "lebenspfadzahl":         lpn,
+        "persoenliches_jahr":     pj,
+        "persoenlicher_monat":    pm,
+        "aktueller_pinnacle_zahl": pinnacle_zahl,
         "zieldatum":              target_date,
         "geburts_stunde":         birth_date.hour,
         "geburts_tag_des_jahres": birth_date.timetuple().tm_yday,
@@ -337,6 +416,12 @@ def build_inputs(
         base["geburts_hour_stem"] = bazi_hour_stem
     if bazi_hour_branch is not None:
         base["geburts_hour_branch"] = bazi_hour_branch
+    if geburtsname is not None and geburtsname.strip():
+        nums = name_to_numerology(geburtsname)
+        if nums:
+            base["seelendrang_zahl"] = nums["seelendrang_zahl"]
+            base["ausdrucks_zahl"] = nums["ausdrucks_zahl"]
+            base["persoenlichkeits_zahl"] = nums["persoenlichkeits_zahl"]
     return base
 
 
@@ -484,15 +569,29 @@ def handle_luck_pillar(quelle: dict, rules: dict, inputs: dict) -> Dict[str, flo
     return result
 
 def handle_nach_lebenspfadzahl(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    lpn = inputs.get("lebenspfadzahl", 1)
+    eingabe = quelle.get("eingabe", "lebenspfadzahl")
+    if eingabe not in inputs:
+        return {}
+    lpn = inputs[eingabe]
     container = rules.get(quelle["schluessel"], {})
-    # Direkt suchen
     profil = container.get(str(lpn), {})
-    # Fallback: Meisterzahl reduzieren
-    if not profil and lpn in (11,22,33):
+    if not profil and lpn in (11, 22, 33):
         reduced = sum(int(x) for x in str(lpn))
         profil = container.get(str(reduced), {})
-    return extract_dims(profil, quelle.get("dim_feld","dimensionen_vektor"))
+    return extract_dims(profil, quelle.get("dim_feld", "dimensionen_vektor"))
+
+def handle_nach_zyklus(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Zyklus-Lookup mit Prefix (PJ, PM, PIN): eingabe + praefix → Key z.B. PJ7. Fallback auf reduzierte Meisterzahl wenn Key fehlt."""
+    eingabe = quelle.get("eingabe", "persoenliches_jahr")
+    praefix = quelle.get("praefix", "PJ")
+    wert = inputs.get(eingabe, 1)
+    container = rules.get(quelle["schluessel"], {})
+    key = praefix + str(wert)
+    profil = container.get(key, {})
+    if not profil and wert in (11, 22, 33):
+        reduced = sum(int(x) for x in str(wert))
+        profil = container.get(praefix + str(reduced), {})
+    return extract_dims(profil, quelle.get("dim_feld", "dimensionen_vektor"))
 
 def handle_nach_sephira(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     lpn = inputs.get("lebenspfadzahl", 1)
@@ -665,6 +764,7 @@ HANDLER = {
     "clash_combination":     handle_clash_combination,
     "luck_pillar":           handle_luck_pillar,
     "nach_lebenspfadzahl":   handle_nach_lebenspfadzahl,
+    "nach_zyklus":           handle_nach_zyklus,
     "nach_sephira":          handle_nach_sephira,
     "firdaria":              handle_firdaria,
     "profektionen":          handle_profektionen,

@@ -2,7 +2,7 @@
   "_meta": {
     "system": "Numerologie",
     "beschreibung": "Klassische Numerologie — Lebenspfadzahl aus Geburtsdatum",
-    "zeit_abhaengig": false
+    "zeit_abhaengig": true
   },
   "vektor_quellen": [
     {
@@ -19,6 +19,63 @@
       "schluessel": "lebenspfad_profile",
       "typ": "nach_lebenspfadzahl",
       "eingabe": "lebenspfadzahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "seelendrang",
+      "schluessel": "seelendrang_profile",
+      "typ": "nach_lebenspfadzahl",
+      "eingabe": "seelendrang_zahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "ausdruckszahl",
+      "schluessel": "ausdrucks_profile",
+      "typ": "nach_lebenspfadzahl",
+      "eingabe": "ausdrucks_zahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "persoenlichkeitszahl",
+      "schluessel": "persoenlichkeits_profile",
+      "typ": "nach_lebenspfadzahl",
+      "eingabe": "persoenlichkeits_zahl",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "persoenliches_jahr",
+      "schluessel": "persoenliches_jahr_profile",
+      "typ": "nach_zyklus",
+      "eingabe": "persoenliches_jahr",
+      "praefix": "PJ",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "persoenlicher_monat",
+      "schluessel": "persoenlicher_monat_profile",
+      "typ": "nach_zyklus",
+      "eingabe": "persoenlicher_monat",
+      "praefix": "PM",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.4,
+      "pflicht": false
+    },
+    {
+      "id": "pinnacle",
+      "schluessel": "pinnacle_profile",
+      "typ": "nach_zyklus",
+      "eingabe": "aktueller_pinnacle_zahl",
+      "praefix": "PIN",
       "dim_feld": "dimensionen_vektor",
       "gewicht": 0.5,
       "pflicht": false
