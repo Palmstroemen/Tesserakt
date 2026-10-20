@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "de",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/heute/heute_v1.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_heute.py"
+  },
+  "gruppen": {
+    "numerologie_monat": {
+      "1": "Dein persönlicher Monat steht auf der Eins – ein Monat der Anfänge. Was du jetzt anstößt, hat Rückenwind; Zögern kostet eher Kraft, als dass es schützt.",
+      "2": "Dein persönlicher Monat steht auf der Zwei – eine Zeit für Geduld und Zusammenarbeit. Nicht alles muss sofort entschieden werden; Feingefühl bringt dich weiter als Tempo.",
+      "3": "Dein persönlicher Monat steht auf der Drei – Ausdruck, Austausch und Leichtigkeit sind betont. Ein guter Moment, um Ideen zu teilen und Kontakte zu pflegen.",
+      "4": "Dein persönlicher Monat steht auf der Vier – Arbeit am Fundament. Ordnung, Routinen und Verlässlichkeit zahlen sich jetzt mehr aus als große Sprünge.",
+      "5": "Dein persönlicher Monat steht auf der Fünf – Bewegung und Wechsel liegen in der Luft. Bleib beweglich: Unerwartetes kann sich als Gelegenheit entpuppen.",
+      "6": "Dein persönlicher Monat steht auf der Sechs – Verantwortung, Familie und Fürsorge rücken in den Vordergrund. Beziehungen wollen gepflegt werden, auch die zu dir selbst.",
+      "7": "Dein persönlicher Monat steht auf der Sieben – eine nachdenkliche Zeit. Rückzug, Lernen und innere Klärung sind jetzt ergiebiger als äußere Betriebsamkeit.",
+      "8": "Dein persönlicher Monat steht auf der Acht – Leistung, Geld und Einfluss sind Thema. Du kannst viel bewegen, wenn du deine Kräfte bündelst.",
+      "9": "Dein persönlicher Monat steht auf der Neun – ein Monat des Abschließens. Was sich erschöpft hat, darf gehen; das schafft Platz für den nächsten Zyklus.",
+      "11": "Dein persönlicher Monat trägt die Meisterzahl Elf – Intuition und Inspiration sind verstärkt, ebenso die Empfindsamkeit. Achte auf leise Eingebungen.",
+      "22": "Dein persönlicher Monat trägt die Meisterzahl Zweiundzwanzig – große Pläne können jetzt Form annehmen, wenn Vision und Praxis zusammenfinden.",
+      "33": "Dein persönlicher Monat trägt die Meisterzahl Dreiunddreißig – Hingabe und Fürsorge für andere stehen im Mittelpunkt, ohne dass du dich selbst vergessen solltest."
+    },
+    "hellenistisch_haus": {
+      "1": "Dein Profektionsjahr aktiviert das erste Haus – du selbst, dein Auftreten und dein Körper stehen in diesem Lebensjahr im Mittelpunkt.",
+      "2": "Dein Profektionsjahr aktiviert das zweite Haus – Besitz, Einkommen und das, was dir Sicherheit gibt, sind die Themen dieses Lebensjahres.",
+      "3": "Dein Profektionsjahr aktiviert das dritte Haus – Kommunikation, kurze Wege, Geschwister und Nachbarschaft sind betont.",
+      "4": "Dein Profektionsjahr aktiviert das vierte Haus – Zuhause, Herkunft und Familie rücken in diesem Lebensjahr in den Vordergrund.",
+      "5": "Dein Profektionsjahr aktiviert das fünfte Haus – Freude, Kreativität, Kinder und Liebschaften gehören zu den Themen dieses Jahres.",
+      "6": "Dein Profektionsjahr aktiviert das sechste Haus – Arbeitsalltag, Gesundheit und Pflichten verlangen in diesem Lebensjahr Aufmerksamkeit.",
+      "7": "Dein Profektionsjahr aktiviert das siebte Haus – Partnerschaften, Verträge und das Gegenüber stehen im Zentrum.",
+      "8": "Dein Profektionsjahr aktiviert das achte Haus – gemeinsame Ressourcen, Wandlung und Abschiede sind Themen dieses Lebensjahres.",
+      "9": "Dein Profektionsjahr aktiviert das neunte Haus – Reisen, Bildung, Weltanschauung und Sinnsuche sind betont.",
+      "10": "Dein Profektionsjahr aktiviert das zehnte Haus – Beruf, Ansehen und öffentliche Rolle stehen in diesem Lebensjahr im Rampenlicht.",
+      "11": "Dein Profektionsjahr aktiviert das elfte Haus – Freundschaften, Netzwerke und Hoffnungen für die Zukunft sind betont.",
+      "12": "Dein Profektionsjahr aktiviert das zwölfte Haus – ein Jahr der Stille und des Rückzugs, in dem Verborgenes ans Licht kommen kann."
+    },
+    "hellenistisch_herrscher": {
+      "sonne": "Jahresherrscher ist die Sonne – Sichtbarkeit und Selbstvertrauen sind gefragt; heute lohnt es sich, Haltung zu zeigen.",
+      "mond": "Jahresherrscher ist der Mond – Gefühle, Bedürfnisse und Stimmungen geben den Takt vor; nimm sie heute ernst.",
+      "merkur": "Jahresherrscher ist Merkur – Gespräche, Verhandlungen und Lernen tragen dein Jahr; heute zählt das richtige Wort.",
+      "venus": "Jahresherrscher ist Venus – Beziehungen, Schönheit und Ausgleich prägen dein Jahr; heute darf es auch angenehm sein.",
+      "mars": "Jahresherrscher ist Mars – Tatkraft und Durchsetzung sind gefragt, aber auch Reibung; heute lieber entschlossen als hitzig.",
+      "jupiter": "Jahresherrscher ist Jupiter – Wachstum, Vertrauen und Großzügigkeit begleiten dein Jahr; heute lohnt ein weiter Blick.",
+      "saturn": "Jahresherrscher ist Saturn – Ausdauer und Verantwortung prägen dein Jahr; heute bringt dich Beständigkeit weiter als Eile."
+    },
+    "bazi_beziehung": {
+      "gleich": "Der laufende Monat trägt dasselbe Element wie dein Tagesmeister ({dm}). Das stärkt dein Selbstvertrauen – und bringt Menschen ins Spiel, die Ähnliches wollen wie du. Konkurrenz und Kameradschaft liegen nah beieinander.",
+      "naehrt": "Der laufende Monat ({monat}) nährt deinen Tagesmeister ({dm}). Unterstützung, Lernen und Rückhalt sind leichter zu finden – ein guter Moment, um Hilfe anzunehmen.",
+      "erschoepft": "Dein Tagesmeister ({dm}) nährt den laufenden Monat ({monat}). Deine Kraft fließt in Ausdruck, Ideen und Projekte – schöpferisch, aber auch fordernd. Plane Pausen ein.",
+      "kontrolliert": "Der laufende Monat ({monat}) setzt deinen Tagesmeister ({dm}) unter Druck. Pflichten und Erwartungen von außen sind spürbar; Disziplin und klare Prioritäten helfen.",
+      "beherrscht": "Dein Tagesmeister ({dm}) beherrscht den laufenden Monat ({monat}). Du kannst zugreifen und gestalten – Chancen auf Gewinn und Erfolg, wenn du deine Kräfte nicht überdehnst."
+    },
+    "elemente": {
+      "holz": "Holz",
+      "feuer": "Feuer",
+      "erde": "Erde",
+      "metall": "Metall",
+      "wasser": "Wasser"
+    },
+    "westlich_planet": {
+      "merkur": "Gesprächen, Plänen und Entscheidungen",
+      "venus": "Beziehungen, Genuss und Geld",
+      "mars": "Tatkraft, Ehrgeiz und Konflikten",
+      "jupiter": "Wachstum, Chancen und Zuversicht",
+      "saturn": "Pflichten, Grenzen und langfristigen Zielen"
+    },
+    "westlich_aspekt": {
+      "konjunktion": "{Planet} steht in Konjunktion – bei {thema} bündeln sich die Kräfte. Was jetzt beginnt, hat Gewicht.",
+      "sextil": "{Planet} steht im Sextil – bei {thema} öffnen sich kleine Türen. Wer sie nutzt, kommt leichter voran.",
+      "quadrat": "{Planet} steht im Quadrat – bei {thema} entsteht Reibung. Was nicht passt, drängt jetzt nach einer Lösung.",
+      "trine": "{Planet} steht im Trigon – bei {thema} fließt es. Ein guter Tag, um auf Bewährtes zu vertrauen.",
+      "opposition": "{Planet} steht in Opposition – bei {thema} ziehen Kräfte in verschiedene Richtungen. Ausgleich ist gefragt, nicht ein Entweder-oder."
+    },
+    "planetennamen": {
+      "sonne": "Die Sonne",
+      "mond": "Der Mond",
+      "merkur": "Merkur",
+      "venus": "Venus",
+      "mars": "Mars",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn"
+    },
+    "tendenz_positiv": {
+      "liebe": "In der Liebe ist heute einiges möglich – zeig, was dir jemand bedeutet.",
+      "beruf": "Beruflich hast du heute Rückenwind; Vorhaben lassen sich gut voranbringen.",
+      "finanzen": "Bei Geldfragen hast du heute ein gutes Gespür – eine sinnvolle Entscheidung fällt leichter.",
+      "gesundheit": "Deine Energie ist heute gut; nutze sie für Bewegung oder etwas, das dir guttut.",
+      "soziales": "Begegnungen stehen heute unter einem freundlichen Stern – melde dich bei jemandem.",
+      "kreativitaet": "Deine Kreativität ist heute angeregt – halte Ideen fest, auch wenn sie unfertig sind.",
+      "veraenderung": "Veränderungen fallen dir heute leichter als sonst – ein guter Tag für einen ersten Schritt.",
+      "spiritualitaet": "Heute ist dein inneres Gespür klar – ein ruhiger Moment für dich kann viel klären."
+    },
+    "tendenz_negativ": {
+      "liebe": "In der Liebe ist heute Feingefühl gefragt – nicht jedes Wort muss sofort gesagt werden.",
+      "beruf": "Beruflich kann es heute zäh werden; kleine, erledigte Schritte sind mehr wert als große Pläne.",
+      "finanzen": "Bei Geldfragen ist heute Vorsicht klug – größere Ausgaben dürfen warten.",
+      "gesundheit": "Deine Kräfte sind heute begrenzt; gönn dir Pausen, statt über Grenzen zu gehen.",
+      "soziales": "Im Umgang mit anderen kann es heute knirschen – Gelassenheit erspart dir unnötigen Streit.",
+      "kreativitaet": "Die Ideen fließen heute nicht von selbst – Routinearbeit ist der bessere Plan.",
+      "veraenderung": "Heute ist kein Tag für Umbrüche; Bestehendes zu pflegen bringt mehr.",
+      "spiritualitaet": "Innere Unruhe kann heute lauter sein als sonst – etwas Struktur gibt Halt."
+    },
+    "ausgeglichen": {
+      "text": "Heute halten sich die Kräfte in diesem System die Waage – kein Bereich sticht besonders hervor."
+    }
+  }
+}

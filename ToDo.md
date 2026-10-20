@@ -30,9 +30,12 @@
    - [ ] DoD A: End-to-End stabil (Eingabe -> Fragen -> Ergebnis inkl. Visuals/Texte/Erklaerung)
 
 2. **Spiel B danach (schlanke Version)**
-   - [ ] Zeitfenster-Flow als MVP-Variante implementieren
-   - [ ] Zeitfenster-Fragen + Ergebnisdarstellung mit vorhandener A-Result-Architektur
-   - [ ] DoD B: spielbarer kompletter Durchlauf mit konsistenten Metriken
+   - [x] Zeitfenster-Flow als MVP-Variante implementieren (`/rueckblick`, `SpielB.jsx`; Konzept `docs/Konzepte/Konzept Spiel B.md`)
+   - [x] Zeitfenster-Fragen + Ergebnisdarstellung (Skill getrennt fuer Monat/Quartal, auffaellige Momente mit Zeitpunkt-Nachfrage)
+   - [x] Horoskop fuer heute als Belohnung (Textbausteine v1)
+   - [x] DoD B: spielbarer kompletter Durchlauf mit konsistenten Metriken (E2E 20.10.2026, Nullhypothese geprueft)
+   - [ ] Echte Transite (laufende Planeten zu Geburtsplaneten) statt Kalender-Platzhalter - betrifft Westlich/Hellenistisch in A und B
+   - [ ] Texte Spiel B (Fragen, Horoskop fuer heute) redaktionell ueberarbeiten
 
 3. **Spiel C anschliessend**
    - [ ] Basis-Kompatibilitaetsflow fuer zwei Personen aufsetzen (ohne komplexe Synastrie zuerst)

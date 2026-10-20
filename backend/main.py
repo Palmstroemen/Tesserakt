@@ -28,6 +28,8 @@ from rule_engine import (
     load_rules,
     load_struktur,
     luck_pillar_for_both_sexes,
+    stem_to_element,
+    _HOUSE_LORD,
 )
 from store import compare_group, init_db, persist_session
 
@@ -483,6 +485,79 @@ def get_erklaerungen(locale: str = "de") -> Dict[str, object]:
     if not path.exists():
         raise HTTPException(status_code=404, detail="erklaerungen_v1.json nicht gefunden")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+# Bazi: Fuenf-Elemente-Zyklen (Erzeugung und Kontrolle)
+_ERZEUGT = {"holz": "feuer", "feuer": "erde", "erde": "metall", "metall": "wasser", "wasser": "holz"}
+_KONTROLLIERT = {"holz": "erde", "erde": "wasser", "wasser": "feuer", "feuer": "metall", "metall": "holz"}
+# Westlich: langsame Planeten wiegen schwerer; harmonische und spannungsreiche Aspekte
+_TRANSIT_REIHENFOLGE = ["saturn", "jupiter", "mars", "venus", "merkur"]
+_HARMONISCH = {"trine", "sextil"}
+_SPANNUNG = {"quadrat", "opposition", "konjunktion"}
+_TENDENZ_SCHWELLE = 0.05
+
+
+def _bazi_beziehung(dm: str, monat: str) -> str:
+    if dm == monat:
+        return "gleich"
+    if _ERZEUGT.get(monat) == dm:
+        return "naehrt"
+    if _ERZEUGT.get(dm) == monat:
+        return "erschoepft"
+    if _KONTROLLIERT.get(monat) == dm:
+        return "kontrolliert"
+    return "beherrscht"
+
+
+def _tendenzen(vektor: Dict[str, float], t: Dict[str, Dict[str, str]]) -> List[str]:
+    """Staerkster guenstiger und staerkster schwieriger Lebensbereich des heutigen Horoskops."""
+    texte = []
+    hoch = max(vektor, key=vektor.get)
+    tief = min(vektor, key=vektor.get)
+    if vektor[hoch] >= _TENDENZ_SCHWELLE:
+        texte.append(t["tendenz_positiv"][hoch])
+    if vektor[tief] <= -_TENDENZ_SCHWELLE:
+        texte.append(t["tendenz_negativ"][tief])
+    return texte or [t["ausgeglichen"]["text"]]
+
+
+@app.post("/horoscope/heute")
+def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
+    """Horoskop fuer heute (Belohnung in Spiel B): Bausteine aus content/horoscope/de/heute_v1.json,
+    ausgewaehlt nach der heutigen Konstellation der zeitabhaengigen Systeme."""
+    path = _content_root() / "content" / "horoscope" / "de" / "heute_v1.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="heute_v1.json nicht gefunden")
+    t = json.loads(path.read_text(encoding="utf-8"))["gruppen"]
+
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    p = _rueckblick_payload(payload)
+    inputs, vektoren, _, _ = _berechne_vektoren(p, birth_dt, now, payload.session_id or str(uuid4()))
+
+    systeme: Dict[str, Dict[str, List[str]]] = {}
+    for s in p.systeme:
+        faktoren: List[str] = []
+        if s == "Numerologie":
+            faktoren.append(t["numerologie_monat"].get(str(inputs.get("persoenlicher_monat")), ""))
+        elif s == "Hellenistisch":
+            haus = (int(inputs.get("lebensalter", 0)) % 12) + 1
+            faktoren.append(t["hellenistisch_haus"][str(haus)])
+            faktoren.append(t["hellenistisch_herrscher"][_HOUSE_LORD[haus - 1]])
+        elif s == "Bazi":
+            dm = str(inputs.get("day_master_element"))
+            monat = stem_to_element(str(inputs.get("aktueller_month_stem")))
+            text = t["bazi_beziehung"][_bazi_beziehung(dm, monat)]
+            faktoren.append(text.replace("{dm}", t["elemente"].get(dm, dm)).replace("{monat}", t["elemente"].get(monat, monat)))
+        elif s == "Westlich":
+            transits = dict(inputs.get("transits", []))
+            for gruppe in (_SPANNUNG, _HARMONISCH):
+                planet = next((pl for pl in _TRANSIT_REIHENFOLGE if transits.get(pl) in gruppe), None)
+                if planet:
+                    vorlage = t["westlich_aspekt"][transits[planet]]
+                    faktoren.append(vorlage.replace("{Planet}", t["planetennamen"][planet]).replace("{thema}", t["westlich_planet"][planet]))
+        systeme[s] = {"faktoren": [f for f in faktoren if f], "tendenzen": _tendenzen(vektoren[s], t)}
+    return {"stichtag": now.date().isoformat(), "systeme": systeme}
 
 
 @app.get("/horoscope/spiel_c/texts")

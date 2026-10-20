@@ -53,6 +53,32 @@ function antwortText(wert) {
   return "trifft nicht zu";
 }
 
+function HoroskopHeute({ body }) {
+  const [heute, setHeute] = useState(null);
+  const [fehler, setFehler] = useState(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    postJson("/horoscope/heute", body, controller.signal)
+      .then(setHeute)
+      .catch((err) => err.name !== "AbortError" && setFehler(err.message));
+    return () => controller.abort();
+  }, [body]);
+
+  if (fehler) return <p className="hint">Das Horoskop für heute konnte nicht geladen werden.</p>;
+  if (!heute) return <p className="hint">Wird berechnet ...</p>;
+  return Object.entries(heute.systeme).map(([system, teil]) => (
+    <div key={system} className="horoskop-heute-system">
+      <h3>{system}</h3>
+      {teil.faktoren.map((text, i) => (
+        <p key={`f${i}`}>{text}</p>
+      ))}
+      <p>
+        <em>{teil.tendenzen.join(" ")}</em>
+      </p>
+    </div>
+  ));
+}
+
 /**
  * Spiel B - Rueckblick: Horoskop der letzten 30 Tage / drei Monate gegen das eigene Erleben.
  * Gewertete Fragen: Mittel der Horoskope im Zeitfenster (Skill je Fenster gegen Kontroll-Geburtsdaten).
@@ -330,7 +356,8 @@ export default function SpielB({ birthDate, birthTime, optionalName, optionalGen
 
       <section className="card">
         <h2>Dein Horoskop für heute</h2>
-        <p className="hint">Folgt in Kürze.</p>
+        <p className="hint">Als Dank fürs Mitmachen: was die vier Systeme für deinen heutigen Tag sehen.</p>
+        <HoroskopHeute body={basisBody} />
         <button type="button" className="button-restart" onClick={onBack}>
           Zurück zur Spielauswahl
         </button>

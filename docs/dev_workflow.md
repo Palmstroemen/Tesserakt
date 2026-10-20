@@ -25,6 +25,7 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 
 - `POST /vektor` -> berechnet Systemvektoren + Inputs inkl. `session_id`
 - `POST /rueckblick`, `POST /rueckblick/kontrolle`, `GET /fragen/rueckblick` -> Spiel B (Rueckblick)
+- `POST /horoscope/heute` -> "Dein Horoskop fuer heute" (Belohnung in Spiel B)
 - `GET /horoscope/erklaerungen` -> Erklaertexte (Skill, Methodik, Experiment)
 - `POST /kontrolle` -> Kontrollvektoren je System fuer Perzentil/Skill (mit `session_id` + `stichtag` aus `/vektor`; Frontend laedt sie waehrend der Fragephase)
 - `GET /fragen` -> liefert die 16 Fragen
@@ -64,3 +65,6 @@ Quelle sind die Markdown-Dateien in `docs/Textbausteine/erklaerungen/` (Format i
 ```bash
 python3 tools/md_to_erklaerungen.py
 ```
+
+Ebenso fuer das Horoskop fuer heute (Spiel B): Quelle `docs/Textbausteine/heute/heute_v1.md`,
+danach `python3 tools/md_to_heute.py`.

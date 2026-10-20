@@ -128,6 +128,15 @@ als Spielelement, ohne die Messung zu verfaelschen. Vor der Umsetzung mit `tools
 
 ## 8. Horoskop fuer heute (Belohnung)
 
-Neue Texte, zusammengesetzt aus der tatsaechlichen Tageskonstellation der vier B-Systeme
-(z. B. persoenlicher Monat, Jahresprofektion/Jahresherrscher, laufende Monatssaeule) und den
-staerksten Tendenzen des heutigen Horoskops. Status: in Arbeit.
+Neue Texte (Quelle `docs/Textbausteine/heute/heute_v1.md`, erzeugt mit `tools/md_to_heute.py`,
+Endpunkt `POST /horoscope/heute`), zusammengesetzt aus der heutigen Konstellation:
+
+- Numerologie: persoenlicher Monat (1-9, 11, 22, 33)
+- Hellenistisch: Profektionshaus (1-12) und Jahresherrscher
+- Bazi: Element des laufenden Monats im Verhaeltnis zum Tagesmeister (gleich, naehrt, erschoepft,
+  kontrolliert, beherrscht)
+- Westlich: staerkster spannungsreicher und staerkster harmonischer Transit (langsame Planeten zuerst);
+  solange die Transite Platzhalter sind, fuer alle Menschen gleich
+- je System: guenstigster und schwierigster Lebensbereich des heutigen Horoskops
+
+Status: umgesetzt (Entwurf v1, redaktionelle Ueberarbeitung offen).
