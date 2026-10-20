@@ -37,8 +37,10 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 ### 2.2 Spiel B - Prognose/Zeit
 
-- 1 Person, Rueckblick auf Zeitfenster mit dynamischer Fragenauswahl.
-- Nicht live; Konzept fuer Phase 2/3.
+- 1 Person, Rueckblick auf Zeitfenster (letzter Monat, letztes Quartal).
+- Nur zeitabhaengige Systeme: Westlich, Bazi, Hellenistisch, Numerologie (Kabbalah, Arabisch, Vedisch
+  beschreiben lange Lebensphasen und bleiben aussen vor).
+- Nicht live; Konzept: `Konzept Spiel B.md`.
 
 **Status:** Phase 2/3  
 **Abhaengigkeiten:** Zeitvektoren, Fragegenerator, UX-Flows
