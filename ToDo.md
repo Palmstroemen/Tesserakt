@@ -34,7 +34,8 @@
    - [x] Zeitfenster-Fragen + Ergebnisdarstellung (Skill getrennt fuer Monat/Quartal, auffaellige Momente mit Zeitpunkt-Nachfrage)
    - [x] Horoskop fuer heute als Belohnung (Textbausteine v1)
    - [x] DoD B: spielbarer kompletter Durchlauf mit konsistenten Metriken (E2E 20.10.2026, Nullhypothese geprueft)
-   - [ ] Echte Transite (laufende Planeten zu Geburtsplaneten) statt Kalender-Platzhalter - betrifft Westlich/Hellenistisch in A und B
+   - [x] Echte Transite (laufende Planeten zu Geburtssonne/-mond, ggf. Aszendent/MC) statt Kalender-Platzhalter
+   - [ ] Zeitpunkt-Fragen (feste Ereignisfragen, Skill "Timing" gegen Hoehepunkte der Kontrollgruppe) + Feinsuche der auffaelligen Momente
    - [ ] Texte Spiel B (Fragen, Horoskop fuer heute) redaktionell ueberarbeiten
 
 3. **Spiel C anschliessend**

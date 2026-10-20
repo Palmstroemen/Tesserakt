@@ -4,6 +4,7 @@ import hashlib
 import json
 import random
 from datetime import datetime, timedelta
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import uuid4
@@ -22,6 +23,7 @@ from vedisch_chart import build_dasha_chart, compute_aktivierte_yogas, vimshotta
 from ephemeris import compute as ephemeris_compute, moon_nakshatra, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
+    compute_transits,
     SUBFOLDERS,
     build_inputs,
     compute_vector,
@@ -169,6 +171,29 @@ def _compute_system_vector(system_name: str, inputs: Dict[str, object]) -> Dict[
     return {dim: float(vector.get(dim, 0.0)) for dim in DIMENSIONS}
 
 
+_PLANET_ID_DE = {
+    "sun": "sonne", "moon": "mond", "mercury": "merkur", "venus": "venus", "mars": "mars",
+    "jupiter": "jupiter", "saturn": "saturn", "uranus": "uranus", "neptune": "neptun", "pluto": "pluto",
+}
+_TRANSIT_SYSTEME = ("Westlich", "Hellenistisch")
+
+
+@lru_cache(maxsize=512)
+def _laufende_positionen(stichtag: datetime) -> Dict[str, float]:
+    """Planetenpositionen am Stichtag (gecacht; Kontrollgruppen teilen sich die Stichtage)."""
+    eph = ephemeris_compute(stichtag, latitude_deg=None, longitude_deg=None)
+    return {_PLANET_ID_DE[p.id]: p.longitude_deg for p in eph.planets if p.id in _PLANET_ID_DE}
+
+
+def _setze_transite(inputs: Dict[str, object], natal, now: datetime) -> None:
+    """Ersetzt den Kalender-Platzhalter durch echte Transite zu Sonne, Mond (und Aszendent/MC mit Geburtsort)."""
+    punkte = {_PLANET_ID_DE[p.id]: p.longitude_deg for p in natal.planets if p.id in ("sun", "moon")}
+    if natal.has_location:
+        punkte["aszendent"] = natal.asc_deg
+        punkte["mc"] = natal.mc_deg
+    inputs["transits"] = compute_transits(punkte, _laufende_positionen(now))
+
+
 def _stable_seed(seed_key: str) -> int:
     digest = hashlib.sha256(seed_key.encode("utf-8")).hexdigest()
     return int(digest[:16], 16)
@@ -201,7 +226,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
     # Precompute ephemeris when Westlich or Vedisch is requested (one run per request)
     ephemeris_result = None
     radix = None
-    if "Westlich" in payload.systeme or "Vedisch" in payload.systeme or "Arabisch" in payload.systeme:
+    if any(s in payload.systeme for s in ("Westlich", "Vedisch", "Arabisch", *_TRANSIT_SYSTEME)):
         ephemeris_result = ephemeris_compute(
             birth_dt,
             latitude_deg=payload.latitude,
@@ -232,6 +257,8 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             geburtsname=payload.geburtsname,
             geschlecht=payload.geschlecht,
         )
+    if ephemeris_result is not None and any(s in payload.systeme for s in _TRANSIT_SYSTEME):
+        _setze_transite(inputs, ephemeris_result, now)
     # Vedisch: nakshatra, Vimshottari position, and activated Yogas from ephemeris when available
     if ephemeris_result and "Vedisch" in payload.systeme:
         moon = next((p for p in ephemeris_result.planets if p.id == "moon"), None)
@@ -426,6 +453,9 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
             )
         else:
             inp = build_inputs(birth_dt, now, bazi_day_branch=db, bazi_hour_stem=hs, bazi_hour_branch=hb, geburtsname=geburtsname)
+        if any(s in system_list for s in _TRANSIT_SYSTEME):
+            natal = ephemeris_result or ephemeris_compute(birth_dt, latitude_deg=None, longitude_deg=None)
+            _setze_transite(inp, natal, now)
         vektoren: Dict[str, Dict[str, float]] = {}
         for system_name in system_list:
             if system_name == "Bazi":
@@ -490,8 +520,7 @@ def get_erklaerungen(locale: str = "de") -> Dict[str, object]:
 # Bazi: Fuenf-Elemente-Zyklen (Erzeugung und Kontrolle)
 _ERZEUGT = {"holz": "feuer", "feuer": "erde", "erde": "metall", "metall": "wasser", "wasser": "holz"}
 _KONTROLLIERT = {"holz": "erde", "erde": "wasser", "wasser": "feuer", "feuer": "metall", "metall": "holz"}
-# Westlich: langsame Planeten wiegen schwerer; harmonische und spannungsreiche Aspekte
-_TRANSIT_REIHENFOLGE = ["saturn", "jupiter", "mars", "venus", "merkur"]
+# Westlich: harmonische und spannungsreiche Aspekte (Transite kommen nach Staerke sortiert)
 _HARMONISCH = {"trine", "sextil"}
 _SPANNUNG = {"quadrat", "opposition", "konjunktion"}
 _TENDENZ_SCHWELLE = 0.05
@@ -550,12 +579,19 @@ def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
             text = t["bazi_beziehung"][_bazi_beziehung(dm, monat)]
             faktoren.append(text.replace("{dm}", t["elemente"].get(dm, dm)).replace("{monat}", t["elemente"].get(monat, monat)))
         elif s == "Westlich":
-            transits = dict(inputs.get("transits", []))
+            transits = inputs.get("transits", [])
             for gruppe in (_SPANNUNG, _HARMONISCH):
-                planet = next((pl for pl in _TRANSIT_REIHENFOLGE if transits.get(pl) in gruppe), None)
-                if planet:
-                    vorlage = t["westlich_aspekt"][transits[planet]]
-                    faktoren.append(vorlage.replace("{Planet}", t["planetennamen"][planet]).replace("{thema}", t["westlich_planet"][planet]))
+                treffer = next((tr for tr in transits if len(tr) == 4 and tr[1] in gruppe), None)
+                if treffer:
+                    planet, aspekt, _, ziel = treffer
+                    faktoren.append(
+                        t["westlich_aspekt"][aspekt]
+                        .replace("{Planet}", t["planetennamen"][planet])
+                        .replace("{thema}", t["westlich_planet"][planet])
+                        .replace("{ziel}", t["transit_ziele"][ziel])
+                    )
+            if not faktoren:
+                faktoren.append(t["westlich_ruhig"]["text"])
         systeme[s] = {"faktoren": [f for f in faktoren if f], "tendenzen": _tendenzen(vektoren[s], t)}
     return {"stichtag": now.date().isoformat(), "systeme": systeme}
 

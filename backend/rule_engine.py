@@ -383,7 +383,36 @@ def name_to_numerology(geburtsname: str) -> Dict[str, int]:
         "persoenlichkeits_zahl": _reduce_numerology(consonant_sum) if consonant_sum else 0,
     }
 
+# ── Transite: laufende Planeten zu Geburtspunkten ─────────────────────────────
+TRANSIT_ASPEKTE = {"konjunktion": 0.0, "sextil": 60.0, "quadrat": 90.0, "trine": 120.0, "opposition": 180.0}
+TRANSIT_ORBIS = 2.0  # Grad; Staerke faellt linear von 1 (exakt) auf 0 (Rand des Orbis)
+# Laufender Mond bewusst ausgenommen (wechselt alle ~2 Tage den Aspekt)
+TRANSIT_PLANETEN = ["pluto", "neptun", "uranus", "saturn", "jupiter", "mars", "sonne", "venus", "merkur"]
+
+
+def compute_transits(
+    natal_punkte: Dict[str, float], laufende_positionen: Dict[str, float], orbis: float = TRANSIT_ORBIS
+) -> List[Tuple[str, str, float, str]]:
+    """Echte Transite: je laufendem Planeten der engste Aspekt zu einem Geburtspunkt
+    (Sonne, Mond, ggf. Aszendent/MC). Rueckgabe (planet, aspekt, staerke 0..1, ziel), staerkste zuerst."""
+    result = []
+    for planet in TRANSIT_PLANETEN:
+        if planet not in laufende_positionen:
+            continue
+        best = None
+        for ziel, natal_lon in natal_punkte.items():
+            abstand = abs((laufende_positionen[planet] - natal_lon + 180.0) % 360.0 - 180.0)
+            for aspekt, winkel in TRANSIT_ASPEKTE.items():
+                abw = abs(abstand - winkel)
+                if abw <= orbis and (best is None or abw < best[0]):
+                    best = (abw, aspekt, ziel)
+        if best:
+            result.append((planet, best[1], round(1.0 - best[0] / orbis, 3), best[2]))
+    return sorted(result, key=lambda t: -t[2])
+
+
 def estimate_transits(target_date: datetime) -> List[Tuple[str,str]]:
+    """Platzhalter ohne Bezug zum Geburtshoroskop (nur Kalender); nur noch Fallback, wenn keine Ephemeris vorliegt."""
     cycles = {"merkur":88,"venus":225,"mars":687,"jupiter":4333,"saturn":10759}
     aspects = ["konjunktion","sextil","quadrat","trine","opposition"]
     base = datetime(2000,1,1)
@@ -538,11 +567,14 @@ def handle_transit(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     gewicht = quelle.get("gewicht", 0.6)
     abnahme = quelle.get("gewicht_abnahme", 0.1)
     minimum = quelle.get("gewicht_minimum", 0.2)
-    for planet, aspect in transits:
+    for transit in transits:
+        planet, aspect = transit[0], transit[1]
+        staerke = transit[2] if len(transit) > 2 else 1.0  # echte Transite: Naehe zum exakten Aspekt
         dims = extract_dims(
             transit_rules.get(planet, {}).get(aspect, {}),
             quelle.get("dim_feld", "vektor")
         )
+        dims = {k: v * staerke for k, v in dims.items()}
         if dims:
             basis = blend(basis, dims, gewicht)
             gewicht = max(minimum, gewicht - abnahme)

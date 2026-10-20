@@ -62,19 +62,23 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 
 ## Westlich: Planeten im Transit {#westlich_planet}
 
+- sonne: Selbstausdruck, Vitalität und Anerkennung
 - merkur: Gesprächen, Plänen und Entscheidungen
 - venus: Beziehungen, Genuss und Geld
 - mars: Tatkraft, Ehrgeiz und Konflikten
 - jupiter: Wachstum, Chancen und Zuversicht
 - saturn: Pflichten, Grenzen und langfristigen Zielen
+- uranus: Überraschungen, Freiheit und plötzlichen Wendungen
+- neptun: Träumen, Intuition und unklaren Grenzen
+- pluto: tiefgreifendem Wandel und Fragen der Macht
 
 ## Westlich: Aspekte {#westlich_aspekt}
 
-- konjunktion: {Planet} steht in Konjunktion – bei {thema} bündeln sich die Kräfte. Was jetzt beginnt, hat Gewicht.
-- sextil: {Planet} steht im Sextil – bei {thema} öffnen sich kleine Türen. Wer sie nutzt, kommt leichter voran.
-- quadrat: {Planet} steht im Quadrat – bei {thema} entsteht Reibung. Was nicht passt, drängt jetzt nach einer Lösung.
-- trine: {Planet} steht im Trigon – bei {thema} fließt es. Ein guter Tag, um auf Bewährtes zu vertrauen.
-- opposition: {Planet} steht in Opposition – bei {thema} ziehen Kräfte in verschiedene Richtungen. Ausgleich ist gefragt, nicht ein Entweder-oder.
+- konjunktion: {Planet} steht in Konjunktion zu {ziel} – bei {thema} bündeln sich die Kräfte. Was jetzt beginnt, hat Gewicht.
+- sextil: {Planet} steht im Sextil zu {ziel} – bei {thema} öffnen sich kleine Türen. Wer sie nutzt, kommt leichter voran.
+- quadrat: {Planet} steht im Quadrat zu {ziel} – bei {thema} entsteht Reibung. Was nicht passt, drängt jetzt nach einer Lösung.
+- trine: {Planet} steht im Trigon zu {ziel} – bei {thema} fließt es. Ein guter Tag, um auf Bewährtes zu vertrauen.
+- opposition: {Planet} steht in Opposition zu {ziel} – bei {thema} ziehen Kräfte in verschiedene Richtungen. Ausgleich ist gefragt, nicht ein Entweder-oder.
 
 ## Planetennamen {#planetennamen}
 
@@ -85,7 +89,20 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - mars: Mars
 - jupiter: Jupiter
 - saturn: Saturn
+- uranus: Uranus
+- neptun: Neptun
+- pluto: Pluto
 
+## Geburtspunkte {#transit_ziele}
+
+- sonne: deiner Geburtssonne
+- mond: deinem Geburtsmond
+- aszendent: deinem Aszendenten
+- mc: deinem Himmelsmittelpunkt (MC)
+
+## Westlich: keine engen Transite {#westlich_ruhig}
+
+- text: Heute steht kein laufender Planet in engem Aspekt zu deiner Geburtssonne oder deinem Geburtsmond – ein Tag ohne große Impulse von außen, gut geeignet, um in deinem eigenen Tempo zu arbeiten.
 ## Tendenz günstig {#tendenz_positiv}
 
 - liebe: In der Liebe ist heute einiges möglich – zeig, was dir jemand bedeutet.

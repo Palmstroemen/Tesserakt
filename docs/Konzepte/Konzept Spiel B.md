@@ -79,9 +79,11 @@ Nullhypothese (600 Personen, `tools/skill_metric_test.py --spiel b`): Skill je S
 Mittel zwischen -4 und +6.5 (SE ~2.4), jedes der 4 Systeme gewinnt ~25 %, Sieger im Mittel ~+60
 (Theorie fuer 4 Systeme: `100*(k-1)/(k+1)` = +60).
 
-Bekannte Einschraenkung: Die westlichen Transite sind ein Platzhalter (nur Kalenderdatum, ohne Bezug
-zum Geburtshoroskop). Das Horoskop des Zeitraums ist bei Westlich daher kaum zeitraumspezifisch;
-echte Transite (laufende Planeten zu Geburtsplaneten) sind als eigene Verbesserung vorgesehen.
+Transite (seit Oktober 2026 echt): laufende Planeten Sonne bis Pluto (ohne laufenden Mond) im Aspekt
+zu Geburtssonne und -mond, mit Geburtsort auch Aszendent und MC; Orbis 2 Grad, Staerke waechst linear
+zum exakten Aspekt (`compute_transits` in `rule_engine.py`). Damit ist die zeitliche Aenderung bei
+Westlich und Hellenistisch zu 100 % personenspezifisch (vorher Westlich 7-11 %). Nullhypothese nach der
+Umstellung erneut geprueft (A: 2000, B: 400 Personen): weiterhin im Mittel um 0.
 
 ---
 
@@ -135,8 +137,8 @@ Endpunkt `POST /horoscope/heute`), zusammengesetzt aus der heutigen Konstellatio
 - Hellenistisch: Profektionshaus (1-12) und Jahresherrscher
 - Bazi: Element des laufenden Monats im Verhaeltnis zum Tagesmeister (gleich, naehrt, erschoepft,
   kontrolliert, beherrscht)
-- Westlich: staerkster spannungsreicher und staerkster harmonischer Transit (langsame Planeten zuerst);
-  solange die Transite Platzhalter sind, fuer alle Menschen gleich
+- Westlich: staerkster spannungsreicher und staerkster harmonischer Transit zu einem Geburtspunkt
+  ("Saturn im Quadrat zu deiner Geburtssonne"); ohne engen Transit ein eigener Text
 - je System: guenstigster und schwierigster Lebensbereich des heutigen Horoskops
 
 Status: umgesetzt (Entwurf v1, redaktionelle Ueberarbeitung offen).
