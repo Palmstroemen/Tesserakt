@@ -211,7 +211,7 @@ def main() -> None:
     print()
     print(
         "Pro Dimension: mittlere Varianz / Spannweite / mittlere paarweise MSE "
-        "(Skala 1–5; MSE wie bei Skill-Baseline 8/3)"
+        "(Skala -1..+1; MSE wie bei Skill-Baseline 2/3)"
     )
     print("-" * 72)
     print(f"{'Dimension':<14} {'Mean Var':>10} {'Mean Range':>12} {'Mean pairwise MSE':>18}")

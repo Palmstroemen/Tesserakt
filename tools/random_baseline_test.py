@@ -58,7 +58,8 @@ def get_question_weights(
     return {system: raw / weight_sum for system, raw in raws}
 
 
-RANDOM_BASELINE_MSE = 8.0 / 3.0
+# User -1..+1, expected = (user+1)/2 in 0..1; system 0..1. E[(X-Y)^2] for U(0,1) = 1/6.
+RANDOM_BASELINE_MSE = 1.0 / 6.0
 
 
 def simulate_one_run(systems: List[str], fragen: List[dict], matrix: dict) -> Dict[str, Dict[str, float]]:
@@ -68,15 +69,16 @@ def simulate_one_run(systems: List[str], fragen: List[dict], matrix: dict) -> Di
     for frage in fragen:
         dim = frage["dimension"]
         frage_gewichte = frage.get("gewichte", {})
-        selbst = random.uniform(1.0, 5.0)
-        system_werte = {s: random.uniform(1.0, 5.0) for s in systems}
+        selbst = random.uniform(-1.0, 1.0)
+        expected = (selbst + 1.0) / 2.0
+        system_werte = {s: random.uniform(0.0, 1.0) for s in systems}
         weights = get_question_weights(systems, dim, frage_gewichte, matrix)
 
         for system in systems:
             w = weights.get(system, 0.0)
             if w <= 0:
                 continue
-            diff = selbst - system_werte[system]
+            diff = expected - system_werte[system]
             fehler = diff * diff
             kumul_fehler[system] += fehler * w
             kumul_gewicht[system] += w
@@ -88,7 +90,7 @@ def simulate_one_run(systems: List[str], fragen: List[dict], matrix: dict) -> Di
             continue
         mse = kumul_fehler[system] / kumul_gewicht[system]
         rmse = math.sqrt(mse)
-        fit = max(0.0, 100.0 * (1.0 - rmse / 4.0))
+        fit = max(0.0, 100.0 * (1.0 - rmse))
         skill_raw = 100.0 * (1.0 - mse / RANDOM_BASELINE_MSE)
         skill_clipped = max(0.0, skill_raw)
         metrics[system] = {"fit": fit, "skill_raw": skill_raw, "skill_clipped": skill_clipped}
@@ -172,7 +174,7 @@ def main() -> None:
         )
     print("-" * 72)
     print(
-        "Note: For fully random values, Fit stays around ~59 due to RMSE scaling. "
+        "Note: User -1..+1, expected=(user+1)/2; system 0..1. Baseline MSE=1/6. "
         "Skill raw should be around ~0; clipped skill is biased upward by truncation at 0."
     )
     print("=" * 72)

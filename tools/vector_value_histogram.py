@@ -15,7 +15,8 @@ import argparse
 import random
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
+from collections import defaultdict
+from typing import Dict, List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 BACKEND_DIR = ROOT / "backend"
@@ -30,8 +31,26 @@ DIMENSION_COLORS = [
     "#9467bd",  # soziales
     "#8c564b",  # kreativitaet
     "#e377c2",  # veraenderung
-    "#7f7f7f",  # spiritualitaet (wird durch Summe in Grau überlagert; hier trotzdem sichtbar)
+    "#7f7f7f",  # spiritualitaet
 ]
+
+# Maximales Frage-Gewicht pro (System, Dimension) aus FRAGEN – für Sättigung/Transparenz im Histogramm.
+# Niedriges Gewicht = Dimension wird farblos/transparent dargestellt. Fehlende Systeme/Dimensionen: 1.0.
+DIMENSION_WEIGHTS = {
+    "Bazi": {
+        "liebe": 0.8, "beruf": 1.0, "finanzen": 1.0, "gesundheit": 0.8,
+        "soziales": 0.0, "kreativitaet": 0.3, "veraenderung": 1.0, "spiritualitaet": 0.0,
+    },
+    "Westlich": {
+        "liebe": 1.0, "beruf": 1.0, "finanzen": 1.0, "gesundheit": 1.0,
+        "soziales": 1.0, "kreativitaet": 1.0, "veraenderung": 0.9, "spiritualitaet": 0.8,
+    },
+    "Numerologie": {
+        "liebe": 1.0, "beruf": 1.0, "finanzen": 0.9, "gesundheit": 0.7,
+        "soziales": 1.0, "kreativitaet": 1.0, "veraenderung": 0.9, "spiritualitaet": 0.9,
+    },
+    "KO": {d: 1.0 for d in ["liebe", "beruf", "finanzen", "gesundheit", "soziales", "kreativitaet", "veraenderung", "spiritualitaet"]},
+}
 def get_vektoren_for_birth_date(
     birth_dt: datetime,
     *,
@@ -43,8 +62,11 @@ def get_vektoren_for_birth_date(
     compute_vector,
     DIMENSIONS,
     SUBFOLDERS,
+    contribution_records: Optional[List[Tuple[str, Dict[str, bool]]]] = None,
 ) -> Dict[str, Dict[str, float]]:
-    """Berechnet für ein Geburtsdatum die Vektoren aller Systeme (ohne Ephemeris)."""
+    """Berechnet für ein Geburtsdatum die Vektoren aller Systeme (ohne Ephemeris).
+    Wenn contribution_records übergeben wird, wird pro System (name, {quelle_id: bool})
+    angehängt, ob jede Quelle einen nicht-verschwindenden Beitrag geliefert hat."""
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
     # Bazi: Four Pillars + Da Yun wie in main.py, damit day_branch, hour_branch, luck_pillar greifen
     bazi_pillars = None
@@ -74,16 +96,32 @@ def get_vektoren_for_birth_date(
             struktur = load_struktur("Bazi")
             rules = load_rules("Bazi")
             if struktur and rules:
-                vm = compute_vector(struktur, rules, inp_m, system_name="Bazi")
-                vf = compute_vector(struktur, rules, inp_f, system_name="Bazi")
-                vektoren["Bazi_male"] = {dim: float(vm.get(dim, 0.0)) for dim in DIMENSIONS}
-                vektoren["Bazi_female"] = {dim: float(vf.get(dim, 0.0)) for dim in DIMENSIONS}
+                if contribution_records is not None:
+                    contrib_m: Dict[str, bool] = {}
+                    vm = compute_vector(struktur, rules, inp_m, system_name="Bazi", track_contributions=contrib_m)
+                    contrib_f: Dict[str, bool] = {}
+                    vf = compute_vector(struktur, rules, inp_f, system_name="Bazi", track_contributions=contrib_f)
+                    merged = {k: contrib_m.get(k, False) or contrib_f.get(k, False) for k in set(contrib_m) | set(contrib_f)}
+                    contribution_records.append(("Bazi", merged))
+                else:
+                    vm = compute_vector(struktur, rules, inp_m, system_name="Bazi")
+                    vf = compute_vector(struktur, rules, inp_f, system_name="Bazi")
+                # Geschlechtsneutral: ein Vektor Bazi = Mittelwert aus männlich/weiblich
+                vektoren["Bazi"] = {
+                    dim: (float(vm.get(dim, 0.0)) + float(vf.get(dim, 0.0))) / 2
+                    for dim in DIMENSIONS
+                }
             continue
         struktur = load_struktur(system_name)
         if not struktur:
             continue
         rules = load_rules(system_name)
-        vector = compute_vector(struktur, rules, inputs, system_name=system_name)
+        if contribution_records is not None:
+            contrib: Dict[str, bool] = {}
+            vector = compute_vector(struktur, rules, inputs, system_name=system_name, track_contributions=contrib)
+            contribution_records.append((system_name, contrib))
+        else:
+            vector = compute_vector(struktur, rules, inputs, system_name=system_name)
         vektoren[system_name] = {dim: float(vector.get(dim, 0.0)) for dim in DIMENSIONS}
     return vektoren
 
@@ -123,12 +161,12 @@ def run_simulation(
     from bazi_chart import build_four_pillars  # pylint: disable=import-error
 
     rng = random.Random(seed)
-    # Bazi liefert Bazi_male + Bazi_female statt Bazi; rest wie SUBFOLDERS
-    system_names = [s if s != "Bazi" else "Bazi_male" for s in SUBFOLDERS]
-    system_names = list(dict.fromkeys(system_names + ["Bazi_female"]))  # Bazi_male, dann Bazi_female
+    # Bazi geschlechtsneutral (ein Vektor); Systemliste = SUBFOLDERS
+    system_names = list(SUBFOLDERS)
     values_per_system_dim: Dict[str, Dict[str, List[float]]] = {
         s: {d: [] for d in DIMENSIONS} for s in system_names
     }
+    contribution_records: List[Tuple[str, Dict[str, bool]]] = []
 
     for _ in range(runs):
         birth_dt = random_birth_datetime(year_min, year_max, rng)
@@ -142,12 +180,31 @@ def run_simulation(
             compute_vector=compute_vector,
             DIMENSIONS=DIMENSIONS,
             SUBFOLDERS=SUBFOLDERS,
+            contribution_records=contribution_records,
         )
         for system, vec in vektoren.items():
             if system not in values_per_system_dim:
                 values_per_system_dim[system] = {d: [] for d in DIMENSIONS}
             for dim, val in vec.items():
                 values_per_system_dim[system][dim].append(val)
+
+    # Auswertung: wie oft kam jede Quelle (Aspekt, Transit, …) pro System zum Tragen?
+    by_system: Dict[str, List[Dict[str, bool]]] = defaultdict(list)
+    for system_name, contrib in contribution_records:
+        by_system[system_name].append(contrib)
+    print("\n--- Beitrags-Häufigkeit (wie oft lieferte eine Quelle einen nicht-null Overlay) ---")
+    for system_name in sorted(by_system.keys()):
+        recs = by_system[system_name]
+        total = len(recs)
+        all_sources = set()
+        for c in recs:
+            all_sources.update(c.keys())
+        print(f"  {system_name} (n={total} Läufe):")
+        for src in sorted(all_sources):
+            count = sum(1 for c in recs if c.get(src, False))
+            pct = 100.0 * count / total if total else 0
+            print(f"    {src}: {count}/{total} ({pct:.1f}%)")
+    print("")
 
     systems = [s for s in values_per_system_dim if any(values_per_system_dim[s][d] for d in DIMENSIONS)]
     return values_per_system_dim, systems, DIMENSIONS
@@ -168,18 +225,25 @@ def build_single_histogram(
     return bin_edges, [float(c) for c in hist]
 
 
+def get_dimension_weight(system: str, dim: str) -> float:
+    """Gewichtungsfaktor für (System, Dimension); 0 = transparent, 1 = volle Sättigung."""
+    sys_weights = DIMENSION_WEIGHTS.get(system, {})
+    return float(sys_weights.get(dim, 1.0))
+
+
 def plot_single_dim_histogram(
     ax,
     bin_edges: List[float],
     counts: List[float],
     color: str,
+    alpha: float = 1.0,
 ) -> None:
-    """Zeichnet ein einfaches Balken-Histogramm für eine Dimension."""
+    """Zeichnet ein Balken-Histogramm für eine Dimension; alpha = Sättigung (Gewichtungsfaktor)."""
     import numpy as np
     num_bins = len(counts)
     bin_width = (bin_edges[-1] - bin_edges[0]) / num_bins
     x = np.array(bin_edges[:-1]) + bin_width / 2
-    ax.bar(x, counts, width=bin_width * 0.95, color=color, edgecolor="none")
+    ax.bar(x, counts, width=bin_width * 0.95, color=color, edgecolor="none", alpha=alpha)
 
 
 def main() -> None:
@@ -229,7 +293,8 @@ def main() -> None:
             vals = values_per_system_dim[system].get(dim, [])
             _, counts = build_single_histogram(vals, bin_min, bin_max, num_bins)
             color = DIMENSION_COLORS[row % len(DIMENSION_COLORS)]
-            plot_single_dim_histogram(ax, bin_edges, counts, color)
+            weight = get_dimension_weight(system, dim)
+            plot_single_dim_histogram(ax, bin_edges, counts, color, alpha=weight)
             ax.set_xlim(bin_min, bin_max)
             ax.set_xticks([-1, 0, 1])
             if col == 0:
@@ -245,7 +310,7 @@ def main() -> None:
         for dim in dimensions:
             all_vals.extend(values_per_system_dim[system].get(dim, []))
         _, counts_gesamt = build_single_histogram(all_vals, bin_min, bin_max, num_bins)
-        plot_single_dim_histogram(ax_gesamt, bin_edges, counts_gesamt, GESAMT_COLOR)
+        plot_single_dim_histogram(ax_gesamt, bin_edges, counts_gesamt, GESAMT_COLOR, alpha=1.0)
         ax_gesamt.set_xlim(bin_min, bin_max)
         ax_gesamt.set_xticks([-1, 0, 1])
         if col == 0:
