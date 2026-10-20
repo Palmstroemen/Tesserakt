@@ -6,6 +6,7 @@ export default function SystemSelector({
   selectedSystems,
   onToggle,
   onStart,
+  startBlocked = false,
   optionalName = "",
   onOptionalNameChange,
   optionalGender = "",
@@ -121,7 +122,7 @@ export default function SystemSelector({
       <div className="system-selector-actions">
         <button
           type="button"
-          disabled={!selectedSystems.length}
+          disabled={!selectedSystems.length || startBlocked}
           onClick={() => onStart(false)}
         >
           Starte deine Analyse
@@ -129,7 +130,7 @@ export default function SystemSelector({
         <button
           type="button"
           className="system-selector-test-mode"
-          disabled={!selectedSystems.length}
+          disabled={!selectedSystems.length || startBlocked}
           onClick={() => onStart(true)}
         >
           Starte im Testmodus

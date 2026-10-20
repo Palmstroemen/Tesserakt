@@ -4,7 +4,7 @@ Monte-Carlo-Test der Skill-Metrik perzentil_v1 (Skill = 2 * (Perzentil - 50)).
 
 Nutzt exakt die Spiel-Pipeline: Systemvektoren aus /vektor, Kontrollvektoren aus
 /kontrolle (je System N zufaellige Geburtsdaten), Fragen und Gewichte aus
-frontend/src/logic/questions.js und eine 1:1-Portierung von frontend/src/logic/rating.js.
+backend/fragen.json (wie /fragen) und eine 1:1-Portierung von frontend/src/logic/rating.js.
 
 Szenarien:
   1. Nullhypothese: Antworten haben nichts mit dem Geburtsdatum zu tun
@@ -29,7 +29,6 @@ import json
 import math
 import random
 import statistics
-import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timedelta
@@ -38,7 +37,7 @@ from typing import Callable, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
 BACKEND_DIR = ROOT / "backend"
-QUESTIONS_JS = ROOT / "frontend" / "src" / "logic" / "questions.js"
+FRAGEN_JSON = BACKEND_DIR / "fragen.json"
 
 SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"]
 
@@ -83,11 +82,9 @@ def load_matrix() -> dict:
         return M.get_matrix()
 
 
-def load_frontend_fragen() -> List[dict]:
-    """Fragen so, wie das Spiel sie verwendet (frontend/src/logic/questions.js)."""
-    script = f'import("{QUESTIONS_JS.as_uri()}").then(m => console.log(JSON.stringify(m.FRAGEN)))'
-    out = subprocess.run(["node", "--input-type=module", "-e", script], capture_output=True, text=True, check=True)
-    return json.loads(out.stdout)
+def load_fragen() -> List[dict]:
+    """Fragen so, wie das Spiel sie ueber /fragen verwendet."""
+    return json.loads(FRAGEN_JSON.read_text(encoding="utf-8"))["fragen"]
 
 
 # ── Rating (Portierung von frontend/src/logic/rating.js) ──────────────────────
@@ -231,13 +228,13 @@ def main() -> None:
             Path(args.cache).parent.mkdir(parents=True, exist_ok=True)
             Path(args.cache).write_text(json.dumps(personen), encoding="utf-8")
 
-    fragen = load_frontend_fragen()
+    fragen = load_fragen()
     matrix = load_matrix()
     rng = random.Random(args.seed)
     ergebnisse = {}
 
     print(f"Personen: {len(personen)}, Kontrolldaten je Person: {len(personen[0]['kontroll'][SYSTEME[0]])}, "
-          f"Fragen: {len(fragen)} (frontend/src/logic/questions.js)")
+          f"Fragen: {len(fragen)} (backend/fragen.json)")
 
     for stil, antwort in NULL_STILE.items():
         skills = [skill_scores(p, [antwort(rng) for _ in fragen], fragen, matrix, SYSTEME) for p in personen]

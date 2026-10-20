@@ -12,8 +12,8 @@ import TemperamentProfil from "./components/TemperamentProfil";
 import SystemDeutungTabs, { useSystemTexts, Paragraphs } from "./components/SystemDeutungTabs";
 import { useVektoren } from "./hooks/useVektoren";
 import { useKontrolle } from "./hooks/useKontrolle";
+import { useFragen } from "./hooks/useFragen";
 import { useRating } from "./hooks/useRating";
-import { FRAGEN } from "./logic/questions";
 import { PARTNER_FRAGEN } from "./logic/partnerQuestions";
 import { getQuestionWeights } from "./logic/rating";
 import { expectedPartner, calculatePartnerRating } from "./logic/partnerRating";
@@ -119,6 +119,7 @@ export default function App() {
     loadSystems();
   }, []);
 
+  const { fragen, error: fragenError } = useFragen();
   const { vektoren, inputs, loading, error } = useVektoren(
     assessmentStarted ? birthDate : null,
     assessmentStarted ? birthTime : null,
@@ -378,12 +379,12 @@ export default function App() {
   }
 
   function startAssessment(testMode = false) {
-    if (!isAssessmentGame || !selectedSystems.length) {
+    if (!isAssessmentGame || !selectedSystems.length || !fragen.length) {
       return;
     }
     setAssessmentTestMode(testMode);
     setSystemEstimatesOpen(false);
-    setQuestionOrder(shuffleQuestions(FRAGEN));
+    setQuestionOrder(shuffleQuestions(fragen));
     setAssessmentStarted(true);
     setCurrentIndex(0);
     setAnswers([]);
@@ -425,12 +426,16 @@ export default function App() {
       {setupReady ? (
         <>
           <GameSelector selectedGame={selectedGame} onSelect={handleGameSelect} />
+          {isAssessmentGame && fragenError ? (
+            <p className="hint">Fragen konnten nicht geladen werden ({fragenError}).</p>
+          ) : null}
           {isAssessmentGame ? (
             <SystemSelector
               systems={availableSystems}
               selectedSystems={selectedSystems}
               onToggle={toggleSystem}
               onStart={startAssessment}
+              startBlocked={!fragen.length}
               optionalName={optionalName}
               onOptionalNameChange={setOptionalName}
               optionalGender={optionalGender}

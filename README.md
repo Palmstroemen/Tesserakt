@@ -40,13 +40,14 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – plus
 ## Wo finde ich was?
 
 - `backend/`
-  - Engines: `horoskop_assessment.py`, `rating_engine.py`, `rule_engine.py`
+  - Engines: `rule_engine.py`, `rating_engine.py`
+  - Fragen fuer Spiel A inkl. Gewichte je System: `fragen.json` (einzige Quelle, Frontend laedt ueber `/fragen`)
   - Chart-Module: `chart.py`, `bazi_chart.py`, `vedisch_chart.py`, `hellenistisch_chart.py`, etc.
   - Systemordner mit Regeln: `Westlich/`, `Bazi/`, `Numerologie/`, `Kabbalah/`, `Arabisch/`, `Hellenistisch/`, `Vedisch/`
 - `frontend/src/`
   - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
   - Hooks: `useVektoren`, `useRating`
-  - Logik: `rating.js`, `questions.js`, `partnerQuestions.js`, `partnerRating.js`
+  - Logik: `rating.js`, `partnerQuestions.js`, `partnerRating.js`
 - `content/horoscope/de/`
   - Systemtexte fuer Spiel A und Spiel C
 - `tools/`

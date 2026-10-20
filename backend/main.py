@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -29,7 +30,6 @@ from rule_engine import (
     luck_pillar_for_both_sexes,
 )
 from store import compare_group, init_db, persist_session
-from horoskop_assessment import FRAGEN
 
 app = FastAPI(title="Tesserakt API", version="0.1.0")
 app.add_middleware(
@@ -43,6 +43,10 @@ app.add_middleware(
 
 # Alle Systeme sind standardmaessig aktiv; der User kann einzelne abwaehlen.
 DEFAULT_SYSTEMS = list(SUBFOLDERS)
+
+# Fragen fuer Spiel A inkl. Gewichte je System (einzige Quelle; das Frontend laedt sie ueber /fragen)
+with (Path(__file__).resolve().parent / "fragen.json").open(encoding="utf-8") as _f:
+    FRAGEN: List[Dict[str, Any]] = json.load(_f)["fragen"]
 SUPPORTED_SYSTEMS = list(SUBFOLDERS)
 AVAILABLE_FOR_SELECTION = list(SUPPORTED_SYSTEMS)
 # Perzentil-Kontrollgruppe: Vektoren desselben Systems fuer zufaellige Geburtsdaten
