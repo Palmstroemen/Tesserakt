@@ -127,6 +127,32 @@ als Spielelement, ohne die Messung zu verfaelschen. Vor der Umsetzung mit `tools
 
 ---
 
+## 6b. Zeitpunkt-Fragen und Skill "Timing"
+
+Vier feste Ereignisfragen fuer alle Spieler (Katalog `rueckblick_v2`, ids 301-304), jeweils fuer die
+letzten drei Monate: schoener Moment in der Liebe, beruflicher Erfolg (positiv), krank/erschoepft,
+finanzieller Rueckschlag (negativ). Antwort: Ja (mit Zeitpunkt), Nein, Weiss nicht.
+
+- Jedes System hat fuer Lebensbereich und Richtung einen **Hoehepunkt** im Quartal (Raster alle 5 Tage).
+  Erreicht das Horoskop den Extremwert ueber mehrere aufeinanderfolgende Tage, zaehlt die Mitte des
+  laengsten solchen Plateaus; schwankt es im Quartal gar nicht, gilt die Mitte des Quartals.
+- **Timing-Skill** = 2 * (Perzentil - 50); Perzentil: Anteil der Kontroll-Geburtsdaten, deren Hoehepunkte
+  weiter vom erinnerten Datum entfernt liegen (Summe der Abstaende ueber die Ja-Antworten).
+- Weil die Fragen nicht vom Horoskop abhaengen, ist das fair und geht in die Wertung ein.
+- Systeme ohne Zeitaussage fuer die beantworteten Fragen (meist Kabbalah, Arabisch, Vedisch) stehen nicht
+  im Timing-Ranking; ihr Skill wird trotzdem gespeichert. Die Siegererwartung wird nur aus den
+  konkurrierenden Systemen berechnet.
+
+Nullhypothese (400 Personen, je Frage 50 % "Ja", drei Erinnerungsstile): Mittel je System um 0
+(groesste Abweichung +7.5 bei SE 2.8). Westlich, Numerologie, Hellenistisch: SD ~57 (echte, persoenliche
+Zeitpunkte); Arabisch 34; Bazi, Vedisch ~13 (Hoehepunkt meist wie bei den Kontrolldaten); Kabbalah 0.
+
+Auffaellige Momente: Zeitpunkt tagesgenau per Feinsuche um den Rasterpunkt. Sehen mehrere Systeme
+denselben Moment (gleicher Lebensbereich und Richtung), wird die Frage einmal gestellt und allen
+zugeordnet.
+
+---
+
 ## 7. Entscheidungen (Oktober 2026)
 
 1. Fragensatz: fester gewerteter Satz **plus** auffaellige Fragen ohne Wertung (Variante 3).
@@ -134,6 +160,7 @@ als Spielelement, ohne die Messung zu verfaelschen. Vor der Umsetzung mit `tools
 3. Skala: "trifft nicht zu ... trifft zu".
 4. Belohnung "Horoskop fuer heute": neue Texte.
 5. Gewertete Fragen: Mittel des Zeitraums; auffaellige Fragen: Extremwertsuche; dazu Zeitpunkt-Nachfrage.
+6. Zusaetzlich 4 feste Zeitpunkt-Fragen mit eigenem Skill "Timing" (Weg 1: Monat und Quartal bleiben getrennt).
 
 ---
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import SelbsteinschaetzungSlider from "./SelbsteinschaetzungSlider";
 import RankingTabelle from "./RankingTabelle";
-import { calculateRating } from "../logic/rating";
+import { calculateRating, calculateTimingRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
@@ -97,6 +97,10 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
   const [wert, setWert] = useState(-1);
   const [antworten, setAntworten] = useState([]);
   const [nachfrage, setNachfrage] = useState(null); // auffaellige Frage, deren Zeitpunkt erfragt wird
+  // Zeitpunkt-Fragen (fest fuer alle, gewertet als Skill "Timing")
+  const [zIndex, setZIndex] = useState(0);
+  const [zAntworten, setZAntworten] = useState([]);
+  const [zJa, setZJa] = useState(false);
   const [datumEingabe, setDatumEingabe] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -127,23 +131,34 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
       const rueckblick = await postJson("/rueckblick", basisBody);
       setDaten(rueckblick);
       const einleitung = katalog._meta.fenster_einleitung;
-      const auffaellig = rueckblick.auffaellig.map((m) => {
+      // Sehen mehrere Systeme denselben Moment (gleicher Lebensbereich, gleiche Richtung), wird einmal gefragt
+      const nachFormulierung = new Map();
+      for (const m of rueckblick.auffaellig) {
         const formulierung = katalog.auffaellig[m.dimension][m.richtung];
-        return {
+        const frage = nachFormulierung.get(formulierung.id) ?? {
           id: formulierung.id,
           typ: "auffaellig",
           fenster: m.fenster,
           dimension: m.dimension,
-          moment: m,
-          // Einleitung nach dem tatsaechlichen Zeitpunkt (ein Moment vor 10 Tagen liegt auch im letzten Monat)
-          text: `${einleitung[m.tage_zurueck <= 30 ? "monat" : "quartal"]} ${formulierung.text}`,
+          momente: [],
+          formulierung: formulierung.text,
         };
+        frage.momente.push(m);
+        nachFormulierung.set(formulierung.id, frage);
+      }
+      const auffaellig = [...nachFormulierung.values()].map((frage) => {
+        // Einleitung nach dem juengsten Zeitpunkt (ein Moment vor 10 Tagen liegt auch im letzten Monat)
+        const juengster = Math.min(...frage.momente.map((m) => m.tage_zurueck));
+        return { ...frage, text: `${einleitung[juengster <= 30 ? "monat" : "quartal"]} ${frage.formulierung}` };
       });
       // Gewertete und auffaellige Fragen gemischt, damit die Auffaelligen nicht erkennbar sind
       setReihenfolge(shuffle([...katalog.gewertet.map((f) => ({ ...f, typ: "gewertet" })), ...auffaellig]));
       setStarted(true);
       setIndex(0);
       setAntworten([]);
+      setZIndex(0);
+      setZAntworten([]);
+      setZJa(false);
       setWert(-1);
       // Kontrollgruppe im Hintergrund, waehrend die Fragen beantwortet werden
       postJson("/rueckblick/kontrolle", {
@@ -159,7 +174,20 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
   }
 
   const aktuelleFrage = reihenfolge[index];
-  const fertig = started && reihenfolge.length > 0 && index >= reihenfolge.length && !nachfrage;
+  const fragenFertig = started && reihenfolge.length > 0 && index >= reihenfolge.length && !nachfrage;
+  const zeitpunktFragen = katalog?.zeitpunkt ?? [];
+  const fertig = fragenFertig && zIndex >= zeitpunktFragen.length;
+
+  function zeitpunktAntwort(antwort, tage = null, datum = null) {
+    const frage = zeitpunktFragen[zIndex];
+    setZAntworten((prev) => [
+      ...prev,
+      { frage_id: frage.id, dimension: frage.dimension, antwort, tage_zurueck: tage, datum },
+    ]);
+    setZJa(false);
+    setDatumEingabe("");
+    setZIndex((i) => i + 1);
+  }
 
   function weiter(eintrag) {
     setAntworten((prev) => [...prev, eintrag]);
@@ -183,7 +211,7 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
       text: frage.text,
       selbst_wert: wert,
       system_werte: systemWerte,
-      moment: frage.moment ?? null,
+      momente: frage.momente ?? [],
     };
     if (frage.typ === "auffaellig" && wert >= ERINNERUNG_AB) {
       setNachfrage(eintrag);
@@ -205,8 +233,15 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
       const eintraege = antworten.filter((a) => a.typ === "gewertet" && a.fenster === fenster);
       result[fenster] = calculateRating(daten.mittel[fenster], eintraege, matrix, kontrolle?.kontrollvektoren?.[fenster] ?? {});
     }
+    result.timing = calculateTimingRating(
+      zAntworten.filter((a) => a.antwort === "ja"),
+      daten.timing,
+      kontrolle?.timing ?? {},
+      daten.inputs.systeme,
+      daten.inputs.timing_konstant ?? null
+    );
     return result;
-  }, [fertig, daten, antworten, matrix, kontrolle]);
+  }, [fertig, daten, antworten, zAntworten, matrix, kontrolle]);
 
   const kontrolleBereit = Boolean(kontrolle) || Boolean(kontrollFehler);
 
@@ -221,7 +256,15 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
         dimension: a.dimension,
         selbst_wert: a.selbst_wert,
         system_werte: a.system_werte,
-      })),
+      })).concat(
+        // Zeitpunkt-Fragen: selbst_wert 1 = ja, -1 = nein, 0 = weiss nicht; system_werte = Hoehepunkte (Tage zurueck)
+        zAntworten.map((a) => ({
+          frage_id: a.frage_id,
+          dimension: a.dimension,
+          selbst_wert: a.antwort === "ja" ? 1 : a.antwort === "nein" ? -1 : 0,
+          system_werte: daten.timing?.[a.frage_id] ?? {},
+        }))
+      ),
       metadaten: {
         dsgvo_zustimmung: true,
         spieltyp: "Rueckblick",
@@ -232,9 +275,17 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
         skillMetrik: ergebnisse.monat.skillMetrik,
         monat: { ranking: ergebnisse.monat.ranking, systemDetails: ergebnisse.monat.systemDetails },
         quartal: { ranking: ergebnisse.quartal.ranking, systemDetails: ergebnisse.quartal.systemDetails },
+        timing: {
+          ranking: ergebnisse.timing.ranking,
+          systemDetails: ergebnisse.timing.systemDetails,
+          antworten: zAntworten,
+          ohneAussage: ergebnisse.timing.ohneAussage,
+        },
         auffaellig: antworten
           .filter((a) => a.typ === "auffaellig")
-          .map((a) => ({ frage_id: a.frage_id, moment: a.moment, selbst_wert: a.selbst_wert, erinnerung: a.erinnerung ?? null })),
+          .flatMap((a) =>
+            a.momente.map((moment) => ({ frage_id: a.frage_id, moment, selbst_wert: a.selbst_wert, erinnerung: a.erinnerung ?? null }))
+          ),
       },
       abgeschlossen: true,
       veroeffentlichen: true,
@@ -292,6 +343,53 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
     );
   }
 
+  if (fragenFertig && !fertig) {
+    const frage = zeitpunktFragen[zIndex];
+    return (
+      <section className="card">
+        <h2>
+          Zum Schluss: Erinnerung {zIndex + 1}/{zeitpunktFragen.length}
+        </h2>
+        <p>{frage.text}</p>
+        {!zJa ? (
+          <div className="zeitpunkt-optionen">
+            <button type="button" onClick={() => setZJa(true)}>
+              Ja
+            </button>
+            <button type="button" onClick={() => zeitpunktAntwort("nein")}>
+              Nein
+            </button>
+            <button type="button" onClick={() => zeitpunktAntwort("weiss_nicht")}>
+              Weiß ich nicht
+            </button>
+          </div>
+        ) : (
+          <>
+            <p>Wann war das ungefähr?</p>
+            <div className="zeitpunkt-optionen">
+              {ZEITPUNKTE.map((z) => (
+                <button key={z.label} type="button" onClick={() => zeitpunktAntwort("ja", z.tage)}>
+                  {z.label}
+                </button>
+              ))}
+            </div>
+            <p>
+              Oder genaues Datum:{" "}
+              <input type="date" value={datumEingabe} onChange={(e) => setDatumEingabe(e.target.value)} />{" "}
+              <button
+                type="button"
+                disabled={!datumEingabe}
+                onClick={() => zeitpunktAntwort("ja", tageSeit(datumEingabe), datumEingabe)}
+              >
+                Übernehmen
+              </button>
+            </p>
+          </>
+        )}
+      </section>
+    );
+  }
+
   if (!fertig) {
     return (
       <section className="card">
@@ -332,6 +430,34 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
             </div>
           ))
         )}
+        {kontrolleBereit ? (
+          <div>
+            <h3>Timing: Wann ist es passiert?</h3>
+            {ergebnisse.timing.anzahl ? (
+              <>
+                <p className="hint">
+                  Wie nah lag der Höhepunkt, den ein System für das Ereignis berechnet hat, an deiner Erinnerung –
+                  verglichen mit hundert anderen Geburtsdaten ({ergebnisse.timing.anzahl} von {zeitpunktFragen.length}{" "}
+                  Erinnerungsfragen mit Zeitpunkt).
+                </p>
+                <RankingTabelle
+                  systeme={ergebnisse.timing.systemDetails}
+                  ranking={ergebnisse.timing.ranking}
+                  skillErwartungBester={ergebnisse.timing.skillErwartungBester}
+                  timing
+                />
+                {ergebnisse.timing.ohneAussage.length ? (
+                  <p className="hint">
+                    Keine Aussage zum Zeitpunkt (ihr Horoskop schwankt in diesem Zeitraum nicht):{" "}
+                    {ergebnisse.timing.ohneAussage.join(", ")}.
+                  </p>
+                ) : null}
+              </>
+            ) : (
+              <p className="hint">Keine Erinnerung mit Zeitpunkt angegeben – dafür gibt es diesmal kein Timing-Ergebnis.</p>
+            )}
+          </div>
+        ) : null}
         {kontrollFehler ? <p className="hint">Kontrollgruppe konnte nicht berechnet werden; Skill ist nicht verfügbar.</p> : null}
         <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>
       </section>
@@ -344,19 +470,21 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
             Horoskop ausgewählt wurden.
           </p>
           <ul>
-            {auffaellige.map((a) => (
-              <li key={a.frage_id}>
-                <strong>{a.moment.system}</strong> sah vor etwa {a.moment.tage_zurueck} Tagen: „{a.text}“ – deine
-                Antwort: {antwortText(a.selbst_wert)}
-                {a.erinnerung
-                  ? a.erinnerung.tage_zurueck == null
-                    ? " (Zeitpunkt weißt du nicht mehr)"
-                    : ` – du erinnerst dich an etwa ${a.erinnerung.tage_zurueck} Tage zurück (Unterschied: ${Math.abs(
-                        a.erinnerung.tage_zurueck - a.moment.tage_zurueck
-                      )} Tage)`
-                  : ""}
-              </li>
-            ))}
+            {auffaellige.flatMap((a) =>
+              a.momente.map((moment) => (
+                <li key={`${a.frage_id}-${moment.system}`}>
+                  <strong>{moment.system}</strong> sah vor etwa {moment.tage_zurueck} Tagen: „{a.text}“ – deine
+                  Antwort: {antwortText(a.selbst_wert)}
+                  {a.erinnerung
+                    ? a.erinnerung.tage_zurueck == null
+                      ? " (Zeitpunkt weißt du nicht mehr)"
+                      : ` – du erinnerst dich an etwa ${a.erinnerung.tage_zurueck} Tage zurück (Unterschied: ${Math.abs(
+                          a.erinnerung.tage_zurueck - moment.tage_zurueck
+                        )} Tage)`
+                    : ""}
+                </li>
+              ))
+            )}
           </ul>
         </section>
       ) : null}

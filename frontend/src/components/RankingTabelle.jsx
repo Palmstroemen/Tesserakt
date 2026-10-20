@@ -3,7 +3,11 @@ function formatSkill(value) {
   return value > 0 ? `+${value.toFixed(0)}` : value.toFixed(0);
 }
 
-export default function RankingTabelle({ systeme, ranking, skillErwartungBester }) {
+function zahl(value, stellen = 1) {
+  return typeof value === "number" ? value.toFixed(stellen) : "-";
+}
+
+export default function RankingTabelle({ systeme, ranking, skillErwartungBester, timing = false }) {
   if (!ranking?.length) {
     return <p>Noch kein Ergebnis.</p>;
   }
@@ -17,8 +21,14 @@ export default function RankingTabelle({ systeme, ranking, skillErwartungBester 
           <th>System</th>
           <th>Skill</th>
           <th>Perzentil</th>
-          <th>Fit (absolut)</th>
-          <th>Norm. Fehler</th>
+          {timing ? (
+            <th>Ø Abstand (Tage)</th>
+          ) : (
+            <>
+              <th>Fit (absolut)</th>
+              <th>Norm. Fehler</th>
+            </>
+          )}
         </tr>
       </thead>
       <tbody>
@@ -28,8 +38,14 @@ export default function RankingTabelle({ systeme, ranking, skillErwartungBester 
             <td>{system}</td>
             <td>{formatSkill(systeme[system].skillScore)}</td>
             <td>{typeof systeme[system].perzentil === "number" ? systeme[system].perzentil.toFixed(0) : "-"}</td>
-            <td>{systeme[system].fitScore.toFixed(1)}</td>
-            <td>{systeme[system].fehler.toFixed(4)}</td>
+            {timing ? (
+              <td>{zahl(systeme[system].abstandTage)}</td>
+            ) : (
+              <>
+                <td>{zahl(systeme[system].fitScore)}</td>
+                <td>{zahl(systeme[system].fehler, 4)}</td>
+              </>
+            )}
           </tr>
         ))}
       </tbody>

@@ -140,3 +140,52 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
 
   return { ranking, systemDetails, skillErwartungBester, skillMetrik: SKILL_METRIK };
 }
+
+// Spiel B, Zeitpunkt-Fragen: Abstand (Tage) zwischen erinnertem Ereignis und dem Hoehepunkt des Systems,
+// summiert ueber die beantworteten Fragen; Perzentil gegen die Hoehepunkte der Kontroll-Geburtsdaten.
+// antworten: [{ frage_id, tage_zurueck }] (nur "Ja" mit Zeitpunkt); timing: { frage_id: { system: tag } };
+// kontrollTiming: { frage_id: { system: [tag, ...] } }.
+// konstant: Wert, den das Backend fuer "kein Hoehepunkt im Zeitraum" liefert (inputs.timing_konstant).
+// Systeme ohne Zeitaussage fuer alle beantworteten Fragen stehen nicht im Ranking (ohneAussage),
+// ihr Skill wird trotzdem berechnet und gespeichert.
+export function calculateTimingRating(antworten, timing, kontrollTiming, systeme, konstant = null) {
+  const gewertet = antworten.filter((a) => typeof a.tage_zurueck === "number" && timing?.[a.frage_id]);
+  if (!gewertet.length) {
+    return { ranking: [], systemDetails: {}, skillErwartungBester: null, anzahl: 0 };
+  }
+  const systemDetails = {};
+  for (const system of systeme) {
+    const abstand = gewertet.reduce((sum, a) => sum + Math.abs(a.tage_zurueck - timing[a.frage_id][system]), 0);
+    const n = kontrollTiming?.[gewertet[0].frage_id]?.[system]?.length ?? 0;
+    const kontrollAbstaende = Array.from({ length: n }, (_, i) =>
+      gewertet.reduce((sum, a) => sum + Math.abs(a.tage_zurueck - kontrollTiming[a.frage_id][system][i]), 0)
+    );
+    const perzentil = calculatePerzentil(abstand, kontrollAbstaende);
+    const skillScore = skillFromPerzentil(perzentil);
+    systemDetails[system] = {
+      skillScore: skillScore === null ? null : Number(skillScore.toFixed(1)),
+      perzentil: perzentil === null ? null : Number(perzentil.toFixed(1)),
+      abstandTage: Number((abstand / gewertet.length).toFixed(1)),
+    };
+  }
+  const ohneAussage = systeme.filter(
+    (s) => konstant !== null && gewertet.every((a) => timing[a.frage_id][s] === konstant)
+  );
+  const ranking = systeme.filter((s) => !ohneAussage.includes(s)).sort(
+    (a, b) =>
+      (systemDetails[b].skillScore ?? -Infinity) - (systemDetails[a].skillScore ?? -Infinity) ||
+      systemDetails[a].abstandTage - systemDetails[b].abstandTage
+  );
+  ranking.forEach((s, i) => {
+    systemDetails[s].rang = i + 1;
+  });
+  const mitSkill = ranking.filter((s) => systemDetails[s].skillScore !== null).length;
+  return {
+    ranking,
+    systemDetails,
+    skillErwartungBester: mitSkill ? Number(erwarteterSkillBester(mitSkill).toFixed(1)) : null,
+    anzahl: gewertet.length,
+    ohneAussage,
+    skillMetrik: SKILL_METRIK,
+  };
+}

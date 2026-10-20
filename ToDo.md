@@ -35,7 +35,7 @@
    - [x] Horoskop fuer heute als Belohnung (Textbausteine v1)
    - [x] DoD B: spielbarer kompletter Durchlauf mit konsistenten Metriken (E2E 20.10.2026, Nullhypothese geprueft)
    - [x] Echte Transite (laufende Planeten zu Geburtssonne/-mond, ggf. Aszendent/MC) statt Kalender-Platzhalter
-   - [ ] Zeitpunkt-Fragen (feste Ereignisfragen, Skill "Timing" gegen Hoehepunkte der Kontrollgruppe) + Feinsuche der auffaelligen Momente
+   - [x] Zeitpunkt-Fragen (4 feste Ereignisfragen, Skill "Timing" gegen Hoehepunkte der Kontrollgruppe) + Feinsuche der auffaelligen Momente
    - [ ] Texte Spiel B (Fragen, Horoskop fuer heute) redaktionell ueberarbeiten
 
 3. **Spiel C anschliessend**

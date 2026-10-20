@@ -72,6 +72,9 @@ RUECKBLICK_FENSTER: Dict[str, List[int]] = {
     "monat": [5, 10, 15, 20, 25, 30],
     "quartal": [10, 20, 30, 40, 50, 60, 70, 80, 90],
 }
+# Zeitpunkt-Fragen: Hoehepunkt des Systems im Quartal auf diesem Raster (Tage zurueck)
+TIMING_RASTER: List[int] = list(range(5, 91, 5))
+TIMING_KONSTANT = (TIMING_RASTER[0] + TIMING_RASTER[-1]) / 2  # kein Hoehepunkt -> Mitte des Zeitraums
 
 
 class VektorRequest(BaseModel):
@@ -660,7 +663,7 @@ def _rueckblick_payload(payload: VektorRequest) -> VektorRequest:
 
 def _rueckblick_verlauf(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[int, Dict[str, Dict[str, float]]]:
     """Systemvektoren je Stichprobentag (Tage vor dem Stichtag)."""
-    tage = sorted({t for liste in RUECKBLICK_FENSTER.values() for t in liste})
+    tage = sorted({t for liste in RUECKBLICK_FENSTER.values() for t in liste} | set(TIMING_RASTER))
     verlauf = {}
     for t in tage:
         _, vektoren, _, _ = _berechne_vektoren(payload, birth_dt, now - timedelta(days=t), session_id)
@@ -677,6 +680,51 @@ def _fenster_mittel(verlauf: Dict[int, Dict[str, Dict[str, float]]], systeme: Li
             for s in systeme
         }
     return mittel
+
+
+def _hoehepunkt(werte: List[Tuple[int, float]], richtung: str, konstant: float = TIMING_KONSTANT) -> float:
+    """Tag (zurueck) des staerksten Werts in Richtung positiv/negativ (werte nach Tag sortiert).
+    Erreicht der Wert das Extrem auf mehreren aufeinanderfolgenden Tagen (Plateau), zaehlt dessen Mitte;
+    bei mehreren getrennten Plateaus das laengste (bei Gleichstand das juengste).
+    Kein Unterschied im ganzen Bereich -> konstant. Gleiche Regel fuer echtes Datum und Kontrolle."""
+    vorzeichen = 1.0 if richtung == "positiv" else -1.0
+    if max(w for _, w in werte) - min(w for _, w in werte) < 1e-9:
+        return konstant
+    extrem = max(vorzeichen * w for _, w in werte)
+    laeufe: List[List[int]] = []
+    vorher_extrem = False
+    for t, w in werte:
+        ist_extrem = abs(vorzeichen * w - extrem) < 1e-9
+        if ist_extrem and vorher_extrem:
+            laeufe[-1].append(t)
+        elif ist_extrem:
+            laeufe.append([t])
+        vorher_extrem = ist_extrem
+    lauf = max(laeufe, key=len)  # max() liefert bei Gleichstand den ersten = juengsten Lauf
+    return sum(lauf) / len(lauf)
+
+
+def _timing(verlauf, systeme: List[str]) -> Dict[str, Dict[str, float]]:
+    """Je Zeitpunkt-Frage und System: Hoehepunkt im Quartal (Tage zurueck)."""
+    return {
+        str(f["id"]): {
+            s: _hoehepunkt([(t, verlauf[t][s][f["dimension"]]) for t in TIMING_RASTER], f["richtung"])
+            for s in systeme
+        }
+        for f in FRAGEN_RUECKBLICK["zeitpunkt"]
+    }
+
+
+def _feinsuche(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str, moment: Dict[str, Any],
+               mittel: float, schritt: int) -> int:
+    """Tagesgenauer Zeitpunkt eines auffaelligen Moments: Tage um den Rasterpunkt einzeln durchrechnen."""
+    s, d, t0 = moment["system"], moment["dimension"], moment["tage_zurueck"]
+    einzeln = payload.model_copy(update={"systeme": [s]})
+    werte = []
+    for t in range(max(1, t0 - schritt + 1), min(TIMING_RASTER[-1], t0 + schritt - 1) + 1):
+        _, vek, _, _ = _berechne_vektoren(einzeln, birth_dt, now - timedelta(days=t), session_id)
+        werte.append((t, vek[s][d] - mittel))
+    return round(_hoehepunkt(werte, moment["richtung"], konstant=t0))
 
 
 def _auffaellige_momente(verlauf, mittel, systeme: List[str]) -> List[Dict[str, Any]]:
@@ -706,14 +754,23 @@ def post_rueckblick(payload: VektorRequest) -> Dict[str, Any]:
     p = _rueckblick_payload(payload)
     verlauf = _rueckblick_verlauf(p, birth_dt, now, session_id)
     mittel = _fenster_mittel(verlauf, p.systeme)
+    momente = _auffaellige_momente(verlauf, mittel, p.systeme)
+    for m in momente:
+        schritt = 5 if m["fenster"] == "monat" else 10
+        m["tage_zurueck_raster"] = m["tage_zurueck"]
+        m["tage_zurueck"] = _feinsuche(p, birth_dt, now, session_id, m, mittel[m["fenster"]][m["system"]][m["dimension"]], schritt)
     return {
         "mittel": mittel,
-        "auffaellig": _auffaellige_momente(verlauf, mittel, p.systeme),
+        "auffaellig": momente,
+        "timing": _timing(verlauf, p.systeme),
         "inputs": {
             "session_id": session_id,
             "stichtag": now.date().isoformat(),
             "systeme": p.systeme,
             "fenster": RUECKBLICK_FENSTER,
+            "timing_raster": TIMING_RASTER,
+            "timing_konstant": TIMING_KONSTANT,
+            "katalog_version": FRAGEN_RUECKBLICK["_meta"]["katalog_version"],
         },
     }
 
@@ -731,11 +788,16 @@ def post_rueckblick_kontrolle(payload: KontrollRequest) -> Dict[str, Any]:
         now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
     p = _rueckblick_payload(payload)
     kontrollvektoren: Dict[str, Dict[str, List[Dict[str, float]]]] = {f: {s: [] for s in p.systeme} for f in RUECKBLICK_FENSTER}
+    timing: Dict[str, Dict[str, List[float]]] = {str(f["id"]): {s: [] for s in p.systeme} for f in FRAGEN_RUECKBLICK["zeitpunkt"]}
     for datum in _kontroll_geburtsdaten(birth_dt, payload.session_id, payload.kontroll_anzahl):
-        mittel = _fenster_mittel(_rueckblick_verlauf(p, datum, now, payload.session_id), p.systeme)
+        verlauf = _rueckblick_verlauf(p, datum, now, payload.session_id)
+        mittel = _fenster_mittel(verlauf, p.systeme)
         for fenster in RUECKBLICK_FENSTER:
             for s in p.systeme:
                 kontrollvektoren[fenster][s].append(mittel[fenster][s])
+        for qid, je_system in _timing(verlauf, p.systeme).items():
+            for s, tag in je_system.items():
+                timing[qid][s].append(tag)
     kontrolle = {
         "anzahl": payload.kontroll_anzahl,
         "jahre": KONTROLL_JAHRE,
@@ -743,7 +805,7 @@ def post_rueckblick_kontrolle(payload: KontrollRequest) -> Dict[str, Any]:
         "stichtag": now.date().isoformat(),
         "fenster": RUECKBLICK_FENSTER,
     }
-    return {"kontrollvektoren": kontrollvektoren, "kontrolle": kontrolle}
+    return {"kontrollvektoren": kontrollvektoren, "timing": timing, "kontrolle": kontrolle}
 
 
 @app.get("/orte")

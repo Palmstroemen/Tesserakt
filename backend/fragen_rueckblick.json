@@ -1,11 +1,12 @@
 {
   "_meta": {
-    "beschreibung": "Fragen fuer Spiel B (Rueckblick). gewertet: Zustand im Zeitfenster, verglichen mit dem Mittel der Horoskope im Fenster; gehen in den Skill ein. auffaellig: nicht gewertet, Auswahl nach staerkstem Ausschlag (Extremwert) im Fenster; Text wird mit der Fenster-Einleitung kombiniert. ids nicht aendern (frage_id in der Datenbank; A: 1-16, B gewertet: 101-116, B auffaellig: 201-216).",
+    "beschreibung": "Fragen fuer Spiel B (Rueckblick). gewertet: Zustand im Zeitfenster, verglichen mit dem Mittel der Horoskope im Fenster; gehen in den Skill ein. auffaellig: nicht gewertet, Auswahl nach staerkstem Ausschlag (Extremwert) im Fenster; Text wird mit der Fenster-Einleitung kombiniert. ids nicht aendern (frage_id in der Datenbank; A: 1-16, B gewertet: 101-116, B auffaellig: 201-216). zeitpunkt: feste Ereignisfragen fuer alle (ids 301-304), gewertet als Skill 'Timing': Abstand zwischen erinnertem Datum und dem Hoehepunkt des Systems im Quartal, verglichen mit den Kontroll-Geburtsdaten.",
     "skala": "trifft nicht zu (-1) ... trifft zu (+1)",
     "fenster_einleitung": {
       "monat": "In den letzten 30 Tagen",
       "quartal": "In den letzten drei Monaten"
-    }
+    },
+    "katalog_version": "rueckblick_v2"
   },
   "gewertet": [
     {
@@ -186,5 +187,31 @@
         "text": "fühlte ich mich eine Zeit lang innerlich leer oder orientierungslos."
       }
     }
-  }
+  },
+  "zeitpunkt": [
+    {
+      "id": 301,
+      "dimension": "liebe",
+      "richtung": "positiv",
+      "text": "Gab es in den letzten drei Monaten einen besonders schönen Moment in der Liebe oder in einer Beziehung?"
+    },
+    {
+      "id": 302,
+      "dimension": "beruf",
+      "richtung": "positiv",
+      "text": "Hattest du in den letzten drei Monaten einen beruflichen Erfolg oder Durchbruch?"
+    },
+    {
+      "id": 303,
+      "dimension": "gesundheit",
+      "richtung": "negativ",
+      "text": "Warst du in den letzten drei Monaten eine Zeit lang krank oder erschöpft?"
+    },
+    {
+      "id": 304,
+      "dimension": "finanzen",
+      "richtung": "negativ",
+      "text": "Gab es in den letzten drei Monaten einen finanziellen Rückschlag oder unerwartete Ausgaben?"
+    }
+  ]
 }

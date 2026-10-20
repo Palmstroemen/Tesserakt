@@ -88,7 +88,23 @@ def _simulate_person_b(args: tuple) -> dict:
             geburtsdatum=datum, uhrzeit=zeit, systeme=SYSTEME_B, session_id=session_id,
             stichtag=r["inputs"]["stichtag"], kontroll_anzahl=kontroll_anzahl,
         ))
-    return {f: {"vektoren": r["mittel"][f], "kontroll": k["kontrollvektoren"][f]} for f in r["mittel"]}
+    person = {f: {"vektoren": r["mittel"][f], "kontroll": k["kontrollvektoren"][f]} for f in r["mittel"]}
+    person["_timing"] = {"echt": r["timing"], "kontroll": k["timing"]}
+    return person
+
+
+def timing_skill(person: dict, antworten: List[tuple], systeme: List[str]) -> Dict[str, float]:
+    """Portierung von calculateTimingRating (rating.js): antworten = [(frage_id, tage_zurueck)]."""
+    echt, kontroll = person["_timing"]["echt"], person["_timing"]["kontroll"]
+    result = {}
+    for s in systeme:
+        abstand = sum(abs(t - echt[q][s]) for q, t in antworten)
+        n = len(kontroll[antworten[0][0]][s])
+        k_abst = [sum(abs(t - kontroll[q][s][i]) for q, t in antworten) for i in range(n)]
+        perz = calculate_perzentil(abstand, k_abst)
+        if perz is not None:
+            result[s] = 2.0 * (perz - 50.0)
+    return result
 
 
 def generate_personen(runs: int, seed: int, kontroll_anzahl: int, year_min: int, year_max: int, workers: int,
@@ -318,6 +334,21 @@ def main_b(args: argparse.Namespace) -> None:
             skills = [skill_scores(p[fenster], [antwort(rng) for _ in fragen], fragen, matrix, SYSTEME_B) for p in personen]
             ergebnisse[f"{fenster}:{stil}"] = drucke_szenario(
                 f"SPIEL B {fenster.upper()} - NULLHYPOTHESE - Antwortstil: {stil}", skills, SYSTEME_B)
+    # Zeitpunkt-Fragen: Erinnerungen ohne Bezug zum Geburtsdatum
+    zeitfragen = [str(f["id"]) for f in json.loads(FRAGEN_B_JSON.read_text(encoding="utf-8"))["zeitpunkt"]]
+    erinnerung = {
+        "gleichverteilt (1-90 Tage)": lambda: rng.randint(1, 90),
+        "juengere Ereignisse haeufiger": lambda: min(90, max(1, int(rng.expovariate(1 / 25)) + 1)),
+        "grobe Antworten (Buttons 7/14/30/60/90)": lambda: rng.choice([7, 14, 30, 60, 90]),
+    }
+    for stil, tag in erinnerung.items():
+        skills = []
+        for p in personen:
+            antworten = [(q, tag()) for q in zeitfragen if rng.random() < 0.5]
+            if antworten:
+                skills.append(timing_skill(p, antworten, SYSTEME_B))
+        ergebnisse[f"timing:{stil}"] = drucke_szenario(
+            f"SPIEL B TIMING - NULLHYPOTHESE - Erinnerung: {stil} (je Frage 50 % 'ja')", skills, SYSTEME_B)
     if args.json_out:
         Path(args.json_out).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json_out).write_text(json.dumps(ergebnisse, indent=2, ensure_ascii=False), encoding="utf-8")
