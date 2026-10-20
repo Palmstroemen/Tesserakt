@@ -11,14 +11,21 @@
       "Sepharial - Kabalistic Astrology (1901, public domain)",
       "Iamblichos - Life of Pythagoras (ca. 300 n. Chr., public domain)"
     ],
-    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "dimensions": [
+      "liebe",
+      "beruf",
+      "finanzen",
+      "gesundheit",
+      "soziales",
+      "kreativitaet",
+      "veraenderung",
+      "spiritualitaet"
+    ],
     "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
     "beschreibung": "Numerologische Zeitzyklen: Persönliches Jahr (1-9), Persönlicher Monat (9×9=81 Kombinationen), Persönlicher Tag, Pinnacles (4 Lebensgipfel), Challenges (4 Lebensherausforderungen), Universelles Jahr. Berechnung und Bedeutung aller Zyklen.",
     "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog numerologie_basis.json und numerologie_lebenspfad.json"
   },
-
   "berechnungen": {
-
     "persoenliches_jahr": {
       "beschreibung": "Das Persönliche Jahr wird berechnet aus Geburtsmonat + Geburtstag + aktuelles Kalenderjahr (alle Ziffern addiert bis einstellig, außer Meisterzahlen 11/22/33).",
       "quelle": "Cheiro - Book of Numbers Kap.10; Westcott S.84; Balliett S.70",
@@ -32,7 +39,6 @@
       "hinweis_jahresbeginn": "Das Persönliche Jahr beginnt offiziell am 1. Januar, entfaltet seine volle Wirkung jedoch ab dem Geburtstag. Die zwei bis drei Monate vor dem Geburtstag zeigen bereits Vorzeichen des neuen Zyklus.",
       "zyklus_uebersicht": "Der 9-Jahres-Zyklus ist der fundamentale Zeitzyklus der westlichen Numerologie. Jahr 1 = Neubeginn, Jahr 9 = Abschluss. Danach beginnt ein neuer Zyklus."
     },
-
     "persoenlicher_monat": {
       "beschreibung": "Der Persönliche Monat verfeinert das Persönliche Jahr auf monatlicher Ebene.",
       "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
@@ -44,7 +50,6 @@
         "persoenlicher_monat": 1
       }
     },
-
     "persoenlicher_tag": {
       "beschreibung": "Der Persönliche Tag verfeinert den Persönlichen Monat auf täglicher Ebene für kurzfristige Entscheidungen.",
       "quelle": "Balliett - Philosophy of Numbers S.80-82; Cheiro Kap.10",
@@ -57,20 +62,34 @@
       },
       "anwendung": "Persönliche Tage eignen sich für taktische Entscheidungen: Verträge, Gespräche, Reisebeginn, Projektstart. Tag 1 = Neustarts, Tag 6 = Verhandlungen, Tag 8 = Finanzentscheidungen etc."
     },
-
     "universelles_jahr": {
       "beschreibung": "Das Universelle Jahr ist die kollektive Energie des Kalenderjahres, die alle Menschen beeinflusst.",
       "quelle": "Westcott S.83; Balliett S.68-70",
       "methode": "Alle Ziffern des Kalenderjahres addieren bis einstellig.",
       "beispiele": [
-        {"jahr": 2025, "rechnung": "2+0+2+5=9", "universelles_jahr": 9},
-        {"jahr": 2026, "rechnung": "2+0+2+6=10=1+0=1", "universelles_jahr": 1},
-        {"jahr": 2027, "rechnung": "2+0+2+7=11", "universelles_jahr": 11},
-        {"jahr": 2033, "rechnung": "2+0+3+3=8", "universelles_jahr": 8}
+        {
+          "jahr": 2025,
+          "rechnung": "2+0+2+5=9",
+          "universelles_jahr": 9
+        },
+        {
+          "jahr": 2026,
+          "rechnung": "2+0+2+6=10=1+0=1",
+          "universelles_jahr": 1
+        },
+        {
+          "jahr": 2027,
+          "rechnung": "2+0+2+7=11",
+          "universelles_jahr": 11
+        },
+        {
+          "jahr": 2033,
+          "rechnung": "2+0+3+3=8",
+          "universelles_jahr": 8
+        }
       ],
       "interaktion": "Das Universelle Jahr bildet den kollektiven Hintergrund. Das Persönliche Jahr zeigt die individuelle Erfahrung. Wenn Persönliches Jahr = Universelles Jahr, verstärkt sich die Energie. Kontraste erzeugen besondere Spannungen und Chancen."
     },
-
     "pinnacles": {
       "beschreibung": "Die vier Pinnacles (Lebensgipfel) beschreiben die vier großen Lebensabschnitte und deren Qualität.",
       "quelle": "Westcott S.90-95; Cheiro - Book of Numbers Kap.12; Balliett S.85-92",
@@ -102,7 +121,6 @@
         "22": "Pinnacle 22 = Zeit der Manifestation großer Visionen in die materielle Welt. Meisterbauer-Phase."
       }
     },
-
     "challenges": {
       "beschreibung": "Die vier Challenges (Lebensherausforderungen) zeigen Bereiche, in denen Wachstum durch Überwindung möglich ist.",
       "quelle": "Westcott S.95-98; Cheiro Kap.12; Balliett S.92-98",
@@ -127,9 +145,7 @@
       }
     }
   },
-
   "persoenliches_jahr_profile": {
-
     "PJ1": {
       "zahl": 1,
       "name": "Persönliches Jahr 1 — Der Neubeginn",
@@ -142,18 +158,17 @@
       "beruf_hinweis": "Starkes Jahr für Karrieresprünge, Bewerbungen, eigene Vorhaben. Mut zu neuen Wegen.",
       "finanzen_hinweis": "Investitionen in neue Unternehmungen. Vorsicht: Übereifer kann zu Fehlentscheidungen führen.",
       "dimensionen_vektor": {
-        "liebe": 3,
-        "beruf": 5,
-        "finanzen": 4,
-        "gesundheit": 3,
-        "soziales": 3,
-        "kreativitaet": 5,
-        "veraenderung": 5,
-        "spiritualitaet": 3
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.5
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.84-86; Balliett S.70-73"
     },
-
     "PJ2": {
       "zahl": 2,
       "name": "Persönliches Jahr 2 — Die Geduld",
@@ -166,18 +181,17 @@
       "beruf_hinweis": "Hintergrundarbeit, Netzwerken, Assistenzrollen. Kein Jahr für spektakuläre Alleingänge.",
       "finanzen_hinweis": "Konservativ halten. Sparen, bestehende Investitionen pflegen, keine großen Risiken.",
       "dimensionen_vektor": {
-        "liebe": 5,
-        "beruf": 3,
-        "finanzen": 3,
-        "gesundheit": 3,
-        "soziales": 5,
-        "kreativitaet": 3,
-        "veraenderung": 2,
-        "spiritualitaet": 4
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.75
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.86; Balliett S.73-74"
     },
-
     "PJ3": {
       "zahl": 3,
       "name": "Persönliches Jahr 3 — Die Entfaltung",
@@ -190,18 +204,17 @@
       "beruf_hinweis": "Ideal für kreative Berufe, Präsentationen, Selbstvermarktung, Kommunikationsberufe.",
       "finanzen_hinweis": "Einnahmen möglich, aber auch Ausgaben hoch. Nicht zu freigiebig sein.",
       "dimensionen_vektor": {
-        "liebe": 4,
-        "beruf": 4,
-        "finanzen": 3,
-        "gesundheit": 4,
-        "soziales": 5,
-        "kreativitaet": 5,
-        "veraenderung": 4,
-        "spiritualitaet": 3
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.5
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.86-87; Balliett S.74-75"
     },
-
     "PJ4": {
       "zahl": 4,
       "name": "Persönliches Jahr 4 — Die Arbeit",
@@ -214,18 +227,17 @@
       "beruf_hinweis": "Starkes Arbeitsjahr. Grundlegende Aufbauarbeit zahlt sich langfristig aus.",
       "finanzen_hinweis": "Sparsam und konservativ. Immobilien günstig. Keine spekulativen Investitionen.",
       "dimensionen_vektor": {
-        "liebe": 2,
-        "beruf": 5,
-        "finanzen": 4,
-        "gesundheit": 3,
-        "soziales": 2,
-        "kreativitaet": 2,
-        "veraenderung": 2,
-        "spiritualitaet": 2
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.25
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.87; Balliett S.75-76"
     },
-
     "PJ5": {
       "zahl": 5,
       "name": "Persönliches Jahr 5 — Die Veränderung",
@@ -238,18 +250,17 @@
       "beruf_hinweis": "Wechsel möglich und sinnvoll. Neue Branchen, neue Rollen. Flexibilität ist Trumpf.",
       "finanzen_hinweis": "Schwankungen. Keine langfristigen Festlegungen. Liquidität erhalten.",
       "dimensionen_vektor": {
-        "liebe": 3,
-        "beruf": 4,
-        "finanzen": 3,
-        "gesundheit": 4,
-        "soziales": 4,
-        "kreativitaet": 4,
-        "veraenderung": 5,
-        "spiritualitaet": 3
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.5
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.87-88; Balliett S.76-77"
     },
-
     "PJ6": {
       "zahl": 6,
       "name": "Persönliches Jahr 6 — Die Verantwortung",
@@ -262,18 +273,17 @@
       "beruf_hinweis": "Pflege-, Lehr-, Kunstberufe begünstigt. Teamarbeit und Harmonieförderung in Vordergrund.",
       "finanzen_hinweis": "Ausgaben für Haus und Familie erhöht. Stabile Einkünfte möglich. Kein Jahr für Spekulation.",
       "dimensionen_vektor": {
-        "liebe": 5,
-        "beruf": 3,
-        "finanzen": 3,
-        "gesundheit": 4,
-        "soziales": 5,
-        "kreativitaet": 4,
-        "veraenderung": 3,
-        "spiritualitaet": 4
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.75
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.88; Balliett S.77-78"
     },
-
     "PJ7": {
       "zahl": 7,
       "name": "Persönliches Jahr 7 — Die Einkehr",
@@ -286,18 +296,17 @@
       "beruf_hinweis": "Hintergrundarbeit, Forschung, spezialisierte Ausbildung. Kein Jahr für Selbstvermarktung.",
       "finanzen_hinweis": "Keine großen Investitionen. Sparsam leben. Finanziell ruhig halten.",
       "dimensionen_vektor": {
-        "liebe": 2,
-        "beruf": 3,
-        "finanzen": 2,
-        "gesundheit": 4,
-        "soziales": 2,
-        "kreativitaet": 3,
-        "veraenderung": 3,
-        "spiritualitaet": 5
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.75,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.88-89; Balliett S.78-79"
     },
-
     "PJ8": {
       "zahl": 8,
       "name": "Persönliches Jahr 8 — Die Ernte",
@@ -310,18 +319,17 @@
       "beruf_hinweis": "Stärkstes Karrierejahr des Zyklus. Erfolge durch Einsatz und Ausdauer. Führungsrollen.",
       "finanzen_hinweis": "Günstigstes Finanzjahr. Investitionen, Vermögensaufbau, große Transaktionen möglich.",
       "dimensionen_vektor": {
-        "liebe": 2,
-        "beruf": 5,
-        "finanzen": 5,
-        "gesundheit": 3,
-        "soziales": 3,
-        "kreativitaet": 3,
-        "veraenderung": 4,
-        "spiritualitaet": 2
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.25
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.89; Balliett S.79-81"
     },
-
     "PJ9": {
       "zahl": 9,
       "name": "Persönliches Jahr 9 — Der Abschluss",
@@ -334,18 +342,17 @@
       "beruf_hinweis": "Abschluss bestehender Projekte. Kein Jahr für Neustarts. Berufliche Übergänge vorbereiten.",
       "finanzen_hinweis": "Konservativ. Manche Verluste unvermeidlich. Auf das Nächste vorbereiten.",
       "dimensionen_vektor": {
-        "liebe": 3,
-        "beruf": 3,
-        "finanzen": 2,
-        "gesundheit": 3,
-        "soziales": 4,
-        "kreativitaet": 4,
-        "veraenderung": 5,
-        "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
       },
       "quelle_vektor": "Cheiro Kap.10; Westcott S.89-90; Balliett S.81-82"
     },
-
     "PJ11": {
       "zahl": 11,
       "name": "Persönliches Jahr 11 — Die Erleuchtung",
@@ -355,18 +362,17 @@
       "chancen": "Spirituelle Durchbrüche, kreative Inspiration, öffentliche Präsenz als Visionär, Lehren und Inspirieren anderer.",
       "warnungen": "Überreizung, nervliche Belastung, unrealistische Erwartungen. Erdung notwendig.",
       "dimensionen_vektor": {
-        "liebe": 4,
-        "beruf": 4,
-        "finanzen": 3,
-        "gesundheit": 2,
-        "soziales": 4,
-        "kreativitaet": 5,
-        "veraenderung": 4,
-        "spiritualitaet": 5
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.25,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
       },
       "quelle_vektor": "Westcott S.86; Balliett S.83; Cheiro Kap.11"
     },
-
     "PJ22": {
       "zahl": 22,
       "name": "Persönliches Jahr 22 — Der Meisterbauer",
@@ -376,108 +382,221 @@
       "chancen": "Große Unternehmungen starten, gesellschaftliche Beiträge leisten, Institutionen gründen, Lebenswerk vorantreiben.",
       "warnungen": "Größenwahn vermeiden. Erdung essenziell. Hohe Verantwortung mit dem Potential verbinden.",
       "dimensionen_vektor": {
-        "liebe": 3,
-        "beruf": 5,
-        "finanzen": 5,
-        "gesundheit": 3,
-        "soziales": 4,
-        "kreativitaet": 5,
-        "veraenderung": 5,
-        "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
       },
       "quelle_vektor": "Westcott S.90; Balliett S.84; Cheiro Kap.11"
     }
-
   },
-
   "persoenlicher_monat_profile": {
-
     "beschreibung": "81 Kombinationen aus Persönlichem Jahr (1-9) × Kalendermonat (1-12 → auf 1-9 reduziert). Bedeutung ergibt sich aus der Interaktion beider Zahlen. Nachfolgend die 9 Grundbedeutungen des Persönlichen Monats; für die vollständige Matrix werden diese mit dem Hintergrund des Persönlichen Jahres gewichtet.",
     "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
-
     "PM1": {
       "monatszahl": 1,
       "name": "Persönlicher Monat 1",
       "schluesselthema": "Neue Anfänge, Entscheidungen, Initiative",
       "beschreibung": "Geeignet für neue Projekte, Gespräche initiieren, Selbständigkeit demonstrieren. Energie ist frisch und direkt.",
-      "beste_aktionen": ["Projekte starten", "Entscheidungen treffen", "Eigeninitiative zeigen", "Verhandlungen beginnen"],
-      "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2}
+      "beste_aktionen": [
+        "Projekte starten",
+        "Entscheidungen treffen",
+        "Eigeninitiative zeigen",
+        "Verhandlungen beginnen"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.25
+      }
     },
-
     "PM2": {
       "monatszahl": 2,
       "name": "Persönlicher Monat 2",
       "schluesselthema": "Kooperation, Details, Geduld, Abwarten",
       "beschreibung": "Monat des Sammelns und Wartens. Beziehungen und Netzwerke pflegen. Nicht forcieren — Hintergrundarbeit leisten.",
-      "beste_aktionen": ["Netzwerken", "Details klären", "Beziehungen pflegen", "Hintergrundinformationen sammeln"],
-      "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+      "beste_aktionen": [
+        "Netzwerken",
+        "Details klären",
+        "Beziehungen pflegen",
+        "Hintergrundinformationen sammeln"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.75
+      }
     },
-
     "PM3": {
       "monatszahl": 3,
       "name": "Persönlicher Monat 3",
       "schluesselthema": "Ausdruck, Soziales, Kreativität, Kommunikation",
       "beschreibung": "Geselliger und kreativer Monat. Präsentationen, Auftritte, kreative Projekte, soziale Kontakte blühen auf.",
-      "beste_aktionen": ["Präsentieren", "Kreative Projekte", "Soziale Events", "Schreiben und Kommunizieren"],
-      "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}
+      "beste_aktionen": [
+        "Präsentieren",
+        "Kreative Projekte",
+        "Soziale Events",
+        "Schreiben und Kommunizieren"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
     },
-
     "PM4": {
       "monatszahl": 4,
       "name": "Persönlicher Monat 4",
       "schluesselthema": "Arbeit, Organisation, Struktur, Aufbau",
       "beschreibung": "Monat für Fleiß, Ordnung, administrative Aufgaben und solide Aufbauarbeit. Kein Glamour, aber nachhaltiger Fortschritt.",
-      "beste_aktionen": ["Organisieren", "Budgetieren", "Strukturen aufbauen", "Gesundheitsroutinen festigen"],
-      "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 4, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}
+      "beste_aktionen": [
+        "Organisieren",
+        "Budgetieren",
+        "Strukturen aufbauen",
+        "Gesundheitsroutinen festigen"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 0.25,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.25
+      }
     },
-
     "PM5": {
       "monatszahl": 5,
       "name": "Persönlicher Monat 5",
       "schluesselthema": "Veränderung, Freiheit, Unerwartetes, Reisen",
       "beschreibung": "Dynamischer, unberechenbarer Monat. Flexibel bleiben, Veränderungen annehmen, neue Eindrücke sammeln.",
-      "beste_aktionen": ["Reisen", "Spontane Entscheidungen", "Neue Kontakte", "Alte Strukturen lösen"],
-      "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}
+      "beste_aktionen": [
+        "Reisen",
+        "Spontane Entscheidungen",
+        "Neue Kontakte",
+        "Alte Strukturen lösen"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.5
+      }
     },
-
     "PM6": {
       "monatszahl": 6,
       "name": "Persönlicher Monat 6",
       "schluesselthema": "Familie, Verantwortung, Heimat, Harmonie",
       "beschreibung": "Monat der Fürsorge und familiären Verbindlichkeiten. Heim und Beziehungen im Mittelpunkt. Harmonie schaffen.",
-      "beste_aktionen": ["Familienfragen regeln", "Häusliche Verbesserungen", "Beziehungspflege", "Heilungsarbeit"],
-      "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}
+      "beste_aktionen": [
+        "Familienfragen regeln",
+        "Häusliche Verbesserungen",
+        "Beziehungspflege",
+        "Heilungsarbeit"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.75
+      }
     },
-
     "PM7": {
       "monatszahl": 7,
       "name": "Persönlicher Monat 7",
       "schluesselthema": "Reflexion, Analyse, Spiritualität, Rückzug",
       "beschreibung": "Introvertierter Monat. Innenwelt erkunden, analysieren, forschen, meditieren. Keine Forcierung äußerer Resultate.",
-      "beste_aktionen": ["Studieren", "Meditieren", "Analysieren", "Alleine arbeiten", "Gesundheitscheck"],
-      "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 4, "soziales": 2, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 5}
+      "beste_aktionen": [
+        "Studieren",
+        "Meditieren",
+        "Analysieren",
+        "Alleine arbeiten",
+        "Gesundheitscheck"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.75,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 1.0
+      }
     },
-
     "PM8": {
       "monatszahl": 8,
       "name": "Persönlicher Monat 8",
       "schluesselthema": "Finanzen, Macht, Karriere, materielle Ergebnisse",
       "beschreibung": "Günstiger Monat für Finanzentscheidungen, Vertragsabschlüsse, Karriereschritte, Machtpositionen.",
-      "beste_aktionen": ["Vertragsabschlüsse", "Finanzinvestitionen", "Karrieregespräche", "Autoritätsansprüche"],
-      "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2}
+      "beste_aktionen": [
+        "Vertragsabschlüsse",
+        "Finanzinvestitionen",
+        "Karrieregespräche",
+        "Autoritätsansprüche"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.25
+      }
     },
-
     "PM9": {
       "monatszahl": 9,
       "name": "Persönlicher Monat 9",
       "schluesselthema": "Abschluss, Vollendung, Loslassen, humanitäre Themen",
       "beschreibung": "Monat des Abschlusses und der Reinigung. Altes beenden, vergeben, loslassen. Keine Neustarts — fertigstellen.",
-      "beste_aktionen": ["Projekte abschließen", "Beziehungen klären", "Vergeben und Loslassen", "Anderen dienen"],
-      "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 2, "gesundheit": 3, "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}
+      "beste_aktionen": [
+        "Projekte abschließen",
+        "Beziehungen klären",
+        "Vergeben und Loslassen",
+        "Anderen dienen"
+      ],
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
+      }
     }
-
   },
-
   "persoenlicher_monat_matrix_81": {
     "beschreibung": "Vollständige 9×9-Matrix für Persönliches Jahr × Persönlicher Monat. Zeigt die spezifische Energie jeder Kombination. Werte: qualitative Zusammenfassung der Interaktion.",
     "quelle": "Balliett - Philosophy of Numbers S.72-80; Cheiro Kap.10",
@@ -584,7 +703,6 @@
       }
     }
   },
-
   "persoenlicher_tag_grundsaetze": {
     "beschreibung": "Grundprinzipien für die Nutzung des Persönlichen Tages in der täglichen Entscheidungsfindung.",
     "quelle": "Balliett - Philosophy of Numbers S.80-82",
@@ -600,16 +718,17 @@
       "9": "Abschlüsse, Vollendungen, Reinigungen, Verzichten und Loslassen."
     }
   },
-
   "universelles_jahr_profile": {
     "beschreibung": "Das Universelle Jahr beschreibt die kollektive Energie des Kalenderjahres für alle Menschen.",
     "quelle": "Westcott S.83-84; Balliett S.68-70",
-
     "UJ1": {
       "zahl": 1,
       "schluesselthema": "Kollektiver Neubeginn, neue Ären, Innovationen, Pioniergeist",
       "beschreibung": "Universelle Jahre 1 bringen neue Zyklen für die Menschheit. Technologische Pionierarbeit, politische Neustarts, gesellschaftliche Veränderungen starten. Individueller Mut wird kollektiv gespiegelt.",
-      "beispiele": ["2026 = Universelles Jahr 1", "2017 = Universelles Jahr 1"]
+      "beispiele": [
+        "2026 = Universelles Jahr 1",
+        "2017 = Universelles Jahr 1"
+      ]
     },
     "UJ2": {
       "zahl": 2,
@@ -662,7 +781,6 @@
       "beschreibung": "Seltenste und mächtigste universelle Energie. Historische Institutionen werden gegründet, globale Strukturen manifestiert."
     }
   },
-
   "interaktion_pj_uj": {
     "beschreibung": "Regeln für die Interaktion zwischen Persönlichem Jahr (PJ) und Universellen Jahr (UJ).",
     "quelle": "Westcott S.83-84; Balliett S.68-70",
@@ -689,53 +807,382 @@
       }
     ]
   },
-
   "pinnacle_profile": {
     "beschreibung": "Vollständige Profile für alle möglichen Pinnacle-Zahlen 1-9, 11, 22.",
     "quelle": "Westcott S.90-95; Cheiro - Book of Numbers Kap.12; Balliett S.85-92",
-
-    "PIN1": {"zahl": 1, "name": "Pinnacle 1", "thema": "Eigenständigkeit, Führung, Pionierarbeit", "beschreibung": "Lebensabschnitt der Selbstfindung und Führungsstärke. Unabhängigkeit wird aufgebaut. Der Mensch lernt, auf eigenen Füßen zu stehen und eigene Wege zu gehen.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 2}},
-    "PIN2": {"zahl": 2, "name": "Pinnacle 2", "thema": "Partnerschaft, Kooperation, Diplomatie", "beschreibung": "Lebensabschnitt, der durch Beziehungen und Zusammenarbeit geprägt ist. Entwicklung von Geduld, Einfühlungsvermögen und diplomatischem Geschick.", "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}},
-    "PIN3": {"zahl": 3, "name": "Pinnacle 3", "thema": "Kreativer Ausdruck, Kommunikation, Geselligkeit", "beschreibung": "Zeit des künstlerischen Aufblühens und sozialen Gedeihens. Talent wird entfaltet, Freude wird gelebt, Kreativität findet ihren Weg.", "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3}},
-    "PIN4": {"zahl": 4, "name": "Pinnacle 4", "thema": "Aufbau, Disziplin, Stabilität", "beschreibung": "Lebensabschnitt harter, zielgerichteter Arbeit. Fundamente werden gelegt. Kein Glamour, aber beständiger Aufbau von Sicherheit und Struktur.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 3, "soziales": 2, "kreativitaet": 2, "veraenderung": 2, "spiritualitaet": 2}},
-    "PIN5": {"zahl": 5, "name": "Pinnacle 5", "thema": "Wandel, Freiheit, Abenteuer", "beschreibung": "Dynamischer Lebensabschnitt voller Veränderungen, Reisen und unerwarteter Wendungen. Freiheit ist der Wert, der zählt.", "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 4, "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3}},
-    "PIN6": {"zahl": 6, "name": "Pinnacle 6", "thema": "Familie, Verantwortung, Heimat", "beschreibung": "Familiärer Lebensabschnitt. Ehe, Elternschaft, häusliche Pflichten, Gemeinschaftsverantwortung stehen im Mittelpunkt.", "dimensionen_vektor": {"liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4, "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 4}},
-    "PIN7": {"zahl": 7, "name": "Pinnacle 7", "thema": "Spiritualität, Reflexion, Wissen", "beschreibung": "Innerer Lebensabschnitt. Studium, Forschung, Spiritualität, Einsamkeit und Tiefe prägen diesen Zyklus. Weisheit wächst.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 4, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5}},
-    "PIN8": {"zahl": 8, "name": "Pinnacle 8", "thema": "Macht, materieller Erfolg, Karriere", "beschreibung": "Lebensabschnitt des materiellen Aufstiegs. Karriere, Finanzen, Führung und Einfluss stehen im Fokus. Karma wird deutlich sichtbar.", "dimensionen_vektor": {"liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2}},
-    "PIN9": {"zahl": 9, "name": "Pinnacle 9", "thema": "Humanitärer Dienst, Vollendung, universale Liebe", "beschreibung": "Lebensabschnitt der Weisheit und des dienenden Lebens. Humanitäre Ziele, künstlerische Vollendung, Abschlüsse und Loslassen.", "dimensionen_vektor": {"liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3, "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5}},
-    "PIN11": {"zahl": 11, "name": "Pinnacle 11", "thema": "Spirituelle Führung, Inspiration, Meisterzahl-Abschnitt", "beschreibung": "Seltener und intensiver Meisterzahl-Abschnitt. Erhöhte Intuition, spirituelle Mission, öffentliche Wirkung als Visionär. Sehr anspruchsvoll.", "dimensionen_vektor": {"liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 2, "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5}},
-    "PIN22": {"zahl": 22, "name": "Pinnacle 22", "thema": "Meisterbau, Manifestation auf höchster Ebene", "beschreibung": "Seltenster Pinnacle. Potenzial für historisch bedeutende Errungenschaften. Visionen materialisieren sich. Höchste Anforderungen an Disziplin und Erdung.", "dimensionen_vektor": {"liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3, "soziales": 4, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 5}}
+    "PIN1": {
+      "zahl": 1,
+      "name": "Pinnacle 1",
+      "thema": "Eigenständigkeit, Führung, Pionierarbeit",
+      "beschreibung": "Lebensabschnitt der Selbstfindung und Führungsstärke. Unabhängigkeit wird aufgebaut. Der Mensch lernt, auf eigenen Füßen zu stehen und eigene Wege zu gehen.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.25
+      }
+    },
+    "PIN2": {
+      "zahl": 2,
+      "name": "Pinnacle 2",
+      "thema": "Partnerschaft, Kooperation, Diplomatie",
+      "beschreibung": "Lebensabschnitt, der durch Beziehungen und Zusammenarbeit geprägt ist. Entwicklung von Geduld, Einfühlungsvermögen und diplomatischem Geschick.",
+      "dimensionen_vektor": {
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.75
+      }
+    },
+    "PIN3": {
+      "zahl": 3,
+      "name": "Pinnacle 3",
+      "thema": "Kreativer Ausdruck, Kommunikation, Geselligkeit",
+      "beschreibung": "Zeit des künstlerischen Aufblühens und sozialen Gedeihens. Talent wird entfaltet, Freude wird gelebt, Kreativität findet ihren Weg.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "PIN4": {
+      "zahl": 4,
+      "name": "Pinnacle 4",
+      "thema": "Aufbau, Disziplin, Stabilität",
+      "beschreibung": "Lebensabschnitt harter, zielgerichteter Arbeit. Fundamente werden gelegt. Kein Glamour, aber beständiger Aufbau von Sicherheit und Struktur.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.25
+      }
+    },
+    "PIN5": {
+      "zahl": 5,
+      "name": "Pinnacle 5",
+      "thema": "Wandel, Freiheit, Abenteuer",
+      "beschreibung": "Dynamischer Lebensabschnitt voller Veränderungen, Reisen und unerwarteter Wendungen. Freiheit ist der Wert, der zählt.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.5
+      }
+    },
+    "PIN6": {
+      "zahl": 6,
+      "name": "Pinnacle 6",
+      "thema": "Familie, Verantwortung, Heimat",
+      "beschreibung": "Familiärer Lebensabschnitt. Ehe, Elternschaft, häusliche Pflichten, Gemeinschaftsverantwortung stehen im Mittelpunkt.",
+      "dimensionen_vektor": {
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.75
+      }
+    },
+    "PIN7": {
+      "zahl": 7,
+      "name": "Pinnacle 7",
+      "thema": "Spiritualität, Reflexion, Wissen",
+      "beschreibung": "Innerer Lebensabschnitt. Studium, Forschung, Spiritualität, Einsamkeit und Tiefe prägen diesen Zyklus. Weisheit wächst.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.75,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
+      }
+    },
+    "PIN8": {
+      "zahl": 8,
+      "name": "Pinnacle 8",
+      "thema": "Macht, materieller Erfolg, Karriere",
+      "beschreibung": "Lebensabschnitt des materiellen Aufstiegs. Karriere, Finanzen, Führung und Einfluss stehen im Fokus. Karma wird deutlich sichtbar.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.25
+      }
+    },
+    "PIN9": {
+      "zahl": 9,
+      "name": "Pinnacle 9",
+      "thema": "Humanitärer Dienst, Vollendung, universale Liebe",
+      "beschreibung": "Lebensabschnitt der Weisheit und des dienenden Lebens. Humanitäre Ziele, künstlerische Vollendung, Abschlüsse und Loslassen.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 1.0,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
+      }
+    },
+    "PIN11": {
+      "zahl": 11,
+      "name": "Pinnacle 11",
+      "thema": "Spirituelle Führung, Inspiration, Meisterzahl-Abschnitt",
+      "beschreibung": "Seltener und intensiver Meisterzahl-Abschnitt. Erhöhte Intuition, spirituelle Mission, öffentliche Wirkung als Visionär. Sehr anspruchsvoll.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.25,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
+      }
+    },
+    "PIN22": {
+      "zahl": 22,
+      "name": "Pinnacle 22",
+      "thema": "Meisterbau, Manifestation auf höchster Ebene",
+      "beschreibung": "Seltenster Pinnacle. Potenzial für historisch bedeutende Errungenschaften. Visionen materialisieren sich. Höchste Anforderungen an Disziplin und Erdung.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
+      }
+    }
   },
-
   "challenge_profile": {
     "beschreibung": "Vollständige Profile für alle Challenge-Zahlen 0-8.",
     "quelle": "Westcott S.95-98; Cheiro Kap.12; Balliett S.92-98",
-
-    "CH0": {"zahl": 0, "name": "Challenge 0", "thema": "Keine spezifische Herausforderung — alle Bereiche offen", "lektion": "Entscheidungsfreude entwickeln. Zu viele Optionen können lähmen. Fokus und Prioritätensetzung üben.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
-    "CH1": {"zahl": 1, "name": "Challenge 1", "thema": "Selbstvertrauen und Unabhängigkeit", "lektion": "Eigene Stärke finden. Weder übermäßige Abhängigkeit noch Dominanz. Den eigenen Weg gehen.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
-    "CH2": {"zahl": 2, "name": "Challenge 2", "thema": "Emotionale Stabilität und innere Sicherheit", "lektion": "Überempfindlichkeit überwinden. Eigene emotionale Bedürfnisse erkennen und kommunizieren. Selbstwert aus innen aufbauen.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}},
-    "CH3": {"zahl": 3, "name": "Challenge 3", "thema": "Kreative Disziplin und Selbstausdruck", "lektion": "Talente gezielt einsetzen statt vergeuden. Selbstkritik überwinden und Ausdruck wagen. Disziplin in Kreativität.", "dimensionen_vektor": {"liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3}},
-    "CH4": {"zahl": 4, "name": "Challenge 4", "thema": "Balance zwischen Struktur und Flexibilität", "lektion": "Weder zu starr noch zu unstrukturiert. Disziplin und Ordnung kultivieren, aber Lebendigkeit erhalten.", "dimensionen_vektor": {"liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3}},
-    "CH5": {"zahl": 5, "name": "Challenge 5", "thema": "Freiheit und Verantwortung verbinden", "lektion": "Freiheitsstreben mit Verlässlichkeit verbinden. Exzesse vermeiden. Langfristige Konsequenzen von Entscheidungen berücksichtigen.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 2, "gesundheit": 2, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
-    "CH6": {"zahl": 6, "name": "Challenge 6", "thema": "Grenzen in Fürsorge", "lektion": "Fürsorge ohne Selbstaufopferung. Eigene Grenzen setzen. Verantwortung annehmen ohne Kontrolle zu verlieren.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}},
-    "CH7": {"zahl": 7, "name": "Challenge 7", "thema": "Vertrauen und innere Öffnung", "lektion": "Überintellektualisierung loslassen. Spirituelle Öffnung zulassen. Anderen vertrauen. Einsamkeit von Rückzug unterscheiden.", "dimensionen_vektor": {"liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3, "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 2}},
-    "CH8": {"zahl": 8, "name": "Challenge 8", "thema": "Gesunder Umgang mit Macht und Materie", "lektion": "Weder Angst vor Erfolg und Reichtum noch Gier und Machtmissbrauch. Kraft weise einsetzen. Materielles im Dienst des Höheren.", "dimensionen_vektor": {"liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3, "soziales": 3, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3}}
+    "CH0": {
+      "zahl": 0,
+      "name": "Challenge 0",
+      "thema": "Keine spezifische Herausforderung — alle Bereiche offen",
+      "lektion": "Entscheidungsfreude entwickeln. Zu viele Optionen können lähmen. Fokus und Prioritätensetzung üben.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH1": {
+      "zahl": 1,
+      "name": "Challenge 1",
+      "thema": "Selbstvertrauen und Unabhängigkeit",
+      "lektion": "Eigene Stärke finden. Weder übermäßige Abhängigkeit noch Dominanz. Den eigenen Weg gehen.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH2": {
+      "zahl": 2,
+      "name": "Challenge 2",
+      "thema": "Emotionale Stabilität und innere Sicherheit",
+      "lektion": "Überempfindlichkeit überwinden. Eigene emotionale Bedürfnisse erkennen und kommunizieren. Selbstwert aus innen aufbauen.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.25,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH3": {
+      "zahl": 3,
+      "name": "Challenge 3",
+      "thema": "Kreative Disziplin und Selbstausdruck",
+      "lektion": "Talente gezielt einsetzen statt vergeuden. Selbstkritik überwinden und Ausdruck wagen. Disziplin in Kreativität.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH4": {
+      "zahl": 4,
+      "name": "Challenge 4",
+      "thema": "Balance zwischen Struktur und Flexibilität",
+      "lektion": "Weder zu starr noch zu unstrukturiert. Disziplin und Ordnung kultivieren, aber Lebendigkeit erhalten.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.25,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH5": {
+      "zahl": 5,
+      "name": "Challenge 5",
+      "thema": "Freiheit und Verantwortung verbinden",
+      "lektion": "Freiheitsstreben mit Verlässlichkeit verbinden. Exzesse vermeiden. Langfristige Konsequenzen von Entscheidungen berücksichtigen.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.25,
+        "gesundheit": 0.25,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH6": {
+      "zahl": 6,
+      "name": "Challenge 6",
+      "thema": "Grenzen in Fürsorge",
+      "lektion": "Fürsorge ohne Selbstaufopferung. Eigene Grenzen setzen. Verantwortung annehmen ohne Kontrolle zu verlieren.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    },
+    "CH7": {
+      "zahl": 7,
+      "name": "Challenge 7",
+      "thema": "Vertrauen und innere Öffnung",
+      "lektion": "Überintellektualisierung loslassen. Spirituelle Öffnung zulassen. Anderen vertrauen. Einsamkeit von Rückzug unterscheiden.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.25
+      }
+    },
+    "CH8": {
+      "zahl": 8,
+      "name": "Challenge 8",
+      "thema": "Gesunder Umgang mit Macht und Materie",
+      "lektion": "Weder Angst vor Erfolg und Reichtum noch Gier und Machtmissbrauch. Kraft weise einsetzen. Materielles im Dienst des Höheren.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.25,
+        "finanzen": 0.25,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      }
+    }
   },
-
   "zeitrahmen_uebersicht": {
     "beschreibung": "Übersicht aller Zeitzyklen und ihrer typischen Dauer/Frequenz.",
     "quelle": "Cheiro - Book of Numbers Kap.10-12; Westcott S.83-98; Balliett S.68-98",
     "tabelle": [
-      {"zyklus": "Persönlicher Tag", "dauer": "1 Tag", "frequenz": "täglich", "berechnung": "Persönlicher Monat + Tagesdatum → Quersumme"},
-      {"zyklus": "Persönlicher Monat", "dauer": "1 Monat", "frequenz": "monatlich", "berechnung": "Persönliches Jahr + Kalendermonat → Quersumme"},
-      {"zyklus": "Persönliches Jahr", "dauer": "1 Jahr", "frequenz": "jährlich", "berechnung": "Geburtsmonat + Geburtstag + Kalenderjahr → Quersumme"},
-      {"zyklus": "9-Jahres-Zyklus", "dauer": "9 Jahre", "frequenz": "ca. 8-9x im Leben", "berechnung": "PJ1 bis PJ9"},
-      {"zyklus": "Pinnacles", "dauer": "variabel (8-27 Jahre)", "frequenz": "4× im Leben", "berechnung": "Differenzformel aus Geburtsdaten"},
-      {"zyklus": "Challenges", "dauer": "parallel zu Pinnacles", "frequenz": "4× im Leben", "berechnung": "Differenzformel aus Geburtsdaten"},
-      {"zyklus": "Lebenspfad-Perioden", "dauer": "ca. 27 Jahre je Phase", "frequenz": "3× im Leben", "berechnung": "Geburtsmonat, Geburtstag, Geburtsjahr separat"}
+      {
+        "zyklus": "Persönlicher Tag",
+        "dauer": "1 Tag",
+        "frequenz": "täglich",
+        "berechnung": "Persönlicher Monat + Tagesdatum → Quersumme"
+      },
+      {
+        "zyklus": "Persönlicher Monat",
+        "dauer": "1 Monat",
+        "frequenz": "monatlich",
+        "berechnung": "Persönliches Jahr + Kalendermonat → Quersumme"
+      },
+      {
+        "zyklus": "Persönliches Jahr",
+        "dauer": "1 Jahr",
+        "frequenz": "jährlich",
+        "berechnung": "Geburtsmonat + Geburtstag + Kalenderjahr → Quersumme"
+      },
+      {
+        "zyklus": "9-Jahres-Zyklus",
+        "dauer": "9 Jahre",
+        "frequenz": "ca. 8-9x im Leben",
+        "berechnung": "PJ1 bis PJ9"
+      },
+      {
+        "zyklus": "Pinnacles",
+        "dauer": "variabel (8-27 Jahre)",
+        "frequenz": "4× im Leben",
+        "berechnung": "Differenzformel aus Geburtsdaten"
+      },
+      {
+        "zyklus": "Challenges",
+        "dauer": "parallel zu Pinnacles",
+        "frequenz": "4× im Leben",
+        "berechnung": "Differenzformel aus Geburtsdaten"
+      },
+      {
+        "zyklus": "Lebenspfad-Perioden",
+        "dauer": "ca. 27 Jahre je Phase",
+        "frequenz": "3× im Leben",
+        "berechnung": "Geburtsmonat, Geburtstag, Geburtsjahr separat"
+      }
     ]
   },
-
   "regeln_index": {
     "beschreibung": "Index aller kodierten Regeln in dieser Datei.",
     "gesamt_regeln": 91,

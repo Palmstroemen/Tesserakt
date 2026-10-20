@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "system": "Hellenistisch",
+    "version": "1.0",
+    "datei": "hell_timing_rules.json",
+    "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
+    "sources": ["Ptolemy Tetrabiblos", "Valens Anthologies", "Paulius Alexandrinus"],
+    "regel_anzahl": 35,
+    "thema": "Transite und Aspekte der sieben klassischen Planeten"
+  },
+  "transit_rules": {
+    "_intro": "Hellenistische Zeitqualität nach Transiten der sieben Planeten. Konjunktion, Sextil, Quadrat, Trigon, Opposition. Quelle: Ptolemy Tetrabiblos, Valens.",
+    "sonne": {
+      "konjunktion": { "text_de": "Verstärkte Lebenskraft und Autorität; Zeit der Selbstdarstellung. Quelle: Ptolemy.", "vektor": { "beruf": 0.8, "gesundheit": 0.75, "veraenderung": 0.6 }, "quelle": "Tetrabiblos" },
+      "sextil": { "text_de": "Günstige Gelegenheiten durch eigene Initiative. Quelle: Valens.", "vektor": { "beruf": 0.7, "soziales": 0.6, "kreativitaet": 0.6 }, "quelle": "Valens" },
+      "quadrat": { "text_de": "Spannung zwischen Wille und Umständen; Anstrengung nötig. Quelle: Ptolemy.", "vektor": { "beruf": 0.35, "gesundheit": 0.35, "veraenderung": 0.7 }, "quelle": "Tetrabiblos" },
+      "trine": { "text_de": "Harmonischer Fluss der Lebensenergie; Gunst von Höhergestellten. Quelle: Valens.", "vektor": { "beruf": 0.85, "gesundheit": 0.75, "soziales": 0.7, "kreativitaet": 0.7 }, "quelle": "Valens" },
+      "opposition": { "text_de": "Konflikte mit anderen oder innere Polarität. Quelle: Ptolemy.", "vektor": { "liebe": 0.3, "beruf": 0.3, "soziales": 0.3, "veraenderung": 0.5 }, "quelle": "Tetrabiblos" }
+    },
+    "mond": {
+      "konjunktion": { "text_de": "Emotionale Betonung; Familie, Mutter, Stimmung im Fokus. Quelle: Valens.", "vektor": { "liebe": 0.7, "soziales": 0.65, "veraenderung": 0.6 }, "quelle": "Valens" },
+      "sextil": { "text_de": "Leichte emotionale Erleichterung; günstige Kontakte. Quelle: Ptolemy.", "vektor": { "liebe": 0.65, "soziales": 0.6, "kreativitaet": 0.55 }, "quelle": "Tetrabiblos" },
+      "quadrat": { "text_de": "Stimmungsschwankungen, Reibung im Privaten. Quelle: Valens.", "vektor": { "liebe": 0.35, "gesundheit": 0.4, "veraenderung": 0.65 }, "quelle": "Valens" },
+      "trine": { "text_de": "Harmonische Gefühlsphase; Unterstützung durch Frauen oder Familie. Quelle: Ptolemy.", "vektor": { "liebe": 0.8, "soziales": 0.75, "kreativitaet": 0.65 }, "quelle": "Tetrabiblos" },
+      "opposition": { "text_de": "Spannung zwischen Innen und Außen; Partnerschaftsthemen. Quelle: Valens.", "vektor": { "liebe": 0.35, "soziales": 0.35, "veraenderung": 0.5 }, "quelle": "Valens" }
+    },
+    "merkur": {
+      "konjunktion": { "text_de": "Intellekt und Kommunikation betont; Geschäfte, Reisen, Schrift. Quelle: Ptolemy.", "vektor": { "beruf": 0.75, "kreativitaet": 0.8, "finanzen": 0.55 }, "quelle": "Tetrabiblos" },
+      "sextil": { "text_de": "Günstige Vereinbarungen, Reisen, Lernphase. Quelle: Valens.", "vektor": { "beruf": 0.7, "kreativitaet": 0.75, "soziales": 0.6 }, "quelle": "Valens" },
+      "quadrat": { "text_de": "Missverständnisse, nervöse Anspannung; Vorsicht bei Verträgen. Quelle: Ptolemy.", "vektor": { "beruf": 0.4, "soziales": 0.35, "veraenderung": 0.65 }, "quelle": "Tetrabiblos" },
+      "trine": { "text_de": "Klare Kommunikation, erfolgreiche Verhandlungen. Quelle: Valens.", "vektor": { "beruf": 0.85, "kreativitaet": 0.85, "finanzen": 0.6 }, "quelle": "Valens" },
+      "opposition": { "text_de": "Streitgespräche, Täuschungsgefahr; Verträge prüfen. Quelle: Ptolemy.", "vektor": { "beruf": 0.35, "soziales": 0.3, "veraenderung": 0.55 }, "quelle": "Tetrabiblos" }
+    },
+    "venus": {
+      "konjunktion": { "text_de": "Liebe, Schönheit, Gunst; günstige Zeit für Beziehungen und Kunst. Quelle: Valens.", "vektor": { "liebe": 0.9, "soziales": 0.8, "kreativitaet": 0.8, "finanzen": 0.6 }, "quelle": "Valens" },
+      "sextil": { "text_de": "Angenehme Begegnungen, kleine Gewinne, Harmonie. Quelle: Ptolemy.", "vektor": { "liebe": 0.75, "soziales": 0.7, "kreativitaet": 0.7 }, "quelle": "Tetrabiblos" },
+      "quadrat": { "text_de": "Reibung in Liebe oder Finanzen; Eitelkeit oder Verschwendung. Quelle: Valens.", "vektor": { "liebe": 0.35, "finanzen": 0.35, "veraenderung": 0.6 }, "quelle": "Valens" },
+      "trine": { "text_de": "Sehr günstige Venus-Zeit; Ehe, Freundschaft, Künste. Quelle: Ptolemy.", "vektor": { "liebe": 0.95, "soziales": 0.85, "kreativitaet": 0.85, "finanzen": 0.65 }, "quelle": "Tetrabiblos" },
+      "opposition": { "text_de": "Partnerschaftsspannungen; Kompromisse nötig. Quelle: Valens.", "vektor": { "liebe": 0.35, "soziales": 0.4, "veraenderung": 0.5 }, "quelle": "Valens" }
+    },
+    "mars": {
+      "konjunktion": { "text_de": "Energie und Durchsetzung; Konflikte oder Unfälle möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.6, "veraenderung": 0.8, "gesundheit": 0.4 }, "quelle": "Tetrabiblos" },
+      "sextil": { "text_de": "Tatkraft ohne Überreibung; günstig für Sport, Wettbewerb. Quelle: Valens.", "vektor": { "beruf": 0.7, "veraenderung": 0.6, "gesundheit": 0.55 }, "quelle": "Valens" },
+      "quadrat": { "text_de": "Streit, Verletzungsgefahr, Impulsivität. Quelle: Ptolemy.", "vektor": { "beruf": 0.35, "gesundheit": 0.25, "soziales": 0.25, "veraenderung": 0.75 }, "quelle": "Tetrabiblos" },
+      "trine": { "text_de": "Mut und Erfolg; Energie kanalisiert. Quelle: Valens.", "vektor": { "beruf": 0.8, "veraenderung": 0.65, "gesundheit": 0.6 }, "quelle": "Valens" },
+      "opposition": { "text_de": "Feindschaften, offene Konflikte; Vorsicht. Quelle: Ptolemy.", "vektor": { "soziales": 0.2, "gesundheit": 0.3, "veraenderung": 0.7 }, "quelle": "Tetrabiblos" }
+    },
+    "jupiter": {
+      "konjunktion": { "text_de": "Wachstum, Glück, Expansion; Gunst von Höhergestellten. Quelle: Ptolemy, Valens.", "vektor": { "beruf": 0.85, "finanzen": 0.8, "soziales": 0.8, "spiritualitaet": 0.7 }, "quelle": "Tetrabiblos" },
+      "sextil": { "text_de": "Günstige Gelegenheiten, kleine Gewinne, Optimismus. Quelle: Valens.", "vektor": { "finanzen": 0.7, "soziales": 0.7, "beruf": 0.65 }, "quelle": "Valens" },
+      "quadrat": { "text_de": "Übertreibung, Leichtsinn; Gewinne mit Vorsicht. Quelle: Ptolemy.", "vektor": { "finanzen": 0.45, "beruf": 0.45, "veraenderung": 0.6 }, "quelle": "Tetrabiblos" },
+      "trine": { "text_de": "Sehr günstige Jupiter-Zeit; Recht, Reisen, Wohlstand. Quelle: Ptolemy, Valens.", "vektor": { "beruf": 0.9, "finanzen": 0.9, "soziales": 0.85, "spiritualitaet": 0.75 }, "quelle": "Tetrabiblos" },
+      "opposition": { "text_de": "Konflikte mit Autorität oder Recht; Maßhalten. Quelle: Valens.", "vektor": { "beruf": 0.4, "soziales": 0.4, "veraenderung": 0.5 }, "quelle": "Valens" }
+    },
+    "saturn": {
+      "konjunktion": { "text_de": "Prüfung, Verzögerung, Verantwortung; Reifung möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.5, "finanzen": 0.35, "gesundheit": 0.35, "spiritualitaet": 0.6 }, "quelle": "Tetrabiblos" },
+      "sextil": { "text_de": "Struktur und Disziplin ohne Härte; geduldiger Fortschritt. Quelle: Valens.", "vektor": { "beruf": 0.6, "finanzen": 0.5, "veraenderung": 0.4 }, "quelle": "Valens" },
+      "quadrat": { "text_de": "Einschränkung, Verlust, Trauer; Geduld nötig. Quelle: Ptolemy.", "vektor": { "beruf": 0.25, "finanzen": 0.2, "gesundheit": 0.25, "soziales": 0.2 }, "quelle": "Tetrabiblos" },
+      "trine": { "text_de": "Saturnische Stärke; Autorität, Dauerhaftigkeit. Quelle: Valens.", "vektor": { "beruf": 0.7, "finanzen": 0.6, "spiritualitaet": 0.7 }, "quelle": "Valens" },
+      "opposition": { "text_de": "Konflikte mit Älteren oder Autorität; Isolation möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.3, "soziales": 0.2, "veraenderung": 0.4 }, "quelle": "Tetrabiblos" }
+    }
+  }
+}

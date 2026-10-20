@@ -1,10 +1,49 @@
 {
   "_meta": {
     "system": "Hellenistisch",
-    "beschreibung": "Hellenistische Astrologie — Profektionen + Lose + Sekt",
+    "beschreibung": "Hellenistische Astrologie — Profektionen + Lose + Sekt + Zeichen + Planet",
     "zeit_abhaengig": true
   },
   "vektor_quellen": [
+    {
+      "id": "natal_sign",
+      "schluessel": "hell_natal_sign",
+      "typ": "nach_zeichen",
+      "eingabe": "sonnenzeichen",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "planet_fallback",
+      "schluessel": "planeten",
+      "typ": "nach_planet_herrscher",
+      "eingabe": "sonnenzeichen",
+      "herrscher_quelle": "planet_rulers_dignities",
+      "dim_feld": "dimensionen",
+      "gewicht": 0.4,
+      "nur_wenn_leer": true,
+      "pflicht": false
+    },
+    {
+      "id": "thematic_profektion",
+      "typ": "thematic_profektion",
+      "schluessel_format": "planeten_im_{n}_haus",
+      "dim_feld": "vektor",
+      "gewicht": 0.5,
+      "pflicht": false
+    },
+    {
+      "id": "transite",
+      "schluessel": "transit_rules",
+      "typ": "transit",
+      "eingabe": "zieldatum",
+      "dim_feld": "vektor",
+      "gewicht": 0.5,
+      "gewicht_abnahme": 0.1,
+      "gewicht_minimum": 0.2,
+      "pflicht": false
+    },
     {
       "id": "jaehrliche_profektionen",
       "schluessel": "jaehrliche_profektionen",
@@ -13,8 +52,17 @@
       "zyklus": 12,
       "schluessel_format": "haus_{n}",
       "dim_feld": "dimensionen_vektor",
-      "gewicht": 1.0,
+      "gewicht": 1,
       "pflicht": true
+    },
+    {
+      "id": "jahresherrscher",
+      "schluessel": "jahresherrscher_profile",
+      "typ": "jahresherrscher",
+      "eingabe": "lebensalter",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.45,
+      "pflicht": false
     },
     {
       "id": "lot_glueck",
@@ -25,6 +73,14 @@
       "pflicht": false
     },
     {
+      "id": "lot_geist",
+      "schluessel": "lot_des_geistes",
+      "typ": "direkter_vektor",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.4,
+      "pflicht": false
+    },
+    {
       "id": "sekt",
       "schluessel": "sekt_system",
       "typ": "sekt",
@@ -32,6 +88,25 @@
       "tag_schluessel": "dimensionen_vektor_tag",
       "nacht_schluessel": "dimensionen_vektor_nacht",
       "gewicht": 0.33,
+      "pflicht": false
+    },
+    {
+      "id": "health_zeichen",
+      "schluessel": "hell_health_zeichen",
+      "typ": "nach_zeichen",
+      "eingabe": "sonnenzeichen",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.25,
+      "pflicht": false
+    },
+    {
+      "id": "health_planeten",
+      "schluessel": "hell_health_planeten",
+      "typ": "nach_planet_herrscher",
+      "eingabe": "sonnenzeichen",
+      "herrscher_quelle": "planet_rulers_dignities",
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.2,
       "pflicht": false
     }
   ]

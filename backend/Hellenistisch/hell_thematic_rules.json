@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "system": "Hellenistisch",
+    "version": "1.0",
+    "datei": "hell_thematic_rules.json",
+    "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
+    "sources": ["Ptolemy Tetrabiblos III", "Valens Anthologies"],
+    "regel_anzahl": 84
+  },
+  "planeten_im_1_haus": {
+    "sonne": { "text_de": "Leben und Körper von Sonne beherrscht; starke Vitalität, Führungsnatur. Quelle: Ptolemy III.12, Valens.", "vektor": { "gesundheit": 0.85, "beruf": 0.7, "soziales": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Körper und Gemüt wechselhaft; Gefühlsleben prägt Erscheinung. Quelle: Valens.", "vektor": { "gesundheit": 0.5, "liebe": 0.5, "veraenderung": 0.6 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Schneller Geist, geschickte Rede; Körper eher zart. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.75, "beruf": 0.6, "gesundheit": 0.45 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Angenehmes Äußeres, Liebe und Gunst; Körper harmonisch. Quelle: Ptolemy, Valens.", "vektor": { "liebe": 0.8, "soziales": 0.7, "gesundheit": 0.55 }, "quelle": "Tetrabiblos III" },
+    "mars": { "text_de": "Kräftiger Körper, Kampfbereitschaft; Verletzungsneigung. Quelle: Ptolemy III.12.", "vektor": { "gesundheit": 0.4, "veraenderung": 0.7, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Wohlige Konstitution, Gerechtigkeitssinn; Ansehen. Quelle: Valens.", "vektor": { "gesundheit": 0.75, "soziales": 0.8, "spiritualitaet": 0.5 }, "quelle": "Valens Anthologies" },
+    "saturn": { "text_de": "Schwächere Konstitution, Ernst, Verzögerungen im Leben. Quelle: Ptolemy.", "vektor": { "gesundheit": 0.25, "beruf": 0.4, "veraenderung": 0.2 }, "quelle": "Tetrabiblos III" }
+  },
+  "planeten_im_2_haus": {
+    "sonne": { "text_de": "Vermögen durch eigene Kraft und Stellung; Großzügigkeit. Quelle: Ptolemy III.", "vektor": { "finanzen": 0.75, "beruf": 0.65, "soziales": 0.45 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselnde Finanzen; Einnahmen durch Handel, Frauen, Reisen. Quelle: Valens.", "vektor": { "finanzen": 0.5, "veraenderung": 0.65, "soziales": 0.5 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Einnahmen durch Rede, Schrift, Handel; mehrere Quellen. Quelle: Ptolemy.", "vektor": { "finanzen": 0.55, "beruf": 0.7, "kreativitaet": 0.6 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Günstige Finanzen durch Kunst, Beziehungen, angenehme Güter. Quelle: Valens.", "vektor": { "finanzen": 0.8, "liebe": 0.6, "soziales": 0.7 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Geld durch Tatkraft, aber Verluste durch Unbedacht. Quelle: Ptolemy.", "vektor": { "finanzen": 0.35, "beruf": 0.5, "veraenderung": 0.6 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Starke 2.-Haus-Stellung; Wohlstand, Erbschaften, Gönner. Quelle: Ptolemy, Valens.", "vektor": { "finanzen": 0.95, "beruf": 0.7, "soziales": 0.7 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Langsamer Vermögensaufbau; Sparsamkeit, harte Arbeit. Quelle: Valens.", "vektor": { "finanzen": 0.4, "beruf": 0.45, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_3_haus": {
+    "sonne": { "text_de": "Kurze Reisen, Geschwisterbeziehungen von Sonne geprägt; Autorität unter Geschwistern. Quelle: Ptolemy.", "vektor": { "soziales": 0.6, "beruf": 0.5, "veraenderung": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Beziehungen zu Geschwistern; Reisen nah. Quelle: Valens.", "vektor": { "soziales": 0.5, "veraenderung": 0.6, "liebe": 0.4 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Geschwister gesprächig, viele kurze Reisen, Schriftverkehr. Quelle: Ptolemy.", "vektor": { "soziales": 0.7, "kreativitaet": 0.75, "veraenderung": 0.55 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Harmonische Geschwister, angenehme kurze Wege. Quelle: Valens.", "vektor": { "soziales": 0.75, "liebe": 0.6, "finanzen": 0.45 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Streit mit Geschwistern, unruhige Reisen. Quelle: Ptolemy.", "vektor": { "soziales": 0.25, "veraenderung": 0.7, "gesundheit": 0.35 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Günstige 3. Haus-Stellung; erfolgreiche Reisen, hilfreiche Geschwister. Quelle: Valens.", "vektor": { "soziales": 0.8, "finanzen": 0.5, "spiritualitaet": 0.45 }, "quelle": "Valens Anthologies" },
+    "saturn": { "text_de": "Wenige oder belastete Geschwister; Verzögerungen bei Reisen. Quelle: Ptolemy.", "vektor": { "soziales": 0.2, "veraenderung": 0.2, "beruf": 0.4 }, "quelle": "Tetrabiblos III" }
+  },
+  "planeten_im_4_haus": {
+    "sonne": { "text_de": "Vater und Heimat von Sonne geprägt; Erbe, Grundbesitz. Quelle: Ptolemy III.", "vektor": { "finanzen": 0.6, "soziales": 0.5, "gesundheit": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Mutter und Zuhause zentral; wechselhafte häusliche Verhältnisse. Quelle: Valens.", "vektor": { "liebe": 0.6, "soziales": 0.55, "veraenderung": 0.5 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Gelehrte oder geschäftstüchtige Eltern; schriftliche Erbschaft. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.6, "finanzen": 0.5, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Schönes Zuhause, angenehme Eltern; Erbe durch Beziehungen. Quelle: Valens.", "vektor": { "liebe": 0.75, "finanzen": 0.6, "soziales": 0.65 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Konflikte mit Eltern oder am Ort; Unruhe im Heim. Quelle: Ptolemy.", "vektor": { "soziales": 0.25, "veraenderung": 0.65, "gesundheit": 0.35 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Günstiges 4. Haus; ehrenvolle Eltern, sichere Heimat, Erbschaft. Quelle: Ptolemy, Valens.", "vektor": { "finanzen": 0.75, "soziales": 0.75, "spiritualitaet": 0.5 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Schwere im Elternhaus; Verzögerung bei Grundbesitz. Quelle: Valens.", "vektor": { "finanzen": 0.3, "soziales": 0.2, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_5_haus": {
+    "sonne": { "text_de": "Kinder und Freude stark; Nachkommen, Spiele, Ehre. Quelle: Ptolemy.", "vektor": { "liebe": 0.7, "kreativitaet": 0.7, "soziales": 0.6 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Kinderangelegenheiten; emotionale Kreativität. Quelle: Valens.", "vektor": { "liebe": 0.6, "kreativitaet": 0.6, "veraenderung": 0.5 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Kluge Kinder, geistige Spiele, schriftstellerische Freuden. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.85, "liebe": 0.5, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Angenehme Kinder, Liebe, Kunst, Vergnügen. Quelle: Valens.", "vektor": { "liebe": 0.9, "kreativitaet": 0.8, "soziales": 0.65 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Leidenschaftliche aber konfliktreiche Kinder oder Spiele. Quelle: Ptolemy.", "vektor": { "liebe": 0.4, "veraenderung": 0.7, "gesundheit": 0.35 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Sehr günstiges 5. Haus; viele oder gesegnete Kinder, Freude. Quelle: Ptolemy, Valens.", "vektor": { "liebe": 0.85, "finanzen": 0.6, "spiritualitaet": 0.5 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Wenige Kinder oder Verzögerung; ernste Freuden. Quelle: Valens.", "vektor": { "liebe": 0.25, "kreativitaet": 0.3, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_6_haus": {
+    "sonne": { "text_de": "Dienst und Gesundheit von Sonne beeinflusst; Autorität über Diener/Krankheit. Quelle: Ptolemy III.12.", "vektor": { "gesundheit": 0.5, "beruf": 0.5, "soziales": 0.4 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Gesundheit; Dienst durch Frauen oder wechselnde Tätigkeit. Quelle: Valens.", "vektor": { "gesundheit": 0.4, "veraenderung": 0.6, "beruf": 0.4 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Geistige Arbeit im Dienst; nervöse oder atembezogene Beschwerden. Quelle: Ptolemy.", "vektor": { "gesundheit": 0.45, "kreativitaet": 0.5, "beruf": 0.55 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Milde Krankheitsphasen; angenehme Dienerschaft. Quelle: Valens.", "vektor": { "gesundheit": 0.55, "liebe": 0.45, "soziales": 0.5 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Akute Krankheiten, Verletzungen; streitige Diener. Quelle: Ptolemy III.12.", "vektor": { "gesundheit": 0.2, "veraenderung": 0.7, "beruf": 0.35 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Linderung in 6. Haus; Besserung, hilfreiche Diener. Quelle: Valens.", "vektor": { "gesundheit": 0.65, "soziales": 0.5, "spiritualitaet": 0.45 }, "quelle": "Valens Anthologies" },
+    "saturn": { "text_de": "Chronische Leiden, schwere Dienste. Quelle: Ptolemy.", "vektor": { "gesundheit": 0.15, "beruf": 0.3, "veraenderung": 0.15 }, "quelle": "Tetrabiblos III" }
+  },
+  "planeten_im_7_haus": {
+    "sonne": { "text_de": "Partner und Ehe von Sonne geprägt; mächtige oder angesehene Gatten. Quelle: Ptolemy III.", "vektor": { "liebe": 0.75, "soziales": 0.65, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Partnerschaft; emotionale Bindung, öffentliche Verbindungen. Quelle: Valens.", "vektor": { "liebe": 0.6, "soziales": 0.6, "veraenderung": 0.55 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Redgewandte Partner, Verträge, geschäftliche Verbindungen. Quelle: Ptolemy.", "vektor": { "liebe": 0.55, "beruf": 0.7, "kreativitaet": 0.6 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Harmonische Ehe, Liebe, schöne Partner. Quelle: Valens, Ptolemy.", "vektor": { "liebe": 0.95, "soziales": 0.8, "finanzen": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mars": { "text_de": "Leidenschaftliche aber streitige Ehe; Feinde sichtbar. Quelle: Ptolemy.", "vektor": { "liebe": 0.35, "veraenderung": 0.7, "soziales": 0.25 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Sehr günstiges 7. Haus; ehrenvolle, wohlhabende Partner. Quelle: Ptolemy, Valens.", "vektor": { "liebe": 0.9, "finanzen": 0.7, "soziales": 0.85 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Verzögerte oder schwere Ehe; ältere oder strenge Partner. Quelle: Valens.", "vektor": { "liebe": 0.25, "soziales": 0.25, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_8_haus": {
+    "sonne": { "text_de": "Erbschaft von Vätern oder Männern; Tod und Vermächtnis. Quelle: Ptolemy III.", "vektor": { "finanzen": 0.65, "veraenderung": 0.5, "spiritualitaet": 0.45 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Erbschaft; Erbe von Mutter oder Frauen. Quelle: Valens.", "vektor": { "finanzen": 0.5, "veraenderung": 0.55, "liebe": 0.45 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Erbschaft durch Schrift, Verträge, geistiges Erbe. Quelle: Ptolemy.", "vektor": { "finanzen": 0.5, "beruf": 0.6, "kreativitaet": 0.5 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Günstige Erbschaft, besonders von Frauen; Partnervermögen. Quelle: Valens.", "vektor": { "finanzen": 0.75, "liebe": 0.6, "soziales": 0.5 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Erbstreit, Verluste durch Tod; impulsives Fremdvermögen. Quelle: Ptolemy.", "vektor": { "finanzen": 0.25, "veraenderung": 0.7, "soziales": 0.2 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Beste 8.-Haus-Stellung; großes Erbe, reiche Partner. Quelle: Ptolemy, Valens.", "vektor": { "finanzen": 0.9, "soziales": 0.7, "spiritualitaet": 0.5 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Eingeschränkte Erbschaft, Verzögerung, Schulden. Quelle: Valens.", "vektor": { "finanzen": 0.2, "veraenderung": 0.25, "soziales": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_9_haus": {
+    "sonne": { "text_de": "Lange Reisen, Religion, Träume von Sonne geprägt. Quelle: Ptolemy III.", "vektor": { "spiritualitaet": 0.7, "veraenderung": 0.6, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Reisen und Träume; Gefühl für Religion. Quelle: Valens.", "vektor": { "spiritualitaet": 0.55, "veraenderung": 0.65, "liebe": 0.45 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Gelehrsamkeit, Schrift, weite Reisen, Orakel. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.8, "spiritualitaet": 0.6, "veraenderung": 0.6 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Angenehme Reisen, künstlerische oder liebevolle Religion. Quelle: Valens.", "vektor": { "spiritualitaet": 0.6, "liebe": 0.6, "kreativitaet": 0.65 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Gefahr auf Reisen, kämpferische Religion. Quelle: Ptolemy.", "vektor": { "spiritualitaet": 0.35, "veraenderung": 0.75, "gesundheit": 0.3 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Sehr günstiges 9. Haus; Religion, Recht, weite Reisen. Quelle: Ptolemy, Valens.", "vektor": { "spiritualitaet": 0.9, "finanzen": 0.6, "soziales": 0.6 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Verzögerte Reisen, ernste Religion, Einschränkung. Quelle: Valens.", "vektor": { "spiritualitaet": 0.4, "veraenderung": 0.25, "beruf": 0.4 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_10_haus": {
+    "sonne": { "text_de": "Höchste Berufsstellung; Ruhm, Herrschaft, öffentliche Ehre. Quelle: Ptolemy III.", "vektor": { "beruf": 1.0, "soziales": 0.9, "finanzen": 0.65 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Stellung; Erfolg durch Volk, Handel, Frauen. Quelle: Valens.", "vektor": { "beruf": 0.55, "soziales": 0.65, "veraenderung": 0.6 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Beruf durch Rede, Schrift, Wissenschaft, Handel. Quelle: Ptolemy.", "vektor": { "beruf": 0.8, "kreativitaet": 0.85, "soziales": 0.5 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Karriere in Kunst, Musik, angenehmen Berufen. Quelle: Valens.", "vektor": { "beruf": 0.75, "kreativitaet": 0.8, "liebe": 0.6 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Karriere durch Tatkraft, Militär, Chirurgie; Konflikte möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.7, "veraenderung": 0.7, "soziales": 0.35 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Sehr günstiges 10. Haus; Ehre, Recht, Kirche, Reichtum. Quelle: Ptolemy, Valens.", "vektor": { "beruf": 0.95, "finanzen": 0.8, "soziales": 0.9 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Schwere Karriere, späte Anerkennung, Autorität durch Mühe. Quelle: Valens.", "vektor": { "beruf": 0.45, "veraenderung": 0.25, "soziales": 0.35 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_11_haus": {
+    "sonne": { "text_de": "Gewinne durch mächtige Freunde; Hoffnungen erfüllen sich. Quelle: Ptolemy III.", "vektor": { "finanzen": 0.7, "soziales": 0.85, "beruf": 0.6 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Wechselhafte Freundschaften und Gewinne; Frauen als Gönner. Quelle: Valens.", "vektor": { "soziales": 0.6, "finanzen": 0.5, "veraenderung": 0.55 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Freunde durch Intellekt, Schrift; Gewinne aus geistiger Arbeit. Quelle: Ptolemy.", "vektor": { "soziales": 0.75, "kreativitaet": 0.75, "beruf": 0.55 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Angenehme Freunde, Gewinne durch Kunst und Beziehungen. Quelle: Valens.", "vektor": { "soziales": 0.9, "liebe": 0.75, "finanzen": 0.65 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Energische Freunde, Streit möglich; Gewinne durch Mut. Quelle: Ptolemy.", "vektor": { "soziales": 0.35, "beruf": 0.5, "veraenderung": 0.6 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Beste 11.-Haus-Stellung; reiche Freunde, erfüllte Hoffnungen. Quelle: Ptolemy, Valens.", "vektor": { "finanzen": 0.9, "soziales": 0.95, "beruf": 0.75 }, "quelle": "Tetrabiblos III" },
+    "saturn": { "text_de": "Wenige aber treue Freunde; Gewinne langsam. Quelle: Valens.", "vektor": { "soziales": 0.35, "finanzen": 0.35, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
+  },
+  "planeten_im_12_haus": {
+    "sonne": { "text_de": "Feinde, Verborgene; Einschränkung, aber auch Rückzug zur Stärke. Quelle: Ptolemy III.", "vektor": { "gesundheit": 0.4, "spiritualitaet": 0.5, "soziales": 0.25 }, "quelle": "Tetrabiblos III" },
+    "mond": { "text_de": "Verborgene Sorgen, Gefangenschaft oder Einsamkeit; Träume. Quelle: Valens.", "vektor": { "spiritualitaet": 0.5, "veraenderung": 0.45, "liebe": 0.3 }, "quelle": "Valens Anthologies" },
+    "merkur": { "text_de": "Geheime Feinde, Betrug; verborgene Schriften oder Pläne. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.4, "gesundheit": 0.35, "soziales": 0.2 }, "quelle": "Tetrabiblos III" },
+    "venus": { "text_de": "Verborgene Liebe, heimliche Gunst; Milderung des 12. Hauses. Quelle: Valens.", "vektor": { "liebe": 0.5, "spiritualitaet": 0.55, "soziales": 0.4 }, "quelle": "Valens Anthologies" },
+    "mars": { "text_de": "Feinde, Gefangenschaft, Verletzung; gefährliches 12. Haus. Quelle: Ptolemy.", "vektor": { "gesundheit": 0.2, "soziales": 0.1, "veraenderung": 0.6 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Linderung im 12. Haus; Schutz vor Feinden, Wohltäter. Quelle: Valens.", "vektor": { "spiritualitaet": 0.7, "gesundheit": 0.55, "soziales": 0.45 }, "quelle": "Valens Anthologies" },
+    "saturn": { "text_de": "Schwere im 12. Haus; Haft, Krankheit, Feinde. Quelle: Ptolemy.", "vektor": { "gesundheit": 0.15, "soziales": 0.1, "veraenderung": 0.15 }, "quelle": "Tetrabiblos III" }
+  }
+}

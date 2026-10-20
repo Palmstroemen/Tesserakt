@@ -12,19 +12,31 @@
       "Paulus Alexandrinus - Introductory Matters (ca. 378 n. Chr., Originaltext public domain)",
       "Manilius - Astronomica (ca. 10 n. Chr., public domain)"
     ],
-    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
-    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "dimensions": [
+      "liebe",
+      "beruf",
+      "finanzen",
+      "gesundheit",
+      "soziales",
+      "kreativitaet",
+      "veraenderung",
+      "spiritualitaet"
+    ],
+    "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
     "beschreibung": "Hellenistische Astrologie — Whole Sign Houses, die fünf klassischen Aspekte, planetare Begegnungsformen (Reception, Overcoming, Testimony), das Trigon-Herrscher-System und Integration mit western_rules_complete.json. Abschluss des hellenistischen Blocks (H1-H4).",
     "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog hell_wuerden.json / hell_lots.json / hell_zeitherren.json. Integrationsregeln explizit auf western_rules_complete.json abgestimmt.",
-    "integration_mit": ["hell_wuerden.json", "hell_lots.json", "hell_zeitherren.json", "western_rules_complete.json"]
+    "integration_mit": [
+      "hell_wuerden.json",
+      "hell_lots.json",
+      "hell_zeitherren.json",
+      "western_rules_complete.json"
+    ]
   },
-
   "whole_sign_houses": {
     "name": "Whole Sign Houses — Ganze-Zeichen-Häuser",
     "griechisch": "Holos Zōdion Topoi",
     "beschreibung": "In der hellenistischen Tradition ist das Häusersystem nicht durch mathematisch berechnete Gradzahlen definiert, sondern durch ganze Zeichen. Das Aufgangszeichen (Zeichen des ASC) ist vollständig das 1. Haus, das nächste Zeichen vollständig das 2. Haus usw. Alle 30° eines Zeichens gehören zu demselben Haus — unabhängig davon, wo genau der ASC-Grad im Zeichen liegt.",
     "quelle": "Valens - Anthologies II.1 (Riley S.28-30); Paulus Alexandrinus - Kap. 2; Porphyry - Introduction Kap. 5",
-
     "warum_whole_sign": {
       "historische_grundlage": "Whole Sign ist das älteste bekannte Häusersystem — es geht der Placidus- und Regiomontanus-Methode um Jahrhunderte voraus. Valens, Dorotheus und Paulus Alexandrinus arbeiten ausschließlich damit.",
       "vorteil_prognostisch": "Da jedes Haus ein ganzes Zeichen ist, fällt jeder Planet eindeutig in genau ein Haus. Keine Grenzfälle, keine Interceptions. Dies vereinfacht die Zeitherren-Berechnung (H3) und Lot-Auswertung (H2) erheblich.",
@@ -32,7 +44,6 @@
       "mc_sonderregel": "Das MC (Midheaven) fällt in Whole Sign häufig nicht ins 10. Haus, sondern in das Zeichen, das mathematisch den Mittagshimmel besetzt. Es bleibt ein wichtiger Punkt, aber kein Hauskusp.",
       "quelle": "Valens - Anthologies II.1; Paulus Alexandrinus - Kap. 2"
     },
-
     "haeuser": {
       "haus_1": {
         "nummer": 1,
@@ -44,8 +55,14 @@
         "unterschied_zu_modern": "Modern: Persönlichkeit und Selbstbild. Hellenistisch: primär der physische Körper und die Lebensenergie — weniger psychologisch, mehr körperlich-schicksalhaft.",
         "quelle": "Valens - Anthologies II.1; Ptolemy - Tetrabiblos III.10; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 5,
-          "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 1.0,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         }
       },
       "haus_2": {
@@ -58,8 +75,14 @@
         "unterschied_zu_modern": "Modern: klar Geld und Werte. Hellenistisch: Ort der Unsichtbarkeit — Planeten hier sind wie in einer Höhle.",
         "quelle": "Valens - Anthologies II.1; Paulus Alexandrinus - Kap. 3",
         "dimensionen_vektor": {
-          "liebe": 2, "beruf": 3, "finanzen": 4, "gesundheit": 2,
-          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.75,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.25
         }
       },
       "haus_3": {
@@ -72,8 +95,14 @@
         "unterschied_zu_modern": "Modern: Geschwister, Kommunikation, kurze Reisen. Hellenistisch: zusätzlich starke religiöse/spirituelle Konnotation.",
         "quelle": "Valens - Anthologies II.1; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
-          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
         }
       },
       "haus_4": {
@@ -86,8 +115,14 @@
         "unterschied_zu_modern": "Weitgehend kongruent; hellenistisch stärker auf Erbschaften und das Ende von Dingen fokussiert.",
         "quelle": "Valens - Anthologies II.1; Ptolemy - Tetrabiblos III.10",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 2, "finanzen": 4, "gesundheit": 3,
-          "soziales": 4, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 4
+          "liebe": 0.5,
+          "beruf": 0.25,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
         }
       },
       "haus_5": {
@@ -100,8 +135,14 @@
         "unterschied_zu_modern": "Weitgehend kongruent; hellenistisch weniger psychologisch, mehr ereignishaft (Kinder, Liebeserlebnisse, Glücksfälle).",
         "quelle": "Valens - Anthologies II.1; Paulus Alexandrinus - Kap. 3",
         "dimensionen_vektor": {
-          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
-          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 1.0,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         }
       },
       "haus_6": {
@@ -114,8 +155,14 @@
         "unterschied_zu_modern": "Modern: Arbeit und Gesundheit. Hellenistisch: Ort der Schwäche und Unterordnung — weniger positiv konnotiert.",
         "quelle": "Valens - Anthologies II.1; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
-          "soziales": 2, "kreativitaet": 2, "veraenderung": 4, "spiritualitaet": 2
+          "liebe": 0.25,
+          "beruf": 0.25,
+          "finanzen": 0.25,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.25
         }
       },
       "haus_7": {
@@ -128,8 +175,14 @@
         "unterschied_zu_modern": "Weitgehend kongruent; hellenistisch stärker auf die Dynamik Selbst vs. Anderer fokussiert, weniger auf romantische Projektion.",
         "quelle": "Valens - Anthologies II.1; Ptolemy - Tetrabiblos III.10",
         "dimensionen_vektor": {
-          "liebe": 5, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-          "soziales": 5, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 1.0,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         }
       },
       "haus_8": {
@@ -142,8 +195,14 @@
         "unterschied_zu_modern": "Modern: Transformation, Sexualität, gemeinsame Finanzen. Hellenistisch: ausschließlich Tod, Sterblichkeit und Krisen — die moderne Bedeutung ist eine neuere Umdeutung.",
         "quelle": "Valens - Anthologies II.1; Firmicus - Mathesis II.15; Paulus Alexandrinus - Kap. 3",
         "dimensionen_vektor": {
-          "liebe": 2, "beruf": 2, "finanzen": 3, "gesundheit": 2,
-          "soziales": 2, "kreativitaet": 3, "veraenderung": 5, "spiritualitaet": 4
+          "liebe": 0.25,
+          "beruf": 0.25,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.75
         }
       },
       "haus_9": {
@@ -156,8 +215,14 @@
         "unterschied_zu_modern": "Modern: Philosophie, Ausland, höhere Bildung. Hellenistisch: primär religiöse und divinatorische Praxis — die Verbindung zum Transzendenten ist wörtlicher gemeint.",
         "quelle": "Valens - Anthologies II.1; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 1.0
         }
       },
       "haus_10": {
@@ -170,8 +235,14 @@
         "unterschied_zu_modern": "Weitgehend kongruent; hellenistisch noch stärker auf konkretes Handeln und öffentlichen Status fokussiert als auf Karriere-Identität.",
         "quelle": "Valens - Anthologies II.1; Ptolemy - Tetrabiblos III.10; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 3,
-          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         }
       },
       "haus_11": {
@@ -184,8 +255,14 @@
         "unterschied_zu_modern": "Modern: Freunde, Gruppen, Ziele. Hellenistisch: stärker auf Schirmherren (Patrone, Mentoren, mächtige Freunde) und Erfüllung von Hoffnungen fokussiert.",
         "quelle": "Valens - Anthologies II.1; Paulus Alexandrinus - Kap. 3",
         "dimensionen_vektor": {
-          "liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 4,
-          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.75,
+          "soziales": 1.0,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
         }
       },
       "haus_12": {
@@ -198,30 +275,50 @@
         "unterschied_zu_modern": "Modern: Unterbewusstsein, Spiritualität, Rückzug. Hellenistisch: primär Ort der Schwäche, Feinde und des Verborgenen — die spirituelle Umdeutung ist neuerer Herkunft.",
         "quelle": "Valens - Anthologies II.1; Firmicus - Mathesis II.15",
         "dimensionen_vektor": {
-          "liebe": 2, "beruf": 2, "finanzen": 2, "gesundheit": 2,
-          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+          "liebe": 0.25,
+          "beruf": 0.25,
+          "finanzen": 0.25,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
         }
       }
     },
-
     "haus_staerken_hierarchie": {
       "beschreibung": "In der hellenistischen Praxis hat jedes Haus eine definierte Stärke — nicht alle Häuser sind gleich wichtig für die Manifestation.",
       "quelle": "Valens - Anthologies II.1; Paulus Alexandrinus - Kap. 3",
       "rangfolge": {
-        "stärkste": ["10. Haus (MC)", "1. Haus (ASC)", "7. Haus (DSC)", "4. Haus (IC)"],
-        "gut": ["11. Haus (Guter Geist)", "5. Haus (Gutes Glück)"],
-        "mittel": ["9. Haus (Trine zum ASC)", "3. Haus (Sextil zum ASC)"],
-        "schwach": ["2. Haus", "8. Haus"],
-        "ungünstig": ["6. Haus (Schlechtes Glück)", "12. Haus (Böser Geist)"]
+        "stärkste": [
+          "10. Haus (MC)",
+          "1. Haus (ASC)",
+          "7. Haus (DSC)",
+          "4. Haus (IC)"
+        ],
+        "gut": [
+          "11. Haus (Guter Geist)",
+          "5. Haus (Gutes Glück)"
+        ],
+        "mittel": [
+          "9. Haus (Trine zum ASC)",
+          "3. Haus (Sextil zum ASC)"
+        ],
+        "schwach": [
+          "2. Haus",
+          "8. Haus"
+        ],
+        "ungünstig": [
+          "6. Haus (Schlechtes Glück)",
+          "12. Haus (Böser Geist)"
+        ]
       },
       "aversion_regel": "Häuser ohne Aspekt zum ASC (2., 6., 8., 12.) sind Häuser der 'Aversion' — Planeten dort können das Leben des Horoskopinhabers kaum direkt beeinflussen."
     }
   },
-
   "fuenf_hellenistische_aspekte": {
     "beschreibung": "Die hellenistische Astrologie kennt nur fünf Aspekte — und diese werden nach Zeichen berechnet, nicht nach Grad. Zwei Planeten stehen in Aspekt, wenn ihre Zeichen in der entsprechenden Winkelbeziehung stehen. Ein Planet in 2° Widder und ein Planet in 28° Steinbock stehen NICHT in Quadrat — denn Widder und Steinbock haben kein Quadrat zueinander.",
     "quelle": "Ptolemy - Tetrabiblos I.13-15 (Ashmand S.15-22); Valens - Anthologies I.17; Firmicus - Mathesis II.6",
-
     "aspekte": {
       "konjunktion": {
         "name": "Konjunktion",
@@ -269,18 +366,20 @@
         "dimensionen_modifikator": "Bewusstmachung: bei Wohltätern neutral bis positiv; bei Malefics -1 bis -2 auf relevante Dimensionen"
       }
     },
-
     "keine_modernen_aspekte": {
       "beschreibung": "Die hellenistische Tradition kennt keine Quincunx, Halbsextil, Sesquiquadrat oder anderen Nebenaspekte. Diese wurden erst in der Renaissance und Neuzeit eingeführt. Für hellenistische Interpretationen gilt: nur die fünf Aspekte nach Zeichen.",
-      "ausgeschlossen": ["Quincunx (150°)", "Halbsextil (30°)", "Sesquiquadrat (135°)", "Quintil (72°)"]
+      "ausgeschlossen": [
+        "Quincunx (150°)",
+        "Halbsextil (30°)",
+        "Sesquiquadrat (135°)",
+        "Quintil (72°)"
+      ]
     },
-
     "aspekt_nach_zeichen_regel": {
       "beschreibung": "Entscheidend ist die Zeichenbeziehung, nicht der exakte Gradabstand. Zwei Planeten, die im selben Zeichenpaar stehen (z.B. beide in Trine-Zeichen zueinander), aspektieren sich — auch wenn sie 119° oder 121° voneinander entfernt sind.",
       "beispiel": "Venus in 5° Stier, Jupiter in 28° Jungfrau → Stier und Jungfrau stehen im Trine → Venus und Jupiter im Trine-Aspekt, auch wenn der Gradabstand 143° beträgt.",
       "quelle": "Valens - Anthologies I.17; Paulus Alexandrinus - Kap. 5"
     },
-
     "dexter_sinister": {
       "name": "Dexter und Sinister — Rechts und Links",
       "beschreibung": "Aspekte haben eine Richtung: Dexter (von rechts kommend, d.h. ein Planet in einem früher im Zodiak liegenden Zeichen schaut zurück) und Sinister (von links, vorwärts blickend). In der hellenistischen Praxis ist Dexter stärker und oft autoritativer.",
@@ -290,11 +389,9 @@
       "quelle": "Valens - Anthologies I.17; Ptolemy - Tetrabiblos I.14"
     }
   },
-
   "planetare_begegnung": {
     "beschreibung": "Über die fünf Aspekte hinaus kennt die hellenistische Tradition differenzierte Begegnungsformen zwischen Planeten. Diese beschreiben nicht nur die geometrische Beziehung, sondern die qualitative Dynamik der Interaktion.",
     "quelle": "Valens - Anthologies I.18-20; Dorotheus - Carmen I.20-25; Ptolemy - Tetrabiblos I.16",
-
     "reception": {
       "name": "Reception — Empfang",
       "griechisch": "Apodochē",
@@ -303,9 +400,9 @@
       "wirkung_bei_negativem_aspekt": "Quadrat oder Opposition mit Reception: die Spannung ist vorhanden, aber der empfangende Planet kann den anderen 'führen' statt bekämpfen — eine produktive statt destruktive Spannung.",
       "wirkung_bei_positivem_aspekt": "Trine oder Sextil mit Reception: maximal günstige Zusammenarbeit — der Aspekt verstärkt sich durch die Würde-Verbindung.",
       "quelle": "Valens - Anthologies I.18; Dorotheus - Carmen I.21",
-      "dimensionen_modifikator": "+1 auf alle Dimensionen des Aspekts bei einfacher Reception"
+      "dimensionen_modifikator": "+1 auf alle Dimensionen des Aspekts bei einfacher Reception",
+      "dimensionen_vektor": { "liebe": 0.7, "beruf": 0.7, "finanzen": 0.65, "gesundheit": 0.65, "soziales": 0.7, "kreativitaet": 0.7, "veraenderung": 0.6, "spiritualitaet": 0.65 }
     },
-
     "mutual_reception": {
       "name": "Mutual Reception — Gegenseitiger Empfang",
       "beschreibung": "Mutual Reception liegt vor, wenn Planet A im Zeichen von B steht UND Planet B im Zeichen von A steht — beide sind gleichzeitig Gast und Gastgeber. Sie können symbolisch 'die Plätze tauschen'.",
@@ -313,9 +410,9 @@
       "wirkung": "Beide Planeten können durch die gegenseitige Würde-Verbindung ihre Schwächen ausgleichen. Ein Planet in Detriment in Mutual Reception verliert einen Teil seiner Schwäche, weil er im Haus des anderen empfangen wird.",
       "praktisch": "Für die Prognose: Mutual Reception zeigt einen Bereich des Lebens, in dem zwei Prinzipien eng verwoben sind und sich gegenseitig unterstützen — selbst wenn die Aspektbeziehung angespannt ist.",
       "quelle": "Valens - Anthologies I.18; Dorotheus - Carmen I.21; Ptolemy - Tetrabiblos I.16",
-      "dimensionen_modifikator": "+1 auf alle Dimensionen beider beteiligter Planeten; schwächt Detriment-/Fall-Malus um 1"
+      "dimensionen_modifikator": "+1 auf alle Dimensionen beider beteiligter Planeten; schwächt Detriment-/Fall-Malus um 1",
+      "dimensionen_vektor": { "liebe": 0.8, "beruf": 0.75, "finanzen": 0.7, "gesundheit": 0.7, "soziales": 0.8, "kreativitaet": 0.75, "veraenderung": 0.65, "spiritualitaet": 0.7 }
     },
-
     "overcoming": {
       "name": "Overcoming — Überwindung",
       "griechisch": "Epikratēsis",
@@ -324,18 +421,20 @@
       "wirkung_malefic_ueberwindet_benefic": "Saturn oder Mars overcoming Jupiter oder Venus → ungünstig: das Gute wird durch das Schwierige eingeschränkt.",
       "wirkung_benefic_ueberwindet_malefic": "Jupiter oder Venus overcoming Saturn oder Mars → günstig: das Schwierige wird durch Wohltäter gemildert.",
       "quelle": "Valens - Anthologies I.19; Dorotheus - Carmen I.22",
-      "dimensionen_modifikator": "Wenn Malefic überwindet: -1 auf Themen des überwundenen Planeten. Wenn Benefic überwindet: +1."
+      "dimensionen_modifikator": "Wenn Malefic überwindet: -1 auf Themen des überwundenen Planeten. Wenn Benefic überwindet: +1.",
+      "overcoming_benefic_vektor": { "liebe": 0.65, "beruf": 0.65, "finanzen": 0.6, "gesundheit": 0.6, "soziales": 0.65, "kreativitaet": 0.6, "veraenderung": 0.7, "spiritualitaet": 0.6 },
+      "overcoming_malefic_vektor": { "liebe": 0.35, "beruf": 0.35, "finanzen": 0.35, "gesundheit": 0.35, "soziales": 0.3, "kreativitaet": 0.35, "veraenderung": 0.6, "spiritualitaet": 0.4 }
     },
-
     "testimony": {
       "name": "Testimony — Bezeugung",
       "beschreibung": "Testimony bezeichnet die Situation, wenn mehrere Planeten gleichzeitig dasselbe Horoskop-Element (Zeichen, Haus, Lot) aspektieren oder darin stehen. Die Mehrzahl der Zeugen verstärkt die Aussage und macht das Ereignis wahrscheinlicher.",
       "beispiel": "Das 10. Haus (Karriere) wird von Jupiter (Trine), Venus (Sextil) und Sonne (im Haus) bezeugt → dreifaches positives Testimony: starke Karriereindikation.",
       "regel": "Je mehr Wohltäter ein Haus oder einen Signifikator bezeugen, desto wahrscheinlicher und deutlicher manifestiert sich das entsprechende Ereignis. Mehrere Übelwirkende als Zeugen: multiple Hindernisse.",
       "quelle": "Valens - Anthologies II.4; Dorotheus - Carmen I.20",
-      "dimensionen_modifikator": "Pro zusätzlichem Wohltäter als Zeuge: +1 (max. 5). Pro Übelwirkender als Zeuge: -1 (min. 1)."
+      "dimensionen_modifikator": "Pro zusätzlichem Wohltäter als Zeuge: +1 (max. 5). Pro Übelwirkender als Zeuge: -1 (min. 1).",
+      "testimony_wohltaeter_vektor": { "liebe": 0.75, "beruf": 0.8, "finanzen": 0.75, "gesundheit": 0.7, "soziales": 0.8, "kreativitaet": 0.75, "veraenderung": 0.65, "spiritualitaet": 0.7 },
+      "testimony_malefic_vektor": { "liebe": 0.35, "beruf": 0.35, "finanzen": 0.35, "gesundheit": 0.35, "soziales": 0.3, "kreativitaet": 0.35, "veraenderung": 0.65, "spiritualitaet": 0.4 }
     },
-
     "bonification_und_maltreatment": {
       "name": "Bonification und Maltreatment",
       "beschreibung": "Bonification: ein Planet wird durch Konjunktion, Trine oder Sextil eines Wohltäters (Jupiter, Venus) 'veredelt' — seine Wirkung verbessert sich unabhängig von seiner eigenen Würde. Maltreatment: ein Planet wird durch Konjunktion, Quadrat oder Opposition eines Übelwirkenden (Saturn, Mars) ohne Reception beschädigt.",
@@ -345,17 +444,19 @@
       "dimensionen_modifikator": "Bonification: +1. Maltreatment: -1 bis -2 je nach Aspektart."
     }
   },
-
   "trigon_herrscher_system": {
     "name": "Trigon-Herrscher-System — Triplizitäts-Herrscher",
     "griechisch": "Trigonokyrioi",
     "beschreibung": "Das Trigon-Herrscher-System teilt den Tierkreis in vier elementare Gruppen (Triplicities) und weist jeder Gruppe einen Tag-Herrscher, einen Nacht-Herrscher und einen mitwirkenden Herrscher zu. Diese drei Herrscher zeigen die drei Lebensabschnitte an — Jugend, Mittelalter, Alter. Dorotheus und Valens nutzen dies primär für Lebensphasen-Prognosen.",
     "quelle": "Dorotheus - Carmen I.16-19; Ptolemy - Tetrabiblos I.18 (Ashmand S.27-32); Valens - Anthologies I.2",
-
     "triplicities": {
       "feuer": {
         "element": "Feuer",
-        "zeichen": ["Widder", "Löwe", "Schütze"],
+        "zeichen": [
+          "Widder",
+          "Löwe",
+          "Schütze"
+        ],
         "tag_herrscher": "Sonne",
         "nacht_herrscher": "Jupiter",
         "mitwirkend": "Saturn",
@@ -363,7 +464,11 @@
       },
       "erde": {
         "element": "Erde",
-        "zeichen": ["Stier", "Jungfrau", "Steinbock"],
+        "zeichen": [
+          "Stier",
+          "Jungfrau",
+          "Steinbock"
+        ],
         "tag_herrscher": "Venus",
         "nacht_herrscher": "Mond",
         "mitwirkend": "Mars",
@@ -371,7 +476,11 @@
       },
       "luft": {
         "element": "Luft",
-        "zeichen": ["Zwillinge", "Waage", "Wassermann"],
+        "zeichen": [
+          "Zwillinge",
+          "Waage",
+          "Wassermann"
+        ],
         "tag_herrscher": "Saturn",
         "nacht_herrscher": "Merkur",
         "mitwirkend": "Jupiter",
@@ -379,14 +488,17 @@
       },
       "wasser": {
         "element": "Wasser",
-        "zeichen": ["Krebs", "Skorpion", "Fische"],
+        "zeichen": [
+          "Krebs",
+          "Skorpion",
+          "Fische"
+        ],
         "tag_herrscher": "Venus",
         "nacht_herrscher": "Mars",
         "mitwirkend": "Mond",
         "quelle": "Ptolemy - Tetrabiblos I.18; Dorotheus - Carmen I.19"
       }
     },
-
     "lebensabschnitte_prognose": {
       "beschreibung": "Die drei Trigon-Herrscher (Tag, Nacht, Mitwirkend) zeigen Qualität der drei großen Lebensabschnitte. Die Reihenfolge hängt vom Sekttyp des Horoskops ab.",
       "tag_horoskop": {
@@ -403,7 +515,6 @@
       "deutungsregel_schwach": "Trigon-Herrscher in Detriment, Fall oder von Malefics bedrängt → dieser Lebensabschnitt bringt Schwierigkeiten und Verluste.",
       "quelle": "Dorotheus - Carmen I.16-19; Valens - Anthologies I.2"
     },
-
     "beispiel_feuer_tag_horoskop": {
       "aszendent": "Löwe (Feuer-Zeichen)",
       "sekt": "Tag-Horoskop",
@@ -412,12 +523,10 @@
       "dritter_abschnitt": "Saturn (Mitwirkend Feuer) → Alter: Qualität hängt von Saturn-Stellung ab"
     }
   },
-
   "integration_western": {
     "name": "Integration: Hellenistisch ↔ Westlich (western_rules_complete.json)",
     "beschreibung": "Die hellenistischen Techniken dieser vier Gespräche (H1-H4) sind die historische Grundlage der westlichen Astrologie. Die Übergangspunkte und Gemeinsamkeiten werden hier explizit kartiert.",
     "quelle": "western_rules_complete.json; hell_wuerden.json; hell_lots.json; hell_zeitherren.json",
-
     "haeuser_vergleich": {
       "beschreibung": "Die 12 Häuser sind in beiden Systemen inhaltlich weitgehend kongruent. Der Hauptunterschied ist das Häusersystem (Whole Sign vs. Placidus/Regiomontanus) und die Betonung.",
       "kongruente_themen": {
@@ -434,24 +543,32 @@
       },
       "praktische_regel": "Für hellenistische Techniken (Profektionen, Zodiacal Releasing, Lots) immer Whole Sign verwenden. Für moderne Transits und Aspekte kann Placidus parallel genutzt werden — beide Systeme geben komplementäre Informationen."
     },
-
     "aspekte_vergleich": {
-      "gemeinsame_aspekte": ["Konjunktion", "Sextil", "Quadrat", "Trigon", "Opposition"],
-      "nur_modern": ["Quincunx", "Halbsextil", "Sesquiquadrat", "Quintil", "Biquintil"],
+      "gemeinsame_aspekte": [
+        "Konjunktion",
+        "Sextil",
+        "Quadrat",
+        "Trigon",
+        "Opposition"
+      ],
+      "nur_modern": [
+        "Quincunx",
+        "Halbsextil",
+        "Sesquiquadrat",
+        "Quintil",
+        "Biquintil"
+      ],
       "schluessel_unterschied": "Hellenistisch nach Zeichen, modern nach Grad mit Orben. Für Kombinations-Lektüre: hellenistische Aspektbeziehung gibt den grundlegenden Ton an; moderner Orb gibt die Schärfe/Intensität.",
       "kombinationsregel": "Planet A in 2° Stier, Planet B in 29° Jungfrau: Hellenistisch → Trine (Stier-Jungfrau). Modern → kein Trine (Orb 117°). Beide Informationen sind gültig — hellenistisch zeigt die Zeichenqualität, modern zeigt die gradgenaue Aktivierung."
     },
-
     "wuerden_als_bruecke": {
       "beschreibung": "Das Würdesystem (hell_wuerden.json) ist in western_rules_complete.json unter 'planet_rulers_dignities' bereits partiell abgebildet. Die hellenistischen Erweiterungen (Trigon, Term, Face, Sektprinzip) fehlen dort und sind additiv nutzbar.",
       "anwendungsregel": "Immer zuerst den Würde-Status nach hell_wuerden.json bestimmen; dann den Dimensions-Vektor aus western_rules_complete.json (falls vorhanden) als Ergänzung nutzen. Hellenistische Würde gibt Qualität; westliche Regeln geben Themen-Detail."
     },
-
     "lots_als_ergaenzung": {
       "beschreibung": "Die Arabischen Lose (hell_lots.json) sind in western_rules_complete.json nicht enthalten. Sie sind additiv: wenn das Lot des Glücks im 2. Haus liegt und der Mondsignifikator stark ist, verstärkt dies die westliche Finanz-Aussage aus Planeten im 2. Haus.",
       "praktische_regel": "Lot des Glücks und Lot des Geistes immer als zusätzliche sensitive Punkte in das westliche Horoskop integrieren — sie geben eine prognoseorientierte Ebene hinzu, die im westlichen System fehlt."
     },
-
     "zeitherren_als_ergaenzung": {
       "beschreibung": "Jährliche Profektionen (hell_zeitherren.json) laufen parallel zu westlichen Transiten und Progressionen. Sie geben das Jahres-Thema an; Transiten geben den Monat; Progressionen geben die innere Entwicklung.",
       "kombinationsmodell": {
@@ -462,12 +579,10 @@
       }
     }
   },
-
   "synthese_hell_block": {
     "name": "Synthese: Hellenistischer Block H1-H4",
     "beschreibung": "Die vier hellenistischen Gespräche bilden eine integrierte Prognose-Methodik. Hier die Zusammenfassung der Verwendung:",
     "quelle": "hell_wuerden.json, hell_lots.json, hell_zeitherren.json, hell_haeuser.json",
-
     "vollständige_prognose_schritte": {
       "schritt_1": "Sekt bestimmen: Tag- oder Nacht-Horoskop? (hell_wuerden.json → Sektprinzip)",
       "schritt_2": "Würden aller Planeten bestimmen: Domizil, Exaltation, Term, Face, Detriment, Fall (hell_wuerden.json)",
@@ -478,10 +593,8 @@
       "schritt_7": "Trigon-Herrscher: welcher Lebensabschnitt ist aktiv? (hell_haeuser.json → Triplizitäts-Herrscher)",
       "schritt_8": "Integration westlich: Transits als Feinauslöser; western_rules_complete.json als Themen-Ergänzung"
     },
-
     "kernprinzip": "Die hellenistische Prognose fragt nicht 'Wie ist dieser Mensch?', sondern 'Was wird in dieser Zeit passieren?' — die Antwort ergibt sich aus dem Zusammenspiel von Zeitherr × Lot × Haus × Aspekte × Würde."
   },
-
   "_statistik": {
     "regelklassen": {
       "whole_sign_houses_12_profile": 12,

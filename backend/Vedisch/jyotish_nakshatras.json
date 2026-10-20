@@ -11,7 +11,16 @@
       "Kalyana Varma - Saravali (ca. 800 n. Chr., Bangalore Sureshwara Übersetzung, public domain AT/EU)",
       "Vaidyanatha Dikshita - Jataka Parijata (ca. 16. Jhd., public domain)"
     ],
-    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
+    "dimensions": [
+      "liebe",
+      "beruf",
+      "finanzen",
+      "gesundheit",
+      "soziales",
+      "kreativitaet",
+      "veraenderung",
+      "spiritualitaet"
+    ],
     "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
     "beschreibung": "Jyotish — Die 27 Nakshatras (Mondstationen). Vollständige Profile aller 27 Nakshatras von Ashwini bis Revati mit: Name, Grad-Bereich, Nakshatra-Lord (Dasha-Herrscher), Symbol, Devata, Gana, Varna, Nadi, Pada 1-4 (Navamsha-Zeichen), Hauptqualitäten, Stärken, Schwächen und Dimensionsvektor. Zusätzlich: Kuta-Kompatibilitätssystem (5 Tests). Basis für jyotish_dasha.json (J2) und jyotish_yogas.json (J3).",
     "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog arabisch_lose.json",
@@ -22,11 +31,9 @@
       "hell_zeitherren_json": "Jyotish Nakshatras ↔ hellenistische Mondstationen (Monomoiria): strukturelle Analogie"
     }
   },
-
   "system_uebersicht": {
     "beschreibung": "Die 27 Nakshatras (Sanskrit: नक्षत्र — 'Mondstation', wörtlich: 'das, was nicht fällt/schwindet') sind die 27 Stationen, die der Mond auf seinem synodischen Weg durch den Tierkreis durchläuft. Sie bilden das fundamentale Koordinatensystem der Jyotish-Astrologie. Während der westliche Tierkreis sonnenbasiert ist (12 Zeichen à 30°), ist das Nakshatra-System mondbasiert: Der Mond durchläuft alle 27 Stationen in ca. 27,3 Tagen (siderischer Monat).",
     "quelle": "Parashara - BPHS Kap. 3 (Santhanam Bd. 1, S. 45-78); Varahamihira - Brihat Jataka Kap. 1; Mantreswara - Phaladeepika Kap. 2",
-
     "grunddaten": {
       "anzahl": 27,
       "grad_pro_nakshatra": "13°20' (= 360° ÷ 27)",
@@ -36,34 +43,28 @@
       "ayanamsha": "Lahari-Ayanamsha (Standard in Indien): ca. 23-24° Differenz zum tropischen Tierkreis (2026). Beispiel: Tropisch 0° Widder = Siderisch ca. 6° Fische.",
       "mondlauf": "Mond durchläuft alle 27 Nakshatras in ~27,3 Tagen (siderischer Monat)"
     },
-
     "bedeutung_fuer_vimshottari": {
       "beschreibung": "Das Nakshatra, in dem der Geburtsmond steht, bestimmt den Startpunkt des Vimshottari-Dasha-Systems (vgl. jyotish_dasha.json). Der Nakshatra-Lord (Herrscher des Geburts-Nakshatras) ist der erste Dasha-Herrscher — seine Periode wird anteilig berechnet, je nachdem wie weit der Mond das Nakshatra bereits durchlaufen hat.",
       "quelle": "Parashara - BPHS Kap. 46 (Santhanam Bd. 2, S. 1-15)"
     },
-
     "gana_system": {
       "deva": "Göttliche Natur — harmonisch, spirituell, kooperativ. 9 Nakshatras.",
       "manushya": "Menschliche Natur — pragmatisch, ambivalent, weltlich orientiert. 9 Nakshatras.",
       "rakshasa": "Dämonische Natur — intensiv, kompromisslos, transformativ. 9 Nakshatras.",
       "quelle": "Parashara - BPHS Kap. 3; Varahamihira - Brihat Jataka Kap. 1"
     },
-
     "nadi_system": {
       "vata": "Luft-Prinzip — beweglich, kreativ, nervös, kommunikativ. Verwandt mit Luftzeichen.",
       "pitta": "Feuer-Prinzip — intensiv, fokussiert, transformativ, heiß. Verwandt mit Feuerzeichen.",
       "kapha": "Wasser/Erde-Prinzip — stabil, nährend, beharrlich, gemächlich. Verwandt mit Erd- und Wasserzeichen.",
       "quelle": "Varahamihira - Brihat Jataka Kap. 1; Kalyana Varma - Saravali Kap. 4"
     },
-
     "pada_navamsha": {
       "beschreibung": "Jedes Nakshatra ist in 4 Padas (Viertel) à 3°20' unterteilt. Die 4 Padas eines Nakshatras entsprechen den 4 Navamsha-Zeichen (9tel-Zeichen-System). Die Sequenz der Navamsha-Zeichen beginnt bei Widder und läuft fortlaufend durch alle 27 × 4 = 108 Padas.",
       "quelle": "Parashara - BPHS Kap. 6 (Navamsha)"
     }
   },
-
   "nakshatras": {
-
     "ashwini": {
       "nummer": 1,
       "name_sanskrit": "Ashwini",
@@ -77,21 +78,53 @@
       "varna": "Vaishya",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "0°00'-3°20' Widder", "navamsha": "Widder", "qualitaet": "Doppeltes Widder-Feuer — maximal impulsiv, ungestüm"},
-        "pada_2": {"grad": "3°20'-6°40' Widder", "navamsha": "Stier", "qualitaet": "Feuer + Erde — Energie mit Beständigkeit"},
-        "pada_3": {"grad": "6°40'-10°00' Widder", "navamsha": "Zwillinge", "qualitaet": "Feuer + Luft — Energie und Kommunikation"},
-        "pada_4": {"grad": "10°00'-13°20' Widder", "navamsha": "Krebs", "qualitaet": "Feuer + Wasser — Impuls mit Gefühl"}
+        "pada_1": {
+          "grad": "0°00'-3°20' Widder",
+          "navamsha": "Widder",
+          "qualitaet": "Doppeltes Widder-Feuer — maximal impulsiv, ungestüm"
+        },
+        "pada_2": {
+          "grad": "3°20'-6°40' Widder",
+          "navamsha": "Stier",
+          "qualitaet": "Feuer + Erde — Energie mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "6°40'-10°00' Widder",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Feuer + Luft — Energie und Kommunikation"
+        },
+        "pada_4": {
+          "grad": "10°00'-13°20' Widder",
+          "navamsha": "Krebs",
+          "qualitaet": "Feuer + Wasser — Impuls mit Gefühl"
+        }
       },
       "hauptqualitaeten": "Schnelligkeit, Heilungskraft, Initiativstärke, Abenteuerlust, Pioniergeist. Ashwini ist das Nakshatra des Neubeginns und der schnellen Heilung. Parashara: 'Ashwini-Menschen sind intelligent, hübsch von Erscheinung, gut gekleidet und geschätzt.'",
-      "staerken": ["Außergewöhnliche Heilungsfähigkeit", "Mut und Initiative", "Schnelle Handlungsfähigkeit", "Frische und Erneuerungskraft", "Natürliche Führungsstärke"],
-      "schwaechen": ["Ungeduld und Impulsivität", "Schwierigkeiten mit Kontinuität", "Rücksichtslosigkeit im Eifer", "Tendenzen zu frühzeitigem Aufgeben"],
+      "staerken": [
+        "Außergewöhnliche Heilungsfähigkeit",
+        "Mut und Initiative",
+        "Schnelle Handlungsfähigkeit",
+        "Frische und Erneuerungskraft",
+        "Natürliche Führungsstärke"
+      ],
+      "schwaechen": [
+        "Ungeduld und Impulsivität",
+        "Schwierigkeiten mit Kontinuität",
+        "Rücksichtslosigkeit im Eifer",
+        "Tendenzen zu frühzeitigem Aufgeben"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.46-48); Varahamihira - Brihat Jataka I.1; Mantreswara - Phaladeepika II.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 5,
-        "soziales": 4, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 3
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 1.0,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.5
       }
     },
-
     "bharani": {
       "nummer": 2,
       "name_sanskrit": "Bharani",
@@ -105,21 +138,53 @@
       "varna": "Mleccha (Außenstehende)",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "13°20'-16°40' Widder", "navamsha": "Löwe", "qualitaet": "Feuer + Feuer — Intensität und Leidenschaft"},
-        "pada_2": {"grad": "16°40'-20°00' Widder", "navamsha": "Jungfrau", "qualitaet": "Feuer + Erde — Leidenschaft mit Analyse"},
-        "pada_3": {"grad": "20°00'-23°20' Widder", "navamsha": "Waage", "qualitaet": "Feuer + Luft — Leidenschaft mit Balance"},
-        "pada_4": {"grad": "23°20'-26°40' Widder", "navamsha": "Skorpion", "qualitaet": "Feuer + Wasser — maximale Intensität"}
+        "pada_1": {
+          "grad": "13°20'-16°40' Widder",
+          "navamsha": "Löwe",
+          "qualitaet": "Feuer + Feuer — Intensität und Leidenschaft"
+        },
+        "pada_2": {
+          "grad": "16°40'-20°00' Widder",
+          "navamsha": "Jungfrau",
+          "qualitaet": "Feuer + Erde — Leidenschaft mit Analyse"
+        },
+        "pada_3": {
+          "grad": "20°00'-23°20' Widder",
+          "navamsha": "Waage",
+          "qualitaet": "Feuer + Luft — Leidenschaft mit Balance"
+        },
+        "pada_4": {
+          "grad": "23°20'-26°40' Widder",
+          "navamsha": "Skorpion",
+          "qualitaet": "Feuer + Wasser — maximale Intensität"
+        }
       },
       "hauptqualitaeten": "Bharani steht für Transformation, Tod und Wiedergeburt, Sexualität, Kreativität und das Tragen von Lasten. Es ist das Nakshatra der schöpferischen Zerstörung. Varahamihira: 'Bharani-Menschen sind entschlossen, wahrhaftig in ihren Versprechen und glücklich in ihrer Lebensführung.'",
-      "staerken": ["Außergewöhnliche Schaffenskraft", "Ehrlichkeit und Direktheit", "Fähigkeit zu tiefgreifender Transformation", "Ausdauer unter Last", "Kreative und sexuelle Vitalität"],
-      "schwaechen": ["Extreme Intensität", "Schwierigkeiten mit Geduld", "Moralische Rigidität", "Neigung zur Überlastung"],
+      "staerken": [
+        "Außergewöhnliche Schaffenskraft",
+        "Ehrlichkeit und Direktheit",
+        "Fähigkeit zu tiefgreifender Transformation",
+        "Ausdauer unter Last",
+        "Kreative und sexuelle Vitalität"
+      ],
+      "schwaechen": [
+        "Extreme Intensität",
+        "Schwierigkeiten mit Geduld",
+        "Moralische Rigidität",
+        "Neigung zur Überlastung"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.48-50); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 3, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 4
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.75
       }
     },
-
     "krittika": {
       "nummer": 3,
       "name_sanskrit": "Krittika",
@@ -134,21 +199,53 @@
       "varna": "Brahmin",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "26°40'-30°00' Widder", "navamsha": "Schütze", "qualitaet": "Feuer + Feuer-Luft — Brennende Weisheit"},
-        "pada_2": {"grad": "0°00'-3°20' Stier", "navamsha": "Steinbock", "qualitaet": "Erde + Erde — Beharrlichkeit und Struktur"},
-        "pada_3": {"grad": "3°20'-6°40' Stier", "navamsha": "Wassermann", "qualitaet": "Erde + Luft — Beständigkeit mit Originalität"},
-        "pada_4": {"grad": "6°40'-10°00' Stier", "navamsha": "Fische", "qualitaet": "Erde + Wasser — Beständigkeit mit Tiefe"}
+        "pada_1": {
+          "grad": "26°40'-30°00' Widder",
+          "navamsha": "Schütze",
+          "qualitaet": "Feuer + Feuer-Luft — Brennende Weisheit"
+        },
+        "pada_2": {
+          "grad": "0°00'-3°20' Stier",
+          "navamsha": "Steinbock",
+          "qualitaet": "Erde + Erde — Beharrlichkeit und Struktur"
+        },
+        "pada_3": {
+          "grad": "3°20'-6°40' Stier",
+          "navamsha": "Wassermann",
+          "qualitaet": "Erde + Luft — Beständigkeit mit Originalität"
+        },
+        "pada_4": {
+          "grad": "6°40'-10°00' Stier",
+          "navamsha": "Fische",
+          "qualitaet": "Erde + Wasser — Beständigkeit mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Krittika ist das Nakshatra des Feuers und der Reinigung. Es schneidet ab, was nicht mehr dient, und reinigt durch Hitze. Parashara: 'Krittika-Menschen sind Vielesser, fleißig in ihren Taten und berühmt.' Stärkstes Nakshatra für Fokus und Zielerreichung.",
-      "staerken": ["Scharfer Intellekt und Fokus", "Reinigungskraft", "Ausdauer und Zielstrebigkeit", "Führungsqualitäten", "Mut zur Wahrheit"],
-      "schwaechen": ["Schärfe und Kritikfreude", "Unnachgiebigkeit", "Neigung zur Aggression", "Schwierigkeit in engen Beziehungen"],
+      "staerken": [
+        "Scharfer Intellekt und Fokus",
+        "Reinigungskraft",
+        "Ausdauer und Zielstrebigkeit",
+        "Führungsqualitäten",
+        "Mut zur Wahrheit"
+      ],
+      "schwaechen": [
+        "Schärfe und Kritikfreude",
+        "Unnachgiebigkeit",
+        "Neigung zur Aggression",
+        "Schwierigkeit in engen Beziehungen"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.50-52); Mantreswara - Phaladeepika II.3",
       "dimensionen_vektor": {
-        "liebe": 2, "beruf": 5, "finanzen": 4, "gesundheit": 4,
-        "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
       }
     },
-
     "rohini": {
       "nummer": 4,
       "name_sanskrit": "Rohini",
@@ -162,21 +259,53 @@
       "varna": "Shudra",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "10°00'-13°20' Stier", "navamsha": "Widder", "qualitaet": "Erde + Feuer — Beständigkeit mit Impuls"},
-        "pada_2": {"grad": "13°20'-16°40' Stier", "navamsha": "Stier", "qualitaet": "Doppeltes Stier — maximale Sinnlichkeit und Stabilität"},
-        "pada_3": {"grad": "16°40'-20°00' Stier", "navamsha": "Zwillinge", "qualitaet": "Erde + Luft — Fruchtbarkeit mit Geist"},
-        "pada_4": {"grad": "20°00'-23°20' Stier", "navamsha": "Krebs", "qualitaet": "Erde + Wasser — tiefste Fruchtbarkeit"}
+        "pada_1": {
+          "grad": "10°00'-13°20' Stier",
+          "navamsha": "Widder",
+          "qualitaet": "Erde + Feuer — Beständigkeit mit Impuls"
+        },
+        "pada_2": {
+          "grad": "13°20'-16°40' Stier",
+          "navamsha": "Stier",
+          "qualitaet": "Doppeltes Stier — maximale Sinnlichkeit und Stabilität"
+        },
+        "pada_3": {
+          "grad": "16°40'-20°00' Stier",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Erde + Luft — Fruchtbarkeit mit Geist"
+        },
+        "pada_4": {
+          "grad": "20°00'-23°20' Stier",
+          "navamsha": "Krebs",
+          "qualitaet": "Erde + Wasser — tiefste Fruchtbarkeit"
+        }
       },
       "hauptqualitaeten": "Rohini gilt als das beliebteste Nakshatra des Mondes — der Mond ist hier in Exaltation. Es steht für Schönheit, Wachstum, Fruchtbarkeit und materielle Fülle. Parashara: 'Rohini-Menschen sind wahrhaftig, rein, beständig, fähig und frei von Neid.' Sehr günstig für alle kreativen und materiellen Unternehmungen.",
-      "staerken": ["Schönheitssinn und Ästhetik", "Materielle Fülle und Fruchtbarkeit", "Kommunikationsgabe", "Verlässlichkeit und Beständigkeit", "Natürliche Anziehungskraft"],
-      "schwaechen": ["Besitzgier und Eifersucht", "Indulgenz und Genusssucht", "Starrsinn", "Abhängigkeit von materiellem Komfort"],
+      "staerken": [
+        "Schönheitssinn und Ästhetik",
+        "Materielle Fülle und Fruchtbarkeit",
+        "Kommunikationsgabe",
+        "Verlässlichkeit und Beständigkeit",
+        "Natürliche Anziehungskraft"
+      ],
+      "schwaechen": [
+        "Besitzgier und Eifersucht",
+        "Indulgenz und Genusssucht",
+        "Starrsinn",
+        "Abhängigkeit von materiellem Komfort"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.52-54); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 5, "beruf": 4, "finanzen": 5, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3
+        "liebe": 1.0,
+        "beruf": 0.75,
+        "finanzen": 1.0,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
       }
     },
-
     "mrigashira": {
       "nummer": 5,
       "name_sanskrit": "Mrigashira",
@@ -190,21 +319,53 @@
       "varna": "Farmer",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "23°20'-26°40' Stier", "navamsha": "Löwe", "qualitaet": "Erde/Luft + Feuer — Suche mit Leidenschaft"},
-        "pada_2": {"grad": "26°40'-30°00' Stier", "navamsha": "Jungfrau", "qualitaet": "Erde + Erde — praktische Suche"},
-        "pada_3": {"grad": "0°00'-3°20' Zwillinge", "navamsha": "Waage", "qualitaet": "Luft + Luft — intellektuelle Suche"},
-        "pada_4": {"grad": "3°20'-6°40' Zwillinge", "navamsha": "Skorpion", "qualitaet": "Luft + Wasser — Suche in der Tiefe"}
+        "pada_1": {
+          "grad": "23°20'-26°40' Stier",
+          "navamsha": "Löwe",
+          "qualitaet": "Erde/Luft + Feuer — Suche mit Leidenschaft"
+        },
+        "pada_2": {
+          "grad": "26°40'-30°00' Stier",
+          "navamsha": "Jungfrau",
+          "qualitaet": "Erde + Erde — praktische Suche"
+        },
+        "pada_3": {
+          "grad": "0°00'-3°20' Zwillinge",
+          "navamsha": "Waage",
+          "qualitaet": "Luft + Luft — intellektuelle Suche"
+        },
+        "pada_4": {
+          "grad": "3°20'-6°40' Zwillinge",
+          "navamsha": "Skorpion",
+          "qualitaet": "Luft + Wasser — Suche in der Tiefe"
+        }
       },
       "hauptqualitaeten": "Mrigashira ist das Nakshatra der Suche — nach Wissen, Schönheit, Geliebten und Wahrheit. Das Reh sucht ewig und findet manchmal. Varahamihira: 'Mrigashira-Menschen sind gelehrt, ängstlich, intelligent, fleißig und wohlhabend.' Ewige Neugier und Bewegung sind das Grundprinzip.",
-      "staerken": ["Intellektuelle Neugier und Forschungsdrang", "Sanftheit und Empathie", "Kommunikationsfähigkeit", "Vielseitigkeit", "Geschmackssinn und Ästhetik"],
-      "schwaechen": ["Unruhe und Suchsucht", "Entscheidungsschwäche", "Zerstreutheit", "Empfindlichkeit und Ängstlichkeit"],
+      "staerken": [
+        "Intellektuelle Neugier und Forschungsdrang",
+        "Sanftheit und Empathie",
+        "Kommunikationsfähigkeit",
+        "Vielseitigkeit",
+        "Geschmackssinn und Ästhetik"
+      ],
+      "schwaechen": [
+        "Unruhe und Suchsucht",
+        "Entscheidungsschwäche",
+        "Zerstreutheit",
+        "Empfindlichkeit und Ängstlichkeit"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.54-56); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 3,
-        "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 4
+        "liebe": 0.75,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
       }
     },
-
     "ardra": {
       "nummer": 6,
       "name_sanskrit": "Ardra",
@@ -218,21 +379,54 @@
       "varna": "Mleccha",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "6°40'-10°00' Zwillinge", "navamsha": "Schütze", "qualitaet": "Luft + Feuer — Sturm der Ideen"},
-        "pada_2": {"grad": "10°00'-13°20' Zwillinge", "navamsha": "Steinbock", "qualitaet": "Luft + Erde — Sturm mit Struktur"},
-        "pada_3": {"grad": "13°20'-16°40' Zwillinge", "navamsha": "Wassermann", "qualitaet": "Luft + Luft — reinste intellektuelle Turbulenz"},
-        "pada_4": {"grad": "16°40'-20°00' Zwillinge", "navamsha": "Fische", "qualitaet": "Luft + Wasser — Sturm und Tiefe"}
+        "pada_1": {
+          "grad": "6°40'-10°00' Zwillinge",
+          "navamsha": "Schütze",
+          "qualitaet": "Luft + Feuer — Sturm der Ideen"
+        },
+        "pada_2": {
+          "grad": "10°00'-13°20' Zwillinge",
+          "navamsha": "Steinbock",
+          "qualitaet": "Luft + Erde — Sturm mit Struktur"
+        },
+        "pada_3": {
+          "grad": "13°20'-16°40' Zwillinge",
+          "navamsha": "Wassermann",
+          "qualitaet": "Luft + Luft — reinste intellektuelle Turbulenz"
+        },
+        "pada_4": {
+          "grad": "16°40'-20°00' Zwillinge",
+          "navamsha": "Fische",
+          "qualitaet": "Luft + Wasser — Sturm und Tiefe"
+        }
       },
       "hauptqualitaeten": "Ardra ist das Nakshatra des Sturms, der Träne und der Transformation durch Schmerz. Rahu als Herrscher gibt Intensität und das Durchbrechen von Grenzen. Parashara: 'Ardra-Menschen sind undankbar, stolz, gewalttätig, aber auch grausam und sündig' — diese harte Formulierung zeigt die extreme Natur dieses Nakshatras. Modern: tiefe intellektuelle Brillanz und Transformationskraft.",
-      "staerken": ["Brillanter, unkonventioneller Intellekt", "Fähigkeit zur tiefen Transformation", "Emotionale Tiefe und Empathie für Schmerz", "Forschungsdrang im Verborgenen", "Erfindergeist"],
-      "schwaechen": ["Turbulenz und Unruhe", "Destruktive Tendenzen", "Egozentrik", "Emotionale Extremschwankungen", "Schwierigkeiten mit Autorität"],
+      "staerken": [
+        "Brillanter, unkonventioneller Intellekt",
+        "Fähigkeit zur tiefen Transformation",
+        "Emotionale Tiefe und Empathie für Schmerz",
+        "Forschungsdrang im Verborgenen",
+        "Erfindergeist"
+      ],
+      "schwaechen": [
+        "Turbulenz und Unruhe",
+        "Destruktive Tendenzen",
+        "Egozentrik",
+        "Emotionale Extremschwankungen",
+        "Schwierigkeiten mit Autorität"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.56-58); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 2,
-        "soziales": 2, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 4
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.25,
+        "soziales": 0.25,
+        "kreativitaet": 1.0,
+        "veraenderung": 1.0,
+        "spiritualitaet": 0.75
       }
     },
-
     "punarvasu": {
       "nummer": 7,
       "name_sanskrit": "Punarvasu",
@@ -246,21 +440,53 @@
       "varna": "Vaishya",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "20°00'-23°20' Zwillinge", "navamsha": "Widder", "qualitaet": "Luft + Feuer — Rückkehr mit Schwung"},
-        "pada_2": {"grad": "23°20'-26°40' Zwillinge", "navamsha": "Stier", "qualitaet": "Luft + Erde — Rückkehr mit Beständigkeit"},
-        "pada_3": {"grad": "26°40'-30°00' Zwillinge", "navamsha": "Zwillinge", "qualitaet": "Doppelluft — Kommunikation der Erneuerung"},
-        "pada_4": {"grad": "0°00'-3°20' Krebs", "navamsha": "Krebs", "qualitaet": "Wasser + Wasser — Erneuerung aus der Tiefe (vgl. Ashlesha)"}
+        "pada_1": {
+          "grad": "20°00'-23°20' Zwillinge",
+          "navamsha": "Widder",
+          "qualitaet": "Luft + Feuer — Rückkehr mit Schwung"
+        },
+        "pada_2": {
+          "grad": "23°20'-26°40' Zwillinge",
+          "navamsha": "Stier",
+          "qualitaet": "Luft + Erde — Rückkehr mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "26°40'-30°00' Zwillinge",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Doppelluft — Kommunikation der Erneuerung"
+        },
+        "pada_4": {
+          "grad": "0°00'-3°20' Krebs",
+          "navamsha": "Krebs",
+          "qualitaet": "Wasser + Wasser — Erneuerung aus der Tiefe (vgl. Ashlesha)"
+        }
       },
       "hauptqualitaeten": "Punarvasu bedeutet 'Rückkehr des Lichts nach der Dunkelheit'. Es ist das Nakshatra der Erneuerung, des Friedens und der Heimkehr. Nach dem Sturm von Ardra folgt die Ruhe und Wiederkehr. Varahamihira: 'Punarvasu-Menschen sind zufrieden, gottesfürchtig, intelligent, reich und von guter Gesundheit.' Ram Chandra (Rama) wurde in diesem Nakshatra geboren.",
-      "staerken": ["Innerer Friede und Resilienz", "Großzügigkeit und Mitgefühl", "Weisheit und philosophischer Geist", "Erneuerungsfähigkeit nach Krisen", "Spirituelle Tiefe"],
-      "schwaechen": ["Naivität und übermäßiges Vertrauen", "Tendenz zur Selbstgenügsamkeit", "Mangelnde Ambitionen", "Zerstreutheit"],
+      "staerken": [
+        "Innerer Friede und Resilienz",
+        "Großzügigkeit und Mitgefühl",
+        "Weisheit und philosophischer Geist",
+        "Erneuerungsfähigkeit nach Krisen",
+        "Spirituelle Tiefe"
+      ],
+      "schwaechen": [
+        "Naivität und übermäßiges Vertrauen",
+        "Tendenz zur Selbstgenügsamkeit",
+        "Mangelnde Ambitionen",
+        "Zerstreutheit"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.58-60); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 5,
-        "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.75,
+        "gesundheit": 1.0,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     },
-
     "pushya": {
       "nummer": 8,
       "name_sanskrit": "Pushya",
@@ -274,21 +500,53 @@
       "varna": "Kshatriya",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "3°20'-6°40' Krebs", "navamsha": "Löwe", "qualitaet": "Wasser + Feuer — Fürsorge mit Autorität"},
-        "pada_2": {"grad": "6°40'-10°00' Krebs", "navamsha": "Jungfrau", "qualitaet": "Wasser + Erde — Fürsorge mit Präzision"},
-        "pada_3": {"grad": "10°00'-13°20' Krebs", "navamsha": "Waage", "qualitaet": "Wasser + Luft — Fürsorge in Harmonie"},
-        "pada_4": {"grad": "13°20'-16°40' Krebs", "navamsha": "Skorpion", "qualitaet": "Wasser + Wasser — tiefste Fürsorge"}
+        "pada_1": {
+          "grad": "3°20'-6°40' Krebs",
+          "navamsha": "Löwe",
+          "qualitaet": "Wasser + Feuer — Fürsorge mit Autorität"
+        },
+        "pada_2": {
+          "grad": "6°40'-10°00' Krebs",
+          "navamsha": "Jungfrau",
+          "qualitaet": "Wasser + Erde — Fürsorge mit Präzision"
+        },
+        "pada_3": {
+          "grad": "10°00'-13°20' Krebs",
+          "navamsha": "Waage",
+          "qualitaet": "Wasser + Luft — Fürsorge in Harmonie"
+        },
+        "pada_4": {
+          "grad": "13°20'-16°40' Krebs",
+          "navamsha": "Skorpion",
+          "qualitaet": "Wasser + Wasser — tiefste Fürsorge"
+        }
       },
       "hauptqualitaeten": "Pushya gilt als eines der günstigsten aller Nakshatras — es nährt, schützt und fördert. Der Saturnherrscher gibt Beständigkeit; Brihaspati als Devata gibt Weisheit. Parashara: 'Pushya-Menschen sind reich, gelehrt, tugendhaft, friedlich und wohlhabend.' Sehr günstig für spirituelle Praxis und Heilung.",
-      "staerken": ["Tiefe Fürsorge und Mütterlichkeit", "Spirituelle Disziplin", "Großzügigkeit", "Beständigkeit und Verlässlichkeit", "Heilungs- und Pflegekraft"],
-      "schwaechen": ["Übermäßige Anhänglichkeit", "Konservatismus", "Mangelnde Flexibilität", "Tendenz zur Selbstaufopferung"],
+      "staerken": [
+        "Tiefe Fürsorge und Mütterlichkeit",
+        "Spirituelle Disziplin",
+        "Großzügigkeit",
+        "Beständigkeit und Verlässlichkeit",
+        "Heilungs- und Pflegekraft"
+      ],
+      "schwaechen": [
+        "Übermäßige Anhänglichkeit",
+        "Konservatismus",
+        "Mangelnde Flexibilität",
+        "Tendenz zur Selbstaufopferung"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.60-62); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 5, "beruf": 4, "finanzen": 4, "gesundheit": 5,
-        "soziales": 5, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 5
+        "liebe": 1.0,
+        "beruf": 0.75,
+        "finanzen": 0.75,
+        "gesundheit": 1.0,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 1.0
       }
     },
-
     "ashlesha": {
       "nummer": 9,
       "name_sanskrit": "Ashlesha",
@@ -302,21 +560,53 @@
       "varna": "Mleccha",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "16°40'-20°00' Krebs", "navamsha": "Schütze", "qualitaet": "Wasser + Feuer — Schlangenkraft mit Weisheit"},
-        "pada_2": {"grad": "20°00'-23°20' Krebs", "navamsha": "Steinbock", "qualitaet": "Wasser + Erde — Schlangenkraft mit Struktur"},
-        "pada_3": {"grad": "23°20'-26°40' Krebs", "navamsha": "Wassermann", "qualitaet": "Wasser + Luft — Schlangenkraft mit Originalität"},
-        "pada_4": {"grad": "26°40'-30°00' Krebs", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — Schlangentiefe pur"}
+        "pada_1": {
+          "grad": "16°40'-20°00' Krebs",
+          "navamsha": "Schütze",
+          "qualitaet": "Wasser + Feuer — Schlangenkraft mit Weisheit"
+        },
+        "pada_2": {
+          "grad": "20°00'-23°20' Krebs",
+          "navamsha": "Steinbock",
+          "qualitaet": "Wasser + Erde — Schlangenkraft mit Struktur"
+        },
+        "pada_3": {
+          "grad": "23°20'-26°40' Krebs",
+          "navamsha": "Wassermann",
+          "qualitaet": "Wasser + Luft — Schlangenkraft mit Originalität"
+        },
+        "pada_4": {
+          "grad": "26°40'-30°00' Krebs",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — Schlangentiefe pur"
+        }
       },
       "hauptqualitaeten": "Ashlesha ist das Nakshatra der Schlange — Kundalini-Energie, Hypnose, verborgene Macht und das Erwachen aus dem Unbewussten. Mantreswara: 'Ashlesha-Menschen sind undankbar, täuschend und egoistisch' — einseitige klassische Sicht. Modern: außergewöhnliche psychische Tiefe, Heilkunst und Transformationskraft.",
-      "staerken": ["Außergewöhnliche psychische Tiefe", "Heilkunst (besonders psychisch)", "Strategisches Denken", "Kundalini-Potenzial", "Fähigkeit zur tiefen Umwandlung"],
-      "schwaechen": ["Täuschung und Manipulation", "Misstrauen", "Emotionale Gebundenheit und Klammern", "Vergiftungstendenzen (wörtlich und übertragen)"],
+      "staerken": [
+        "Außergewöhnliche psychische Tiefe",
+        "Heilkunst (besonders psychisch)",
+        "Strategisches Denken",
+        "Kundalini-Potenzial",
+        "Fähigkeit zur tiefen Umwandlung"
+      ],
+      "schwaechen": [
+        "Täuschung und Manipulation",
+        "Misstrauen",
+        "Emotionale Gebundenheit und Klammern",
+        "Vergiftungstendenzen (wörtlich und übertragen)"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.62-64); Mantreswara - Phaladeepika II.9",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
       }
     },
-
     "magha": {
       "nummer": 10,
       "name_sanskrit": "Magha",
@@ -330,21 +620,53 @@
       "varna": "Shudra",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "0°00'-3°20' Löwe", "navamsha": "Widder", "qualitaet": "Feuer + Feuer — königliche Macht pur"},
-        "pada_2": {"grad": "3°20'-6°40' Löwe", "navamsha": "Stier", "qualitaet": "Feuer + Erde — Macht mit Beständigkeit"},
-        "pada_3": {"grad": "6°40'-10°00' Löwe", "navamsha": "Zwillinge", "qualitaet": "Feuer + Luft — Macht und Kommunikation"},
-        "pada_4": {"grad": "10°00'-13°20' Löwe", "navamsha": "Krebs", "qualitaet": "Feuer + Wasser — Macht mit Gefühl"}
+        "pada_1": {
+          "grad": "0°00'-3°20' Löwe",
+          "navamsha": "Widder",
+          "qualitaet": "Feuer + Feuer — königliche Macht pur"
+        },
+        "pada_2": {
+          "grad": "3°20'-6°40' Löwe",
+          "navamsha": "Stier",
+          "qualitaet": "Feuer + Erde — Macht mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "6°40'-10°00' Löwe",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Feuer + Luft — Macht und Kommunikation"
+        },
+        "pada_4": {
+          "grad": "10°00'-13°20' Löwe",
+          "navamsha": "Krebs",
+          "qualitaet": "Feuer + Wasser — Macht mit Gefühl"
+        }
       },
       "hauptqualitaeten": "Magha ist das königlichste aller Nakshatras — Thron, Ahnenverbindung, Würde und weltliche Macht. Ketu als Herrscher verbindet die königliche Oberfläche mit spiritueller Tiefe. Parashara: 'Magha-Menschen sind reich, glücklich, wohlhabend, fleißig und treu zu den Vorfahren.'",
-      "staerken": ["Natürliche Autorität und Würde", "Starke Ahnenverbindung", "Führungsqualität", "Großzügigkeit im Geben", "Traditionsbewusstsein"],
-      "schwaechen": ["Arroganz und Hochmut", "Überbetonung von Status", "Konservativismus", "Schwierigkeit ohne Anerkennung"],
+      "staerken": [
+        "Natürliche Autorität und Würde",
+        "Starke Ahnenverbindung",
+        "Führungsqualität",
+        "Großzügigkeit im Geben",
+        "Traditionsbewusstsein"
+      ],
+      "schwaechen": [
+        "Arroganz und Hochmut",
+        "Überbetonung von Status",
+        "Konservativismus",
+        "Schwierigkeit ohne Anerkennung"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.64-66); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.75
       }
     },
-
     "purva_phalguni": {
       "nummer": 11,
       "name_sanskrit": "Purva Phalguni",
@@ -358,21 +680,53 @@
       "varna": "Brahmin",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "13°20'-16°40' Löwe", "navamsha": "Schütze", "qualitaet": "Feuer + Feuer-Luft — Freude und Inspiration"},
-        "pada_2": {"grad": "16°40'-20°00' Löwe", "navamsha": "Steinbock", "qualitaet": "Feuer + Erde — Genuss mit Substanz"},
-        "pada_3": {"grad": "20°00'-23°20' Löwe", "navamsha": "Wassermann", "qualitaet": "Feuer + Luft — kreative Originalität"},
-        "pada_4": {"grad": "23°20'-26°40' Löwe", "navamsha": "Fische", "qualitaet": "Feuer + Wasser — Freude mit Tiefe"}
+        "pada_1": {
+          "grad": "13°20'-16°40' Löwe",
+          "navamsha": "Schütze",
+          "qualitaet": "Feuer + Feuer-Luft — Freude und Inspiration"
+        },
+        "pada_2": {
+          "grad": "16°40'-20°00' Löwe",
+          "navamsha": "Steinbock",
+          "qualitaet": "Feuer + Erde — Genuss mit Substanz"
+        },
+        "pada_3": {
+          "grad": "20°00'-23°20' Löwe",
+          "navamsha": "Wassermann",
+          "qualitaet": "Feuer + Luft — kreative Originalität"
+        },
+        "pada_4": {
+          "grad": "23°20'-26°40' Löwe",
+          "navamsha": "Fische",
+          "qualitaet": "Feuer + Wasser — Freude mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Purva Phalguni ist das Nakshatra der Erholung, des Genusses und der kreativen Freude. Venus als Herrscherin und Bhaga als Devata geben Schönheit, Sinnlichkeit und künstlerischen Ausdruck. Parashara: 'Purva Phalguni-Menschen sind großzügig, fröhlich, attraktiv und gutmütig.'",
-      "staerken": ["Künstlerische Begabung", "Freude am Leben und Genuss", "Natürliche Anziehungskraft", "Großzügigkeit", "Erholungs- und Regenerationsfähigkeit"],
-      "schwaechen": ["Faulheit und Überindulgenz", "Abhängigkeit von Komfort", "Mangelnde Disziplin", "Eitelkeit"],
+      "staerken": [
+        "Künstlerische Begabung",
+        "Freude am Leben und Genuss",
+        "Natürliche Anziehungskraft",
+        "Großzügigkeit",
+        "Erholungs- und Regenerationsfähigkeit"
+      ],
+      "schwaechen": [
+        "Faulheit und Überindulgenz",
+        "Abhängigkeit von Komfort",
+        "Mangelnde Disziplin",
+        "Eitelkeit"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.66-68); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 5, "beruf": 3, "finanzen": 4, "gesundheit": 4,
-        "soziales": 5, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
       }
     },
-
     "uttara_phalguni": {
       "nummer": 12,
       "name_sanskrit": "Uttara Phalguni",
@@ -386,21 +740,52 @@
       "varna": "Kshatriya",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "26°40'-30°00' Löwe", "navamsha": "Widder", "qualitaet": "Feuer + Feuer — Verbindung und Mut"},
-        "pada_2": {"grad": "0°00'-3°20' Jungfrau", "navamsha": "Stier", "qualitaet": "Erde + Erde — Verbindung mit Beständigkeit"},
-        "pada_3": {"grad": "3°20'-6°40' Jungfrau", "navamsha": "Zwillinge", "qualitaet": "Erde + Luft — Verbindung durch Kommunikation"},
-        "pada_4": {"grad": "6°40'-10°00' Jungfrau", "navamsha": "Krebs", "qualitaet": "Erde + Wasser — Verbindung mit Fürsorge"}
+        "pada_1": {
+          "grad": "26°40'-30°00' Löwe",
+          "navamsha": "Widder",
+          "qualitaet": "Feuer + Feuer — Verbindung und Mut"
+        },
+        "pada_2": {
+          "grad": "0°00'-3°20' Jungfrau",
+          "navamsha": "Stier",
+          "qualitaet": "Erde + Erde — Verbindung mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "3°20'-6°40' Jungfrau",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Erde + Luft — Verbindung durch Kommunikation"
+        },
+        "pada_4": {
+          "grad": "6°40'-10°00' Jungfrau",
+          "navamsha": "Krebs",
+          "qualitaet": "Erde + Wasser — Verbindung mit Fürsorge"
+        }
       },
       "hauptqualitaeten": "Uttara Phalguni ist das Nakshatra der Verbindung, des Mäzenatentums und der sozialen Verantwortung. Nach der Erholung (Purva Phalguni) folgt die Verbindung mit anderen. Parashara: 'Uttara Phalguni-Menschen sind glücklich, großzügig, klug, ehrenhaft und von vielen geliebt.'",
-      "staerken": ["Sozialer Zusammenhalt und Verbindungskraft", "Großzügigkeit und Gastfreundschaft", "Stabilität in Beziehungen", "Führungsverantwortung", "Intellektuelle Stärke"],
-      "schwaechen": ["Abhängigkeit von sozialer Anerkennung", "Unentschlossenheit", "Neigung zur Gefälligkeit auf Kosten eigener Bedürfnisse"],
+      "staerken": [
+        "Sozialer Zusammenhalt und Verbindungskraft",
+        "Großzügigkeit und Gastfreundschaft",
+        "Stabilität in Beziehungen",
+        "Führungsverantwortung",
+        "Intellektuelle Stärke"
+      ],
+      "schwaechen": [
+        "Abhängigkeit von sozialer Anerkennung",
+        "Unentschlossenheit",
+        "Neigung zur Gefälligkeit auf Kosten eigener Bedürfnisse"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.68-70); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4,
-        "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 4
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.75
       }
     },
-
     "hasta": {
       "nummer": 13,
       "name_sanskrit": "Hasta",
@@ -414,21 +799,53 @@
       "varna": "Vaishya",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "10°00'-13°20' Jungfrau", "navamsha": "Widder", "qualitaet": "Erde + Feuer — Handwerk mit Energie"},
-        "pada_2": {"grad": "13°20'-16°40' Jungfrau", "navamsha": "Stier", "qualitaet": "Erde + Erde — Handwerk mit Beständigkeit"},
-        "pada_3": {"grad": "16°40'-20°00' Jungfrau", "navamsha": "Zwillinge", "qualitaet": "Erde + Luft — Handwerk und Kommunikation"},
-        "pada_4": {"grad": "20°00'-23°20' Jungfrau", "navamsha": "Skorpion", "qualitaet": "Erde + Wasser — Handwerk mit Tiefe"}
+        "pada_1": {
+          "grad": "10°00'-13°20' Jungfrau",
+          "navamsha": "Widder",
+          "qualitaet": "Erde + Feuer — Handwerk mit Energie"
+        },
+        "pada_2": {
+          "grad": "13°20'-16°40' Jungfrau",
+          "navamsha": "Stier",
+          "qualitaet": "Erde + Erde — Handwerk mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "16°40'-20°00' Jungfrau",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Erde + Luft — Handwerk und Kommunikation"
+        },
+        "pada_4": {
+          "grad": "20°00'-23°20' Jungfrau",
+          "navamsha": "Skorpion",
+          "qualitaet": "Erde + Wasser — Handwerk mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Hasta ist das Nakshatra der Hand, des Handwerks, der Heilung durch Berührung und der praktischen Intelligenz. Varahamihira: 'Hasta-Menschen sind respektlos, diebisch, betrunken und grausam' — übertrieben negativ. Modern: außergewöhnliche manuelle Begabung, Heilhände, praktische Klugheit.",
-      "staerken": ["Handwerkliche und künstlerische Begabung", "Heilung durch Berührung", "Praktische Intelligenz", "Anpassungsfähigkeit", "Humor und Leichtigkeit"],
-      "schwaechen": ["Nervosität", "Mangelnde Ausdauer", "Neigung zu Täuschung in Details", "Launenhaftigkeit"],
+      "staerken": [
+        "Handwerkliche und künstlerische Begabung",
+        "Heilung durch Berührung",
+        "Praktische Intelligenz",
+        "Anpassungsfähigkeit",
+        "Humor und Leichtigkeit"
+      ],
+      "schwaechen": [
+        "Nervosität",
+        "Mangelnde Ausdauer",
+        "Neigung zu Täuschung in Details",
+        "Launenhaftigkeit"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.70-72); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
       }
     },
-
     "chitra": {
       "nummer": 14,
       "name_sanskrit": "Chitra",
@@ -442,21 +859,53 @@
       "varna": "Farmer",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "23°20'-26°40' Jungfrau", "navamsha": "Löwe", "qualitaet": "Erde/Luft + Feuer — Brillanz mit Führung"},
-        "pada_2": {"grad": "26°40'-30°00' Jungfrau", "navamsha": "Jungfrau", "qualitaet": "Erde + Erde — Brillanz mit Präzision"},
-        "pada_3": {"grad": "0°00'-3°20' Waage", "navamsha": "Waage", "qualitaet": "Luft + Luft — Brillanz in Harmonie"},
-        "pada_4": {"grad": "3°20'-6°40' Waage", "navamsha": "Skorpion", "qualitaet": "Luft + Wasser — Brillanz mit Tiefe"}
+        "pada_1": {
+          "grad": "23°20'-26°40' Jungfrau",
+          "navamsha": "Löwe",
+          "qualitaet": "Erde/Luft + Feuer — Brillanz mit Führung"
+        },
+        "pada_2": {
+          "grad": "26°40'-30°00' Jungfrau",
+          "navamsha": "Jungfrau",
+          "qualitaet": "Erde + Erde — Brillanz mit Präzision"
+        },
+        "pada_3": {
+          "grad": "0°00'-3°20' Waage",
+          "navamsha": "Waage",
+          "qualitaet": "Luft + Luft — Brillanz in Harmonie"
+        },
+        "pada_4": {
+          "grad": "3°20'-6°40' Waage",
+          "navamsha": "Skorpion",
+          "qualitaet": "Luft + Wasser — Brillanz mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Chitra ist das Nakshatra des Glanzes, der Schönheit und des schöpferischen Designs. Die Perle als Symbol zeigt: etwas Wunderbares entsteht aus der Tiefe. Parashara: 'Chitra-Menschen haben schöne Augen und Körper, sind attraktiv gekleidet und angenehm anzusehen.'",
-      "staerken": ["Außergewöhnliches Designtalent", "Ästhetisches Gespür", "Ingenieurgeist", "Natürliche Schönheit", "Perfektionismus im positiven Sinne"],
-      "schwaechen": ["Eitelkeit und Oberflächlichkeit", "Kompromisslosigkeit in Ästhetik", "Rücksichtslosigkeit", "Impulsivität durch Mars"],
+      "staerken": [
+        "Außergewöhnliches Designtalent",
+        "Ästhetisches Gespür",
+        "Ingenieurgeist",
+        "Natürliche Schönheit",
+        "Perfektionismus im positiven Sinne"
+      ],
+      "schwaechen": [
+        "Eitelkeit und Oberflächlichkeit",
+        "Kompromisslosigkeit in Ästhetik",
+        "Rücksichtslosigkeit",
+        "Impulsivität durch Mars"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.72-74); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.5
       }
     },
-
     "swati": {
       "nummer": 15,
       "name_sanskrit": "Swati",
@@ -470,21 +919,53 @@
       "varna": "Mleccha",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "6°40'-10°00' Waage", "navamsha": "Schütze", "qualitaet": "Luft + Feuer — Unabhängigkeit und Weisheit"},
-        "pada_2": {"grad": "10°00'-13°20' Waage", "navamsha": "Steinbock", "qualitaet": "Luft + Erde — Unabhängigkeit mit Struktur"},
-        "pada_3": {"grad": "13°20'-16°40' Waage", "navamsha": "Wassermann", "qualitaet": "Luft + Luft — reinste Unabhängigkeit"},
-        "pada_4": {"grad": "16°40'-20°00' Waage", "navamsha": "Fische", "qualitaet": "Luft + Wasser — Unabhängigkeit mit Tiefe"}
+        "pada_1": {
+          "grad": "6°40'-10°00' Waage",
+          "navamsha": "Schütze",
+          "qualitaet": "Luft + Feuer — Unabhängigkeit und Weisheit"
+        },
+        "pada_2": {
+          "grad": "10°00'-13°20' Waage",
+          "navamsha": "Steinbock",
+          "qualitaet": "Luft + Erde — Unabhängigkeit mit Struktur"
+        },
+        "pada_3": {
+          "grad": "13°20'-16°40' Waage",
+          "navamsha": "Wassermann",
+          "qualitaet": "Luft + Luft — reinste Unabhängigkeit"
+        },
+        "pada_4": {
+          "grad": "16°40'-20°00' Waage",
+          "navamsha": "Fische",
+          "qualitaet": "Luft + Wasser — Unabhängigkeit mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Swati ist das Nakshatra der Unabhängigkeit, der Beweglichkeit und des Handels. Der junge Sämling im Wind — er biegt sich, aber bricht nicht. Varahamihira: 'Swati-Menschen sind mitfühlend, bescheiden, religiös, im Dienst anderer und im Handel tätig.'",
-      "staerken": ["Unabhängigkeitsdrang und Selbstständigkeit", "Diplomatische Fähigkeiten", "Handelsintelligenz", "Anpassungsfähigkeit", "Mitgefühl"],
-      "schwaechen": ["Unbeständigkeit", "Übermäßige Flexibilität bis zur Charakterlosigkeit", "Materialismus", "Vermeidung von Konflikten"],
+      "staerken": [
+        "Unabhängigkeitsdrang und Selbstständigkeit",
+        "Diplomatische Fähigkeiten",
+        "Handelsintelligenz",
+        "Anpassungsfähigkeit",
+        "Mitgefühl"
+      ],
+      "schwaechen": [
+        "Unbeständigkeit",
+        "Übermäßige Flexibilität bis zur Charakterlosigkeit",
+        "Materialismus",
+        "Vermeidung von Konflikten"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.74-76); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 4, "finanzen": 5, "gesundheit": 3,
-        "soziales": 4, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.5
       }
     },
-
     "vishakha": {
       "nummer": 16,
       "name_sanskrit": "Vishakha",
@@ -498,21 +979,53 @@
       "varna": "Mleccha",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "20°00'-23°20' Waage", "navamsha": "Widder", "qualitaet": "Luft + Feuer — Zielstrebigkeit mit Energie"},
-        "pada_2": {"grad": "23°20'-26°40' Waage", "navamsha": "Stier", "qualitaet": "Luft + Erde — Ziel mit Beständigkeit"},
-        "pada_3": {"grad": "26°40'-30°00' Waage", "navamsha": "Zwillinge", "qualitaet": "Luft + Luft — Ziel durch Kommunikation"},
-        "pada_4": {"grad": "0°00'-3°20' Skorpion", "navamsha": "Krebs", "qualitaet": "Wasser + Wasser — Ziel mit emotionaler Tiefe"}
+        "pada_1": {
+          "grad": "20°00'-23°20' Waage",
+          "navamsha": "Widder",
+          "qualitaet": "Luft + Feuer — Zielstrebigkeit mit Energie"
+        },
+        "pada_2": {
+          "grad": "23°20'-26°40' Waage",
+          "navamsha": "Stier",
+          "qualitaet": "Luft + Erde — Ziel mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "26°40'-30°00' Waage",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Luft + Luft — Ziel durch Kommunikation"
+        },
+        "pada_4": {
+          "grad": "0°00'-3°20' Skorpion",
+          "navamsha": "Krebs",
+          "qualitaet": "Wasser + Wasser — Ziel mit emotionaler Tiefe"
+        }
       },
       "hauptqualitaeten": "Vishakha ist das Nakshatra des Ziels und der Beharrlichkeit. Der Triumphbogen — man muss durch das Tor, um zu triumphieren. Parashara: 'Vishakha-Menschen sind neidisch, habgierig, intelligent, gut im Reden und streitbar.' Modern: außergewöhnliche Zielorientierung und Beharrungsvermögen.",
-      "staerken": ["Außergewöhnliche Zielorientierung", "Ausdauer und Beharrlichkeit", "Überzeugungskraft", "Spirituelle Suchkraft", "Führung durch Vision"],
-      "schwaechen": ["Neid und Eifersucht", "Kompromisslosigkeit", "Ungeduld bei Verzögerungen", "Schwierigkeit mit Misserfolg"],
+      "staerken": [
+        "Außergewöhnliche Zielorientierung",
+        "Ausdauer und Beharrlichkeit",
+        "Überzeugungskraft",
+        "Spirituelle Suchkraft",
+        "Führung durch Vision"
+      ],
+      "schwaechen": [
+        "Neid und Eifersucht",
+        "Kompromisslosigkeit",
+        "Ungeduld bei Verzögerungen",
+        "Schwierigkeit mit Misserfolg"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.76-78); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
-        "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
       }
     },
-
     "anuradha": {
       "nummer": 17,
       "name_sanskrit": "Anuradha",
@@ -526,21 +1039,53 @@
       "varna": "Shudra",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "3°20'-6°40' Skorpion", "navamsha": "Schütze", "qualitaet": "Wasser + Feuer — Freundschaft und Weisheit"},
-        "pada_2": {"grad": "6°40'-10°00' Skorpion", "navamsha": "Steinbock", "qualitaet": "Wasser + Erde — Freundschaft mit Substanz"},
-        "pada_3": {"grad": "10°00'-13°20' Skorpion", "navamsha": "Wassermann", "qualitaet": "Wasser + Luft — Freundschaft und Ideale"},
-        "pada_4": {"grad": "13°20'-16°40' Skorpion", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — tiefste Hingabe"}
+        "pada_1": {
+          "grad": "3°20'-6°40' Skorpion",
+          "navamsha": "Schütze",
+          "qualitaet": "Wasser + Feuer — Freundschaft und Weisheit"
+        },
+        "pada_2": {
+          "grad": "6°40'-10°00' Skorpion",
+          "navamsha": "Steinbock",
+          "qualitaet": "Wasser + Erde — Freundschaft mit Substanz"
+        },
+        "pada_3": {
+          "grad": "10°00'-13°20' Skorpion",
+          "navamsha": "Wassermann",
+          "qualitaet": "Wasser + Luft — Freundschaft und Ideale"
+        },
+        "pada_4": {
+          "grad": "13°20'-16°40' Skorpion",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — tiefste Hingabe"
+        }
       },
       "hauptqualitaeten": "Anuradha ist das Nakshatra der Freundschaft, der Hingabe und der Gruppenarbeit. Mitra als Devata gibt Freundlichkeit und Kooperation. Parashara: 'Anuradha-Menschen sind reich, wohnen in der Fremde und sind auf Reisen.' Bekannt für Loyalität und Teamgeist.",
-      "staerken": ["Tiefe Freundschaft und Loyalität", "Organisationstalent", "Spirituelle Hingabe", "Teamfähigkeit", "Ausdauer durch Saturn"],
-      "schwaechen": ["Heimweh und Nostalgie", "Übermäßige Anhänglichkeit an Freunde", "Mangelnde Grenzen", "Unterdrückte Wut"],
+      "staerken": [
+        "Tiefe Freundschaft und Loyalität",
+        "Organisationstalent",
+        "Spirituelle Hingabe",
+        "Teamfähigkeit",
+        "Ausdauer durch Saturn"
+      ],
+      "schwaechen": [
+        "Heimweh und Nostalgie",
+        "Übermäßige Anhänglichkeit an Freunde",
+        "Mangelnde Grenzen",
+        "Unterdrückte Wut"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.78-80); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     },
-
     "jyeshtha": {
       "nummer": 18,
       "name_sanskrit": "Jyeshtha",
@@ -554,21 +1099,53 @@
       "varna": "Farmer",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "16°40'-20°00' Skorpion", "navamsha": "Schütze", "qualitaet": "Wasser + Feuer — Reife und Weisheit"},
-        "pada_2": {"grad": "20°00'-23°20' Skorpion", "navamsha": "Steinbock", "qualitaet": "Wasser + Erde — Reife mit Struktur"},
-        "pada_3": {"grad": "23°20'-26°40' Skorpion", "navamsha": "Wassermann", "qualitaet": "Wasser + Luft — Reife und Originalität"},
-        "pada_4": {"grad": "26°40'-30°00' Skorpion", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — tiefste Reife"}
+        "pada_1": {
+          "grad": "16°40'-20°00' Skorpion",
+          "navamsha": "Schütze",
+          "qualitaet": "Wasser + Feuer — Reife und Weisheit"
+        },
+        "pada_2": {
+          "grad": "20°00'-23°20' Skorpion",
+          "navamsha": "Steinbock",
+          "qualitaet": "Wasser + Erde — Reife mit Struktur"
+        },
+        "pada_3": {
+          "grad": "23°20'-26°40' Skorpion",
+          "navamsha": "Wassermann",
+          "qualitaet": "Wasser + Luft — Reife und Originalität"
+        },
+        "pada_4": {
+          "grad": "26°40'-30°00' Skorpion",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — tiefste Reife"
+        }
       },
       "hauptqualitaeten": "Jyeshtha ist das Nakshatra der Älteren, der Würde, der Schutzfunktion und der Verantwortung. Indra als Devata gibt Führungsmacht. Parashara: 'Jyeshtha-Menschen haben wenige Freunde, sind zufrieden, tugendhaft und tief.' Schutz der Schwächeren ist zentrales Thema.",
-      "staerken": ["Verantwortungsbewusstsein", "Schutzinstinkt", "Reife und Würde", "Führungsstärke", "Geistige Tiefe"],
-      "schwaechen": ["Elitismus", "Einsamkeit trotz Stärke", "Ungeduld mit Schwäche anderer", "Kontrollbedürfnis"],
+      "staerken": [
+        "Verantwortungsbewusstsein",
+        "Schutzinstinkt",
+        "Reife und Würde",
+        "Führungsstärke",
+        "Geistige Tiefe"
+      ],
+      "schwaechen": [
+        "Elitismus",
+        "Einsamkeit trotz Stärke",
+        "Ungeduld mit Schwäche anderer",
+        "Kontrollbedürfnis"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.80-82); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
-        "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
       }
     },
-
     "mula": {
       "nummer": 19,
       "name_sanskrit": "Mula",
@@ -582,21 +1159,53 @@
       "varna": "Mleccha",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "0°00'-3°20' Schütze", "navamsha": "Widder", "qualitaet": "Feuer + Feuer — Wurzelsuche mit Energie"},
-        "pada_2": {"grad": "3°20'-6°40' Schütze", "navamsha": "Stier", "qualitaet": "Feuer + Erde — Wurzel mit Substanz"},
-        "pada_3": {"grad": "6°40'-10°00' Schütze", "navamsha": "Zwillinge", "qualitaet": "Feuer + Luft — Wurzel und Kommunikation"},
-        "pada_4": {"grad": "10°00'-13°20' Schütze", "navamsha": "Krebs", "qualitaet": "Feuer + Wasser — Wurzel mit Fühlen"}
+        "pada_1": {
+          "grad": "0°00'-3°20' Schütze",
+          "navamsha": "Widder",
+          "qualitaet": "Feuer + Feuer — Wurzelsuche mit Energie"
+        },
+        "pada_2": {
+          "grad": "3°20'-6°40' Schütze",
+          "navamsha": "Stier",
+          "qualitaet": "Feuer + Erde — Wurzel mit Substanz"
+        },
+        "pada_3": {
+          "grad": "6°40'-10°00' Schütze",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Feuer + Luft — Wurzel und Kommunikation"
+        },
+        "pada_4": {
+          "grad": "10°00'-13°20' Schütze",
+          "navamsha": "Krebs",
+          "qualitaet": "Feuer + Wasser — Wurzel mit Fühlen"
+        }
       },
       "hauptqualitaeten": "Mula ist das Nakshatra der Wurzel — im doppelten Sinne: Entwurzelung und Tiefensuche nach Wurzeln. Es steht am Galaktischen Zentrum. Mantreswara: 'Mula-Menschen sind stolz, reich, glücklich, aber können andere verletzen.' Tiefgreifende Transformationen durch Auflösung von Strukturen.",
-      "staerken": ["Fähigkeit zur radikalen Transformation", "Forschungsdrang nach Ursprüngen", "Spirituelle Tiefe am Galaktischen Zentrum", "Ehrlichkeit bis zur Schmerzhaftigkeit", "Heilungskraft durch Auflösung"],
-      "schwaechen": ["Destruktivität", "Entwurzelung", "Extremismus", "Schwierigkeiten mit Stabilität"],
+      "staerken": [
+        "Fähigkeit zur radikalen Transformation",
+        "Forschungsdrang nach Ursprüngen",
+        "Spirituelle Tiefe am Galaktischen Zentrum",
+        "Ehrlichkeit bis zur Schmerzhaftigkeit",
+        "Heilungskraft durch Auflösung"
+      ],
+      "schwaechen": [
+        "Destruktivität",
+        "Entwurzelung",
+        "Extremismus",
+        "Schwierigkeiten mit Stabilität"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.82-84); Mantreswara - Phaladeepika II.19",
       "dimensionen_vektor": {
-        "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 2, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+        "liebe": 0.25,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
       }
     },
-
     "purva_ashadha": {
       "nummer": 20,
       "name_sanskrit": "Purva Ashadha",
@@ -610,21 +1219,53 @@
       "varna": "Brahmin",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "13°20'-16°40' Schütze", "navamsha": "Schütze", "qualitaet": "Feuer + Feuer — doppelte Unbezwinglichkeit"},
-        "pada_2": {"grad": "16°40'-20°00' Schütze", "navamsha": "Steinbock", "qualitaet": "Feuer + Erde — Unbezwinglichkeit mit Substanz"},
-        "pada_3": {"grad": "20°00'-23°20' Schütze", "navamsha": "Wassermann", "qualitaet": "Feuer + Luft — Unbezwinglichkeit und Ideale"},
-        "pada_4": {"grad": "23°20'-26°40' Schütze", "navamsha": "Fische", "qualitaet": "Feuer + Wasser — Unbezwinglichkeit mit Mitgefühl"}
+        "pada_1": {
+          "grad": "13°20'-16°40' Schütze",
+          "navamsha": "Schütze",
+          "qualitaet": "Feuer + Feuer — doppelte Unbezwinglichkeit"
+        },
+        "pada_2": {
+          "grad": "16°40'-20°00' Schütze",
+          "navamsha": "Steinbock",
+          "qualitaet": "Feuer + Erde — Unbezwinglichkeit mit Substanz"
+        },
+        "pada_3": {
+          "grad": "20°00'-23°20' Schütze",
+          "navamsha": "Wassermann",
+          "qualitaet": "Feuer + Luft — Unbezwinglichkeit und Ideale"
+        },
+        "pada_4": {
+          "grad": "23°20'-26°40' Schütze",
+          "navamsha": "Fische",
+          "qualitaet": "Feuer + Wasser — Unbezwinglichkeit mit Mitgefühl"
+        }
       },
       "hauptqualitaeten": "Purva Ashadha ist das Nakshatra der Überzeugungskraft und des Nicht-Aufgebens. Wasser reinigt und besiegt durch Ausdauer. Parashara: 'Purva Ashadha-Menschen sind stolz, klug, haben viele Freunde und Ehefrauen.' Modern: außergewöhnliche Überzeugungskraft und Siegeswille.",
-      "staerken": ["Überzeugungskraft und Rhetorik", "Optimismus", "Reinigungskraft", "Ausdauer", "Philosophische Tiefe"],
-      "schwaechen": ["Sturheit", "Arroganz im Sieg", "Übertriebener Optimismus", "Konfrontationsfreude"],
+      "staerken": [
+        "Überzeugungskraft und Rhetorik",
+        "Optimismus",
+        "Reinigungskraft",
+        "Ausdauer",
+        "Philosophische Tiefe"
+      ],
+      "schwaechen": [
+        "Sturheit",
+        "Arroganz im Sieg",
+        "Übertriebener Optimismus",
+        "Konfrontationsfreude"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.84-86); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 3,
-        "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 4
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
       }
     },
-
     "uttara_ashadha": {
       "nummer": 21,
       "name_sanskrit": "Uttara Ashadha",
@@ -638,21 +1279,52 @@
       "varna": "Kshatriya",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "26°40'-30°00' Schütze", "navamsha": "Schütze", "qualitaet": "Feuer + Feuer — Universalität und Führung"},
-        "pada_2": {"grad": "0°00'-3°20' Steinbock", "navamsha": "Steinbock", "qualitaet": "Erde + Erde — universeller Dienst mit Struktur"},
-        "pada_3": {"grad": "3°20'-6°40' Steinbock", "navamsha": "Wassermann", "qualitaet": "Erde + Luft — universeller Dienst und Ideale"},
-        "pada_4": {"grad": "6°40'-10°00' Steinbock", "navamsha": "Fische", "qualitaet": "Erde + Wasser — universeller Dienst mit Tiefe"}
+        "pada_1": {
+          "grad": "26°40'-30°00' Schütze",
+          "navamsha": "Schütze",
+          "qualitaet": "Feuer + Feuer — Universalität und Führung"
+        },
+        "pada_2": {
+          "grad": "0°00'-3°20' Steinbock",
+          "navamsha": "Steinbock",
+          "qualitaet": "Erde + Erde — universeller Dienst mit Struktur"
+        },
+        "pada_3": {
+          "grad": "3°20'-6°40' Steinbock",
+          "navamsha": "Wassermann",
+          "qualitaet": "Erde + Luft — universeller Dienst und Ideale"
+        },
+        "pada_4": {
+          "grad": "6°40'-10°00' Steinbock",
+          "navamsha": "Fische",
+          "qualitaet": "Erde + Wasser — universeller Dienst mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Uttara Ashadha ist das Nakshatra des dauerhaften Sieges und des universellen Diensts. Während Purva Ashadha kämpft, ruht Uttara Ashadha im Sieg. Parashara: 'Uttara Ashadha-Menschen sind dankbar, weise und von allen geliebt.' Bekannt für Integrität und Dienst am Ganzen.",
-      "staerken": ["Integrität und moralische Stärke", "Dienst an der Gemeinschaft", "Ausdauer und Verlässlichkeit", "Führung durch Tugend", "Universelle Sichtweise"],
-      "schwaechen": ["Zu viel Selbstbescheidenheit", "Langsamkeit bei Entscheidungen", "Schwierigkeit beim Durchsetzen eigener Bedürfnisse"],
+      "staerken": [
+        "Integrität und moralische Stärke",
+        "Dienst an der Gemeinschaft",
+        "Ausdauer und Verlässlichkeit",
+        "Führung durch Tugend",
+        "Universelle Sichtweise"
+      ],
+      "schwaechen": [
+        "Zu viel Selbstbescheidenheit",
+        "Langsamkeit bei Entscheidungen",
+        "Schwierigkeit beim Durchsetzen eigener Bedürfnisse"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.86-88); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
-        "soziales": 5, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     },
-
     "shravana": {
       "nummer": 22,
       "name_sanskrit": "Shravana",
@@ -666,21 +1338,53 @@
       "varna": "Mleccha",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "10°00'-13°20' Steinbock", "navamsha": "Widder", "qualitaet": "Erde + Feuer — Lernen mit Energie"},
-        "pada_2": {"grad": "13°20'-16°40' Steinbock", "navamsha": "Stier", "qualitaet": "Erde + Erde — Lernen mit Beständigkeit"},
-        "pada_3": {"grad": "16°40'-20°00' Steinbock", "navamsha": "Zwillinge", "qualitaet": "Erde + Luft — Lernen und Kommunikation"},
-        "pada_4": {"grad": "20°00'-23°20' Steinbock", "navamsha": "Fische", "qualitaet": "Erde + Wasser — Lernen mit Tiefe"}
+        "pada_1": {
+          "grad": "10°00'-13°20' Steinbock",
+          "navamsha": "Widder",
+          "qualitaet": "Erde + Feuer — Lernen mit Energie"
+        },
+        "pada_2": {
+          "grad": "13°20'-16°40' Steinbock",
+          "navamsha": "Stier",
+          "qualitaet": "Erde + Erde — Lernen mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "16°40'-20°00' Steinbock",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Erde + Luft — Lernen und Kommunikation"
+        },
+        "pada_4": {
+          "grad": "20°00'-23°20' Steinbock",
+          "navamsha": "Fische",
+          "qualitaet": "Erde + Wasser — Lernen mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Shravana ist das Nakshatra des Hörens, des Lernens und der Weisheit durch Zuhören. Vishnu als Devata gibt Erhaltungskraft und Gerechtigkeit. Parashara: 'Shravana-Menschen sind reich, gelehrt, haben eine berühmte Ehefrau und sind weithin bekannt.' Bekannt für Wissensbewahrung und Weitergabe.",
-      "staerken": ["Außergewöhnliches Zuhören und Lernfähigkeit", "Wissensspeicherung und -weitergabe", "Organisationstalent", "Gerechtigkeit und Fairness", "Treue"],
-      "schwaechen": ["Übermäßige Empfindlichkeit gegenüber Kritik", "Geschwätzigkeit trotz Zuhörqualität", "Konservatismus", "Ungeduld mit Ignoranz"],
+      "staerken": [
+        "Außergewöhnliches Zuhören und Lernfähigkeit",
+        "Wissensspeicherung und -weitergabe",
+        "Organisationstalent",
+        "Gerechtigkeit und Fairness",
+        "Treue"
+      ],
+      "schwaechen": [
+        "Übermäßige Empfindlichkeit gegenüber Kritik",
+        "Geschwätzigkeit trotz Zuhörqualität",
+        "Konservatismus",
+        "Ungeduld mit Ignoranz"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.88-90); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     },
-
     "dhanishtha": {
       "nummer": 23,
       "name_sanskrit": "Dhanishtha",
@@ -694,21 +1398,53 @@
       "varna": "Farmer",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "23°20'-26°40' Steinbock", "navamsha": "Schütze", "qualitaet": "Erde + Feuer — Reichtum und Weisheit"},
-        "pada_2": {"grad": "26°40'-30°00' Steinbock", "navamsha": "Steinbock", "qualitaet": "Erde + Erde — Reichtum mit Beständigkeit"},
-        "pada_3": {"grad": "0°00'-3°20' Wassermann", "navamsha": "Wassermann", "qualitaet": "Luft + Luft — Reichtum und Originalität"},
-        "pada_4": {"grad": "3°20'-6°40' Wassermann", "navamsha": "Fische", "qualitaet": "Luft + Wasser — Reichtum mit Tiefe"}
+        "pada_1": {
+          "grad": "23°20'-26°40' Steinbock",
+          "navamsha": "Schütze",
+          "qualitaet": "Erde + Feuer — Reichtum und Weisheit"
+        },
+        "pada_2": {
+          "grad": "26°40'-30°00' Steinbock",
+          "navamsha": "Steinbock",
+          "qualitaet": "Erde + Erde — Reichtum mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "0°00'-3°20' Wassermann",
+          "navamsha": "Wassermann",
+          "qualitaet": "Luft + Luft — Reichtum und Originalität"
+        },
+        "pada_4": {
+          "grad": "3°20'-6°40' Wassermann",
+          "navamsha": "Fische",
+          "qualitaet": "Luft + Wasser — Reichtum mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Dhanishtha ist das Nakshatra des Reichtums, der Musik und der Gruppenenergie. Die Trommel verbindet — Rhythmus als kosmisches Prinzip. Parashara: 'Dhanishtha-Menschen sind freigebig, mutig, reich und musikliebend.' Mars als Herrscher gibt Energie; die Vasus geben Elementarkraft.",
-      "staerken": ["Musikalische und rhythmische Begabung", "Gruppenführung", "Materielle Stärke und Mut", "Adaptivität", "Großzügigkeit"],
-      "schwaechen": ["Prahlerei", "Überaktivität", "Schwierigkeiten in intimen Beziehungen", "Egoismus im Ehrgeiz"],
+      "staerken": [
+        "Musikalische und rhythmische Begabung",
+        "Gruppenführung",
+        "Materielle Stärke und Mut",
+        "Adaptivität",
+        "Großzügigkeit"
+      ],
+      "schwaechen": [
+        "Prahlerei",
+        "Überaktivität",
+        "Schwierigkeiten in intimen Beziehungen",
+        "Egoismus im Ehrgeiz"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.90-92); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 1.0,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.5
       }
     },
-
     "shatabhisha": {
       "nummer": 24,
       "name_sanskrit": "Shatabhisha",
@@ -722,21 +1458,53 @@
       "varna": "Mleccha",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "6°40'-10°00' Wassermann", "navamsha": "Schütze", "qualitaet": "Luft + Feuer — Heilung und Weisheit"},
-        "pada_2": {"grad": "10°00'-13°20' Wassermann", "navamsha": "Steinbock", "qualitaet": "Luft + Erde — Heilung mit Struktur"},
-        "pada_3": {"grad": "13°20'-16°40' Wassermann", "navamsha": "Wassermann", "qualitaet": "Luft + Luft — reinste Originalität in der Heilung"},
-        "pada_4": {"grad": "16°40'-20°00' Wassermann", "navamsha": "Fische", "qualitaet": "Luft + Wasser — Heilung mit Tiefe"}
+        "pada_1": {
+          "grad": "6°40'-10°00' Wassermann",
+          "navamsha": "Schütze",
+          "qualitaet": "Luft + Feuer — Heilung und Weisheit"
+        },
+        "pada_2": {
+          "grad": "10°00'-13°20' Wassermann",
+          "navamsha": "Steinbock",
+          "qualitaet": "Luft + Erde — Heilung mit Struktur"
+        },
+        "pada_3": {
+          "grad": "13°20'-16°40' Wassermann",
+          "navamsha": "Wassermann",
+          "qualitaet": "Luft + Luft — reinste Originalität in der Heilung"
+        },
+        "pada_4": {
+          "grad": "16°40'-20°00' Wassermann",
+          "navamsha": "Fische",
+          "qualitaet": "Luft + Wasser — Heilung mit Tiefe"
+        }
       },
       "hauptqualitaeten": "Shatabhisha ist das Nakshatra der hundert Heiler und der verborgenen Heilkünste. Rahu als Herrscher gibt unkonventionelle Brillanz; Varuna gibt kosmisches Gesetz und Reinigung. Parashara: 'Shatabhisha-Menschen sind aufrichtig, scharf, bezwingen Feinde, sind hartnäckig und leiden viele Widerwärtigkeiten.' Modern: brillante Heiler und Forscher.",
-      "staerken": ["Außergewöhnliche Heilbegabung", "Wissenschaftliche und forscherische Intelligenz", "Originalität und Unabhängigkeit", "Kosmisches Bewusstsein", "Intuition für verborgene Wahrheiten"],
-      "schwaechen": ["Isolation und Einsamkeit", "Exzentrizität bis zur Soziopathie", "Sturheit", "Geheimhaltungsdrang"],
+      "staerken": [
+        "Außergewöhnliche Heilbegabung",
+        "Wissenschaftliche und forscherische Intelligenz",
+        "Originalität und Unabhängigkeit",
+        "Kosmisches Bewusstsein",
+        "Intuition für verborgene Wahrheiten"
+      ],
+      "schwaechen": [
+        "Isolation und Einsamkeit",
+        "Exzentrizität bis zur Soziopathie",
+        "Sturheit",
+        "Geheimhaltungsdrang"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.92-94); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 2, "beruf": 4, "finanzen": 3, "gesundheit": 5,
-        "soziales": 2, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+        "liebe": 0.25,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 1.0,
+        "soziales": 0.25,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
       }
     },
-
     "purva_bhadrapada": {
       "nummer": 25,
       "name_sanskrit": "Purva Bhadrapada",
@@ -750,21 +1518,53 @@
       "varna": "Brahmin",
       "nadi": "Vata",
       "pada": {
-        "pada_1": {"grad": "20°00'-23°20' Wassermann", "navamsha": "Widder", "qualitaet": "Luft + Feuer — Feuer-Transformation mit Energie"},
-        "pada_2": {"grad": "23°20'-26°40' Wassermann", "navamsha": "Stier", "qualitaet": "Luft + Erde — Transformation mit Beständigkeit"},
-        "pada_3": {"grad": "26°40'-30°00' Wassermann", "navamsha": "Zwillinge", "qualitaet": "Luft + Luft — intellektuelle Transformation"},
-        "pada_4": {"grad": "0°00'-3°20' Fische", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — Transformation in der Tiefe"}
+        "pada_1": {
+          "grad": "20°00'-23°20' Wassermann",
+          "navamsha": "Widder",
+          "qualitaet": "Luft + Feuer — Feuer-Transformation mit Energie"
+        },
+        "pada_2": {
+          "grad": "23°20'-26°40' Wassermann",
+          "navamsha": "Stier",
+          "qualitaet": "Luft + Erde — Transformation mit Beständigkeit"
+        },
+        "pada_3": {
+          "grad": "26°40'-30°00' Wassermann",
+          "navamsha": "Zwillinge",
+          "qualitaet": "Luft + Luft — intellektuelle Transformation"
+        },
+        "pada_4": {
+          "grad": "0°00'-3°20' Fische",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — Transformation in der Tiefe"
+        }
       },
       "hauptqualitaeten": "Purva Bhadrapada ist das Nakshatra des zweiseitigen Schwertes — es zerstört, um zu befreien. Jupiter als Herrscher gibt Weisheit; das Feuer-Prinzip des Devata transformiert. Parashara: 'Purva Bhadrapada-Menschen sind beredsam, klug, in der Lage, ihre Feinde zu überwinden, und Herr über ihre Frauen.' Intensiv und transformativ.",
-      "staerken": ["Fähigkeit zur fundamentalen Transformation", "Tiefe Spiritualität", "Rhetorische Kraft", "Intellektuelle Brillanz", "Altruismus"],
-      "schwaechen": ["Überbetonung von Idealen", "Fanatismus", "Selbstbestrafung", "Extreme Stimmungsschwankungen"],
+      "staerken": [
+        "Fähigkeit zur fundamentalen Transformation",
+        "Tiefe Spiritualität",
+        "Rhetorische Kraft",
+        "Intellektuelle Brillanz",
+        "Altruismus"
+      ],
+      "schwaechen": [
+        "Überbetonung von Idealen",
+        "Fanatismus",
+        "Selbstbestrafung",
+        "Extreme Stimmungsschwankungen"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.94-96); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 3, "beruf": 4, "finanzen": 3, "gesundheit": 3,
-        "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 5
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.75,
+        "veraenderung": 1.0,
+        "spiritualitaet": 1.0
       }
     },
-
     "uttara_bhadrapada": {
       "nummer": 26,
       "name_sanskrit": "Uttara Bhadrapada",
@@ -778,21 +1578,53 @@
       "varna": "Kshatriya",
       "nadi": "Pitta",
       "pada": {
-        "pada_1": {"grad": "3°20'-6°40' Fische", "navamsha": "Schütze", "qualitaet": "Wasser + Feuer — Tiefe mit Weisheit"},
-        "pada_2": {"grad": "6°40'-10°00' Fische", "navamsha": "Steinbock", "qualitaet": "Wasser + Erde — Tiefe mit Struktur"},
-        "pada_3": {"grad": "10°00'-13°20' Fische", "navamsha": "Wassermann", "qualitaet": "Wasser + Luft — Tiefe und Originalität"},
-        "pada_4": {"grad": "13°20'-16°40' Fische", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — reinste Tiefe"}
+        "pada_1": {
+          "grad": "3°20'-6°40' Fische",
+          "navamsha": "Schütze",
+          "qualitaet": "Wasser + Feuer — Tiefe mit Weisheit"
+        },
+        "pada_2": {
+          "grad": "6°40'-10°00' Fische",
+          "navamsha": "Steinbock",
+          "qualitaet": "Wasser + Erde — Tiefe mit Struktur"
+        },
+        "pada_3": {
+          "grad": "10°00'-13°20' Fische",
+          "navamsha": "Wassermann",
+          "qualitaet": "Wasser + Luft — Tiefe und Originalität"
+        },
+        "pada_4": {
+          "grad": "13°20'-16°40' Fische",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — reinste Tiefe"
+        }
       },
       "hauptqualitaeten": "Uttara Bhadrapada ist das Nakshatra der ruhenden Tiefe und der kosmischen Weisheit. Nach der Transformation von Purva Bhadrapada folgt die stille Tiefe der kosmischen Schlange. Parashara: 'Uttara Bhadrapada-Menschen sind glücklich, redegewandt, haben Kinder und besiegen Feinde.' Bekannt für Weisheit und Mitgefühl.",
-      "staerken": ["Tiefe Weisheit", "Mitgefühl und Mitgefühl", "Spirituelle Beständigkeit", "Schutz der Schwächeren", "Geduld Saturn'scher Art"],
-      "schwaechen": ["Trägheit und Lethargie", "Isolation", "Übermäßige Passivität", "Schwierigkeit mit schnellen Entscheidungen"],
+      "staerken": [
+        "Tiefe Weisheit",
+        "Mitgefühl und Mitgefühl",
+        "Spirituelle Beständigkeit",
+        "Schutz der Schwächeren",
+        "Geduld Saturn'scher Art"
+      ],
+      "schwaechen": [
+        "Trägheit und Lethargie",
+        "Isolation",
+        "Übermäßige Passivität",
+        "Schwierigkeit mit schnellen Entscheidungen"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.96-98); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 3, "finanzen": 3, "gesundheit": 4,
-        "soziales": 4, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.75,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     },
-
     "revati": {
       "nummer": 27,
       "name_sanskrit": "Revati",
@@ -806,44 +1638,137 @@
       "varna": "Shudra",
       "nadi": "Kapha",
       "pada": {
-        "pada_1": {"grad": "16°40'-20°00' Fische", "navamsha": "Schütze", "qualitaet": "Wasser + Feuer — Abschluss mit Weisheit"},
-        "pada_2": {"grad": "20°00'-23°20' Fische", "navamsha": "Steinbock", "qualitaet": "Wasser + Erde — Abschluss mit Struktur"},
-        "pada_3": {"grad": "23°20'-26°40' Fische", "navamsha": "Wassermann", "qualitaet": "Wasser + Luft — Abschluss und Originalität"},
-        "pada_4": {"grad": "26°40'-30°00' Fische", "navamsha": "Fische", "qualitaet": "Wasser + Wasser — vollständiger Abschluss des Zyklus"}
+        "pada_1": {
+          "grad": "16°40'-20°00' Fische",
+          "navamsha": "Schütze",
+          "qualitaet": "Wasser + Feuer — Abschluss mit Weisheit"
+        },
+        "pada_2": {
+          "grad": "20°00'-23°20' Fische",
+          "navamsha": "Steinbock",
+          "qualitaet": "Wasser + Erde — Abschluss mit Struktur"
+        },
+        "pada_3": {
+          "grad": "23°20'-26°40' Fische",
+          "navamsha": "Wassermann",
+          "qualitaet": "Wasser + Luft — Abschluss und Originalität"
+        },
+        "pada_4": {
+          "grad": "26°40'-30°00' Fische",
+          "navamsha": "Fische",
+          "qualitaet": "Wasser + Wasser — vollständiger Abschluss des Zyklus"
+        }
       },
       "hauptqualitaeten": "Revati ist das letzte Nakshatra — der Abschluss des Zyklus. Es steht für Vollendung, Reichtum, Fürsorge für alle Lebewesen und die Segensfülle am Ende einer Reise. Parashara: 'Revati-Menschen sind vollständig in allen Gliedmaßen, reich, nicht nach Reichtum begierig, wahrhaftig.' Die Brücke zwischen dem Ende und dem neuen Beginn (Ashwini).",
-      "staerken": ["Mitgefühl für alle Wesen", "Vollendungs- und Abschlussqualität", "Nährendes und beschützendes Wesen", "Spirituelle Reife", "Reiseführerqualität (Pushan)"],
-      "schwaechen": ["Naivität und übermäßiges Vertrauen", "Schwierigkeiten mit Eigeninteressen", "Tendenz zur Verlustangst", "Überempfindlichkeit"],
+      "staerken": [
+        "Mitgefühl für alle Wesen",
+        "Vollendungs- und Abschlussqualität",
+        "Nährendes und beschützendes Wesen",
+        "Spirituelle Reife",
+        "Reiseführerqualität (Pushan)"
+      ],
+      "schwaechen": [
+        "Naivität und übermäßiges Vertrauen",
+        "Schwierigkeiten mit Eigeninteressen",
+        "Tendenz zur Verlustangst",
+        "Überempfindlichkeit"
+      ],
       "quelle": "Parashara - BPHS Kap. 3 (Santhanam S.98-100); Varahamihira - Brihat Jataka I.1",
       "dimensionen_vektor": {
-        "liebe": 4, "beruf": 3, "finanzen": 4, "gesundheit": 4,
-        "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5
+        "liebe": 0.75,
+        "beruf": 0.5,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 1.0,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
       }
     }
   },
-
   "nakshatra_lord_dasha_tabelle": {
     "beschreibung": "Übersicht aller Nakshatra-Lords und ihrer Vimshottari-Dasha-Dauern. Jedes Nakshatra gehört einem Planet als Lord — dieser Planet startet die Dasha-Periode, wenn der Geburtsmond in diesem Nakshatra steht.",
     "quelle": "Parashara - BPHS Kap. 46 (Vimshottari Dasha)",
     "tabelle": {
-      "ketu": {"nakshatras": ["Ashwini","Magha","Mula"], "dasha_jahre": 7},
-      "venus": {"nakshatras": ["Bharani","Purva Phalguni","Purva Ashadha"], "dasha_jahre": 20},
-      "sonne": {"nakshatras": ["Krittika","Uttara Phalguni","Uttara Ashadha"], "dasha_jahre": 6},
-      "mond": {"nakshatras": ["Rohini","Hasta","Shravana"], "dasha_jahre": 10},
-      "mars": {"nakshatras": ["Mrigashira","Chitra","Dhanishtha"], "dasha_jahre": 7},
-      "rahu": {"nakshatras": ["Ardra","Swati","Shatabhisha"], "dasha_jahre": 18},
-      "jupiter": {"nakshatras": ["Punarvasu","Vishakha","Purva Bhadrapada"], "dasha_jahre": 16},
-      "saturn": {"nakshatras": ["Pushya","Anuradha","Uttara Bhadrapada"], "dasha_jahre": 19},
-      "merkur": {"nakshatras": ["Ashlesha","Jyeshtha","Revati"], "dasha_jahre": 17}
+      "ketu": {
+        "nakshatras": [
+          "Ashwini",
+          "Magha",
+          "Mula"
+        ],
+        "dasha_jahre": 7
+      },
+      "venus": {
+        "nakshatras": [
+          "Bharani",
+          "Purva Phalguni",
+          "Purva Ashadha"
+        ],
+        "dasha_jahre": 20
+      },
+      "sonne": {
+        "nakshatras": [
+          "Krittika",
+          "Uttara Phalguni",
+          "Uttara Ashadha"
+        ],
+        "dasha_jahre": 6
+      },
+      "mond": {
+        "nakshatras": [
+          "Rohini",
+          "Hasta",
+          "Shravana"
+        ],
+        "dasha_jahre": 10
+      },
+      "mars": {
+        "nakshatras": [
+          "Mrigashira",
+          "Chitra",
+          "Dhanishtha"
+        ],
+        "dasha_jahre": 7
+      },
+      "rahu": {
+        "nakshatras": [
+          "Ardra",
+          "Swati",
+          "Shatabhisha"
+        ],
+        "dasha_jahre": 18
+      },
+      "jupiter": {
+        "nakshatras": [
+          "Punarvasu",
+          "Vishakha",
+          "Purva Bhadrapada"
+        ],
+        "dasha_jahre": 16
+      },
+      "saturn": {
+        "nakshatras": [
+          "Pushya",
+          "Anuradha",
+          "Uttara Bhadrapada"
+        ],
+        "dasha_jahre": 19
+      },
+      "merkur": {
+        "nakshatras": [
+          "Ashlesha",
+          "Jyeshtha",
+          "Revati"
+        ],
+        "dasha_jahre": 17
+      }
     },
     "gesamtzyklus": 120,
     "startpunkt_berechnung": "Der Mond-Nakshatra bei Geburt bestimmt den ersten Dasha-Lord. Die verbleibende Zeit in der ersten Periode wird proportional aus dem Mondgrad innerhalb des Nakshatras berechnet: Verbleibende Jahre = (Verbleibende Grad im Nakshatra ÷ 13,33°) × Dasha-Dauer"
   },
-
   "nakshatra_kompatibilitaet": {
     "beschreibung": "Das Kuta-System (Sanskrit: Übereinstimmung) bewertet die Beziehungskompatibilität zweier Menschen anhand ihrer Geburts-Nakshatras (Mond-Nakshatras). Es ist das wichtigste Werkzeug der Jyotish-Heiratsastrologie. Al Parashara beschreibt 8 Kutas mit insgesamt 36 Punkten — hier die 5 wichtigsten.",
     "quelle": "Parashara - BPHS Kap. 72-73 (Santhanam Bd. 2); Varahamihira - Brihat Samhita Kap. 78; Mantreswara - Phaladeepika Kap. 16",
-
     "stri_dirgha": {
       "name": "Stri Dirgha Kuta (Distanz-Test)",
       "beschreibung": "Misst die Nakshatra-Distanz der Frau vom Mann. Günstig wenn die Frau mindestens 9 Nakshatras vom Mann entfernt ist (gezählt vorwärts von seinem Nakshatra). Parashara: 'Wenn die Frau näher als 9 Nakshatras beim Mann liegt, bringt dies Armut; wenn weiter, bringt es Glück.'",
@@ -851,22 +1776,39 @@
       "punkte": "3 Punkte",
       "quelle": "Parashara - BPHS Kap. 72"
     },
-
     "vashya": {
       "name": "Vashya Kuta (Anziehungs-Test)",
       "beschreibung": "Misst die gegenseitige magnetische Anziehung basierend auf den Mondzeichen. Verschiedene Zeichen üben unterschiedliche Anziehung aufeinander aus.",
       "quelle": "Parashara - BPHS Kap. 72",
       "kategorien": {
-        "manav_mensch": ["Zwillinge", "Jungfrau", "Waage 1.H.", "Schütze", "Wassermann"],
-        "chatushpad_vierfuessler": ["Widder", "Stier", "Steinbock 1.H.", "Schütze 2.H."],
-        "jalachara_wasser": ["Krebs", "Fische", "Steinbock 2.H."],
-        "keeta_insekt_skorpion": ["Skorpion"],
-        "vanachara_tier": ["Löwe"]
+        "manav_mensch": [
+          "Zwillinge",
+          "Jungfrau",
+          "Waage 1.H.",
+          "Schütze",
+          "Wassermann"
+        ],
+        "chatushpad_vierfuessler": [
+          "Widder",
+          "Stier",
+          "Steinbock 1.H.",
+          "Schütze 2.H."
+        ],
+        "jalachara_wasser": [
+          "Krebs",
+          "Fische",
+          "Steinbock 2.H."
+        ],
+        "keeta_insekt_skorpion": [
+          "Skorpion"
+        ],
+        "vanachara_tier": [
+          "Löwe"
+        ]
       },
       "punkte": "2 Punkte",
       "berechnung": "Gegenseitige Vashya: 2 Punkte. Einseitige Vashya: 1 Punkt. Keine Vashya: 0 Punkte."
     },
-
     "tara": {
       "name": "Tara Kuta (Schicksals-Test)",
       "beschreibung": "Misst die Schicksalskompatibilität durch Zählen vom Nakshatra des einen zum anderen (in Gruppen von 9). Günstige Tara-Kombinationen zeigen Langlebigkeit und Wohlstand der Beziehung.",
@@ -874,7 +1816,6 @@
       "berechnung": "Distanz von Nakshatra A zu Nakshatra B mod 9 = Tara-Nummer. Ungerade Zahlen (1,3,5,7,9) = günstig. Gerade (2,4,6,8) = ungünstig.",
       "punkte": "3 Punkte"
     },
-
     "yoni": {
       "name": "Yoni Kuta (Sexuelle Kompatibilität)",
       "beschreibung": "Jedem Nakshatra ist ein Tier zugeordnet, das das sexuelle und instinktive Wesen zeigt. Kompatible Tiere = harmonische Beziehung; feindliche Tiere = sexuelle Disharmonie.",
@@ -898,26 +1839,51 @@
       "punkte": "4 Punkte",
       "berechnung": "Gleiches Tier (Nakshatra-Paar): 4 Punkte. Befreundetes Tier: 3 Punkte. Neutrales Tier: 2 Punkte. Feindliches Tier: 0 Punkte."
     },
-
     "gana_kompatibilitaet": {
       "name": "Gana Kuta (Naturkompatibilität)",
       "beschreibung": "Misst die Kompatibilität der drei Ganas (Deva/Manushya/Rakshasa). Parashara: 'Deva mit Deva ist gut, Manushya mit Manushya ist gut, Rakshasa mit Rakshasa ist gut. Alle anderen sind problematisch, besonders Deva-Frau mit Rakshasa-Mann.'",
       "quelle": "Parashara - BPHS Kap. 72",
       "matrix": {
-        "deva_deva": {"punkte": 6, "qualitaet": "sehr_guenstig"},
-        "deva_manushya": {"punkte": 5, "qualitaet": "guenstig"},
-        "deva_rakshasa": {"punkte": 0, "qualitaet": "unguenstig"},
-        "manushya_deva": {"punkte": 5, "qualitaet": "guenstig"},
-        "manushya_manushya": {"punkte": 6, "qualitaet": "sehr_guenstig"},
-        "manushya_rakshasa": {"punkte": 0, "qualitaet": "unguenstig"},
-        "rakshasa_deva": {"punkte": 0, "qualitaet": "unguenstig"},
-        "rakshasa_manushya": {"punkte": 0, "qualitaet": "unguenstig"},
-        "rakshasa_rakshasa": {"punkte": 6, "qualitaet": "sehr_guenstig"}
+        "deva_deva": {
+          "punkte": 6,
+          "qualitaet": "sehr_guenstig"
+        },
+        "deva_manushya": {
+          "punkte": 5,
+          "qualitaet": "guenstig"
+        },
+        "deva_rakshasa": {
+          "punkte": 0,
+          "qualitaet": "unguenstig"
+        },
+        "manushya_deva": {
+          "punkte": 5,
+          "qualitaet": "guenstig"
+        },
+        "manushya_manushya": {
+          "punkte": 6,
+          "qualitaet": "sehr_guenstig"
+        },
+        "manushya_rakshasa": {
+          "punkte": 0,
+          "qualitaet": "unguenstig"
+        },
+        "rakshasa_deva": {
+          "punkte": 0,
+          "qualitaet": "unguenstig"
+        },
+        "rakshasa_manushya": {
+          "punkte": 0,
+          "qualitaet": "unguenstig"
+        },
+        "rakshasa_rakshasa": {
+          "punkte": 6,
+          "qualitaet": "sehr_guenstig"
+        }
       },
       "punkte_maximum": 6,
       "hinweis": "Gana-Inkompatibilität (0 Punkte) ist nach Parashara das größte Ehehindernis — mehr als jede andere Kuta-Schwäche."
     },
-
     "gesamtbewertung": {
       "beschreibung": "Das vollständige Kuta-System nach Parashara hat 8 Kutas mit 36 Gesamtpunkten. Diese 5 Kutas summieren 18 Punkte.",
       "sehr_guenstig": "≥ 14 von 18 Punkten (in den 5 hier gezeigten Kutas)",
@@ -928,19 +1894,14 @@
       "quelle": "Parashara - BPHS Kap. 73"
     }
   },
-
   "integration_mit_anderen_systemen": {
     "beschreibung": "Nakshatras als Verbindungspunkte zu anderen Systemen des Projekts.",
-
     "nakshatras_zu_dasha": "Der Nakshatra-Lord des Geburts-Mondes bestimmt den Vimshottari-Dasha-Startpunkt — fundamentale Verbindung zu jyotish_dasha.json (J2).",
-
     "nakshatras_zu_westlichen_zeichen": {
       "beschreibung": "Nakshatras und westliche Zeichen überlagern sich im siderischen Tierkreis. Jedes westliche Zeichen (30°) enthält 2,25 Nakshatras (13°20' × 2,25 = 30°). Die Zeichen geben den allgemeinen Ton; das Nakshatra gibt die spezifische Qualität innerhalb des Zeichens.",
       "beispiel": "Mond in Widder (westlich) — aber welches Nakshatra? Ashwini (Arzt-Energie), Bharani (Transformations-Energie) oder erstes Pada von Krittika (Feuer-Schärfe) — sehr unterschiedliche Qualitäten."
     },
-
     "nakshatras_zu_arabisch": "Arabische Astrologie kennt keine Mondstationen in diesem Sinne. Die 28 arabischen Mondstationen (Manazil al-Qamar) sind ein paralleles System, haben aber andere Grenzen und andere Bedeutungen. Nicht direkt deckungsgleich.",
-
     "nakshatras_zu_kabbala": {
       "beschreibung": "27 Nakshatras × 4 Padas = 108 Padas. 108 ist eine heilige Zahl in der vedischen Tradition (108 Upanishaden, 108 Namen Vishnus, 108 Perlen im Mala). Keine direkte Kabbala-Verbindung, aber strukturelle Resonanz mit der Zahlenmystik.",
       "planeten_verbindung": "Die 9 Nakshatra-Lords (Sonne, Mond, Mars, Merkur, Jupiter, Venus, Saturn, Rahu, Ketu) entsprechen den 7 klassischen Planeten + 2 Mondknoten — identisch mit Firdaria (A2) und strukturell ähnlich zu Kabbala-Planeten."

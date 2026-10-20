@@ -1,0 +1,184 @@
+{
+  "_meta": {
+    "system": "hellenistische_astrologie",
+    "modul": "natal_sign",
+    "version": "1.0",
+    "datei": "hell_natal_sign.json",
+    "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
+    "sources": [
+      "Claudius Ptolemy - Tetrabiblos I.11-12 (Ashmand 1822, public domain)",
+      "Vettius Valens - Anthologies (Riley, public domain)"
+    ],
+    "beschreibung": "Hellenistische Zeichen-Deutung nach Ptolemy und Valens für das Geburtszeichen (Sonne im Zeichen)."
+  },
+  "hell_natal_sign": {
+    "widder": {
+      "text_de": "Widder: kardinales Feuer. Initiative, Mut, Durchsetzung; Ungeduld, Hitzigkeit. Ptolemy: aktiv, impulsiv, kriegerisch.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.25,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.25
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11; Valens Anthologies I"
+    },
+    "stier": {
+      "text_de": "Stier: fixes Erde. Beständigkeit, Sinnlichkeit, Besitz; Sturheit, Trägheit. Ptolemy: fruchtbar, materiell, genussorientiert.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.75,
+        "finanzen": 1.0,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.0,
+        "spiritualitaet": 0.25
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "zwillinge": {
+      "text_de": "Zwillinge: mutables Luft. Kommunikation, Vielseitigkeit, Lernen; Unbeständigkeit, Zerstreuung. Ptolemy: intellektuell, beweglich.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.25
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "krebs": {
+      "text_de": "Krebs: kardinales Wasser. Fürsorge, Gefühl, Heimat; Launenhaftigkeit, Abhängigkeit. Ptolemy: empfangend, weiblich, mondhaft.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.75
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "loewe": {
+      "text_de": "Löwe: fixes Feuer. Autorität, Großzügigkeit, Lebenskraft; Stolz, Herrschsucht. Ptolemy: königlich, vital, gebend.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 1.0,
+        "finanzen": 0.5,
+        "gesundheit": 0.75,
+        "soziales": 0.75,
+        "kreativitaet": 1.0,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.25
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "jungfrau": {
+      "text_de": "Jungfrau: mutables Erde. Analyse, Dienst, Reinheit; Kritiksucht, Kleinlichkeit. Ptolemy: dienend, unterscheidend.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.75,
+        "soziales": 0.5,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "waage": {
+      "text_de": "Waage: kardinales Luft. Ausgleich, Partnerschaft, Schönheit; Unentschlossenheit, Abhängigkeit von Urteilen. Ptolemy: verbindend, gerecht.",
+      "dimensionen_vektor": {
+        "liebe": 1.0,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 0.5
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "skorpion": {
+      "text_de": "Skorpion: fixes Wasser. Tiefe, Transformation, Macht; Eifersucht, Destruktion. Ptolemy: verborgen, intensiv, krisenhaft.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.25,
+        "soziales": 0.25,
+        "kreativitaet": 0.5,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.75
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "schuetze": {
+      "text_de": "Schütze: mutables Feuer. Weite, Wahrheitssuche, Glaube; Übertreibung, Rücksichtslosigkeit. Ptolemy: philosophisch, expansiv.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.75,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 1.0
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "steinbock": {
+      "text_de": "Steinbock: kardinales Erde. Pflicht, Struktur, Ehrgeiz; Kälte, Pessimismus. Ptolemy: ernst, ambitioniert, begrenzend.",
+      "dimensionen_vektor": {
+        "liebe": 0.25,
+        "beruf": 1.0,
+        "finanzen": 0.75,
+        "gesundheit": 0.5,
+        "soziales": 0.25,
+        "kreativitaet": 0.25,
+        "veraenderung": 0.25,
+        "spiritualitaet": 0.5
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "wassermann": {
+      "text_de": "Wassermann: fixes Luft. Unabhängigkeit, Humanität, Erfindung; Distanz, Rebellion. Ptolemy: unkonventionell, gemeinschaftlich.",
+      "dimensionen_vektor": {
+        "liebe": 0.5,
+        "beruf": 0.5,
+        "finanzen": 0.5,
+        "gesundheit": 0.5,
+        "soziales": 0.75,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.75,
+        "spiritualitaet": 0.5
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    },
+    "fische": {
+      "text_de": "Fische: mutables Wasser. Auflösung, Mitgefühl, Imagination; Flucht, Opferrolle. Ptolemy: empfänglich, verschwommen, spirituell.",
+      "dimensionen_vektor": {
+        "liebe": 0.75,
+        "beruf": 0.25,
+        "finanzen": 0.25,
+        "gesundheit": 0.5,
+        "soziales": 0.5,
+        "kreativitaet": 0.75,
+        "veraenderung": 0.5,
+        "spiritualitaet": 1.0
+      },
+      "quelle": "Ptolemy Tetrabiblos I.11"
+    }
+  }
+}

@@ -13,46 +13,82 @@
       "Porphyry - Introduction to the Tetrabiblos (ca. 270 n. Chr., public domain)",
       "Manilius - Astronomica (ca. 10 n. Chr., public domain)"
     ],
-    "dimensions": ["liebe","beruf","finanzen","gesundheit","soziales","kreativitaet","veraenderung","spiritualitaet"],
-    "scale": "1-5 (1=sehr ungünstig, 3=neutral, 5=sehr günstig)",
+    "dimensions": [
+      "liebe",
+      "beruf",
+      "finanzen",
+      "gesundheit",
+      "soziales",
+      "kreativitaet",
+      "veraenderung",
+      "spiritualitaet"
+    ],
+    "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
     "beschreibung": "Hellenistische Astrologie — Essentielle Würden, Sektprinzip und planetare Bonität. Das vollständige System der Planetenstärke nach Ptolemy, Valens, Firmicus Maternus und Paulus Alexandrinus. Enthält: Domizil, Exaltation, Trigon/Triplizität, Term/Grenzen, Dekane/Faces, Gegenwürden (Detriment/Fall), Sekt (Tag/Nacht), Bonität (Wohltäter/Unglücksbringer) und Akzidentelle Würden.",
     "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog kabbalah_sephiroth.json"
   },
-
   "system_uebersicht": {
     "beschreibung": "Die hellenistische Astrologie (ca. 1. Jhd. v. Chr. — 7. Jhd. n. Chr.) ist die Muttertradition der westlichen, arabischen und mittelalterlichen Astrologie. Ihre Kernfrage ist nicht 'Wie ist die Persönlichkeit?' sondern 'Was wird passieren?' — sie ist zutiefst prognostisch. Das Würdesystem ist das Fundament: Ein Planet in seiner Würde ist ein Herrscher in seinem Palast — er kann sein Bestes geben. Ein Planet ohne Würde ist ein Fremder in einem unbekannten Land.",
     "quelle": "Ptolemy - Tetrabiblos Buch I (Ashmand S.1-40); Valens - Anthologies Buch I (Riley S.1-20); Firmicus - Mathesis Buch II",
-
     "fuenf_essentielle_wuerden": {
       "beschreibung": "Die fünf essentiellen Würden geben jedem Planeten in jedem Grad des Tierkreises einen Stärke-Wert. Je mehr Würden ein Planet hat, desto kraftvoller und zuverlässiger ist seine Wirkung.",
       "wuerden_und_punkte": {
-        "domizil": {"name": "Domizil / Herrschaft (Oikos)", "punkte": 5, "beschreibung": "Planet im eigenen Zeichen. Stärkste essentielle Würde."},
-        "exaltation": {"name": "Exaltation (Hypsoma)", "punkte": 4, "beschreibung": "Planet im Zeichen seiner größten Erhöhung. Überstrahlt sogar Domizil in Intensität, aber weniger stabil."},
-        "trigon": {"name": "Trigon / Triplizität (Trigonon)", "punkte": 3, "beschreibung": "Planet als Herrscher seiner elementaren Gruppe (Feuer/Erde/Luft/Wasser) im entsprechenden Zeichen."},
-        "term": {"name": "Term / Grenze (Horia)", "punkte": 2, "beschreibung": "Planet in seinem eigenen Grad-Abschnitt innerhalb eines Zeichens. Feinste Würde."},
-        "face": {"name": "Face / Dekan (Prosopon)", "punkte": 1, "beschreibung": "Planet im eigenen 10°-Abschnitt. Schwächste essentielle Würde — 'wie ein Fremder der zufällig einen bekannten trifft'."}
+        "domizil": {
+          "name": "Domizil / Herrschaft (Oikos)",
+          "punkte": 5,
+          "beschreibung": "Planet im eigenen Zeichen. Stärkste essentielle Würde."
+        },
+        "exaltation": {
+          "name": "Exaltation (Hypsoma)",
+          "punkte": 4,
+          "beschreibung": "Planet im Zeichen seiner größten Erhöhung. Überstrahlt sogar Domizil in Intensität, aber weniger stabil."
+        },
+        "trigon": {
+          "name": "Trigon / Triplizität (Trigonon)",
+          "punkte": 3,
+          "beschreibung": "Planet als Herrscher seiner elementaren Gruppe (Feuer/Erde/Luft/Wasser) im entsprechenden Zeichen."
+        },
+        "term": {
+          "name": "Term / Grenze (Horia)",
+          "punkte": 2,
+          "beschreibung": "Planet in seinem eigenen Grad-Abschnitt innerhalb eines Zeichens. Feinste Würde."
+        },
+        "face": {
+          "name": "Face / Dekan (Prosopon)",
+          "punkte": 1,
+          "beschreibung": "Planet im eigenen 10°-Abschnitt. Schwächste essentielle Würde — 'wie ein Fremder der zufällig einen bekannten trifft'."
+        }
       },
       "quelle": "Ptolemy - Tetrabiblos I.17-22 (Ashmand S.25-45); Porphyry - Introduction Kap. 2-7"
     },
-
     "gegenwuerden": {
       "beschreibung": "Gegenwürden zeigen Schwächezustände. Ein Planet in Detriment oder Fall ist wie ein König im Exil — er hat seinen Auftrag, aber die Mittel fehlen.",
-      "detriment": {"name": "Detriment / Verbannung (Tapeinoma)", "beschreibung": "Planet im Zeichen gegenüber seinem Domizil. Größte essentielle Schwäche.", "punkte": -5},
-      "fall": {"name": "Fall (Tapeinoma-Hypsoma)", "beschreibung": "Planet im Zeichen gegenüber seiner Exaltation. Zweitgrößte Schwäche.", "punkte": -4},
+      "detriment": {
+        "name": "Detriment / Verbannung (Tapeinoma)",
+        "beschreibung": "Planet im Zeichen gegenüber seinem Domizil. Größte essentielle Schwäche.",
+        "punkte": -5
+      },
+      "fall": {
+        "name": "Fall (Tapeinoma-Hypsoma)",
+        "beschreibung": "Planet im Zeichen gegenüber seiner Exaltation. Zweitgrößte Schwäche.",
+        "punkte": -4
+      },
       "quelle": "Ptolemy - Tetrabiblos I.19 (Ashmand S.30); Firmicus - Mathesis II.3"
     }
   },
-
   "domizil_system": {
     "beschreibung": "Jeder der 7 klassischen Planeten regiert ein oder zwei Tierkreiszeichen als sein 'Haus' (Oikos). Sonne und Mond regieren je ein Zeichen, die anderen fünf Planeten je zwei — ein Tag-Zeichen und ein Nacht-Zeichen.",
     "quelle": "Ptolemy - Tetrabiblos I.17 (Ashmand S.25-28); Firmicus - Mathesis II.2; Valens - Anthologies I.1",
-
     "planeten": {
       "sonne": {
         "planet": "Sonne",
         "symbol": "☉",
-        "domizil": ["Löwe"],
-        "detriment": ["Wassermann"],
+        "domizil": [
+          "Löwe"
+        ],
+        "detriment": [
+          "Wassermann"
+        ],
         "exaltation": "Widder (19°)",
         "fall": "Waage (19°)",
         "beschreibung_domizil": "Die Sonne in ihrem Domizil Löwe strahlt maximale Vitalität, Lebenskraft, Autorität und Großzügigkeit aus. Sie kann ihren königlichen Auftrag vollständig erfüllen: Führen, Inspirieren, Erleuchten.",
@@ -61,19 +97,35 @@
         "beschreibung_fall": "Sonne in Waage — das königliche Licht muss sich dem Kompromiss beugen. Autorität und Entscheidungskraft leiden.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2.1-5",
         "dimensionen_vektor_domizil": {
-          "liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 5,
-          "soziales": 4, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 4
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 1.0,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 0.25,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         }
       },
       "mond": {
         "planet": "Mond",
         "symbol": "☽",
-        "domizil": ["Krebs"],
-        "detriment": ["Steinbock"],
+        "domizil": [
+          "Krebs"
+        ],
+        "detriment": [
+          "Steinbock"
+        ],
         "exaltation": "Stier (3°)",
         "fall": "Skorpion (3°)",
         "beschreibung_domizil": "Der Mond in seinem Domizil Krebs ist in seinem Element — Fürsorge, emotionale Tiefe, Intuition, häusliche Geborgenheit und Empfänglichkeit sind maximal ausgeprägt. Starke Mutterprinzip-Energie.",
@@ -82,19 +134,37 @@
         "beschreibung_fall": "Mond in Skorpion — emotionale Tiefen werden zu Abgründen. Intensität statt Geborgenheit, Transformationsdruck auf das Gefühlsleben.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Valens - Anthologies I.1; Firmicus - Mathesis II.2.6-10",
         "dimensionen_vektor_domizil": {
-          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
-          "soziales": 5, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 4
+          "liebe": 1.0,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.75,
+          "soziales": 1.0,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3,
-          "soziales": 2, "kreativitaet": 3, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         }
       },
       "merkur": {
         "planet": "Merkur",
         "symbol": "☿",
-        "domizil": ["Zwillinge", "Jungfrau"],
-        "detriment": ["Schütze", "Fische"],
+        "domizil": [
+          "Zwillinge",
+          "Jungfrau"
+        ],
+        "detriment": [
+          "Schütze",
+          "Fische"
+        ],
         "exaltation": "Jungfrau (15°)",
         "fall": "Fische (15°)",
         "beschreibung_domizil_zwillinge": "Merkur in Zwillinge — das intellektuell beweglichste Zeichen gibt Merkur maximale Kommunikations-, Anpassungs- und Verbindungskraft. Schnelles Denken, sprachliche Brillanz, vielseitige Neugier.",
@@ -104,23 +174,47 @@
         "beschreibung_fall": "Merkur in Fische — das rationale Denken löst sich in Träumen auf. Diffusion, Idealisierung statt Analyse.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2.11-15",
         "dimensionen_vektor_domizil_zwillinge": {
-          "liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 3,
-          "soziales": 5, "kreativitaet": 5, "veraenderung": 5, "spiritualitaet": 3
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_domizil_jungfrau": {
-          "liebe": 3, "beruf": 5, "finanzen": 5, "gesundheit": 4,
-          "soziales": 3, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.75,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 3, "beruf": 2, "finanzen": 2, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 4
+          "liebe": 0.5,
+          "beruf": 0.25,
+          "finanzen": 0.25,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
         }
       },
       "venus": {
         "planet": "Venus",
         "symbol": "♀",
-        "domizil": ["Stier", "Waage"],
-        "detriment": ["Skorpion", "Widder"],
+        "domizil": [
+          "Stier",
+          "Waage"
+        ],
+        "detriment": [
+          "Skorpion",
+          "Widder"
+        ],
         "exaltation": "Fische (27°)",
         "fall": "Jungfrau (27°)",
         "beschreibung_domizil_stier": "Venus in Stier — das fruchtbarste Venuszeichen: sinnliche Freude, materielle Schönheit, Standhaftigkeit in der Liebe, Genuss, Kunsthandwerk. Venus als Göttin der Erde.",
@@ -130,23 +224,47 @@
         "beschreibung_fall": "Venus in Jungfrau — Liebe wird analysiert statt gefühlt. Kritik statt Zuneigung, Perfektionismus in Beziehungen.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Valens - Anthologies I.1; Firmicus - Mathesis II.2.16-20",
         "dimensionen_vektor_domizil_stier": {
-          "liebe": 5, "beruf": 4, "finanzen": 5, "gesundheit": 4,
-          "soziales": 4, "kreativitaet": 5, "veraenderung": 2, "spiritualitaet": 3
+          "liebe": 1.0,
+          "beruf": 0.75,
+          "finanzen": 1.0,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.25,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_domizil_waage": {
-          "liebe": 5, "beruf": 4, "finanzen": 4, "gesundheit": 3,
-          "soziales": 5, "kreativitaet": 5, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 1.0,
+          "beruf": 0.75,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 3,
-          "soziales": 2, "kreativitaet": 3, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         }
       },
       "mars": {
         "planet": "Mars",
         "symbol": "♂",
-        "domizil": ["Widder", "Skorpion"],
-        "detriment": ["Waage", "Stier"],
+        "domizil": [
+          "Widder",
+          "Skorpion"
+        ],
+        "detriment": [
+          "Waage",
+          "Stier"
+        ],
         "exaltation": "Steinbock (28°)",
         "fall": "Krebs (28°)",
         "beschreibung_domizil_widder": "Mars in Widder — der Krieger im Feld. Direktheit, Mut, Energie, Pioniergeist, schnelles Handeln ohne Zögern. Mars in seiner heißesten und aktivsten Form.",
@@ -156,23 +274,47 @@
         "beschreibung_fall": "Mars in Krebs — das Feuer wird durch Wasser gedämpft. Indirekte Aggression, emotionale Überreaktionen, Schutzreflex statt Mut.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2.21-25; Valens - Anthologies I.1",
         "dimensionen_vektor_domizil_widder": {
-          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 5,
-          "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 2
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 1.0,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.25
         },
         "dimensionen_vektor_domizil_skorpion": {
-          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4,
-          "soziales": 3, "kreativitaet": 4, "veraenderung": 5, "spiritualitaet": 4
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 0.75,
+          "gesundheit": 0.75,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.75
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 3, "beruf": 2, "finanzen": 3, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 0.25,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         }
       },
       "jupiter": {
         "planet": "Jupiter",
         "symbol": "♃",
-        "domizil": ["Schütze", "Fische"],
-        "detriment": ["Zwillinge", "Jungfrau"],
+        "domizil": [
+          "Schütze",
+          "Fische"
+        ],
+        "detriment": [
+          "Zwillinge",
+          "Jungfrau"
+        ],
         "exaltation": "Krebs (15°)",
         "fall": "Steinbock (15°)",
         "beschreibung_domizil_schuetze": "Jupiter in Schütze — der Philosoph auf dem Pferd. Optimismus, Weisheit, Fernreisen, Lehrertum, religiöse Begeisterung, expansive Weltanschauung. Jupiter in seiner feurigsten Form.",
@@ -182,23 +324,47 @@
         "beschreibung_fall": "Jupiter in Steinbock — das Wachstumsprinzip begegnet dem Begrenzungsprinzip. Philosophie wird zur Pflicht, Glauben zur Institution.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2.26-30; Valens - Anthologies I.1",
         "dimensionen_vektor_domizil_schuetze": {
-          "liebe": 4, "beruf": 5, "finanzen": 5, "gesundheit": 4,
-          "soziales": 5, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 5
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.75,
+          "soziales": 1.0,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 1.0
         },
         "dimensionen_vektor_domizil_fische": {
-          "liebe": 4, "beruf": 4, "finanzen": 4, "gesundheit": 4,
-          "soziales": 4, "kreativitaet": 4, "veraenderung": 3, "spiritualitaet": 5
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 0.75,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 1.0
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 3, "beruf": 3, "finanzen": 3, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 2
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.25
         }
       },
       "saturn": {
         "planet": "Saturn",
         "symbol": "♄",
-        "domizil": ["Steinbock", "Wassermann"],
-        "detriment": ["Krebs", "Löwe"],
+        "domizil": [
+          "Steinbock",
+          "Wassermann"
+        ],
+        "detriment": [
+          "Krebs",
+          "Löwe"
+        ],
         "exaltation": "Waage (21°)",
         "fall": "Widder (21°)",
         "beschreibung_domizil_steinbock": "Saturn in Steinbock — der Architekt. Disziplin, Ausdauer, Ambition, strukturierter Aufbau über Zeit. Saturn in seiner erdenden, manifestierenden Form. Karriere durch harte Arbeit.",
@@ -208,62 +374,165 @@
         "beschreibung_fall": "Saturn in Widder — das Prinzip der Geduld und des langen Atems kollidiert mit dem Impuls des Augenblicks. Frustration, verfrühte Aufgabe.",
         "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2.31-35; Valens - Anthologies I.1",
         "dimensionen_vektor_domizil_steinbock": {
-          "liebe": 2, "beruf": 5, "finanzen": 5, "gesundheit": 3,
-          "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+          "liebe": 0.25,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.25,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_domizil_wassermann": {
-          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 3,
-          "soziales": 4, "kreativitaet": 4, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         },
         "dimensionen_vektor_detriment": {
-          "liebe": 2, "beruf": 3, "finanzen": 3, "gesundheit": 2,
-          "soziales": 2, "kreativitaet": 2, "veraenderung": 3, "spiritualitaet": 3
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.25,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
         }
       }
     },
-
     "domizil_schnellreferenz": {
       "beschreibung": "Schnellreferenz: welcher Planet regiert welches Zeichen.",
       "quelle": "Ptolemy - Tetrabiblos I.17; Firmicus - Mathesis II.2",
       "tabelle": {
-        "widder": {"herrscher": "Mars", "art": "Tag-Domizil"},
-        "stier": {"herrscher": "Venus", "art": "Nacht-Domizil"},
-        "zwillinge": {"herrscher": "Merkur", "art": "Tag-Domizil"},
-        "krebs": {"herrscher": "Mond", "art": "Einziges Domizil"},
-        "loewe": {"herrscher": "Sonne", "art": "Einziges Domizil"},
-        "jungfrau": {"herrscher": "Merkur", "art": "Nacht-Domizil"},
-        "waage": {"herrscher": "Venus", "art": "Tag-Domizil"},
-        "skorpion": {"herrscher": "Mars", "art": "Nacht-Domizil"},
-        "schuetze": {"herrscher": "Jupiter", "art": "Tag-Domizil"},
-        "steinbock": {"herrscher": "Saturn", "art": "Nacht-Domizil"},
-        "wassermann": {"herrscher": "Saturn", "art": "Tag-Domizil"},
-        "fische": {"herrscher": "Jupiter", "art": "Nacht-Domizil"}
+        "widder": {
+          "herrscher": "Mars",
+          "art": "Tag-Domizil"
+        },
+        "stier": {
+          "herrscher": "Venus",
+          "art": "Nacht-Domizil"
+        },
+        "zwillinge": {
+          "herrscher": "Merkur",
+          "art": "Tag-Domizil"
+        },
+        "krebs": {
+          "herrscher": "Mond",
+          "art": "Einziges Domizil"
+        },
+        "loewe": {
+          "herrscher": "Sonne",
+          "art": "Einziges Domizil"
+        },
+        "jungfrau": {
+          "herrscher": "Merkur",
+          "art": "Nacht-Domizil"
+        },
+        "waage": {
+          "herrscher": "Venus",
+          "art": "Tag-Domizil"
+        },
+        "skorpion": {
+          "herrscher": "Mars",
+          "art": "Nacht-Domizil"
+        },
+        "schuetze": {
+          "herrscher": "Jupiter",
+          "art": "Tag-Domizil"
+        },
+        "steinbock": {
+          "herrscher": "Saturn",
+          "art": "Nacht-Domizil"
+        },
+        "wassermann": {
+          "herrscher": "Saturn",
+          "art": "Tag-Domizil"
+        },
+        "fische": {
+          "herrscher": "Jupiter",
+          "art": "Nacht-Domizil"
+        }
       }
     }
   },
-
   "exaltation_system": {
     "beschreibung": "Exaltation (Hypsoma) ist der Grad im Tierkreis wo ein Planet seine erhabenste, intensivste Wirkung entfaltet. Exaltierte Planeten sind wie hochgeehrte Gäste — sie wirken brillant, wenn auch manchmal mit einer gewissen Übertreibung.",
     "quelle": "Ptolemy - Tetrabiblos I.19 (Ashmand S.30-33); Firmicus - Mathesis II.3; Paulus Alexandrinus - Introductory Matters Kap. 2",
     "tabelle": [
-      {"planet": "Sonne", "exaltation_zeichen": "Widder", "exaltation_grad": 19, "fall_zeichen": "Waage", "fall_grad": 19, "beschreibung": "Sonnenpunkt der Frühlingstagesgleiche — kosmischer Neubeginn"},
-      {"planet": "Mond", "exaltation_zeichen": "Stier", "exaltation_grad": 3, "fall_zeichen": "Skorpion", "fall_grad": 3, "beschreibung": "Mond in fruchtbarer Erde — Gefühle haben Form und Bestand"},
-      {"planet": "Merkur", "exaltation_zeichen": "Jungfrau", "exaltation_grad": 15, "fall_zeichen": "Fische", "fall_grad": 15, "beschreibung": "Analyse und Unterscheidung auf Höchstniveau"},
-      {"planet": "Venus", "exaltation_zeichen": "Fische", "exaltation_grad": 27, "fall_zeichen": "Jungfrau", "fall_grad": 27, "beschreibung": "Grenzenlose Liebe — Venus in ihrer mystischsten Form"},
-      {"planet": "Mars", "exaltation_zeichen": "Steinbock", "exaltation_grad": 28, "fall_zeichen": "Krebs", "fall_grad": 28, "beschreibung": "Willenskraft durch Disziplin — der Soldat der Berge"},
-      {"planet": "Jupiter", "exaltation_zeichen": "Krebs", "exaltation_grad": 15, "fall_zeichen": "Steinbock", "fall_grad": 15, "beschreibung": "Nährende Weisheit — Fürsorge und Philosophie vereint"},
-      {"planet": "Saturn", "exaltation_zeichen": "Waage", "exaltation_grad": 21, "fall_zeichen": "Widder", "fall_grad": 21, "beschreibung": "Gerechtigkeit als Karma — der gerechte Richter auf dem Thron"}
+      {
+        "planet": "Sonne",
+        "exaltation_zeichen": "Widder",
+        "exaltation_grad": 19,
+        "fall_zeichen": "Waage",
+        "fall_grad": 19,
+        "beschreibung": "Sonnenpunkt der Frühlingstagesgleiche — kosmischer Neubeginn"
+      },
+      {
+        "planet": "Mond",
+        "exaltation_zeichen": "Stier",
+        "exaltation_grad": 3,
+        "fall_zeichen": "Skorpion",
+        "fall_grad": 3,
+        "beschreibung": "Mond in fruchtbarer Erde — Gefühle haben Form und Bestand"
+      },
+      {
+        "planet": "Merkur",
+        "exaltation_zeichen": "Jungfrau",
+        "exaltation_grad": 15,
+        "fall_zeichen": "Fische",
+        "fall_grad": 15,
+        "beschreibung": "Analyse und Unterscheidung auf Höchstniveau"
+      },
+      {
+        "planet": "Venus",
+        "exaltation_zeichen": "Fische",
+        "exaltation_grad": 27,
+        "fall_zeichen": "Jungfrau",
+        "fall_grad": 27,
+        "beschreibung": "Grenzenlose Liebe — Venus in ihrer mystischsten Form"
+      },
+      {
+        "planet": "Mars",
+        "exaltation_zeichen": "Steinbock",
+        "exaltation_grad": 28,
+        "fall_zeichen": "Krebs",
+        "fall_grad": 28,
+        "beschreibung": "Willenskraft durch Disziplin — der Soldat der Berge"
+      },
+      {
+        "planet": "Jupiter",
+        "exaltation_zeichen": "Krebs",
+        "exaltation_grad": 15,
+        "fall_zeichen": "Steinbock",
+        "fall_grad": 15,
+        "beschreibung": "Nährende Weisheit — Fürsorge und Philosophie vereint"
+      },
+      {
+        "planet": "Saturn",
+        "exaltation_zeichen": "Waage",
+        "exaltation_grad": 21,
+        "fall_zeichen": "Widder",
+        "fall_grad": 21,
+        "beschreibung": "Gerechtigkeit als Karma — der gerechte Richter auf dem Thron"
+      }
     ]
   },
-
   "triplizitaet_system": {
     "beschreibung": "Das Triplicities- oder Triplizitäts-System (Trigona) teilt die 12 Zeichen in vier Elementargruppen. Jede Gruppe hat einen Tag-Herrscher, einen Nacht-Herrscher und (nach manchen Schulen) einen teilnehmenden Herrscher. Die Triplizitäts-Herrscher können für Lebensphasen-Prognose verwendet werden — die drei Herrscher regieren Jugend, Mittelalter und Alter.",
     "quelle": "Ptolemy - Tetrabiblos I.18 (Ashmand S.28-30); Dorotheus of Sidon - Carmen Astrologicum Buch I; Firmicus - Mathesis II.5",
-
     "gruppen": {
       "feuer": {
         "element": "Feuer",
-        "zeichen": ["Widder", "Löwe", "Schütze"],
+        "zeichen": [
+          "Widder",
+          "Löwe",
+          "Schütze"
+        ],
         "tag_herrscher": "Sonne",
         "nacht_herrscher": "Jupiter",
         "teilnehmend": "Saturn (nach Dorotheus)",
@@ -272,14 +541,24 @@
         "lebensabschnitt_nacht": "Mittlere Jahre unter Jupiter: Philosophie, Wachstum, Weisheit",
         "lebensabschnitt_teil": "Reife unter Saturn: Konsolidierung, Karma-Ausgleich",
         "dimensionen_vektor": {
-          "liebe": 3, "beruf": 5, "finanzen": 4, "gesundheit": 5,
-          "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 4
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 1.0,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
         },
         "quelle": "Dorotheus - Carmen I.1; Ptolemy - Tetrabiblos I.18"
       },
       "erde": {
         "element": "Erde",
-        "zeichen": ["Stier", "Jungfrau", "Steinbock"],
+        "zeichen": [
+          "Stier",
+          "Jungfrau",
+          "Steinbock"
+        ],
         "tag_herrscher": "Venus",
         "nacht_herrscher": "Mond",
         "teilnehmend": "Mars (nach Dorotheus)",
@@ -288,14 +567,24 @@
         "lebensabschnitt_nacht": "Mittlere Jahre unter Mond: Fürsorge, Familie, emotionale Reife",
         "lebensabschnitt_teil": "Reife unter Mars: Energie für strukturierten Aufbau, praktische Kraft",
         "dimensionen_vektor": {
-          "liebe": 4, "beruf": 4, "finanzen": 5, "gesundheit": 4,
-          "soziales": 3, "kreativitaet": 3, "veraenderung": 2, "spiritualitaet": 3
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 1.0,
+          "gesundheit": 0.75,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.25,
+          "spiritualitaet": 0.5
         },
         "quelle": "Dorotheus - Carmen I.1; Ptolemy - Tetrabiblos I.18"
       },
       "luft": {
         "element": "Luft",
-        "zeichen": ["Zwillinge", "Waage", "Wassermann"],
+        "zeichen": [
+          "Zwillinge",
+          "Waage",
+          "Wassermann"
+        ],
         "tag_herrscher": "Saturn",
         "nacht_herrscher": "Merkur",
         "teilnehmend": "Jupiter (nach Dorotheus)",
@@ -304,14 +593,24 @@
         "lebensabschnitt_nacht": "Mittlere Jahre unter Merkur: Kommunikation, intellektuelle Reife, Vielseitigkeit",
         "lebensabschnitt_teil": "Reife unter Jupiter: Weisheit und Weitblick, Lehrfunktion",
         "dimensionen_vektor": {
-          "liebe": 4, "beruf": 5, "finanzen": 4, "gesundheit": 3,
-          "soziales": 5, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 3
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
         },
         "quelle": "Dorotheus - Carmen I.1; Ptolemy - Tetrabiblos I.18"
       },
       "wasser": {
         "element": "Wasser",
-        "zeichen": ["Krebs", "Skorpion", "Fische"],
+        "zeichen": [
+          "Krebs",
+          "Skorpion",
+          "Fische"
+        ],
         "tag_herrscher": "Mars",
         "nacht_herrscher": "Venus",
         "teilnehmend": "Mond (nach Dorotheus)",
@@ -320,149 +619,571 @@
         "lebensabschnitt_nacht": "Mittlere Jahre unter Venus: Heilung durch Beziehung, künstlerische Tiefe",
         "lebensabschnitt_teil": "Reife unter Mond: Intuition, Empathie, spirituelle Verbindung",
         "dimensionen_vektor": {
-          "liebe": 5, "beruf": 3, "finanzen": 3, "gesundheit": 4,
-          "soziales": 4, "kreativitaet": 5, "veraenderung": 4, "spiritualitaet": 5
+          "liebe": 1.0,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.75,
+          "spiritualitaet": 1.0
         },
         "quelle": "Dorotheus - Carmen I.1; Ptolemy - Tetrabiblos I.18"
       }
     }
   },
-
   "term_system": {
     "beschreibung": "Terms (Horiai / Grenzen) teilen jedes Zeichen in 5 ungleiche Abschnitte, je einem Planeten zugeordnet (Sonne und Mond haben keine Terms). Es gibt zwei Hauptversionen: das Ptolemäische System und das Ägyptische/Chaldäische System. Terms sind die feinste essentielle Würde — sie zeigen die subtile Schattierung eines Planetengrads.",
     "quelle": "Ptolemy - Tetrabiblos I.20-21 (Ashmand S.33-40); Firmicus - Mathesis II.6-7; Paulus Alexandrinus - Kap. 3",
-
     "hinweis": "Terms sind gradgenaue Abschnitte innerhalb jedes Zeichens. Ein Planet der im Term eines anderen Planeten steht empfängt Unterstützung von diesem Term-Herrscher. Ein Planet im eigenen Term hat zusätzliche Stärke (Punkte +2).",
-
     "ptolemaeisches_system": {
       "beschreibung": "Das Ptolemäische Term-System basiert auf Ptolemys Tetrabiblos I.21. Es unterscheidet sich vom ägyptischen System in der Grad-Zuweisung.",
       "quelle": "Ptolemy - Tetrabiblos I.21 (Ashmand S.36-40)",
       "zeichen": {
         "widder": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Jupiter"},
-          {"grad_von": 7, "grad_bis": 12, "herrscher": "Venus"},
-          {"grad_von": 13, "grad_bis": 20, "herrscher": "Merkur"},
-          {"grad_von": 21, "grad_bis": 25, "herrscher": "Mars"},
-          {"grad_von": 26, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 12,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 13,
+            "grad_bis": 20,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 21,
+            "grad_bis": 25,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 26,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "stier": [
-          {"grad_von": 1, "grad_bis": 8, "herrscher": "Venus"},
-          {"grad_von": 9, "grad_bis": 14, "herrscher": "Merkur"},
-          {"grad_von": 15, "grad_bis": 22, "herrscher": "Jupiter"},
-          {"grad_von": 23, "grad_bis": 27, "herrscher": "Saturn"},
-          {"grad_von": 28, "grad_bis": 30, "herrscher": "Mars"}
+          {
+            "grad_von": 1,
+            "grad_bis": 8,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 9,
+            "grad_bis": 14,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 15,
+            "grad_bis": 22,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 23,
+            "grad_bis": 27,
+            "herrscher": "Saturn"
+          },
+          {
+            "grad_von": 28,
+            "grad_bis": 30,
+            "herrscher": "Mars"
+          }
         ],
         "zwillinge": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Merkur"},
-          {"grad_von": 7, "grad_bis": 12, "herrscher": "Jupiter"},
-          {"grad_von": 13, "grad_bis": 17, "herrscher": "Venus"},
-          {"grad_von": 18, "grad_bis": 24, "herrscher": "Mars"},
-          {"grad_von": 25, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 12,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 13,
+            "grad_bis": 17,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 18,
+            "grad_bis": 24,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 25,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "krebs": [
-          {"grad_von": 1, "grad_bis": 7, "herrscher": "Mars"},
-          {"grad_von": 8, "grad_bis": 13, "herrscher": "Venus"},
-          {"grad_von": 14, "grad_bis": 19, "herrscher": "Merkur"},
-          {"grad_von": 20, "grad_bis": 26, "herrscher": "Jupiter"},
-          {"grad_von": 27, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 7,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 8,
+            "grad_bis": 13,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 14,
+            "grad_bis": 19,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 20,
+            "grad_bis": 26,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 27,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "loewe": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Saturn"},
-          {"grad_von": 7, "grad_bis": 11, "herrscher": "Merkur"},
-          {"grad_von": 12, "grad_bis": 18, "herrscher": "Venus"},
-          {"grad_von": 19, "grad_bis": 24, "herrscher": "Jupiter"},
-          {"grad_von": 25, "grad_bis": 30, "herrscher": "Mars"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Saturn"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 11,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 12,
+            "grad_bis": 18,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 19,
+            "grad_bis": 24,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 25,
+            "grad_bis": 30,
+            "herrscher": "Mars"
+          }
         ],
         "jungfrau": [
-          {"grad_von": 1, "grad_bis": 7, "herrscher": "Merkur"},
-          {"grad_von": 8, "grad_bis": 17, "herrscher": "Venus"},
-          {"grad_von": 18, "grad_bis": 21, "herrscher": "Jupiter"},
-          {"grad_von": 22, "grad_bis": 28, "herrscher": "Mars"},
-          {"grad_von": 29, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 7,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 8,
+            "grad_bis": 17,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 18,
+            "grad_bis": 21,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 22,
+            "grad_bis": 28,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 29,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "waage": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Saturn"},
-          {"grad_von": 7, "grad_bis": 14, "herrscher": "Venus"},
-          {"grad_von": 15, "grad_bis": 21, "herrscher": "Jupiter"},
-          {"grad_von": 22, "grad_bis": 28, "herrscher": "Merkur"},
-          {"grad_von": 29, "grad_bis": 30, "herrscher": "Mars"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Saturn"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 14,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 15,
+            "grad_bis": 21,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 22,
+            "grad_bis": 28,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 29,
+            "grad_bis": 30,
+            "herrscher": "Mars"
+          }
         ],
         "skorpion": [
-          {"grad_von": 1, "grad_bis": 7, "herrscher": "Mars"},
-          {"grad_von": 8, "grad_bis": 11, "herrscher": "Jupiter"},
-          {"grad_von": 12, "grad_bis": 19, "herrscher": "Venus"},
-          {"grad_von": 20, "grad_bis": 24, "herrscher": "Merkur"},
-          {"grad_von": 25, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 7,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 8,
+            "grad_bis": 11,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 12,
+            "grad_bis": 19,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 20,
+            "grad_bis": 24,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 25,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "schuetze": [
-          {"grad_von": 1, "grad_bis": 8, "herrscher": "Jupiter"},
-          {"grad_von": 9, "grad_bis": 14, "herrscher": "Venus"},
-          {"grad_von": 15, "grad_bis": 19, "herrscher": "Merkur"},
-          {"grad_von": 20, "grad_bis": 25, "herrscher": "Saturn"},
-          {"grad_von": 26, "grad_bis": 30, "herrscher": "Mars"}
+          {
+            "grad_von": 1,
+            "grad_bis": 8,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 9,
+            "grad_bis": 14,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 15,
+            "grad_bis": 19,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 20,
+            "grad_bis": 25,
+            "herrscher": "Saturn"
+          },
+          {
+            "grad_von": 26,
+            "grad_bis": 30,
+            "herrscher": "Mars"
+          }
         ],
         "steinbock": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Venus"},
-          {"grad_von": 7, "grad_bis": 14, "herrscher": "Merkur"},
-          {"grad_von": 15, "grad_bis": 19, "herrscher": "Jupiter"},
-          {"grad_von": 20, "grad_bis": 25, "herrscher": "Mars"},
-          {"grad_von": 26, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 14,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 15,
+            "grad_bis": 19,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 20,
+            "grad_bis": 25,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 26,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ],
         "wassermann": [
-          {"grad_von": 1, "grad_bis": 6, "herrscher": "Saturn"},
-          {"grad_von": 7, "grad_bis": 12, "herrscher": "Merkur"},
-          {"grad_von": 13, "grad_bis": 20, "herrscher": "Venus"},
-          {"grad_von": 21, "grad_bis": 25, "herrscher": "Jupiter"},
-          {"grad_von": 26, "grad_bis": 30, "herrscher": "Mars"}
+          {
+            "grad_von": 1,
+            "grad_bis": 6,
+            "herrscher": "Saturn"
+          },
+          {
+            "grad_von": 7,
+            "grad_bis": 12,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 13,
+            "grad_bis": 20,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 21,
+            "grad_bis": 25,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 26,
+            "grad_bis": 30,
+            "herrscher": "Mars"
+          }
         ],
         "fische": [
-          {"grad_von": 1, "grad_bis": 8, "herrscher": "Venus"},
-          {"grad_von": 9, "grad_bis": 14, "herrscher": "Jupiter"},
-          {"grad_von": 15, "grad_bis": 19, "herrscher": "Merkur"},
-          {"grad_von": 20, "grad_bis": 26, "herrscher": "Mars"},
-          {"grad_von": 27, "grad_bis": 30, "herrscher": "Saturn"}
+          {
+            "grad_von": 1,
+            "grad_bis": 8,
+            "herrscher": "Venus"
+          },
+          {
+            "grad_von": 9,
+            "grad_bis": 14,
+            "herrscher": "Jupiter"
+          },
+          {
+            "grad_von": 15,
+            "grad_bis": 19,
+            "herrscher": "Merkur"
+          },
+          {
+            "grad_von": 20,
+            "grad_bis": 26,
+            "herrscher": "Mars"
+          },
+          {
+            "grad_von": 27,
+            "grad_bis": 30,
+            "herrscher": "Saturn"
+          }
         ]
       }
     }
   },
-
   "dekan_system": {
     "beschreibung": "Dekane (Faces / Prosopa) teilen jeden Zeichen in drei 10°-Abschnitte. Jeder Dekan hat einen Planeten-Herrscher. Die Reihenfolge folgt der Chaldäischen Reihenfolge (Saturn, Jupiter, Mars, Sonne, Venus, Merkur, Mond) und beginnt bei Widder mit Mars. Dekane sind die schwächste essentielle Würde (1 Punkt) — sie zeigen subtile Färbung.",
     "quelle": "Firmicus Maternus - Mathesis II.4; Paulus Alexandrinus - Kap. 2; Manilius - Astronomica IV",
-
-    "chaldaeische_reihenfolge": ["Mars", "Sonne", "Venus", "Merkur", "Mond", "Saturn", "Jupiter"],
+    "chaldaeische_reihenfolge": [
+      "Mars",
+      "Sonne",
+      "Venus",
+      "Merkur",
+      "Mond",
+      "Saturn",
+      "Jupiter"
+    ],
     "hinweis": "Die Dekan-Reihenfolge beginnt mit Mars im ersten Dekan von Widder und folgt dann zyklisch der Chaldäischen Reihenfolge rückwärts durch die Planeten.",
-
     "tabelle": [
-      {"zeichen": "Widder", "dekan_1": {"grad": "1-10", "herrscher": "Mars"}, "dekan_2": {"grad": "11-20", "herrscher": "Sonne"}, "dekan_3": {"grad": "21-30", "herrscher": "Venus"}},
-      {"zeichen": "Stier", "dekan_1": {"grad": "1-10", "herrscher": "Merkur"}, "dekan_2": {"grad": "11-20", "herrscher": "Mond"}, "dekan_3": {"grad": "21-30", "herrscher": "Saturn"}},
-      {"zeichen": "Zwillinge", "dekan_1": {"grad": "1-10", "herrscher": "Jupiter"}, "dekan_2": {"grad": "11-20", "herrscher": "Mars"}, "dekan_3": {"grad": "21-30", "herrscher": "Sonne"}},
-      {"zeichen": "Krebs", "dekan_1": {"grad": "1-10", "herrscher": "Venus"}, "dekan_2": {"grad": "11-20", "herrscher": "Merkur"}, "dekan_3": {"grad": "21-30", "herrscher": "Mond"}},
-      {"zeichen": "Löwe", "dekan_1": {"grad": "1-10", "herrscher": "Saturn"}, "dekan_2": {"grad": "11-20", "herrscher": "Jupiter"}, "dekan_3": {"grad": "21-30", "herrscher": "Mars"}},
-      {"zeichen": "Jungfrau", "dekan_1": {"grad": "1-10", "herrscher": "Sonne"}, "dekan_2": {"grad": "11-20", "herrscher": "Venus"}, "dekan_3": {"grad": "21-30", "herrscher": "Merkur"}},
-      {"zeichen": "Waage", "dekan_1": {"grad": "1-10", "herrscher": "Mond"}, "dekan_2": {"grad": "11-20", "herrscher": "Saturn"}, "dekan_3": {"grad": "21-30", "herrscher": "Jupiter"}},
-      {"zeichen": "Skorpion", "dekan_1": {"grad": "1-10", "herrscher": "Mars"}, "dekan_2": {"grad": "11-20", "herrscher": "Sonne"}, "dekan_3": {"grad": "21-30", "herrscher": "Venus"}},
-      {"zeichen": "Schütze", "dekan_1": {"grad": "1-10", "herrscher": "Merkur"}, "dekan_2": {"grad": "11-20", "herrscher": "Mond"}, "dekan_3": {"grad": "21-30", "herrscher": "Saturn"}},
-      {"zeichen": "Steinbock", "dekan_1": {"grad": "1-10", "herrscher": "Jupiter"}, "dekan_2": {"grad": "11-20", "herrscher": "Mars"}, "dekan_3": {"grad": "21-30", "herrscher": "Sonne"}},
-      {"zeichen": "Wassermann", "dekan_1": {"grad": "1-10", "herrscher": "Venus"}, "dekan_2": {"grad": "11-20", "herrscher": "Merkur"}, "dekan_3": {"grad": "21-30", "herrscher": "Mond"}},
-      {"zeichen": "Fische", "dekan_1": {"grad": "1-10", "herrscher": "Saturn"}, "dekan_2": {"grad": "11-20", "herrscher": "Jupiter"}, "dekan_3": {"grad": "21-30", "herrscher": "Mars"}}
+      {
+        "zeichen": "Widder",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Mars"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Sonne"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Venus"
+        }
+      },
+      {
+        "zeichen": "Stier",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Merkur"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Mond"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Saturn"
+        }
+      },
+      {
+        "zeichen": "Zwillinge",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Jupiter"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Mars"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Sonne"
+        }
+      },
+      {
+        "zeichen": "Krebs",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Venus"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Merkur"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Mond"
+        }
+      },
+      {
+        "zeichen": "Löwe",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Saturn"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Jupiter"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Mars"
+        }
+      },
+      {
+        "zeichen": "Jungfrau",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Sonne"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Venus"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Merkur"
+        }
+      },
+      {
+        "zeichen": "Waage",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Mond"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Saturn"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Jupiter"
+        }
+      },
+      {
+        "zeichen": "Skorpion",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Mars"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Sonne"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Venus"
+        }
+      },
+      {
+        "zeichen": "Schütze",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Merkur"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Mond"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Saturn"
+        }
+      },
+      {
+        "zeichen": "Steinbock",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Jupiter"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Mars"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Sonne"
+        }
+      },
+      {
+        "zeichen": "Wassermann",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Venus"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Merkur"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Mond"
+        }
+      },
+      {
+        "zeichen": "Fische",
+        "dekan_1": {
+          "grad": "1-10",
+          "herrscher": "Saturn"
+        },
+        "dekan_2": {
+          "grad": "11-20",
+          "herrscher": "Jupiter"
+        },
+        "dekan_3": {
+          "grad": "21-30",
+          "herrscher": "Mars"
+        }
+      }
     ]
   },
-
   "sekt_system": {
     "beschreibung": "Das Sektprinzip (Hairesis — 'Zugehörigkeit') ist eine der wichtigsten und am häufigsten vernachlässigten Techniken der hellenistischen Astrologie. Jedes Horoskop ist entweder ein Tag-Horoskop (Sonne über dem Horizont zur Geburtszeit) oder ein Nacht-Horoskop (Sonne unter dem Horizont). Diese Unterscheidung verändert die Qualität aller Planeten grundlegend.",
     "quelle": "Ptolemy - Tetrabiblos I.7-8 (Ashmand S.12-16); Valens - Anthologies II.1-5 (Riley S.35-50); Firmicus - Mathesis II.8; Paulus Alexandrinus - Kap. 5",
-
     "sekt_zugehoerigkeit": {
       "tag_planeten": {
-        "planeten": ["Sonne", "Jupiter", "Saturn"],
+        "planeten": [
+          "Sonne",
+          "Jupiter",
+          "Saturn"
+        ],
         "beschreibung": "Tag-Planeten sind in einem Tag-Horoskop in ihrer Sekte — sie wirken optimaler, kontrollierter und konstruktiver. In einem Nacht-Horoskop sind sie außer ihrer Sekte — ihre Energie ist weniger stabil.",
         "qualitaet_in_sekte": "Kraft ist geordnet, gezielt und wohltuend. Der Planet kann sein Bestes geben.",
         "qualitaet_ausser_sekte": "Kraft ist vorhanden, aber unkontrollierter. Energie sucht ungewöhnliche Ausdruckswege.",
         "quelle": "Ptolemy I.7; Valens II.1"
       },
       "nacht_planeten": {
-        "planeten": ["Mond", "Venus", "Mars"],
+        "planeten": [
+          "Mond",
+          "Venus",
+          "Mars"
+        ],
         "beschreibung": "Nacht-Planeten sind in einem Nacht-Horoskop in ihrer Sekte. In einem Tag-Horoskop wirken sie 'außer der Sekte'.",
         "qualitaet_in_sekte": "Weiche Kraft, empfangende Energie, intuitive und schützende Wirkung.",
         "qualitaet_ausser_sekte": "Die empfangende Energie wird aktiver als intendiert — Venus kann aufdringlich werden, Mars unkontrollierter.",
@@ -474,7 +1195,6 @@
         "quelle": "Ptolemy I.7; Paulus Alexandrinus Kap. 5"
       }
     },
-
     "sekt_qualitaet_regeln": [
       {
         "regel_id": "S-01",
@@ -504,7 +1224,6 @@
         "quelle": "Ptolemy I.7; Paulus Alexandrinus Kap. 5"
       }
     ],
-
     "tag_vs_nacht_horoskop_bestimmung": {
       "beschreibung": "Bestimmung ob ein Geburtshoroskop ein Tag- oder Nacht-Horoskop ist.",
       "regel": "Wenn die Sonne über dem Horizont (ASC-DSC-Achse) steht — d.h. in den Häusern 7 bis 12 nach Whole Sign — ist es ein Tag-Horoskop. Steht die Sonne in den Häusern 1 bis 6, ist es ein Nacht-Horoskop.",
@@ -512,11 +1231,9 @@
       "quelle": "Ptolemy I.7; Valens II.1; Firmicus II.8"
     }
   },
-
   "bonitaet_system": {
     "beschreibung": "Das Bonität-System (Benefic/Malefic) unterscheidet Planeten nach ihrer grundlegenden Natur: Wohltäter (Benefics) fördern, Unglücksbringer (Malefics) prüfen und begrenzen. Diese Unterscheidung ist jedoch nie absolut — sie wird immer durch Würden, Sekte und Aspekte modifiziert.",
     "quelle": "Ptolemy - Tetrabiblos I.5-6 (Ashmand S.10-12); Valens - Anthologies I.1 (Riley S.1-10); Firmicus - Mathesis II.1; Paulus Alexandrinus - Kap. 1",
-
     "planeten_bonitaet": {
       "grosse_wohltaeterin": {
         "planet": "Jupiter",
@@ -585,7 +1302,6 @@
         "quelle": "Ptolemy I.5; Valens I.1; Firmicus II.1"
       }
     },
-
     "bonitaet_modifikationsregeln": [
       {
         "regel_id": "B-01",
@@ -616,39 +1332,103 @@
       }
     ]
   },
-
   "akzidentelle_wuerden": {
     "beschreibung": "Akzidentelle Würden beschreiben die Stärke eines Planeten durch seine Position und Situation im Horoskop — unabhängig vom Zeichen. Ein Planet kann essentiell schwach (in Detriment) aber akzidentell stark (am Midheaven) sein.",
     "quelle": "Valens - Anthologies II.4; Ptolemy - Tetrabiblos I.24-25; Firmicus - Mathesis II.10-12",
-
     "haus_staerke": {
       "beschreibung": "Die vier Winkel sind die stärksten Positionen im Horoskop. Planeten an Winkeln wirken mit maximaler Kraft und Sichtbarkeit.",
       "quelle": "Valens - Anthologies II.4; Ptolemy I.24",
       "tabelle": [
-        {"haus": 1, "name": "Ascendant / Horoskopos", "staerke": "sehr stark", "thema": "Selbst, Körper, Vitalität, Beginn"},
-        {"haus": 2, "name": "Haus des Guten Daimon (Oikos Agathou Daimonos)", "staerke": "mäßig", "thema": "Ressourcen, Einnahmen"},
-        {"haus": 3, "name": "Haus der Göttin", "staerke": "schwach", "thema": "Geschwister, kurze Reisen"},
-        {"haus": 4, "name": "Untergrund / Imum Coeli", "staerke": "sehr stark (Winkel)", "thema": "Wurzeln, Familie, Ende der Dinge"},
-        {"haus": 5, "name": "Gutes Glück / Agathe Tyche", "staerke": "mäßig", "thema": "Kinder, Freude, kreative Werke"},
-        {"haus": 6, "name": "Schlechtes Glück / Kake Tyche", "staerke": "sehr schwach", "thema": "Krankheit, Arbeit, Diener"},
-        {"haus": 7, "name": "Descendent / Dysis", "staerke": "stark (Winkel)", "thema": "Partner, Ehe, offene Feinde"},
-        {"haus": 8, "name": "Haus des Anfangs der Toten", "staerke": "schwach", "thema": "Tod, fremde Ressourcen, Erbe"},
-        {"haus": 9, "name": "Haus des Gottes", "staerke": "mäßig", "thema": "Philosophie, Religion, Fernreisen"},
-        {"haus": 10, "name": "Midheaven / Mesouranema", "staerke": "sehr stark (Winkel)", "thema": "Beruf, Status, Ruhm, Autorität"},
-        {"haus": 11, "name": "Guter Daimon / Agathos Daimon", "staerke": "stark", "thema": "Freunde, Hoffnungen, Gönner"},
-        {"haus": 12, "name": "Schlechter Daimon / Kakos Daimon", "staerke": "sehr schwach", "thema": "Feinde, Gefängnis, Exil, verborgene Feinde"}
+        {
+          "haus": 1,
+          "name": "Ascendant / Horoskopos",
+          "staerke": "sehr stark",
+          "thema": "Selbst, Körper, Vitalität, Beginn"
+        },
+        {
+          "haus": 2,
+          "name": "Haus des Guten Daimon (Oikos Agathou Daimonos)",
+          "staerke": "mäßig",
+          "thema": "Ressourcen, Einnahmen"
+        },
+        {
+          "haus": 3,
+          "name": "Haus der Göttin",
+          "staerke": "schwach",
+          "thema": "Geschwister, kurze Reisen"
+        },
+        {
+          "haus": 4,
+          "name": "Untergrund / Imum Coeli",
+          "staerke": "sehr stark (Winkel)",
+          "thema": "Wurzeln, Familie, Ende der Dinge"
+        },
+        {
+          "haus": 5,
+          "name": "Gutes Glück / Agathe Tyche",
+          "staerke": "mäßig",
+          "thema": "Kinder, Freude, kreative Werke"
+        },
+        {
+          "haus": 6,
+          "name": "Schlechtes Glück / Kake Tyche",
+          "staerke": "sehr schwach",
+          "thema": "Krankheit, Arbeit, Diener"
+        },
+        {
+          "haus": 7,
+          "name": "Descendent / Dysis",
+          "staerke": "stark (Winkel)",
+          "thema": "Partner, Ehe, offene Feinde"
+        },
+        {
+          "haus": 8,
+          "name": "Haus des Anfangs der Toten",
+          "staerke": "schwach",
+          "thema": "Tod, fremde Ressourcen, Erbe"
+        },
+        {
+          "haus": 9,
+          "name": "Haus des Gottes",
+          "staerke": "mäßig",
+          "thema": "Philosophie, Religion, Fernreisen"
+        },
+        {
+          "haus": 10,
+          "name": "Midheaven / Mesouranema",
+          "staerke": "sehr stark (Winkel)",
+          "thema": "Beruf, Status, Ruhm, Autorität"
+        },
+        {
+          "haus": 11,
+          "name": "Guter Daimon / Agathos Daimon",
+          "staerke": "stark",
+          "thema": "Freunde, Hoffnungen, Gönner"
+        },
+        {
+          "haus": 12,
+          "name": "Schlechter Daimon / Kakos Daimon",
+          "staerke": "sehr schwach",
+          "thema": "Feinde, Gefängnis, Exil, verborgene Feinde"
+        }
       ]
     },
-
     "orientalitaet_okzidentalitaet": {
       "beschreibung": "Orientalität (östlich zur Sonne aufgehend) und Okzidentalität (westlich zur Sonne untergehend) beeinflussen die Stärke von Mars, Jupiter und Saturn.",
       "regeln": [
-        {"planet_gruppe": "Saturn, Jupiter, Mars", "regel": "Diese Planeten sind stärker wenn sie oriental (östlich, vor der Sonne aufgehend / morgens sichtbar) sind.", "quelle": "Ptolemy I.23; Valens II.5"},
-        {"planet_gruppe": "Merkur, Venus", "regel": "Merkur und Venus sind stärker wenn sie okzidental (westlich, nach der Sonne untergehend / abends sichtbar) sind.", "quelle": "Ptolemy I.23"}
+        {
+          "planet_gruppe": "Saturn, Jupiter, Mars",
+          "regel": "Diese Planeten sind stärker wenn sie oriental (östlich, vor der Sonne aufgehend / morgens sichtbar) sind.",
+          "quelle": "Ptolemy I.23; Valens II.5"
+        },
+        {
+          "planet_gruppe": "Merkur, Venus",
+          "regel": "Merkur und Venus sind stärker wenn sie okzidental (westlich, nach der Sonne untergehend / abends sichtbar) sind.",
+          "quelle": "Ptolemy I.23"
+        }
       ],
       "quelle": "Ptolemy - Tetrabiblos I.23; Valens - Anthologies II.5"
     },
-
     "retrograditat": {
       "beschreibung": "Ein retrograder Planet (rückläufig in der Bewegung) ist grundsätzlich akzidentell geschwächt — seine Energie kehrt sich nach innen oder verzögert sich. Ausnahmen: Jupiter und Venus retrograd können in bestimmten Kontexten eine intensive Introspektion und innere Stärke zeigen.",
       "quelle": "Ptolemy I.24; Firmicus II.12",
@@ -667,23 +1447,40 @@
         }
       ]
     },
-
     "cazimi_und_combustion": {
       "beschreibung": "Die Nähe zur Sonne bestimmt eine besondere akzidentelle Qualität aller Planeten.",
       "quelle": "Valens - Anthologies II.5; Ptolemy I.24; Firmicus II.11",
       "stufen": [
-        {"name": "Cazimi / Im Herzen der Sonne", "grad": "innerhalb 0°17'", "qualitaet": "Außerordentlich stark — der Planet ist 'in Gottes Angesicht'. Trotz Nähe zur Sonne: besondere Stärke und Schutz.", "beschreibung": "Seltenste akzidentelle Würde. Der Planet wird vom Sonnenlicht nicht verbrannt sondern erhoben."},
-        {"name": "Combust / Verbrennung", "grad": "0°18' bis 8°30'", "qualitaet": "Stark geschwächt — der Planet ist 'verbrannt'. Seine Energie wird von der Sonne überstrahlt und unterdrückt.", "beschreibung": "Der Planet verliert Eigenständigkeit und Wirkungskraft. Ausnahme: Mond ist besonders betroffen."},
-        {"name": "Under the Beams / Unter den Strahlen", "grad": "8°31' bis 15°00'", "qualitaet": "Leicht geschwächt — der Planet ist 'im Schatten der Sonne'. Wirkung vorhanden aber gedämpft.", "beschreibung": "Milder als Combustion. Der Planet kann noch wirken, aber nicht mit voller Kraft."},
-        {"name": "Frei von Sonnenstrahlen", "grad": "ab 15°01'", "qualitaet": "Neutral — Planet ist frei und sichtbar.", "beschreibung": "Kein Einfluss der Sonnennähe auf die akzidentelle Stärke."}
+        {
+          "name": "Cazimi / Im Herzen der Sonne",
+          "grad": "innerhalb 0°17'",
+          "qualitaet": "Außerordentlich stark — der Planet ist 'in Gottes Angesicht'. Trotz Nähe zur Sonne: besondere Stärke und Schutz.",
+          "beschreibung": "Seltenste akzidentelle Würde. Der Planet wird vom Sonnenlicht nicht verbrannt sondern erhoben."
+        },
+        {
+          "name": "Combust / Verbrennung",
+          "grad": "0°18' bis 8°30'",
+          "qualitaet": "Stark geschwächt — der Planet ist 'verbrannt'. Seine Energie wird von der Sonne überstrahlt und unterdrückt.",
+          "beschreibung": "Der Planet verliert Eigenständigkeit und Wirkungskraft. Ausnahme: Mond ist besonders betroffen."
+        },
+        {
+          "name": "Under the Beams / Unter den Strahlen",
+          "grad": "8°31' bis 15°00'",
+          "qualitaet": "Leicht geschwächt — der Planet ist 'im Schatten der Sonne'. Wirkung vorhanden aber gedämpft.",
+          "beschreibung": "Milder als Combustion. Der Planet kann noch wirken, aber nicht mit voller Kraft."
+        },
+        {
+          "name": "Frei von Sonnenstrahlen",
+          "grad": "ab 15°01'",
+          "qualitaet": "Neutral — Planet ist frei und sichtbar.",
+          "beschreibung": "Kein Einfluss der Sonnennähe auf die akzidentelle Stärke."
+        }
       ]
     }
   },
-
   "almuten_system": {
     "beschreibung": "Der Almuten (von arabisch 'al-muten' — der Herrschende) ist der Planet mit den meisten Würdepunkten in einem bestimmten Grad. Er ist der 'stärkste Herrscher' dieses Grades und gibt die dominierende Energiequalität. Der Almuten Figuris ist der Almuten des gesamten Horoskops (berechnet über mehrere Schlüsselpunkte).",
     "quelle": "Al-Biruni - Book of Instruction S.250-260 (Wright Übersetzung 1934); Firmicus - Mathesis II.13",
-
     "berechnung": {
       "beschreibung": "Für jeden Grad werden die Würdepunkte aller Planeten gezählt. Wer die meisten hat, ist Almuten dieses Grades.",
       "punkte_tabelle": {
@@ -697,18 +1494,62 @@
       },
       "beispiel": "Sonne in Löwe 15° (Tag-Horoskop): Domizil Löwe = Sonne(5) + Tag-Triplizität Feuer = Sonne(3) + Term Löwe 12-18° = Venus(2) + Face Löwe 11-20° = Jupiter(1) → Almuten ist Sonne (8 Punkte)"
     },
-
     "almuten_figuris": {
       "beschreibung": "Der Almuten Figuris ist der Planet mit den meisten Gesamtpunkten über die wichtigsten Schlüsselpunkte des Horoskops (ASC, Sonne, Mond, Lot des Glücks, Lot des Geistes — je nach Schule).",
       "bedeutung": "Der Almuten Figuris ist der 'heimliche Herrscher' — er zeigt die Grundenergie und den spirituellen Auftrag der gesamten Biografie. Er ist mächtiger als der Aszendent-Herrscher.",
       "quelle": "Al-Biruni S.255; Firmicus II.13"
     }
   },
-
+  "planet_rulers_dignities": {
+    "_intro": "Hellenistische Domizil-Zuordnung für nach_planet_herrscher (Kleinbuchstaben für Lookup).",
+    "sonne": { "domizil": ["loewe"], "detriment": ["wassermann"] },
+    "mond": { "domizil": ["krebs"], "detriment": ["steinbock"] },
+    "merkur": { "domizil": ["zwillinge", "jungfrau"], "detriment": ["schuetze", "fische"] },
+    "venus": { "domizil": ["stier", "waage"], "detriment": ["skorpion", "widder"] },
+    "mars": { "domizil": ["widder", "skorpion"], "detriment": ["waage", "stier"] },
+    "jupiter": { "domizil": ["schuetze", "fische"], "detriment": ["zwillinge", "jungfrau"] },
+    "saturn": { "domizil": ["steinbock", "wassermann"], "detriment": ["krebs", "loewe"] }
+  },
+  "planeten": {
+    "sonne": {
+      "dimensionen": { "liebe": 0.75, "beruf": 1.0, "finanzen": 0.75, "gesundheit": 1.0, "soziales": 0.75, "kreativitaet": 1.0, "veraenderung": 0.5, "spiritualitaet": 0.75 }
+    },
+    "mond": {
+      "dimensionen": { "liebe": 1.0, "beruf": 0.5, "finanzen": 0.5, "gesundheit": 0.75, "soziales": 1.0, "kreativitaet": 0.75, "veraenderung": 0.5, "spiritualitaet": 0.75 }
+    },
+    "merkur": {
+      "dimensionen": { "liebe": 0.5, "beruf": 1.0, "finanzen": 0.75, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 1.0, "veraenderung": 0.75, "spiritualitaet": 0.5 }
+    },
+    "venus": {
+      "dimensionen": { "liebe": 1.0, "beruf": 0.5, "finanzen": 0.75, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 0.75, "veraenderung": 0.25, "spiritualitaet": 0.5 }
+    },
+    "mars": {
+      "dimensionen": { "liebe": 0.25, "beruf": 0.75, "finanzen": 0.25, "gesundheit": 0.5, "soziales": 0.25, "kreativitaet": 0.5, "veraenderung": 0.75, "spiritualitaet": 0.25 }
+    },
+    "jupiter": {
+      "dimensionen": { "liebe": 0.75, "beruf": 1.0, "finanzen": 0.75, "gesundheit": 0.75, "soziales": 0.75, "kreativitaet": 0.75, "veraenderung": 0.5, "spiritualitaet": 0.75 }
+    },
+    "saturn": {
+      "dimensionen": { "liebe": 0.25, "beruf": 0.5, "finanzen": 0.5, "gesundheit": 0.25, "soziales": 0.25, "kreativitaet": 0.25, "veraenderung": 0.75, "spiritualitaet": 0.5 }
+    }
+  },
+  "term_ptolemaeus": {
+    "_intro": "Ptolemäische Terme (Grenzen) — 5 Planeten × 12 Zeichen, je Gradabschnitt mit dimensionen_vektor. Quelle: Tetrabiblos I.20-21.",
+    "widder_venus": { "grad": "0-6", "dimensionen_vektor": { "liebe": 0.75, "beruf": 0.5, "finanzen": 0.75, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 0.75, "veraenderung": 0.25, "spiritualitaet": 0.5 } },
+    "widder_merkur": { "grad": "6-14", "dimensionen_vektor": { "liebe": 0.5, "beruf": 0.75, "finanzen": 0.5, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 0.75, "veraenderung": 0.5, "spiritualitaet": 0.5 } },
+    "widder_jupiter": { "grad": "14-21", "dimensionen_vektor": { "liebe": 0.5, "beruf": 0.75, "finanzen": 0.5, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 0.5, "veraenderung": 0.5, "spiritualitaet": 0.75 } },
+    "widder_mars": { "grad": "21-26", "dimensionen_vektor": { "liebe": 0.25, "beruf": 0.75, "finanzen": 0.25, "gesundheit": 0.5, "soziales": 0.25, "kreativitaet": 0.5, "veraenderung": 0.75, "spiritualitaet": 0.25 } },
+    "widder_saturn": { "grad": "26-30", "dimensionen_vektor": { "liebe": 0.25, "beruf": 0.5, "finanzen": 0.25, "gesundheit": 0.25, "soziales": 0.25, "kreativitaet": 0.25, "veraenderung": 0.5, "spiritualitaet": 0.5 } }
+  },
+  "face_dekane": {
+    "_intro": "Chaldäische Dekane (Faces) — 3 Dekane × 12 Zeichen = 36, je 10°. Quelle: Valens, Firmicus.",
+    "widder_1": { "grad": "0-10", "herrscher": "Mars", "dimensionen_vektor": { "liebe": 0.5, "beruf": 0.75, "finanzen": 0.25, "gesundheit": 0.5, "soziales": 0.5, "kreativitaet": 0.5, "veraenderung": 0.75, "spiritualitaet": 0.25 } },
+    "widder_2": { "grad": "10-20", "herrscher": "Sonne", "dimensionen_vektor": { "liebe": 0.5, "beruf": 0.75, "finanzen": 0.5, "gesundheit": 0.75, "soziales": 0.5, "kreativitaet": 0.5, "veraenderung": 0.5, "spiritualitaet": 0.25 } },
+    "widder_3": { "grad": "20-30", "herrscher": "Venus", "dimensionen_vektor": { "liebe": 0.75, "beruf": 0.5, "finanzen": 0.5, "gesundheit": 0.5, "soziales": 0.75, "kreativitaet": 0.75, "veraenderung": 0.25, "spiritualitaet": 0.5 } }
+  },
   "syntheseregeln_hell_andere_systeme": {
     "beschreibung": "Verbindungsregeln zwischen hellenistischer Astrologie (Würden/Sekte/Bonität) und den anderen Systemen des Regelwerks.",
     "quelle": "eigene Synthesis auf Basis Ptolemy, Valens, Kabbalah-Sephiroth-Mapping, Numerologie-Planeten-Zuordnungen",
-
     "regeln": [
       {
         "regel_id": "HK-01",
@@ -742,7 +1583,6 @@
       }
     ]
   },
-
   "regeln_index": {
     "beschreibung": "Index aller kodierten Regeln und Datenpunkte in dieser Datei.",
     "gesamt_regeln": 93,
