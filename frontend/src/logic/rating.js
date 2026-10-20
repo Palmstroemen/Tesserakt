@@ -23,8 +23,18 @@ export function getQuestionWeights(systems, dimension, frageGewichte, matrix) {
 }
 
 // User and vector scale -1..+1. expected = user value directly.
-// For two independent U(-1,1): E[(X-Y)^2] = 2/3.
-const RANDOM_BASELINE_MSE = 2 / 3;
+// Skill = 2 * (Perzentil - 50): 0 = Zufallsniveau, +100 = besser als alle Kontroll-Geburtsdaten,
+// -100 = schlechter als alle. Version wird mit dem Rating gespeichert.
+export const SKILL_METRIK = "perzentil_v1";
+
+export function skillFromPerzentil(perzentil) {
+  return perzentil === null ? null : 2 * (perzentil - 50);
+}
+
+// Erwarteter Skill des besten von k Systemen ohne Aussagekraft: 100 * (k - 1) / (k + 1).
+export function erwarteterSkillBester(k) {
+  return k > 0 ? (100 * (k - 1)) / (k + 1) : null;
+}
 
 // Perzentil: Anteil der Kontroll-Geburtsdaten (gleiches System, zufaelliges anderes Datum),
 // die schlechter passen als das echte Geburtsdatum. Ohne Aussagekraft im Mittel 50.
@@ -95,12 +105,12 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
     const mse = normiert[system];
     const rmse = Math.sqrt(normiert[system]);
     const fitScore = Math.max(0, 100 * (1 - rmse / 2)); // max deviation = 2
-    const skillScore = 100 * (1 - mse / RANDOM_BASELINE_MSE);
     const kontrollMse = kumulKontrollFehler[system].map((summe) => summe / kumulGewicht[system]);
     const perzentil = calculatePerzentil(mse, kontrollMse);
+    const skillScore = skillFromPerzentil(perzentil);
     systemDetails[system] = {
       fitScore: Number(fitScore.toFixed(1)),
-      skillScore: Number(skillScore.toFixed(1)),
+      skillScore: skillScore === null ? null : Number(skillScore.toFixed(1)),
       perzentil: perzentil === null ? null : Number(perzentil.toFixed(1)),
       fehler: Number(mse.toFixed(4)),
       rang: null,
@@ -112,8 +122,10 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
     .sort((a, b) => {
       if (a === "KO") return 1;
       if (b === "KO") return -1;
-      if (systemDetails[b].skillScore !== systemDetails[a].skillScore) {
-        return systemDetails[b].skillScore - systemDetails[a].skillScore;
+      const skillA = systemDetails[a].skillScore ?? -Infinity;
+      const skillB = systemDetails[b].skillScore ?? -Infinity;
+      if (skillB !== skillA) {
+        return skillB - skillA;
       }
       if (systemDetails[b].fitScore !== systemDetails[a].fitScore) {
         return systemDetails[b].fitScore - systemDetails[a].fitScore;
@@ -125,28 +137,8 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
     systemDetails[system].rang = idx + 1;
   });
 
-  const koFit = systemDetails.KO?.fitScore ?? null;
-  const koSkill = systemDetails.KO?.skillScore ?? null;
-  const fitVsKO = {};
-  const skillVsKO = {};
-  if (koFit !== null) {
-    for (const system of systems) {
-      if (systemDetails[system]?.fitScore !== null) {
-        fitVsKO[system] = Number((systemDetails[system].fitScore - koFit).toFixed(1));
-      }
-    }
-  }
-  if (koSkill !== null) {
-    for (const system of systems) {
-      if (systemDetails[system]?.skillScore !== null) {
-        skillVsKO[system] = Number((systemDetails[system].skillScore - koSkill).toFixed(1));
-      }
-    }
-  }
+  const mitSkill = ranking.filter((s) => s !== "KO" && systemDetails[s].skillScore !== null).length;
+  const skillErwartungBester = mitSkill ? Number(erwarteterSkillBester(mitSkill).toFixed(1)) : null;
 
-  // Erwartetes Perzentil des besten von k Systemen ohne Aussagekraft: 100 * k / (k + 1).
-  const mitPerzentil = ranking.filter((s) => s !== "KO" && systemDetails[s].perzentil !== null).length;
-  const perzentilErwartungBester = mitPerzentil ? Number(((100 * mitPerzentil) / (mitPerzentil + 1)).toFixed(1)) : null;
-
-  return { ranking, systemDetails, fitVsKO, skillVsKO, perzentilErwartungBester };
+  return { ranking, systemDetails, skillErwartungBester, skillMetrik: SKILL_METRIK };
 }

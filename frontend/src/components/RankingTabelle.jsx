@@ -1,4 +1,9 @@
-export default function RankingTabelle({ systeme, ranking, fitVsKO, skillVsKO, perzentilErwartungBester }) {
+function formatSkill(value) {
+  if (typeof value !== "number") return "-";
+  return value > 0 ? `+${value.toFixed(0)}` : value.toFixed(0);
+}
+
+export default function RankingTabelle({ systeme, ranking, skillErwartungBester }) {
   if (!ranking?.length) {
     return <p>Noch kein Ergebnis.</p>;
   }
@@ -10,11 +15,9 @@ export default function RankingTabelle({ systeme, ranking, fitVsKO, skillVsKO, p
         <tr>
           <th>Rang</th>
           <th>System</th>
-          <th>Fit (absolut)</th>
-          <th>Skill vs Zufall</th>
+          <th>Skill</th>
           <th>Perzentil</th>
-          <th>Delta Fit zu KO</th>
-          <th>Delta Skill zu KO</th>
+          <th>Fit (absolut)</th>
           <th>Norm. Fehler</th>
         </tr>
       </thead>
@@ -23,21 +26,19 @@ export default function RankingTabelle({ systeme, ranking, fitVsKO, skillVsKO, p
           <tr key={system}>
             <td>{index + 1}</td>
             <td>{system}</td>
+            <td>{formatSkill(systeme[system].skillScore)}</td>
+            <td>{typeof systeme[system].perzentil === "number" ? systeme[system].perzentil.toFixed(0) : "-"}</td>
             <td>{systeme[system].fitScore.toFixed(1)}</td>
-            <td>{systeme[system].skillScore.toFixed(1)}</td>
-            <td>{typeof systeme[system].perzentil === "number" ? systeme[system].perzentil.toFixed(1) : "-"}</td>
-            <td>{typeof fitVsKO?.[system] === "number" ? `${fitVsKO[system].toFixed(1)}` : "-"}</td>
-            <td>{typeof skillVsKO?.[system] === "number" ? `${skillVsKO[system].toFixed(1)}` : "-"}</td>
             <td>{systeme[system].fehler.toFixed(4)}</td>
           </tr>
         ))}
       </tbody>
     </table>
-    {typeof perzentilErwartungBester === "number" ? (
+    {typeof skillErwartungBester === "number" ? (
       <p className="hint">
-        Perzentil: Anteil zufaelliger anderer Geburtsdaten, die schlechter zu deinen Antworten passen als dein eigenes.
-        Ohne Aussagekraft laege ein System im Mittel bei 50, das beste von {ranking.filter((s) => s !== "KO").length} Systemen
-        im Mittel bei {perzentilErwartungBester.toFixed(1)}.
+        Skill vergleicht dein Geburtsdatum mit zufaelligen anderen Geburtsdaten: 0 = Zufallsniveau,
+        +100 = besser als alle, -100 = schlechter als alle. Auch ohne jede Aussagekraft erreicht das beste
+        von {ranking.length} Systemen im Mittel etwa +{skillErwartungBester.toFixed(0)}.
       </p>
     ) : null}
     </>

@@ -47,9 +47,8 @@ export function useRating(vektoren, antworten, inputs, kontrollvektoren) {
     return {
       ranking: (base.ranking ?? []).filter((s) => s !== "KO"),
       systemDetails: base.systemDetails,
-      fitVsKO: base.fitVsKO ?? {},
-      skillVsKO: base.skillVsKO ?? {},
-      perzentilErwartungBester: base.perzentilErwartungBester ?? null,
+      skillErwartungBester: base.skillErwartungBester ?? null,
+      skillMetrik: base.skillMetrik,
       temperament,
       matrix,
       matrixLoading,

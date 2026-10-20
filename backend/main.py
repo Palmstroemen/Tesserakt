@@ -316,6 +316,13 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
+    # Kontrollvektoren werden nicht gespeichert, sondern sind hieraus reproduzierbar
+    response_inputs["kontrolle"] = {
+        "anzahl": payload.kontroll_anzahl,
+        "jahre": KONTROLL_JAHRE,
+        "seed_schema": "sha256(session_id:kontrolle)",
+        "stichtag": now.date().isoformat(),
+    }
 
     # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}

@@ -1,126 +1,82 @@
-# Erklaerung: "Skill vs Zufall"
+# Erklaerung: "Skill"
 
-Diese Notiz erklaert, wie der Wert **Skill vs Zufall** zu lesen ist und wie er berechnet wird.
+Diese Notiz erklaert, wie der Wert **Skill** zu lesen ist und wie er berechnet wird.
+Metrik-Version: `perzentil_v1` (wird mit jedem Rating gespeichert).
 
 ---
 
 ## 1. Kurzinterpretation
 
-**Skill vs Zufall** misst, wie viel besser ein System ist als eine reine Zufalls-Baseline.
+**Skill** misst, ob ein System *dein* Geburtsdatum braucht, um dich zu treffen –
+oder ob ein beliebiges anderes Geburtsdatum genauso gut passen wuerde.
 
-- `100` = perfekte Uebereinstimmung mit den Antworten
-- `0` = nicht besser als Zufall
-- in der aktuellen UI: **nie negativ**, weil bei `0` abgeschnitten wird
+- `+100` = dein Geburtsdatum passt besser als alle Kontroll-Geburtsdaten
+- `0` = Zufallsniveau: dein Geburtsdatum passt nicht besser als ein beliebiges
+- `-100` = dein Geburtsdatum passt schlechter als alle Kontroll-Geburtsdaten
 
-Wichtig:
-- `0` bedeutet derzeit: "zufaellig gut" **oder schlechter als Zufall", weil negative Werte gekappt werden.
+Negative Werte werden nicht abgeschnitten: "schlechter als ein beliebiges Geburtsdatum" ist eine ehrliche Aussage.
 
 ---
 
-## 2. Berechnung (aktuelle Implementierung)
+## 2. Berechnung
 
-Die Berechnung laeuft auf dem mittleren quadratischen Fehler (MSE):
-
-1. Pro Frage und System:
-   - Fehler = `(selbst_wert - system_wert)^2`
-2. Ueber alle Fragen:
-   - gewichteter Mittelwert der Fehler = `MSE`
-3. Vergleich mit Zufalls-Baseline:
-   - `RANDOM_BASELINE_MSE = 2/3`
-
-Dann:
+1. Fehler pro Frage und System: `(selbst_wert - system_wert)^2`, gewichtet gemittelt zu `MSE`.
+2. **Kontrollgruppe je System:** Das Backend berechnet denselben System-Vektor fuer 100 zufaellige
+   andere Geburtsdaten (gleiche Uhrzeit, gleicher Ort, gleiches Geschlecht/Name, Fenster +-5 Jahre).
+   Fuer jedes davon wird mit denselben Antworten und Gewichten ebenfalls der MSE berechnet.
+3. **Perzentil** = Anteil der Kontroll-Geburtsdaten mit groesserem Fehler als das echte (Gleichstand zaehlt halb).
+4. **Skill** = `2 * (Perzentil - 50)`
 
 ```text
-skill_raw = 100 * (1 - MSE / (2/3))
-skillScore = max(0, skill_raw)
+Perzentil 100 -> Skill +100
+Perzentil  50 -> Skill    0
+Perzentil   0 -> Skill -100
 ```
-
-Die `max(0, ...)`-Kappung ist der Grund, warum keine negativen Werte angezeigt werden.
 
 ---
 
-## 3. Warum genau 2/3?
+## 3. Warum diese Kontrollgruppe?
 
-Die Antworten und Systemwerte liegen intern auf der Skala -1..+1.  
-Wenn zwei Werte unabhaengig zufaellig aus `U(-1,1)` kommen, gilt:
+Die Systeme sind unterschiedlich verteilt: manche liefern fast nur Werte nahe 0, andere streuen stark,
+manche sind eher positiv. Die fruehere Metrik (Vergleich mit einer festen Zufalls-Baseline `2/3`) hat
+diese Verteilung mitbewertet – ein System nahe 0 bekam hohen "Skill", ohne etwas ueber die Person zu wissen.
+
+Die Kontrollgruppe hat exakt dieselbe Verteilung wie das System selbst. Der Unterschied zwischen echtem
+und zufaelligem Geburtsdatum ist deshalb genau das, was die Systeme behaupten: dass *dein* Datum etwas ueber *dich* aussagt.
+
+Eigenschaft: Hat ein System keine Aussagekraft, ist Skill fuer **jedes** System und **jeden** Antwortstil
+im Mittel 0 (gleichverteilt zwischen -100 und +100). Damit sind Werte zwischen Systemen direkt vergleichbar.
+
+---
+
+## 4. Der beste Wert ist auch bei Zufall hoch
+
+Das beste von `k` Systemen erreicht auch ohne jede Aussagekraft im Mittel:
 
 ```text
-E[(X - Y)^2] = 2/3
+Skill_bester = 100 * (k - 1) / (k + 1)
 ```
 
-Das ist der erwartete MSE von "reinem Zufall gegen Zufall" und dient als Nullpunkt.
+| Systeme k | erwarteter Skill des besten |
+|---|---|
+| 3 | +50 |
+| 5 | +67 |
+| 7 | +75 |
+
+Ein einzelner hoher Wert beim Sieger ist also normal. Aussagekraeftig ist erst der Mittelwert ueber viele Sessions:
+liegt er fuer ein System deutlich ueber 0, ist das ein Befund. Siehe auch `warum_oft_ein_gewinner.md`.
 
 ---
 
-## 4. Lesehilfe fuer den Wert
+## 5. Speicherung und Reproduzierbarkeit
 
-Pragmatische Einordnung:
-
-- `0`: auf Zufallsniveau (oder darunter, aber gekappt)
-- `1-20`: schwacher Vorteil gegen Zufall
-- `21-50`: klarer Vorteil
-- `51-80`: starker Vorteil
-- `81-100`: sehr starker Vorteil
-
-Hinweis:
-- Die Schwellen sind eine Kommunikationshilfe, kein mathematisches Gesetz.
+Gespeichert werden pro System Perzentil und Skill (im Rating der Session), nicht die Kontrollvektoren.
+Diese sind reproduzierbar aus Geburtsdatum, Uhrzeit, `session_id` (Seed) und den Parametern in
+`inputs.kontrolle` (`anzahl`, `jahre`, `seed_schema`, `stichtag`) – vorausgesetzt, die Regelwerke sind unveraendert.
 
 ---
 
-## 5. Beziehung zu "Delta Skill zu KO"
+## 6. Fit (absolut)
 
-`Delta Skill zu KO` zeigt den Abstand eines Systems zur Kontrollgruppe in derselben Session:
-
-```text
-DeltaSkillKO = Skill(System) - Skill(KO)
-```
-
-- positiv: besser als KO
-- `0`: gleich wie KO
-- negativ: schlechter als KO
-
-Damit sieht man schnell, ob ein System den Kontrollanker in der konkreten Runde schlaegt.
-
----
-
-## 6. Mini-Beispiele
-
-Beispiel A:
-
-- `MSE = 0.25`
-- `skill_raw = 100 * (1 - 0.25 / (2/3)) = 62.5`
-- `Skill vs Zufall = 62.5`
-
-Beispiel B:
-
-- `MSE = 2/3` (Zufallsniveau)
-- `skill_raw = 0`
-- `Skill vs Zufall = 0`
-
-Beispiel C:
-
-- `MSE = 1.0` (schlechter als Zufall)
-- `skill_raw = -50` -> wird gekappt
-- `Skill vs Zufall = 0` (in aktueller UI)
-
----
-
-## 7. Namensvorschlaege (kuerzer/klarer)
-
-`Reliability` ist moeglich, aber semantisch nicht ideal:  
-Es klingt nach Messgenauigkeit/Vertrauensintervall, nicht nach "Vorteil gegen Zufall".
-
-Bessere Kandidaten:
-
-1. **Zufallsvorteil** (empfohlen)
-   - kurz, klar, sagt direkt was gemessen wird
-2. **Vorteil gg. Zufall**
-   - sehr explizit, aber etwas laenger
-3. **Skill-Index**
-   - kurz, neutral, technisch
-
-Empfehlung fuer UI:
-
-- Kurztitel: **Zufallsvorteil**
-- Tooltip: *"Wie viel besser als reiner Zufall (0 = Zufallsniveau, 100 = perfekt)."*
-
+`Fit` bleibt als anschaulicher Wert erhalten: `100 * (1 - RMSE / 2)`, also wie nah die Systemwerte
+absolut an deinen Antworten liegen. Fit sagt nichts darueber, ob das Geburtsdatum eine Rolle spielt.

@@ -19,8 +19,7 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschle
       setLoading(true);
       setError(null);
       try {
-        const systemeToRequest = [...(systeme || []), "KO"];
-        const body = { geburtsdatum, uhrzeit, systeme: systemeToRequest };
+        const body = { geburtsdatum, uhrzeit, systeme: systeme || [] };
         if (geburtsname != null && String(geburtsname).trim()) {
           body.geburtsname = String(geburtsname).trim();
         }
