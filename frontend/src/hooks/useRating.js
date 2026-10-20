@@ -17,7 +17,7 @@ const FALLBACK_MATRIX = {
   },
 };
 
-export function useRating(vektoren, antworten, inputs) {
+export function useRating(vektoren, antworten, inputs, kontrollvektoren) {
   const [matrix, setMatrix] = useState(FALLBACK_MATRIX);
   const [matrixLoading, setMatrixLoading] = useState(true);
 
@@ -42,16 +42,17 @@ export function useRating(vektoren, antworten, inputs) {
   }, []);
 
   return useMemo(() => {
-    const base = calculateRating(vektoren ?? {}, antworten ?? [], matrix);
+    const base = calculateRating(vektoren ?? {}, antworten ?? [], matrix, kontrollvektoren ?? {});
     const temperament = calculateTemperament(base, inputs ?? {});
     return {
       ranking: (base.ranking ?? []).filter((s) => s !== "KO"),
       systemDetails: base.systemDetails,
       fitVsKO: base.fitVsKO ?? {},
       skillVsKO: base.skillVsKO ?? {},
+      perzentilErwartungBester: base.perzentilErwartungBester ?? null,
       temperament,
       matrix,
       matrixLoading,
     };
-  }, [vektoren, antworten, matrix, inputs, matrixLoading]);
+  }, [vektoren, antworten, matrix, inputs, kontrollvektoren, matrixLoading]);
 }

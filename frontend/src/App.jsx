@@ -118,14 +118,14 @@ export default function App() {
     loadSystems();
   }, []);
 
-  const { vektoren, inputs, loading, error } = useVektoren(
+  const { vektoren, inputs, kontrollvektoren, loading, error } = useVektoren(
     assessmentStarted ? birthDate : null,
     assessmentStarted ? birthTime : null,
     selectedSystems,
     optionalName || undefined,
     optionalGender || undefined
   );
-  const rating = useRating(vektoren, answers, inputs);
+  const rating = useRating(vektoren, answers, inputs, kontrollvektoren);
 
   const partnerRating = useMemo(
     () => calculatePartnerRating(partnerAnswers, partnerData?.vektorenA, partnerData?.vektorenB, rating.matrix),
@@ -604,6 +604,7 @@ export default function App() {
               ranking={rating.ranking}
               fitVsKO={rating.fitVsKO}
               skillVsKO={rating.skillVsKO}
+              perzentilErwartungBester={rating.perzentilErwartungBester}
             />
             <TemperamentProfil temperament={rating.temperament} />
             <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import uuid4
@@ -45,6 +45,10 @@ DEFAULT_SYSTEMS = ["Westlich", "Bazi", "Numerologie"]
 SUPPORTED_SYSTEMS = [*SUBFOLDERS, "KO"]
 # Fuer die UI: nur waehlbare Systeme (KO wird intern fuer Delta-Metriken genutzt, nicht anzeigen)
 AVAILABLE_FOR_SELECTION = [s for s in SUPPORTED_SYSTEMS if s != "KO"]
+# Perzentil-Kontrollgruppe: Vektoren desselben Systems fuer zufaellige Geburtsdaten
+# (gleiche Uhrzeit, gleicher Ort, gleiches Geschlecht/Name) im Fenster +-KONTROLL_JAHRE.
+KONTROLL_ANZAHL_DEFAULT = 100
+KONTROLL_JAHRE = 5
 
 
 class VektorRequest(BaseModel):
@@ -56,11 +60,13 @@ class VektorRequest(BaseModel):
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
     geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
     geschlecht: Optional[str] = Field(default=None, description="weiblich | maennlich | keine Angabe")
+    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=0, le=500, description="Anzahl zufaelliger Geburtsdaten je System fuer die Perzentil-Kontrollgruppe")
 
 
 class VektorResponse(BaseModel):
     vektoren: Dict[str, Dict[str, float]]
     inputs: Dict[str, object]
+    kontrollvektoren: Dict[str, List[Dict[str, float]]] = Field(default_factory=dict)
 
 
 class PartnerRequest(BaseModel):
@@ -162,11 +168,8 @@ def _startup() -> None:
     init_db()
 
 
-@app.post("/vektor", response_model=VektorResponse)
-def post_vektor(payload: VektorRequest) -> VektorResponse:
-    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
-    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
-
+def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str):
+    """Inputs und Systemvektoren fuer ein Geburtsdatum. Gibt (inputs, vektoren, radix, bazi_pillars) zurueck."""
     # Bazi: four pillars and Da Yun for both sexes (no gender in request)
     bazi_pillars = None
     bazi_luck_male: Optional[tuple] = None
@@ -231,16 +234,8 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             inputs["lot_glueck_haus"] = lots["lot_glueck_haus"]
             inputs["lot_geist_haus"] = lots["lot_geist_haus"]
 
-    session_id = payload.session_id or str(uuid4())
-    requested = payload.systeme
-    if not requested:
-        raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewaehlt werden")
-    unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
-
     vektoren: Dict[str, Dict[str, float]] = {}
-    for system_name in requested:
+    for system_name in payload.systeme:
         if system_name == "KO":
             vektoren["KO"] = _ko_vector(session_id)
             continue
@@ -266,6 +261,56 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
                 }
             continue
         vektoren[system_name] = _compute_system_vector(system_name, inputs)
+    return inputs, vektoren, radix, bazi_pillars
+
+
+def _kontroll_geburtsdaten(birth_dt: datetime, session_id: str, anzahl: int) -> List[datetime]:
+    """Reproduzierbare Zufallsdaten (Seed aus session_id) im Fenster +-KONTROLL_JAHRE um das Geburtsdatum, gleiche Uhrzeit."""
+    rng = random.Random(_stable_seed(f"{session_id}:kontrolle"))
+    try:
+        start = birth_dt.replace(year=birth_dt.year - KONTROLL_JAHRE)
+        ende = birth_dt.replace(year=birth_dt.year + KONTROLL_JAHRE)
+    except ValueError:  # 29. Februar
+        start = birth_dt.replace(year=birth_dt.year - KONTROLL_JAHRE, day=28)
+        ende = birth_dt.replace(year=birth_dt.year + KONTROLL_JAHRE, day=28)
+    tage = (ende - start).days
+    daten: List[datetime] = []
+    while len(daten) < anzahl:
+        kandidat = start + timedelta(days=rng.randrange(tage + 1))
+        if kandidat.date() != birth_dt.date():
+            daten.append(kandidat)
+    return daten
+
+
+def _kontrollvektoren(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[str, List[Dict[str, float]]]:
+    """Je System die Vektoren fuer zufaellige andere Geburtsdaten (Basis fuer das Perzentil)."""
+    systeme = [s for s in payload.systeme if s != "KO"]
+    if not systeme or payload.kontroll_anzahl <= 0:
+        return {}
+    kontroll_payload = payload.model_copy(update={"systeme": systeme})
+    result: Dict[str, List[Dict[str, float]]] = {s: [] for s in systeme}
+    for datum in _kontroll_geburtsdaten(birth_dt, session_id, payload.kontroll_anzahl):
+        _, vektoren, _, _ = _berechne_vektoren(kontroll_payload, datum, now, session_id)
+        for system_name in systeme:
+            result[system_name].append(vektoren[system_name])
+    return result
+
+
+@app.post("/vektor", response_model=VektorResponse)
+def post_vektor(payload: VektorRequest) -> VektorResponse:
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+
+    session_id = payload.session_id or str(uuid4())
+    requested = payload.systeme
+    if not requested:
+        raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewaehlt werden")
+    unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
+    if unknown:
+        raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
+
+    inputs, vektoren, radix, bazi_pillars = _berechne_vektoren(payload, birth_dt, now, session_id)
+    kontrollvektoren = _kontrollvektoren(payload, birth_dt, now, session_id)
 
     response_inputs = _serialize_inputs(inputs)
     response_inputs.pop("geburtsname", None)
@@ -296,7 +341,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
         )
     response_inputs["visualPayloads"] = visual_payloads
 
-    return VektorResponse(vektoren=vektoren, inputs=response_inputs)
+    return VektorResponse(vektoren=vektoren, inputs=response_inputs, kontrollvektoren=kontrollvektoren)
 
 
 @app.post("/partner", response_model=PartnerResponse)

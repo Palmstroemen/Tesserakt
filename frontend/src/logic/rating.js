@@ -26,10 +26,28 @@ export function getQuestionWeights(systems, dimension, frageGewichte, matrix) {
 // For two independent U(-1,1): E[(X-Y)^2] = 2/3.
 const RANDOM_BASELINE_MSE = 2 / 3;
 
-export function calculateRating(vektoren, antworten, matrix) {
+// Perzentil: Anteil der Kontroll-Geburtsdaten (gleiches System, zufaelliges anderes Datum),
+// die schlechter passen als das echte Geburtsdatum. Ohne Aussagekraft im Mittel 50.
+export function calculatePerzentil(mse, kontrollMse) {
+  if (!kontrollMse?.length) {
+    return null;
+  }
+  let schlechter = 0;
+  let gleich = 0;
+  for (const wert of kontrollMse) {
+    if (wert > mse) schlechter += 1;
+    else if (wert === mse) gleich += 1;
+  }
+  return (100 * (schlechter + 0.5 * gleich)) / kontrollMse.length;
+}
+
+export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = {}) {
   const systems = Object.keys(vektoren ?? {});
   const kumulFehler = Object.fromEntries(systems.map((s) => [s, 0]));
   const kumulGewicht = Object.fromEntries(systems.map((s) => [s, 0]));
+  const kumulKontrollFehler = Object.fromEntries(
+    systems.map((s) => [s, (kontrollvektoren?.[s] ?? []).map(() => 0)])
+  );
 
   for (const eintrag of antworten) {
     const selbst = Number(eintrag.selbst_wert); // -1..+1
@@ -50,6 +68,10 @@ export function calculateRating(vektoren, antworten, matrix) {
       const fehler = diff ** 2;
       kumulFehler[system] += fehler * w;
       kumulGewicht[system] += w;
+      (kontrollvektoren?.[system] ?? []).forEach((kontrollVektor, i) => {
+        const kontrollWert = Number(kontrollVektor?.[eintrag.dimension] ?? 0);
+        kumulKontrollFehler[system][i] += (expected - kontrollWert) ** 2 * w;
+      });
     }
   }
 
@@ -67,16 +89,19 @@ export function calculateRating(vektoren, antworten, matrix) {
   const systemDetails = {};
   for (const system of systems) {
     if (!(system in normiert)) {
-      systemDetails[system] = { fitScore: null, skillScore: null, fehler: null, rang: null };
+      systemDetails[system] = { fitScore: null, skillScore: null, perzentil: null, fehler: null, rang: null };
       continue;
     }
     const mse = normiert[system];
     const rmse = Math.sqrt(normiert[system]);
     const fitScore = Math.max(0, 100 * (1 - rmse / 2)); // max deviation = 2
     const skillScore = 100 * (1 - mse / RANDOM_BASELINE_MSE);
+    const kontrollMse = kumulKontrollFehler[system].map((summe) => summe / kumulGewicht[system]);
+    const perzentil = calculatePerzentil(mse, kontrollMse);
     systemDetails[system] = {
       fitScore: Number(fitScore.toFixed(1)),
       skillScore: Number(skillScore.toFixed(1)),
+      perzentil: perzentil === null ? null : Number(perzentil.toFixed(1)),
       fehler: Number(mse.toFixed(4)),
       rang: null,
     };
@@ -119,5 +144,9 @@ export function calculateRating(vektoren, antworten, matrix) {
     }
   }
 
-  return { ranking, systemDetails, fitVsKO, skillVsKO };
+  // Erwartetes Perzentil des besten von k Systemen ohne Aussagekraft: 100 * k / (k + 1).
+  const mitPerzentil = ranking.filter((s) => s !== "KO" && systemDetails[s].perzentil !== null).length;
+  const perzentilErwartungBester = mitPerzentil ? Number(((100 * mitPerzentil) / (mitPerzentil + 1)).toFixed(1)) : null;
+
+  return { ranking, systemDetails, fitVsKO, skillVsKO, perzentilErwartungBester };
 }
