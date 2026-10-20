@@ -83,9 +83,10 @@ Wie Spiel A: **Skill = 2 * (Perzentil - 50)** je System und Fenster gegen 100 Ko
 (dieselbe Auswahl wie `/kontrolle`, gleiche Stichproben-Tage, gleicher Stichtag; `/rueckblick/kontrolle`,
 ca. 1.5 s, laeuft waehrend der Fragen im Hintergrund).
 
-Nullhypothese (600 Personen, `tools/skill_metric_test.py --spiel b`): Skill je System und Fenster im
-Mittel zwischen -4 und +6.5 (SE ~2.4), jedes der 4 Systeme gewinnt ~25 %, Sieger im Mittel ~+60
-(Theorie fuer 4 Systeme: `100*(k-1)/(k+1)` = +60).
+Nullhypothese mit allen 7 Systemen (400 Personen, Stand nach allen Rechenkorrekturen vom 20.10.2026,
+`tools/skill_metric_test.py --spiel b`): Skill je System, Fenster und Antwortstil im Mittel um 0
+(SE ~3, groesste Abweichung -7.3 bei 56 Werten), jedes System gewinnt 10-19 % (fair: 14 %), Sieger im
+Mittel +73 bis +76 (Theorie fuer 7 Systeme: `100*(k-1)/(k+1)` = +75).
 
 Transite (seit Oktober 2026 echt): laufende Planeten Sonne bis Pluto (ohne laufenden Mond) im Aspekt
 zu Geburtssonne und -mond, mit Geburtsort auch Aszendent und MC; Orbis 2 Grad, Staerke waechst linear
