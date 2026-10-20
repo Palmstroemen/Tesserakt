@@ -225,7 +225,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             idx, anteil = moon_nakshatra(ephemeris_result.jd, moon.longitude_deg)
             inputs["mond_nakshatra_index"] = idx
             inputs["mond_nakshatra_anteil"] = anteil
-            alter = inputs.get("lebensalter", 0)
+            alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0))
             inputs["vimshottari_position"] = vimshottari_position_now(idx, anteil, alter)
         inputs["aktivierte_yogas"] = compute_aktivierte_yogas(ephemeris_result.asc_deg, ephemeris_result.planets)
     # Arabisch: Lot des Glücks und Lot des Geistes aus Ephemeris (Whole-Sign-Haus 1–12)

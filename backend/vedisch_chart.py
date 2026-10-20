@@ -65,7 +65,7 @@ def _position_at_birth_from_nakshatra(
 def vimshottari_position_now(
     nakshatra_index: int,
     anteil: float,
-    alter: int,
+    alter: float,
 ) -> float:
     """Current position (0–120) in Vimshottari cycle from birth nakshatra and age. (position_at_birth + alter) % 120."""
     try:
@@ -134,7 +134,8 @@ def build_dasha_chart(
         order = ORDER_KEY
         dauern = {"ketu": 7, "venus": 20, "sonne": 6, "mond": 10, "mars": 7, "rahu": 18, "jupiter": 16, "saturn": 19, "merkur": 17}
     if nakshatra_index is not None and nakshatra_anteil is not None:
-        position = vimshottari_position_now(nakshatra_index, nakshatra_anteil, age)
+        alter = (today - birth_dt).total_seconds() / (365.2425 * 86400)
+        position = vimshottari_position_now(nakshatra_index, nakshatra_anteil, alter)
     else:
         position = (age + (birth_dt.year - 1900)) % 120
     active = _current_mahadasha(order, dauern, position)

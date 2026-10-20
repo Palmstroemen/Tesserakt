@@ -266,6 +266,19 @@ def stem_to_element(stem: str) -> str:
 # Yang year stems (male forward, female backward when born in Yang year)
 YANG_STEMS = ("jia", "bing", "wu", "geng", "ren")
 
+def vollendete_jahre(birth_date: datetime, target_date: datetime) -> int:
+    """Lebensalter in vollendeten Jahren (Geburtstag im Zieljahr beruecksichtigt)."""
+    age = target_date.year - birth_date.year
+    if (target_date.month, target_date.day) < (birth_date.month, birth_date.day):
+        age -= 1
+    return max(0, age)
+
+
+def alter_exakt(birth_date: datetime, target_date: datetime) -> float:
+    """Lebensalter in Jahren mit Nachkommastellen (fuer Perioden, die nicht am Geburtstag wechseln)."""
+    return max(0.0, (target_date - birth_date).total_seconds() / (365.2425 * 86400))
+
+
 def luck_pillar_for_both_sexes(
     birth_date: datetime, target_date: datetime
 ) -> Tuple[Tuple[str, str], Tuple[str, str]]:
@@ -273,7 +286,7 @@ def luck_pillar_for_both_sexes(
     Da Yun (Luck Pillar) for current 10-year block: (male_stem, male_branch), (female_stem, female_branch).
     Start from month pillar at birth; male/female use forward or backward by Yang/Yin year.
     """
-    age = target_date.year - birth_date.year
+    age = vollendete_jahre(birth_date, target_date)
     block = max(0, age // 10)
     ys, _ = year_pillar(birth_date.year)
     ms, mb = month_pillar(birth_date.year, birth_date.month)
@@ -342,7 +355,7 @@ def current_pinnacle_number(birth_date: datetime, target_date: datetime, life_pa
     p1_end = max(0, 36 - life_path)
     p2_end = p1_end + 9
     p3_end = p2_end + 9
-    age = target_date.year - birth_date.year
+    age = vollendete_jahre(birth_date, target_date)
     if age < p1_end:
         return p1_num
     if age < p2_end:
@@ -442,7 +455,7 @@ def build_inputs(
     dm_el   = stem_to_element(ds_val)
     tys, tyb = year_pillar(target_date.year)
     tms, tmb = month_pillar(target_date.year, target_date.month)
-    age     = target_date.year - birth_date.year
+    age     = vollendete_jahre(birth_date, target_date)
     lpn     = life_path(birth_date)
     pj      = personal_year(birth_date, target_date)
     pm      = personal_month(pj, target_date.month)
@@ -462,6 +475,7 @@ def build_inputs(
         "aktueller_month_stem":   tms,
         "aktueller_month_branch": tmb,
         "lebensalter":            age,
+        "lebensalter_exakt":      alter_exakt(birth_date, target_date),
         "lebenspfadzahl":         lpn,
         "persoenliches_jahr":     pj,
         "persoenlicher_monat":    pm,
@@ -695,7 +709,8 @@ def handle_gematria_namensanalyse(quelle: dict, rules: dict, inputs: dict) -> Di
     return extract_dims(container, quelle.get("dim_feld", "vektor"))
 
 def handle_firdaria(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    alter = inputs.get("lebensalter", 0)
+    # Firdaria-Perioden zaehlen ab Geburt in Jahren, daher Alter mit Nachkommastellen
+    alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0))
     zyklus = quelle.get("zyklus_jahre", 75)
     position = alter % zyklus
     container = rules.get(quelle["schluessel"], {})
