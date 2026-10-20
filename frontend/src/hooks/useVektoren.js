@@ -5,7 +5,6 @@ const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht) {
   const [vektoren, setVektoren] = useState(null);
   const [inputs, setInputs] = useState(null);
-  const [kontrollvektoren, setKontrollvektoren] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -38,7 +37,6 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschle
         const data = await response.json();
         setVektoren(data.vektoren);
         setInputs(data.inputs);
-        setKontrollvektoren(data.kontrollvektoren ?? null);
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err.message);
@@ -52,5 +50,5 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschle
     return () => controller.abort();
   }, [geburtsdatum, uhrzeit, JSON.stringify(systeme), geburtsname, geschlecht]);
 
-  return { vektoren, inputs, kontrollvektoren, loading, error };
+  return { vektoren, inputs, loading, error };
 }

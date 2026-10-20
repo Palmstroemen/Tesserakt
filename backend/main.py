@@ -60,13 +60,22 @@ class VektorRequest(BaseModel):
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
     geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
     geschlecht: Optional[str] = Field(default=None, description="weiblich | maennlich | keine Angabe")
-    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=0, le=500, description="Anzahl zufaelliger Geburtsdaten je System fuer die Perzentil-Kontrollgruppe")
 
 
 class VektorResponse(BaseModel):
     vektoren: Dict[str, Dict[str, float]]
     inputs: Dict[str, object]
-    kontrollvektoren: Dict[str, List[Dict[str, float]]] = Field(default_factory=dict)
+
+
+class KontrollRequest(VektorRequest):
+    session_id: str = Field(description="session_id aus /vektor (Seed der Kontroll-Geburtsdaten)")
+    stichtag: Optional[str] = Field(default=None, description="Stichtag aus /vektor (YYYY-MM-DD), damit Zeitregeln identisch sind")
+    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=1, le=500, description="Anzahl zufaelliger Geburtsdaten je System fuer die Perzentil-Kontrollgruppe")
+
+
+class KontrollResponse(BaseModel):
+    kontrollvektoren: Dict[str, List[Dict[str, float]]]
+    kontrolle: Dict[str, object]
 
 
 class PartnerRequest(BaseModel):
@@ -282,12 +291,12 @@ def _kontroll_geburtsdaten(birth_dt: datetime, session_id: str, anzahl: int) -> 
     return daten
 
 
-def _kontrollvektoren(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[str, List[Dict[str, float]]]:
+def _kontrollvektoren(payload: KontrollRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[str, List[Dict[str, float]]]:
     """Je System die Vektoren fuer zufaellige andere Geburtsdaten (Basis fuer das Perzentil)."""
     systeme = [s for s in payload.systeme if s != "KO"]
-    if not systeme or payload.kontroll_anzahl <= 0:
+    if not systeme:
         return {}
-    kontroll_payload = payload.model_copy(update={"systeme": systeme})
+    kontroll_payload = VektorRequest(**payload.model_dump(include=set(VektorRequest.model_fields))).model_copy(update={"systeme": systeme})
     result: Dict[str, List[Dict[str, float]]] = {s: [] for s in systeme}
     for datum in _kontroll_geburtsdaten(birth_dt, session_id, payload.kontroll_anzahl):
         _, vektoren, _, _ = _berechne_vektoren(kontroll_payload, datum, now, session_id)
@@ -296,33 +305,29 @@ def _kontrollvektoren(payload: VektorRequest, birth_dt: datetime, now: datetime,
     return result
 
 
-@app.post("/vektor", response_model=VektorResponse)
-def post_vektor(payload: VektorRequest) -> VektorResponse:
-    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
-    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
-
-    session_id = payload.session_id or str(uuid4())
-    requested = payload.systeme
+def _validate_systeme(requested: List[str]) -> None:
     if not requested:
         raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewaehlt werden")
     unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
     if unknown:
         raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
 
+
+@app.post("/vektor", response_model=VektorResponse)
+def post_vektor(payload: VektorRequest) -> VektorResponse:
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+
+    session_id = payload.session_id or str(uuid4())
+    _validate_systeme(payload.systeme)
+
     inputs, vektoren, radix, bazi_pillars = _berechne_vektoren(payload, birth_dt, now, session_id)
-    kontrollvektoren = _kontrollvektoren(payload, birth_dt, now, session_id)
 
     response_inputs = _serialize_inputs(inputs)
     response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
-    # Kontrollvektoren werden nicht gespeichert, sondern sind hieraus reproduzierbar
-    response_inputs["kontrolle"] = {
-        "anzahl": payload.kontroll_anzahl,
-        "jahre": KONTROLL_JAHRE,
-        "seed_schema": "sha256(session_id:kontrolle)",
-        "stichtag": now.date().isoformat(),
-    }
+    response_inputs["stichtag"] = now.date().isoformat()
 
     # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}
@@ -348,7 +353,31 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
         )
     response_inputs["visualPayloads"] = visual_payloads
 
-    return VektorResponse(vektoren=vektoren, inputs=response_inputs, kontrollvektoren=kontrollvektoren)
+    return VektorResponse(vektoren=vektoren, inputs=response_inputs)
+
+
+@app.post("/kontrolle", response_model=KontrollResponse)
+def post_kontrolle(payload: KontrollRequest) -> KontrollResponse:
+    """Kontrollvektoren fuer das Perzentil; wird vom Frontend waehrend der Fragephase im Hintergrund geladen."""
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    if payload.stichtag:
+        try:
+            now = datetime.strptime(payload.stichtag, "%Y-%m-%d").replace(hour=12)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail="stichtag muss YYYY-MM-DD sein") from exc
+    else:
+        now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    _validate_systeme(payload.systeme)
+
+    kontrollvektoren = _kontrollvektoren(payload, birth_dt, now, payload.session_id)
+    # Kontrollvektoren werden nicht gespeichert, sondern sind hieraus reproduzierbar
+    kontrolle = {
+        "anzahl": payload.kontroll_anzahl,
+        "jahre": KONTROLL_JAHRE,
+        "seed_schema": "sha256(session_id:kontrolle)",
+        "stichtag": now.date().isoformat(),
+    }
+    return KontrollResponse(kontrollvektoren=kontrollvektoren, kontrolle=kontrolle)
 
 
 @app.post("/partner", response_model=PartnerResponse)

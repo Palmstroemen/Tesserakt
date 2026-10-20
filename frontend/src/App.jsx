@@ -11,6 +11,7 @@ import RankingTabelle from "./components/RankingTabelle";
 import TemperamentProfil from "./components/TemperamentProfil";
 import SystemDeutungTabs, { useSystemTexts, Paragraphs } from "./components/SystemDeutungTabs";
 import { useVektoren } from "./hooks/useVektoren";
+import { useKontrolle } from "./hooks/useKontrolle";
 import { useRating } from "./hooks/useRating";
 import { FRAGEN } from "./logic/questions";
 import { PARTNER_FRAGEN } from "./logic/partnerQuestions";
@@ -118,13 +119,24 @@ export default function App() {
     loadSystems();
   }, []);
 
-  const { vektoren, inputs, kontrollvektoren, loading, error } = useVektoren(
+  const { vektoren, inputs, loading, error } = useVektoren(
     assessmentStarted ? birthDate : null,
     assessmentStarted ? birthTime : null,
     selectedSystems,
     optionalName || undefined,
     optionalGender || undefined
   );
+  const kontrollState = useKontrolle(
+    assessmentStarted ? inputs : null,
+    birthDate,
+    birthTime,
+    selectedSystems,
+    optionalName || undefined,
+    optionalGender || undefined
+  );
+  const { kontrollvektoren } = kontrollState;
+  // Ergebnis erst zeigen/speichern, wenn die Kontrollgruppe da ist (oder endgueltig fehlgeschlagen).
+  const kontrolleBereit = Boolean(kontrollvektoren) || Boolean(kontrollState.error);
   const rating = useRating(vektoren, answers, inputs, kontrollvektoren);
 
   const partnerRating = useMemo(
@@ -174,7 +186,7 @@ export default function App() {
   }, [answers.length, rating.ranking.join("|")]);
 
   useEffect(() => {
-    if (!isAssessmentGame || !isFinished || saved || !inputs?.session_id) {
+    if (!isAssessmentGame || !isFinished || saved || !inputs?.session_id || !kontrolleBereit) {
       return;
     }
 
@@ -191,7 +203,7 @@ export default function App() {
         geburtszeit: birthTime,
         antworten: answers,
         metadaten,
-        inputs,
+        inputs: { ...inputs, kontrolle: kontrollState.kontrolle },
         rating,
         temperament: rating.temperament,
         abgeschlossen: true,
@@ -209,7 +221,7 @@ export default function App() {
     }
 
     saveSession();
-  }, [isAssessmentGame, selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating, optionalGender]);
+  }, [isAssessmentGame, selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating, optionalGender, kontrolleBereit, kontrollState.kontrolle]);
 
   function handleConfirm(date, time) {
     setBirthDate(date);
@@ -599,11 +611,20 @@ export default function App() {
         <>
           <section className="card">
             <h2>Ergebnis</h2>
-            <RankingTabelle
-              systeme={rating.systemDetails}
-              ranking={rating.ranking}
-              skillErwartungBester={rating.skillErwartungBester}
-            />
+            {kontrolleBereit ? (
+              <RankingTabelle
+                systeme={rating.systemDetails}
+                ranking={rating.ranking}
+                skillErwartungBester={rating.skillErwartungBester}
+              />
+            ) : (
+              <p className="mechanik-wartet" aria-live="polite">
+                Das Raederwerk vergleicht dein Geburtsdatum mit hundert anderen ...
+              </p>
+            )}
+            {kontrollState.error ? (
+              <p className="hint">Kontrollgruppe konnte nicht berechnet werden; Skill ist deshalb nicht verfuegbar.</p>
+            ) : null}
             <TemperamentProfil temperament={rating.temperament} />
             <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>
             <p className="science-link">
