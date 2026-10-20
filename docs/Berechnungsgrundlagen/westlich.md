@@ -26,7 +26,8 @@
 
 ## Bekannte Vereinfachungen
 
-- Zeitzone/Sommerzeit nicht umgerechnet (siehe `00_allgemein.md`) – betrifft Aszendent, MC und Häuser.
+- Ohne Geburtsort keine Zeitzonen-Umrechnung und Standard-Aszendent (siehe `00_allgemein.md`) – betrifft
+  Aszendent, MC und Häuser.
 - Transite nur zu Sonne, Mond (und Aszendent/MC), nicht zu allen Geburtsplaneten; kein laufender Mond.
 - Kein Halbquadrat, Quinkunx oder andere Nebenaspekte, obwohl die Regeldatei einzelne enthält.
 - Keine Progressionen, Direktionen, Solar- oder Lunarhoroskope.

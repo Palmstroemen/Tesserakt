@@ -46,8 +46,9 @@
 
 ## Rechengenauigkeit (aus den Beipackzetteln, `docs/Berechnungsgrundlagen/`)
 
-- [ ] Zeitzone und Sommerzeit umrechnen (Geburtsort -> Zeitzone); groesste offene Ungenauigkeit (Aszendent, Haeuser, Lose)
-- [ ] Geburtsort im Spiel abfragen (sonst Standard-Aszendent Mitteleuropa)
+- [x] Zeitzone und Sommerzeit umrechnen (Geburtsort -> Zeitzone, historische Regeln via zoneinfo)
+- [x] Geburtsort im Spiel abfragen (Ortssuche offline, GeoNames)
+- [ ] Spiel C (/partner): Geburtsort und Zeitzone fuer beide Personen
 - [ ] Sekt einheitlich ueber den Sonnenstand bestimmen (bisher teils Uhrzeit 6-18 Uhr)
 - [ ] Vedisch: Antardasha-Regeln fuer 5 fehlende Hauptperioden ergaenzen, Gochara-Regeln
 - [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen

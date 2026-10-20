@@ -55,6 +55,11 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
 - `tools/`
   - `skill_metric_test.py`, `system_diagnostics.py`, `vector_value_histogram.py`, etc.
 
+## Datenquellen
+
+- Planetenpositionen: Swiss Ephemeris (pyswisseph)
+- Geburtsorte (Koordinaten, Zeitzonen): GeoNames, CC BY 4.0, https://www.geonames.org (via `geonamescache`)
+
 ## Workspace
 
 Zum Arbeiten in Cursor/VS Code den Multi-Root-Workspace `Tesserakt.code-workspace` oeffnen.

@@ -3,7 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -34,6 +35,7 @@ from rule_engine import (
     stem_to_element,
     _HOUSE_LORD,
 )
+import orte
 from store import compare_group, init_db, persist_session
 
 app = FastAPI(title="Tesserakt API", version="0.1.0")
@@ -81,6 +83,7 @@ class VektorRequest(BaseModel):
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
     geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
     geschlecht: Optional[str] = Field(default=None, description="weiblich | maennlich | keine Angabe")
+    zeitzone: Optional[str] = Field(default=None, description="IANA-Zeitzone des Geburtsorts (z. B. Europe/Vienna); ohne Angabe gilt die Uhrzeit als Weltzeit")
 
 
 class VektorResponse(BaseModel):
@@ -209,17 +212,32 @@ def health() -> Dict[str, str]:
 @app.on_event("startup")
 def _startup() -> None:
     init_db()
+    orte.suche("xx")  # Ortsindex vorladen (~1 s), damit die erste Suche schnell ist
+
+
+def _zu_weltzeit(ortszeit: datetime, zeitzone: Optional[str]) -> datetime:
+    """Ortszeit am Geburtsort -> Weltzeit (historische Sommerzeitregeln via zoneinfo).
+    Ohne Zeitzone wird die Uhrzeit unveraendert als Weltzeit behandelt (bisheriges Verhalten)."""
+    if not zeitzone:
+        return ortszeit
+    try:
+        tz = ZoneInfo(zeitzone)
+    except (ZoneInfoNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=422, detail=f"Unbekannte Zeitzone: {zeitzone}") from exc
+    return ortszeit.replace(tzinfo=tz).astimezone(timezone.utc).replace(tzinfo=None)
 
 
 def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str):
-    """Inputs und Systemvektoren fuer ein Geburtsdatum. Gibt (inputs, vektoren, radix, bazi_pillars) zurueck."""
+    """Inputs und Systemvektoren fuer ein Geburtsdatum. Gibt (inputs, vektoren, radix, bazi_pillars) zurueck.
+    birth_dt ist Ortszeit; Ephemeris und Sonnenlaenge rechnen mit der daraus bestimmten Weltzeit."""
+    birth_ut = _zu_weltzeit(birth_dt, payload.zeitzone)
     # Bazi: four pillars and Da Yun for both sexes (no gender in request)
     bazi_pillars = None
     bazi_luck_male: Optional[tuple] = None
     bazi_luck_female: Optional[tuple] = None
     if "Bazi" in payload.systeme:
-        bazi_pillars = build_four_pillars(birth_dt)
-        bazi_luck_male, bazi_luck_female = luck_pillar_for_both_sexes(birth_dt, now)
+        bazi_pillars = build_four_pillars(birth_dt, birth_ut)
+        bazi_luck_male, bazi_luck_female = luck_pillar_for_both_sexes(birth_dt, now, birth_ut)
     bazi_day_branch = bazi_pillars["pillars"]["day"]["branch"] if bazi_pillars else None
     bazi_hour_stem = bazi_pillars["pillars"]["hour"]["stem"] if bazi_pillars else None
     bazi_hour_branch = bazi_pillars["pillars"]["hour"]["branch"] if bazi_pillars else None
@@ -229,7 +247,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
     radix = None
     if any(s in payload.systeme for s in ("Westlich", "Vedisch", "Arabisch", *_TRANSIT_SYSTEME)):
         ephemeris_result = ephemeris_compute(
-            birth_dt,
+            birth_ut,
             latitude_deg=payload.latitude,
             longitude_deg=payload.longitude,
         )
@@ -248,6 +266,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             bazi_hour_branch=bazi_hour_branch,
             geburtsname=payload.geburtsname,
             geschlecht=payload.geschlecht,
+            geburt_ut=birth_ut,
         )
     else:
         inputs = build_inputs(
@@ -257,6 +276,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             bazi_hour_branch=bazi_hour_branch,
             geburtsname=payload.geburtsname,
             geschlecht=payload.geschlecht,
+            geburt_ut=birth_ut,
         )
     if ephemeris_result is not None and any(s in payload.systeme for s in _TRANSIT_SYSTEME):
         _setze_transite(inputs, ephemeris_result, now)
@@ -365,6 +385,12 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
     response_inputs["stichtag"] = now.date().isoformat()
+    # Geburtsort fuer die Reproduzierbarkeit; Koordinaten auf 0.1 Grad (~10 km) gerundet
+    response_inputs["geburtsort"] = {
+        "zeitzone": payload.zeitzone,
+        "lat": round(payload.latitude, 1) if payload.latitude is not None else None,
+        "lon": round(payload.longitude, 1) if payload.longitude is not None else None,
+    }
 
     # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}
@@ -718,6 +744,12 @@ def post_rueckblick_kontrolle(payload: KontrollRequest) -> Dict[str, Any]:
         "fenster": RUECKBLICK_FENSTER,
     }
     return {"kontrollvektoren": kontrollvektoren, "kontrolle": kontrolle}
+
+
+@app.get("/orte")
+def get_orte(q: str = "", limit: int = 8) -> Dict[str, Any]:
+    """Geburtsort-Suche (offline, GeoNames via geonamescache): Name, Land, Koordinaten, Zeitzone."""
+    return {"orte": orte.suche(q, max(1, min(limit, 20)))}
 
 
 @app.get("/fragen/rueckblick")

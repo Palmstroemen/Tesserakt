@@ -29,8 +29,8 @@
   Hauptperioden (Ketu, Venus, Jupiter, Saturn). Ergänzung als Inhaltsprojekt vorgesehen.
 - **Gochara (Transite)** fehlt; es liegen keine Regeln vor.
 - Nur ein kleiner Teil der Yogas; keine Divisionalhoroskope (Navamsa usw.), keine Shadbala.
-- Aszendent und Yogas sind von der fehlenden Zeitzonen-Umrechnung betroffen (`00_allgemein.md`);
-  das Nakshatra kaum (der Mond wandert etwa 0,5° pro Stunde, ein Nakshatra umfasst 13°20').
+- Ohne Geburtsort sind Aszendent und Yogas ungenau (`00_allgemein.md`); das Nakshatra kaum (der Mond
+  wandert etwa 0,5° pro Stunde, ein Nakshatra umfasst 13°20').
 - Ohne Ephemeris (z. B. in Tests) fällt das Nakshatra auf eine grobe Schätzung aus dem Tag des Jahres
   zurück. Im Spiel steht die Ephemeris immer zur Verfügung.
 

@@ -32,7 +32,7 @@
 - Die Stellung der Knotenperioden im Zyklus folgt einer der überlieferten Varianten (Knoten am Ende);
   es gibt andere.
 - Keine Almuten-, Direktions- oder Jahreshoroskop-Rechnung im Spiel, obwohl Regeln dazu vorliegen.
-- Die Lose hängen am Aszendenten und sind daher von der fehlenden Zeitzonen-Umrechnung betroffen.
+- Die Lose hängen am Aszendenten und sind ohne Geburtsort entsprechend ungenau.
 
 ## Was ein erfahrener Astrologe der arabischen Tradition anders macht
 

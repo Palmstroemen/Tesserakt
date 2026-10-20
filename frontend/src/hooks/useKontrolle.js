@@ -1,10 +1,11 @@
+import { ortFelder } from "../logic/ort";
 import { useEffect, useState } from "react";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
 // Laedt die Kontrollvektoren (Perzentil/Skill) im Hintergrund, sobald /vektor eine session_id geliefert hat.
 // Die Fragephase gibt dem Backend dafuer genug Zeit; das Ergebnis wird erst auf der Ergebnisseite gebraucht.
-export function useKontrolle(inputs, geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht) {
+export function useKontrolle(inputs, geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht, ort) {
   const [kontrollvektoren, setKontrollvektoren] = useState(null);
   const [kontrolle, setKontrolle] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ export function useKontrolle(inputs, geburtsdatum, uhrzeit, systeme, geburtsname
     async function load() {
       setLoading(true);
       try {
-        const body = { geburtsdatum, uhrzeit, systeme: systeme || [], session_id: sessionId };
+        const body = { geburtsdatum, uhrzeit, systeme: systeme || [], session_id: sessionId, ...ortFelder(ort) };
         if (stichtag) {
           body.stichtag = stichtag;
         }
@@ -58,7 +59,7 @@ export function useKontrolle(inputs, geburtsdatum, uhrzeit, systeme, geburtsname
 
     load();
     return () => controller.abort();
-  }, [sessionId, stichtag, geburtsdatum, uhrzeit, JSON.stringify(systeme), geburtsname, geschlecht]);
+  }, [sessionId, stichtag, geburtsdatum, uhrzeit, JSON.stringify(systeme), geburtsname, geschlecht, JSON.stringify(ort ?? null)]);
 
   return { kontrollvektoren, kontrolle, loading, error };
 }

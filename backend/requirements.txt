@@ -1,3 +1,4 @@
 fastapi
 uvicorn
 pyswisseph
+geonamescache==2.0.0

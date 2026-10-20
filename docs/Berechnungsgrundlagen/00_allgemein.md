@@ -36,6 +36,10 @@ durch einen Menschen.
   `vedisch.md`).
 - Häuser: mit Geburtsort **Placidus**; ohne Geburtsort **ganze Zeichen** ab einem Aszendenten, der für
   einen Standardort (50° N, 10° O, Mitteleuropa) berechnet wird.
+- **Zeit:** Mit Geburtsort wird die eingegebene Ortszeit über die Zeitzone des Ortes in Weltzeit (UT)
+  umgerechnet, einschließlich historischer Sommerzeitregeln (IANA-Zeitzonendatenbank via `zoneinfo`;
+  z. B. Deutschland 1950–1979 ohne Sommerzeit). Bazi-Tag und -Stunde bleiben bewusst in Ortszeit.
+- **Orte:** GeoNames (CC BY 4.0), alle Orte ab 15.000 Einwohnern; kleinere Orte über die nächste Stadt.
 
 ---
 
@@ -45,19 +49,19 @@ durch einen Menschen.
 |---|---|---|
 | 20.10.2026 | Das **Lebensalter** war die Differenz der Jahreszahlen. Wer im laufenden Jahr noch nicht Geburtstag hatte, war ein Jahr zu alt; das Alter wechselte am 1. Januar statt am Geburtstag. Betroffen: Profektion, Jahresherrscher, Firdaria, Dasha, Glückssäule, Pinnacle. | Alter in vollendeten Jahren; Firdaria und Dasha mit Nachkommastellen (Commit `fa8f7e3`). |
 | 20.10.2026 | **Transite** waren ein Platzhalter, der nur aus dem Kalenderdatum berechnet wurde und für alle Menschen gleich war. | Echte Transite der laufenden Planeten zu den Geburtspunkten (Commit `eaf82f4`, siehe `westlich.md`). |
+| 20.10.2026 | **Zeitzone und Sommerzeit** wurden nicht umgerechnet; die Ortszeit galt als Weltzeit. Bei mitteleuropäischen Geburten lag der Aszendent dadurch typisch 15–30° daneben (Beispiel Wien, Sommer 1985: 236° statt 214°). | Geburtsort-Suche im Spiel; Umrechnung mit historischen Sommerzeitregeln. |
 
 ---
 
 ## Bekannte Vereinfachungen (offen)
 
-- **Zeitzone und Sommerzeit werden nicht umgerechnet.** Die eingegebene Uhrzeit wird so behandelt,
-  als wäre sie Weltzeit (UT). Für eine Geburt in Mitteleuropa liegt der berechnete Zeitpunkt damit
-  1 Stunde (Winterzeit) bzw. 2 Stunden (Sommerzeit) daneben. Für Planeten in Zeichen ist das meist
-  unerheblich (der Mond wandert in 2 Stunden etwa 1°), für **Aszendent, Häuser, Lose und alles, was
-  davon abhängt, ist es erheblich**: Der Aszendent wandert etwa 15° pro Stunde. Das ist die wichtigste
-  offene Baustelle.
-- **Ohne Geburtsort** wird der Aszendent für Mitteleuropa berechnet. Für Menschen, die anderswo
-  geboren sind, sind Aszendent und Häuser dann nicht ihre eigenen.
+- **Ohne Geburtsort** (die Angabe ist freiwillig) wird die Uhrzeit wie früher als Weltzeit behandelt und
+  der Aszendent für Mitteleuropa berechnet. Aszendent, Häuser, Lose und alles, was davon abhängt, liegen
+  dann typisch 15–30° daneben (eine Stunde Zeitfehler verschiebt den Aszendenten um etwa 15°).
+- **Kleinere Geburtsorte** werden über die nächste Stadt angenähert. Die Zeitzone stimmt dann praktisch
+  immer, die Koordinaten liegen einige Kilometer daneben (Aszendent: Bruchteile eines Grades).
+- **Unsichere Uhrzeit:** Viele Menschen kennen ihre Geburtszeit nur ungefähr. Das ist für Aszendent und
+  Häuser die größere Fehlerquelle als jede Rechenkonvention.
 - **Tag- oder Nachtgeburt (Sekt)** wird für Sekt-Regeln, Firdaria und Diagramme vereinfacht über die
   Uhrzeit bestimmt (6–18 Uhr = Tag). Die arabischen und hellenistischen Lose verwenden dagegen den
   Sonnenstand über oder unter dem Horizont. Bei Geburten nahe Sonnenauf- oder -untergang können sich

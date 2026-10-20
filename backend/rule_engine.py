@@ -262,11 +262,12 @@ def sonnenlaenge(dt: datetime) -> float:
         _SONNENLAENGE_CACHE[key] = swe.calc_ut(jd, swe.SUN)[0][0]
     return _SONNENLAENGE_CACHE[key]
 
-def bazi_jahr_monat(dt: datetime) -> Tuple[str, str, str, str]:
+def bazi_jahr_monat(dt: datetime, ut: Optional[datetime] = None) -> Tuple[str, str, str, str]:
     """Jahres- und Monatssaeule nach Sonnenmonaten: das Jahr beginnt mit Lichun (Sonne 315 Grad, ~4. Februar),
     jeder Monat bei weiteren 30 Grad (Tiger-Monat yin ab 315 Grad). Monatsstamm nach der Regel der Fuenf Tiger.
-    Rueckgabe: (jahr_stamm, jahr_zweig, monat_stamm, monat_zweig)."""
-    lon = sonnenlaenge(dt)
+    Rueckgabe: (jahr_stamm, jahr_zweig, monat_stamm, monat_zweig).
+    ut: derselbe Moment in Weltzeit (fuer die Sonnenlaenge); ohne Angabe wird dt als Weltzeit behandelt."""
+    lon = sonnenlaenge(ut or dt)
     jahr = dt.year - 1 if (dt.month <= 2 and 270.0 <= lon < 315.0) else dt.year
     ys, yb = year_pillar(jahr)
     m = int(((lon - 315.0) % 360.0) // 30.0)  # 0 = Tiger-Monat
@@ -298,7 +299,7 @@ def alter_exakt(birth_date: datetime, target_date: datetime) -> float:
 
 
 def luck_pillar_for_both_sexes(
-    birth_date: datetime, target_date: datetime
+    birth_date: datetime, target_date: datetime, geburt_ut: Optional[datetime] = None
 ) -> Tuple[Tuple[str, str], Tuple[str, str]]:
     """
     Da Yun (Luck Pillar) for current 10-year block: (male_stem, male_branch), (female_stem, female_branch).
@@ -306,7 +307,7 @@ def luck_pillar_for_both_sexes(
     """
     age = vollendete_jahre(birth_date, target_date)
     block = max(0, age // 10)
-    ys, _, ms, mb = bazi_jahr_monat(birth_date)
+    ys, _, ms, mb = bazi_jahr_monat(birth_date, geburt_ut)
     stem_idx = STEMS.index(ms) if ms in STEMS else 0
     branch_idx = BRANCHES.index(mb) if mb in BRANCHES else 0
     forward_stem = STEMS[(stem_idx + block) % 10]
@@ -487,15 +488,18 @@ def build_inputs(
     bazi_hour_branch: Optional[str] = None,
     geburtsname: Optional[str] = None,
     geschlecht: Optional[str] = None,
+    geburt_ut: Optional[datetime] = None,
 ) -> dict:
     """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
+    birth_date ist Ortszeit (Kalender, Alter, Numerologie, Bazi-Tag/Stunde); geburt_ut derselbe Moment
+    in Weltzeit fuer astronomische Groessen (Sonnenlaenge der Bazi-Saeulen).
     Wenn ephemeris_sonnenzeichen gesetzt ist (z.B. aus Swiss Ephemeris Sonnenposition),
     wird es für sonnenzeichen verwendet; sonst Datumsgrenzen.
     radix_planets/radix_aspects: von build_radix_wheel (planets, aspects) für Westlich.
     bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi.
     geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit).
     geschlecht: weiblich | maennlich für Arabisch (Lot der Ehe), Bazi, Vedisch."""
-    ys, yb, ms, mb = bazi_jahr_monat(birth_date)
+    ys, yb, ms, mb = bazi_jahr_monat(birth_date, geburt_ut)
     ds_val  = day_stem(birth_date)
     dm_el   = stem_to_element(ds_val)
     tys, tyb, tms, tmb = bazi_jahr_monat(target_date)

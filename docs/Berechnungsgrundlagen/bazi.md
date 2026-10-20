@@ -36,8 +36,9 @@
 - **Beginn der Glückssäulen vereinfacht:** Wir wechseln alle zehn Lebensjahre ab Geburt. Klassisch
   wird das Startalter aus dem Abstand der Geburt zum nächsten bzw. vorigen Sonnenmonatswechsel
   berechnet (drei Tage = ein Jahr).
-- Für die Geburt gilt die Sonnenlänge zur eingegebenen Uhrzeit (ohne Zeitzonen-Umrechnung), für den
-  Stichtag 12 Uhr. Geburten wenige Stunden um einen Monatswechsel können deshalb im falschen Monat landen.
+- Für die Geburt gilt die Sonnenlänge zum tatsächlichen Geburtsmoment (Weltzeit, wenn ein Geburtsort
+  angegeben ist), für den Stichtag 12 Uhr. Ohne Geburtsort können Geburten wenige Stunden um einen
+  Monatswechsel oder um Lichun im falschen Monat bzw. Jahr landen.
 - Keine verborgenen Stämme, keine Zehn Götter im Detail, keine Shen Sha im Spiel.
 
 ## Was ein erfahrener Bazi-Meister anders macht

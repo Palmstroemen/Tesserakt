@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import SelbsteinschaetzungSlider from "./SelbsteinschaetzungSlider";
 import RankingTabelle from "./RankingTabelle";
 import { calculateRating } from "../logic/rating";
+import { ortFelder } from "../logic/ort";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
@@ -84,7 +85,7 @@ function HoroskopHeute({ body }) {
  * Gewertete Fragen: Mittel der Horoskope im Zeitfenster (Skill je Fenster gegen Kontroll-Geburtsdaten).
  * Auffaellige Fragen: staerkster Ausschlag je System, nicht gewertet, optional mit Zeitpunkt-Nachfrage.
  */
-export default function SpielB({ birthDate, birthTime, optionalName, optionalGender, matrix, onBack }) {
+export default function SpielB({ birthDate, birthTime, birthPlace, optionalName, optionalGender, matrix, onBack }) {
   const [katalog, setKatalog] = useState(null);
   const [daten, setDaten] = useState(null); // /rueckblick
   const [kontrolle, setKontrolle] = useState(null); // /rueckblick/kontrolle
@@ -104,11 +105,12 @@ export default function SpielB({ birthDate, birthTime, optionalName, optionalGen
       geburtsdatum: birthDate,
       uhrzeit: birthTime,
       systeme: ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"],
+      ...ortFelder(birthPlace),
     };
     if (optionalName?.trim()) body.geburtsname = optionalName.trim();
     if (optionalGender === "weiblich" || optionalGender === "maennlich") body.geschlecht = optionalGender;
     return body;
-  }, [birthDate, birthTime, optionalName, optionalGender]);
+  }, [birthDate, birthTime, birthPlace, optionalName, optionalGender]);
 
   useEffect(() => {
     const controller = new AbortController();

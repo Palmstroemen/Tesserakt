@@ -40,6 +40,7 @@ function shuffleQuestions(questions) {
 export default function App() {
   const [birthDate, setBirthDate] = useState("");
   const [birthTime, setBirthTime] = useState("12:00");
+  const [birthPlace, setBirthPlace] = useState(null);
   const [setupReady, setSetupReady] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [assessmentStarted, setAssessmentStarted] = useState(false);
@@ -126,7 +127,8 @@ export default function App() {
     assessmentStarted ? birthTime : null,
     selectedSystems,
     optionalName || undefined,
-    optionalGender || undefined
+    optionalGender || undefined,
+    birthPlace
   );
   const kontrollState = useKontrolle(
     assessmentStarted ? inputs : null,
@@ -134,7 +136,8 @@ export default function App() {
     birthTime,
     selectedSystems,
     optionalName || undefined,
-    optionalGender || undefined
+    optionalGender || undefined,
+    birthPlace
   );
   const { kontrollvektoren } = kontrollState;
   // Ergebnis erst zeigen/speichern, wenn die Kontrollgruppe da ist (oder endgueltig fehlgeschlagen).
@@ -225,9 +228,10 @@ export default function App() {
     saveSession();
   }, [isAssessmentGame, selectedGame, isFinished, saved, inputs, birthDate, birthTime, answers, rating, optionalGender, kontrolleBereit, kontrollState.kontrolle]);
 
-  function handleConfirm(date, time) {
+  function handleConfirm(date, time, ort) {
     setBirthDate(date);
     setBirthTime(time || "12:00");
+    setBirthPlace(ort ?? null);
     setSetupReady(true);
     setSelectedGame(null);
     setAssessmentStarted(false);
@@ -422,7 +426,7 @@ export default function App() {
   return (
     <main className="layout">
       <h1>Tesserakt</h1>
-      <GeburtsdatumInput value={birthDate} timeValue={birthTime} onConfirm={handleConfirm} />
+      <GeburtsdatumInput value={birthDate} timeValue={birthTime} placeValue={birthPlace} onConfirm={handleConfirm} />
 
       {setupReady ? (
         <>
@@ -447,6 +451,7 @@ export default function App() {
             <SpielB
               birthDate={birthDate}
               birthTime={birthTime}
+              birthPlace={birthPlace}
               optionalName={optionalName}
               optionalGender={optionalGender}
               matrix={rating.matrix}

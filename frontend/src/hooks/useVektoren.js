@@ -1,8 +1,9 @@
+import { ortFelder } from "../logic/ort";
 import { useEffect, useState } from "react";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
-export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht) {
+export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht, ort) {
   const [vektoren, setVektoren] = useState(null);
   const [inputs, setInputs] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschle
       setLoading(true);
       setError(null);
       try {
-        const body = { geburtsdatum, uhrzeit, systeme: systeme || [] };
+        const body = { geburtsdatum, uhrzeit, systeme: systeme || [], ...ortFelder(ort) };
         if (geburtsname != null && String(geburtsname).trim()) {
           body.geburtsname = String(geburtsname).trim();
         }
@@ -48,7 +49,7 @@ export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschle
 
     load();
     return () => controller.abort();
-  }, [geburtsdatum, uhrzeit, JSON.stringify(systeme), geburtsname, geschlecht]);
+  }, [geburtsdatum, uhrzeit, JSON.stringify(systeme), geburtsname, geschlecht, JSON.stringify(ort ?? null)]);
 
   return { vektoren, inputs, loading, error };
 }

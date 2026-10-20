@@ -27,8 +27,8 @@
 
 ## Bekannte Vereinfachungen
 
-- Profektion, Jahresherrscher und Lose hängen am **Aszendenten** und sind daher von der fehlenden
-  Zeitzonen-Umrechnung und – ohne Geburtsort – vom Standardort betroffen (`00_allgemein.md`).
+- Profektion, Jahresherrscher und Lose hängen am **Aszendenten** und sind ohne Geburtsort entsprechend
+  ungenau (`00_allgemein.md`).
 - **Sekt** über die Uhrzeit (6–18 Uhr), nicht über den Sonnenstand.
 - Keine Zodiakal-Freisetzung (Zodiacal Releasing), keine monatlichen Profektionen, keine Würden-
   bewertung der Herrscher im Spiel, obwohl Regeln dazu vorliegen.

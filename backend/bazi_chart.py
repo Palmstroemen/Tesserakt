@@ -42,12 +42,12 @@ def hour_pillar(birth_dt: datetime) -> tuple[str, str]:
     return stem, branch
 
 
-def build_four_pillars(birth_dt: datetime) -> Dict[str, Any]:
+def build_four_pillars(birth_dt: datetime, geburt_ut: datetime | None = None) -> Dict[str, Any]:
     """
     Build fourPillars visual payload from birth datetime.
     Year/Month/Day/Hour pillars, day master, five elements (counts from 8 chars).
     """
-    ys, yb, ms, mb = bazi_jahr_monat(birth_dt)
+    ys, yb, ms, mb = bazi_jahr_monat(birth_dt, geburt_ut)
     ds, db = day_stem(birth_dt), _day_branch(birth_dt)
     hs, hb = hour_pillar(birth_dt)
 
