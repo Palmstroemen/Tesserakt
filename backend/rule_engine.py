@@ -39,29 +39,56 @@ SYSTEM_KUERZEL = {
 
 
 # ── Daten laden ────────────────────────────────────────────────────────────────
+# Struktur und Regeln werden pro Ordner gecacht. Schluessel ist die Liste der
+# Dateien mit mtime/Groesse, d.h. geaenderte JSONs werden ohne Neustart neu geladen.
+# Die zurueckgegebenen Dicts sind geteilt und duerfen nicht veraendert werden.
+
+_struktur_cache: Dict[str, Tuple[tuple, Optional[dict]]] = {}
+_rules_cache: Dict[str, Tuple[tuple, dict]] = {}
+
+def _file_signature(paths: List[str]) -> tuple:
+    sig = []
+    for path in paths:
+        st = os.stat(path)
+        sig.append((path, st.st_mtime_ns, st.st_size))
+    return tuple(sig)
 
 def load_struktur(subfolder: str) -> Optional[dict]:
     path = os.path.join(BASE_DIR, subfolder, "Struktur.json")
     if not os.path.exists(path):
         print(f"[WARN] Keine Struktur.json in {subfolder}/")
         return None
+    sig = _file_signature([path])
+    cached = _struktur_cache.get(subfolder)
+    if cached and cached[0] == sig:
+        return cached[1]
     with open(path, encoding="utf-8") as f:
-        return json.load(f)
+        struktur = json.load(f)
+    _struktur_cache[subfolder] = (sig, struktur)
+    return struktur
 
 def load_rules(subfolder: str) -> dict:
     """Lädt alle JSON-Dateien (außer Struktur.json) aus einem Unterordner."""
     folder = os.path.join(BASE_DIR, subfolder)
     if not os.path.exists(folder):
         return {}
+    paths = [
+        os.path.join(folder, filename)
+        for filename in sorted(os.listdir(folder))
+        if filename.endswith(".json") and filename != "Struktur.json"
+    ]
+    sig = _file_signature(paths)
+    cached = _rules_cache.get(subfolder)
+    if cached and cached[0] == sig:
+        return cached[1]
     merged = {}
-    for filename in sorted(os.listdir(folder)):
-        if filename.endswith(".json") and filename != "Struktur.json":
-            path = os.path.join(folder, filename)
-            try:
-                with open(path, encoding="utf-8") as f:
-                    merged.update(json.load(f))
-            except json.JSONDecodeError as e:
-                print(f"[ERROR] {filename}: {e}")
+    for path in paths:
+        try:
+            with open(path, encoding="utf-8") as f:
+                merged.update(json.load(f))
+        except json.JSONDecodeError as e:
+            print(f"[ERROR] {os.path.basename(path)}: {e}")
+    _rules_cache[subfolder] = (sig, merged)
     return merged
 
 
