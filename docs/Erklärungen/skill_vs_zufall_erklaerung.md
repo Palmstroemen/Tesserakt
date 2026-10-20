@@ -75,6 +75,8 @@ Erst ueber viele verschiedene Personen verteilen sich die Siege gleichmaessig (j
 Von einem Tag zum naechsten aendern sich die zeitabhaengigen Systeme praktisch nicht.
 
 Spielertext dazu: `docs/Textbausteine/erklaerungen/01_skill.md`.
+Wie die einzelnen Systeme berechnet werden (Konventionen, korrigierte Fehler, Vereinfachungen):
+`docs/Berechnungsgrundlagen/`.
 
 ---
 

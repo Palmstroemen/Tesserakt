@@ -91,8 +91,9 @@ def build_four_pillars(birth_dt: datetime) -> Dict[str, Any]:
 
 
 def _day_branch(birth_dt: datetime) -> str:
-    """Day branch from 60-day cycle (same cycle as day stem)."""
-    day_60 = (birth_dt - datetime(1924, 2, 5)).days % 60
+    """Day branch from the 60-day cycle. Reference: 1924-02-05 is a jia-yin day (index 50 of the cycle;
+    it starts the jia-zi YEAR, not a jia-zi day). Checked: 1949-10-01 jia-zi, 2000-01-01 wu-wu, 2024-02-10 jia-chen."""
+    day_60 = ((birth_dt - datetime(1924, 2, 5)).days + 50) % 60
     return BRANCHES[day_60 % 12]
 
 

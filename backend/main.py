@@ -19,8 +19,8 @@ from chart import build_radix_wheel
 from hellenistisch_chart import build_profection_chart
 from kabbalah_chart import build_kabbalah_chart
 from numerology_chart import build_numerology_chart
-from vedisch_chart import build_dasha_chart, compute_aktivierte_yogas, vimshottari_position_now
-from ephemeris import compute as ephemeris_compute, moon_nakshatra, sun_sign_from_longitude
+from vedisch_chart import _current_mahadasha, _load_dasha_data, build_dasha_chart, compute_aktivierte_yogas, vimshottari_position_now
+from ephemeris import ayanamsha_lahiri, compute as ephemeris_compute, moon_nakshatra, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
     compute_transits,
@@ -29,6 +29,7 @@ from rule_engine import (
     compute_vector,
     load_rules,
     load_struktur,
+    _firdaria_periode,
     luck_pillar_for_both_sexes,
     stem_to_element,
     _HOUSE_LORD,
@@ -61,9 +62,9 @@ AVAILABLE_FOR_SELECTION = list(SUPPORTED_SYSTEMS)
 KONTROLL_ANZAHL_DEFAULT = 100
 KONTROLL_JAHRE = 5
 
-# Spiel B (Rueckblick): nur Systeme, deren Horoskop sich innerhalb von Wochen aendert.
-# Kabbalah (rein natal), Arabisch (Firdaria) und Vedisch (Dasha) beschreiben lange Lebensphasen.
-SPIEL_B_SYSTEME = ["Westlich", "Bazi", "Hellenistisch", "Numerologie"]
+# Spiel B (Rueckblick) fragt, ob das Horoskop fuer einen vergangenen Zeitraum gestimmt haette -
+# auch wenn es dem heutigen aehnelt. Daher spielen alle Systeme mit, auch die mit langen Lebensphasen.
+SPIEL_B_SYSTEME = list(SUBFOLDERS)
 # Stichproben (Tage vor dem Stichtag) je Zeitfenster; das Horoskop des Fensters ist ihr Mittelwert.
 RUECKBLICK_FENSTER: Dict[str, List[int]] = {
     "monat": [5, 10, 15, 20, 25, 30],
@@ -268,9 +269,14 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             inputs["mond_nakshatra_anteil"] = anteil
             alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0))
             inputs["vimshottari_position"] = vimshottari_position_now(idx, anteil, alter)
-        inputs["aktivierte_yogas"] = compute_aktivierte_yogas(ephemeris_result.asc_deg, ephemeris_result.planets)
+        inputs["aktivierte_yogas"] = compute_aktivierte_yogas(
+            ephemeris_result.asc_deg, ephemeris_result.planets, ayanamsha_lahiri(ephemeris_result.jd)
+        )
     # Arabisch: Lot des Glücks und Lot des Geistes aus Ephemeris (Whole-Sign-Haus 1–12)
-    if ephemeris_result and "Arabisch" in payload.systeme:
+    if ephemeris_result is not None:
+        # Whole-Sign: Zeichen des Aszendenten (0 = Widder) fuer Profektion und Jahresherrscher
+        inputs["asc_zeichen"] = int(ephemeris_result.asc_deg // 30) % 12
+    if ephemeris_result and ("Arabisch" in payload.systeme or "Hellenistisch" in payload.systeme):
         sun = next((p for p in ephemeris_result.planets if p.id == "sun"), None)
         moon = next((p for p in ephemeris_result.planets if p.id == "moon"), None)
         if sun is not None and moon is not None:
@@ -572,12 +578,21 @@ def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
         elif s == "Hellenistisch":
             haus = (int(inputs.get("lebensalter", 0)) % 12) + 1
             faktoren.append(t["hellenistisch_haus"][str(haus)])
-            faktoren.append(t["hellenistisch_herrscher"][_HOUSE_LORD[haus - 1]])
+            faktoren.append(t["hellenistisch_herrscher"][_HOUSE_LORD[(int(inputs.get("asc_zeichen", 0)) + haus - 1) % 12]])
         elif s == "Bazi":
             dm = str(inputs.get("day_master_element"))
             monat = stem_to_element(str(inputs.get("aktueller_month_stem")))
             text = t["bazi_beziehung"][_bazi_beziehung(dm, monat)]
             faktoren.append(text.replace("{dm}", t["elemente"].get(dm, dm)).replace("{monat}", t["elemente"].get(monat, monat)))
+        elif s == "Arabisch":
+            quelle = next(q for q in load_struktur("Arabisch")["vektor_quellen"] if q.get("typ") == "firdaria")
+            periode = _firdaria_periode(quelle, load_rules("Arabisch"), inputs)
+            if periode:
+                faktoren.append(t["arabisch_firdaria"].get(periode[0], ""))
+        elif s == "Vedisch" and inputs.get("vimshottari_position") is not None:
+            order, dauern = _load_dasha_data()
+            planet = _current_mahadasha(order, dauern, float(inputs["vimshottari_position"]))["planet"]
+            faktoren.append(t["vedisch_dasha"].get(planet, ""))
         elif s == "Westlich":
             transits = inputs.get("transits", [])
             for gruppe in (_SPANNUNG, _HARMONISCH):

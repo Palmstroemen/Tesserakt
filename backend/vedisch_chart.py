@@ -77,13 +77,14 @@ def vimshottari_position_now(
     return (pos_birth + alter) % 120.0
 
 
-def compute_aktivierte_yogas(asc_deg: float, planets: List[Any]) -> List[str]:
-    """From ephemeris ASC and planet positions (Whole-Sign), detect simple Raja Yogas: lord of house A and lord of house B in same sign or opposition. Returns list of rule ids (e.g. RY_01, RY_02)."""
-    asc_sign = int(asc_deg // 30) % 12
+def compute_aktivierte_yogas(asc_deg: float, planets: List[Any], ayanamsha_deg: float = 0.0) -> List[str]:
+    """From ephemeris ASC and planet positions (Whole-Sign), detect simple Raja Yogas: lord of house A and lord of house B in same sign or opposition. Returns list of rule ids (e.g. RY_01, RY_02).
+    Positions are tropical; ayanamsha_deg converts them to sidereal signs as used in Jyotish."""
+    asc_sign = int(((asc_deg - ayanamsha_deg) % 360) // 30) % 12
     planet_sign: Dict[str, int] = {}
     for p in planets:
         rule_id = EPHEMERIS_PLANET_TO_RULE.get(getattr(p, "id", ""), getattr(p, "id", ""))
-        planet_sign[rule_id] = getattr(p, "sign_index", 0)
+        planet_sign[rule_id] = int(((getattr(p, "longitude_deg", 0.0) - ayanamsha_deg) % 360) // 30) % 12
     activated: List[str] = []
     for rule_id, h1, h2 in RAJA_YOGA_HOUSE_PAIRS:
         sign1 = (asc_sign + h1 - 1) % 12

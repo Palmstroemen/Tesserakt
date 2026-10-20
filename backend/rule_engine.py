@@ -956,11 +956,18 @@ def handle_direkter_vektor(quelle: dict, rules: dict, inputs: dict) -> Dict[str,
 _HOUSE_LORD = ["mars", "venus", "merkur", "mond", "sonne", "merkur", "venus", "mars", "jupiter", "saturn", "saturn", "jupiter"]
 
 
+def _jahresherrscher(n: int, inputs: dict) -> str:
+    """Herrscher des profizierten Zeichens: n-tes Haus ab dem Aszendentenzeichen (Whole Sign).
+    _HOUSE_LORD ist nach Zeichen ab Widder geordnet; ohne Aszendent wird ab Widder gezaehlt."""
+    asc = int(inputs.get("asc_zeichen", 0))
+    return _HOUSE_LORD[(asc + n - 1) % 12]
+
+
 def handle_thematic_profektion(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     """Profektionshaus + Jahresherrscher: lookup planeten_im_N_haus[lord] (Lord of Year = house ruler)."""
     alter = inputs.get("lebensalter", 0)
     n = (alter % 12) + 1
-    lord = _HOUSE_LORD[n - 1]
+    lord = _jahresherrscher(n, inputs)
     key = quelle.get("schluessel_format", "planeten_im_{n}_haus").replace("{n}", str(n))
     container = rules.get(key, {})
     payload = container.get(lord, {})
@@ -968,10 +975,10 @@ def handle_thematic_profektion(quelle: dict, rules: dict, inputs: dict) -> Dict[
 
 
 def handle_jahresherrscher(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    """Lord of the Year aus Profektionshaus: alter → haus 1..12 → lord (Mars, Venus, …) → jahresherrscher_profile[lord]."""
+    """Lord of the Year aus Profektionshaus: alter → haus 1..12 → Zeichen ab Aszendent → lord → jahresherrscher_profile[lord]."""
     alter = inputs.get("lebensalter", 0)
     n = (alter % 12) + 1
-    lord = _HOUSE_LORD[n - 1]
+    lord = _jahresherrscher(n, inputs)
     container = rules.get(quelle.get("schluessel", "jahresherrscher_profile"), {})
     payload = container.get(lord, {})
     return extract_dims(payload, quelle.get("dim_feld", "dimensionen_vektor"))

@@ -48,6 +48,8 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
   - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
   - Hooks: `useVektoren`, `useRating`
   - Logik: `rating.js`, `partnerQuestions.js`, `partnerRating.js`
+- `docs/Berechnungsgrundlagen/`
+  - "Beipackzettel" je System: Konventionen, korrigierte Fehler, bekannte Vereinfachungen
 - `content/horoscope/de/`
   - Systemtexte fuer Spiel A und Spiel C
 - `tools/`

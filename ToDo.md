@@ -44,6 +44,15 @@
    - [ ] Consent/Datenschutz-Flow fuer zweite Person sauber integrieren
    - [ ] DoD C: lauffaehiger Minimal-Flow mit robusten Edge-Case-Checks
 
+## Rechengenauigkeit (aus den Beipackzetteln, `docs/Berechnungsgrundlagen/`)
+
+- [ ] Zeitzone und Sommerzeit umrechnen (Geburtsort -> Zeitzone); groesste offene Ungenauigkeit (Aszendent, Haeuser, Lose)
+- [ ] Geburtsort im Spiel abfragen (sonst Standard-Aszendent Mitteleuropa)
+- [ ] Sekt einheitlich ueber den Sonnenstand bestimmen (bisher teils Uhrzeit 6-18 Uhr)
+- [ ] Vedisch: Antardasha-Regeln fuer 5 fehlende Hauptperioden ergaenzen, Gochara-Regeln
+- [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen
+- [ ] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr
+
 ## Ideen / Backlog
 
 - [ ] **Wertungsverhalten (Varianz) ermitteln und Feedback:** Varianz der Selbsteinschaetzungen pro Person berechnen; bei niedriger Varianz (viele neutrale Bewertungen rund um 3) auf der Ergebnisseite Hinweis geben, dass hohe Skill-Werte in solchen Faellen weniger aussagekraeftig sein koennten – gerade unentschlossene Nutzer koennten sonst in „neutralen“ Konstellationen leicht hohe Skill-Werte erzielen und das als Bestaetigung lesen.

@@ -70,7 +70,8 @@
       "typ": "direkter_vektor",
       "dim_feld": "dimensionen_vektor",
       "gewicht": 0.5,
-      "pflicht": false
+      "pflicht": false,
+      "haus_eingabe": "lot_glueck_haus"
     },
     {
       "id": "lot_geist",
@@ -78,7 +79,8 @@
       "typ": "direkter_vektor",
       "dim_feld": "dimensionen_vektor",
       "gewicht": 0.4,
-      "pflicht": false
+      "pflicht": false,
+      "haus_eingabe": "lot_geist_haus"
     },
     {
       "id": "sekt",

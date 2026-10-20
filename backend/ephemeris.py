@@ -190,14 +190,21 @@ def sun_sign_from_longitude(longitude_deg: float) -> str:
 NAKSHATRA_DEG = 360.0 / 27.0
 
 
+def ayanamsha_lahiri(jd: float) -> float:
+    """Lahiri-Ayanamsha (Chitrapaksha), Standard im Jyotish. Swiss Ephemeris nutzt ohne set_sid_mode
+    Fagan/Bradley (~0.9 Grad mehr), daher hier explizit gesetzt."""
+    import swisseph as swe
+    swe.set_sid_mode(swe.SIDM_LAHIRI)
+    return swe.get_ayanamsa_ut(jd)
+
+
 def moon_nakshatra(jd: float, moon_longitude_deg: float) -> Tuple[int, float]:
     """
     Compute nakshatra index (0-26) and fraction within nakshatra (0-1) from Julian day and tropical moon longitude.
-    Uses Swiss Ephemeris Ayanamsha (Lahari-equivalent); sidereal = tropical - ayanamsha.
+    Uses the Lahiri ayanamsha; sidereal = tropical - ayanamsha.
     Returns (index, anteil) where anteil is how far the moon has progressed through the nakshatra (0 = start, 1 = end).
     """
-    import swisseph as swe
-    ayanamsha_deg = swe.get_ayanamsa_ut(jd)
+    ayanamsha_deg = ayanamsha_lahiri(jd)
     sidereal_lon = (moon_longitude_deg - ayanamsha_deg) % 360.0
     segment = sidereal_lon % NAKSHATRA_DEG
     index = int(sidereal_lon // NAKSHATRA_DEG) % 27
