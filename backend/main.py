@@ -47,12 +47,24 @@ DEFAULT_SYSTEMS = list(SUBFOLDERS)
 # Fragen fuer Spiel A inkl. Gewichte je System (einzige Quelle; das Frontend laedt sie ueber /fragen)
 with (Path(__file__).resolve().parent / "fragen.json").open(encoding="utf-8") as _f:
     FRAGEN: List[Dict[str, Any]] = json.load(_f)["fragen"]
+# Fragen fuer Spiel B (gewertet + auffaellige Momente), ausgeliefert ueber /fragen/rueckblick
+with (Path(__file__).resolve().parent / "fragen_rueckblick.json").open(encoding="utf-8") as _f:
+    FRAGEN_RUECKBLICK: Dict[str, Any] = json.load(_f)
 SUPPORTED_SYSTEMS = list(SUBFOLDERS)
 AVAILABLE_FOR_SELECTION = list(SUPPORTED_SYSTEMS)
 # Perzentil-Kontrollgruppe: Vektoren desselben Systems fuer zufaellige Geburtsdaten
 # (gleiche Uhrzeit, gleicher Ort, gleiches Geschlecht/Name) im Fenster +-KONTROLL_JAHRE.
 KONTROLL_ANZAHL_DEFAULT = 100
 KONTROLL_JAHRE = 5
+
+# Spiel B (Rueckblick): nur Systeme, deren Horoskop sich innerhalb von Wochen aendert.
+# Kabbalah (rein natal), Arabisch (Firdaria) und Vedisch (Dasha) beschreiben lange Lebensphasen.
+SPIEL_B_SYSTEME = ["Westlich", "Bazi", "Hellenistisch", "Numerologie"]
+# Stichproben (Tage vor dem Stichtag) je Zeitfenster; das Horoskop des Fensters ist ihr Mittelwert.
+RUECKBLICK_FENSTER: Dict[str, List[int]] = {
+    "monat": [5, 10, 15, 20, 25, 30],
+    "quartal": [10, 20, 30, 40, 50, 60, 70, 80, 90],
+}
 
 
 class VektorRequest(BaseModel):
@@ -484,6 +496,107 @@ def get_spiel_c_texts(locale: str = "de") -> Dict[str, object]:
     import json
     data = json.loads(path.read_text(encoding="utf-8"))
     return data
+
+
+def _rueckblick_payload(payload: VektorRequest) -> VektorRequest:
+    systeme = [s for s in payload.systeme if s in SPIEL_B_SYSTEME]
+    if not systeme:
+        raise HTTPException(status_code=422, detail=f"Spiel B unterstuetzt nur: {', '.join(SPIEL_B_SYSTEME)}")
+    basis = VektorRequest(**payload.model_dump(include=set(VektorRequest.model_fields)))
+    return basis.model_copy(update={"systeme": systeme})
+
+
+def _rueckblick_verlauf(payload: VektorRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[int, Dict[str, Dict[str, float]]]:
+    """Systemvektoren je Stichprobentag (Tage vor dem Stichtag)."""
+    tage = sorted({t for liste in RUECKBLICK_FENSTER.values() for t in liste})
+    verlauf = {}
+    for t in tage:
+        _, vektoren, _, _ = _berechne_vektoren(payload, birth_dt, now - timedelta(days=t), session_id)
+        verlauf[t] = {s: vektoren[s] for s in payload.systeme}
+    return verlauf
+
+
+def _fenster_mittel(verlauf: Dict[int, Dict[str, Dict[str, float]]], systeme: List[str]) -> Dict[str, Dict[str, Dict[str, float]]]:
+    """Horoskop je Zeitfenster = Mittel der Stichproben im Fenster."""
+    mittel: Dict[str, Dict[str, Dict[str, float]]] = {}
+    for fenster, tage in RUECKBLICK_FENSTER.items():
+        mittel[fenster] = {
+            s: {d: sum(verlauf[t][s][d] for t in tage) / len(tage) for d in DIMENSIONS}
+            for s in systeme
+        }
+    return mittel
+
+
+def _auffaellige_momente(verlauf, mittel, systeme: List[str]) -> List[Dict[str, Any]]:
+    """Je System der staerkste Ausschlag (Abweichung vom Fenstermittel) ueber beide Fenster.
+    Nur fuer die ungewerteten Zusatzfragen - die Auswahl haengt vom echten Horoskop ab."""
+    momente = []
+    for s in systeme:
+        best = None
+        for fenster, tage in RUECKBLICK_FENSTER.items():
+            for t in tage:
+                for d in DIMENSIONS:
+                    abw = verlauf[t][s][d] - mittel[fenster][s][d]
+                    if best is None or abs(abw) > abs(best["abweichung"]):
+                        best = {"system": s, "fenster": fenster, "dimension": d, "tage_zurueck": t, "abweichung": round(abw, 4)}
+        if best and abs(best["abweichung"]) > 1e-6:
+            best["richtung"] = "positiv" if best["abweichung"] > 0 else "negativ"
+            momente.append(best)
+    return momente
+
+
+@app.post("/rueckblick")
+def post_rueckblick(payload: VektorRequest) -> Dict[str, Any]:
+    """Spiel B: Horoskop je Zeitfenster (Mittel) und auffaellige Momente (Extremwerte) fuer das echte Geburtsdatum."""
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    session_id = payload.session_id or str(uuid4())
+    p = _rueckblick_payload(payload)
+    verlauf = _rueckblick_verlauf(p, birth_dt, now, session_id)
+    mittel = _fenster_mittel(verlauf, p.systeme)
+    return {
+        "mittel": mittel,
+        "auffaellig": _auffaellige_momente(verlauf, mittel, p.systeme),
+        "inputs": {
+            "session_id": session_id,
+            "stichtag": now.date().isoformat(),
+            "systeme": p.systeme,
+            "fenster": RUECKBLICK_FENSTER,
+        },
+    }
+
+
+@app.post("/rueckblick/kontrolle")
+def post_rueckblick_kontrolle(payload: KontrollRequest) -> Dict[str, Any]:
+    """Spiel B: Fenster-Mittel fuer die Kontroll-Geburtsdaten (gleiche Auswahl wie /kontrolle)."""
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    if payload.stichtag:
+        try:
+            now = datetime.strptime(payload.stichtag, "%Y-%m-%d").replace(hour=12)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail="stichtag muss YYYY-MM-DD sein") from exc
+    else:
+        now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    p = _rueckblick_payload(payload)
+    kontrollvektoren: Dict[str, Dict[str, List[Dict[str, float]]]] = {f: {s: [] for s in p.systeme} for f in RUECKBLICK_FENSTER}
+    for datum in _kontroll_geburtsdaten(birth_dt, payload.session_id, payload.kontroll_anzahl):
+        mittel = _fenster_mittel(_rueckblick_verlauf(p, datum, now, payload.session_id), p.systeme)
+        for fenster in RUECKBLICK_FENSTER:
+            for s in p.systeme:
+                kontrollvektoren[fenster][s].append(mittel[fenster][s])
+    kontrolle = {
+        "anzahl": payload.kontroll_anzahl,
+        "jahre": KONTROLL_JAHRE,
+        "seed_schema": "sha256(session_id:kontrolle)",
+        "stichtag": now.date().isoformat(),
+        "fenster": RUECKBLICK_FENSTER,
+    }
+    return {"kontrollvektoren": kontrollvektoren, "kontrolle": kontrolle}
+
+
+@app.get("/fragen/rueckblick")
+def get_fragen_rueckblick() -> Dict[str, Any]:
+    return FRAGEN_RUECKBLICK
 
 
 @app.get("/fragen")

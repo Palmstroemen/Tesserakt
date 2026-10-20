@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import GeburtsdatumInput from "./components/GeburtsdatumInput";
 import GameSelector from "./components/GameSelector";
-import GamePlaceholder from "./components/GamePlaceholder";
+import SpielB from "./components/SpielB";
 import PartnerGeburtsdatumInput from "./components/PartnerGeburtsdatumInput";
 import PartnerSlider from "./components/PartnerSlider";
 import SystemSelector from "./components/SystemSelector";
@@ -444,7 +444,14 @@ export default function App() {
             />
           ) : null}
           {selectedGame === "forecast" ? (
-            <GamePlaceholder title="Zeitenhoroskope und Prognose" onBack={backToGameSelection} />
+            <SpielB
+              birthDate={birthDate}
+              birthTime={birthTime}
+              optionalName={optionalName}
+              optionalGender={optionalGender}
+              matrix={rating.matrix}
+              onBack={backToGameSelection}
+            />
           ) : null}
           {selectedGame === "relationship" && !partnerData ? (
             <>

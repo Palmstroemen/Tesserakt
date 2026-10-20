@@ -16,8 +16,12 @@ Szenarien:
 Ausgabe je Szenario und System: Mittelwert, Standardabweichung, Standardfehler,
 Anteil Spiele mit Skill > 0 und Skill >= 50, Siege; dazu die Verteilung des Siegers.
 
+Mit --spiel b wird Spiel B (Rueckblick) getestet: /rueckblick + /rueckblick/kontrolle,
+Fragen aus backend/fragen_rueckblick.json, Skill getrennt fuer Monat und Quartal (nur Nullhypothese).
+
 Beispiel:
   python3 tools/skill_metric_test.py --runs 2000 --kontrolle 100 --cache tools/output/skill_sim.json
+  python3 tools/skill_metric_test.py --spiel b --runs 500 --cache tools/output/skill_sim_b.json
 """
 
 from __future__ import annotations
@@ -40,6 +44,8 @@ BACKEND_DIR = ROOT / "backend"
 FRAGEN_JSON = BACKEND_DIR / "fragen.json"
 
 SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"]
+SYSTEME_B = ["Westlich", "Bazi", "Hellenistisch", "Numerologie"]
+FRAGEN_B_JSON = ROOT / "backend" / "fragen_rueckblick.json"
 
 
 # ── Daten erzeugen (Spiel-Pipeline) ────────────────────────────────────────────
@@ -64,11 +70,33 @@ def _simulate_person(args: tuple) -> dict:
     return {"geburtsdatum": datum, "uhrzeit": zeit, "vektoren": v.vektoren, "kontroll": k.kontrollvektoren}
 
 
-def generate_personen(runs: int, seed: int, kontroll_anzahl: int, year_min: int, year_max: int, workers: int) -> List[dict]:
+def _simulate_person_b(args: tuple) -> dict:
+    """Spiel B: Fenster-Mittel fuer das echte Datum und die Kontroll-Geburtsdaten."""
+    index, seed, kontroll_anzahl, year_min, year_max = args
+    sys.path.insert(0, str(BACKEND_DIR))
+    import main as M  # pylint: disable=import-error
+
+    rng = random.Random(f"{seed}:{index}")
+    start = datetime(year_min, 1, 1)
+    tage = (datetime(year_max, 12, 31) - start).days
+    birth = start + timedelta(days=rng.randrange(tage + 1), minutes=rng.randrange(1440))
+    datum, zeit = birth.strftime("%Y-%m-%d"), birth.strftime("%H:%M")
+    session_id = f"simb-{seed}-{index}"
+    with contextlib.redirect_stdout(io.StringIO()):
+        r = M.post_rueckblick(M.VektorRequest(geburtsdatum=datum, uhrzeit=zeit, systeme=SYSTEME_B, session_id=session_id))
+        k = M.post_rueckblick_kontrolle(M.KontrollRequest(
+            geburtsdatum=datum, uhrzeit=zeit, systeme=SYSTEME_B, session_id=session_id,
+            stichtag=r["inputs"]["stichtag"], kontroll_anzahl=kontroll_anzahl,
+        ))
+    return {f: {"vektoren": r["mittel"][f], "kontroll": k["kontrollvektoren"][f]} for f in r["mittel"]}
+
+
+def generate_personen(runs: int, seed: int, kontroll_anzahl: int, year_min: int, year_max: int, workers: int,
+                      simulate: Callable = _simulate_person) -> List[dict]:
     jobs = [(i, seed, kontroll_anzahl, year_min, year_max) for i in range(runs)]
     personen: List[dict] = []
     with ProcessPoolExecutor(max_workers=workers) as pool:
-        for i, person in enumerate(pool.map(_simulate_person, jobs, chunksize=8), start=1):
+        for i, person in enumerate(pool.map(simulate, jobs, chunksize=8), start=1):
             personen.append(person)
             if i % 250 == 0 or i == runs:
                 print(f"  {i}/{runs} Personen berechnet", file=sys.stderr)
@@ -214,7 +242,11 @@ def main() -> None:
     parser.add_argument("--sensitiv-system", type=str, default="Westlich", help="System, das im Sensitivitaetstest recht hat.")
     parser.add_argument("--cache", type=str, default=None, help="JSON-Datei: simulierte Personen laden/speichern.")
     parser.add_argument("--json-out", type=str, default=None, help="Optional: Ergebnisse als JSON speichern.")
+    parser.add_argument("--spiel", choices=["a", "b"], default="a", help="a = Persoenlichkeit (default), b = Rueckblick.")
     args = parser.parse_args()
+    if args.spiel == "b":
+        main_b(args)
+        return
 
     personen = None
     if args.cache and Path(args.cache).exists():
@@ -259,6 +291,36 @@ def main() -> None:
         Path(args.json_out).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json_out).write_text(json.dumps(ergebnisse, indent=2, ensure_ascii=False), encoding="utf-8")
         print(f"\nGespeichert: {args.json_out}")
+
+
+def main_b(args: argparse.Namespace) -> None:
+    """Spiel B: Nullhypothese je Zeitfenster (Skill getrennt fuer Monat und Quartal)."""
+    personen = None
+    if args.cache and Path(args.cache).exists():
+        personen = json.loads(Path(args.cache).read_text(encoding="utf-8"))[: args.runs]
+        print(f"Personen aus Cache: {args.cache} ({len(personen)})", file=sys.stderr)
+    if personen is None:
+        print(f"Berechne {args.runs} Personen (Spiel B) x {args.kontrolle} Kontrolldaten ...", file=sys.stderr)
+        personen = generate_personen(args.runs, args.seed, args.kontrolle, args.year_min, args.year_max,
+                                     args.workers, simulate=_simulate_person_b)
+        if args.cache:
+            Path(args.cache).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.cache).write_text(json.dumps(personen), encoding="utf-8")
+
+    fragen_b = json.loads(FRAGEN_B_JSON.read_text(encoding="utf-8"))["gewertet"]
+    matrix = load_matrix()
+    rng = random.Random(args.seed)
+    print(f"Spiel B - Personen: {len(personen)}, Systeme: {', '.join(SYSTEME_B)}")
+    ergebnisse = {}
+    for fenster in ("monat", "quartal"):
+        fragen = [f for f in fragen_b if f["fenster"] == fenster]
+        for stil, antwort in NULL_STILE.items():
+            skills = [skill_scores(p[fenster], [antwort(rng) for _ in fragen], fragen, matrix, SYSTEME_B) for p in personen]
+            ergebnisse[f"{fenster}:{stil}"] = drucke_szenario(
+                f"SPIEL B {fenster.upper()} - NULLHYPOTHESE - Antwortstil: {stil}", skills, SYSTEME_B)
+    if args.json_out:
+        Path(args.json_out).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.json_out).write_text(json.dumps(ergebnisse, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 if __name__ == "__main__":

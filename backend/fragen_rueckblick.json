@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "beschreibung": "Fragen fuer Spiel B (Rueckblick). gewertet: Zustand im Zeitfenster, verglichen mit dem Mittel der Horoskope im Fenster; gehen in den Skill ein. auffaellig: nicht gewertet, Auswahl nach staerkstem Ausschlag (Extremwert) im Fenster; Text wird mit der Fenster-Einleitung kombiniert. ids nicht aendern (frage_id in der Datenbank; A: 1-16, B gewertet: 101-116, B auffaellig: 201-216).",
+    "skala": "trifft nicht zu (-1) ... trifft zu (+1)",
+    "fenster_einleitung": {
+      "monat": "In den letzten 30 Tagen",
+      "quartal": "In den letzten drei Monaten"
+    }
+  },
+  "gewertet": [
+    {
+      "id": 101,
+      "fenster": "monat",
+      "dimension": "liebe",
+      "text": "In den letzten 30 Tagen hatte ich in der Liebe und in meinen Beziehungen eher Glück."
+    },
+    {
+      "id": 102,
+      "fenster": "monat",
+      "dimension": "beruf",
+      "text": "In den letzten 30 Tagen lief es beruflich eher gut für mich."
+    },
+    {
+      "id": 103,
+      "fenster": "monat",
+      "dimension": "finanzen",
+      "text": "In den letzten 30 Tagen stand es um meine Finanzen eher gut."
+    },
+    {
+      "id": 104,
+      "fenster": "monat",
+      "dimension": "gesundheit",
+      "text": "In den letzten 30 Tagen fühlte ich mich eher gesund und voller Energie."
+    },
+    {
+      "id": 105,
+      "fenster": "monat",
+      "dimension": "soziales",
+      "text": "In den letzten 30 Tagen hatte ich ein eher erfülltes soziales Leben."
+    },
+    {
+      "id": 106,
+      "fenster": "monat",
+      "dimension": "kreativitaet",
+      "text": "In den letzten 30 Tagen war ich eher kreativ und hatte gute Ideen."
+    },
+    {
+      "id": 107,
+      "fenster": "monat",
+      "dimension": "veraenderung",
+      "text": "In den letzten 30 Tagen hat sich in meinem Leben eher viel bewegt und verändert."
+    },
+    {
+      "id": 108,
+      "fenster": "monat",
+      "dimension": "spiritualitaet",
+      "text": "In den letzten 30 Tagen habe ich mich eher mit Sinnfragen, Spiritualität oder meiner Intuition beschäftigt."
+    },
+    {
+      "id": 109,
+      "fenster": "quartal",
+      "dimension": "liebe",
+      "text": "In den letzten drei Monaten hatte ich in der Liebe und in meinen Beziehungen eher Glück."
+    },
+    {
+      "id": 110,
+      "fenster": "quartal",
+      "dimension": "beruf",
+      "text": "In den letzten drei Monaten lief es beruflich eher gut für mich."
+    },
+    {
+      "id": 111,
+      "fenster": "quartal",
+      "dimension": "finanzen",
+      "text": "In den letzten drei Monaten stand es um meine Finanzen eher gut."
+    },
+    {
+      "id": 112,
+      "fenster": "quartal",
+      "dimension": "gesundheit",
+      "text": "In den letzten drei Monaten fühlte ich mich eher gesund und voller Energie."
+    },
+    {
+      "id": 113,
+      "fenster": "quartal",
+      "dimension": "soziales",
+      "text": "In den letzten drei Monaten hatte ich ein eher erfülltes soziales Leben."
+    },
+    {
+      "id": 114,
+      "fenster": "quartal",
+      "dimension": "kreativitaet",
+      "text": "In den letzten drei Monaten war ich eher kreativ und hatte gute Ideen."
+    },
+    {
+      "id": 115,
+      "fenster": "quartal",
+      "dimension": "veraenderung",
+      "text": "In den letzten drei Monaten hat sich in meinem Leben eher viel bewegt und verändert."
+    },
+    {
+      "id": 116,
+      "fenster": "quartal",
+      "dimension": "spiritualitaet",
+      "text": "In den letzten drei Monaten habe ich mich eher mit Sinnfragen, Spiritualität oder meiner Intuition beschäftigt."
+    }
+  ],
+  "auffaellig": {
+    "liebe": {
+      "positiv": {
+        "id": 201,
+        "text": "gab es einen besonders schönen Moment in der Liebe oder in einer Beziehung."
+      },
+      "negativ": {
+        "id": 202,
+        "text": "gab es eine schwierige Phase in der Liebe oder in einer Beziehung."
+      }
+    },
+    "beruf": {
+      "positiv": {
+        "id": 203,
+        "text": "hatte ich einen beruflichen Erfolg oder Durchbruch."
+      },
+      "negativ": {
+        "id": 204,
+        "text": "gab es beruflich eine besonders belastende Situation."
+      }
+    },
+    "finanzen": {
+      "positiv": {
+        "id": 205,
+        "text": "hatte ich finanziell einen Glücksfall oder unerwartete Einnahmen."
+      },
+      "negativ": {
+        "id": 206,
+        "text": "gab es finanziell einen Rückschlag oder unerwartete Ausgaben."
+      }
+    },
+    "gesundheit": {
+      "positiv": {
+        "id": 207,
+        "text": "fühlte ich mich eine Zeit lang besonders fit und vital."
+      },
+      "negativ": {
+        "id": 208,
+        "text": "war ich eine Zeit lang krank oder erschöpft."
+      }
+    },
+    "soziales": {
+      "positiv": {
+        "id": 209,
+        "text": "habe ich eine besonders gute Zeit mit Freunden oder neuen Bekanntschaften erlebt."
+      },
+      "negativ": {
+        "id": 210,
+        "text": "gab es Streit oder Spannungen mit Menschen in meinem Umfeld."
+      }
+    },
+    "kreativitaet": {
+      "positiv": {
+        "id": 211,
+        "text": "hatte ich einen kreativen Schub oder eine besonders gute Idee."
+      },
+      "negativ": {
+        "id": 212,
+        "text": "fühlte ich mich eine Zeit lang ideenlos oder blockiert."
+      }
+    },
+    "veraenderung": {
+      "positiv": {
+        "id": 213,
+        "text": "gab es eine bedeutende Veränderung oder einen Neuanfang."
+      },
+      "negativ": {
+        "id": 214,
+        "text": "fühlte ich mich eine Zeit lang festgefahren, obwohl ich etwas ändern wollte."
+      }
+    },
+    "spiritualitaet": {
+      "positiv": {
+        "id": 215,
+        "text": "hatte ich ein besonderes Erlebnis von innerer Klarheit oder Verbundenheit."
+      },
+      "negativ": {
+        "id": 216,
+        "text": "fühlte ich mich eine Zeit lang innerlich leer oder orientierungslos."
+      }
+    }
+  }
+}

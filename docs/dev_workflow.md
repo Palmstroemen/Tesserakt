@@ -24,6 +24,7 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 ## API-Endpunkte
 
 - `POST /vektor` -> berechnet Systemvektoren + Inputs inkl. `session_id`
+- `POST /rueckblick`, `POST /rueckblick/kontrolle`, `GET /fragen/rueckblick` -> Spiel B (Rueckblick)
 - `GET /horoscope/erklaerungen` -> Erklaertexte (Skill, Methodik, Experiment)
 - `POST /kontrolle` -> Kontrollvektoren je System fuer Perzentil/Skill (mit `session_id` + `stichtag` aus `/vektor`; Frontend laedt sie waehrend der Fragephase)
 - `GET /fragen` -> liefert die 16 Fragen
