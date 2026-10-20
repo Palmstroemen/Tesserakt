@@ -51,7 +51,7 @@ export default function App() {
     "Hellenistisch",
     "Vedisch",
   ]);
-  const [selectedSystems, setSelectedSystems] = useState(["Westlich", "Bazi", "Numerologie"]);
+  const [selectedSystems, setSelectedSystems] = useState(["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"]);
   const [optionalName, setOptionalName] = useState("");
   const [optionalGender, setOptionalGender] = useState("");
   const [assessmentTestMode, setAssessmentTestMode] = useState(false);
@@ -145,7 +145,7 @@ export default function App() {
   );
   const partnerSystems = useMemo(() => {
     const rank = partnerRating?.ranking ?? [];
-    return rank.filter((s) => s !== "KO" && partnerTexts?.by_system?.[s]?.horoskop_ausfuehrlich);
+    return rank.filter((s) => partnerTexts?.by_system?.[s]?.horoskop_ausfuehrlich);
   }, [partnerRating?.ranking, partnerTexts]);
   useEffect(() => {
     if (partnerFinished && partnerSystems?.length && (!partnerActiveSystem || !partnerSystems.includes(partnerActiveSystem))) {

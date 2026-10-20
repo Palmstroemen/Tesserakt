@@ -6,14 +6,14 @@ const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
 const FALLBACK_MATRIX = {
   konsens_gewichtung: {
-    liebe: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    beruf: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    finanzen: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    gesundheit: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    soziales: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    kreativitaet: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    veraenderung: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
-    spiritualitaet: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25, KO: 0.25 },
+    liebe: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    beruf: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    finanzen: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    gesundheit: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    soziales: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    kreativitaet: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    veraenderung: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
+    spiritualitaet: { Westlich: 0.25, Bazi: 0.25, Numerologie: 0.25 },
   },
 };
 
@@ -45,7 +45,7 @@ export function useRating(vektoren, antworten, inputs, kontrollvektoren) {
     const base = calculateRating(vektoren ?? {}, antworten ?? [], matrix, kontrollvektoren ?? {});
     const temperament = calculateTemperament(base, inputs ?? {});
     return {
-      ranking: (base.ranking ?? []).filter((s) => s !== "KO"),
+      ranking: base.ranking ?? [],
       systemDetails: base.systemDetails,
       skillErwartungBester: base.skillErwartungBester ?? null,
       skillMetrik: base.skillMetrik,

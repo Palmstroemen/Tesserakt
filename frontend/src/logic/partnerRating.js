@@ -61,7 +61,7 @@ export function calculatePartnerRating(antworten, vektorenA, vektorenB, matrix) 
       systemDetails: {},
     };
   }
-  const systems = Object.keys(vektorenA).filter((s) => s !== "KO");
+  const systems = Object.keys(vektorenA);
   const konsens = matrix?.konsens_gewichtung ?? {};
   const expectedByDimension = {};
   for (const dim of DIMENSIONS) {

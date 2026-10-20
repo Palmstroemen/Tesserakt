@@ -44,7 +44,6 @@ function systemTemperamente(inputs) {
     Westlich: SIGN_TO_TEMPERAMENT[inputs?.sonnenzeichen] ?? null,
     Bazi: BAZI_ELEMENT_TO_TEMPERAMENT[inputs?.day_master_element] ?? null,
     Numerologie: numerologieTemperament(Number(inputs?.lebenspfadzahl)),
-    KO: null,
   };
 }
 

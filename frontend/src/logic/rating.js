@@ -120,8 +120,6 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
   const ranking = systems
     .filter((s) => systemDetails[s].fitScore !== null)
     .sort((a, b) => {
-      if (a === "KO") return 1;
-      if (b === "KO") return -1;
       const skillA = systemDetails[a].skillScore ?? -Infinity;
       const skillB = systemDetails[b].skillScore ?? -Infinity;
       if (skillB !== skillA) {
@@ -137,7 +135,7 @@ export function calculateRating(vektoren, antworten, matrix, kontrollvektoren = 
     systemDetails[system].rang = idx + 1;
   });
 
-  const mitSkill = ranking.filter((s) => s !== "KO" && systemDetails[s].skillScore !== null).length;
+  const mitSkill = ranking.filter((s) => systemDetails[s].skillScore !== null).length;
   const skillErwartungBester = mitSkill ? Number(erwarteterSkillBester(mitSkill).toFixed(1)) : null;
 
   return { ranking, systemDetails, skillErwartungBester, skillMetrik: SKILL_METRIK };

@@ -31,7 +31,7 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – plus
 ├── content/         # Horoskop-Texte (system_texts_v1.json je Spiel)
 ├── db/              # Schema, Migrationen, Views
 ├── docs/            # Konzepte, Erklaerungen, dev_workflow
-├── tools/           # Diagnose, Kalibrierung, Tests (random_baseline, etc.)
+├── tools/           # Diagnose und Tests (skill_metric_test, etc.)
 ├── archive/
 ├── ToDo.md
 └── Tesserakt.code-workspace
@@ -50,7 +50,7 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – plus
 - `content/horoscope/de/`
   - Systemtexte fuer Spiel A und Spiel C
 - `tools/`
-  - `random_baseline_test.py`, `system_diagnostics.py`, `vector_value_histogram.py`, etc.
+  - `skill_metric_test.py`, `system_diagnostics.py`, `vector_value_histogram.py`, etc.
 
 ## Workspace
 

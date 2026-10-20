@@ -41,10 +41,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DEFAULT_SYSTEMS = ["Westlich", "Bazi", "Numerologie"]
-SUPPORTED_SYSTEMS = [*SUBFOLDERS, "KO"]
-# Fuer die UI: nur waehlbare Systeme (KO wird intern fuer Delta-Metriken genutzt, nicht anzeigen)
-AVAILABLE_FOR_SELECTION = [s for s in SUPPORTED_SYSTEMS if s != "KO"]
+# Alle Systeme sind standardmaessig aktiv; der User kann einzelne abwaehlen.
+DEFAULT_SYSTEMS = list(SUBFOLDERS)
+SUPPORTED_SYSTEMS = list(SUBFOLDERS)
+AVAILABLE_FOR_SELECTION = list(SUPPORTED_SYSTEMS)
 # Perzentil-Kontrollgruppe: Vektoren desselben Systems fuer zufaellige Geburtsdaten
 # (gleiche Uhrzeit, gleicher Ort, gleiches Geschlecht/Name) im Fenster +-KONTROLL_JAHRE.
 KONTROLL_ANZAHL_DEFAULT = 100
@@ -54,7 +54,7 @@ KONTROLL_JAHRE = 5
 class VektorRequest(BaseModel):
     geburtsdatum: str = Field(examples=["1985-03-15"])
     uhrzeit: Optional[str] = Field(default="12:00", examples=["14:30"])
-    session_id: Optional[str] = Field(default=None, description="Optional for deterministic KO values")
+    session_id: Optional[str] = Field(default=None, description="Optional; Seed fuer die Kontroll-Geburtsdaten in /kontrolle")
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
     latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (fuer Placidus-Haeuser)")
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
@@ -156,16 +156,6 @@ def _stable_seed(seed_key: str) -> int:
     return int(digest[:16], 16)
 
 
-def _ko_vector(session_id: str) -> Dict[str, float]:
-    vector: Dict[str, float] = {}
-    for index, dim in enumerate(DIMENSIONS):
-        # Reproducible baseline values in -1..+1 (moderate variance around 0).
-        seed = _stable_seed(f"{session_id}:{index}:{dim}")
-        rng = random.Random(seed)
-        value = min(1.0, max(-1.0, rng.gauss(0.0, 0.3)))
-        vector[dim] = round(value, 2)
-    return vector
-
 
 @app.get("/health")
 def health() -> Dict[str, str]:
@@ -245,9 +235,6 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
 
     vektoren: Dict[str, Dict[str, float]] = {}
     for system_name in payload.systeme:
-        if system_name == "KO":
-            vektoren["KO"] = _ko_vector(session_id)
-            continue
         if system_name == "Bazi":
             # Two vectors: male and female Da Yun direction (no gender in request)
             assert bazi_luck_male is not None and bazi_luck_female is not None
@@ -293,7 +280,7 @@ def _kontroll_geburtsdaten(birth_dt: datetime, session_id: str, anzahl: int) -> 
 
 def _kontrollvektoren(payload: KontrollRequest, birth_dt: datetime, now: datetime, session_id: str) -> Dict[str, List[Dict[str, float]]]:
     """Je System die Vektoren fuer zufaellige andere Geburtsdaten (Basis fuer das Perzentil)."""
-    systeme = [s for s in payload.systeme if s != "KO"]
+    systeme = list(payload.systeme)
     if not systeme:
         return {}
     kontroll_payload = VektorRequest(**payload.model_dump(include=set(VektorRequest.model_fields))).model_copy(update={"systeme": systeme})
@@ -326,7 +313,6 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs = _serialize_inputs(inputs)
     response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
-    response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
     response_inputs["stichtag"] = now.date().isoformat()
 
     # Attach precomputed chart payloads so frontend has them without extra request
@@ -391,7 +377,7 @@ def post_partner(payload: PartnerRequest) -> PartnerResponse:
     unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
     if unknown:
         raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
-    system_list = [s for s in requested if s != "KO"]
+    system_list = list(requested)
 
     def inputs_and_vektoren(birth_dt: datetime, geburtsname: Optional[str] = None):
         bazi_p = None

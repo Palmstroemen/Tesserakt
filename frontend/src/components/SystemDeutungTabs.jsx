@@ -44,9 +44,9 @@ const DIMENSION_ORDER = [
 ];
 
 export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads }) {
-  // Nur Systeme anzeigen, die sowohl im Ranking als auch in den Texten vorkommen (KO hat keine Texte)
+  // Nur Systeme anzeigen, die sowohl im Ranking als auch in den Texten vorkommen
   const systems = (ranking || []).filter(
-    (s) => s !== "KO" && systemTexts?.systems?.[s]
+    (s) => systemTexts?.systems?.[s]
   );
   const [activeSystem, setActiveSystem] = useState(systems[0] ?? null);
 
@@ -64,7 +64,7 @@ export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads
     return (
       <section className="card">
         <h2>Deutung nach System</h2>
-        <p>Keine Systemtexte geladen. Nur gewaehlte Systeme (ohne KO) werden hier angezeigt.</p>
+        <p>Keine Systemtexte geladen. Nur gewaehlte Systeme werden hier angezeigt.</p>
       </section>
     );
   }
