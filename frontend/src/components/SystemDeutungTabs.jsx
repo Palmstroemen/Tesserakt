@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import RadixWheel from "./RadixWheel";
+import FourPillarsChart from "./FourPillarsChart";
+import NumerologyChart from "./NumerologyChart";
+import KabbalahTree from "./KabbalahTree";
+import ProfectionChart from "./ProfectionChart";
+import FirdariaChart from "./FirdariaChart";
+import DashaChart from "./DashaChart";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
@@ -12,8 +18,8 @@ function stripTagLines(text) {
     .trim();
 }
 
-/** Rendert einen Block Fliesstext (Absaetze durch Doppelumbrueche). */
-function Paragraphs({ text }) {
+/** Rendert einen Block Fliesstext (Absaetze durch Doppelumbrueche). Exportiert fuer Wiederverwendung (z. B. Partnerschaftshoroskop). */
+export function Paragraphs({ text }) {
   const cleaned = stripTagLines(text);
   if (!cleaned) return null;
   const blocks = cleaned.split(/\n\n+/).filter(Boolean);
@@ -87,11 +93,35 @@ export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads
           {activeSystem === "Westlich" &&
           visualPayloads?.Westlich?.chartType === "radixWheel" ? (
             <RadixWheel payload={visualPayloads.Westlich} />
+          ) : activeSystem === "Bazi" &&
+            visualPayloads?.Bazi?.chartType === "fourPillars" ? (
+            <FourPillarsChart payload={visualPayloads.Bazi} />
+          ) : activeSystem === "Numerologie" &&
+            visualPayloads?.Numerologie?.chartType === "numerologyChart" ? (
+            <NumerologyChart payload={visualPayloads.Numerologie} />
+          ) : activeSystem === "Kabbalah" &&
+            visualPayloads?.Kabbalah?.chartType === "kabbalahTree" ? (
+            <KabbalahTree payload={visualPayloads.Kabbalah} />
+          ) : activeSystem === "Hellenistisch" &&
+            visualPayloads?.Hellenistisch?.chartType === "profectionChart" ? (
+            <ProfectionChart payload={visualPayloads.Hellenistisch} />
+          ) : activeSystem === "Arabisch" &&
+            visualPayloads?.Arabisch?.chartType === "firdariaChart" ? (
+            <FirdariaChart payload={visualPayloads.Arabisch} />
+          ) : activeSystem === "Vedisch" &&
+            visualPayloads?.Vedisch?.chartType === "dashaChart" ? (
+            <DashaChart payload={visualPayloads.Vedisch} />
           ) : (
             <div className="bild-stub">
               [Bild folgt: Diagramm fuer {activeSystem}]
             </div>
           )}
+          {activeData.horoskop_ausfuehrlich ? (
+            <div className="deutung-horoskop-ausfuehrlich">
+              <h4>Dein Horoskop</h4>
+              <Paragraphs text={activeData.horoskop_ausfuehrlich} />
+            </div>
+          ) : null}
           <div className="deutung-intro">
             <Paragraphs text={activeData.intro} />
           </div>

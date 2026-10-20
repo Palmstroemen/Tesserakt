@@ -1,27 +1,21 @@
-function widthFromScore(value) {
-  return `${Math.max(0, Math.min(100, ((value - 1) / 4) * 100))}%`;
-}
-
+/**
+ * Eine Zeile: "Deine Einschätzung:" | Slider | Wert (gleiches Raster wie System-Balken).
+ */
 export default function SelbsteinschaetzungSlider({ value, onChange }) {
   return (
-    <div className="bars">
-      <div className="bar-row">
-        <span className="bar-label">Deine Einschätzung:</span>
-        <div className="bar-track">
-          <span className="bar-fill" style={{ width: widthFromScore(value) }} />
-        </div>
-        <span className="bar-value">{value.toFixed(1)}</span>
-      </div>
+    <div className="bar-row bar-row--slider">
+      <span className="bar-label">Deine Einschätzung:</span>
       <input
         type="range"
-        className="slider-input"
-        min="1"
-        max="5"
+        className="slider-in-row"
+        min="-1"
+        max="1"
         step="0.1"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         aria-label="Deine Einschätzung"
       />
+      <span className="bar-value">{value >= 0 ? `+${value.toFixed(1)}` : value.toFixed(1)}</span>
     </div>
   );
 }
