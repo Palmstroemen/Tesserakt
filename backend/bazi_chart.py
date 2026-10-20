@@ -12,9 +12,8 @@ from rule_engine import (
     BRANCHES,
     STEMS,
     day_stem,
-    month_pillar,
+    bazi_jahr_monat,
     stem_to_element,
-    year_pillar,
 )
 
 # Branch elements (Erdzweige): schema uses English
@@ -48,8 +47,7 @@ def build_four_pillars(birth_dt: datetime) -> Dict[str, Any]:
     Build fourPillars visual payload from birth datetime.
     Year/Month/Day/Hour pillars, day master, five elements (counts from 8 chars).
     """
-    ys, yb = year_pillar(birth_dt.year)
-    ms, mb = month_pillar(birth_dt.year, birth_dt.month)
+    ys, yb, ms, mb = bazi_jahr_monat(birth_dt)
     ds, db = day_stem(birth_dt), _day_branch(birth_dt)
     hs, hb = hour_pillar(birth_dt)
 

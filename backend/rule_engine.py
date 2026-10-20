@@ -251,9 +251,27 @@ def year_pillar(year: int) -> Tuple[str, str]:
     offset = (year - 1924) % 60
     return STEMS[offset % 10], BRANCHES[offset % 12]
 
-def month_pillar(year: int, month: int) -> Tuple[str, str]:
-    base = {0:2,1:4,2:6,3:8,4:0,5:2,6:4,7:6,8:8,9:0}[(year-1924)%10]
-    return STEMS[(base + month - 1) % 10], BRANCHES[(month + 1) % 12]
+_SONNENLAENGE_CACHE: Dict[Tuple[int, int, int, int], float] = {}
+
+def sonnenlaenge(dt: datetime) -> float:
+    """Ekliptikale Laenge der Sonne in Grad (Swiss Ephemeris; Zeit wie in ephemeris.py als UT behandelt)."""
+    key = (dt.year, dt.month, dt.day, dt.hour)
+    if key not in _SONNENLAENGE_CACHE:
+        import swisseph as swe
+        jd = swe.julday(dt.year, dt.month, dt.day, dt.hour + dt.minute / 60.0)
+        _SONNENLAENGE_CACHE[key] = swe.calc_ut(jd, swe.SUN)[0][0]
+    return _SONNENLAENGE_CACHE[key]
+
+def bazi_jahr_monat(dt: datetime) -> Tuple[str, str, str, str]:
+    """Jahres- und Monatssaeule nach Sonnenmonaten: das Jahr beginnt mit Lichun (Sonne 315 Grad, ~4. Februar),
+    jeder Monat bei weiteren 30 Grad (Tiger-Monat yin ab 315 Grad). Monatsstamm nach der Regel der Fuenf Tiger.
+    Rueckgabe: (jahr_stamm, jahr_zweig, monat_stamm, monat_zweig)."""
+    lon = sonnenlaenge(dt)
+    jahr = dt.year - 1 if (dt.month <= 2 and 270.0 <= lon < 315.0) else dt.year
+    ys, yb = year_pillar(jahr)
+    m = int(((lon - 315.0) % 360.0) // 30.0)  # 0 = Tiger-Monat
+    tiger_stamm = {0: 2, 1: 4, 2: 6, 3: 8, 4: 0, 5: 2, 6: 4, 7: 6, 8: 8, 9: 0}[(jahr - 1924) % 10]
+    return ys, yb, STEMS[(tiger_stamm + m) % 10], BRANCHES[(m + 2) % 12]
 
 def day_stem(birth_date: datetime) -> str:
     return STEMS[((birth_date - datetime(1924,2,5)).days) % 10]
@@ -288,8 +306,7 @@ def luck_pillar_for_both_sexes(
     """
     age = vollendete_jahre(birth_date, target_date)
     block = max(0, age // 10)
-    ys, _ = year_pillar(birth_date.year)
-    ms, mb = month_pillar(birth_date.year, birth_date.month)
+    ys, _, ms, mb = bazi_jahr_monat(birth_date)
     stem_idx = STEMS.index(ms) if ms in STEMS else 0
     branch_idx = BRANCHES.index(mb) if mb in BRANCHES else 0
     forward_stem = STEMS[(stem_idx + block) % 10]
@@ -478,12 +495,10 @@ def build_inputs(
     bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi.
     geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit).
     geschlecht: weiblich | maennlich für Arabisch (Lot der Ehe), Bazi, Vedisch."""
-    ys, yb = year_pillar(birth_date.year)
-    ms, mb = month_pillar(birth_date.year, birth_date.month)
+    ys, yb, ms, mb = bazi_jahr_monat(birth_date)
     ds_val  = day_stem(birth_date)
     dm_el   = stem_to_element(ds_val)
-    tys, tyb = year_pillar(target_date.year)
-    tms, tmb = month_pillar(target_date.year, target_date.month)
+    tys, tyb, tms, tmb = bazi_jahr_monat(target_date)
     age     = vollendete_jahre(birth_date, target_date)
     lpn     = life_path(birth_date)
     pj      = personal_year(birth_date, target_date)
