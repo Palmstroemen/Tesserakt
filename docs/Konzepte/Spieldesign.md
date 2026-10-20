@@ -127,7 +127,7 @@ Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidu
   gleicher Ort, gleiches Geschlecht/Name), reproduzierbar per Seed aus der `session_id`.
 - Die Kontrollvektoren werden nicht gespeichert, nur Perzentil und Skill (plus Parameter zur Reproduktion).
 - Aufklaerung ueber den Vergleich mit anderen Geburtsdaten und den Gewinner-Effekt bleibt fester
-  Teil des didaktischen Designs (`docs/Erklärungen/skill_fuer_spieler.md`).
+  Teil des didaktischen Designs (`docs/Textbausteine/erklaerungen/01_skill.md`).
 
 **Status:** MVP live  
 **Abhaengigkeiten:** Backend-Seedlogik, Ergebnisdarstellung

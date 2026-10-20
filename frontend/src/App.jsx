@@ -9,6 +9,7 @@ import SelbsteinschaetzungSlider from "./components/SelbsteinschaetzungSlider";
 import SystemVergleichBalken from "./components/SystemVergleichBalken";
 import RankingTabelle from "./components/RankingTabelle";
 import TemperamentProfil from "./components/TemperamentProfil";
+import Erklaerungen from "./components/Erklaerungen";
 import SystemDeutungTabs, { useSystemTexts, Paragraphs } from "./components/SystemDeutungTabs";
 import { useVektoren } from "./hooks/useVektoren";
 import { useKontrolle } from "./hooks/useKontrolle";
@@ -646,6 +647,7 @@ export default function App() {
               </button>
             </p>
           </section>
+          <Erklaerungen />
           {textsLoading ? (
             <section className="card">
               <p>Systemtexte werden geladen...</p>

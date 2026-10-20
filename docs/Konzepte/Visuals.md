@@ -100,7 +100,7 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 1. Gesamtranking (Skill, Perzentil, Fit; Hinweis zum Gewinner-Effekt)
 2. Systemkarte pro System (einheitlicher Header + systemspezifische Hauptvisualisierung)
-3. Methodik-Sektion (Vergleich mit anderen Geburtsdaten, `docs/Erklärungen/skill_fuer_spieler.md`)
+3. Methodik-Sektion (Vergleich mit anderen Geburtsdaten, `docs/Textbausteine/erklaerungen/01_skill.md`)
 4. Unsicherheit/Genauigkeit (z. B. Geburtszeit fehlt)
 
 ---

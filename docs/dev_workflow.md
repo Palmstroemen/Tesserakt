@@ -24,6 +24,7 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 ## API-Endpunkte
 
 - `POST /vektor` -> berechnet Systemvektoren + Inputs inkl. `session_id`
+- `GET /horoscope/erklaerungen` -> Erklaertexte (Skill, Methodik, Experiment)
 - `POST /kontrolle` -> Kontrollvektoren je System fuer Perzentil/Skill (mit `session_id` + `stichtag` aus `/vektor`; Frontend laedt sie waehrend der Fragephase)
 - `GET /fragen` -> liefert die 16 Fragen
 - `GET /matrix` -> liefert die Gewichtungsmatrix
@@ -53,3 +54,12 @@ Optional kann `VITE_API_BASE` gesetzt werden.
   - `python3 tools/system_diagnostics.py --runs 1500 --systems Vedisch Hellenistisch --seed 42`
 
 Hinweis: Die lokale Persistenz laeuft aktuell ueber `backend/assessment.db` (SQLite) fuer schnelle Entwicklungszyklen.
+
+## Erklaertexte bearbeiten
+
+Quelle sind die Markdown-Dateien in `docs/Textbausteine/erklaerungen/` (Format im Kopf von
+`tools/md_to_erklaerungen.py`). Nach jeder Aenderung das JSON neu erzeugen:
+
+```bash
+python3 tools/md_to_erklaerungen.py
+```

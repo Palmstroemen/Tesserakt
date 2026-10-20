@@ -1,7 +1,7 @@
 # Tesserakt
 
 **Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
-Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufaellige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklaerung: `docs/Erklärungen/skill_fuer_spieler.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
+Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufaellige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklaerung: `docs/Textbausteine/erklaerungen/01_skill.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
 
 Fullstack-Projekt mit klarer Trennung zwischen:
 

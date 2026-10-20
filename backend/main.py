@@ -462,6 +462,17 @@ def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
     return data
 
 
+@app.get("/horoscope/erklaerungen")
+def get_erklaerungen(locale: str = "de") -> Dict[str, object]:
+    """Erklaertexte (Skill, Methodik, Experiment), erzeugt aus docs/Textbausteine/erklaerungen/*.md."""
+    if locale != "de":
+        raise HTTPException(status_code=404, detail="Nur locale=de verfuegbar")
+    path = _content_root() / "content" / "horoscope" / "de" / "erklaerungen_v1.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="erklaerungen_v1.json nicht gefunden")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 @app.get("/horoscope/spiel_c/texts")
 def get_spiel_c_texts(locale: str = "de") -> Dict[str, object]:
     """Liefert Partnerschaftstexte fuer Spiel C (by_system)."""

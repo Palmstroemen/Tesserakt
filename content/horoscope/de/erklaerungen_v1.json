@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "de",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/erklaerungen/*.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_erklaerungen.py",
+    "inline": "**fett** in Texten erlaubt"
+  },
+  "themen": [
+    {
+      "id": "skill",
+      "titel": "So liest du dein Ergebnis",
+      "kurz": "Der Skill zeigt, ob ein System dein Geburtsdatum braucht, um dich zu treffen – oder ob ein beliebiges anderes genauso gut passen würde. 0 heißt Zufall, +100 heißt besser als alle anderen.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "was_misst_skill",
+          "titel": "Was der Skill misst",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Jedes Horoskop-System behauptet: Dein Geburtsdatum sagt etwas über dich aus. Genau das prüfen wir."
+            },
+            {
+              "typ": "absatz",
+              "text": "Dafür berechnen wir jedes System nicht nur für **dein** Geburtsdatum, sondern auch für **100 andere, zufällig gewählte Geburtstage**. Dann schauen wir, welche dieser Horoskope am besten zu deinen Antworten passen."
+            },
+            {
+              "typ": "liste",
+              "punkte": [
+                "Passt dein eigenes Horoskop besser als alle 100 anderen, bekommt das System **+100**.",
+                "Passt es nur so gut wie ein beliebiges anderes, bekommt es **0**.",
+                "Passt es schlechter als alle anderen, bekommt es **-100**."
+              ]
+            },
+            {
+              "typ": "absatz",
+              "text": "Ein Skill von **+60** heißt also: Dein eigenes Horoskop hat besser zu dir gepasst als 80 von 100 fremden Horoskopen desselben Systems."
+            }
+          ]
+        },
+        {
+          "id": "gewinner_effekt",
+          "titel": "Warum fast immer ein System glänzt",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Stell dir vor, du wirfst sieben Würfel. Fast immer zeigt mindestens einer eine Fünf oder Sechs – nicht, weil dieser Würfel besonders ist, sondern weil es sieben sind."
+            },
+            {
+              "typ": "absatz",
+              "text": "Mit den sieben Systemen ist es ähnlich. Selbst wenn kein einziges System etwas über dich wüsste, würde das beste im Durchschnitt einen Skill von etwa **+75** erreichen. Ein hoher Wert beim Sieger ist also ganz normal und noch kein Beweis."
+            }
+          ]
+        },
+        {
+          "id": "verteilung_der_siege",
+          "titel": "Bei anderen Menschen gewinnt ein anderes System",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Dein Sieger ist dein persönliches Ergebnis – bei deiner Freundin gewinnt vielleicht Bazi, bei deinem Kollegen die Kabbalah. Wenn kein System wirklich etwas weiß, verteilen sich die Siege über viele Spiele gleichmäßig: Jedes System gewinnt dann ungefähr bei einem von sieben Menschen."
+            },
+            {
+              "typ": "absatz",
+              "text": "Übrigens: Wenn du selbst noch einmal spielst, gewinnt oft wieder dasselbe System. Das liegt daran, dass dein Geburtsdatum und deine Antworten gleich bleiben – über die Treffsicherheit des Systems sagt das noch nichts."
+            }
+          ]
+        },
+        {
+          "id": "viele_spiele",
+          "titel": "Wo sich zeigt, ob ein System wirklich trifft",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Ein einzelnes Spiel kann diese Frage nicht beantworten. Viele Spiele zusammen schon:"
+            },
+            {
+              "typ": "liste",
+              "punkte": [
+                "Wüsste ein System nichts über die Menschen, läge sein **Durchschnitt** über alle Spiele bei **0**, und es würde nicht öfter gewinnen als die anderen.",
+                "Wüsste ein System etwas, läge sein Durchschnitt **deutlich über 0**, und es würde auffallend oft gewinnen."
+              ]
+            },
+            {
+              "typ": "absatz",
+              "text": "Genau dafür zählt dein Spiel mit: Jede Runde ist ein kleiner Baustein in einem großen Experiment."
+            }
+          ]
+        },
+        {
+          "id": "fit",
+          "titel": "Und der Fit?",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Der **Fit** zeigt, wie nah die Aussagen eines Systems an deinen Antworten liegen – unabhängig davon, ob dafür dein Geburtsdatum nötig war. Er ist anschaulich, aber für die Frage „Trifft das System wirklich?“ ist der **Skill** der entscheidende Wert."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methodik",
+      "titel": "Wie die Systeme rechnen",
+      "kurz": "Aus deinem Geburtsdatum berechnen wir für jedes System sein klassisches Horoskop. Überlieferte Deutungsregeln übersetzen es in Tendenzen für acht Lebensbereiche – und genau diese vergleichen wir mit deinen Antworten.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "vom_datum_zum_horoskop",
+          "titel": "Vom Geburtsdatum zum Horoskop",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Jedes System schaut auf etwas anderes. Die westliche Astrologie berechnet, wo Sonne, Mond und Planeten zum Zeitpunkt deiner Geburt standen. Bazi bildet aus Jahr, Monat, Tag und Stunde die vier Säulen des chinesischen Kalenders. Die Numerologie rechnet mit den Ziffern deines Geburtsdatums und – wenn du ihn angibst – mit den Buchstaben deines Namens."
+            },
+            {
+              "typ": "absatz",
+              "text": "Uhrzeit und Geburtsort sind vor allem für die astrologischen Systeme wichtig: Sie bestimmen zum Beispiel den Aszendenten und die Häuser. Wenn du sie nicht genau kennst, werden diese Teile ungenauer."
+            }
+          ]
+        },
+        {
+          "id": "die_systeme",
+          "titel": "Die sieben Systeme",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "**Westlich:** Tierkreiszeichen, Planeten in Zeichen und Häusern, Aspekte zwischen den Planeten und aktuelle Transite.",
+                "**Bazi (chinesisch):** die vier Säulen, dein Tagesmeister, das Zusammenspiel der fünf Elemente und die aktuelle Glückssäule.",
+                "**Numerologie:** Lebenszahl, Namenszahlen und persönliche Zyklen.",
+                "**Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden, und – wenn du ihn angibst – die Zahlenwerte deines Namens (Gematria).",
+                "**Arabisch:** die arabischen Lose, etwa das Los des Glücks, und die Firdaria – Lebensabschnitte, die von wechselnden Planeten regiert werden.",
+                "**Hellenistisch:** die antike Astrologie mit Geburtszeichen, Jahresprofektionen und Jahresherrscher, Tag- oder Nachtgeburt (Sekte) und den Losen.",
+                "**Vedisch (Jyotish):** dein Mond-Nakshatra, die Planetenperioden (Dasha) und besondere Konstellationen (Yogas)."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "regeln_zu_zahlen",
+          "titel": "Aus Regeln werden Zahlen",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Die Deutungen haben wir nicht erfunden. Sie stammen aus überlieferten Lehrwerken der jeweiligen Tradition – von Ptolemäus und Vettius Valens über Abu Ma'shar bis zu Parashara und neueren Standardwerken."
+            },
+            {
+              "typ": "absatz",
+              "text": "Jede Regel sagt etwa: „Diese Stellung begünstigt Beziehungen“ oder „Diese Phase bringt berufliche Unruhe“. Wir haben solche Aussagen für acht Lebensbereiche in Zahlen übersetzt: Liebe, Beruf, Finanzen, Gesundheit, Soziales, Kreativität, Veränderung und Spiritualität. Für jeden Bereich ergibt sich so eine Tendenz zwischen „trifft eher nicht zu“ und „trifft eher zu“."
+            }
+          ]
+        },
+        {
+          "id": "vergleich",
+          "titel": "Der Vergleich mit dir",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Deine 16 Antworten verteilen sich auf dieselben acht Lebensbereiche. Für jede Frage vergleichen wir, wie nah die Tendenz eines Systems an deiner Einschätzung liegt. Manche Fragen zählen für ein System stärker als andere – je nachdem, wie viel die Tradition zu diesem Thema sagt."
+            }
+          ]
+        },
+        {
+          "id": "grenzen",
+          "titel": "Grenzen",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Jede Übersetzung vereinfacht. Die Traditionen sind reicher, als acht Zahlen es abbilden können, und Astrologinnen und Astrologen würden manches anders gewichten. Unser Ergebnis zeigt also, wie gut **unsere Übersetzung** eines Systems zu dir passt – nicht das letzte Wort über die Tradition selbst."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "experiment",
+      "titel": "Das Experiment hinter dem Spiel",
+      "kurz": "Tesserakt ist ein Spiel und ein offenes Experiment zugleich. Aus vielen anonymen Spielen wollen wir herausfinden, ob Horoskop-Systeme Menschen besser beschreiben als der Zufall.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "die_frage",
+          "titel": "Die Frage",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Seit Jahrtausenden deuten Menschen die Sterne, Zahlen und Kalender. Wir wollen wissen: Beschreibt ein Horoskop-System Menschen besser, wenn es ihr **echtes** Geburtsdatum kennt, als wenn es ein zufälliges bekommt?"
+            },
+            {
+              "typ": "absatz",
+              "text": "Wir gehen ohne fertige Antwort in dieses Experiment. Das Ergebnis kann für jedes System anders ausfallen."
+            }
+          ]
+        },
+        {
+          "id": "ein_spiel_reicht_nicht",
+          "titel": "Warum ein einzelnes Spiel nicht reicht",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Ein einzelnes Ergebnis hängt stark vom Zufall ab – davon, wie du heute antwortest, und davon, welches der sieben Systeme gerade passt. Erst wenn viele Menschen spielen, mittelt sich dieser Zufall heraus. Dann zeigt sich, ob ein System im Durchschnitt besser abschneidet, als der Zufall erwarten lässt."
+            }
+          ]
+        },
+        {
+          "id": "was_wir_vergleichen",
+          "titel": "Was wir vergleichen",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "**Deine Selbsteinschätzung:** 16 Aussagen, die du für dich bewertest.",
+                "**Die Systeme:** sieben Traditionen, jeweils für dein Geburtsdatum berechnet.",
+                "**Die Kontrollgruppe:** dieselben Systeme für 100 zufällige andere Geburtstage. Sie zeigt, wie gut ein Horoskop „zufällig“ passen würde."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "daten",
+          "titel": "Was mit deinen Daten passiert",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "Du brauchst kein Konto.",
+                "Wir speichern dein Geburtsdatum, die Uhrzeit, deine Antworten und das Ergebnis – ohne deinen Namen.",
+                "Veröffentlicht werden nur zusammengefasste, anonyme Auswertungen über viele Spiele."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "selbsteinschaetzung",
+          "titel": "Wie ehrlich ist die Selbsteinschätzung?",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Niemand sieht sich selbst ganz objektiv. Das ist kein Fehler, sondern Teil des Experiments: Wir vergleichen die Systeme mit dem Bild, das Menschen von sich selbst haben. Weil alle Systeme an denselben Antworten gemessen werden, ist der Vergleich trotzdem fair."
+            }
+          ]
+        },
+        {
+          "id": "mitmachen",
+          "titel": "Mitmachen",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Jede Runde ist ein kleiner Baustein. Wenn du das Spiel teilst, wird das Experiment aussagekräftiger – und vielleicht entdeckst du dabei, wie unterschiedlich die Systeme dieselbe Person sehen."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

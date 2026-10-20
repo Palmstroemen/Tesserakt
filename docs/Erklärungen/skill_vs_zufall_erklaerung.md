@@ -74,7 +74,7 @@ also stabil, weil Geburtsdatum und Antwortmuster gleich bleiben – ueber die Au
 Erst ueber viele verschiedene Personen verteilen sich die Siege gleichmaessig (je ~1/7).
 Von einem Tag zum naechsten aendern sich die zeitabhaengigen Systeme praktisch nicht.
 
-Spielertext dazu: `skill_fuer_spieler.md`.
+Spielertext dazu: `docs/Textbausteine/erklaerungen/01_skill.md`.
 
 ---
 

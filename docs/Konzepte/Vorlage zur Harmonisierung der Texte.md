@@ -86,7 +86,7 @@ Formulierungsregel fuer Texte:
 - Ranking als Orientierung erklaeren.
 - Skill als Kernmetrik kommunizieren; Fit als anschaulichen Zusatz.
 - Immer dazusagen, dass ein hoher Sieger-Skill auch ohne Aussagekraft normal ist und erst der
-  Durchschnitt ueber viele Spiele etwas zeigt (Spielertext: `docs/Erklärungen/skill_fuer_spieler.md`).
+  Durchschnitt ueber viele Spiele etwas zeigt (Spielertext: `docs/Textbausteine/erklaerungen/01_skill.md`).
 
 ---
 
