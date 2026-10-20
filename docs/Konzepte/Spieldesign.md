@@ -11,12 +11,13 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 - Nutzer beantworten Fragen zu Persoenlichkeit und (spaeter) Zeitfenstern/Beziehungen.
 - Mehrere Systeme werden gegen Selbsteinschaetzung verglichen.
-- Eine Kontrollgruppe (`KO`) prueft, ob Systeme besser als Zufall abschneiden.
+- Jedes System wird zusaetzlich fuer zufaellige andere Geburtsdaten berechnet (Kontrollgruppe je System).
+  So wird geprueft, ob das eigene Geburtsdatum besser passt als ein beliebiges.
 
 ### 1.1 Kernziele
 
 - **Unterhaltung**: persoenliches Ergebnis und interaktives Feedback.
-- **Aufklaerung**: transparente Unterschiede zwischen Systemen inklusive KO.
+- **Aufklaerung**: transparente Unterschiede zwischen Systemen und ehrlicher Umgang mit Zufallstreffern.
 - **Forschung**: anonymisierte, aggregierte Auswertung ueber viele Sessions.
 
 **Status:** MVP + langfristig  
@@ -56,20 +57,23 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 ### 3.1 Primare Metriken
 
-- **Fit (absolut)**: absolute Naehe zur Selbsteinschaetzung.
-- **Skill vs Zufall**: Leistung relativ zur Zufalls-Baseline.
-- **Delta zu KO**: Abstand eines Systems zu KO in Fit und Skill.
+- **Skill** (Kernmetrik): `2 * (Perzentil - 50)`, Skala -100..+100, 0 = Zufallsniveau.
+- **Perzentil**: Anteil von 100 zufaelligen anderen Geburtsdaten, deren Horoskop desselben Systems
+  schlechter zu den Antworten passt als das eigene.
+- **Fit (absolut)**: absolute Naehe zur Selbsteinschaetzung (anschaulicher Zusatzwert).
 
 ### 3.2 Bewertungsprinzip
 
 1. Fehler wird pro Frage aus Nutzerwert und Systemwert berechnet.
-2. Gewichtung erfolgt ueber Dimensionsabdeckung/Fragegewicht.
-3. Nicht abgedeckte Dimensionen werden fuer ein System nicht unfaier gewertet.
-4. KO ist Vergleichsanker und wird immer am Tabellenende angezeigt.
+2. Gewichtung erfolgt ueber Dimensionsabdeckung/Fragegewicht (`backend/fragen.json`).
+3. Derselbe Fehler wird fuer jedes Kontroll-Geburtsdatum berechnet; daraus folgt das Perzentil.
+4. Ohne Aussagekraft liegt Skill je System im Mittel bei 0; der Sieger von 7 Systemen
+   erreicht trotzdem im Mittel ~+75. Das wird im Ergebnis erklaert.
 
-### 3.3 Nicht mehr als Leitmetrik
+### 3.3 Nicht mehr verwendet
 
-- `Rank-Score` wird nicht als primaere Kommunikationsmetrik gefuehrt.
+- `Rank-Score` als primaere Kommunikationsmetrik.
+- KO (gemeinsame Zufalls-Kontrollgruppe), "Skill vs Zufall" mit Baseline 2/3 und "Delta zu KO".
 
 **Status:** MVP live  
 **Abhaengigkeiten:** Rating-Logik, Matrix, Ergebnis-UI
@@ -82,9 +86,9 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 1. Geburtsdaten eingeben.
 2. Spiel waehlen (A spielbar, B/C als coming soon).
-3. Systeme waehlen (Default: Westlich, Bazi, Numerologie; erweiterbar).
-4. Fragen beantworten (Spiel A, randomisierte Reihenfolge).
-5. Ergebnisse mit Fit/Skill/KO-Deltas anzeigen.
+3. Systeme waehlen (Default: alle Systeme; einzelne abwaehlbar).
+4. Fragen beantworten (Spiel A, randomisierte Reihenfolge); dabei rechnet das Backend die Kontrollgruppe.
+5. Ergebnisse nach Skill anzeigen (mit Perzentil, Fit und Hinweis zum Gewinner-Effekt).
 
 **Status:** MVP live  
 **Abhaengigkeiten:** Frontend Flow, API Endpunkte, Persistenz
@@ -109,7 +113,6 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 - Arabisch
 - Hellenistisch
 - Vedisch
-- KO (Kontrollgruppe, keine Weissagelogik)
 
 Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidung angepasst werden, intern bleibt die Benennung konsistent.
 
@@ -118,11 +121,13 @@ Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidu
 
 ---
 
-## 6. Kontrollgruppe (KO)
+## 6. Kontrollgruppe (je System)
 
-- KO erzeugt deterministische Zufallswerte (reproduzierbar).
-- KO wird als methodischer Vergleichsanker gefuehrt.
-- Aufklaerung ueber KO bleibt fester Teil des didaktischen Designs.
+- Jedes System wird fuer 100 zufaellige andere Geburtsdaten berechnet (+-5 Jahre, gleiche Uhrzeit,
+  gleicher Ort, gleiches Geschlecht/Name), reproduzierbar per Seed aus der `session_id`.
+- Die Kontrollvektoren werden nicht gespeichert, nur Perzentil und Skill (plus Parameter zur Reproduktion).
+- Aufklaerung ueber den Vergleich mit anderen Geburtsdaten und den Gewinner-Effekt bleibt fester
+  Teil des didaktischen Designs (`docs/Erklärungen/skill_fuer_spieler.md`).
 
 **Status:** MVP live  
 **Abhaengigkeiten:** Backend-Seedlogik, Ergebnisdarstellung
@@ -143,7 +148,7 @@ Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidu
 
 ## 8. Roadmap (kompakt)
 
-- **Phase 1 (MVP):** stabiler Spiel-A-Flow, transparente Metriken, KO-Vergleich.
+- **Phase 1 (MVP):** stabiler Spiel-A-Flow, transparente Metriken, Kontrollgruppe je System.
 - **Phase 2:** Gamification/Freischaltungen, Zeitmodus B.
 - **Phase 3:** Beziehungsspiel C inkl. optionaler Verknuepfungen und erweiterten Modulen.
 
@@ -154,7 +159,7 @@ Hinweis: Der oeffentliche Name fuer "Vedisch" kann spaeter als Produktentscheidu
 
 ## 9. Was gilt jetzt
 
-- Verbindliche Referenz fuer Terminologie und Metriken ist `harmonisierung_vorlage.md`.
+- Verbindliche Referenz fuer Terminologie und Metriken ist `Vorlage zur Harmonisierung der Texte.md`.
 - Diese Datei ersetzt `spieldesign.docx` als aktive Arbeitsgrundlage.
 - DOCX bleibt Archivquelle und wird nicht mehr redaktionell fortgefuehrt.
 

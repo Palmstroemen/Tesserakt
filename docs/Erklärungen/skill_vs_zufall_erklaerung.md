@@ -66,6 +66,16 @@ Skill_bester = 100 * (k - 1) / (k + 1)
 Ein einzelner hoher Wert beim Sieger ist also normal. Aussagekraeftig ist erst der Mittelwert ueber viele Sessions:
 liegt er fuer ein System deutlich ueber 0, ist das ein Befund. Siehe auch `warum_oft_ein_gewinner.md`.
 
+**Wiederholtes Spielen derselben Person** (Simulation, 400 Personen, ohne Aussagekraft):
+Spielt dieselbe Person am naechsten Tag mit leicht anderen Antworten erneut, gewinnt in **63 %**
+der Faelle wieder dasselbe System (nur neue Kontroll-Geburtsdaten, gleiche Antworten: 86 %).
+Der Skill eines Systems korreliert zwischen den beiden Spielen mit 0.89. Der Sieger einer Person ist
+also stabil, weil Geburtsdatum und Antwortmuster gleich bleiben – ueber die Aussagekraft sagt das nichts.
+Erst ueber viele verschiedene Personen verteilen sich die Siege gleichmaessig (je ~1/7).
+Von einem Tag zum naechsten aendern sich die zeitabhaengigen Systeme praktisch nicht.
+
+Spielertext dazu: `skill_fuer_spieler.md`.
+
 ---
 
 ## 5. Speicherung und Reproduzierbarkeit

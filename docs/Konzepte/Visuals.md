@@ -7,7 +7,7 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 ## 1. Gemeinsamer Rahmen (alle Systeme)
 
 - Header: Systemname, kurzer Kontextsatz, Datenqualitaet (Geburtszeit genau/ungenau)
-- Kernaussage: Fit (absolut), Zufallsvorteil (oder Skill vs Zufall), Delta zu KO
+- Kernaussage: Skill (mit Perzentil), Fit (absolut)
 - Hauptvisual: systemspezifisch (nicht ueberall Kreis)
 - Detailtabs: Grundlage, Interpretation, Methodik
 - Footer-Hinweis: Vergleichsmetrik basiert auf Antworten, nicht auf objektiver Wahrheit
@@ -98,9 +98,9 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ## 3. Ergebnis-Screen: empfohlene Reihenfolge
 
-1. Gesamtranking (Fit, Zufallsvorteil, Delta zu KO)
+1. Gesamtranking (Skill, Perzentil, Fit; Hinweis zum Gewinner-Effekt)
 2. Systemkarte pro System (einheitlicher Header + systemspezifische Hauptvisualisierung)
-3. Methodik-Sektion (inklusive KO-Aufklaerung)
+3. Methodik-Sektion (Vergleich mit anderen Geburtsdaten, `docs/Erklärungen/skill_fuer_spieler.md`)
 4. Unsicherheit/Genauigkeit (z. B. Geburtszeit fehlt)
 
 ---
@@ -110,7 +110,7 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 Jedes System liefert mindestens:
 
 - `systemId`, `displayName`
-- `scores`: `fit`, `randomAdvantage`, `deltaFitToKO`, `deltaRandomAdvantageToKO`
+- `scores`: `skill`, `perzentil`, `fit`
 - `qualityFlags`: `birthTimeKnown`, `modelType`
 - `visualPayload`: system-spezifische Datenstruktur
 - `explanation`: 2-4 Saetze + optional Longform

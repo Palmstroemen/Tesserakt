@@ -10,8 +10,9 @@
 Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Menschen treffen.
 
 - Vergleich mehrerer Systeme unter identischen Fragen.
-- Kontrollgruppe (`KO`) als deterministische Zufalls-Baseline.
-- Ergebnisfokus auf **Fit (absolut)** und **Skill vs Zufall**.
+- Kontrollgruppe je System: dasselbe System fuer 100 zufaellige andere Geburtsdaten.
+- Ergebnisfokus auf **Skill** (0 = Zufallsniveau, +-100 = besser/schlechter als alle Kontroll-Geburtsdaten).
+- Forschungsfrage: Liegt der durchschnittliche Skill eines Systems ueber viele Sessions deutlich ueber 0?
 
 **Status:** MVP live (Spiel A), Erweiterungen geplant  
 **Abhaengigkeiten:** Backend-Rating, Fragenkatalog, Ergebnis-UI
@@ -23,7 +24,7 @@ Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Men
 ## 2.1 Spiel A - Persoenlichkeit
 
 - 1 Person, Geburtsdaten, Frageflow.
-- Ergebnis als Systemvergleich inkl. KO.
+- Ergebnis als Systemvergleich nach Skill.
 
 **Status:** MVP live  
 **Abhaengigkeiten:** Frontend-Flow, Vektor-API, Session-Speicherung
@@ -50,11 +51,15 @@ Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Men
 
 1. Pro Frage wird ein Fehler zwischen Nutzerwert und Systemwert berechnet.
 2. Gewichtet wird nur dort, wo das System die Dimension sinnvoll abdeckt.
-3. Primare Metriken:
-   - **Fit (absolut)**
-   - **Skill vs Zufall**
-   - **Delta Fit/Skill zu KO**
-4. KO ist methodischer Vergleichsanker und erscheint in Rankings immer zuletzt.
+3. Derselbe Fehler wird fuer 100 Kontroll-Geburtsdaten desselben Systems berechnet.
+4. Primare Metriken:
+   - **Skill** = `2 * (Perzentil - 50)` (Kernmetrik)
+   - **Perzentil**
+   - **Fit (absolut)** als anschaulicher Zusatz
+
+Simulation (3000 Personen, `tools/skill_metric_test.py`): Ohne Aussagekraft liegt Skill je System
+im Mittel bei 0 (SD ~58), jedes System gewinnt ~1/7 der Spiele, der Sieger erreicht im Mittel ~+75.
+Haette ein System schwache echte Aussagekraft (Korrelation 0.2), laege sein Mittel bei ~+38.
 
 Nicht als Kernmetrik kommunizieren:
 - `Rank-Score`
@@ -70,7 +75,7 @@ Das Produkt soll gleichzeitig:
 
 - neugierig machen,
 - Unterschiede zwischen Systemen sichtbar machen,
-- und methodisch aufklaeren (inkl. KO und Grenzen der Aussagekraft).
+- und methodisch aufklaeren (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt, Grenzen der Aussagekraft).
 
 Tonalitaet:
 - respektvoll gegenueber kulturellen Traditionen,
@@ -123,7 +128,7 @@ Hinweis:
 
 - Systembeschreibungen ohne Karikatur/Klischee.
 - Historische und kulturelle Herkunft korrekt benennen.
-- KO nicht als "Entwertung", sondern als methodischer Vergleich kommunizieren.
+- Die Kontrollgruppe nicht als "Entwertung", sondern als methodischen Vergleich kommunizieren.
 
 **Status:** fortlaufend  
 **Abhaengigkeiten:** Redaktion, Quellenpflege
@@ -133,8 +138,7 @@ Hinweis:
 ## 8. Decision Backlog
 
 1. Oeffentliche Produktbezeichnung fuer "Vedisch" final festlegen.
-2. Storyname fuer KO final festlegen (falls nicht rein als KO angezeigt).
-3. Rolle von Humoraltypen final festlegen (Meta-System vs Zusatzanalyse).
+2. Rolle von Humoraltypen final festlegen (Meta-System vs Zusatzanalyse).
 
 **Status:** offen  
 **Abhaengigkeiten:** Product, Research, Content
@@ -145,7 +149,7 @@ Hinweis:
 
 - Dieses Dokument beschreibt die Experimentlogik produktnah und konsistent zur SSOT.
 - Langform-Ideen zu visuellen Spezialeffekten gelten als Inspirationspool, nicht als MVP-Scope.
-- Verbindliche Begriffe und Metriken sind in `harmonisierung_vorlage.md` festgelegt.
+- Verbindliche Begriffe und Metriken sind in `Vorlage zur Harmonisierung der Texte.md` festgelegt.
 
 Eine Webseite, die aufgrund des eingegebenen Geburtsdatums und der eingegebenen Geburtszeit mehre Horoskope erstellt.
 

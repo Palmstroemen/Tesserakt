@@ -11,8 +11,8 @@
 Dieses Dokument beschreibt den **Gamification-Ausbau** fuer Spiel A.
 
 - Es erweitert den bestehenden MVP-Flow.
-- Es ersetzt nicht die Kernmetriken (Fit/Skill/KO), sondern inszeniert sie.
-- Es ist mit der SSOT (`harmonisierung_vorlage.md`) abgestimmt.
+- Es ersetzt nicht die Kernmetriken (Skill/Perzentil/Fit), sondern inszeniert sie.
+- Es ist mit der SSOT (`Vorlage zur Harmonisierung der Texte.md`) abgestimmt.
 
 **Status:** Phase 2  
 **Abhaengigkeiten:** Frontend-Flow, Content, Telemetrie
@@ -37,12 +37,13 @@ Nebenwirkung:
 
 In allen Zwischen- und Endansichten gelten:
 
+- **Skill** (Kernmetrik, 0 = Zufallsniveau)
+- **Perzentil**
 - **Fit (absolut)**
-- **Skill vs Zufall**
-- **Delta zu KO** (Fit/Skill)
 
-KO-Regel:
-- KO ist methodischer Vergleichsanker und bleibt im finalen Ranking immer unten.
+Gewinner-Regel:
+- Wo ein Sieger gezeigt wird, auch zeigen, welchen Skill der Sieger ohne Aussagekraft erreichen wuerde
+  (bei 7 Systemen ~+75).
 
 Nicht als primare Anzeige:
 - `Rank-Score`
@@ -85,7 +86,7 @@ Empfehlung:
 5. Hellenistisch
 6. Arabisch
 7. Vedisch
-8. Finale: gesamtes Ranking inkl. KO-Aufklaerung
+8. Finale: gesamtes Ranking inkl. Aufklaerung (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt)
 
 Hinweis:
 - Die finale Reihenfolge bleibt ein Product-Entscheid.
@@ -100,13 +101,13 @@ Hinweis:
 Jede Freischaltung nutzt denselben Rahmen:
 
 1. **Kurzkontext** (2-4 Saetze, neutral).
-2. **System-Teilresultat** (mit Fit/Skill-Teilaspekt).
+2. **System-Teilresultat** (mit Skill-Teilaspekt).
 3. **Weiterer Anreiz** (naechste Freischaltung).
 
 Didaktikstufen:
 - Stufe 1: neutral und erklaerend.
 - Stufe 2: erste Unterschiede/Widersprueche.
-- Stufe 3: methodische Aufklaerung mit KO.
+- Stufe 3: methodische Aufklaerung (Kontrollgruppe, Gewinner-Effekt).
 
 **Status:** Phase 2  
 **Abhaengigkeiten:** Contentredaktion, UI-Komponenten
@@ -121,7 +122,7 @@ Didaktikstufen:
 
 Wichtig:
 - Konfidenz steuert **nur** Freischaltungen.
-- Ranking basiert weiterhin auf Fit/Skill/KO.
+- Ranking basiert weiterhin auf Skill.
 
 **Status:** Phase 2  
 **Abhaengigkeiten:** Fragen-Mapping, Telemetrie, A/B-Tests
@@ -143,8 +144,7 @@ Wichtig:
 ## 9. Offene Entscheidungen
 
 1. Finale Systemreihenfolge fuer Variante B.
-2. KO-Storyname im Reveal (falls nicht nur "Kontrollgruppe").
-3. Umfang pro Freischaltseite (Text vs Visualisierung).
+2. Umfang pro Freischaltseite (Text vs Visualisierung).
 
 **Status:** offen  
 **Abhaengigkeiten:** Product, Content, Research
@@ -154,6 +154,6 @@ Wichtig:
 ## 10. Was gilt jetzt
 
 - Dieses Dokument beschreibt den geplanten Gamification-Ausbau, nicht den aktuellen MVP.
-- Verbindliche Metrik- und Begriffsdefinitionen kommen aus `harmonisierung_vorlage.md`.
-- Alle Freischaltungsmechaniken muessen Fit/Skill/KO konsistent darstellen.
+- Verbindliche Metrik- und Begriffsdefinitionen kommen aus `Vorlage zur Harmonisierung der Texte.md`.
+- Alle Freischaltungsmechaniken muessen Skill/Perzentil/Fit konsistent darstellen.
 

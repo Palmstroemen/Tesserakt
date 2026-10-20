@@ -11,7 +11,7 @@
 Spiel C vergleicht die erlebte Beziehungsqualitaet mit einer berechneten 2-Personen-Kompatibilitaet.
 
 Kernfrage:
-> Welche Systeme treffen Beziehungsqualitaet am besten - und schlagen sie KO?
+> Welche Systeme treffen Beziehungsqualitaet am besten - und besser als zufaellige andere Geburtsdaten?
 
 **Status:** Phase 3  
 **Abhaengigkeiten:** Datenmodell C, Regelwerke, UI-Flow, Consent
@@ -26,7 +26,7 @@ Kernfrage:
 | Fokus | Persoenlichkeit | Zeitfenster | Kompatibilitaet |
 | Zeitbezug | Natal | Rueckblick | Natal |
 | Datenbasis | Geburtsdaten + Antworten | Geburtsdaten + Zeitfragen | Geburtsdaten beider + Beziehungsfragen |
-| KO | Ja | Ja | Ja |
+| Kontrollgruppe je System | Ja | Ja (geplant) | Ja (geplant) |
 
 Hinweis:
 - Spiel C ist eigenstaendig nutzbar.
@@ -39,18 +39,21 @@ Hinweis:
 
 ## 3. Verbindliche Metrik-Policy fuer Spiel C
 
-Auch in Spiel C gelten dieselben Kernmetriken:
+Auch in Spiel C sollen dieselben Kernmetriken wie in Spiel A gelten:
 
+- **Skill** = `2 * (Perzentil - 50)` gegen eine Kontrollgruppe je System
+- **Perzentil**
 - **Fit (absolut)**
-- **Skill vs Zufall**
-- **Delta zu KO** (Fit/Skill)
 
 Regeln:
 - Bewertung pro Frage anhand Nutzerantwort vs Systemwert.
 - Gewichtung nur auf sinnvoll abgedeckten Dimensionen.
-- KO bleibt methodischer Vergleichsanker und wird im Ranking immer zuletzt angezeigt.
+- Kontrollgruppe: offen, ob zufaellige Geburtsdaten fuer Person B, fuer beide Personen oder
+  zufaellige Paare verwendet werden (Decision Backlog).
 
-**Status:** verbindlich (Designvorgabe)  
+Stand: Der Prototyp (`frontend/src/logic/partnerRating.js`) nutzt noch die alte Baseline-Metrik.
+
+**Status:** verbindlich (Designvorgabe), Umsetzung offen  
 **Abhaengigkeiten:** C-Ratinglogik, Ergebnis-UI
 
 ---
@@ -81,7 +84,7 @@ Regeln:
 - Geburtsdaten A/B
 - Consent-Flags
 - Abschlussstatus und Antwortanzahl
-- Ergebnisstruktur fuer Systemvergleich inkl. KO
+- Ergebnisstruktur fuer Systemvergleich (Skill, Perzentil, Fit je System)
 
 **Status:** Phase 3 Must-have  
 **Abhaengigkeiten:** DB-Migration, API-Modelle, Validierung
@@ -94,7 +97,7 @@ Regeln:
 
 - Differenzvektor als Basis pro Dimension.
 - Einfacher Kompatibilitaetsscore je System.
-- Gesamtranking mit Fit/Skill/KO-Deltas.
+- Gesamtranking nach Skill (mit Perzentil und Fit).
 
 ## 5.2 Phase 3b (erweitert)
 
@@ -148,6 +151,7 @@ Pflichtprinzipien:
 2. Wann wird Aspekte/Synastrie zugeschaltet?
 3. Wird Humoraltypen in C als gleichrangiges System oder als Zusatzanalyse gezeigt?
 4. Welcher oeffentliche Name soll fuer "Vedisch" verwendet werden?
+5. Wie wird die Kontrollgruppe fuer Paare gebildet (Person B variieren, beide, oder zufaellige Paare)?
 
 **Status:** offen  
 **Abhaengigkeiten:** Product, Research, Content
@@ -157,6 +161,6 @@ Pflichtprinzipien:
 ## 9. Was gilt jetzt
 
 - Spiel C ist konzeptionell vorbereitet, aber nicht live.
-- Begriffe und Metriken sind identisch zu A/B gemaess `harmonisierung_vorlage.md`.
+- Begriffe und Metriken sind identisch zu A/B gemaess `Vorlage zur Harmonisierung der Texte.md`.
 - Dieses Dokument trennt verbindliche Must-haves (3a) von spaeteren Erweiterungen (3b/4).
 

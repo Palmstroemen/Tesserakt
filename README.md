@@ -1,7 +1,7 @@
 # Tesserakt
 
 **Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
-Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Metriken: Fit (absolut) und Skill vs. Zufall (KO als Kontrollgruppe). Intern: Bewertungen und Vektoren auf Skala -1..+1.
+Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufaellige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklaerung: `docs/Erklärungen/skill_fuer_spieler.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
 
 Fullstack-Projekt mit klarer Trennung zwischen:
 
@@ -14,13 +14,13 @@ Fullstack-Projekt mit klarer Trennung zwischen:
 
 | Spiel | Beschreibung | Status |
 |-------|--------------|--------|
-| **A** | Persoenlichkeit – 1 Person, 16 Fragen, Systemvergleich inkl. KO | MVP live |
+| **A** | Persoenlichkeit – 1 Person, 16 Fragen, Systemvergleich nach Skill | MVP live |
 | **B** | Prognose/Zeit – Rueckblick auf vergangene Zeitfenster | Phase 2 |
 | **C** | Beziehung – 2-Personen-Kompatibilitaet | In Arbeit |
 
 ## Systeme
 
-Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – plus KO (Kontrollgruppe) intern fuer Delta-Metriken.
+Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – standardmaessig alle aktiv, einzeln abwaehlbar. Jedes System hat eine eigene Kontrollgruppe (zufaellige andere Geburtsdaten, Endpunkt `/kontrolle`).
 
 ## Projektstruktur
 

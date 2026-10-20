@@ -7,10 +7,9 @@
       "systemId": "westlich",
       "displayName": "Westlich",
       "scores": {
-        "fit": 67.4,
-        "randomAdvantage": 31.2,
-        "deltaFitToKO": 12.1,
-        "deltaRandomAdvantageToKO": 18.4
+        "skill": 36,
+        "perzentil": 68,
+        "fit": 67.4
       },
       "qualityFlags": {
         "birthTimeKnown": true,
@@ -78,10 +77,9 @@
       "systemId": "hellenistisch",
       "displayName": "Hellenistisch",
       "scores": {
-        "fit": 64.8,
-        "randomAdvantage": 27.3,
-        "deltaFitToKO": 9.5,
-        "deltaRandomAdvantageToKO": 14.2
+        "skill": 18,
+        "perzentil": 59,
+        "fit": 64.8
       },
       "qualityFlags": {
         "birthTimeKnown": true,
@@ -138,10 +136,9 @@
       "systemId": "bazi",
       "displayName": "Bazi",
       "scores": {
-        "fit": 62.0,
-        "randomAdvantage": 24.8,
-        "deltaFitToKO": 9.4,
-        "deltaRandomAdvantageToKO": 12.3
+        "skill": -6,
+        "perzentil": 47,
+        "fit": 62.0
       },
       "qualityFlags": {
         "birthTimeKnown": false,

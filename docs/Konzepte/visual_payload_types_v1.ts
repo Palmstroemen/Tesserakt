@@ -25,10 +25,9 @@ export interface SystemVisualEntryV1 {
 }
 
 export interface ScoreBlock {
+  skill: number | null; // 2 * (perzentil - 50), -100..+100, 0 = Zufallsniveau
+  perzentil: number | null; // 0..100, Anteil schlechter passender Kontroll-Geburtsdaten
   fit: number;
-  randomAdvantage: number;
-  deltaFitToKO: number;
-  deltaRandomAdvantageToKO: number;
 }
 
 export interface QualityFlags {

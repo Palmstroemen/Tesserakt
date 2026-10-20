@@ -53,9 +53,9 @@ Damit werden Logik und Sprachform getrennt und spaetere Sprachen leichter erweit
     }
   ],
   "confidence": {
-    "fit": 68.2,
-    "randomAdvantage": 31.4,
-    "deltaToKO": 14.1
+    "skill": 36,
+    "perzentil": 68,
+    "fit": 68.2
   },
   "safety": {
     "hedgingLevel": "medium",
