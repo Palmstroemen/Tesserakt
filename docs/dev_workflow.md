@@ -44,8 +44,9 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 
 ## QA / Diagnose-Checks
 
-- Random-Baseline fuer Scoring (Fit + Skill):
-  - `python3 tools/random_baseline_test.py --runs 5000 --seed 42`
+- Skill-Metrik (perzentil_v1) unter Nullhypothese + Sensitivitaet, mit Mittelwert/SD je System:
+  - `python3 tools/skill_metric_test.py --runs 2000 --cache tools/output/skill_sim.json`
+  - Dauer ca. 4 min fuer 2000 Personen (8 Prozesse); `--cache` spart die Neuberechnung bei weiteren Laeufen
 - System-Coverage und Neutralitaetsdiagnose:
   - `python3 tools/system_diagnostics.py --runs 1200 --seed 42`
 - Fokusdiagnose auf ein Systemset:
