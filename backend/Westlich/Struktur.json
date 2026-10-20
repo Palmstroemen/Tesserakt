@@ -11,8 +11,8 @@
       "typ": "nach_zeichen",
       "eingabe": "sonnenzeichen",
       "dim_feld": "dimensionen_vektor",
-      "gewicht": 0.5,
-      "pflicht": false
+      "gewicht": 1.0,
+      "pflicht": true
     },
     {
       "id": "planet_fallback",
@@ -33,6 +33,25 @@
       "dim_feld": "vektor",
       "gewicht": 0.6,
       "gewicht_abnahme": 0.1,
+      "gewicht_minimum": 0.2,
+      "pflicht": false
+    },
+    {
+      "id": "natal_aspekte",
+      "schluessel": "planet_planet_aspekte",
+      "typ": "natal_aspekte",
+      "dim_feld": "vektor",
+      "gewicht": 0.45,
+      "gewicht_abnahme": 0.05,
+      "gewicht_minimum": 0.2,
+      "pflicht": false
+    },
+    {
+      "id": "planeten_in_haeusern",
+      "typ": "planeten_in_haeusern",
+      "dim_feld": "vektor",
+      "gewicht": 0.5,
+      "gewicht_abnahme": 0.03,
       "gewicht_minimum": 0.2,
       "pflicht": false
     }
