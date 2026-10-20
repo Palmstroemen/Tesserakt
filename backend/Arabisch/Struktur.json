@@ -13,7 +13,61 @@
       "zyklus_jahre": 75,
       "dim_feld": "dimensionen_vektor",
       "gewicht": 1,
-      "pflicht": true
+      "pflicht": true,
+      "reihenfolge_tag": [
+        "sonne",
+        "venus",
+        "merkur",
+        "mond",
+        "saturn",
+        "jupiter",
+        "mars",
+        "nordknoten",
+        "suedknoten"
+      ],
+      "reihenfolge_nacht": [
+        "mond",
+        "saturn",
+        "jupiter",
+        "mars",
+        "sonne",
+        "venus",
+        "merkur",
+        "nordknoten",
+        "suedknoten"
+      ]
+    },
+    {
+      "id": "unter_firdaria_aktiv",
+      "schluessel": "unter_firdaria",
+      "typ": "unter_firdaria",
+      "eingabe": "lebensalter_exakt",
+      "zyklus_jahre": 75,
+      "reihenfolge_tag": [
+        "sonne",
+        "venus",
+        "merkur",
+        "mond",
+        "saturn",
+        "jupiter",
+        "mars",
+        "nordknoten",
+        "suedknoten"
+      ],
+      "reihenfolge_nacht": [
+        "mond",
+        "saturn",
+        "jupiter",
+        "mars",
+        "sonne",
+        "venus",
+        "merkur",
+        "nordknoten",
+        "suedknoten"
+      ],
+      "dim_feld": "dimensionen_vektor",
+      "gewicht": 0.6,
+      "pflicht": false
     },
     {
       "id": "lot_glueck",

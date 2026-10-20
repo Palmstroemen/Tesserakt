@@ -526,6 +526,7 @@ def build_inputs(
         "aktueller_pinnacle_zahl": pinnacle_zahl,
         "zieldatum":              target_date,
         "geburts_stunde":         birth_date.hour,
+        "tag_geburt":             6 <= birth_date.hour + birth_date.minute / 60.0 < 18,
         "geburts_tag_des_jahres": birth_date.timetuple().tm_yday,
         "geburtsjahr":             birth_date.year,
         "pfad_index":              int((birth_date.timetuple().tm_yday - 1) * 22 / 365) % 22,
@@ -755,20 +756,45 @@ def handle_gematria_namensanalyse(quelle: dict, rules: dict, inputs: dict) -> Di
     container = rules.get(quelle.get("schluessel", "namensanalyse_hebraeisch"), {}).get("dimensionen_vektor_namensanalyse", {})
     return extract_dims(container, quelle.get("dim_feld", "vektor"))
 
-def handle_firdaria(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+def _firdaria_periode(quelle: dict, rules: dict, inputs: dict) -> Optional[Tuple[str, float, float]]:
+    """Aktive Haupt-Firdaria: (planet, startalter, dauer). Reihenfolge nach Sekt (Tag: Sonne zuerst, Nacht: Mond)."""
     # Firdaria-Perioden zaehlen ab Geburt in Jahren, daher Alter mit Nachkommastellen
     alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0))
-    zyklus = quelle.get("zyklus_jahre", 75)
-    position = alter % zyklus
-    container = rules.get(quelle["schluessel"], {})
-    laufzeit = 0
-    for key, data in container.items():
-        if key in ("beschreibung","quelle"): continue
-        dauer = data.get("dauer_jahre", 0)
+    position = alter % quelle.get("zyklus_jahre", 75)
+    tag = inputs.get("tag_geburt", True)
+    reihenfolge = quelle.get("reihenfolge_tag" if tag else "reihenfolge_nacht", [])
+    haupt = rules.get("haupt_firdaria", {})
+    laufzeit = 0.0
+    for planet in reihenfolge:
+        dauer = float(haupt.get(planet, {}).get("dauer_jahre", 0))
         if laufzeit + dauer > position:
-            return extract_dims(data, quelle.get("dim_feld","dimensionen_vektor"))
+            return planet, laufzeit, dauer
         laufzeit += dauer
-    return {}
+    return None
+
+def handle_firdaria(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    periode = _firdaria_periode(quelle, rules, inputs)
+    if not periode:
+        return {}
+    data = rules.get(quelle["schluessel"], {}).get(periode[0], {})
+    return extract_dims(data, quelle.get("dim_feld", "dimensionen_vektor"))
+
+def handle_unter_firdaria(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Unter-Firdaria: Hauptdauer / 7, beginnend mit dem Hauptherrscher im Zyklus der sieben Planeten
+    (Al-Biruni). Mondknoten-Perioden haben keine Unterperioden. Vektoren aus den Tag-Kombinationen."""
+    periode = _firdaria_periode(quelle, rules, inputs)
+    if not periode or periode[0] in ("nordknoten", "suedknoten"):
+        return {}
+    planet, start, dauer = periode
+    alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0)) % quelle.get("zyklus_jahre", 75)
+    zyklus = [p for p in quelle.get("reihenfolge_tag", []) if p not in ("nordknoten", "suedknoten")]
+    if planet not in zyklus:
+        return {}
+    n = min(6, int((alter - start) / (dauer / 7.0)))
+    unter = zyklus[(zyklus.index(planet) + n) % len(zyklus)]
+    kombis = rules.get(quelle["schluessel"], {}).get("qualitaets_matrix", {}).get("kombinationen_tag_horoskop", {})
+    data = kombis.get(f"{planet}_hauptperiode", {}).get(f"{planet}_{unter}", {})
+    return extract_dims(data, quelle.get("dim_feld", "dimensionen_vektor"))
 
 def handle_profektionen(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     alter = inputs.get("lebensalter", 0)
@@ -957,6 +983,7 @@ HANDLER = {
     "nach_planet_herrscher": handle_nach_planet_herrscher,
     "transit":               handle_transit,
     "natal_aspekte":         handle_natal_aspekte,
+    "unter_firdaria":        handle_unter_firdaria,
     "planeten_in_haeusern":  handle_planeten_in_haeusern,
     "nach_day_master":       handle_nach_day_master,
     "nach_branch":           handle_nach_branch,
