@@ -23,7 +23,7 @@
 
 1. **Spiel A fertigstellen (zuerst)**
    - [x] Selbsteinschaetzung-Slider: Initialwert von 3 auf 1 stellen (Durchklicken ohne Anpassung liefert dann schlechteren Skill bei neutralen Vektoren; echte Uebereinstimmung 5/5 oder 1/1 bleibt hoher Skill).
-   - [ ] Ergebnisseite erweitern: Horoskop-Diagramme (Westlich/Hellenistisch/Bazi als Basistypen)
+   - [x] Ergebnisseite erweitern: Horoskop-Diagramme (alle 7 Systeme in den Deutungs-Tabs; E2E geprueft 20.10.2026)
    - [x] Ausformulierte Horoskoptexte je System integrieren (Tabs + system_texts_v1.json)
    - [ ] Erklaertexte einbauen: Horoskopmethodik + wissenschaftliches Experiment + Skill/Gewinner-Effekt (Text liegt in `docs/Erklärungen/skill_fuer_spieler.md`)
    - [ ] DoD A: End-to-End stabil (Eingabe -> Fragen -> Ergebnis inkl. Visuals/Texte/Erklaerung)
