@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Horoskop Assessment
+Tesserakt
 ===================
 Stellt Fragen zu 8 Lebensbereichen (je 2 pro Bereich), vergleicht die
 Selbsteinschätzung des Users mit den Vorhersagen von 7 Weissagungssystemen,
@@ -711,7 +711,7 @@ def zeige_gesamtauswertung(session: RatingSession, geladen: List[str],
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Horoskop Assessment — welches System trifft dich am besten?"
+        description="Tesserakt — welches System trifft dich am besten?"
     )
     parser.add_argument("--geburt",  type=str, default=None,
                         help="Geburtsdatum im Format YYYY-MM-DD (z.B. 1985-03-15)")
@@ -725,7 +725,7 @@ def parse_args() -> argparse.Namespace:
 def frage_geburtsdatum() -> datetime:
     """Interaktive Abfrage von Geburtsdatum und -uhrzeit."""
     print(f"\n{DOPPELLINIE}")
-    print(f"{BOLD}  HOROSKOP ASSESSMENT{RESET}")
+    print(f"{BOLD}  Tesserakt{RESET}")
     print(f"  Welches Weissagungssystem trifft dich am besten?")
     print(DOPPELLINIE)
     print()

@@ -7,6 +7,7 @@ Berechnet pro System einen kumulativen Fehler — am Ende ein Rating welches
 System die Selbsteinschätzung am besten getroffen hat.
 
 Mathematik:
+  Selbsteinschätzung und Systemwerte intern auf Skala -1..+1.
   Für jede Frage f und jedes System s:
     fehler(s,f) = (selbsteinschätzung(f) - system_wert(s,f))²  [oder Absolutwert]
 
@@ -104,13 +105,13 @@ class RatingSession:
 
         Parameters:
             dimension:           z.B. "finanzen"
-            selbsteinschaetzung: User-Wert 1-5
-            system_werte:        {"Westlich": 2.8, "Arabisch": 3.5, ...}
+            selbsteinschaetzung: User-Wert -1..+1
+            system_werte:        {"Westlich": 0.2, "Arabisch": 0.5, ...}
                                  Schlüssel können Systemnamen oder Kürzel sein
             frage_text:          optional, für Protokoll
         """
         assert dimension in DIMENSIONS, f"Unbekannte Dimension: {dimension}"
-        assert 1 <= selbsteinschaetzung <= 5, "Selbsteinschätzung muss 1-5 sein"
+        assert -1 <= selbsteinschaetzung <= 1, "Selbsteinschätzung muss -1..+1 sein"
 
         # Kürzel → Systemname normalisieren
         normiert = {}
@@ -354,46 +355,46 @@ if __name__ == "__main__":
         {
             "frage":               "Ich bin geschickt in finanziellen Angelegenheiten.",
             "dimension":           "finanzen",
-            "selbsteinschaetzung": 2.0,
+            "selbsteinschaetzung": -0.5,
             "system_werte": {
-                "Westlich":2.8, "Bazi":3.5, "Numerologie":2.3,
-                "Kabbalah":3.0, "Arabisch":3.5, "Hellenistisch":3.2, "Vedisch":2.9
+                "Westlich": -0.1, "Bazi": 0.25, "Numerologie": -0.35,
+                "Kabbalah": 0.0, "Arabisch": 0.25, "Hellenistisch": 0.1, "Vedisch": -0.05
             }
         },
         {
             "frage":               "Ich bin ein kreativer Mensch.",
             "dimension":           "kreativitaet",
-            "selbsteinschaetzung": 4.5,
+            "selbsteinschaetzung": 0.75,
             "system_werte": {
-                "Westlich":4.2, "Numerologie":3.8, "Kabbalah":4.1
+                "Westlich": 0.6, "Numerologie": 0.4, "Kabbalah": 0.55
                 # Bazi, Arabisch, Hellenistisch, Vedisch fehlen → kein Beitrag
             }
         },
         {
             "frage":               "Ich bin gerne unter Menschen.",
             "dimension":           "soziales",
-            "selbsteinschaetzung": 3.0,
+            "selbsteinschaetzung": 0.0,
             "system_werte": {
-                "Westlich":2.5, "Numerologie":3.2,
-                "Arabisch":2.8, "Hellenistisch":3.1
+                "Westlich": -0.25, "Numerologie": 0.1,
+                "Arabisch": -0.1, "Hellenistisch": 0.05
             }
         },
         {
             "frage":               "Ich bin ehrgeizig und karriereorientiert.",
             "dimension":           "beruf",
-            "selbsteinschaetzung": 4.0,
+            "selbsteinschaetzung": 0.5,
             "system_werte": {
-                "Westlich":3.8, "Bazi":4.2, "Numerologie":3.5,
-                "Kabbalah":3.0, "Arabisch":4.0, "Hellenistisch":3.9, "Vedisch":4.1
+                "Westlich": 0.4, "Bazi": 0.6, "Numerologie": 0.25,
+                "Kabbalah": 0.0, "Arabisch": 0.5, "Hellenistisch": 0.45, "Vedisch": 0.55
             }
         },
         {
             "frage":               "Spirituelle Themen sind wichtig für mich.",
             "dimension":           "spiritualitaet",
-            "selbsteinschaetzung": 4.0,
+            "selbsteinschaetzung": 0.5,
             "system_werte": {
-                "Westlich":3.5, "Numerologie":4.2,
-                "Kabbalah":4.5, "Vedisch":3.8
+                "Westlich": 0.25, "Numerologie": 0.6,
+                "Kabbalah": 0.75, "Vedisch": 0.4
             }
         },
     ]
@@ -412,7 +413,7 @@ if __name__ == "__main__":
     print("─" * 65)
     for i, f in enumerate(session.protokoll(), 1):
         print(f"\n{i}. {f['frage']}")
-        print(f"   Selbsteinschätzung: {f['selbsteinschaetzung']}/5  |  Dimension: {f['dimension']}")
+        print(f"   Selbsteinschätzung: {f['selbsteinschaetzung']:+.1f} (-1..+1)  |  Dimension: {f['dimension']}")
         print(f"   {'System':<14} {'Wert':>5}  {'Fehler²':>8}  {'Gewicht':>8}  {'Gewicht.Fehler':>14}")
         print(f"   {'─'*14} {'─'*5}  {'─'*8}  {'─'*8}  {'─'*14}")
         for s in SYSTEME:

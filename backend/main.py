@@ -31,7 +31,7 @@ from rule_engine import (
 from store import compare_group, init_db, persist_session
 from horoskop_assessment import FRAGEN
 
-app = FastAPI(title="Horoskop Assessment API", version="0.1.0")
+app = FastAPI(title="Tesserakt API", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?$",
@@ -55,6 +55,7 @@ class VektorRequest(BaseModel):
     latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (fuer Placidus-Haeuser)")
     longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
     geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
+    geschlecht: Optional[str] = Field(default=None, description="weiblich | maennlich | keine Angabe")
 
 
 class VektorResponse(BaseModel):
@@ -200,6 +201,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             bazi_hour_stem=bazi_hour_stem,
             bazi_hour_branch=bazi_hour_branch,
             geburtsname=payload.geburtsname,
+            geschlecht=payload.geschlecht,
         )
     else:
         inputs = build_inputs(
@@ -208,6 +210,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             bazi_hour_stem=bazi_hour_stem,
             bazi_hour_branch=bazi_hour_branch,
             geburtsname=payload.geburtsname,
+            geschlecht=payload.geschlecht,
         )
     # Vedisch: nakshatra, Vimshottari position, and activated Yogas from ephemeris when available
     if ephemeris_result and "Vedisch" in payload.systeme:
@@ -250,10 +253,22 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             inputs_female = {**inputs, "luck_pillar_stem": female_stem, "luck_pillar_branch": female_branch}
             vektoren["Bazi_male"] = _compute_system_vector("Bazi", inputs_male)
             vektoren["Bazi_female"] = _compute_system_vector("Bazi", inputs_female)
+            # Single "Bazi" key for UI/rating: use one pillar if gender given, else average
+            if payload.geschlecht == "maennlich":
+                vektoren["Bazi"] = dict(vektoren["Bazi_male"])
+            elif payload.geschlecht == "weiblich":
+                vektoren["Bazi"] = dict(vektoren["Bazi_female"])
+            else:
+                dims = set(vektoren["Bazi_male"]) | set(vektoren["Bazi_female"])
+                vektoren["Bazi"] = {
+                    d: (vektoren["Bazi_male"].get(d, 0) + vektoren["Bazi_female"].get(d, 0)) / 2
+                    for d in dims
+                }
             continue
         vektoren[system_name] = _compute_system_vector(system_name, inputs)
 
     response_inputs = _serialize_inputs(inputs)
+    response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
     response_inputs["ko_seed_schema"] = "sha256(session_id:frage_id)"
 

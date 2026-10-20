@@ -73,6 +73,32 @@ def neutral_vector() -> Dict[str, float]:
 def clamp(v: float) -> float:
     return round(min(1.0, max(-1.0, v)), 2)
 
+# Nach additivem Blending kann die Rohsumme theoretisch bis ~4.5 gehen (Bazi).
+# Skalierung auf [-1, 1]: Rohwert / ADDITIVE_SCALE_DIVISOR, dann clamp.
+# 4.5 -> 1, ein einzelner Anker (1.0) -> ~0.22 (recht positiv, nicht perfekt).
+ADDITIVE_SCALE_DIVISOR = 4.5
+
+# ── Interpretationsskala (Auswertung / Formulierung) ───────────────────────────
+# Wegen additiver Skalierung sind schon kleine |Werte| deutliche Signale.
+# 0.25 = ein klarer Treffer (z.B. eine starke Regel) → Formulierung: "deutlich/stark"
+# (z.B. "du hast großes Geschick in …"), nicht "gewisses, schwach ausgeprägtes".
+# Schwellen: |v| >= HIGH → stark/deutlich;  MEDIUM <= |v| < HIGH → gewisses/mittleres;  |v| < MEDIUM → kaum/schwach.
+INTERPRETATION_THRESHOLD_HIGH = 0.2   # ab |0.2|: klare, selbstbewusste Aussage (high)
+INTERPRETATION_THRESHOLD_MEDIUM = 0.1 # 0.1..0.2: gewisses/mittleres (medium); darunter: low
+
+def vector_value_to_strength_band(value: float) -> str:
+    """
+    Mappt skalierten Dimensionswert (-1..1) auf Stärke-Band für Formulierung/Textauswahl.
+    Entspricht der additiven Skala: 0.25 z.B. → "high" (deutlich/stark), nicht "low".
+    Returns: "high" | "medium" | "low"
+    """
+    abs_v = abs(float(value))
+    if abs_v >= INTERPRETATION_THRESHOLD_HIGH:
+        return "high"
+    if abs_v >= INTERPRETATION_THRESHOLD_MEDIUM:
+        return "medium"
+    return "low"
+
 # Optionale Kalibrierung pro Dimension (offset + multiplier), lazy geladen
 _kalibrierung_cache: Optional[dict] = None
 
@@ -122,12 +148,22 @@ def _apply_kalibrierung(vector: Dict[str, float], system_name: Optional[str] = N
     return result
 
 def blend(base: Dict, overlay: Dict, gewicht: float) -> Dict:
-    """Mischt overlay in base mit gegebenem Gewicht."""
+    """
+    Mischt overlay in base. Wenn base noch neutral (alles 0): ersetzend, damit
+    die erste Quelle mit gewicht 1.0 den Vektor voll setzt.
+    Sonst additiv ohne Normierung: result = base + gewicht*overlay. Clamp erst
+    am Ende in compute_vector, damit Transite/Aspekte etc. sich wirklich addieren
+    und nicht zur Mitte ziehen.
+    """
+    base_is_neutral = all(base.get(d, 0.0) == 0.0 for d in DIMENSIONS)
     result = {}
     for d in DIMENSIONS:
         b = base.get(d, 0.0)
         o = overlay.get(d, 0.0)
-        result[d] = clamp(b * (1 - gewicht) + o * gewicht)
+        if base_is_neutral:
+            result[d] = clamp(b * (1 - gewicht) + o * gewicht)
+        else:
+            result[d] = b + gewicht * o
     return result
 
 def _rule_value_to_signed(v: float) -> float:
@@ -364,13 +400,15 @@ def build_inputs(
     bazi_hour_stem: Optional[str] = None,
     bazi_hour_branch: Optional[str] = None,
     geburtsname: Optional[str] = None,
+    geschlecht: Optional[str] = None,
 ) -> dict:
     """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
     Wenn ephemeris_sonnenzeichen gesetzt ist (z.B. aus Swiss Ephemeris Sonnenposition),
     wird es für sonnenzeichen verwendet; sonst Datumsgrenzen.
     radix_planets/radix_aspects: von build_radix_wheel (planets, aspects) für Westlich.
     bazi_day_branch/bazi_hour_stem/bazi_hour_branch: aus build_four_pillars für Bazi.
-    geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit)."""
+    geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit).
+    geschlecht: weiblich | maennlich für Arabisch (Lot der Ehe), Bazi, Vedisch."""
     ys, yb = year_pillar(birth_date.year)
     ms, mb = month_pillar(birth_date.year, birth_date.month)
     ds_val  = day_stem(birth_date)
@@ -419,11 +457,14 @@ def build_inputs(
     if bazi_hour_branch is not None:
         base["geburts_hour_branch"] = bazi_hour_branch
     if geburtsname is not None and geburtsname.strip():
+        base["geburtsname"] = geburtsname.strip()
         nums = name_to_numerology(geburtsname)
         if nums:
             base["seelendrang_zahl"] = nums["seelendrang_zahl"]
             base["ausdrucks_zahl"] = nums["ausdrucks_zahl"]
             base["persoenlichkeits_zahl"] = nums["persoenlichkeits_zahl"]
+    if geschlecht in ("weiblich", "maennlich"):
+        base["geschlecht"] = geschlecht
     return base
 
 
@@ -853,11 +894,19 @@ HANDLER = {
 
 # ── Kern-Berechnung ────────────────────────────────────────────────────────────
 
-def compute_vector(struktur: dict, rules: dict, inputs: dict, system_name: Optional[str] = None) -> Dict[str, float]:
+def compute_vector(
+    struktur: dict,
+    rules: dict,
+    inputs: dict,
+    system_name: Optional[str] = None,
+    track_contributions: Optional[Dict[str, bool]] = None,
+) -> Dict[str, float]:
     """
     Berechnet Vektor für ein System anhand seiner Struktur.json.
     Iteriert durch vektor_quellen, ruft Handler auf, blendet Ergebnisse.
     system_name optional für systemweite Kalibrierung (z. B. Westlich, Bazi).
+    track_contributions: wenn gesetzt, wird pro Quell-ID eingetragen, ob sie einen
+    nicht-verschwindenden Overlay geliefert hat (mind. eine Dimension != 0).
     """
     base = neutral_vector()
     hat_werte = False
@@ -882,6 +931,10 @@ def compute_vector(struktur: dict, rules: dict, inputs: dict, system_name: Optio
         if quelle.get("nur_wenn_leer", False) and hat_werte:
             continue
 
+        if track_contributions is not None:
+            qid = quelle.get("id", "?")
+            track_contributions[qid] = any(dims.get(d, 0.0) != 0.0 for d in DIMENSIONS)
+
         # Transit-Handler gibt bereits gemischten Vektor zurück
         if typ == "transit":
             base = blend(base, dims, gewicht)
@@ -890,7 +943,8 @@ def compute_vector(struktur: dict, rules: dict, inputs: dict, system_name: Optio
 
         hat_werte = True
 
-    result = {d: clamp(base[d]) for d in DIMENSIONS}
+    # Rohsumme auf [-1, 1] skalieren (theoretisches Max ~4.5), dann clamp
+    result = {d: clamp(base[d] / ADDITIVE_SCALE_DIVISOR) for d in DIMENSIONS}
     result = _apply_kalibrierung(result, system_name=system_name)
     return result
 
