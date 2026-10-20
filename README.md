@@ -1,20 +1,37 @@
 # Tesserakt
 
-Horoskop-Assessment als Fullstack-Projekt mit klarer Trennung zwischen:
+**Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
+Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Metriken: Fit (absolut) und Skill vs. Zufall (KO als Kontrollgruppe). Intern: Bewertungen und Vektoren auf Skala -1..+1.
 
-- `backend/` (FastAPI, Rule Engine, Systemdaten)
-- `frontend/` (React UI + Hooks + Logikmodule)
+Fullstack-Projekt mit klarer Trennung zwischen:
+
+- `backend/` (FastAPI, Rule Engine, Ephemeris, Chart-Berechnung)
+- `frontend/` (React + Vite, Hooks, Logikmodule)
+- `content/` (Horoskop-Texte, Systemtexte je Spiel)
 - `db/` (Schema, Migrationen, Views)
+
+## Spiele
+
+| Spiel | Beschreibung | Status |
+|-------|--------------|--------|
+| **A** | Persoenlichkeit – 1 Person, 16 Fragen, Systemvergleich inkl. KO | MVP live |
+| **B** | Prognose/Zeit – Rueckblick auf vergangene Zeitfenster | Phase 2 |
+| **C** | Beziehung – 2-Personen-Kompatibilitaet | In Arbeit |
+
+## Systeme
+
+Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – plus KO (Kontrollgruppe) intern fuer Delta-Metriken.
 
 ## Projektstruktur
 
 ```text
 /
-├── backend/
-├── frontend/
-├── db/
-├── docs/
-├── tools/
+├── backend/          # FastAPI, Rule Engine, Chart-Module (*_chart.py)
+├── frontend/        # React + Vite, Komponenten, Hooks, Logik
+├── content/         # Horoskop-Texte (system_texts_v1.json je Spiel)
+├── db/              # Schema, Migrationen, Views
+├── docs/            # Konzepte, Erklaerungen, dev_workflow
+├── tools/           # Diagnose, Kalibrierung, Tests (random_baseline, etc.)
 ├── archive/
 ├── ToDo.md
 └── Tesserakt.code-workspace
@@ -23,23 +40,17 @@ Horoskop-Assessment als Fullstack-Projekt mit klarer Trennung zwischen:
 ## Wo finde ich was?
 
 - `backend/`
-  - Python-Referenzlogik und Engines (`horoskop_assessment.py`, `rating_engine.py`, `rule_engine.py`)
-  - Systemordner mit Regeln (`Westlich/`, `Bazi/`, `Numerologie/`, weitere)
-- `frontend/`
-  - React-Basisstruktur in `frontend/src/`
-  - UI-Komponenten in `frontend/src/components/`
-  - Hooks in `frontend/src/hooks/`
-  - Reine Logik in `frontend/src/logic/`
-- `db/`
-  - Datenbankschema-Dokumente und SQL-Migrationen
-- `docs/`
-  - Konzeptionelle Unterlagen (`docs/konzepte/`)
-  - Projektplaene (`docs/Projektpläne/`)
-  - Sonstige Doku/Artefakte
+  - Engines: `horoskop_assessment.py`, `rating_engine.py`, `rule_engine.py`
+  - Chart-Module: `chart.py`, `bazi_chart.py`, `vedisch_chart.py`, `hellenistisch_chart.py`, etc.
+  - Systemordner mit Regeln: `Westlich/`, `Bazi/`, `Numerologie/`, `Kabbalah/`, `Arabisch/`, `Hellenistisch/`, `Vedisch/`
+- `frontend/src/`
+  - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
+  - Hooks: `useVektoren`, `useRating`
+  - Logik: `rating.js`, `questions.js`, `partnerQuestions.js`, `partnerRating.js`
+- `content/horoscope/de/`
+  - Systemtexte fuer Spiel A und Spiel C
 - `tools/`
-  - Hilfsskripte fuer Analyse/Diagnose
-- `archive/`
-  - Alte/temporare oder aktuell nicht aktive Dateien
+  - `random_baseline_test.py`, `system_diagnostics.py`, `vector_value_histogram.py`, etc.
 
 ## Workspace
 

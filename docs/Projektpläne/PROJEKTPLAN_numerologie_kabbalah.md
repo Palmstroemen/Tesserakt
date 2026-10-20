@@ -8,7 +8,7 @@
 
 Beide Systeme werden analog zum westlichen Regelwerk strukturiert:
 - Gleiche 8 Dimensionen: `liebe`, `beruf`, `finanzen`, `gesundheit`, `soziales`, `kreativitaet`, `veraenderung`, `spiritualitaet`
-- Gleiche Skala: 1–5
+- Gleiche Skala intern: -1..+1 (Vektoren und Bewertungen; Quellregeln werden beim Laden gemappt)
 - Gleiche JSON-Struktur mit `_meta`, Quellenangaben, und `dimensionen_vektor`
 - **Eingabe:** Geburtsdaten (für Numerologie: Datum + Name; für Kabbalah: Datum + hebräische Buchstaben-Entsprechungen)
 

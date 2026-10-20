@@ -1,6 +1,6 @@
 # ToDo
 
-Umsetzungsreihenfolge fuer das MVP:
+## MVP (erledigt)
 
 - [x] Backend aufsetzen: FastAPI, `/vektor`-Endpunkt, Rule Engine aus `horoskop_assessment.py` extrahieren, Systeme als Unterordner laden
 - [x] KO-Kontrollgruppe umsetzen: serverseitig, reproduzierbar per Seed
@@ -11,11 +11,18 @@ Umsetzungsreihenfolge fuer das MVP:
 - [x] DB-Anbindung umsetzen: `/session`-Endpunkt + PostgreSQL
 - [x] Materialized View + `pg_cron` einrichten: naechtlicher Refresh
 
+## Prototyp (bereits umgesetzt)
+
+- [x] Runtime-Texte nach `/content/horoscope/de`, Systemtexte als JSON, Backend `/horoscope/texts`
+- [x] Ergebnisseite: Deutungs-Tabs je System (nur gewaehlte Systeme), Platzhalter Wissenschaftslink
+- [x] KO in der UI ausblenden (nur intern fuer Delta-Metriken), Spiel-neu-starten-Button
+
 ## Naechste Reihenfolge (formaler Prototyp)
 
 1. **Spiel A fertigstellen (zuerst)**
+   - [x] Selbsteinschaetzung-Slider: Initialwert von 3 auf 1 stellen (Durchklicken ohne Anpassung liefert dann schlechteren Skill bei neutralen Vektoren; echte Uebereinstimmung 5/5 oder 1/1 bleibt hoher Skill).
    - [ ] Ergebnisseite erweitern: Horoskop-Diagramme (Westlich/Hellenistisch/Bazi als Basistypen)
-   - [ ] Ausformulierte Horoskoptexte je System integrieren
+   - [x] Ausformulierte Horoskoptexte je System integrieren (Tabs + system_texts_v1.json)
    - [ ] Erklaertexte einbauen: Horoskopmethodik + wissenschaftliches Experiment + KO
    - [ ] DoD A: End-to-End stabil (Eingabe -> Fragen -> Ergebnis inkl. Visuals/Texte/Erklaerung)
 
@@ -28,3 +35,7 @@ Umsetzungsreihenfolge fuer das MVP:
    - [ ] Basis-Kompatibilitaetsflow fuer zwei Personen aufsetzen (ohne komplexe Synastrie zuerst)
    - [ ] Consent/Datenschutz-Flow fuer zweite Person sauber integrieren
    - [ ] DoD C: lauffaehiger Minimal-Flow mit robusten Edge-Case-Checks
+
+## Ideen / Backlog
+
+- [ ] **Wertungsverhalten (Varianz) ermitteln und Feedback:** Varianz der Selbsteinschaetzungen pro Person berechnen; bei niedriger Varianz (viele neutrale Bewertungen rund um 3) auf der Ergebnisseite Hinweis geben, dass hohe Skill-Werte in solchen Faellen weniger aussagekraeftig sein koennten – gerade unentschlossene Nutzer koennten sonst in „neutralen“ Konstellationen leicht hohe Skill-Werte erzielen und das als Bestaetigung lesen.

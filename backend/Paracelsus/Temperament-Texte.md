@@ -1,6 +1,6 @@
 ## Alle vier Temperamente × drei Ebenen
 
-_Horoskop Assessment — Spiel A: Persönlichkeit_ _Version 1.0 · Februar 2026_
+_Tesserakt — Spiel A: Persönlichkeit_ _Version 1.0 · Februar 2026_
 
 ---
 

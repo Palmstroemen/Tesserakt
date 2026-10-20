@@ -1,7 +1,7 @@
 # Humoraltypen als Meta-System — Projektplan
 ## Option 3: Übersetzungsschicht über allen 7 Systemen
 
-*Horoskop Assessment — Spiel A: Persönlichkeit*
+*Tesserakt — Spiel A: Persönlichkeit*
 *Version 1.0 · Februar 2026*
 
 ---

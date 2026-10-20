@@ -1,7 +1,7 @@
 # Harmonisierungsvorlage Konzepte (A/B/C)
 ## Single Source of Truth (SSOT)
 
-*Horoskop Assessment - Konsolidierungsvorlage*  
+*Tesserakt - Konsolidierungsvorlage*  
 *Stand: Februar 2026*
 
 ---

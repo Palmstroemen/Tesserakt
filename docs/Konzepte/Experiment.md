@@ -1,4 +1,4 @@
-# Horoskop Assessment - Experiment und Produktbild
+# Tesserakt - Experiment und Produktbild
 
 *Harmonisierte Fassung*  
 *Stand: Februar 2026*

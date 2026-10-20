@@ -2571,7 +2571,7 @@ Die Schatulle verschenkt ihr Wissen. Wer es halten will, bezahlt für das Papier
 
 Das ist keine Monetarisierung. Das ist Poesie in Geschäftsform.
 
-Nur "Schatulle" ist kein Name für so etwas. "Horoskop Assessment" auch nicht. 
+Nur "Schatulle" ist kein Name für so etwas. "Tesserakt" auch nicht. 
 "Tesserakt" vielleicht schon eher...
 Tesserakt.
 

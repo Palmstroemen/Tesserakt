@@ -1,7 +1,7 @@
 # Spiel C - Beziehungshoroskop
 ## Konzept und Datenmodell (harmonisiert)
 
-*Horoskop Assessment - Drittes Spiel*  
+*Tesserakt - Drittes Spiel*  
 *Stand: Februar 2026*
 
 ---

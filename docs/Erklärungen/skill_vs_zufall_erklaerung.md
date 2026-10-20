@@ -26,12 +26,12 @@ Die Berechnung laeuft auf dem mittleren quadratischen Fehler (MSE):
 2. Ueber alle Fragen:
    - gewichteter Mittelwert der Fehler = `MSE`
 3. Vergleich mit Zufalls-Baseline:
-   - `RANDOM_BASELINE_MSE = 8/3`
+   - `RANDOM_BASELINE_MSE = 2/3`
 
 Dann:
 
 ```text
-skill_raw = 100 * (1 - MSE / (8/3))
+skill_raw = 100 * (1 - MSE / (2/3))
 skillScore = max(0, skill_raw)
 ```
 
@@ -39,13 +39,13 @@ Die `max(0, ...)`-Kappung ist der Grund, warum keine negativen Werte angezeigt w
 
 ---
 
-## 3. Warum genau 8/3?
+## 3. Warum genau 2/3?
 
-Die Antworten und Systemwerte liegen auf der 1-5 Skala.  
-Wenn zwei Werte unabhaengig zufaellig aus `U(1,5)` kommen, gilt:
+Die Antworten und Systemwerte liegen intern auf der Skala -1..+1.  
+Wenn zwei Werte unabhaengig zufaellig aus `U(-1,1)` kommen, gilt:
 
 ```text
-E[(X - Y)^2] = 8/3
+E[(X - Y)^2] = 2/3
 ```
 
 Das ist der erwartete MSE von "reinem Zufall gegen Zufall" und dient als Nullpunkt.
@@ -87,20 +87,20 @@ Damit sieht man schnell, ob ein System den Kontrollanker in der konkreten Runde 
 
 Beispiel A:
 
-- `MSE = 1.0`
-- `skill_raw = 100 * (1 - 1.0 / 2.6667) = 62.5`
+- `MSE = 0.25`
+- `skill_raw = 100 * (1 - 0.25 / (2/3)) = 62.5`
 - `Skill vs Zufall = 62.5`
 
 Beispiel B:
 
-- `MSE = 2.6667`
+- `MSE = 2/3` (Zufallsniveau)
 - `skill_raw = 0`
 - `Skill vs Zufall = 0`
 
 Beispiel C:
 
-- `MSE = 3.2`
-- `skill_raw = -20` -> wird gekappt
+- `MSE = 1.0` (schlechter als Zufall)
+- `skill_raw = -50` -> wird gekappt
 - `Skill vs Zufall = 0` (in aktueller UI)
 
 ---

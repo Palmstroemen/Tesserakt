@@ -1,4 +1,4 @@
-# Horoskop Assessment - Spieldesign, Regeln und Logiken
+# Tesserakt - Spieldesign, Regeln und Logiken
 
 *Konsolidierte Markdown-Fassung*  
 *Quelle: `spieldesign.docx` (Archiv), harmonisiert mit SSOT*
@@ -7,7 +7,7 @@
 
 ## 1. Vision und Ziele
 
-Horoskop Assessment verbindet Spielerlebnis mit Citizen-Science:
+Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 - Nutzer beantworten Fragen zu Persoenlichkeit und (spaeter) Zeitfenstern/Beziehungen.
 - Mehrere Systeme werden gegen Selbsteinschaetzung verglichen.
