@@ -100,7 +100,11 @@ export default function SpielB({ birthDate, birthTime, optionalName, optionalGen
   const [saved, setSaved] = useState(false);
 
   const basisBody = useMemo(() => {
-    const body = { geburtsdatum: birthDate, uhrzeit: birthTime, systeme: ["Westlich", "Bazi", "Hellenistisch", "Numerologie"] };
+    const body = {
+      geburtsdatum: birthDate,
+      uhrzeit: birthTime,
+      systeme: ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"],
+    };
     if (optionalName?.trim()) body.geburtsname = optionalName.trim();
     if (optionalGender === "weiblich" || optionalGender === "maennlich") body.geschlecht = optionalGender;
     return body;
@@ -248,8 +252,9 @@ export default function SpielB({ birthDate, birthTime, optionalName, optionalGen
           Test der Prognosen der Vergangenheit.
         </p>
         <p className="hint">
-          Mit dabei: Westlich, Bazi, Hellenistisch und Numerologie. Kabbalah, die arabische Firdaria und die
-          vedische Dasha beschreiben lange Lebensphasen, nicht einzelne Monate – sie spielen hier nicht mit.
+          Stell dir vor, du hättest dir vor einem Monat und vor drei Monaten ein Horoskop erstellen lassen. Hätte
+          es gestimmt? Manche Systeme beschreiben eher den einzelnen Monat, andere lange Lebensphasen – geprüft
+          wird beides.
         </p>
         {fehler ? <p className="error">{fehler}</p> : null}
         <button type="button" onClick={start} disabled={!katalog || !birthDate}>
@@ -356,7 +361,7 @@ export default function SpielB({ birthDate, birthTime, optionalName, optionalGen
 
       <section className="card">
         <h2>Dein Horoskop für heute</h2>
-        <p className="hint">Als Dank fürs Mitmachen: was die vier Systeme für deinen heutigen Tag sehen.</p>
+        <p className="hint">Als Dank fürs Mitmachen: was die Systeme für deinen heutigen Tag sehen.</p>
         <HoroskopHeute body={basisBody} />
         <button type="button" className="button-restart" onClick={onBack}>
           Zurück zur Spielauswahl

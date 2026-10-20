@@ -8,13 +8,15 @@
 
 ## 1. Zielbild
 
-Spiel B prueft die "Prognosen der Vergangenheit": Was haetten die Systeme fuer den letzten Monat
-und das letzte Quartal vorhergesagt - und hat die Person es so erlebt?
+Spiel B prueft die "Prognosen der Vergangenheit": Haette ein Horoskop gestimmt, das man sich vor einem
+Monat bzw. vor drei Monaten fuer diesen Zeitraum haette erstellen lassen? Das gilt auch dann, wenn es dem
+heutigen Horoskop sehr aehnlich ist.
 
 > Wir machen keine Prognosen fuer die Zukunft, sondern ueberpruefen die Prognosen der Vergangenheit.
 
-Unterschied zu Spiel A: A fragt nach der (stabilen) Persoenlichkeit, B nach **Veraenderungen in einem
-Zeitraum**.
+Unterschied zu Spiel A: A fragt nach der (stabilen) Persoenlichkeit, B nach dem **Erleben in einem
+Zeitraum** ("Hattest du in den letzten 30 Tagen eher Glueck in der Liebe?"). Gefragt wird nicht, ob
+sich etwas gegenueber heute veraendert hat.
 
 **Status:** Phase 2, Entwurf  
 **Abhaengigkeiten:** Fragenkatalog B, Backend (Zeitfenster-Vektoren), Rating
@@ -23,22 +25,28 @@ Zeitraum**.
 
 ## 2. Systeme in Spiel B (entschieden)
 
-Nur Systeme, deren Aussagen sich innerhalb von 30-100 Tagen tatsaechlich aendern:
+**Alle sieben Systeme.** Jedes System macht eine Aussage fuer den vergangenen Zeitraum - manche fuer den
+einzelnen Monat (Transite, persoenlicher Monat, Monatssaeule, Profektion), andere fuer lange Lebensphasen
+(Firdaria, Dasha, Kabbalah). Ob diese Aussage gestimmt hat, ist in beiden Faellen eine berechtigte Frage.
 
-| System | Veraenderung ueber 100 Tage* | in Spiel B |
+Wie stark sich das Horoskop eines Systems innerhalb von 100 Tagen aendert (relativ zur Streuung
+zwischen Personen, 500 simulierte Personen, Stand nach den Korrekturen Okt. 2026):
+
+| System | Aenderung | ueber 100 Tage geaendert bei |
 |---|---|---|
-| Bazi (laufender Monat/Jahr, Glueckssaeule) | 0.60 | ja |
-| Westlich (Transite) | 0.47 | ja |
-| Hellenistisch (Jahresprofektion, Transite) | 0.42 | ja |
-| Numerologie (persoenlicher Monat/Jahr) | 0.32 | ja |
-| Arabisch (Firdaria) | 0.03 | nein |
-| Vedisch (Dasha) | 0.04 | nein |
-| Kabbalah (rein natal) | 0 | nein |
+| Hellenistisch (Profektion, Transite) | 0.38 | 88 % |
+| Numerologie (persoenlicher Monat/Jahr) | 0.32 | 100 % |
+| Bazi (Sonnenmonat, Glueckssaeule) | 0.25 | 100 % |
+| Westlich (echte Transite) | 0.21 | 90 % |
+| Arabisch (Firdaria, Unter-Firdaria) | 0.11 | 19 % |
+| Vedisch (Mahadasha) | 0.04 | 2 % |
+| Kabbalah (natal) | 0 | 0 % |
 
-*Mittlere Aenderung je Dimension relativ zur Streuung zwischen Personen, 500 simulierte Personen
-(nach Korrektur des Lebensalters, Commit fa8f7e3).
+Systeme mit langen Phasen haben im Zeitraum meist keinen Ausschlag und stellen daher keine
+auffaelligen Fragen; gewertet werden sie wie alle anderen.
 
-Begruendung im Spiel: "Kabbalah, Firdaria und Dasha beschreiben lange Lebensphasen, nicht einzelne Monate."
+Historie: Ein frueherer Entwurf schloss Kabbalah, Arabisch und Vedisch aus, weil er Spiel B als Frage
+nach Veraenderungen verstand. Das war ein Missverstaendnis und ist korrigiert.
 
 ---
 

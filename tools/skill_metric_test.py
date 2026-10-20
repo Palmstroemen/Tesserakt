@@ -44,7 +44,7 @@ BACKEND_DIR = ROOT / "backend"
 FRAGEN_JSON = BACKEND_DIR / "fragen.json"
 
 SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"]
-SYSTEME_B = ["Westlich", "Bazi", "Hellenistisch", "Numerologie"]
+SYSTEME_B = list(SYSTEME)  # Spiel B: alle Systeme (Horoskop fuer den vergangenen Zeitraum)
 FRAGEN_B_JSON = ROOT / "backend" / "fragen_rueckblick.json"
 
 

@@ -112,8 +112,8 @@ Formulierungsregel fuer Texte:
 
 - Ziel: Rueckblick auf vergangene Zeitfenster (kein Zukunftsversprechen im Kern).
 - Daten: 1 Person, periodisierte Vektoren, Ereignisfragen.
-- Systeme: nur zeitabhaengige (Westlich, Bazi, Hellenistisch, Numerologie).
-- Logik: Systemwert = Aenderung des Vektors im Zeitfenster; Skill wie in A.
+- Systeme: alle sieben (Frage: Haette das Horoskop fuer den Zeitraum gestimmt?).
+- Logik: Systemwert = Horoskop des Zeitraums (Mittel ueber Stichproben-Tage); Skill wie in A, je Fenster.
 - Fragenauswahl darf nicht vom echten Horoskop abhaengen (verzerrt den Skill), siehe `Konzept Spiel B.md`.
 
 ## 6.3 Spiel C (Konzept verbindlich, Umsetzung spaeter)

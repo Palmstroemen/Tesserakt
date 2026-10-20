@@ -51,6 +51,28 @@
       "kontrolliert": "Der laufende Monat ({monat}) setzt deinen Tagesmeister ({dm}) unter Druck. Pflichten und Erwartungen von außen sind spürbar; Disziplin und klare Prioritäten helfen.",
       "beherrscht": "Dein Tagesmeister ({dm}) beherrscht den laufenden Monat ({monat}). Du kannst zugreifen und gestalten – Chancen auf Gewinn und Erfolg, wenn du deine Kräfte nicht überdehnst."
     },
+    "arabisch_firdaria": {
+      "sonne": "Du stehst in der Firdaria der Sonne – Jahre, in denen Rang, Anerkennung und deine öffentliche Rolle Gewicht haben. Heute zählt, wofür du sichtbar einstehst.",
+      "venus": "Du stehst in der Firdaria der Venus – Jahre der Beziehungen, der Freude und des Ausgleichs. Heute darf Schönes Raum bekommen.",
+      "merkur": "Du stehst in der Firdaria des Merkur – Jahre des Lernens, Handelns und Verhandelns. Heute lohnt sich ein klärendes Gespräch.",
+      "mond": "Du stehst in der Firdaria des Mondes – Jahre der Gefühle, der Familie und der Veränderung. Heute verdienen deine Bedürfnisse Aufmerksamkeit.",
+      "saturn": "Du stehst in der Firdaria des Saturn – Jahre der Verantwortung, Prüfungen und langsamen Erträge. Heute bringt Geduld mehr als Eile.",
+      "jupiter": "Du stehst in der Firdaria des Jupiter – Jahre des Wachstums, der Förderung und des Vertrauens. Heute lohnt sich ein großzügiger Blick.",
+      "mars": "Du stehst in der Firdaria des Mars – Jahre des Antriebs, des Wettbewerbs und mancher Konflikte. Heute ist Entschlossenheit gefragt, nicht Härte.",
+      "nordknoten": "Du stehst in der Firdaria des Nordknotens – eine kurze Phase, die Neues und Aufstieg begünstigt. Heute ist offen für Gelegenheiten.",
+      "suedknoten": "Du stehst in der Firdaria des Südknotens – eine kurze Phase des Loslassens. Heute fällt es leichter, Überholtes hinter dir zu lassen."
+    },
+    "vedisch_dasha": {
+      "ketu": "Deine Mahadasha ist die Ketu-Periode – eine Zeit der Loslösung und inneren Suche. Heute bringt Rückzug mehr Klarheit als Betriebsamkeit.",
+      "venus": "Deine Mahadasha ist die Venus-Periode – Jahre der Beziehungen, des Genusses und des Wohlstands. Heute darf Harmonie Vorrang haben.",
+      "sonne": "Deine Mahadasha ist die Sonnen-Periode – Jahre der Selbstbehauptung und Autorität. Heute ist ein Tag, um Verantwortung sichtbar zu übernehmen.",
+      "mond": "Deine Mahadasha ist die Mond-Periode – Jahre der Gefühle, des Zuhauses und der Fürsorge. Heute tut dir Vertrautes gut.",
+      "mars": "Deine Mahadasha ist die Mars-Periode – Jahre der Energie, des Mutes und des Durchsetzens. Heute lohnt sich tatkräftiges Handeln.",
+      "rahu": "Deine Mahadasha ist die Rahu-Periode – Jahre des Ehrgeizes und ungewöhnlicher Wege. Heute können unkonventionelle Ideen weiterführen.",
+      "jupiter": "Deine Mahadasha ist die Jupiter-Periode – Jahre der Weisheit, des Wachstums und guter Lehrer. Heute lohnt es sich, Rat zu suchen oder zu geben.",
+      "saturn": "Deine Mahadasha ist die Saturn-Periode – Jahre der Disziplin und harter, aber dauerhafter Arbeit. Heute bringt Beständigkeit dich weiter.",
+      "merkur": "Deine Mahadasha ist die Merkur-Periode – Jahre des Lernens, der Kommunikation und des Handels. Heute ist ein guter Tag für Austausch."
+    },
     "elemente": {
       "holz": "Holz",
       "feuer": "Feuer",

@@ -38,8 +38,7 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 ### 2.2 Spiel B - Prognose/Zeit
 
 - 1 Person, Rueckblick auf Zeitfenster (letzter Monat, letztes Quartal).
-- Nur zeitabhaengige Systeme: Westlich, Bazi, Hellenistisch, Numerologie (Kabbalah, Arabisch, Vedisch
-  beschreiben lange Lebensphasen und bleiben aussen vor).
+- Frage: Haette das Horoskop fuer den vergangenen Zeitraum gestimmt? Alle sieben Systeme spielen mit.
 - Nicht live; Konzept: `Konzept Spiel B.md`.
 
 **Status:** Phase 2/3  
