@@ -49,7 +49,9 @@
 html,
 body {
   margin: 0;
-  background: radial-gradient(circle at 50% 0%, #2a2018 0%, var(--sc-grund) 70%);
+  /* Grundplatte: Messing, etwas dunkler als die Faecherplatte, damit diese sich abhebt */
+  background: radial-gradient(circle at 50% 30%, #b8955a 0%, #9a7a45 50%, #6e5530 100%) fixed;
+  background-color: #8f6f3c;
   color: var(--sc-text);
   font-family: Georgia, "Times New Roman", serif;
   min-height: 100%;
@@ -154,7 +156,7 @@ body {
 
 .sc-hinweis {
   margin: 0;
-  color: var(--sc-text-leise);
+  color: #3a2a14; /* steht direkt auf der Messing-Grundplatte */
   font-size: 0.85rem;
   text-align: center;
   line-height: 1.4;
@@ -202,7 +204,7 @@ body {
 }
 
 .sc-fehler {
-  color: #ff9b8a;
+  color: #7a1a0e;
   margin: 0;
 }
 
@@ -368,28 +370,42 @@ body {
   stroke-width: 1.5;
 }
 
-.sp-hebelknauf {
-  fill: url(#sp-messing);
+/* Ausloesehebel: rechteckiger Messinggriff mit gravierten Griffrillen (wie der Wahlschalter) */
+.sp-hebelgriff {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
+}
+
+.sp-hebelgriff-koerper {
+  fill: #a8864c;
   stroke: #3a2c1a;
-  stroke-width: 2;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7));
+  stroke-width: 1.4;
 }
 
-.sp-hebelknauf.gesperrt {
-  filter: grayscale(0.6) brightness(0.7);
+.sp-hebelgriff-flaeche {
+  fill: #e2c27f;
+  stroke: #fbe7a8;
+  stroke-width: 0.7;
 }
 
-/* Sperrklinke: liegt quer im Hebelschlitz, solange der eigene Schieber in Ruhe steht */
-.sp-klinke {
-  fill: #9a3b2a;
-  stroke: #2b1510;
-  stroke-width: 1;
-  transform: rotate(-65deg);
-  transition: transform 0.18s ease-out;
+.sp-hebelgriff.gesperrt .sp-hebelgriff-flaeche {
+  fill: #c9a462;
 }
 
-.sp-klinke.zu {
-  transform: rotate(0deg);
+/* Sperrplaettchen: liegt hinter dem Hebelschlitz und schiebt sich seitlich hinein, solange der eigene
+   Schieber in Ruhe steht */
+.sp-sperre {
+  transform: translateX(15px);
+  transition: transform 0.25s ease-out;
+}
+
+.sp-sperre.zu {
+  transform: translateX(0);
+}
+
+.sp-sperre-plaettchen {
+  fill: #b8924a;
+  stroke: #4a3412;
+  stroke-width: 0.8;
 }
 
 .sp-zaehler {
@@ -1808,7 +1824,7 @@ body {
 
 .sp-frage-klein {
   margin: 0 0 4px;
-  color: var(--sc-text-leise);
+  color: #3a2a14;
   font-size: 0.9rem;
   text-align: center;
 }

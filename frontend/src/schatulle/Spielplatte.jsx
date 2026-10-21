@@ -796,35 +796,97 @@ export default function Spielplatte({
               height={HEBEL.weg + 52}
               fill="transparent"
             />
+            {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
+            <clipPath id="sp-hebelschlitz-form">
+              <rect
+                x={HEBEL.x - 7}
+                y={HEBEL.oben - 10}
+                width="14"
+                height={HEBEL.weg + 20}
+                rx="7"
+              />
+            </clipPath>
+            <g clipPath="url(#sp-hebelschlitz-form)">
+              <g className={gesperrt ? "sp-sperre zu" : "sp-sperre"}>
+                <rect
+                  x={HEBEL.x - 7}
+                  y={HEBEL.oben + 19}
+                  width="14"
+                  height="8"
+                  className="sp-sperre-plaettchen"
+                />
+                <line
+                  x1={HEBEL.x - 7}
+                  y1={HEBEL.oben + 22.4}
+                  x2={HEBEL.x + 7}
+                  y2={HEBEL.oben + 22.4}
+                  className="sp-griff-kerbe schatten"
+                />
+                <line
+                  x1={HEBEL.x - 7}
+                  y1={HEBEL.oben + 23.8}
+                  x2={HEBEL.x + 7}
+                  y2={HEBEL.oben + 23.8}
+                  className="sp-griff-kerbe licht"
+                />
+              </g>
+              {/* Schatten der Plattenkante auf dem Plaettchen */}
+              <rect
+                x={HEBEL.x - 7}
+                y={HEBEL.oben - 10}
+                width="14"
+                height="3"
+                fill="#000"
+                opacity="0.35"
+              />
+            </g>
+            {/* Griff: rechteckig, Messing, drei gravierte Griffrillen */}
             <g
-              className={gesperrt ? "sp-klinke zu" : "sp-klinke"}
-              style={{
-                transformOrigin: `${HEBEL.x + 15}px ${HEBEL.oben + 24}px`,
-              }}
+              transform={`translate(${HEBEL.x} ${knaufY})`}
+              className={gesperrt ? "sp-hebelgriff gesperrt" : "sp-hebelgriff"}
             >
               <rect
-                x={HEBEL.x - 10}
-                y={HEBEL.oben + 21}
-                width="27"
-                height="6"
-                rx="2"
+                x="-20"
+                y="-13"
+                width="40"
+                height="26"
+                rx="3"
+                className="sp-hebelgriff-koerper"
               />
-              <circle cx={HEBEL.x + 15} cy={HEBEL.oben + 24} r="4" />
+              <rect
+                x="-17"
+                y="-10"
+                width="34"
+                height="20"
+                rx="2"
+                className="sp-hebelgriff-flaeche"
+              />
+              {[-5, 0, 5].map((y) => (
+                <g key={y}>
+                  <line
+                    x1="-11"
+                    y1={y - 0.7}
+                    x2="11"
+                    y2={y - 0.7}
+                    className="sp-griff-kerbe schatten"
+                  />
+                  <line
+                    x1="-11"
+                    y1={y + 0.8}
+                    x2="11"
+                    y2={y + 0.8}
+                    className="sp-griff-kerbe licht"
+                  />
+                  <line
+                    x1="-11"
+                    y1={y}
+                    x2="11"
+                    y2={y}
+                    className="sp-griff-kerbe"
+                  />
+                </g>
+              ))}
             </g>
-            <line
-              x1={HEBEL.x}
-              y1={knaufY}
-              x2={HEBEL.x}
-              y2={knaufY - 4}
-              stroke="#2b2014"
-              strokeWidth="6"
-            />
-            <circle
-              cx={HEBEL.x}
-              cy={knaufY}
-              r="15"
-              className={gesperrt ? "sp-hebelknauf gesperrt" : "sp-hebelknauf"}
-            />
           </g>
 
           {/* Zaehler links unten im Quadrat */}
