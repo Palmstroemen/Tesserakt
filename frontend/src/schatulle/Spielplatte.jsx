@@ -820,27 +820,6 @@ export default function Spielplatte({
                   height={HEBEL.weg - 4}
                   className="sp-sperre-plaettchen"
                 />
-                {[0, 1, 2].map((i) => {
-                  const y = HEBEL.oben + 20 + i * 4;
-                  return (
-                    <g key={i}>
-                      <line
-                        x1={HEBEL.x - 7}
-                        y1={y - 0.6}
-                        x2={HEBEL.x + 7}
-                        y2={y - 0.6}
-                        className="sp-griff-kerbe schatten"
-                      />
-                      <line
-                        x1={HEBEL.x - 7}
-                        y1={y + 0.7}
-                        x2={HEBEL.x + 7}
-                        y2={y + 0.7}
-                        className="sp-griff-kerbe licht"
-                      />
-                    </g>
-                  );
-                })}
               </g>
               {/* Schatten der Plattenkante auf dem Plaettchen */}
               <rect
