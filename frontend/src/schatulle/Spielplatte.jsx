@@ -19,6 +19,8 @@ import {
 import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 
 const ALLE = SYSTEME.map((s) => s.id);
+// eingravierte Kuerzel links der Schlitze (Reihenfolge wie SYSTEME)
+const KUERZEL = ["Wes", "Chi", "Num", "Kab", "Arab", "Hel", "Ved"];
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
 const HEBEL = { x: 376, oben: 334, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
@@ -713,6 +715,47 @@ export default function Spielplatte({
                 </g>
               );
             })()}
+
+            {/* Kuerzel der Horoskope: links neben jedem Schlitz, auf der Verlaengerung des Bogens eingraviert */}
+            <g className="sp-pole sp-kuerzel">
+              {SYSTEME.map((sys, i) => {
+                const r = radien[i + 1];
+                const proU = 1 / (2 * theta * r); // u je viewBox-Einheit Weg auf diesem Bogen
+                const ende = -(symbol * 1.15 + 4) * proU; // vor dem Knopf in Ruhestellung
+                return (
+                  <path
+                    key={sys.id}
+                    id={`sp-kuerzelbogen-${i}`}
+                    d={bogenPfad(r, theta, ende - 70 * proU, ende)}
+                    fill="none"
+                  />
+                );
+              })}
+              {[
+                ["schatten", "translate(0 -0.6)"],
+                ["licht", "translate(0 0.8)"],
+                ["", undefined],
+              ].map(([art, verschiebung]) => (
+                <g
+                  key={art || "mitte"}
+                  transform={verschiebung}
+                  className={art}
+                >
+                  {KUERZEL.map((kurz, i) => (
+                    <text key={kurz} dy="0.35em">
+                      <textPath
+                        href={`#sp-kuerzelbogen-${i}`}
+                        xlinkHref={`#sp-kuerzelbogen-${i}`}
+                        startOffset="100%"
+                        textAnchor="end"
+                      >
+                        {kurz}
+                      </textPath>
+                    </text>
+                  ))}
+                </g>
+              ))}
+            </g>
 
             {/* Polbeschriftung: dem Bogen unter dem aeussersten Schlitz folgend in die Platte gepraegt */}
             {(() => {
