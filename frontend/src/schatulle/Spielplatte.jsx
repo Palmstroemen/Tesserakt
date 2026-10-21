@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import AnleitungDia from "./AnleitungDia";
+import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
 import {
   AUGE_RADIUS,
@@ -19,7 +20,7 @@ import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 const ALLE = SYSTEME.map((s) => s.id);
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
-const HEBEL = { x: 372, oben: 262, weg: 112 };
+const HEBEL = { x: 354, oben: 300, weg: 84 };
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
 
 function layoutAusFenster() {
@@ -39,7 +40,7 @@ function easeMechanisch(t) {
  * Mechanik siehe docs/Konzepte/Schatulle_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
  * onAntwort bekommt die Werte aller Systeme.
  */
-export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stummKnopf, kamera }) {
+export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, kamera, kameraInfo }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
 
@@ -107,6 +108,8 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
   useEffect(() => {
     if (videoRef.current) videoRef.current.srcObject = kamera ?? null;
   }, [kamera]);
+
+  const licht = useLichtmesser(videoRef, Boolean(kamera));
 
   // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen"
   useEffect(() => {
@@ -313,7 +316,17 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
   const diaText = (i) => {
     if (i < 0) return <AnleitungDia />;
     if (i >= fragen.length) return "";
-    return fragen[i].text;
+    return (
+      <>
+        <span>{fragen[i].text}</span>
+        {/* Fortschritt als Perlenreihe auf dem Dia: beantwortet, aktuell, offen */}
+        <span className="sp-perlen" aria-label={`Frage ${i + 1} von ${fragen.length}`}>
+          {fragen.map((f, k) => (
+            <i key={f.id} className={k < i ? "fertig" : k === i ? "jetzt" : ""} />
+          ))}
+        </span>
+      </>
+    );
   };
 
   let hinweis;
@@ -335,7 +348,6 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
 
   return (
     <main className="sp">
-      {stummKnopf}
       <div className="sp-buehne">
         <svg
           ref={svgRef}
@@ -445,15 +457,25 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
           </g>
 
           {/* Zaehler links unten im Quadrat */}
-          <text x="18" y="372" className="sp-zaehler">
-            {index < 0 ? "" : `${Math.min(index + 1, fragen.length)} / ${fragen.length}`}
-          </text>
         </svg>
 
         {/* Fragedia in der Linse: folgt beim Aufziehen dem Finger */}
         <div className="sp-linse" style={linse} aria-live="polite">
           {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
           {kamera ? <video ref={videoRef} className="sp-kamera" autoPlay muted playsInline /> : null}
+          {/* Prototyp: Messwerte, um echte Helligkeit trotz Belichtungsautomatik zu erkennen */}
+          {kamera ? (
+            <div className="sp-messung">
+              {kameraInfo}
+              {licht ? (
+                <>
+                  <br />
+                  B/s {licht.fps ?? "–"} · R {licht.rauschen.toFixed(1)}/
+                  {licht.rauschenZeit === null ? "–" : licht.rauschenZeit.toFixed(1)} · H {licht.hell.toFixed(0)}
+                </>
+              ) : null}
+            </div>
+          ) : null}
           <div className={index < 0 ? "sp-dia bild" : "sp-dia"} style={{ transform: `translateX(${-pos.dia * 115}%)` }}>
             {diaText(index)}
           </div>

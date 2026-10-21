@@ -14,7 +14,8 @@ export function faecherLayout(verfuegbareHoehe) {
   const radien = Array.from({ length: ANZAHL_BOEGEN }, (_, k) => r0 + k * abstand);
   const symbol = Math.min(16, abstand * 0.38);
   const aussen = radien[ANZAHL_BOEGEN - 1];
-  const theta = Math.asin((195 - symbol) / aussen); // halber Oeffnungswinkel (rad)
+  // halber Oeffnungswinkel (rad): aeusserstes Symbol mit Abstand zum Bildschirmrand, damit man es greifen kann
+  const theta = Math.asin((176 - symbol) / aussen);
   return {
     radien,
     abstand,

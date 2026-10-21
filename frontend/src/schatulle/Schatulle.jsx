@@ -4,7 +4,8 @@ import { calculateRating, erwarteterSkillBester } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 import { SYSTEME } from "./systeme";
 import Spielplatte from "./Spielplatte";
-import { rastKlick, setStumm } from "./klang";
+import { rastKlick } from "./klang";
+import { belichtungFesthalten } from "./kamera";
 
 import { API_BASE } from "../logic/api";
 const ALLE = SYSTEME.map((s) => s.id);
@@ -57,7 +58,6 @@ export default function Schatulle() {
   const [datum, setDatum] = useState("");
   const [zeit, setZeit] = useState("12:00");
   const [ort, setOrt] = useState(null);
-  const [stumm, setStummState] = useState(false);
   const [fehler, setFehler] = useState(null);
 
   const [fragen, setFragen] = useState([]);
@@ -68,6 +68,7 @@ export default function Schatulle() {
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
   const [kamera, setKamera] = useState(null);
+  const [kameraInfo, setKameraInfo] = useState("");
 
   // Kamera beim Verlassen der Fragerunde abschalten
   useEffect(() => {
@@ -81,7 +82,6 @@ export default function Schatulle() {
     fetch(`${API_BASE}/matrix`).then((r) => r.json()).then(setMatrix).catch(() => {});
   }, []);
 
-  useEffect(() => setStumm(stumm), [stumm]);
 
   const stat = useMemo(() => anzeigeStatistik(kontroll), [kontroll]);
 
@@ -92,8 +92,14 @@ export default function Schatulle() {
     // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell)
     navigator.mediaDevices
       ?.getUserMedia({ video: { facingMode: "environment" }, audio: false })
-      .then(setKamera)
-      .catch(() => setKamera(null));
+      .then((stream) => {
+        setKamera(stream);
+        return belichtungFesthalten(stream).then(setKameraInfo);
+      })
+      .catch((err) => {
+        setKamera(null);
+        setKameraInfo(`Kamera: ${err.name}`);
+      });
     try {
       const body = { geburtsdatum: datum, uhrzeit: zeit, systeme: ALLE, ...ortFelder(ort) };
       const v = await postJson("/vektor", body);
@@ -141,16 +147,9 @@ export default function Schatulle() {
   }, [phase, kontroll, matrix, vektoren, antworten]);
 
   // --- Darstellung ------------------------------------------------------------
-  const stummKnopf = (
-    <button type="button" className="sc-stumm" onClick={() => setStummState((s) => !s)} aria-label="Ton an/aus">
-      {stumm ? "🔇" : "🔊"}
-    </button>
-  );
-
   if (phase === "start" || phase === "laden") {
     return (
       <main className="sc">
-        {stummKnopf}
         <div className="sc-deckel" aria-hidden="true">
           <svg viewBox="0 0 200 200">
             <defs>
@@ -201,7 +200,6 @@ export default function Schatulle() {
   if (phase === "ende") {
     return (
       <main className="sc">
-        {stummKnopf}
         <h2 className="sc-titel">Dein Ergebnis</h2>
         {!ergebnis ? (
           <p className="sc-hinweis">Das Räderwerk vergleicht dich mit hundert anderen Geburtsdaten …</p>
@@ -245,8 +243,8 @@ export default function Schatulle() {
       zielWert={(s, dim) => anzeigeWert(stat, s, dim, Number(vektoren[s][dim]))}
       onAntwort={antwort}
       onFertig={() => setPhase("ende")}
-      stummKnopf={stummKnopf}
       kamera={kamera}
+      kameraInfo={kameraInfo}
     />
   );
 }
