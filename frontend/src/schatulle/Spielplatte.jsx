@@ -21,7 +21,7 @@ import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 const ALLE = SYSTEME.map((s) => s.id);
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
-const HEBEL = { x: 376, oben: 322, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
+const HEBEL = { x: 376, oben: 334, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
 // Prototyp: Belichtung und Lichtmesser-Werte im Auge anzeigen (aus; zum Kamera-Testen auf true)
 const MESSWERTE_ZEIGEN = false;
@@ -807,28 +807,40 @@ export default function Spielplatte({
               />
             </clipPath>
             <g clipPath="url(#sp-hebelschlitz-form)">
-              <g className={gesperrt ? "sp-sperre zu" : "sp-sperre"}>
+              {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
+              <g
+                className={
+                  gesperrt && pos.hebel < 0.02 ? "sp-sperre zu" : "sp-sperre"
+                }
+              >
                 <rect
                   x={HEBEL.x - 7}
-                  y={HEBEL.oben + 19}
+                  y={HEBEL.oben + 14}
                   width="14"
-                  height="8"
+                  height={HEBEL.weg - 4}
                   className="sp-sperre-plaettchen"
                 />
-                <line
-                  x1={HEBEL.x - 7}
-                  y1={HEBEL.oben + 22.4}
-                  x2={HEBEL.x + 7}
-                  y2={HEBEL.oben + 22.4}
-                  className="sp-griff-kerbe schatten"
-                />
-                <line
-                  x1={HEBEL.x - 7}
-                  y1={HEBEL.oben + 23.8}
-                  x2={HEBEL.x + 7}
-                  y2={HEBEL.oben + 23.8}
-                  className="sp-griff-kerbe licht"
-                />
+                {[0, 1, 2].map((i) => {
+                  const y = HEBEL.oben + 20 + i * 4;
+                  return (
+                    <g key={i}>
+                      <line
+                        x1={HEBEL.x - 7}
+                        y1={y - 0.6}
+                        x2={HEBEL.x + 7}
+                        y2={y - 0.6}
+                        className="sp-griff-kerbe schatten"
+                      />
+                      <line
+                        x1={HEBEL.x - 7}
+                        y1={y + 0.7}
+                        x2={HEBEL.x + 7}
+                        y2={y + 0.7}
+                        className="sp-griff-kerbe licht"
+                      />
+                    </g>
+                  );
+                })}
               </g>
               {/* Schatten der Plattenkante auf dem Plaettchen */}
               <rect
