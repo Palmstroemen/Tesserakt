@@ -18,6 +18,7 @@ import WestlichPaar from "./diagramme/WestlichPaar";
 import KabbalahPaar from "./diagramme/KabbalahPaar";
 import HellenistischPaar from "./diagramme/HellenistischPaar";
 import VedischPaar from "./diagramme/VedischPaar";
+import ArabischPaar from "./diagramme/ArabischPaar";
 import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
 import ArabischZellij from "./diagramme/ArabischZellij";
@@ -52,6 +53,7 @@ const PAARBILD = {
   Kabbalah: KabbalahPaar,
   Hellenistisch: HellenistischPaar,
   Vedisch: VedischPaar,
+  Arabisch: ArabischPaar,
   Bazi: BaziPaar,
 };
 const DIMENSIONEN = [

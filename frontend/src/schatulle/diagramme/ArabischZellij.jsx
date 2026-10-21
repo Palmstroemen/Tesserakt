@@ -14,14 +14,14 @@ const R_STERN = 64;
 const R_STERN_INNEN = 36;
 
 // ostarabische Ziffern (wie in arabischer Schrift ueblich), Zahlen werden links nach rechts geschrieben
-const OSTARABISCH = (n) =>
+export const OSTARABISCH = (n) =>
   String(n).replace(/\d/g, (z) => String.fromCharCode(0x0660 + Number(z)));
 // Kacheln zwischen den Ziffern: Tuerkis, Weiss, Blau, Weiss, ...
-const SKALA_FARBEN = ["#2aa69b", "#efe9da", "#1f4fa3", "#efe9da"];
+export const SKALA_FARBEN = ["#2aa69b", "#efe9da", "#1f4fa3", "#efe9da"];
 
-const T = "︎"; // Textdarstellung der Zeichen erzwingen
+export const T = "︎"; // Textdarstellung der Zeichen erzwingen
 
-function zufallVon(saat) {
+export function zufallVon(saat) {
   let z = saat;
   return () => {
     z = (z * 1664525 + 1013904223) % 4294967296;
@@ -29,11 +29,11 @@ function zufallVon(saat) {
   };
 }
 
-const p = (r, grad) => {
+export const p = (r, grad) => {
   const w = ((grad - 90) * Math.PI) / 180; // 0° oben, im Uhrzeigersinn
   return [M + r * Math.cos(w), M + r * Math.sin(w)];
 };
-const pts = (liste) => liste.map((q) => q.join(",")).join(" ");
+export const pts = (liste) => liste.map((q) => q.join(",")).join(" ");
 
 // Ringsegment zwischen zwei Winkeln
 function segment(von, bis) {
@@ -48,8 +48,8 @@ function segment(von, bis) {
 }
 
 // Kachelfarben mit kleinen Schwankungen (handgemachte Zellij)
-const KACHEL = ["#1f4fa3", "#2aa69b", "#efe9da"];
-function ton(farbe, z) {
+export const KACHEL = ["#1f4fa3", "#2aa69b", "#efe9da"];
+export function ton(farbe, z) {
   const f = 0.92 + z * 0.14;
   const n = parseInt(farbe.slice(1), 16);
   const k = (c) => Math.max(0, Math.min(255, Math.round(c * f)));

@@ -1567,6 +1567,13 @@ body {
   stroke-width: 0.4;
 }
 
+/* Arabisch fuer Paare: Band zwischen den beiden Zeigern */
+.ap-band {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
 /* Numerologie: Mathe-Hausuebung */
 .nh-schrift {
   font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;

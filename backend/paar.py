@@ -239,7 +239,7 @@ def arabisch(fird_a: str, fird_b: str, freundschaft: Dict[str, List[str]], los_a
         aussagen.extend(lose or [tl["keine"]])
     else:
         aussagen.extend(lose)
-    return {"aussagen": aussagen, "firdaria": [fird_a, fird_b]}
+    return {"aussagen": aussagen, "firdaria": [fird_a, fird_b], "art": art}
 
 
 def glueckslos(asc: float, sonne: float, mond: float, tag: bool) -> float:
