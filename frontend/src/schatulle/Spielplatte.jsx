@@ -70,7 +70,6 @@ export default function Spielplatte({
   const indexRef = useRef(-1);
   const [aufgezogen, setAufgezogenState] = useState([]);
   const aufgezogenRef = useRef(new Set());
-  const [angefasst, setAngefasst] = useState(false);
 
   const svgRef = useRef(null);
   const zusatzRef = useRef(zusatz);
@@ -247,7 +246,6 @@ export default function Spielplatte({
       drag.current = null;
       return;
     }
-    setAngefasst(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
     bewegen(e);
   }
@@ -394,22 +392,6 @@ export default function Spielplatte({
       </>
     );
   };
-
-  let hinweis;
-  if (zustand === "aufziehen") {
-    hinweis = aufgezogen.length
-      ? "Noch ein System aufziehen – damit kommt die Frage."
-      : "Zieh mindestens zwei Systeme nach rechts auf.";
-    if (!angefasst && index === -1)
-      hinweis = "Zieh ein Symbol mit dem Finger nach rechts.";
-  } else if (zustand === "frage") {
-    hinweis =
-      pos.user < RUHE
-        ? "Stell deine Einschätzung am innersten Bogen ein."
-        : "Zieh den Hebel.";
-  } else if (zustand === "laeuft") hinweis = "Die Systeme antworten …";
-  else if (zustand === "ergebnis")
-    hinweis = "Zieh Systeme für die nächste Frage auf.";
 
   const linse = {
     left: `${((MITTE.x - LINSE_RADIUS) / 400) * 100}%`,
@@ -735,15 +717,7 @@ export default function Spielplatte({
           <span>◂ {pole[0]}</span>
           <span>{pole[1]} ▸</span>
         </div>
-        {zusatz ? (
-          zusatz
-        ) : zustand === "fertig" ? (
-          <button type="button" className="sc-start" onClick={onFertig}>
-            Zum Ergebnis
-          </button>
-        ) : (
-          <p className="sc-hinweis">{hinweis}</p>
-        )}
+        {zusatz}
       </div>
     </main>
   );
