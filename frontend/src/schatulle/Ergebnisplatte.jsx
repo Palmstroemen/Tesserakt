@@ -7,7 +7,7 @@ import ProfectionChart from "../components/ProfectionChart";
 import FirdariaChart from "../components/FirdariaChart";
 import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
-import { SYSTEME } from "./systeme";
+import { SYSTEME, anzeigeName } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import { spiegelglasStarten } from "./spiegelglas";
 import WestlichNacht from "./diagramme/WestlichNacht";
@@ -299,7 +299,7 @@ export default function Ergebnisplatte({
                               }}
                             >
                               <i />
-                              <span>{s}</span>
+                              <span>{anzeigeName(s)}</span>
                               <b>
                                 {vorzeichen(
                                   ergebnis.alle.systemDetails[s].skillScore,
@@ -393,9 +393,10 @@ export default function Ergebnisplatte({
                 style={{ "--farbe": sys.farbe }}
               >
                 <header className="eg-kopf">
-                  <span>{id}</span>
+                  <span>{anzeigeName(id)}</span>
                   {d ? <b>{vorzeichen(d.skillScore)}</b> : null}
                 </header>
+                {sys.unter ? <p className="eg-unter">{sys.unter}</p> : null}
                 {d && ergebnis.fenster ? (
                   <table className="eg-fenster">
                     <tbody>
@@ -468,7 +469,7 @@ export default function Ergebnisplatte({
             <button
               key={id}
               type="button"
-              aria-label={id === "uebersicht" ? "Übersicht" : id}
+              aria-label={id === "uebersicht" ? "Übersicht" : anzeigeName(id)}
               className={Math.round(pos) === i ? "an" : ""}
               style={{
                 "--farbe": SYSTEME.find((s) => s.id === id)?.farbe ?? "#f0d59c",
