@@ -157,6 +157,8 @@ class SessionPayload(BaseModel):
     temperament: Dict[str, Any] = Field(default_factory=dict)
     abgeschlossen: bool = True
     veroeffentlichen: bool = True
+    sprache: Optional[str] = Field(default=None, max_length=16, description="Sprache der Fragen, z. B. de")
+    geraet_sprache: Optional[str] = Field(default=None, max_length=35, description="Spracheinstellung des Geraets, z. B. de-AT")
 
 
 def parse_birth_datetime(geburtsdatum: str, uhrzeit: Optional[str]) -> datetime:

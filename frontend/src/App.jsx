@@ -17,6 +17,7 @@ import { useRating } from "./hooks/useRating";
 import { getQuestionWeights } from "./logic/rating";
 
 import { API_BASE } from "./logic/api";
+import { spracheFelder } from "./logic/sprache";
 
 function dayOfYear(isoDate) {
   const dt = new Date(`${isoDate}T00:00:00`);
@@ -163,6 +164,7 @@ export default function App() {
         temperament: rating.temperament,
         abgeschlossen: true,
         veroeffentlichen: true,
+        ...spracheFelder(),
       };
 
       const response = await fetch(`${API_BASE}/session`, {

@@ -5,6 +5,7 @@ import { calculateRating, calculateTimingRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
 import { API_BASE } from "../logic/api";
+import { spracheFelder } from "../logic/sprache";
 
 const FENSTER_LABEL = { monat: "Letzter Monat", quartal: "Letzte drei Monate" };
 
@@ -289,6 +290,7 @@ export default function SpielB({ birthDate, birthTime, birthPlace, optionalName,
       },
       abgeschlossen: true,
       veroeffentlichen: true,
+      ...spracheFelder(),
     };
     postJson("/session", payload)
       .then(() => setSaved(true))

@@ -32,7 +32,9 @@ def init_db() -> None:
                 rating_json TEXT,
                 temperament_json TEXT,
                 abgeschlossen INTEGER NOT NULL DEFAULT 1,
-                veroeffentlichen INTEGER NOT NULL DEFAULT 1
+                veroeffentlichen INTEGER NOT NULL DEFAULT 1,
+                sprache TEXT,
+                geraet_sprache TEXT
             );
 
             CREATE TABLE IF NOT EXISTS antworten (
@@ -49,6 +51,12 @@ def init_db() -> None:
             CREATE INDEX IF NOT EXISTS idx_sessions_doy_stunde ON sessions(doy, stunde);
             """
         )
+        # bestehende Datenbanken: Sprachspalten nachruesten
+        # sprache = Sprache der Fragen; geraet_sprache = Spracheinstellung des Geraets (z. B. de-AT)
+        vorhanden = {r["name"] for r in conn.execute("PRAGMA table_info(sessions)")}
+        for spalte in ("sprache", "geraet_sprache"):
+            if spalte not in vorhanden:
+                conn.execute(f"ALTER TABLE sessions ADD COLUMN {spalte} TEXT")
         conn.commit()
     finally:
         conn.close()
@@ -75,8 +83,8 @@ def persist_session(payload: Dict[str, Any]) -> str:
             INSERT OR REPLACE INTO sessions (
                 session_id, created_at, geburtsdatum, geburtszeit, doy, stunde,
                 inputs_json, metadaten_json, rating_json, temperament_json,
-                abgeschlossen, veroeffentlichen
-            ) VALUES (?, datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                abgeschlossen, veroeffentlichen, sprache, geraet_sprache
+            ) VALUES (?, datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 session_id,
@@ -90,6 +98,8 @@ def persist_session(payload: Dict[str, Any]) -> str:
                 json.dumps(temperament, ensure_ascii=False),
                 int(bool(payload.get("abgeschlossen", True))),
                 int(bool(payload.get("veroeffentlichen", True))),
+                payload.get("sprache"),
+                payload.get("geraet_sprache"),
             ),
         )
         conn.execute("DELETE FROM antworten WHERE session_id = ?", (session_id,))

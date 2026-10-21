@@ -7,6 +7,7 @@ import { calculateRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
 import { API_BASE } from "../logic/api";
+import { spracheFelder } from "../logic/sprache";
 const SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"];
 
 function shuffle(items) {
@@ -153,6 +154,7 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
       rating: { skillMetrik: ergebnis.skillMetrik, ranking: ergebnis.ranking, systemDetails: ergebnis.systemDetails },
       abgeschlossen: true,
       veroeffentlichen: true,
+      ...spracheFelder(),
     })
       .then(() => setSaved(true))
       .catch(() => {});

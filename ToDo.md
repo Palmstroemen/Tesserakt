@@ -66,6 +66,31 @@
 - [ ] Angaben "public domain" in den Regeldateien korrigieren (neuere Uebersetzungen, DeVore, Joey Yap)
 - [ ] Lizenz Swiss Ephemeris (AGPL oder kommerziell) vor oeffentlichem Betrieb klaeren
 
+## Mehrsprachigkeit (i18n)
+
+- [x] Sprache je Sitzung speichern: `sprache` (Sprache der Fragen, derzeit `de`) und `geraet_sprache`
+  (Spracheinstellung des Geraets, z. B. `de-AT`); Spalten in `sessions`, alte Datenbanken werden nachgeruestet
+- [ ] Oberflaechentexte (Schatulle zuerst, dann altes Spiel) in eine Sprachdatei auslagern
+- [ ] Fragenkataloge (`fragen*.json`): Text je Sprache, gleiche `id`
+- [ ] Monatsnamen des Datumsrads ueber `Intl` statt fest (dabei `de-AT` "Jänner" vs. `de-DE` "Januar")
+- [ ] Laender- und Staedtenamen: `Intl.DisplayNames` mit der gewaehlten Sprache; Exonym-Liste nur fuer Deutsch
+- [ ] Lesetexte (Erklaertexte, Beipackzettel, Deutungen): uebersetzen und fachlich pruefen; Backend hat schon `locale`
+- [ ] Rechts-nach-links-Sprachen (Arabisch, Hebraeisch): Schatulle teilweise spiegeln (bewusst spaeter)
+- [ ] Reihenfolge: erst Struktur ohne neue Sprache, dann Englisch, Lesetexte zuletzt
+
+## Auswertung: Kultur und Erwartung (Idee)
+
+- [ ] Frage: Trifft ein System bei Menschen aus seinem Kulturkreis besser (z. B. Bazi bei Menschen aus China)?
+  Moegliche Gruende waeren kulturelle Erwartung oder Selbstzuschreibung: Wer die Eigenschaften seines
+  Tierzeichens oder Sternzeichens kennt, beschreibt sich womoeglich passend dazu (in der Literatur als
+  Selbstzuschreibungs-Effekt diskutiert). Dann traefe das System, ohne dass die Sterne etwas damit zu tun haben.
+- [ ] Merkmale dafuer: Geburtsland (grob gespeichert), `geraet_sprache`, `sprache`. Sprache ist nur ein
+  schwacher Hinweis auf Kultur; das Geburtsland ist besser
+- [ ] Optionale Frage am Ende: "Kennst du dein Sternzeichen / dein chinesisches Tierzeichen / ...?" – trennt
+  echte Treffer von Selbstzuschreibung (wer sein Zeichen nicht kennt, kann sich nicht danach richten)
+- [ ] Vorab festlegen, welche Vergleiche gerechnet werden (sonst findet man bei vielen Untergruppen immer
+  irgendwo einen Zufallstreffer)
+
 ## Ideen / Backlog
 
 - [ ] **Premiumversion:** Horoskope direkt erstellen, ohne Fragespiel, mit einigen speicherbaren Personen
