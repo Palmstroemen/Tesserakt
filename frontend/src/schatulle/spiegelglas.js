@@ -25,8 +25,8 @@ void main() {
   float r = length(p);
   if (r > 1.0) { gl_FragColor = vec4(0.0); return; }
   // Fischauge: der Quellradius waechst zum Rand hin schneller -> Mitte vergroessert, Rand gestaucht
-  // leicht aus der Mitte versetzt: eine Spiegelung sitzt selten genau mittig wie ein Selfie
-  vec2 q = p * (1.0 + k * r * r) / (1.0 + k) * zoom + vec2(-0.18, 0.12);
+  // leicht aus der Mitte versetzt (Bild wandert nach links oben): eine Spiegelung sitzt selten mittig wie ein Selfie
+  vec2 q = p * (1.0 + k * r * r) / (1.0 + k) * zoom + vec2(0.18, -0.12);
   vec2 uv = vec2(0.5 - q.x * 0.5 * deckung.x, 0.5 - q.y * 0.5 * deckung.y); // x gespiegelt, y Bild nach unten
   vec3 farbe = texture2D(bild, uv).rgb;
   float a = 1.0 - 0.75 * smoothstep(0.55, 1.0, r);
