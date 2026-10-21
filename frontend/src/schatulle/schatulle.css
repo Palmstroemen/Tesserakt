@@ -1541,9 +1541,11 @@ body {
 }
 
 /* gewoelbtes Glas (WebGL-Fischauge); Woelbung und Randauslauf rechnet der Shader */
+/* soft-light statt screen: wirkt in beide Richtungen und ist so auch auf hellem Grund zu sehen */
 .eg-spiegel.glas {
-  filter: grayscale(0.7) contrast(3) brightness(0.95);
-  opacity: 0.13;
+  mix-blend-mode: soft-light;
+  filter: grayscale(0.7) contrast(3) brightness(0.95) blur(1.4px);
+  opacity: 0.55;
 }
 
 .eg-spiegel-quelle {
