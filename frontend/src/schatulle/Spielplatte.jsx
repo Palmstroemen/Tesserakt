@@ -534,6 +534,19 @@ export default function Spielplatte({
           <defs>
             <SchlitzDefs />
             <LuenetteDefs praefix="sp" />
+            <radialGradient id="sp-rubin" cx="45%" cy="40%" r="65%">
+              <stop offset="0" stopColor="#d4304e" />
+              <stop offset="0.55" stopColor="#8e1027" />
+              <stop offset="1" stopColor="#3d0410" />
+            </radialGradient>
+            <radialGradient id="sp-rubin-schimmer" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stopColor="#ff6b7d" stopOpacity="0.7" />
+              <stop offset="1" stopColor="#ff6b7d" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="sp-rubin-glanz" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stopColor="#fff" stopOpacity="0.9" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </radialGradient>
             {/* Schatten der Faecherplatte auf die Grundplatte (Licht von oben) */}
             <filter
               id="sp-plattenschatten"
@@ -895,7 +908,7 @@ export default function Spielplatte({
                 opacity="0.35"
               />
             </g>
-            {/* Griff: rechteckig, Messing, drei gravierte Griffrillen */}
+            {/* Griff: rechteckig, Messing, mit einem weinroten Rubin */}
             <g
               transform={`translate(${HEBEL.x} ${knaufY})`}
               className={gesperrt ? "sp-hebelgriff gesperrt" : "sp-hebelgriff"}
@@ -916,31 +929,39 @@ export default function Spielplatte({
                 rx="2"
                 className="sp-hebelgriff-flaeche"
               />
-              {[-5, 0, 5].map((y) => (
-                <g key={y}>
-                  <line
-                    x1="-11"
-                    y1={y - 0.7}
-                    x2="11"
-                    y2={y - 0.7}
-                    className="sp-griff-kerbe schatten"
-                  />
-                  <line
-                    x1="-11"
-                    y1={y + 0.8}
-                    x2="11"
-                    y2={y + 0.8}
-                    className="sp-griff-kerbe licht"
-                  />
-                  <line
-                    x1="-11"
-                    y1={y}
-                    x2="11"
-                    y2={y}
-                    className="sp-griff-kerbe"
-                  />
-                </g>
-              ))}
+              {/* weinroter Rubin (Cabochon) in Messingfassung, mit Glanzlicht */}
+              <ellipse
+                cx="0"
+                cy="0.6"
+                rx="10.6"
+                ry="7.6"
+                fill="#3a2a10"
+                opacity="0.5"
+              />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="10.2"
+                ry="7.2"
+                className="sp-rubin-fassung"
+              />
+              <ellipse cx="0" cy="0" rx="8.4" ry="5.6" fill="url(#sp-rubin)" />
+              <ellipse
+                cx="1.8"
+                cy="2"
+                rx="5"
+                ry="2.6"
+                fill="url(#sp-rubin-schimmer)"
+              />
+              <ellipse
+                cx="-3.2"
+                cy="-2.4"
+                rx="3.2"
+                ry="1.5"
+                transform="rotate(-18 -3.2 -2.4)"
+                fill="url(#sp-rubin-glanz)"
+              />
+              <circle cx="3.6" cy="-2.6" r="0.6" fill="#fff" opacity="0.8" />
             </g>
           </g>
 

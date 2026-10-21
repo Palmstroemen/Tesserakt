@@ -395,6 +395,12 @@ body {
   stroke-width: 0.7;
 }
 
+.sp-rubin-fassung {
+  fill: #c9a462;
+  stroke: #6e5020;
+  stroke-width: 0.8;
+}
+
 .sp-hebelgriff.gesperrt .sp-hebelgriff-flaeche {
   fill: #c9a462;
 }
