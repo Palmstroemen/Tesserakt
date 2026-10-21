@@ -43,7 +43,8 @@
    - [x] Spiel-C-Rating auf Skill mit Kontrollgruppe (100 zufaellige Paare), Nullhypothese geprueft
    - [x] Einwilligung der Partnerperson (Pflicht-Haekchen), Ort nur grob gespeichert, kein Name
    - [x] DoD C: E2E-Durchlauf (21.10.2026) inkl. Speicherung
-   - [ ] Beziehungsfragen redaktionell pruefen (z. B. Frage 413 "Klammert einer ..." -> Lebensbereich Veraenderung?)
+   - [x] Frage 413 (Veraenderung) ersetzt: "Wer von euch bringt oefter Veraenderungen in euer gemeinsames Leben ...?"
+   - [ ] Beziehungsfragen insgesamt redaktionell pruefen
    - [ ] Spaeter: Synastrie / systemeigene Interaktionsregeln, optionale Verknuepfung mit A-Sessions
 
 ## Rechengenauigkeit (aus den Beipackzetteln, `docs/Berechnungsgrundlagen/`)
