@@ -87,7 +87,8 @@ Kreis oben oder höchstens 4 aktive Systeme.
 ## Ergebnis im Fächer
 
 - Nach der letzten Frage gleiten alle Schieber in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:
-  zuerst nur „Dein Ergebnis“ (Spiel C „Euer Ergebnis“, Spiel B „Dein Rückblick“), dann die Anleitung.
+  nur „Dein Ergebnis“ (Spiel C „Euer Ergebnis“, Spiel B „Dein Rückblick“). Bewusst ohne Anleitung: wie es
+  weitergeht, sollen die Spieler selbst entdecken.
 - Der Hebel gibt erst frei, wenn alle sieben Systeme und der eigene Schieber ganz rechts stehen.
 - Nach dem Hebelzug wechselt das Dia zur Rangliste; die Systemschieber fahren auf ihren Skill
   (−100 links … +100 rechts, gleiche Skala wie die Antworten). Der eigene Schieber bleibt rechts (+100).

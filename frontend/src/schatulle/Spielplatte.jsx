@@ -77,7 +77,6 @@ export default function Spielplatte({
   const startZustand = sofort ? "rechnet" : "aufziehen";
   const [zustand, setZustandState] = useState(startZustand);
   const zustandRef = useRef(startZustand);
-  const [anleitung, setAnleitung] = useState(false); // Anleitung auf dem Ergebnis-Dia (kommt nach dem Titel)
   const ergebnisRef = useRef(ergebnis);
   ergebnisRef.current = ergebnis;
   const [index, setIndexState] = useState(-1); // -1 = Einleitungsdia
@@ -419,13 +418,12 @@ export default function Spielplatte({
   }
 
   // --- Ergebnis ----------------------------------------------------------------
-  // Nach der letzten Frage (und ohne offene Nachfrage): Schieber in die Ruhe, Ergebnis-Dia mit Titel, dann
-  // die Anleitung
+  // Nach der letzten Frage (und ohne offene Nachfrage): Schieber in die Ruhe, Ergebnis-Dia nur mit dem Titel.
+  // Wie es weitergeht, sollen die Spieler selbst entdecken (alles nach rechts, Hebel; dann im Auge wischen).
   useEffect(() => {
     if (zustand !== "fertig" || zusatz) return undefined;
     const t = setTimeout(() => {
       setZustand("endaufzug");
-      setAnleitung(false);
       aufgezogenRef.current.clear();
       aufgezogenAktualisieren();
       ratsche();
@@ -435,12 +433,6 @@ export default function Spielplatte({
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zustand, zusatz]);
-
-  useEffect(() => {
-    if (zustand !== "endaufzug") return undefined;
-    const t = setTimeout(() => setAnleitung(true), 1600);
-    return () => clearTimeout(t);
-  }, [zustand]);
 
   // Auswertung, sobald gerechnet ist: Rangliste ins Auge, Schieber auf den Skill
   useEffect(() => {
@@ -784,18 +776,12 @@ export default function Spielplatte({
             </div>
           ) : null}
           {zustand === "endaufzug" || zustand === "rechnet" ? (
-            // Ergebnis-Dia auf blauem Glas: erst der Titel, dann die Anleitung
+            // Ergebnis-Dia auf blauem Glas: nur der Titel, bewusst ohne Anleitung
             <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
               <span className="sp-ergebnistitel">{titel}</span>
               {zustand === "rechnet" ? (
                 <span className="sp-ergebnisanleitung">
                   Das Räderwerk rechnet …
-                </span>
-              ) : anleitung ? (
-                <span className="sp-ergebnisanleitung">
-                  Schiebe alle Systeme und auch deinen obersten Wahlschalter
-                  jetzt ganz nach rechts. Und löse nochmals die Berechnung aus,
-                  um die Ergebnisse zu sehen.
                 </span>
               ) : null}
             </div>
@@ -830,9 +816,6 @@ export default function Spielplatte({
               {hinweis ? (
                 <span className="sp-ergebnisklein">{hinweis}</span>
               ) : null}
-              <span className="sp-ergebnisklein">
-                Wischen für die Systeme ›
-              </span>
             </div>
           ) : sonderDia ? (
             <div key={sonderDia} className="sp-dia sp-sonderdia">
