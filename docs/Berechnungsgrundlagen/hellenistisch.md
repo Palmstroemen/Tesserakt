@@ -24,12 +24,12 @@
 | 20.10.2026 | Transite waren ein Kalender-Platzhalter. | Echte Transite (Commit `eaf82f4`). |
 | 20.10.2026 | Der **Jahresherrscher** wurde ab dem Widder gezählt (6. Haus = Jungfrau = Merkur für alle), nicht ab dem eigenen Aszendenten. | Profiziertes Zeichen ab dem Aszendentenzeichen. |
 | 20.10.2026 | Die **Lose** wurden nicht nach ihrer Position gedeutet; als „Haus des Loses“ diente das Lebensalter modulo 12. | Haus aus der tatsächlichen Position des Loses. |
+| 21.10.2026 | **Sekt** nach voller Stunde 6–18 (einschließlich 18 Uhr), abweichend von Firdaria und Losen. | Einheitlich nach dem Sonnenstand über dem Horizont (siehe `00_allgemein.md`). |
 
 ## Bekannte Vereinfachungen
 
 - Profektion, Jahresherrscher und Lose hängen am **Aszendenten** und sind ohne Geburtsort entsprechend
   ungenau (`00_allgemein.md`).
-- **Sekt** über die Uhrzeit (6–18 Uhr), nicht über den Sonnenstand.
 - Keine Zodiakal-Freisetzung (Zodiacal Releasing), keine monatlichen Profektionen, keine Würden-
   bewertung der Herrscher im Spiel, obwohl Regeln dazu vorliegen.
 

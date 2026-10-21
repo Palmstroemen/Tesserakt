@@ -18,11 +18,12 @@ PLANET_LABELS = {
 }
 
 
-def compute_lot_houses(asc_deg: float, sun_deg: float, moon_deg: float) -> Dict[str, int]:
-    """Compute whole-sign house (1–12) for Lot of Fortune and Lot of Spirit. Day = Sun in houses 7–12 from ASC."""
+def compute_lot_houses(asc_deg: float, sun_deg: float, moon_deg: float, is_day: bool | None = None) -> Dict[str, int]:
+    """Compute whole-sign house (1–12) for Lot of Fortune and Lot of Spirit.
+    is_day: Sekt; ohne Angabe Sonne ueber dem Horizont (nach Graden, nicht nach ganzen Zeichen)."""
     asc_sign = int(asc_deg // 30) % 12
-    sun_sign = int(sun_deg // 30) % 12
-    is_day = ((sun_sign - asc_sign) % 12) >= 6
+    if is_day is None:
+        is_day = (sun_deg - asc_deg) % 360.0 >= 180.0
     if is_day:
         lot_glueck_deg = (asc_deg + moon_deg - sun_deg) % 360
         lot_geist_deg = (asc_deg + sun_deg - moon_deg) % 360
@@ -86,15 +87,16 @@ def _current_and_next(
     return current or {}, next_period
 
 
-def build_firdaria_chart(birth_dt: datetime) -> Dict[str, Any]:
+def build_firdaria_chart(birth_dt: datetime, is_day: bool | None = None) -> Dict[str, Any]:
     """Build firdariaChart payload: age, isDayChart, currentPeriod, optional nextPeriod."""
     today = datetime.now()
     age = today.year - birth_dt.year
     if (today.month, today.day) < (birth_dt.month, birth_dt.day):
         age -= 1
     position = age % 75
-    hour = birth_dt.hour + birth_dt.minute / 60.0
-    is_day = 6 <= hour < 18
+    if is_day is None:  # Naeherung ohne Sonnenstand
+        hour = birth_dt.hour + birth_dt.minute / 60.0
+        is_day = 6 <= hour < 18
     try:
         tag_nacht, symbols = _load_firdaria_data()
         block = tag_nacht["tag"] if is_day else tag_nacht["nacht"]

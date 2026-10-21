@@ -52,7 +52,7 @@
 - [x] Zeitzone und Sommerzeit umrechnen (Geburtsort -> Zeitzone, historische Regeln via zoneinfo)
 - [x] Geburtsort im Spiel abfragen (Ortssuche offline, GeoNames)
 - [x] Spiel C (/partner): Geburtsort und Zeitzone fuer beide Personen
-- [ ] Sekt einheitlich ueber den Sonnenstand bestimmen (bisher teils Uhrzeit 6-18 Uhr)
+- [x] Sekt einheitlich ueber den Sonnenstand bestimmen (Sekt-Regel, Firdaria, Lose, Diagramme)
 - [x] Vedisch: Antardasha-Matrix vollstaendig (45 Kombinationen ergaenzt, gekennzeichnet) und als Regelebene eingebaut
 - [x] Vedisch: Gochara-Regeln (Transite vom Geburtsmond, Sade Sati) als Regelebene
 - [ ] Vedisch: Vedha und Ashtakavarga fuer Gochara (optional)

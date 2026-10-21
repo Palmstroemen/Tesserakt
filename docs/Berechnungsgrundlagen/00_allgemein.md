@@ -39,6 +39,8 @@ durch einen Menschen.
 - **Zeit:** Mit Geburtsort wird die eingegebene Ortszeit über die Zeitzone des Ortes in Weltzeit (UT)
   umgerechnet, einschließlich historischer Sommerzeitregeln (IANA-Zeitzonendatenbank via `zoneinfo`;
   z. B. Deutschland 1950–1979 ohne Sommerzeit). Bazi-Tag und -Stunde bleiben bewusst in Ortszeit.
+- **Sekt (Tag- oder Nachtgeburt):** Tag, wenn die Sonne über dem Horizont steht; ohne Geburtsort für den
+  Standardort Mitteleuropa berechnet.
 - **Orte:** GeoNames (CC BY 4.0), alle Orte ab 15.000 Einwohnern; kleinere Orte über die nächste Stadt.
 
 ---
@@ -49,6 +51,7 @@ durch einen Menschen.
 |---|---|---|
 | 20.10.2026 | Das **Lebensalter** war die Differenz der Jahreszahlen. Wer im laufenden Jahr noch nicht Geburtstag hatte, war ein Jahr zu alt; das Alter wechselte am 1. Januar statt am Geburtstag. Betroffen: Profektion, Jahresherrscher, Firdaria, Dasha, Glückssäule, Pinnacle. | Alter in vollendeten Jahren; Firdaria und Dasha mit Nachkommastellen (Commit `fa8f7e3`). |
 | 20.10.2026 | **Transite** waren ein Platzhalter, der nur aus dem Kalenderdatum berechnet wurde und für alle Menschen gleich war. | Echte Transite der laufenden Planeten zu den Geburtspunkten (Commit `eaf82f4`, siehe `westlich.md`). |
+| 21.10.2026 | **Tag- oder Nachtgeburt (Sekt)** wurde an vier Stellen unterschiedlich bestimmt: Uhrzeit 6–18 Uhr (Firdaria, Diagramme), volle Stunde 6–18 einschließlich 18 Uhr (hellenistische Sekt-Regel) und Sonne in den Zeichen 7–12 (Lose). Wertung und Diagramm konnten sich widersprechen; im Winter galt 17 Uhr als Tag, im Sommer 20:30 Uhr als Nacht. | Einheitlich: Tag, wenn die Sonne über dem Horizont steht (nach Graden aus Aszendent und Sonnenposition). Bei Wiener Geburten ändert sich die Zuordnung in 11 % der Fälle. |
 | 20.10.2026 | **Zeitzone und Sommerzeit** wurden nicht umgerechnet; die Ortszeit galt als Weltzeit. Bei mitteleuropäischen Geburten lag der Aszendent dadurch typisch 15–30° daneben (Beispiel Wien, Sommer 1985: 236° statt 214°). | Geburtsort-Suche im Spiel; Umrechnung mit historischen Sommerzeitregeln. |
 
 ---
@@ -62,10 +65,6 @@ durch einen Menschen.
   immer, die Koordinaten liegen einige Kilometer daneben (Aszendent: Bruchteile eines Grades).
 - **Unsichere Uhrzeit:** Viele Menschen kennen ihre Geburtszeit nur ungefähr. Das ist für Aszendent und
   Häuser die größere Fehlerquelle als jede Rechenkonvention.
-- **Tag- oder Nachtgeburt (Sekt)** wird für Sekt-Regeln, Firdaria und Diagramme vereinfacht über die
-  Uhrzeit bestimmt (6–18 Uhr = Tag). Die arabischen und hellenistischen Lose verwenden dagegen den
-  Sonnenstand über oder unter dem Horizont. Bei Geburten nahe Sonnenauf- oder -untergang können sich
-  die beiden Bestimmungen widersprechen.
 - **Unbekannte Geburtszeit**: Ohne Eingabe gilt 12:00 Uhr.
 
 ---

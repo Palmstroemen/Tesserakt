@@ -190,6 +190,13 @@ def sun_sign_from_longitude(longitude_deg: float) -> str:
 NAKSHATRA_DEG = 360.0 / 27.0
 
 
+def sonne_ueber_horizont(eph: "EphemerisResult") -> bool:
+    """Sekt: Tag-Geburt, wenn die Sonne ueber dem Horizont steht, d. h. zwischen Deszendent und Aszendent ueber
+    die Himmelsmitte (Haeuser 7-12 nach Graden). Ohne Geburtsort gilt der Aszendent des Standardorts."""
+    sonne = next(p.longitude_deg for p in eph.planets if p.id == "sun")
+    return (sonne - eph.asc_deg) % 360.0 >= 180.0
+
+
 def ayanamsha_lahiri(jd: float) -> float:
     """Lahiri-Ayanamsha (Chitrapaksha), Standard im Jyotish. Swiss Ephemeris nutzt ohne set_sid_mode
     Fagan/Bradley (~0.9 Grad mehr), daher hier explizit gesetzt."""

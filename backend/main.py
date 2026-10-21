@@ -21,7 +21,7 @@ from hellenistisch_chart import build_profection_chart
 from kabbalah_chart import build_kabbalah_chart
 from numerology_chart import build_numerology_chart
 from vedisch_chart import _current_mahadasha, _load_dasha_data, build_dasha_chart, compute_aktivierte_yogas, vimshottari_position_now
-from ephemeris import ayanamsha_lahiri, compute as ephemeris_compute, moon_nakshatra, sun_sign_from_longitude
+from ephemeris import ayanamsha_lahiri, compute as ephemeris_compute, moon_nakshatra, sonne_ueber_horizont, sun_sign_from_longitude
 from rule_engine import (
     DIMENSIONS,
     compute_transits,
@@ -338,11 +338,13 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
     if ephemeris_result is not None:
         # Whole-Sign: Zeichen des Aszendenten (0 = Widder) fuer Profektion und Jahresherrscher
         inputs["asc_zeichen"] = int(ephemeris_result.asc_deg // 30) % 12
+        # Sekt einheitlich aus dem Sonnenstand (Sekt-Regeln, Firdaria, Lose, Diagramme)
+        inputs["tag_geburt"] = sonne_ueber_horizont(ephemeris_result)
     if ephemeris_result and ("Arabisch" in payload.systeme or "Hellenistisch" in payload.systeme):
         sun = next((p for p in ephemeris_result.planets if p.id == "sun"), None)
         moon = next((p for p in ephemeris_result.planets if p.id == "moon"), None)
         if sun is not None and moon is not None:
-            lots = compute_lot_houses(ephemeris_result.asc_deg, sun.longitude_deg, moon.longitude_deg)
+            lots = compute_lot_houses(ephemeris_result.asc_deg, sun.longitude_deg, moon.longitude_deg, inputs["tag_geburt"])
             inputs["lot_glueck_haus"] = lots["lot_glueck_haus"]
             inputs["lot_geist_haus"] = lots["lot_geist_haus"]
 
@@ -442,9 +444,9 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     if "Kabbalah" in payload.systeme:
         visual_payloads["Kabbalah"] = build_kabbalah_chart(birth_dt)
     if "Hellenistisch" in payload.systeme:
-        visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt)
+        visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt, inputs.get("tag_geburt"))
     if "Arabisch" in payload.systeme:
-        visual_payloads["Arabisch"] = build_firdaria_chart(birth_dt)
+        visual_payloads["Arabisch"] = build_firdaria_chart(birth_dt, inputs.get("tag_geburt"))
     if "Vedisch" in payload.systeme:
         nakshatra_index = inputs.get("mond_nakshatra_index")
         nakshatra_anteil = inputs.get("mond_nakshatra_anteil")

@@ -22,11 +22,10 @@
 | 20.10.2026 | Die Firdaria verwendete für **alle** die Tag-Reihenfolge. Nacht-Geborene bekamen die falsche Periode – während das Diagramm bereits richtig rechnete. | Reihenfolge nach Tag- oder Nachtgeburt (Commit `c682a2e`). |
 | 20.10.2026 | Zwei Regeldateien hatten denselben Schlüssel (`system_uebersicht`); beim Laden überschrieb die Lose-Datei die Firdaria-Reihenfolge. | Reihenfolgen in `Struktur.json` (Commit `c682a2e`). |
 | 20.10.2026 | Die Unter-Firdaria lag in den Regeldaten vor, wurde aber nicht verwendet. | Als eigene Regelebene ergänzt (Commit `c682a2e`). |
+| 21.10.2026 | Tag oder Nacht für die Firdaria nach Uhrzeit (6–18 Uhr), für die Lose nach Sonne in ganzen Zeichen. | Beides einheitlich nach dem Sonnenstand über dem Horizont (siehe `00_allgemein.md`). |
 
 ## Bekannte Vereinfachungen
 
-- **Tag oder Nacht** wird für die Firdaria über die Uhrzeit bestimmt (6–18 Uhr), für die Lose über den
-  Sonnenstand. Nahe Sonnenauf- und -untergang kann das widersprüchlich sein.
 - Die Unter-Firdaria-Deutungen liegen nur für Tag-Horoskope vor; für Nacht-Geburten verwenden wir
   dieselben Kombinationen von Haupt- und Unterherrscher.
 - Die Stellung der Knotenperioden im Zyklus folgt einer der überlieferten Varianten (Knoten am Ende);

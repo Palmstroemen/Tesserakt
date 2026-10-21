@@ -530,6 +530,7 @@ def build_inputs(
         "aktueller_pinnacle_zahl": pinnacle_zahl,
         "zieldatum":              target_date,
         "geburts_stunde":         birth_date.hour,
+        # Sekt-Naeherung ohne Ephemeris; main.py ersetzt sie durch den Sonnenstand (sonne_ueber_horizont)
         "tag_geburt":             6 <= birth_date.hour + birth_date.minute / 60.0 < 18,
         "geburts_tag_des_jahres": birth_date.timetuple().tm_yday,
         "geburtsjahr":             birth_date.year,
@@ -845,8 +846,8 @@ def handle_profektionen(quelle: dict, rules: dict, inputs: dict) -> Dict[str, fl
     return extract_dims(payload, quelle.get("dim_feld","dimensionen_vektor"))
 
 def handle_sekt(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
-    stunde = inputs.get(quelle.get("eingabe", "geburts_stunde"), 12)
-    ist_tag = 6 <= stunde <= 18
+    # Einheitliche Sekt-Bestimmung ueber tag_geburt (Sonnenstand, siehe main.py), wie Firdaria und Lose
+    ist_tag = bool(inputs.get("tag_geburt", True))
     container = rules.get(quelle["schluessel"], {})
     feld = quelle.get("tag_schluessel" if ist_tag else "nacht_schluessel", "")
     raw = container.get(feld, {})
