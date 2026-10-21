@@ -345,7 +345,7 @@ export default function Spielplatte({
     for (const s of d.gegriffen.keys()) {
       if (posRef.current[s] >= SCHWELLE) {
         aufgezogenRef.current.add(s);
-        animiere(s, 1, 180, { fertig: einrasten });
+        animiere(s, 1, 180); // Loslassen ohne Ton
       } else {
         animiere(s, 0, 300, { ease: easeMechanisch });
       }
