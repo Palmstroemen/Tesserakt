@@ -26,7 +26,7 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, schrift = 13 }) {
   const lagen = useMemo(() => {
     let x = 0;
     return eintraege.map((e) => {
-      const breite = e.label.length * schrift * 0.52 + 30;
+      const breite = e.breite ?? e.label.length * schrift * 0.52 + 30;
       const mitte = x + breite / 2;
       x += breite;
       return mitte;
@@ -50,10 +50,11 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, schrift = 13 }) {
 
   useEffect(() => () => cancelAnimationFrame(anim.current), []);
 
+  // nur waehlbare Eintraege rasten ein (Pfeil und Leerraum auf der Ortswalze nicht)
   const naechster = (v) => {
     let best = 0;
     lagen.forEach((l, i) => {
-      if (Math.abs(l - v) < Math.abs(lagen[best] - v)) best = i;
+      if (eintraege[i].waehlbar !== false && Math.abs(l - v) < Math.abs(lagen[best] - v)) best = i;
     });
     return best;
   };
@@ -118,41 +119,56 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, schrift = 13 }) {
   }
 
   const gewaehlt = naechster(versatz);
+  // Schrift folgt dem Bogen (textPath); der Pfad laeuft von links durch den tiefsten Punkt nach rechts
+  const BOGEN = 1.4; // halber Winkel des Schriftpfads (rad), groesser als der sichtbare Schlitz
+  const pfadId = `ow-pfad-${r}`;
+  const maskeId = `ow-maske-${r}`;
+  const links = { x: MITTE.x - r * Math.sin(BOGEN), y: MITTE.y + r * Math.cos(BOGEN) };
+  const rechts = { x: MITTE.x + r * Math.sin(BOGEN), y: links.y };
 
   return (
     <g onPointerDown={druecken} onPointerMove={bewegen} onPointerUp={loslassen} onPointerCancel={loslassen} className="ow-walze">
+      <defs>
+        <path id={pfadId} d={`M ${links.x} ${links.y} A ${r} ${r} 0 0 0 ${rechts.x} ${rechts.y}`} />
+        {/* Schlitzmaske: die Schrift liegt darunter und wird an den Enden beschnitten */}
+        <mask id={maskeId} maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="800">
+          <path d={bogenPfad(r, theta)} stroke="white" strokeWidth={WALZEN.schlitz - 4} strokeLinecap="round" fill="none" />
+        </mask>
+      </defs>
       <path d={bogenPfad(r, theta)} className="ow-schlitz" strokeWidth={WALZEN.schlitz} />
-      {eintraege.map((e, i) => {
-        const phi = (lagen[i] - versatz) / r;
-        if (Math.abs(phi) > theta + 0.05) return null;
-        const x = MITTE.x + r * Math.sin(phi);
-        const y = MITTE.y + r * Math.cos(phi);
-        const deckkraft = Math.max(0, Math.min(1, (theta - Math.abs(phi)) / 0.12));
-        return (
-          <text
-            key={e.key}
-            x={x}
-            y={y}
-            dy="0.35em"
-            fontSize={schrift}
-            opacity={deckkraft}
-            transform={`rotate(${(-phi * 180) / Math.PI} ${x} ${y})`}
-            className={i === gewaehlt ? "ow-name gewaehlt" : "ow-name"}
-          >
-            {e.label}
-          </text>
-        );
-      })}
+      <g mask={`url(#${maskeId})`}>
+        <g filter="url(#dr-gravur)">
+          {eintraege.map((e, i) => {
+            const abstand = lagen[i] - versatz;
+            if (!e.label || Math.abs(abstand) / r > theta + 0.5) return null;
+            return (
+              <text key={e.key} dy="0.35em" fontSize={schrift} className={i === gewaehlt ? "ow-name gewaehlt" : "ow-name"}>
+                <textPath href={`#${pfadId}`} xlinkHref={`#${pfadId}`} startOffset={BOGEN * r + abstand} textAnchor="middle">
+                  {e.label}
+                </textPath>
+              </text>
+            );
+          })}
+        </g>
+      </g>
       {/* breiter unsichtbarer Griffbereich */}
       <path d={bogenPfad(r, theta)} stroke="transparent" strokeWidth={WALZEN.schlitz + 18} fill="none" />
     </g>
   );
 }
 
+// Anfang der Ortswalze: "Ort unbekannt", ein Pfeil und Leerraum. In der Ruhestellung ist so keine Stadt
+// zu sehen, und ein Wechsel des Landes veraendert nichts Sichtbares auf der Platte.
+const ANFANG_ORTE = [
+  { key: "?", label: "Ort unbekannt", ort: null },
+  { key: "pfeil", label: "——————→", breite: 130, waehlbar: false },
+  { key: "leer", label: "", breite: 230, waehlbar: false },
+];
+
 export default function OrtWalzen({ svgPunkt, anfang, onOrt }) {
   const [laender, setLaender] = useState([]);
   const [landIdx, setLandIdx] = useState(0);
-  const [staedte, setStaedte] = useState([{ key: "?", label: "Ort unbekannt", ort: null }]);
+  const [staedte, setStaedte] = useState(ANFANG_ORTE);
   const [stadtIdx, setStadtIdx] = useState(0);
   const ersteStadt = useRef(anfang?.name ?? null);
 
@@ -180,7 +196,7 @@ export default function OrtWalzen({ svgPunkt, anfang, onOrt }) {
       .then((r) => r.json())
       .then((d) => {
         const liste = [
-          { key: "?", label: "Ort unbekannt", ort: null },
+          ...ANFANG_ORTE,
           ...d.staedte.map((s) => ({ key: `${s.name}-${s.lat}`, label: s.name, ort: s })),
         ];
         setStaedte(liste);
