@@ -235,12 +235,10 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
   );
 }
 
-// Anfang der Ortswalze: "Ort unbekannt", ein Pfeil und etwas Leerraum. In der Ruhestellung ist so keine
-// Stadt zu sehen (die erste liegt gerade unter dem Schlitzende), ein Landeswechsel aendert nichts Sichtbares.
+// Anfang der Ortswalze: "Ort unbekannt" und ein Pfeil "oder doch?"; dahinter folgen die Orte des Landes.
 const ANFANG_ORTE = [
   { key: "?", label: "Ort unbekannt", ort: null },
-  { key: "pfeil", label: "——— oder doch? ———→", breite: 175, waehlbar: false },
-  { key: "leer", label: "", breite: 60, waehlbar: false },
+  { key: "pfeil", label: "—— oder doch? ——→", waehlbar: false },
 ];
 
 export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt }) {
