@@ -67,6 +67,7 @@ export default function VedischRangoli({ payload }) {
     return { ...p, g: 0.4 + zufall() * 0.8 };
   });
 
+  const zp = zufallVon(31); // feste kleine Unregelmaessigkeiten der Reismehlpunkte
   const jetzt = punkt(R_RUND - 4, winkel(alter));
   const nakPunkt = (i) => punkt(R_KOLAM, (i / 27) * Math.PI * 2 - Math.PI / 2);
 
@@ -130,6 +131,44 @@ export default function VedischRangoli({ payload }) {
             in="korn"
             type="matrix"
             values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 -0.15"
+            result="kornAlpha"
+          />
+          <feComposite in="rand" in2="kornAlpha" operator="in" />
+        </filter>
+        {/* feineres Pulver fuer die kleinen Reismehlpunkte */}
+        <filter
+          id="vr-pulver-fein"
+          x="-10%"
+          y="-10%"
+          width="120%"
+          height="120%"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="1.8"
+            numOctaves="1"
+            seed="21"
+            result="fein"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="fein"
+            scale="1.1"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="rand"
+          />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="3"
+            numOctaves="1"
+            seed="5"
+            result="korn"
+          />
+          <feColorMatrix
+            in="korn"
+            type="matrix"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0.35"
             result="kornAlpha"
           />
           <feComposite in="rand" in2="kornAlpha" operator="in" />
@@ -198,27 +237,27 @@ export default function VedischRangoli({ payload }) {
               });
             })}
         </g>
-        {/* Umrandung der aktiven Periode mit weissen Pulverpunkten */}
-        {bogen
-          .filter((b) => b.istAktiv)
-          .map((b) => {
-            const r = b.r * 1.1 + 4;
-            return Array.from({ length: 36 }, (_, k) => {
-              const p = {
-                x: b.mitte.x + r * Math.cos((k / 36) * Math.PI * 2),
-                y: b.mitte.y + r * Math.sin((k / 36) * Math.PI * 2),
-              };
-              return (
-                <circle
-                  key={`u${k}`}
-                  cx={p.x}
-                  cy={p.y}
-                  r="1.5"
-                  className="vr-punkt"
-                />
-              );
-            });
-          })}
+        {/* Umrandung der aktiven Periode mit gestreuten Reismehlpunkten */}
+        <g filter="url(#vr-pulver-fein)">
+          {bogen
+            .filter((b) => b.istAktiv)
+            .map((b) => {
+              const r = b.r * 1.1 + 4;
+              return Array.from({ length: 36 }, (_, k) => {
+                const w = (k / 36) * Math.PI * 2 + (zp() - 0.5) * 0.05;
+                const rr = r + (zp() - 0.5) * 2;
+                return (
+                  <circle
+                    key={`u${k}`}
+                    cx={b.mitte.x + rr * Math.cos(w)}
+                    cy={b.mitte.y + rr * Math.sin(w)}
+                    r={1.3 + zp() * 0.5}
+                    className="vr-punkt"
+                  />
+                );
+              });
+            })}
+        </g>
       </g>
 
       {/* Rand des Rundes: eine Linie aus weissem Reismehl, aussen verstreutes Pulver */}
@@ -233,19 +272,21 @@ export default function VedischRangoli({ payload }) {
         <circle key={`s${i}`} cx={s.x} cy={s.y} r={s.g} className="vr-streu" />
       ))}
 
-      {/* Kolam: 27 Reismehlpunkte fuer die Nakshatras */}
-      {Array.from({ length: 27 }, (_, i) => {
-        const p = nakPunkt(i);
-        return (
-          <circle
-            key={`n${i}`}
-            cx={p.x}
-            cy={p.y}
-            r={i === nakshatra ? 2.6 : 1.7}
-            className="vr-punkt"
-          />
-        );
-      })}
+      {/* Kolam: 27 Reismehlpunkte fuer die Nakshatras, von Hand gestreut (leicht unregelmaessig) */}
+      <g filter="url(#vr-pulver-fein)">
+        {Array.from({ length: 27 }, (_, i) => {
+          const p = nakPunkt(i);
+          return (
+            <circle
+              key={`n${i}`}
+              cx={p.x + (zp() - 0.5) * 1.2}
+              cy={p.y + (zp() - 0.5) * 1.2}
+              r={(i === nakshatra ? 2.4 : 1.5) + zp() * 0.4}
+              className="vr-punkt"
+            />
+          );
+        })}
+      </g>
 
       {/* mit dem Stab gezogen: Kringel um das Geburts-Nakshatra und die Rille zum heutigen Alter */}
       <g className="vr-stab">

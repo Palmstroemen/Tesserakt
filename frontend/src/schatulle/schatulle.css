@@ -1166,7 +1166,8 @@ body {
 
 /* Vedisch: Rangoli aus Farbpulver, Kolam-Punkte, Stabspuren */
 .vr-punkt {
-  fill: #f6f2e6;
+  fill: #f0eadb;
+  opacity: 0.9;
 }
 
 .vr-rand {
