@@ -836,6 +836,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
         systeme["Westlich"]["punkte"] = {"a": a["punkte"], "b": b["punkte"]}  # fuer das Doppelrad
     if "Hellenistisch" in payload.systeme:
         systeme["Hellenistisch"] = paar.hellenistisch(a["punkte"], b["punkte"], t)
+        systeme["Hellenistisch"]["punkte"] = {"a": a["punkte"], "b": b["punkte"]}  # fuer den Teller
     if "Vedisch" in payload.systeme and a["nakshatra"] is not None and b["nakshatra"] is not None:
         nak = load_rules("Vedisch")
         ganas = [v["gana"].lower() for v in sorted(nak["nakshatras"].values(), key=lambda v: v["nummer"])]

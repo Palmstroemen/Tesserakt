@@ -29,7 +29,7 @@ const ZAHLEN = [
 ].map((z) => `${z}ʹ`);
 
 // Haus n: unten beginnend, gegen den Uhrzeigersinn (Bildschirmwinkel, 90° = unten)
-function hausWinkel(n) {
+export function hausWinkel(n) {
   return ((90 - (n - 1) * 30) * Math.PI) / 180;
 }
 
@@ -116,7 +116,7 @@ function maeander(n) {
     haken.map(([u, v]) => punkt(i, u, v)).join(" "),
   );
 }
-const MAEANDER = maeander(30);
+export const MAEANDER = maeander(30);
 
 export default function HellenistischTeller({ payload }) {
   if (!payload || payload.chartType !== "profectionChart") return null;

@@ -1347,6 +1347,48 @@ body {
   opacity: 0.9;
 }
 
+/* Hellenistisch fuer Paare: Zeichennamen am Rand, Kreidezeichen und -striche */
+.hp-name {
+  text-anchor: middle;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  fill: #17100c;
+  font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
+.hp-glyphe {
+  text-anchor: middle;
+  font-size: 10px;
+  fill: #17100c;
+  opacity: 0.8;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.hp-marke {
+  text-anchor: middle;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.hp-marke.klein {
+  font-size: 11px;
+  font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
+.hp-strich,
+.hp-strich line {
+  fill: none;
+  stroke: #f6f1e4;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.hp-strich.leise line {
+  opacity: 0.6;
+}
+
 /* Vedisch: Rangoli aus Farbpulver, Kolam-Punkte, Stabspuren */
 .vr-punkt {
   fill: #f0eadb;
