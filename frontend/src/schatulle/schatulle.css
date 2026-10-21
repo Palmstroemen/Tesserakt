@@ -896,8 +896,14 @@ body {
   padding-bottom: 4px;
 }
 
+/* Systemname gross, Bewertung klein (das Ergebnis ist nicht das Wichtigste) */
+.eg-kopf span {
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+}
+
 .eg-kopf b {
-  font-size: 1.8rem;
+  font-size: 1rem;
   letter-spacing: 0;
   color: #1d150c;
 }
