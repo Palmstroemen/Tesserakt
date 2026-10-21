@@ -6,6 +6,20 @@
   font-display: swap;
 }
 
+/* Handschriften fuer die Numerologie (SIL Open Font License, siehe schriften/*-OFL.txt): Patrick Hand
+   (Schueler, lateinische Zeichen), Caveat 600 (Lehrerin, nur die benoetigten Buchstaben) */
+@font-face {
+  font-family: "Tesserakt Schueler";
+  src: url("./schriften/PatrickHand-Regular-Latein.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tesserakt Lehrerin";
+  src: url("./schriften/Caveat-Lehrerin.woff2") format("woff2");
+  font-display: swap;
+}
+
 /* Pinselschrift fuer Bazi: Ma Shan Zheng (SIL Open Font License, siehe schriften/MaShanZheng-OFL.txt),
    auf die benoetigten Zeichen zugeschnitten */
 @font-face {
@@ -1226,4 +1240,22 @@ body {
 .az-skalakachel {
   stroke: #9c9178;
   stroke-width: 0.4;
+}
+
+/* Numerologie: Mathe-Hausuebung */
+.nh-schrift {
+  font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;
+}
+
+.nh-lehrerin {
+  text-anchor: middle;
+  font-size: 17px;
+  font-family: "Tesserakt Lehrerin", "Comic Sans MS", cursive;
+}
+
+.nh-rot ellipse,
+.nh-rot path {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
 }

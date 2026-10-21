@@ -100,6 +100,8 @@ Gochara-Planeten zu Lebensbereichen sind unsere Ableitung, nicht Wortlaut der Qu
   **neu seit Oktober 2026**
 - **Amiri** (Naskh-Schrift, SIL Open Font License 1.1, The Amiri Project Authors): ostarabische Ziffern der
   Firdaria-Skala, auf die zehn Ziffern zugeschnitten – **neu seit Oktober 2026**
+- **Patrick Hand** (Patrick Wagesreiter) und **Caveat** (The Caveat Project Authors), beide SIL Open Font
+  License 1.1: Handschriften der Numerologie-Grafik, zugeschnitten – **neu seit Oktober 2026**
 
 ## Vorbilder für die Grafiken
 
