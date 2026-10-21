@@ -305,9 +305,26 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* so unscharf, dass nur Licht und Dunkel bleiben; warmer Ton wie Pergament */
-  filter: blur(18px) sepia(1) saturate(0.7) brightness(1.15);
-  transform: scale(1.35);
+  /* so unscharf, dass nur Licht und Dunkel bleiben; warmer Ton wie Pergament.
+     Kontrast gespreizt und abgedunkelt: Die Kamera hellt dunkle Szenen selbst auf, deshalb bleibt nur
+     wirklich Helles (Lampe, Fenster, Himmel) hell genug, um die Schrift zu lesen. */
+  filter: blur(30px) sepia(1) saturate(0.6) contrast(2.1) brightness(0.78);
+  transform: scale(1.5);
+}
+
+.sp-linse {
+  isolation: isolate; /* die Tinte mischt sich nur mit dem Licht in der Linse */
+}
+
+/* Rand der Linse: Vignette wie bei einem alten Projektor */
+.sp-linse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 55%, rgba(20, 12, 5, 0.55) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .sp-dia {
@@ -319,7 +336,11 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #2b2116;
+  /* Tinte auf Glas: leicht durchscheinend und verlaufen; multipliziert mit dem Licht dahinter */
+  color: rgba(38, 24, 12, 0.82);
+  text-shadow: 0 0 1.5px rgba(38, 24, 12, 0.55), 0 0 6px rgba(38, 24, 12, 0.25);
+  filter: blur(0.3px);
+  mix-blend-mode: multiply;
   font-size: clamp(0.95rem, 4.4vw, 1.12rem);
   line-height: 1.3;
 }
