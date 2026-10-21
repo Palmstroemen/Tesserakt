@@ -1,0 +1,553 @@
+/* Diagramme der sieben Systeme (aus styles.css ausgelagert, damit auch die Schatulle sie nutzen kann). */
+/* Radix wheel (western chart) */
+.radix-wheel {
+  margin: 12px 0;
+}
+
+.radix-wheel__svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+}
+
+.radix-wheel__outer-ring {
+  stroke: #1a1d24;
+  stroke-width: 1.5;
+}
+
+.radix-wheel__inner-ring {
+  stroke: #4c556a;
+  stroke-width: 1;
+}
+
+.radix-wheel__sign {
+  fill: rgba(87, 114, 213, 0.06);
+  stroke: none;
+}
+
+.radix-wheel__sign:nth-child(odd) {
+  fill: rgba(87, 114, 213, 0.1);
+}
+
+.radix-wheel__cusp {
+  stroke: #bec9e8;
+  stroke-width: 0.8;
+}
+
+.radix-wheel__aspect {
+  stroke: #4c556a;
+  stroke-width: 1;
+}
+
+.radix-wheel__planet-symbol {
+  font-size: 18px;
+  fill: #1a1d24;
+}
+
+.radix-wheel__retrograde {
+  font-size: 10px;
+  fill: #9f1d35;
+}
+
+.radix-wheel__sign-label {
+  font-size: 11px;
+  fill: #4c556a;
+}
+
+.radix-wheel--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+
+/* Bazi / Vier Säulen */
+.four-pillars {
+  margin: 12px 0;
+}
+
+.four-pillars__grid {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.four-pillars__column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.four-pillars__column-label {
+  font-size: 12px;
+  color: #4c556a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.four-pillars__cell {
+  width: 52px;
+  padding: 8px 10px;
+  text-align: center;
+  border: 2px solid #4c556a;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.four-pillars__cell--stem {
+  font-weight: 600;
+}
+
+.four-pillars__column--day-master .four-pillars__cell {
+  border-color: #5772d5;
+  background: #ecf0fc;
+}
+
+.four-pillars__cell--unknown {
+  color: #9ca3af;
+}
+
+.four-pillars__estimated {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+.four-pillars__day-master {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #4c556a;
+}
+
+.four-pillars__elements {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e1e6f4;
+}
+
+.four-pillars__elements-label {
+  display: block;
+  font-size: 12px;
+  color: #4c556a;
+  margin-bottom: 8px;
+}
+
+.four-pillars__elements-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 280px;
+}
+
+.four-pillars__element-row {
+  display: grid;
+  grid-template-columns: 56px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+}
+
+.four-pillars__element-name {
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.four-pillars__element-track {
+  height: 8px;
+  background: #ecf0fc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.four-pillars__element-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.four-pillars__element-value {
+  font-size: 12px;
+  color: #4c556a;
+}
+
+.four-pillars--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Numerologie: Lebenspfad */
+.numerology-chart {
+  margin: 12px 0;
+}
+
+.numerology-chart__birthdate {
+  font-size: 13px;
+  color: #4c556a;
+  margin-bottom: 8px;
+}
+
+.numerology-chart__life-path {
+  font-size: 4rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1;
+  color: #1a1d24;
+  margin: 16px 0;
+}
+
+.numerology-chart__master {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5772d5;
+  text-align: center;
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+
+.numerology-chart__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e1e6f4;
+}
+
+.numerology-chart__step {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  padding: 6px 10px;
+  background: #f4f6fb;
+  border-radius: 6px;
+}
+
+.numerology-chart__step-label {
+  color: #4c556a;
+}
+
+.numerology-chart__step-value {
+  font-weight: 600;
+}
+
+.numerology-chart--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Kabbalah: Baum des Lebens */
+.kabbalah-tree {
+  margin: 12px 0;
+}
+
+.kabbalah-tree__life-path {
+  font-size: 13px;
+  color: #4c556a;
+  margin-bottom: 8px;
+}
+
+.kabbalah-tree__svg-wrap {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.kabbalah-tree__svg {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.kabbalah-tree__edges line {
+  stroke: #c4c9e0;
+  stroke-width: 1.5;
+}
+
+.kabbalah-tree__node {
+  fill: #f0f2f8;
+  stroke: #8b92b0;
+  stroke-width: 1.5;
+}
+
+.kabbalah-tree__node--active {
+  fill: #d4dcf5;
+  stroke: #5772d5;
+  stroke-width: 2;
+}
+
+.kabbalah-tree__node-num,
+.kabbalah-tree__node-name {
+  font-size: 10px;
+  fill: #2d3142;
+}
+
+.kabbalah-tree__node-name {
+  font-size: 9px;
+  fill: #4c556a;
+}
+
+.kabbalah-tree--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Hellenistisch: Profektionen (12 Häuser) */
+.profection-chart {
+  margin: 12px 0;
+}
+
+.profection-chart__meta {
+  font-size: 13px;
+  color: #4c556a;
+  margin-bottom: 12px;
+}
+
+.profection-chart__sect {
+  color: #5772d5;
+}
+
+.profection-chart__houses {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.profection-chart__house {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f8;
+  border: 1.5px solid #c4c9e0;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #4c556a;
+}
+
+.profection-chart__house--active {
+  background: #d4dcf5;
+  border-color: #5772d5;
+  color: #2d3142;
+}
+
+.profection-chart__house-num {
+  font-size: 14px;
+}
+
+.profection-chart--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Arabisch: Firdaria */
+.firdaria-chart {
+  margin: 12px 0;
+}
+
+.firdaria-chart__meta {
+  font-size: 13px;
+  color: #4c556a;
+  margin-bottom: 10px;
+}
+
+.firdaria-chart__current {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f4f6fb;
+  border-radius: 8px;
+  border-left: 4px solid #5772d5;
+  margin-bottom: 10px;
+}
+
+.firdaria-chart__symbol {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.firdaria-chart__period-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.firdaria-chart__period-info strong {
+  color: #2d3142;
+}
+
+.firdaria-chart__years {
+  font-size: 12px;
+  color: #4c556a;
+}
+
+.firdaria-chart__next {
+  font-size: 12px;
+  color: #4c556a;
+  margin-bottom: 12px;
+}
+
+.firdaria-chart__timeline-wrap {
+  position: relative;
+  padding-top: 4px;
+}
+
+.firdaria-chart__timeline {
+  height: 8px;
+  background: #e1e6f4;
+  border-radius: 4px;
+  position: relative;
+}
+
+.firdaria-chart__timeline-bar {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+}
+
+.firdaria-chart__timeline-marker {
+  position: absolute;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: #5772d5;
+  border-radius: 50%;
+}
+
+.firdaria-chart__timeline-label {
+  font-size: 11px;
+  color: #4c556a;
+}
+
+.firdaria-chart__timeline-label--end {
+  float: right;
+}
+
+.firdaria-chart--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}
+
+/* Vedisch: Dasha */
+.dasha-chart {
+  margin: 12px 0;
+}
+
+.dasha-chart__meta {
+  font-size: 13px;
+  color: #4c556a;
+  margin-bottom: 10px;
+}
+
+.dasha-chart__circle-wrap {
+  max-width: 100%;
+  margin: 12px 0;
+}
+
+.dasha-chart__svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.dasha-chart__eccentric {
+  stroke: none;
+  transition: stroke 0.2s ease;
+}
+
+.dasha-chart__eccentric--active {
+  stroke: rgba(40, 40, 60, 0.7);
+  stroke-width: 2;
+}
+
+.dasha-chart__ring-label {
+  font-size: 9px;
+  fill: #5a5e72;
+  font-weight: 500;
+}
+
+.dasha-chart__ring-label--active {
+  fill: #2d3142;
+  font-weight: 700;
+}
+
+.dasha-chart__current {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: #f4f6fb;
+  border-radius: 8px;
+  border-left: 4px solid #5772d5;
+  margin-bottom: 10px;
+}
+
+.dasha-chart__label {
+  color: #2d3142;
+}
+
+.dasha-chart__years {
+  font-size: 12px;
+  color: #4c556a;
+}
+
+.dasha-chart__nakshatra {
+  font-size: 12px;
+  color: #4c556a;
+  margin-bottom: 12px;
+}
+
+.dasha-chart__timeline-wrap {
+  position: relative;
+  padding-top: 4px;
+}
+
+.dasha-chart__timeline {
+  height: 8px;
+  background: #e1e6f4;
+  border-radius: 4px;
+  position: relative;
+}
+
+.dasha-chart__timeline-bar {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+}
+
+.dasha-chart__timeline-marker {
+  position: absolute;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: #5772d5;
+  border-radius: 50%;
+}
+
+.dasha-chart__timeline-label {
+  font-size: 11px;
+  color: #4c556a;
+}
+
+.dasha-chart__timeline-label--end {
+  float: right;
+}
+
+.dasha-chart--empty {
+  padding: 24px;
+  text-align: center;
+  color: #4c556a;
+}

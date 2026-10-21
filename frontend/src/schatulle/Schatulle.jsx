@@ -4,6 +4,7 @@ import { ortFelder } from "../logic/ort";
 import { SYSTEME } from "./systeme";
 import Datumsrad from "./Datumsrad";
 import Spielplatte from "./Spielplatte";
+import Ergebnisplatte from "./Ergebnisplatte";
 import { rastKlick, zahnrad } from "./klang";
 import { belichtungFesthalten } from "./kamera";
 
@@ -82,7 +83,9 @@ function anzeigeWert(stat, system, dim, wert) {
 }
 
 export default function Schatulle() {
-  const [phase, setPhase] = useState("start"); // start | laden | uebergang | frage | ende
+  // start | laden | uebergang (Rad -> Fragen) | frage | abschluss (Fragen -> Ergebnis)
+  // | abkuerzung (Rad -> Ergebnis, Entwicklung) | ende
+  const [phase, setPhase] = useState("start");
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
 
@@ -90,6 +93,10 @@ export default function Schatulle() {
   const [matrix, setMatrix] = useState(null);
   const [vektoren, setVektoren] = useState(null); // A: Vektoren der Person; C: Unterschied (B - A) / 2
   const [kontroll, setKontroll] = useState(null);
+  const [visualPayloads, setVisualPayloads] = useState(null);
+  const [heute, setHeute] = useState(null);
+  const [texte, setTexte] = useState(null);
+  const [abkuerzung, setAbkuerzung] = useState(false);
 
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
@@ -104,6 +111,10 @@ export default function Schatulle() {
   }, [phase, kamera]);
 
   useEffect(() => {
+    fetch(`${API_BASE}/horoscope/texts?locale=de`)
+      .then((r) => r.json())
+      .then(setTexte)
+      .catch(() => {});
     fetch(`${API_BASE}/matrix`)
       .then((r) => r.json())
       .then(setMatrix)
@@ -126,20 +137,47 @@ export default function Schatulle() {
       });
   }
 
+  function wechsel(zwischen, ziel) {
+    setPhase(zwischen);
+    zahnrad(26, UEBERGANG_MS / 1000, 1700);
+    setTimeout(() => setPhase(ziel), UEBERGANG_MS);
+  }
+
+  // B ist in der Schatulle noch kein Spiel: dient vorerst als Abkuerzung zum Ergebnis (Entwicklung).
+  // Die Antworten werden gewuerfelt; gerechnet wird wie in Spiel A.
   async function spielWahl(wahl, eingabe) {
-    if (wahl === "B") {
-      setFehler("Spiel B gibt es in der Schatulle noch nicht.");
-      return;
-    }
     setFehler(null);
-    setSpiel(wahl);
+    setSpiel(wahl === "C" ? "C" : "A");
+    setAbkuerzung(wahl === "B");
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
-    kameraStarten();
+    if (wahl !== "B") kameraStarten();
+    setVisualPayloads(null);
+    setHeute(null);
     try {
       let body;
       let kontrollPfad;
-      if (wahl === "A") {
+      let katalogFragen;
+      let vek;
+      if (wahl === "C") {
+        body = {
+          ...personFelder("a", eingabe.a),
+          ...personFelder("b", eingabe.b),
+          systeme: ALLE,
+        };
+        const [katalog, v] = await Promise.all([
+          fetch(`${API_BASE}/fragen/beziehung`).then((r) => r.json()),
+          postJson("/partner", body),
+        ]);
+        katalogFragen = katalog.fragen ?? [];
+        vek = v.differenz;
+        body = {
+          ...body,
+          session_id: v.inputs.session_id,
+          stichtag: v.inputs.stichtag,
+        };
+        kontrollPfad = "/partner/kontrolle";
+      } else {
         body = {
           geburtsdatum: eingabe.geburtsdatum,
           uhrzeit: eingabe.uhrzeit,
@@ -150,40 +188,45 @@ export default function Schatulle() {
           fetch(`${API_BASE}/fragen`).then((r) => r.json()),
           postJson("/vektor", body),
         ]);
-        setFragen(mischen(katalog.fragen ?? []));
-        setVektoren(v.vektoren);
+        katalogFragen = katalog.fragen ?? [];
+        vek = v.vektoren;
+        setVisualPayloads(v.inputs.visualPayloads ?? null);
+        // Horoskop fuer heute (Teil des Ergebnisses), im Hintergrund
+        postJson("/horoscope/heute", body)
+          .then(setHeute)
+          .catch(() => {});
         body = {
           ...body,
           session_id: v.inputs.session_id,
           stichtag: v.inputs.stichtag,
         };
         kontrollPfad = "/kontrolle";
-      } else {
-        body = {
-          ...personFelder("a", eingabe.a),
-          ...personFelder("b", eingabe.b),
-          systeme: ALLE,
-        };
-        const [katalog, v] = await Promise.all([
-          fetch(`${API_BASE}/fragen/beziehung`).then((r) => r.json()),
-          postJson("/partner", body),
-        ]);
-        setFragen(mischen(katalog.fragen ?? []));
-        setVektoren(v.differenz);
-        body = {
-          ...body,
-          session_id: v.inputs.session_id,
-          stichtag: v.inputs.stichtag,
-        };
-        kontrollPfad = "/partner/kontrolle";
       }
-      setAntworten([]);
+      setFragen(mischen(katalogFragen));
+      setVektoren(vek);
       setKontroll(null);
       setRunde((r) => r + 1);
-      // Uebergang: Datumsscheibe dreht sich zum magischen Auge, die Ortswalzen schwenken weg
-      setPhase("uebergang");
-      zahnrad(26, UEBERGANG_MS / 1000, 1700);
-      setTimeout(() => setPhase("frage"), UEBERGANG_MS);
+      if (wahl === "B") {
+        setAntworten(
+          katalogFragen.map((f) => ({
+            frage_id: f.id,
+            dimension: f.dimension,
+            selbst_wert: Math.round((Math.random() * 2 - 1) * 5) / 5,
+            angezeigt: [],
+            system_werte: Object.fromEntries(
+              ALLE.map((s) => [s, Number(vek[s][f.dimension])]),
+            ),
+            gewichte: Object.fromEntries(
+              ALLE.map((s) => [s, f.gewichte?.[s] ?? 1]),
+            ),
+          })),
+        );
+        wechsel("abkuerzung", "ende");
+      } else {
+        setAntworten([]);
+        // Uebergang: Datumsscheibe dreht sich zum magischen Auge, die Ortswalzen schwenken weg
+        wechsel("uebergang", "frage");
+      }
       // Kontrollgruppe im Hintergrund (fuer Anzeige-Skalierung und Skill)
       postJson(kontrollPfad, body)
         .then((k) => setKontroll(k.kontrollvektoren))
@@ -215,7 +258,12 @@ export default function Schatulle() {
 
   // --- Ergebnis ---------------------------------------------------------------
   const ergebnis = useMemo(() => {
-    if (phase !== "ende" || !kontroll || !matrix) return null;
+    if (
+      !["abschluss", "abkuerzung", "ende"].includes(phase) ||
+      !kontroll ||
+      !matrix
+    )
+      return null;
     const alle = calculateRating(
       Object.fromEntries(ALLE.map((s) => [s, vektoren[s]])),
       antworten,
@@ -232,96 +280,63 @@ export default function Schatulle() {
   }, [phase, kontroll, matrix, vektoren, antworten]);
 
   // --- Darstellung ------------------------------------------------------------
-  if (phase === "ende") {
-    return (
-      <main className="sc">
-        <h2 className="sc-titel">
-          {spiel === "C" ? "Euer Ergebnis" : "Dein Ergebnis"}
-        </h2>
-        {!ergebnis ? (
-          <p className="sc-hinweis">
-            Das Räderwerk vergleicht mit hundert {SPIELE[spiel].vergleich} …
-          </p>
-        ) : (
-          <>
-            <div className="sc-karten">
-              {ergebnis.alle.ranking.map((s) => {
-                const sys = SYSTEME.find((x) => x.id === s);
-                const d = ergebnis.alle.systemDetails[s];
-                return (
-                  <article
-                    key={s}
-                    className="sc-ergebniskarte"
-                    style={{ "--farbe": sys.farbe }}
-                  >
-                    <header>{s}</header>
-                    <div className="sc-skill">
-                      {d.skillScore > 0
-                        ? `+${d.skillScore.toFixed(0)}`
-                        : d.skillScore.toFixed(0)}
-                    </div>
-                    <div className="sc-perzentil">
-                      besser als {d.perzentil.toFixed(0)} von 100{" "}
-                      {SPIELE[spiel].vergleich}
-                    </div>
-                    <div className="sc-perzentil">
-                      mitgespielt bei {ergebnis.mitgespielt[s]} von{" "}
-                      {antworten.length} Fragen
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-            <p className="sc-hinweis">
-              Skill 0 = Zufall, +100 = besser als alle {SPIELE[spiel].vergleich}
-              . Auch ohne jede Aussagekraft erreicht das beste von {ALLE.length}{" "}
-              Systemen im Mittel etwa +{ergebnis.erwartung.toFixed(0)}.
-              <br />
-              Prototyp: Es wird nichts gespeichert. Gewertet werden immer alle
-              Fragen, auch wenn ein System nicht aufgezogen war.
-            </p>
-          </>
-        )}
-        <button
-          type="button"
-          className="sc-start"
-          onClick={() => setPhase("start")}
-        >
-          Noch einmal
-        </button>
-      </main>
-    );
-  }
-
-  // Start, Laden, Uebergang und Fragerunde liegen uebereinander: Waehrend des Uebergangs spielt das
-  // Datumsrad seinen Abgang ueber der schon fertigen Spielplatte.
-  const zeigeSpiel = phase === "uebergang" || phase === "frage";
-  const zeigeRad =
-    phase === "start" || phase === "laden" || phase === "uebergang";
+  // Alle Platten liegen uebereinander: Waehrend eines Uebergangs spielt die alte Platte ihren Abgang als
+  // Deckschicht ueber der schon fertigen neuen (Rad -> Fragen, Fragen -> Ergebnis, Rad -> Ergebnis).
+  const zeigeRad = ["start", "laden", "uebergang", "abkuerzung"].includes(
+    phase,
+  );
+  const zeigeSpiel = ["uebergang", "frage", "abschluss"].includes(phase);
+  const zeigeErgebnis = ["abschluss", "abkuerzung", "ende"].includes(phase);
   return (
     <div className="sc-buehne">
-      {zeigeSpiel ? (
-        <Spielplatte
-          key={runde}
-          fragen={fragen}
-          pole={SPIELE[spiel].pole}
-          zielWert={(s, dim) =>
-            anzeigeWert(stat, s, dim, Number(vektoren[s][dim]))
+      {zeigeErgebnis ? (
+        <Ergebnisplatte
+          spiel={spiel}
+          ergebnis={ergebnis}
+          vergleich={SPIELE[spiel].vergleich}
+          antwortZahl={antworten.length}
+          visualPayloads={visualPayloads}
+          heute={heute}
+          texte={spiel === "A" ? texte : null}
+          hinweis={
+            abkuerzung
+              ? "Abkürzung über B (Entwicklung): Die Antworten wurden gewürfelt."
+              : null
           }
-          onAntwort={antwort}
-          onFertig={() => setPhase("ende")}
-          kamera={kamera}
-          kameraInfo={kameraInfo}
-          auftritt={phase === "uebergang"}
+          onNochmal={() => setPhase("start")}
         />
       ) : null}
+      {zeigeSpiel ? (
+        <div className={phase === "abschluss" ? "sc-deckschicht" : undefined}>
+          <Spielplatte
+            key={runde}
+            fragen={fragen}
+            pole={SPIELE[spiel].pole}
+            zielWert={(s, dim) =>
+              anzeigeWert(stat, s, dim, Number(vektoren[s][dim]))
+            }
+            onAntwort={antwort}
+            onFertig={() => wechsel("abschluss", "ende")}
+            kamera={kamera}
+            kameraInfo={kameraInfo}
+            auftritt={phase === "uebergang"}
+            abgang={phase === "abschluss"}
+          />
+        </div>
+      ) : null}
       {zeigeRad ? (
-        <div className={phase === "uebergang" ? "sc-deckschicht" : undefined}>
+        <div
+          className={
+            phase === "uebergang" || phase === "abkuerzung"
+              ? "sc-deckschicht"
+              : undefined
+          }
+        >
           <Datumsrad
             onSpiel={spielWahl}
             laedt={phase !== "start"}
             fehler={fehler}
-            abgang={phase === "uebergang"}
+            abgang={phase === "uebergang" || phase === "abkuerzung"}
           />
         </div>
       ) : null}

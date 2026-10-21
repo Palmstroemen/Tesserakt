@@ -49,6 +49,7 @@ export default function Spielplatte({
   kameraInfo,
   pole = ["trifft nicht zu", "trifft zu"],
   auftritt = false,
+  abgang = false,
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
@@ -414,7 +415,9 @@ export default function Spielplatte({
   const knaufY = HEBEL.oben + pos.hebel * HEBEL.weg;
 
   return (
-    <main className={auftritt ? "sp sp-auftritt" : "sp"}>
+    <main
+      className={`sp${auftritt ? " sp-auftritt" : ""}${abgang ? " sp-abgang" : ""}`}
+    >
       <div className="sp-buehne">
         <svg
           ref={svgRef}
@@ -460,138 +463,140 @@ export default function Spielplatte({
             </filter>
           </defs>
 
-          {/* Platte */}
-          <path
-            d={plattePfad(
-              radien[0] - abstand * 0.6,
-              radien[radien.length - 1] + abstand * 0.62,
-              theta + 0.16,
-            )}
-            fill="url(#sp-platte)"
-            stroke="#2b2014"
-            strokeWidth="2"
-          />
+          {/* Faecher: schwenkt beim Abgang zum Ergebnis um den Kreismittelpunkt weg */}
+          <g className="sp-faecher">
+            {/* Platte */}
+            <path
+              d={plattePfad(
+                radien[0] - abstand * 0.6,
+                radien[radien.length - 1] + abstand * 0.62,
+                theta + 0.16,
+              )}
+              fill="url(#sp-platte)"
+              stroke="#2b2014"
+              strokeWidth="2"
+            />
 
-          {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
-          {strahlen.map((u, k) =>
-            radien.slice(0, -1).map((r, j) => {
-              const a = punktU(r + schlitz / 2 + 3, u, theta);
-              const b = punktU(radien[j + 1] - schlitz / 2 - 3, u, theta);
-              const mitte = k === 5;
+            {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
+            {strahlen.map((u, k) =>
+              radien.slice(0, -1).map((r, j) => {
+                const a = punktU(r + schlitz / 2 + 3, u, theta);
+                const b = punktU(radien[j + 1] - schlitz / 2 - 3, u, theta);
+                const mitte = k === 5;
+                return (
+                  <g key={`${k}-${j}`}>
+                    <line
+                      x1={a.x}
+                      y1={a.y}
+                      x2={b.x}
+                      y2={b.y}
+                      stroke="#2a1e12"
+                      strokeWidth={mitte ? 2.4 : 1.6}
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1={a.x + 0.9}
+                      y1={a.y + 0.6}
+                      x2={b.x + 0.9}
+                      y2={b.y + 0.6}
+                      stroke="#c9a66b"
+                      strokeWidth="0.6"
+                      opacity="0.6"
+                    />
+                  </g>
+                );
+              }),
+            )}
+
+            {/* Schlitze */}
+            {radien.map((r, k) => {
+              const sys = k ? SYSTEME[k - 1] : null;
+              const sperrA = punktU(r - schlitz / 2, RUHE_ANTEIL * 0.55, theta);
+              const sperrB = punktU(r + schlitz / 2, RUHE_ANTEIL * 0.55, theta);
               return (
-                <g key={`${k}-${j}`}>
-                  <line
-                    x1={a.x}
-                    y1={a.y}
-                    x2={b.x}
-                    y2={b.y}
-                    stroke="#2a1e12"
-                    strokeWidth={mitte ? 2.4 : 1.6}
-                    strokeLinecap="round"
+                <g key={r}>
+                  <path
+                    d={bogenPfad(r, theta)}
+                    className="sp-schlitz"
+                    strokeWidth={k ? schlitz : schlitz * 0.55}
                   />
+                  {sys ? (
+                    <path
+                      d={bogenPfad(r, theta, RUHE_ANTEIL, 1)}
+                      stroke={sys.farbe}
+                      className="sp-spur"
+                    />
+                  ) : null}
                   <line
-                    x1={a.x + 0.9}
-                    y1={a.y + 0.6}
-                    x2={b.x + 0.9}
-                    y2={b.y + 0.6}
-                    stroke="#c9a66b"
-                    strokeWidth="0.6"
-                    opacity="0.6"
+                    x1={sperrA.x}
+                    y1={sperrA.y}
+                    x2={sperrB.x}
+                    y2={sperrB.y}
+                    className="sp-sperrzahn"
                   />
                 </g>
               );
-            }),
-          )}
+            })}
 
-          {/* Schlitze */}
-          {radien.map((r, k) => {
-            const sys = k ? SYSTEME[k - 1] : null;
-            const sperrA = punktU(r - schlitz / 2, RUHE_ANTEIL * 0.55, theta);
-            const sperrB = punktU(r + schlitz / 2, RUHE_ANTEIL * 0.55, theta);
-            return (
-              <g key={r}>
-                <path
-                  d={bogenPfad(r, theta)}
-                  className="sp-schlitz"
-                  strokeWidth={k ? schlitz : schlitz * 0.55}
-                />
-                {sys ? (
-                  <path
-                    d={bogenPfad(r, theta, RUHE_ANTEIL, 1)}
-                    stroke={sys.farbe}
-                    className="sp-spur"
+            {/* eigener Strahl nach dem Ausloesen */}
+            {zeigeUserStrahl
+              ? (() => {
+                  const a = punktU(radien[0], pos.user, theta);
+                  const b = punktU(
+                    radien[radien.length - 1] + symbol,
+                    pos.user,
+                    theta,
+                  );
+                  return (
+                    <line
+                      x1={a.x}
+                      y1={a.y}
+                      x2={b.x}
+                      y2={b.y}
+                      className="sp-userstrahl"
+                    />
+                  );
+                })()
+              : null}
+
+            {/* Systemsymbole */}
+            {SYSTEME.map((s, i) => {
+              const p = punktU(radien[i + 1], pos[s.id], theta);
+              const aktiv = aufgezogen.includes(s.id) || pos[s.id] > RUHE;
+              return (
+                <g key={s.id} opacity={aktiv ? 1 : 0.72}>
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r={symbol}
+                    fill={s.farbe}
+                    className="sp-symbol"
                   />
-                ) : null}
-                <line
-                  x1={sperrA.x}
-                  y1={sperrA.y}
-                  x2={sperrB.x}
-                  y2={sperrB.y}
-                  className="sp-sperrzahn"
-                />
-              </g>
-            );
-          })}
+                  <text
+                    x={p.x}
+                    y={p.y + symbol * 0.36}
+                    className="sp-kurz"
+                    fontSize={symbol * 0.95}
+                  >
+                    {s.kurz}
+                  </text>
+                </g>
+              );
+            })}
 
-          {/* eigener Strahl nach dem Ausloesen */}
-          {zeigeUserStrahl
-            ? (() => {
-                const a = punktU(radien[0], pos.user, theta);
-                const b = punktU(
-                  radien[radien.length - 1] + symbol,
-                  pos.user,
-                  theta,
-                );
-                return (
-                  <line
-                    x1={a.x}
-                    y1={a.y}
-                    x2={b.x}
-                    y2={b.y}
-                    className="sp-userstrahl"
-                  />
-                );
-              })()
-            : null}
-
-          {/* Systemsymbole */}
-          {SYSTEME.map((s, i) => {
-            const p = punktU(radien[i + 1], pos[s.id], theta);
-            const aktiv = aufgezogen.includes(s.id) || pos[s.id] > RUHE;
-            return (
-              <g key={s.id} opacity={aktiv ? 1 : 0.72}>
+            {/* eigener Schieber */}
+            {(() => {
+              const p = punktU(radien[0], pos.user, theta);
+              return (
                 <circle
                   cx={p.x}
                   cy={p.y}
-                  r={symbol}
-                  fill={s.farbe}
-                  className="sp-symbol"
+                  r={symbol * 0.85}
+                  className={pos.user < RUHE ? "sp-knauf ruhe" : "sp-knauf"}
                 />
-                <text
-                  x={p.x}
-                  y={p.y + symbol * 0.36}
-                  className="sp-kurz"
-                  fontSize={symbol * 0.95}
-                >
-                  {s.kurz}
-                </text>
-              </g>
-            );
-          })}
-
-          {/* eigener Schieber */}
-          {(() => {
-            const p = punktU(radien[0], pos.user, theta);
-            return (
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r={symbol * 0.85}
-                className={pos.user < RUHE ? "sp-knauf ruhe" : "sp-knauf"}
-              />
-            );
-          })()}
-
+              );
+            })()}
+          </g>
           {/* Auge (beim Auftritt dreht es sich wie eine Muenze herein) */}
           <g className="sp-auge">
             <circle

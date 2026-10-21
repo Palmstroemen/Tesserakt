@@ -728,3 +728,183 @@ body {
     opacity: 0;
   }
 }
+
+/* --- Ergebnisplatte ------------------------------------------------------------- */
+.eg {
+  display: flex;
+  flex-direction: column;
+}
+
+.eg-linse {
+  background: transparent;
+}
+
+.eg-streifen {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.eg-dia {
+  flex: 0 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.eg-diagramm {
+  flex: 0 0 auto;
+  transform-origin: center;
+  color: #2b2116;
+  font-family: Georgia, serif;
+}
+
+.eg-ohne {
+  font-size: 3rem;
+  color: var(--farbe);
+  font-family: Georgia, serif;
+}
+
+.eg-rangliste {
+  width: 70%;
+  color: #2b2116;
+  font-family: Georgia, serif;
+  font-size: 0.82rem;
+}
+
+.eg-rangtitel {
+  text-align: center;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  margin-bottom: 6px;
+  color: #6b5a40;
+}
+
+.eg-rang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.55;
+}
+
+.eg-rang i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--farbe);
+}
+
+.eg-rang span {
+  flex: 1;
+}
+
+/* Textfeld unter dem Auge: Oberkante = Kreisbogen um die Augenmitte */
+.eg-platte {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: linear-gradient(180deg, #8a6a3c, #4a3720);
+  -webkit-mask-image: var(--eg-ausschnitt);
+  mask-image: var(--eg-ausschnitt);
+}
+
+.eg-band {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.eg-band::-webkit-scrollbar {
+  display: none;
+}
+
+.eg-karte {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: var(--eg-oben) 22px 64px;
+  color: #1d150c;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.eg-karte h4 {
+  margin: 1.1em 0 0.3em;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #2b1d0c;
+}
+
+.eg-karte p {
+  margin: 0 0 0.7em;
+}
+
+.eg-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--farbe);
+  padding-bottom: 4px;
+}
+
+.eg-kopf b {
+  font-size: 1.8rem;
+  letter-spacing: 0;
+  color: #1d150c;
+}
+
+.eg-leise {
+  font-size: 0.85rem;
+  color: #3a2c1a;
+}
+
+.eg-punkte {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 0 max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, transparent, #4a3720 55%);
+}
+
+.eg-punkte button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #1d150c;
+  background: transparent;
+}
+
+.eg-punkte button.an {
+  background: var(--farbe);
+}
+
+/* Uebergang Fragerunde -> Ergebnis: Systemboegen schwenken weg, Frage und Hebel blenden aus */
+.sp-abgang .sp-faecher {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+  animation: dr-walzen-ab 1.15s cubic-bezier(0.55, 0, 0.8, 0.2) forwards;
+}
+
+.sp-abgang .sp-linse,
+.sp-abgang .sp-auge,
+.sp-abgang .sp-hebel,
+.sp-abgang .sp-fuss {
+  animation: sc-ausblenden 0.6s ease-out forwards;
+}
