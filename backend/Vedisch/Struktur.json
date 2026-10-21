@@ -19,6 +19,16 @@
       "pflicht": true
     },
     {
+      "id": "antardasha_aktiv",
+      "schluessel": "antardasha_matrix",
+      "typ": "antardasha",
+      "eingabe": "vimshottari_position",
+      "dauern_schluessel": "mahadasha_dauern",
+      "dim_feld": "dimensionen",
+      "gewicht": 0.6,
+      "pflicht": false
+    },
+    {
       "id": "nakshatra",
       "schluessel": "nakshatras",
       "typ": "nakshatra",

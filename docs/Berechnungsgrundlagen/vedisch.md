@@ -11,6 +11,8 @@
 - **Vimshottari-Dasha:** 120-jähriger Zyklus (Ketu 7, Venus 20, Sonne 6, Mond 10, Mars 7, Rahu 18,
   Jupiter 16, Saturn 19, Merkur 17 Jahre). Startpunkt aus dem Herrscher des Geburts-Nakshatras und dem
   bereits verstrichenen Anteil; aktuelle Mahadasha aus dem Alter mit Nachkommastellen.
+- **Antardasha (Bhukti):** Unterperiode der laufenden Mahadasha, beginnend mit dem Mahadasha-Herrscher in
+  Vimshottari-Reihenfolge; Dauer = Mahadasha-Jahre × Antardasha-Jahre / 120. Eigene Regelebene (Gewicht 0,6).
 - **Yogas:** einfache Raja-Yogas aus der Stellung der Hausherrscher (ganze Zeichen ab dem siderischen
   Aszendenten).
 - **Quellen der Regeln:** Parashara (BPHS), Mantreswara (Phaladeepika).
@@ -22,11 +24,20 @@
 | 20.10.2026 | Lebensalter als Differenz der Jahreszahlen; die Dasha-Position sprang am 1. Januar. | Alter mit Nachkommastellen (Commit `fa8f7e3`). |
 | 20.10.2026 | **Ayanamsha:** Der Code-Kommentar nannte Lahiri, tatsächlich galt die Voreinstellung der Swiss Ephemeris, **Fagan/Bradley** (etwa 0,9° mehr). Nahe den Nakshatra-Grenzen ergab das ein falsches Geburts-Nakshatra und damit einen falschen Dasha-Beginn. | Lahiri ausdrücklich gesetzt. |
 | 20.10.2026 | **Yogas** wurden mit **tropischen** Zeichen bestimmt, rund 24° neben den siderischen. | Siderische Zeichen für Aszendent und Planeten. |
+| 21.10.2026 | Die **Antardasha** wurde nicht verwendet; die Regeldaten enthielten nur 4 von 9 Hauptperioden. | Matrix auf alle 81 Kombinationen ergänzt und als Regelebene eingebaut (siehe unten). |
 
 ## Bekannte Vereinfachungen
 
-- **Antardasha (Unterperioden)** wird noch nicht verwendet: Die Regeldaten enthalten nur 4 von 9
-  Hauptperioden (Ketu, Venus, Jupiter, Saturn). Ergänzung als Inhaltsprojekt vorgesehen.
+- **45 der 81 Antardasha-Deutungen stammen von uns.** Die Regeldaten enthielten nur die Zeilen für Ketu,
+  Venus, Jupiter und Saturn. Die Zeilen für Sonne, Mond, Mars, Rahu und Merkur haben wir im Oktober 2026
+  nach den Grundzügen der Antardasha-Kapitel in BPHS ergänzt und mit den vorhandenen Einträgen abgestimmt
+  (z. B. gleiche Einschätzung von Saturn–Mars und Mars–Saturn). Sie sind in `jyotish_dasha.json` mit dem Feld
+  `ergaenzt` gekennzeichnet und **nicht** wörtlich aus der Quelle übernommen. Die Vektoren gehen vom Mittel
+  der beiden Mahadasha-Profile aus und betonen die in der Deutung genannten Bereiche – so wie die
+  vorhandenen Einträge, die ebenfalls von Hand gesetzt sind.
+- In BPHS hängt das Ergebnis einer Antardasha stark von Haus und Würde beider Herrscher im Geburtshoroskop
+  ab. Unsere Matrix kennt nur die Kombination der beiden Planeten.
+- Keine Pratyantardasha (dritte Ebene).
 - **Gochara (Transite)** fehlt; es liegen keine Regeln vor.
 - Nur ein kleiner Teil der Yogas; keine Divisionalhoroskope (Navamsa usw.), keine Shadbala.
 - Ohne Geburtsort sind Aszendent und Yogas ungenau (`00_allgemein.md`); das Nakshatra kaum (der Mond

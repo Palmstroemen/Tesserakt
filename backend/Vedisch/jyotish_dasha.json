@@ -695,6 +695,554 @@
         }
       }
     },
+    "sonne_antardasha": {
+      "sonne_sonne": {
+        "qualitaet": "neutral",
+        "beschreibung": "Doppelte Sonnenkraft: Autorität und Anerkennung stehen im Vordergrund, aber auch Stolz, Konflikte mit Vorgesetzten und Belastung von Augen, Herz und Hitzehaushalt.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_mond": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Sonne und Mond als natürliche Freunde: Ehre, Zuwachs an Besitz, Rückhalt in der Familie und gute Beziehungen; günstig für Heirat und öffentliche Wirkung.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_mars": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Freundliche Kräfte: Tatkraft, Mut und Erfolg im Beruf, Gewinne durch Grundbesitz; Neigung zu Streit, Fieber und kleineren Verletzungen.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_rahu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Rahu verdunkelt die Sonne: Spannungen mit Autoritäten, Täuschung, Unsicherheit im Beruf und gesundheitliche Schwächung; ungewöhnliche Wege, auch im Ausland.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_jupiter": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Freundschaft von Sonne und Jupiter: Ehre, Wohlstand, Förderung durch Lehrer und Vorgesetzte, Glück mit Kindern, religiöse und geistige Reife.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 1.0
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_saturn": {
+        "qualitaet": "sehr_unguenstig",
+        "beschreibung": "Stärkste natürliche Feindschaft: Konflikte mit dem Vater und mit Behörden, Verluste, Hindernisse im Beruf und langwierige Erkrankungen.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.25,
+          "finanzen": 0.25,
+          "gesundheit": 0.0,
+          "soziales": 0.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_merkur": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Sonne und Merkur wirken zusammen: Lernen, Handel, geschickte Kommunikation und Anerkennung für geistige Arbeit; Nervosität und Hautprobleme möglich.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_ketu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Ketu trennt: Rückzug, Verlust von Stellung oder Besitz, Belastungen an Kopf und Augen; zugleich spirituelle Suche und Pilgerschaft.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.25,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 1.0
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "sonne_venus": {
+        "qualitaet": "neutral",
+        "beschreibung": "Gegensätzliche Kräfte: Komfort, Kunst und Beziehungen bringen Freude, aber auch Reibung in der Partnerschaft und Ausgaben für Luxus.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.5,
+          "gesundheit": 0.75,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      }
+    },
+    "mond_antardasha": {
+      "mond_mond": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Volle Mondkraft: Gefühlstiefe, Geborgenheit, Nähe zur Mutter und Beliebtheit; Stimmungsschwankungen und wechselnde Pläne.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_mars": {
+        "qualitaet": "neutral",
+        "beschreibung": "Mond und Mars: Tatkraft und Gewinne durch Besitz, aber Reizbarkeit, Streit in der Familie und Belastungen durch Hitze und Blut.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_rahu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Rahu trübt den Mond: Unruhe, Ängste, Verwirrung und Missverständnisse; ungewohnte Begegnungen und Reisen.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_jupiter": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Mond und Jupiter: Weisheit, Wohlstand, Ansehen und Freude durch Kinder und Lehrer; innere Ruhe und Großzügigkeit.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 1.0
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_saturn": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Saturn bedrückt den Mond: Niedergeschlagenheit, Einsamkeit, Sorgen um die Mutter und langsame Fortschritte; Reife durch Belastung.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_merkur": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Mond und Merkur: Lernen, Kommunikation und Handel gelingen; neue Kontakte und Freude an geistiger Arbeit, gelegentlich nervöse Unruhe.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_ketu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Ketu löst emotionale Bindungen: Verluste, Rückzug und Unsicherheit in der Familie; Hinwendung zu Spiritualität.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 1.0
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_venus": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Mond und Venus: Behaglichkeit, Liebe, Kunst, schöne Dinge und angenehme Gesellschaft; Ausgaben für Komfort.",
+        "dimensionen": {
+          "liebe": 1.0,
+          "beruf": 0.5,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mond_sonne": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Mond und Sonne als Freunde: Unterstützung durch Vorgesetzte und den Vater, Anerkennung und klarer Wille; Augen schonen.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      }
+    },
+    "mars_antardasha": {
+      "mars_mars": {
+        "qualitaet": "neutral",
+        "beschreibung": "Doppelte Marskraft: Durchsetzungsvermögen, Grundbesitz und sportlicher Ehrgeiz, aber Streit, Unfälle und Verletzungsgefahr.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.25
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_rahu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Mars und Rahu: plötzliche Ereignisse, Aggression, Rechtsstreit und Unfallgefahr; Mut in riskanten Unternehmungen.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.0,
+          "soziales": 0.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.25
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_jupiter": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Mars und Jupiter als Freunde: rechtschaffenes Handeln, Erfolg, Grundbesitz und Wohlstand, Glück mit Kindern und Lehrern.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_saturn": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Mars und Saturn als Gegner: harte Prüfungen, Unfälle, Operationen, Konflikte und Verluste; Ausdauer zahlt sich spät aus.",
+        "dimensionen": {
+          "liebe": 0.0,
+          "beruf": 0.75,
+          "finanzen": 0.25,
+          "gesundheit": 0.0,
+          "soziales": 0.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_merkur": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Mars befeindet Merkur: Streit um Worte und Verträge, nervöse Anspannung und Hautprobleme; Geschick im Handel unter Druck.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_ketu": {
+        "qualitaet": "neutral",
+        "beschreibung": "Ketu wirkt wie Mars: intensive, plötzliche Energie, Operationen möglich, Trennungen; Mut und spirituelle Disziplin.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_venus": {
+        "qualitaet": "neutral",
+        "beschreibung": "Mars und Venus: Leidenschaft, Beziehungen, Kunst und Genuss, aber Impulsivität, Eifersucht und Ausgaben.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_sonne": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Mars und Sonne als Freunde: Mut, Anerkennung, Führungsrollen und Erfolg bei Behörden; Hitze und Kopfschmerzen beachten.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "mars_mond": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Mars und Mond: Gewinne, Besitz und Rückhalt in der Familie; wechselnde Stimmungen und Tatendrang.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      }
+    },
+    "rahu_antardasha": {
+      "rahu_rahu": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Doppelter Rahu: Ehrgeiz, Verwirrung, Täuschung und plötzliches Auf und Ab; fremde Länder und ungewöhnliche Umgebungen.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.75,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.25
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_jupiter": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Jupiter in der Rahu-Periode: Wachstum auf unkonventionellen Wegen, Förderer und Lehrer, Gewinne und geistige Orientierung.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_saturn": {
+        "qualitaet": "neutral",
+        "beschreibung": "Rahu wirkt wie Saturn: harte Arbeit, Verzögerungen, Arbeit im Ausland oder mit Fremden; Erfolg durch Ausdauer.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_merkur": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Rahu und Merkur: Scharfsinn, Technik, Handel und Kommunikation gelingen; Neues lernen, Vorsicht bei Täuschung.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_ketu": {
+        "qualitaet": "sehr_unguenstig",
+        "beschreibung": "Die Achse der Mondknoten in Spannung: Verwirrung, Verluste, Trennung und gesundheitliche Unsicherheit.",
+        "dimensionen": {
+          "liebe": 0.0,
+          "beruf": 0.5,
+          "finanzen": 0.25,
+          "gesundheit": 0.0,
+          "soziales": 0.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_venus": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Rahu und Venus: Luxus, Beziehungen, Kunst und plötzliche Gewinne; Versuchungen und Übermaß möglich.",
+        "dimensionen": {
+          "liebe": 0.75,
+          "beruf": 0.75,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_sonne": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Rahu verfinstert die Sonne: Konflikte mit Autoritäten und dem Vater, Unsicherheit über die eigene Stellung, Gesundheit schwächer.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_mond": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Rahu und Mond: emotionale Unruhe, Ängste und Schlafprobleme; Sorgen um die Mutter, viel Bewegung.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "rahu_mars": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Rahu und Mars: Aggression, Streit, Unfälle und Rechtsfragen; riskante Unternehmungen mit plötzlichem Ausgang.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.0,
+          "soziales": 0.0,
+          "kreativitaet": 0.5,
+          "veraenderung": 1.0,
+          "spiritualitaet": 0.25
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      }
+    },
     "jupiter_antardasha": {
       "jupiter_jupiter": {
         "qualitaet": "sehr_guenstig",
@@ -949,6 +1497,143 @@
           "veraenderung": 0.5,
           "spiritualitaet": 1.0
         }
+      }
+    },
+    "merkur_antardasha": {
+      "merkur_merkur": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Volle Merkurkraft: Verstand, Lernen, Handel, Schreiben und Kommunikation gedeihen; Freundschaften und gutes Einkommen.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_ketu": {
+        "qualitaet": "neutral",
+        "beschreibung": "Ketu in der Merkur-Periode: Abwendung vom rein Rationalen, Forschung und Tiefgang; nervöse Anspannung und Missverständnisse.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.5,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_venus": {
+        "qualitaet": "sehr_guenstig",
+        "beschreibung": "Merkur und Venus als Freunde: Kunst, Liebe, Wohlstand und angenehme Gesellschaft; kreativer Erfolg.",
+        "dimensionen": {
+          "liebe": 1.0,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_sonne": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Merkur und Sonne als Freunde: Anerkennung für Wissen und Können, Förderung durch Vorgesetzte und Behörden.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_mond": {
+        "qualitaet": "neutral",
+        "beschreibung": "Merkur und Mond: Gefühl und Verstand ziehen in verschiedene Richtungen; Beliebtheit und Kontakte, aber Unruhe und Nervosität.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.5,
+          "gesundheit": 0.5,
+          "soziales": 0.75,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_mars": {
+        "qualitaet": "unguenstig",
+        "beschreibung": "Merkur und Mars: Streit, scharfe Worte, Rechtsstreit und Unfallgefahr; technische und handwerkliche Durchsetzung.",
+        "dimensionen": {
+          "liebe": 0.25,
+          "beruf": 1.0,
+          "finanzen": 0.5,
+          "gesundheit": 0.25,
+          "soziales": 0.25,
+          "kreativitaet": 0.75,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_rahu": {
+        "qualitaet": "neutral",
+        "beschreibung": "Merkur und Rahu: Cleverness, Technik und ungewöhnliche Ideen, aber Täuschung, Unruhe und Missverständnisse.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 0.75,
+          "finanzen": 0.75,
+          "gesundheit": 0.25,
+          "soziales": 0.5,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.75,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_jupiter": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Merkur und Jupiter: Lernen und Lehren, Weisheit, Rat und Wohlstand; Ansehen durch Wissen.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 1.0,
+          "gesundheit": 0.5,
+          "soziales": 1.0,
+          "kreativitaet": 1.0,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.75
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
+      },
+      "merkur_saturn": {
+        "qualitaet": "guenstig",
+        "beschreibung": "Merkur und Saturn als Freunde: disziplinierte Arbeit, Festigung im Beruf, sorgfältige Planung und dauerhafte Ergebnisse.",
+        "dimensionen": {
+          "liebe": 0.5,
+          "beruf": 1.0,
+          "finanzen": 0.75,
+          "gesundheit": 0.5,
+          "soziales": 0.5,
+          "kreativitaet": 0.5,
+          "veraenderung": 0.5,
+          "spiritualitaet": 0.5
+        },
+        "ergaenzt": "Tesserakt 2026-10: ergaenzt nach den Grundzuegen der Antardasha-Kapitel (BPHS), abgestimmt mit den vorhandenen Eintraegen; nicht woertlich aus der Quelle"
       }
     }
   },

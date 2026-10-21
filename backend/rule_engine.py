@@ -846,6 +846,42 @@ def handle_sekt(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
         "spiritualitaet": 0.2,
     }
 
+def _dasha_dauern(rules: dict, schluessel: str) -> List[Tuple[str, float]]:
+    """Vimshottari-Reihenfolge mit Dauer in Jahren aus den Regeldaten (Metadaten wie 'quelle' ignoriert)."""
+    result = []
+    for planet, dauer in rules.get(schluessel, {}).items():
+        if isinstance(dauer, (int, float)):
+            result.append((planet, float(dauer)))
+        elif isinstance(dauer, dict) and isinstance(dauer.get("jahre"), (int, float)):
+            result.append((planet, float(dauer["jahre"])))
+    return result
+
+
+def handle_antardasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Antardasha (Bhukti): Unterperiode der laufenden Mahadasha. Beginnt mit dem Mahadasha-Herrscher und folgt
+    der Vimshottari-Reihenfolge; Dauer = Mahadasha-Jahre * Antardasha-Jahre / 120 (BPHS)."""
+    position = inputs.get("vimshottari_position")
+    if position is None:
+        return {}
+    dauern = _dasha_dauern(rules, quelle.get("dauern_schluessel", "mahadasha_dauern"))
+    zyklus = sum(j for _, j in dauern) or 120.0
+    laufzeit = 0.0
+    for i, (md, md_jahre) in enumerate(dauern):
+        if laufzeit + md_jahre > position:
+            innen = position - laufzeit
+            unter = 0.0
+            for k in range(len(dauern)):
+                ad, ad_jahre = dauern[(i + k) % len(dauern)]
+                ad_dauer = md_jahre * ad_jahre / zyklus
+                if unter + ad_dauer > innen or k == len(dauern) - 1:
+                    matrix = rules.get(quelle.get("schluessel", "antardasha_matrix"), {})
+                    eintrag = matrix.get(f"{md}_antardasha", {}).get(f"{md}_{ad}", {})
+                    return extract_dims(eintrag, quelle.get("dim_feld", "dimensionen"))
+                unter += ad_dauer
+        laufzeit += md_jahre
+    return {}
+
+
 def handle_mahadasha(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     alter   = inputs.get("lebensalter", 0)
     zyklus  = quelle.get("zyklus_jahre", 120)
@@ -995,6 +1031,7 @@ HANDLER = {
     "transit":               handle_transit,
     "natal_aspekte":         handle_natal_aspekte,
     "unter_firdaria":        handle_unter_firdaria,
+    "antardasha":            handle_antardasha,
     "planeten_in_haeusern":  handle_planeten_in_haeusern,
     "nach_day_master":       handle_nach_day_master,
     "nach_branch":           handle_nach_branch,
