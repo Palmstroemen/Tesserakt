@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
+import HoroskopIcon from "./HoroskopIcon";
+import Schlitz, { SchlitzDefs } from "./Schlitze";
 import {
   AUGE_RADIUS,
   LINSE_RADIUS,
@@ -62,6 +64,7 @@ export default function Spielplatte({
   sofort = false, // Abkuerzung: gleich mit der Auswertung beginnen
   onAuswertung, // die Rangliste ist sichtbar
   onWeiter, // Wischen/Tippen im Auge waehrend der Auswertung: weiter zu den Textkarten
+  vonMitte = false, // Paarfragen: die Balken der Schlitze wachsen von der Mitte aus
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
@@ -511,6 +514,7 @@ export default function Spielplatte({
           onPointerCancel={loslassen}
         >
           <defs>
+            <SchlitzDefs />
             <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
               <stop offset="0" stopColor="#f3d79a" />
               <stop offset="0.55" stopColor="#b08d57" />
@@ -600,13 +604,18 @@ export default function Spielplatte({
                   <path
                     d={bogenPfad(r, theta)}
                     className="sp-schlitz"
-                    strokeWidth={k ? schlitz : schlitz * 0.55}
+                    strokeWidth={k ? schlitz + 2.4 : schlitz * 0.55}
                   />
                   {sys ? (
-                    <path
-                      d={bogenPfad(r, theta, RUHE_ANTEIL, 1)}
-                      stroke={sys.farbe}
-                      className="sp-spur"
+                    <Schlitz
+                      id={sys.id}
+                      k={k}
+                      r={r}
+                      theta={theta}
+                      w={schlitz}
+                      u={pos[sys.id]}
+                      vonMitte={vonMitte}
+                      hoehe={hoehe}
                     />
                   ) : null}
                   <line
@@ -646,22 +655,8 @@ export default function Spielplatte({
               const p = punktU(radien[i + 1], pos[s.id], theta);
               const aktiv = aufgezogen.includes(s.id) || pos[s.id] > RUHE;
               return (
-                <g key={s.id} opacity={aktiv ? 1 : 0.72}>
-                  <circle
-                    cx={p.x}
-                    cy={p.y}
-                    r={symbol}
-                    fill={s.farbe}
-                    className="sp-symbol"
-                  />
-                  <text
-                    x={p.x}
-                    y={p.y + symbol * 0.36}
-                    className="sp-kurz"
-                    fontSize={symbol * 0.95}
-                  >
-                    {s.kurz}
-                  </text>
+                <g key={s.id} opacity={aktiv ? 1 : 0.8} className="sp-symbol">
+                  <HoroskopIcon id={s.id} x={p.x} y={p.y} r={symbol} />
                 </g>
               );
             })}

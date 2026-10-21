@@ -10,8 +10,14 @@ export const ANZAHL_BOEGEN = 8; // eigener Schieber + 7 Systeme
 
 export function faecherLayout(verfuegbareHoehe) {
   const r0 = 214; // innerster Bogen knapp ausserhalb des Auges
-  const abstand = Math.max(30, Math.min(44, (verfuegbareHoehe - 200 - r0 - 28) / (ANZAHL_BOEGEN - 1)));
-  const radien = Array.from({ length: ANZAHL_BOEGEN }, (_, k) => r0 + k * abstand);
+  const abstand = Math.max(
+    30,
+    Math.min(44, (verfuegbareHoehe - 200 - r0 - 28) / (ANZAHL_BOEGEN - 1)),
+  );
+  const radien = Array.from(
+    { length: ANZAHL_BOEGEN },
+    (_, k) => r0 + k * abstand,
+  );
   const symbol = Math.min(16, abstand * 0.38);
   const aussen = radien[ANZAHL_BOEGEN - 1];
   // halber Oeffnungswinkel (rad): aeusserstes Symbol mit Abstand zum Bildschirmrand, damit man es greifen kann
@@ -21,7 +27,7 @@ export function faecherLayout(verfuegbareHoehe) {
     abstand,
     symbol,
     theta,
-    schlitz: symbol * 1.15,
+    schlitz: Math.min(abstand * 0.64, symbol * 1.75), // breite Schlitze: Muster und Goldplaettchen darin
     hoehe: Math.ceil(MITTE.y + aussen + symbol + 14),
   };
 }
@@ -39,7 +45,10 @@ export function polarAusPunkt(x, y, theta) {
 }
 
 export function uAusWert(wert) {
-  return RUHE_ANTEIL + ((Math.max(-1, Math.min(1, wert)) + 1) / 2) * (1 - RUHE_ANTEIL);
+  return (
+    RUHE_ANTEIL +
+    ((Math.max(-1, Math.min(1, wert)) + 1) / 2) * (1 - RUHE_ANTEIL)
+  );
 }
 
 export function wertAusU(u) {
@@ -53,7 +62,10 @@ export function bogenPfad(r, theta, von = 0, bis = 1) {
 }
 
 export function plattePfad(innen, aussen, winkel) {
-  const p = (r, phi) => ({ x: MITTE.x + r * Math.sin(phi), y: MITTE.y + r * Math.cos(phi) });
+  const p = (r, phi) => ({
+    x: MITTE.x + r * Math.sin(phi),
+    y: MITTE.y + r * Math.cos(phi),
+  });
   const al = p(aussen, -winkel);
   const ar = p(aussen, winkel);
   const ir = p(innen, winkel);

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   calculateRating,
   calculateTimingRating,
@@ -167,12 +167,16 @@ export default function Schatulle() {
   const [kamera, setKamera] = useState(null);
   const [kameraInfo, setKameraInfo] = useState("");
 
-  // Kamera beim Verlassen der Fragerunde abschalten
+  // Kamera gleich beim Oeffnen anfordern und laufen lassen: so kommt die Freigabe-Abfrage einmal am Anfang
+  // und nicht mitten im Spiel (die Frontkamera fuer den Spiegel im Ergebnis gilt dann als schon freigegeben).
+  // Abgeschaltet wird erst beim Verlassen der Seite.
+  const kameraRef = useRef(null);
+  const kameraAbgelehnt = useRef(false);
   useEffect(() => {
-    if (["laden", "uebergang", "frage"].includes(phase) || !kamera) return;
-    kamera.getTracks().forEach((t) => t.stop());
-    setKamera(null);
-  }, [phase, kamera]);
+    kameraStarten();
+    return () => kameraRef.current?.getTracks().forEach((t) => t.stop());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetch(`${API_BASE}/horoscope/texts?locale=de`)
@@ -195,14 +199,21 @@ export default function Schatulle() {
   );
 
   function kameraStarten() {
-    // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell)
+    // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell).
+    // Laeuft schon ein Strom oder wurde abgelehnt: nicht noch einmal fragen.
+    const laeuft = kameraRef.current
+      ?.getVideoTracks()
+      .some((t) => t.readyState === "live");
+    if (laeuft || kameraAbgelehnt.current) return;
     navigator.mediaDevices
       ?.getUserMedia({ video: { facingMode: "environment" }, audio: false })
       .then((stream) => {
+        kameraRef.current = stream;
         setKamera(stream);
         return belichtungFesthalten(stream).then(setKameraInfo);
       })
       .catch((err) => {
+        if (err.name === "NotAllowedError") kameraAbgelehnt.current = true;
         setKamera(null);
         setKameraInfo(`Kamera: ${err.name}`);
       });
@@ -641,6 +652,7 @@ export default function Schatulle() {
                   : null
               }
               sofort={abkuerzung}
+              vonMitte={spiel === "C"}
               onAuswertung={() => setAuswertung(true)}
               onWeiter={() => {
                 setKartenOffen(true);

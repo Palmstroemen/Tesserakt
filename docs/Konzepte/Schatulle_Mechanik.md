@@ -85,6 +85,19 @@ Kreis oben oder höchstens 4 aktive Systeme.
   zusätzlich, welche Systeme bei welcher Frage angezeigt waren.
 - Persönliches Ergebnis: alle Systeme zeigen und markieren, bei wie vielen Fragen sie mitgespielt haben.
 
+## Schlitze als runde Balkenanzeige
+
+- Die Schlitze der Horoskop-Schieber sind breit. Links vom Knopf liegt das Muster des Horoskops frei, im Stil
+  seiner Ergebnisgrafik: Westlich Nachthimmel mit Sternen, Hellenistisch Mäander auf Ton, Chinesisch goldener
+  Drachen-Zickzack auf Rot, Vedisch Reismehlpunkte und Farbpulver, Arabisch Kacheln, Kabbalah Pfad mit
+  Sephiroth auf Pergament, Numerologie Karopapier.
+- Rechts deckt ein goldenes, ziseliertes Plättchen mit geprägter Wellenlinie den Schlitz ab. Es hängt am Knopf:
+  die Welle gleitet mit, wenn der Schieber bewegt wird.
+- Paarfragen (Spiel C): Der Balken wächst von der Mitte aus; links und rechts liegt je ein Plättchen.
+- Schatten an der oberen Kante und an den Plättchenkanten geben dem Schlitz Tiefe.
+- Auf den Knöpfen sitzen Icons der Horoskope (`HoroskopIcon.jsx`), passend zu Grafik und Muster; dieselben
+  Icons sind für den Zettel im Intro gedacht (ToDo).
+
 ## Ergebnis im Fächer
 
 - Nach der letzten Frage gleiten alle Schieber in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:

@@ -1,5 +1,6 @@
 // Systeme der Schatulle: Reihenfolge = Bogen von innen nach aussen.
-// Farben aus "Visuals Fantasien" (Farbsystem-Vorschlag); Kuerzel sind Platzhalter bis zum Symbol-Design.
+// Farben aus "Visuals Fantasien" (Farbsystem-Vorschlag). Auf den Schiebern stehen Icons (HoroskopIcon.jsx);
+// die Kuerzel bleiben als Ersatz, wo kein Icon gezeichnet wird.
 // id = interner Schluessel (Datenbank, Regeldateien, Wertung) - nie aendern. name = Anzeigename,
 // unter = optionale Unterzeile mit dem Fachbegriff.
 export const SYSTEME = [

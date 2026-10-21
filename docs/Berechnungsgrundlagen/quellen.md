@@ -96,7 +96,8 @@ Gochara-Planeten zu Lebensbereichen sind unsere Ableitung, nicht Wortlaut der Qu
 - **GeoNames** (CC BY 4.0) über `geonamescache`: Geburtsorte mit Koordinaten und Zeitzonen –
   **neu seit Oktober 2026**
 - **Ma Shan Zheng** (Pinselschrift, SIL Open Font License 1.1, The Ma Shan Zheng Project Authors): für die
-  Bazi-Grafik, auf die benötigten Zeichen zugeschnitten (`frontend/src/schatulle/schriften/`) –
+  Bazi-Grafik und das Icon „八“ (Bazi = acht Zeichen), auf die benötigten Zeichen zugeschnitten
+  (`frontend/src/schatulle/schriften/`) –
   **neu seit Oktober 2026**
 - **Amiri** (Naskh-Schrift, SIL Open Font License 1.1, The Amiri Project Authors): ostarabische Ziffern der
   Firdaria-Skala, auf die zehn Ziffern zugeschnitten – **neu seit Oktober 2026**
