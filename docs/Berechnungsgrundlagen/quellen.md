@@ -102,6 +102,8 @@ Gochara-Planeten zu Lebensbereichen sind unsere Ableitung, nicht Wortlaut der Qu
   Firdaria-Skala, auf die zehn Ziffern zugeschnitten – **neu seit Oktober 2026**
 - **Patrick Hand** (Patrick Wagesreiter) und **Caveat** (The Caveat Project Authors), beide SIL Open Font
   License 1.1: Handschriften der Numerologie-Grafik, zugeschnitten – **neu seit Oktober 2026**
+- **Cinzel** (The Cinzel Project Authors, SIL Open Font License 1.1): Inschriften-Majuskeln der
+  hellenistischen Ergebniskarte, zugeschnitten – **neu seit Oktober 2026**
 
 ## Vorbilder für die Grafiken
 

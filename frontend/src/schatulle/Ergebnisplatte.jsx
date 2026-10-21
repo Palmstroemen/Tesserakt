@@ -303,7 +303,7 @@ export default function Ergebnisplatte({
             return (
               <article
                 key={id}
-                className="eg-karte"
+                className={`eg-karte eg-stil eg-stil-${id}`}
                 style={{ "--farbe": sys.farbe }}
               >
                 <header className="eg-kopf">
