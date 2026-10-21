@@ -80,6 +80,23 @@ export default function Spielplatte({
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe, platteAussen } =
     layout;
+  // Lichtfleck der Platte wie frueher, als sie nur knapp ueber den aeussersten Schlitz reichte (dort war der
+  // Ton richtig): Mittelpunkt bei 35 % / 30 %, Radius 80 % jener Flaeche
+  const platteLicht = (() => {
+    const innen = radien[0] - abstand * 0.6;
+    const aussen = radien[radien.length - 1] + abstand * 0.62;
+    const w = theta + 0.16;
+    const x0 = MITTE.x - aussen * Math.sin(w);
+    const breite = 2 * aussen * Math.sin(w);
+    const y0 = MITTE.y + innen * Math.cos(w);
+    const hoeheFlaeche = MITTE.y + aussen - y0;
+    return {
+      cx: x0 + 0.35 * breite,
+      cy: y0 + 0.3 * hoeheFlaeche,
+      r: 0.8 * breite,
+      stauchung: hoeheFlaeche / breite,
+    };
+  })();
 
   const startPos = {
     user: sofort ? 1 : 0,
@@ -527,6 +544,20 @@ export default function Spielplatte({
         >
           <defs>
             <SchlitzDefs />
+            {/* Platte: Messing wie der Ring, Lichtfleck fest auf die Flaeche um die Schlitze gelegt (unabhaengig
+                davon, wie weit die Platte nach unten reicht) */}
+            <radialGradient
+              id="sp-platte"
+              gradientUnits="userSpaceOnUse"
+              cx={platteLicht.cx}
+              cy={platteLicht.cy}
+              r={platteLicht.r}
+              gradientTransform={`translate(${platteLicht.cx} ${platteLicht.cy}) scale(1 ${platteLicht.stauchung}) translate(${-platteLicht.cx} ${-platteLicht.cy})`}
+            >
+              <stop offset="0" stopColor="#f3d79a" />
+              <stop offset="0.55" stopColor="#b08d57" />
+              <stop offset="1" stopColor="#5a4325" />
+            </radialGradient>
             <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
               <stop offset="0" stopColor="#f3d79a" />
               <stop offset="0.55" stopColor="#b08d57" />
@@ -559,7 +590,7 @@ export default function Spielplatte({
                 platteAussen,
                 theta + 0.16,
               )}
-              fill="url(#sp-messing)"
+              fill="url(#sp-platte)"
               stroke="#2b2014"
               strokeWidth="2"
             />

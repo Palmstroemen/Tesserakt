@@ -4,7 +4,7 @@
 // Alle Boegen decken denselben Winkelbereich ab, damit die Strahlen die Skala bilden.
 export const MITTE = { x: 200, y: 200 };
 export const AUGE_RADIUS = 194; // Rund oben: fast bis zum Rand (Breite 400)
-export const LINSE_RADIUS = 176;
+export const LINSE_RADIUS = 185; // schmaler Messingring (9 Einheiten), grosses Glas
 export const RUHE_ANTEIL = 0.16; // u-Bereich der Ruheposition vor der Skala
 export const ANZAHL_BOEGEN = 8; // eigener Schieber + 7 Systeme
 
