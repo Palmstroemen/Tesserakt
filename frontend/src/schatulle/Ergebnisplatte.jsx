@@ -9,6 +9,7 @@ import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
+import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import { spiegelglasStarten } from "./spiegelglas";
 import WestlichNacht from "./diagramme/WestlichNacht";
 import KabbalahBuch from "./diagramme/KabbalahBuch";
@@ -286,12 +287,14 @@ export default function Ergebnisplatte({
               <stop offset="0.7" stopColor="#d9ccaa" />
               <stop offset="1" stopColor="#8f7a52" />
             </radialGradient>
+            <LuenetteDefs praefix="eg" />
           </defs>
           <circle
             cx={MITTE.x}
             cy={MITTE.y}
             r={AUGE_RADIUS}
             fill="url(#eg-messing)"
+            filter="url(#eg-luenette-schatten)"
           />
           <circle
             cx={MITTE.x}
@@ -301,6 +304,7 @@ export default function Ergebnisplatte({
             stroke="#3a2c1a"
             strokeWidth="2"
           />
+          <LuenettePraegung praefix="eg" />
         </svg>
 
         {/* Linse: Dia-Streifen mit Uebersicht und den Grafiken; folgt dem Wischen im Textfeld */}

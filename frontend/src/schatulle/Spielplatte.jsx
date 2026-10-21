@@ -3,6 +3,7 @@ import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
 import HoroskopIcon from "./HoroskopIcon";
 import Schlitz, { SchlitzDefs } from "./Schlitze";
+import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import {
   AUGE_RADIUS,
   LINSE_RADIUS,
@@ -532,6 +533,7 @@ export default function Spielplatte({
         >
           <defs>
             <SchlitzDefs />
+            <LuenetteDefs praefix="sp" />
             {/* Schatten der Faecherplatte auf die Grundplatte (Licht von oben) */}
             <filter
               id="sp-plattenschatten"
@@ -828,6 +830,7 @@ export default function Spielplatte({
               cy={MITTE.y}
               r={AUGE_RADIUS}
               fill="url(#sp-messing)"
+              filter="url(#sp-luenette-schatten)"
             />
             <circle
               cx={MITTE.x}
@@ -837,6 +840,7 @@ export default function Spielplatte({
               stroke="#3a2c1a"
               strokeWidth="2"
             />
+            <LuenettePraegung praefix="sp" />
           </g>
 
           {/* Hebel mit Sperrklinke, rechts unten im Quadrat */}
