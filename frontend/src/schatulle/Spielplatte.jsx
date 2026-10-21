@@ -28,7 +28,18 @@ const MESSWERTE_ZEIGEN = false;
 
 function layoutAusFenster() {
   const breite = Math.min(window.innerWidth, 440);
-  return faecherLayout((window.innerHeight * 400) / breite - 78); // Platz fuer die Hinweiszeile
+  const fenster = (window.innerHeight * 400) / breite; // Bildschirmhoehe in viewBox-Einheiten
+  const layout = faecherLayout(fenster - 78); // Platz fuer die Polbeschriftung
+  // Faecherplatte: Aussenradius fast bis zum unteren Bildschirmrand (mindestens knapp ueber den aeussersten
+  // Schlitz hinaus); sie darf ueber das SVG hinaus unter die Beschriftung reichen
+  const aussen = layout.radien[layout.radien.length - 1];
+  return {
+    ...layout,
+    platteAussen: Math.max(
+      aussen + layout.abstand * 0.62,
+      fenster - MITTE.y - 10,
+    ),
+  };
 }
 
 const easeAus = (t) => 1 - (1 - t) ** 3;
@@ -67,7 +78,8 @@ export default function Spielplatte({
   vonMitte = false, // Paarfragen: die Balken der Schlitze wachsen von der Mitte aus
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
-  const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
+  const { radien, abstand, symbol, theta, schlitz, hoehe, platteAussen } =
+    layout;
 
   const startPos = {
     user: sofort ? 1 : 0,
@@ -544,7 +556,7 @@ export default function Spielplatte({
             <path
               d={plattePfad(
                 radien[0] - abstand * 0.6,
-                radien[radien.length - 1] + abstand * 0.62,
+                platteAussen,
                 theta + 0.16,
               )}
               fill="url(#sp-messing)"

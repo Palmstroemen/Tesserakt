@@ -233,6 +233,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
+  overflow: visible; /* die Faecherplatte reicht unter die Polbeschriftung bis fast an den Rand */
   touch-action: none; /* Wischen bedient die Schieber, nicht die Seite */
   user-select: none;
   -webkit-user-select: none;
@@ -503,12 +504,16 @@ body {
   transform: scale(1.35);
 }
 
+/* Polbeschriftung: liegt auf der Faecherplatte, zur Mitte geruckt, dunkel wie eingraviert */
 .sp-skala {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2.4em;
   font-size: 0.75rem;
-  color: var(--sc-text-leise);
+  color: #3a2a14;
+  text-shadow: 0 1px 0 rgba(255, 240, 200, 0.45);
+  position: relative;
 }
 
 /* --- Ergebnis ------------------------------------------------------------------ */
