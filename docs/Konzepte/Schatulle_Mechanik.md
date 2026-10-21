@@ -53,6 +53,7 @@ Kreis oben oder höchstens 4 aktive Systeme.
   Ergebnisposition nach rechts; das Dia bleibt stehen. Erst der zweite Schieber startet ganz links, hat den
   vollen Weg und führt das Dia: Die alte Frage gleitet hinaus, die neue herein – **synchron mit dem Finger**.
 - **Erste Frage:** Alle stehen in Ruhe; der erste Schieber bewegt das Dia noch nicht, erst der zweite.
+  Vor der ersten Frage liegt ein leeres Glas im Auge (keine Anleitung); das erste Aufziehen schiebt es weg.
 - **Zwei Schieber beim ersten Griff erwischt:** Beide starten von Ergebnispositionen, das Dia kommt erst mit
   einem dritten aus der Ruheposition.
 - Weitere Systeme kann man auch nach dem Erscheinen der Frage noch aufziehen.

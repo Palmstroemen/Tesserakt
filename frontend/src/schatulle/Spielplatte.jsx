@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import AnleitungDia from "./AnleitungDia";
 import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
 import {
@@ -466,7 +465,7 @@ export default function Spielplatte({
     ) && pos.user >= RUHE;
 
   const diaText = (i) => {
-    if (i < 0) return <AnleitungDia />;
+    if (i < 0) return null; // erstes Dia: leeres Glas (das erste Aufziehen schiebt es weg)
     if (i >= fragen.length) return "";
     return (
       <>
