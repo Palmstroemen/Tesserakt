@@ -2321,6 +2321,8 @@ body {
   margin: 0 0 1.2cqw;
   text-align: justify;
   hyphens: auto;
+  orphans: 2;
+  widows: 2;
 }
 
 .buch-seite ul {
@@ -2735,7 +2737,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10cqw;
+  justify-content: center;
   color: #2b2116;
   font-family: Georgia, "Times New Roman", serif;
   text-align: center;
@@ -2754,33 +2756,33 @@ body {
 }
 .b3-zeichen {
   font-family: "Tesserakt Cinzel", Georgia, serif;
-  font-size: 4.2cqw;
+  font-size: 3cqw;
   letter-spacing: 0.5em;
   margin-left: 0.5em;
   color: #6b4f24;
 }
 .b3-titel {
-  margin: 4cqw 6cqw 0;
-  font-size: 8.5cqw;
-  line-height: 1.1;
+  margin: 4cqw 6cqw;
+  font-size: 7cqw;
+  line-height: 1.15;
 }
 .b3-scheiben {
-  margin: 4cqw 0 3cqw;
+  margin: 0 0 5cqw;
   display: flex;
   justify-content: center;
 }
 /* feste Groesse: WebKit gibt einer SVG mit width: auto in diesem Flex-Aufbau die Breite 0 */
 .b3-scheiben svg {
-  width: 36cqw;
-  height: 36cqw;
+  width: 40cqw;
+  height: 40cqw;
   filter: drop-shadow(0 1px 1.5px rgba(40, 25, 5, 0.45));
 }
 .b3-scheiben.paar svg {
-  width: 32cqw;
-  height: 32cqw;
+  width: 34cqw;
+  height: 34cqw;
 }
 .b3-scheiben.paar svg + svg {
-  margin-left: -8cqw;
+  margin-left: -6cqw;
 }
 .b3-ruecken {
   left: 0;
@@ -2809,12 +2811,19 @@ body {
 }
 .b3-icons {
   display: flex;
-  gap: 1.5cqw;
-  margin-bottom: 9cqw;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2cqw;
+  max-width: 70cqw;
 }
 .b3-icons svg {
-  width: 7cqw;
-  height: 7cqw;
+  width: 9cqw;
+  height: 9cqw;
+}
+.b3-datum {
+  margin-top: 6cqw;
+  font-size: 2cqw;
+  color: #6b4f24;
 }
 .b3-ruecken-titel {
   writing-mode: vertical-rl;

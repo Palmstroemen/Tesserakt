@@ -1,5 +1,5 @@
 // Das Horoskopbuch als stehendes Buch in 3D (reines CSS): der Vorderdeckel ist die Titelseite (Gold, Titel,
-// Datumsscheibe, Horoskop-Zeichen), Ruecken mit Titel, oben der Papierblock, darunter ein weicher Schatten.
+// Datumsscheibe, Horoskop-Zeichen, Datum; gleiche Masse wie die Titelseite), Ruecken mit Titel, oben der Papierblock, darunter ein weicher Schatten.
 // Die Dicke waechst mit der Zahl der Horoskope.
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import HoroskopIcon from "./HoroskopIcon";
@@ -39,6 +39,13 @@ export default function Buch3D({ titel, geburt, auswahl }) {
                 <HoroskopIcon id={id} r={10} />
               </svg>
             ))}
+          </div>
+          <div className="b3-datum">
+            {new Date().toLocaleDateString("de-AT", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
           </div>
         </div>
       </div>

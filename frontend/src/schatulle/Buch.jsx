@@ -135,10 +135,25 @@ function Baustein({ b }) {
 
 // --- Seitensetzer ------------------------------------------------------------------------------------------
 // Verteilt die Bausteine eines Abschnitts auf Seiten; el ist eine leere, unsichtbare Musterseite.
+// Kein Schusterjunge (erste Zeile eines Absatzes allein am Seitenende) und kein Hurenkind (letzte Zeile allein
+// oben auf der neuen Seite): ein geteilter Absatz behaelt auf beiden Seiten mindestens zwei Zeilen. Innerhalb
+// einer Seite (Spaltenwechsel) sorgen orphans/widows im CSS dafuer.
 function setzen(bloecke, el) {
   const voll = () =>
     el.scrollWidth > el.clientWidth + 1 ||
     el.scrollHeight > el.clientHeight + 1;
+  // Zeilenzahl eines Bausteins, allein in der Musterseite gemessen
+  const zeilen = (b) => {
+    const alt = el.innerHTML;
+    el.innerHTML = htmlVon(b);
+    const z = el.firstElementChild;
+    const n = Math.round(
+      z.getBoundingClientRect().height /
+        parseFloat(getComputedStyle(z).lineHeight),
+    );
+    el.innerHTML = alt;
+    return n;
+  };
   const seiten = [];
   let seite = [];
   el.innerHTML = "";
@@ -167,13 +182,17 @@ function setzen(bloecke, el) {
         : [];
     let passt = 0;
     for (let n = saetze.length - 1; n > 0; n -= 1) {
-      el.insertAdjacentHTML(
-        "beforeend",
-        htmlVon({ ...b, t: saetze.slice(0, n).join("").trim() }),
-      );
+      const vorne = { ...b, t: saetze.slice(0, n).join("").trim() };
+      el.insertAdjacentHTML("beforeend", htmlVon(vorne));
       const ok = !voll();
       el.lastElementChild.remove();
-      if (ok) {
+      if (!ok) continue;
+      // mindestens zwei Zeilen vorne (sonst hilft ein kuerzerer Teil auch nicht) und zwei hinten
+      if (zeilen(vorne) < 2) break;
+      if (
+        zeilen({ ...b, fett: undefined, t: saetze.slice(n).join("").trim() }) >=
+        2
+      ) {
         passt = n;
         break;
       }
