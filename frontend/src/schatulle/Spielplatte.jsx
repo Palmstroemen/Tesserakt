@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import AnleitungDia from "./AnleitungDia";
 import { SYSTEME } from "./systeme";
 import {
   AUGE_RADIUS,
@@ -305,7 +306,7 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
   const zeigeUserStrahl = (zustand === "laeuft" || zustand === "ergebnis" || zustand === "fertig") && pos.user >= RUHE;
 
   const diaText = (i) => {
-    if (i < 0) return "Zieh die Systeme, die mitspielen sollen, nach rechts auf.";
+    if (i < 0) return <AnleitungDia />;
     if (i >= fragen.length) return "";
     return fragen[i].text;
   };
@@ -446,13 +447,13 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
 
         {/* Fragedia in der Linse: folgt beim Aufziehen dem Finger */}
         <div className="sp-linse" style={linse} aria-live="polite">
-          <p className="sp-dia" style={{ transform: `translateX(${-pos.dia * 115}%)` }}>
+          <div className={index < 0 ? "sp-dia bild" : "sp-dia"} style={{ transform: `translateX(${-pos.dia * 115}%)` }}>
             {diaText(index)}
-          </p>
+          </div>
           {pos.dia > 0 ? (
-            <p className="sp-dia" style={{ transform: `translateX(${(1 - pos.dia) * 115}%)` }}>
+            <div className="sp-dia" style={{ transform: `translateX(${(1 - pos.dia) * 115}%)` }}>
               {diaText(index + 1)}
-            </p>
+            </div>
           ) : null}
         </div>
       </div>

@@ -313,6 +313,16 @@ body {
   line-height: 1.3;
 }
 
+.sp-dia.bild {
+  padding: 0;
+}
+
+.sp-anleitung {
+  width: 100%;
+  height: 100%;
+  font-family: Georgia, serif;
+}
+
 .sp-fuss {
   flex: 1;
   display: flex;
