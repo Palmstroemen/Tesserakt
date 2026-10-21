@@ -2,6 +2,8 @@
 // Der AudioContext darf erst nach einer Beruehrung starten (Browser-Regel), daher lazy.
 let ctx = null;
 let stumm = false;
+// Gesamtlautstaerke aller Geraeusche: die Schatulle ist ein feiner Mechanismus (Test: halb so laut)
+const GESAMT = 0.5;
 
 export function setStumm(wert) {
   stumm = wert;
@@ -33,7 +35,7 @@ function rauschStoss(dauer, frequenz, lautstaerke, verzoegerung = 0) {
   filter.frequency.value = frequenz;
   filter.Q.value = 6;
   const gain = ac.createGain();
-  gain.gain.value = lautstaerke;
+  gain.gain.value = lautstaerke * GESAMT;
   quelle.connect(filter).connect(gain).connect(ac.destination);
   quelle.start(t);
 }
