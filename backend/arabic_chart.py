@@ -93,7 +93,9 @@ def build_firdaria_chart(birth_dt: datetime, is_day: bool | None = None) -> Dict
     age = today.year - birth_dt.year
     if (today.month, today.day) < (birth_dt.month, birth_dt.day):
         age -= 1
-    position = age % 75
+    # Position im 75-Jahre-Zyklus mit Nachkommastellen, wie in der Wertung (lebensalter_exakt)
+    alter = (today - birth_dt).total_seconds() / (365.2425 * 86400)
+    position = alter % 75
     if is_day is None:  # Naeherung ohne Sonnenstand
         hour = birth_dt.hour + birth_dt.minute / 60.0
         is_day = 6 <= hour < 18
@@ -107,11 +109,26 @@ def build_firdaria_chart(birth_dt: datetime, is_day: bool | None = None) -> Dict
         dauern = {"sonne": 10, "venus": 8, "merkur": 13, "mond": 9, "saturn": 11, "jupiter": 12, "mars": 7, "nordknoten": 3, "suedknoten": 2}
         symbols = {}
     current, next_p = _current_and_next(order, dauern, position, symbols)
+    # ganze Abfolge der neun Perioden (fuer die Grafik), Lebensjahre 0..75
+    run = 0.0
+    perioden = []
+    for planet in order:
+        d = dauern.get(planet, 0)
+        perioden.append({
+            "planet": planet,
+            "label": PLANET_LABELS.get(planet, planet),
+            "startAge": run,
+            "endAge": run + d,
+            "symbol": symbols.get(planet, ""),
+        })
+        run += d
     payload = {
         "chartType": "firdariaChart",
         "age": age,
         "isDayChart": is_day,
         "currentPeriod": current,
+        "periods": perioden,
+        "cyclePosition": round(position, 2),
     }
     if next_p:
         payload["nextPeriod"] = next_p

@@ -14,6 +14,7 @@ import KabbalahSilber from "./diagramme/KabbalahSilber";
 import BaziKarte from "./diagramme/BaziKarte";
 import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
+import ArabischZellij from "./diagramme/ArabischZellij";
 
 // Ergebnis in der Schatulle: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
@@ -35,6 +36,7 @@ const VOLLBILD = {
   Bazi: BaziKarte,
   Hellenistisch: HellenistischTeller,
   Vedisch: VedischRangoli,
+  Arabisch: ArabischZellij,
 };
 const DIMENSIONEN = [
   "liebe",

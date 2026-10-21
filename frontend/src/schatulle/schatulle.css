@@ -1196,3 +1196,21 @@ body {
   stroke-width: 0.6;
   opacity: 0.35;
 }
+
+/* Arabisch: Zellij-Kacheln, Windrose, Messing */
+.az-fugen polygon,
+.az-fugen path {
+  stroke: #efe9da;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
+
+.az-zeichen {
+  text-anchor: middle;
+  fill: #fbf6e8;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.az-zeichen.aktiv {
+  fill: #3a2606;
+}
