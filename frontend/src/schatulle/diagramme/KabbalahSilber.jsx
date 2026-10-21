@@ -63,6 +63,25 @@ function zufallVon(saat) {
   };
 }
 
+// Umriss einer von Hand getriebenen Mulde: nicht ganz rund
+function muldenPfad(x, y, r, saat) {
+  const zufall = zufallVon(saat);
+  const punkte = Array.from({ length: 14 }, (_, i) => {
+    const w = (i / 14) * Math.PI * 2;
+    const rr = r * (0.95 + zufall() * 0.1);
+    return [x + rr * Math.cos(w), y + rr * Math.sin(w)];
+  });
+  const mitte = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+  let d = `M ${mitte(punkte[punkte.length - 1], punkte[0]).join(" ")} `;
+  punkte.forEach((p, i) => {
+    d += `Q ${p.join(" ")} ${mitte(p, punkte[(i + 1) % punkte.length]).join(" ")} `;
+  });
+  return `${d}Z`;
+}
+
+// hebraeische Zahlzeichen der Sephiroth (1 = Aleph ... 10 = Jod)
+const ZAHLZEICHEN = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י"];
+
 // nicht ganz runder Cabochon: leicht unregelmaessiger Umriss, Glanz, Schatten in der Mulde
 function Edelstein({ x, y, r, nummer, id }) {
   const [hell, dunkel] = STEIN[nummer] ?? STEIN[6];
@@ -194,6 +213,15 @@ export default function KabbalahSilber({ payload }) {
         <clipPath id="ks-teller">
           <circle cx={M} cy={M} r={G / 2} />
         </clipPath>
+        {/* Tiefenprofil einer Kugelkalotte (Rot = Tiefe): in der Mitte am tiefsten, zum Rand auslaufend */}
+        <radialGradient id="ks-kalotte">
+          <stop offset="0" stopColor="rgb(255,0,0)" />
+          <stop offset="0.5" stopColor="rgb(221,0,0)" />
+          <stop offset="0.7" stopColor="rgb(181,0,0)" />
+          <stop offset="0.85" stopColor="rgb(135,0,0)" />
+          <stop offset="0.95" stopColor="rgb(80,0,0)" />
+          <stop offset="1" stopColor="rgb(0,0,0)" />
+        </radialGradient>
         {/* Hoehenkarte -> getriebenes Silber */}
         <filter
           id="ks-treibarbeit"
@@ -205,14 +233,36 @@ export default function KabbalahSilber({ payload }) {
         >
           <feGaussianBlur
             in="SourceGraphic"
-            stdDeviation="2.2"
+            stdDeviation="1.3"
             result="weich"
           />
-          {/* Hoehe = 0.5 + 0.5 * Gruen (Erhebung) - 0.48 * Rot (Vertiefung) */}
+          {/* Relief: 0.5 + 0.5 * Gruen (Erhebung) - 0.62 * Rot (Vertiefung, Mulden als Kugelkalotten) */}
           <feColorMatrix
             in="weich"
             type="matrix"
-            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.48 0.5 0 0 0.5"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.62 0.5 0 0 0.5"
+            result="reliefWeich"
+          />
+          {/* Gravur: Blau, nur leicht weichgezeichnet, damit Buchstaben scharf eingeschnitten bleiben */}
+          <feGaussianBlur
+            in="SourceGraphic"
+            stdDeviation="0.45"
+            result="scharf"
+          />
+          <feColorMatrix
+            in="scharf"
+            type="matrix"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0.3 0 0"
+            result="gravurTiefe"
+          />
+          <feComposite
+            in="reliefWeich"
+            in2="gravurTiefe"
+            operator="arithmetic"
+            k1="0"
+            k2="1"
+            k3="-1"
+            k4="0"
             result="relief"
           />
           {/* gehaemmerte Flaeche: feine Dellen */}
@@ -241,7 +291,7 @@ export default function KabbalahSilber({ payload }) {
           />
           <feDiffuseLighting
             in="hoehe"
-            surfaceScale="7"
+            surfaceScale="9"
             diffuseConstant="1.05"
             lightingColor="#eef1f5"
             result="licht"
@@ -250,7 +300,7 @@ export default function KabbalahSilber({ payload }) {
           </feDiffuseLighting>
           <feSpecularLighting
             in="hoehe"
-            surfaceScale="7"
+            surfaceScale="9"
             specularConstant="0.85"
             specularExponent="24"
             lightingColor="#ffffff"
@@ -294,34 +344,77 @@ export default function KabbalahSilber({ payload }) {
           ))}
           {/* Aufbewahrungsmulden */}
           {ABLAGE.map((p, i) => (
-            <circle
+            <path
               key={`ablage${i}`}
-              cx={p.x}
-              cy={p.y}
-              r={ABLAGE_R}
-              fill="#ff0000"
+              d={muldenPfad(p.x, p.y, ABLAGE_R, 50 + i)}
+              fill="url(#ks-kalotte)"
             />
           ))}
-          {/* eingetriebene Rinnen und Mulden */}
+          {/* eingetriebene Rinnen (Halbrohr: aussen flacher, in der Mitte tiefer) */}
           {pfade.map((p) => {
             const a = KNOTEN[p.from];
             const b = KNOTEN[p.to];
             return (
-              <line
-                key={p.number}
-                x1={a.x}
-                y1={a.y}
-                x2={b.x}
-                y2={b.y}
-                stroke="#ff0000"
-                strokeWidth={RINNE}
-                strokeLinecap="round"
-              />
+              <g key={p.number}>
+                <line
+                  x1={a.x}
+                  y1={a.y}
+                  x2={b.x}
+                  y2={b.y}
+                  stroke="rgb(120,0,0)"
+                  strokeWidth={RINNE + 1}
+                  strokeLinecap="round"
+                />
+                <line
+                  x1={a.x}
+                  y1={a.y}
+                  x2={b.x}
+                  y2={b.y}
+                  stroke="rgb(200,0,0)"
+                  strokeWidth={RINNE - 3.5}
+                  strokeLinecap="round"
+                />
+              </g>
             );
           })}
+          {/* Mulden als Kugelkalotten */}
           {Object.entries(KNOTEN).map(([n, k]) => (
-            <circle key={n} cx={k.x} cy={k.y} r={MULDE} fill="#ff0000" />
+            <path
+              key={n}
+              d={muldenPfad(k.x, k.y, MULDE + 1, Number(n) * 13)}
+              fill="url(#ks-kalotte)"
+            />
           ))}
+          {/* Gravuren (Blau-Kanal, zur Tiefe hinzugemischt): Pfadbuchstaben und Zahlzeichen am Muldenboden */}
+          <g style={{ mixBlendMode: "screen" }} className="ks-gravur">
+            {pfade.map((p) => {
+              const a = KNOTEN[p.from];
+              const b = KNOTEN[p.to];
+              const t = lageBuchstabe(p);
+              return (
+                <text
+                  key={`g${p.number}`}
+                  x={a.x + (b.x - a.x) * t}
+                  y={a.y + (b.y - a.y) * t}
+                  dy="0.36em"
+                  className="ks-gravur-buchstabe"
+                >
+                  {p.letter}
+                </text>
+              );
+            })}
+            {Object.entries(KNOTEN).map(([n, k]) => (
+              <text
+                key={`z${n}`}
+                x={k.x}
+                y={k.y}
+                dy="0.36em"
+                className="ks-gravur-zahl"
+              >
+                {ZAHLZEICHEN[Number(n) - 1]}
+              </text>
+            ))}
+          </g>
         </g>
         {/* leichter Silberton und Woelbung des Tellers */}
         <circle cx={M} cy={M} r={G / 2} className="ks-toenung" />
@@ -364,24 +457,36 @@ export default function KabbalahSilber({ payload }) {
           );
         })}
 
-      {/* hebraeische Buchstaben, eingraviert in die Rinnen */}
-      {pfade.map((p) => {
-        const a = KNOTEN[p.from];
-        const b = KNOTEN[p.to];
-        const t = lageBuchstabe(p);
-        const istAktiv = pfad && p.number === pfad.number;
-        return (
+      {/* Patina in den Gravuren (macht sie lesbar), Lage wie im Relief */}
+      <g className="ks-patina">
+        {pfade.map((p) => {
+          const a = KNOTEN[p.from];
+          const b = KNOTEN[p.to];
+          const t = lageBuchstabe(p);
+          return (
+            <text
+              key={`p${p.number}`}
+              x={a.x + (b.x - a.x) * t}
+              y={a.y + (b.y - a.y) * t}
+              dy="0.36em"
+              className="ks-gravur-buchstabe"
+            >
+              {p.letter}
+            </text>
+          );
+        })}
+        {Object.entries(KNOTEN).map(([n, k]) => (
           <text
-            key={`b${p.number}`}
-            x={a.x + (b.x - a.x) * t}
-            y={a.y + (b.y - a.y) * t}
+            key={`pz${n}`}
+            x={k.x}
+            y={k.y}
             dy="0.36em"
-            className={istAktiv ? "ks-buchstabe aktiv" : "ks-buchstabe"}
+            className="ks-gravur-zahl"
           >
-            {p.letter}
+            {ZAHLZEICHEN[Number(n) - 1]}
           </text>
-        );
-      })}
+        ))}
+      </g>
 
       {/* Edelstein in der Mulde der aktiven Sephira */}
       {aktiv && KNOTEN[aktiv] ? (
@@ -393,25 +498,6 @@ export default function KabbalahSilber({ payload }) {
           id="ks-stein-sephira"
         />
       ) : null}
-
-      {/* Namen eingraviert neben den Mulden (linke Saeule links, sonst rechts, Kether darueber) */}
-      {Object.entries(KNOTEN).map(([n, k]) => {
-        const nr = Number(n);
-        const links = nr === 3 || nr === 5 || nr === 8;
-        const oben = nr === 1;
-        return (
-          <text
-            key={n}
-            x={oben ? k.x : k.x + (links ? -1 : 1) * (MULDE + 4)}
-            y={oben ? k.y - MULDE - 5 : k.y}
-            dy={oben ? 0 : "0.35em"}
-            textAnchor={oben ? "middle" : links ? "end" : "start"}
-            className={nr === aktiv ? "ks-name aktiv" : "ks-name"}
-          >
-            {namen[n]}
-          </text>
-        );
-      })}
     </svg>
   );
 }
