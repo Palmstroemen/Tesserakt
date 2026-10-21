@@ -52,8 +52,10 @@ body {
   /* Grundplatte: Messing, etwas dunkler als die Faecherplatte, damit diese sich abhebt */
   /* darauf ein paar wenige Kratzer und Riefen (fest erzeugt, Saat 1652) */
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20900%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cpath%20d%3D%22M191.6%20291.4Q190.9%20314.2%20192.7%20339.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M191.6%20291.4Q190.9%20314.2%20192.7%20339.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.21%22%20stroke-width%3D%220.34%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.3%20261.7Q32.8%20289.3%2042.4%20320.2%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.39%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M18.3%20261.7Q32.8%20289.3%2042.4%20320.2%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.25%22%20stroke-width%3D%220.27%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M79.8%20493.3Q94.2%20458.6%2098.7%20430.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.35%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M79.8%20493.3Q94.2%20458.6%2098.7%20430.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.25%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M13.4%20306.0Q33.0%20327.2%2051.9%20353.5%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.45%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M13.4%20306.0Q33.0%20327.2%2051.9%20353.5%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.23%22%20stroke-width%3D%220.32%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M29.4%20263.3Q32.8%20225.5%2048.0%20176.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M29.4%20263.3Q32.8%20225.5%2048.0%20176.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.35%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M326.8%208.4Q342.4%20-8.0%20359.9%20-30.0%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.39%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M326.8%208.4Q342.4%20-8.0%20359.9%20-30.0%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.23%22%20stroke-width%3D%220.27%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M357.6%20685.3Q368.5%20663.7%20387.6%20638.9%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.44%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M357.6%20685.3Q368.5%20663.7%20387.6%20638.9%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.26%22%20stroke-width%3D%220.31%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M170.7%20533.1Q200.0%20524.0%20235.8%20505.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.60%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M170.7%20533.1Q200.0%20524.0%20235.8%20505.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.25%22%20stroke-width%3D%220.42%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M217.1%20493.5Q235.8%20518.4%20265.0%20549.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M217.1%20493.5Q235.8%20518.4%20265.0%20549.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.20%22%20stroke-width%3D%220.34%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M167.2%20233.8Q186.1%20136.9%20197.6%2048.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%220.84%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M167.2%20233.8Q186.1%20136.9%20197.6%2048.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.59%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M35.2%2065.6Q115.6%2045.0%20202.5%2030.6%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%220.80%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M35.2%2065.6Q115.6%2045.0%20202.5%2030.6%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.56%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M303.2%2065.1Q411.7%20101.5%20531.2%20130.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.15%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M303.2%2065.1Q411.7%20101.5%20531.2%20130.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.81%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M368.2%2061.5Q365.4%2051.2%20370.9%2051.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M368.2%2061.5Q365.4%2051.2%20370.9%2051.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M121.7%20878.7Q124.9%20888.2%20123.3%20897.6%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M121.7%20878.7Q124.9%20888.2%20123.3%20897.6%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.14%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M100.4%2018.0Q107.8%2025.7%20116.9%2023.1%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M100.4%2018.0Q107.8%2025.7%20116.9%2023.1%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M11.2%2022.5Q18.2%2021.8%2015.7%2032.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M11.2%2022.5Q18.2%2021.8%2015.7%2032.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M47.1%2098.7Q42.1%20114.5%2048.0%20120.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M47.1%2098.7Q42.1%20114.5%2048.0%20120.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M380.9%20524.5Q380.2%20526.9%20389.1%20522.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M380.9%20524.5Q380.2%20526.9%20389.1%20522.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.21%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M154.4%20872.7Q160.7%20872.8%20170.7%20879.5%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M154.4%20872.7Q160.7%20872.8%20170.7%20879.5%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.14%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M77.5%20723.2Q74.5%20738.3%2075.0%20742.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M77.5%20723.2Q74.5%20738.3%2075.0%20742.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M391.2%20411.3Q397.8%20404.7%20394.9%20403.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M391.2%20411.3Q397.8%20404.7%20394.9%20403.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M160.0%20664.6Q158.3%20650.0%20165.9%20644.9%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M160.0%20664.6Q158.3%20650.0%20165.9%20644.9%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M197.6%20400.9Q199.8%20413.7%20195.3%20420.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M197.6%20400.9Q199.8%20413.7%20195.3%20420.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M206.9%20365.5Q215.7%20361.6%20214.9%20363.1%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M206.9%20365.5Q215.7%20361.6%20214.9%20363.1%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M135.3%20883.5Q139.5%20872.5%20136.3%20864.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M135.3%20883.5Q139.5%20872.5%20136.3%20864.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.3%20281.5Q20.4%20289.1%2026.5%20292.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M18.3%20281.5Q20.4%20289.1%2026.5%20292.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E") center / cover no-repeat fixed,
-    radial-gradient(circle at 50% 30%, #b8955a 0%, #9a7a45 50%, #6e5530 100%) fixed;
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20900%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cpath%20d%3D%22M191.6%20291.4Q190.9%20314.2%20192.7%20339.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M191.6%20291.4Q190.9%20314.2%20192.7%20339.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.21%22%20stroke-width%3D%220.34%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.3%20261.7Q32.8%20289.3%2042.4%20320.2%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.39%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M18.3%20261.7Q32.8%20289.3%2042.4%20320.2%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.25%22%20stroke-width%3D%220.27%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M79.8%20493.3Q94.2%20458.6%2098.7%20430.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.35%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M79.8%20493.3Q94.2%20458.6%2098.7%20430.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.25%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M13.4%20306.0Q33.0%20327.2%2051.9%20353.5%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.45%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M13.4%20306.0Q33.0%20327.2%2051.9%20353.5%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.23%22%20stroke-width%3D%220.32%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M29.4%20263.3Q32.8%20225.5%2048.0%20176.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M29.4%20263.3Q32.8%20225.5%2048.0%20176.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.35%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M326.8%208.4Q342.4%20-8.0%20359.9%20-30.0%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.39%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M326.8%208.4Q342.4%20-8.0%20359.9%20-30.0%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.23%22%20stroke-width%3D%220.27%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M357.6%20685.3Q368.5%20663.7%20387.6%20638.9%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.44%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M357.6%20685.3Q368.5%20663.7%20387.6%20638.9%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.26%22%20stroke-width%3D%220.31%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M170.7%20533.1Q200.0%20524.0%20235.8%20505.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%220.60%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M170.7%20533.1Q200.0%20524.0%20235.8%20505.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.25%22%20stroke-width%3D%220.42%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M217.1%20493.5Q235.8%20518.4%20265.0%20549.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.49%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M217.1%20493.5Q235.8%20518.4%20265.0%20549.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.20%22%20stroke-width%3D%220.34%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M167.2%20233.8Q186.1%20136.9%20197.6%2048.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%220.84%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M167.2%20233.8Q186.1%20136.9%20197.6%2048.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.59%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M35.2%2065.6Q115.6%2045.0%20202.5%2030.6%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%220.80%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M35.2%2065.6Q115.6%2045.0%20202.5%2030.6%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.56%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M303.2%2065.1Q411.7%20101.5%20531.2%20130.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.08%22%20stroke-width%3D%221.15%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M303.2%2065.1Q411.7%20101.5%20531.2%20130.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.81%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M368.2%2061.5Q365.4%2051.2%20370.9%2051.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M368.2%2061.5Q365.4%2051.2%20370.9%2051.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.15%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M121.7%20878.7Q124.9%20888.2%20123.3%20897.6%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M121.7%20878.7Q124.9%20888.2%20123.3%20897.6%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.14%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M100.4%2018.0Q107.8%2025.7%20116.9%2023.1%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M100.4%2018.0Q107.8%2025.7%20116.9%2023.1%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M11.2%2022.5Q18.2%2021.8%2015.7%2032.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M11.2%2022.5Q18.2%2021.8%2015.7%2032.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M47.1%2098.7Q42.1%20114.5%2048.0%20120.7%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M47.1%2098.7Q42.1%20114.5%2048.0%20120.7%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M380.9%20524.5Q380.2%20526.9%20389.1%20522.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M380.9%20524.5Q380.2%20526.9%20389.1%20522.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.21%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M154.4%20872.7Q160.7%20872.8%20170.7%20879.5%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M154.4%20872.7Q160.7%20872.8%20170.7%20879.5%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.14%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M77.5%20723.2Q74.5%20738.3%2075.0%20742.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M77.5%20723.2Q74.5%20738.3%2075.0%20742.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M391.2%20411.3Q397.8%20404.7%20394.9%20403.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M391.2%20411.3Q397.8%20404.7%20394.9%20403.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M160.0%20664.6Q158.3%20650.0%20165.9%20644.9%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M160.0%20664.6Q158.3%20650.0%20165.9%20644.9%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M197.6%20400.9Q199.8%20413.7%20195.3%20420.4%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.10%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M197.6%20400.9Q199.8%20413.7%20195.3%20420.4%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M206.9%20365.5Q215.7%20361.6%20214.9%20363.1%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.06%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M206.9%20365.5Q215.7%20361.6%20214.9%20363.1%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.12%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M135.3%20883.5Q139.5%20872.5%20136.3%20864.3%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.09%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M135.3%20883.5Q139.5%20872.5%20136.3%20864.3%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.19%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M18.3%20281.5Q20.4%20289.1%2026.5%20292.8%22%20stroke%3D%22%23000%22%20stroke-opacity%3D%220.11%22%20stroke-width%3D%220.30%22%20fill%3D%22none%22%20transform%3D%22translate%280.6%200.6%29%22%2F%3E%3Cpath%20d%3D%22M18.3%20281.5Q20.4%20289.1%2026.5%20292.8%22%20stroke%3D%22%23fff6dc%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%220.21%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E")
+      center / cover no-repeat fixed,
+    radial-gradient(circle at 50% 30%, #b8955a 0%, #9a7a45 50%, #6e5530 100%)
+      fixed;
   background-color: #8f6f3c;
   color: var(--sc-text);
   font-family: Georgia, "Times New Roman", serif;
@@ -64,7 +66,8 @@ body {
 .sc {
   max-width: 440px;
   margin: 0 auto;
-  padding: max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+  padding: max(16px, env(safe-area-inset-top)) 16px
+    max(20px, env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,7 +329,9 @@ body {
 
 /* Polbeschriftung, in die Platte gepraegt (dunkle Flanke oben, Licht unten) */
 .sp-pole text {
-  font-family: "Gill Sans", "Gill Sans MT", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Gill Sans", "Gill Sans MT", "Avenir Next", "Segoe UI", "Helvetica Neue",
+    Arial, sans-serif;
   font-size: 13.5px;
   letter-spacing: 0.08em;
   fill: #4e3714;
@@ -448,7 +453,9 @@ body {
      der Kamera gleicht Helligkeit weitgehend aus (auf dem iPhone nicht abschaltbar), daher hier nur
      maessig abgedunkelt. Die Unschaerfe wirkt durch scale() ca. doppelt. */
   filter: blur(40px) sepia(1) saturate(0.6) contrast(1.6) brightness(0.8);
-  transform: scale(2.2); /* gross genug, damit die Unschaerfe am Rand nicht ausfranst */
+  transform: scale(
+    2.2
+  ); /* gross genug, damit die Unschaerfe am Rand nicht ausfranst */
 }
 
 .sp-linse {
@@ -464,7 +471,11 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, transparent 55%, rgba(20, 12, 5, 0.55) 100%);
+  background: radial-gradient(
+    circle,
+    transparent 55%,
+    rgba(20, 12, 5, 0.55) 100%
+  );
   pointer-events: none;
   z-index: 2;
 }
@@ -480,7 +491,9 @@ body {
   text-align: center;
   /* Tinte auf Glas: leicht durchscheinend und verlaufen; multipliziert mit dem Licht dahinter */
   color: rgba(38, 24, 12, 0.82);
-  text-shadow: 0 0 1.5px rgba(38, 24, 12, 0.55), 0 0 6px rgba(38, 24, 12, 0.25);
+  text-shadow:
+    0 0 1.5px rgba(38, 24, 12, 0.55),
+    0 0 6px rgba(38, 24, 12, 0.25);
   filter: blur(0.3px);
   mix-blend-mode: multiply;
   font-size: clamp(0.95rem, 4.4vw, 1.12rem);
@@ -489,7 +502,12 @@ body {
 
 /* Ergebnis-Dia: blaues Glas, Messingschrift; danach die Rangliste wie ein neues Dia */
 .sp-dia.sp-dia-ergebnis {
-  background: radial-gradient(circle at 45% 40%, #2c4a8c 0%, #172a5a 60%, #0b1430 100%);
+  background: radial-gradient(
+    circle at 45% 40%,
+    #2c4a8c 0%,
+    #172a5a 60%,
+    #0b1430 100%
+  );
   color: #f0d59c;
   text-shadow: 0 0 6px rgba(240, 213, 156, 0.35);
   mix-blend-mode: normal;
@@ -559,7 +577,9 @@ body {
   font-size: 0.66rem;
   line-height: 1.35;
   color: #f0d59c;
-  text-shadow: 0 0 3px #000, 0 0 6px #000;
+  text-shadow:
+    0 0 3px #000,
+    0 0 6px #000;
 }
 
 .sp-dia {
@@ -589,7 +609,6 @@ body {
   transform: scale(1.35);
 }
 
-
 /* --- Ergebnis ------------------------------------------------------------------ */
 .sc-karten {
   width: 100%;
@@ -605,7 +624,11 @@ body {
   scroll-snap-align: center;
   border-radius: 14px;
   border: 1px solid var(--farbe);
-  background: linear-gradient(170deg, color-mix(in srgb, var(--farbe) 30%, #1b1510), #1b1510 70%);
+  background: linear-gradient(
+    170deg,
+    color-mix(in srgb, var(--farbe) 30%, #1b1510),
+    #1b1510 70%
+  );
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -1178,7 +1201,9 @@ body {
   font-size: 13px;
   fill: #e8deff;
   opacity: 0.85;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .wn-haus {
@@ -1208,7 +1233,9 @@ body {
   text-anchor: middle;
   font-size: 15px;
   fill: currentColor;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .wn-rueck {
@@ -1234,14 +1261,16 @@ body {
   text-anchor: middle;
   font-size: 11.5px;
   font-weight: bold;
-  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+  font-family:
+    "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
 }
 
 .ks-gravur-zahl {
   text-anchor: middle;
   font-size: 15px;
   font-weight: bold;
-  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+  font-family:
+    "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
 }
 
 /* dunkle Patina in den Gravuren */
@@ -1320,7 +1349,9 @@ body {
 .wp-planet {
   text-anchor: middle;
   font-size: 15px;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .wp-ac {
@@ -1577,14 +1608,18 @@ body {
   font-size: 10px;
   fill: #17100c;
   opacity: 0.8;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .hp-marke {
   text-anchor: middle;
   font-size: 20px;
   font-weight: bold;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .hp-marke.klein {
@@ -1689,7 +1724,9 @@ body {
 .az-zeichen {
   text-anchor: middle;
   fill: #fbf6e8;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+  font-family:
+    "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans",
+    serif;
 }
 
 .az-zeichen.aktiv {
@@ -1746,7 +1783,8 @@ body {
   text-anchor: middle;
   font-size: 9px;
   fill: #2d1f12;
-  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+  font-family:
+    "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
 }
 
 .kb-nummer {
@@ -1823,7 +1861,9 @@ body {
   border: 1px solid #3a2c1a;
   background: linear-gradient(180deg, #e7cb8c, #a77f43);
   color: #20160b;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 245, 210, 0.7);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 245, 210, 0.7);
   cursor: pointer;
 }
 
@@ -1878,7 +1918,13 @@ body {
 /* Numerologie: kariertes Schulheft, rote Korrekturlinie, Handschrift */
 .eg-stil-Numerologie {
   background:
-    linear-gradient(90deg, transparent 28px, #e7a3a3 28px, #e7a3a3 29.5px, transparent 29.5px),
+    linear-gradient(
+      90deg,
+      transparent 28px,
+      #e7a3a3 28px,
+      #e7a3a3 29.5px,
+      transparent 29.5px
+    ),
     linear-gradient(#a9bedb 0.6px, transparent 0.6px) 0 0 / 14px 14px,
     linear-gradient(90deg, #a9bedb 0.6px, transparent 0.6px) 0 0 / 14px 14px,
     #fbfaf4;
@@ -1898,8 +1944,15 @@ body {
 /* Hellenistisch: Pergamentrolle, Maeanderband, Inschriften-Majuskeln */
 .eg-stil-Hellenistisch {
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2218%22%20height%3D%2218%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20fill%3D%22%23c46a36%22%2F%3E%3Cpath%20d%3D%22M3%2018V3h12v11H7V7h4v4%22%20fill%3D%22none%22%20stroke%3D%22%2317100c%22%20stroke-width%3D%221.8%22%2F%3E%3C%2Fsvg%3E") 6px 0 / 18px 18px repeat-y,
-    linear-gradient(90deg, rgba(90, 50, 20, 0.25), transparent 12%, transparent 88%, rgba(90, 50, 20, 0.25)),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2218%22%20height%3D%2218%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20fill%3D%22%23c46a36%22%2F%3E%3Cpath%20d%3D%22M3%2018V3h12v11H7V7h4v4%22%20fill%3D%22none%22%20stroke%3D%22%2317100c%22%20stroke-width%3D%221.8%22%2F%3E%3C%2Fsvg%3E")
+      6px 0 / 18px 18px repeat-y,
+    linear-gradient(
+      90deg,
+      rgba(90, 50, 20, 0.25),
+      transparent 12%,
+      transparent 88%,
+      rgba(90, 50, 20, 0.25)
+    ),
     #ecd9ad;
   background-attachment: local;
   color: #3a2414;
@@ -1914,7 +1967,15 @@ body {
 /* Bazi: Japanpapier, roter Streifen mit Goldlinie */
 .eg-stil-Bazi {
   background:
-    linear-gradient(90deg, transparent 8px, #b2241b 8px, #b2241b 16px, #e2b551 16px, #e2b551 17.5px, transparent 17.5px),
+    linear-gradient(
+      90deg,
+      transparent 8px,
+      #b2241b 8px,
+      #b2241b 16px,
+      #e2b551 16px,
+      #e2b551 17.5px,
+      transparent 17.5px
+    ),
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22240%22%3E%3Cfilter%20id%3D%22f%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.012%200.18%22%20numOctaves%3D%223%22%20seed%3D%225%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200.45%20%200%200%200%200%200.38%20%200%200%200%200%200.3%20%200%200%200%200.22%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20filter%3D%22url%28%23f%29%22%2F%3E%3C%2Fsvg%3E"),
     #f3ede1;
   background-attachment: local;
@@ -1928,7 +1989,8 @@ body {
 /* Vedisch: Palmblatt mit Laengsfasern, Band mit Reismehlpunkten */
 .eg-stil-Vedisch {
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%233a2a1e%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222.2%22%20fill%3D%22%23f0eadb%22%20opacity%3D%220.9%22%2F%3E%3C%2Fsvg%3E") 6px 0 / 16px 16px repeat-y,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%233a2a1e%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222.2%22%20fill%3D%22%23f0eadb%22%20opacity%3D%220.9%22%2F%3E%3C%2Fsvg%3E")
+      6px 0 / 16px 16px repeat-y,
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22240%22%3E%3Cfilter%20id%3D%22f%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.004%200.35%22%20numOctaves%3D%222%22%20seed%3D%229%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200.35%20%200%200%200%200%200.22%20%200%200%200%200%200.08%20%200%200%200%200.28%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20filter%3D%22url%28%23f%29%22%2F%3E%3C%2Fsvg%3E"),
     linear-gradient(180deg, #dcbb76, #c99f57);
   background-attachment: local;
@@ -1942,7 +2004,8 @@ body {
 /* Arabisch: cremefarbenes Papier, Kachelband */
 .eg-stil-Arabisch {
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2218%22%20height%3D%2218%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20fill%3D%22%23efe9da%22%2F%3E%3Cpath%20d%3D%22M9%201%2017%209%209%2017%201%209Z%22%20fill%3D%22%231f4fa3%22%2F%3E%3Cpath%20d%3D%22M9%205%2013%209%209%2013%205%209Z%22%20fill%3D%22%232aa69b%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%229%22%20r%3D%221.4%22%20fill%3D%22%23efe9da%22%2F%3E%3C%2Fsvg%3E") 6px 0 / 18px 18px repeat-y,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2218%22%20height%3D%2218%22%3E%3Crect%20width%3D%2218%22%20height%3D%2218%22%20fill%3D%22%23efe9da%22%2F%3E%3Cpath%20d%3D%22M9%201%2017%209%209%2017%201%209Z%22%20fill%3D%22%231f4fa3%22%2F%3E%3Cpath%20d%3D%22M9%205%2013%209%209%2013%205%209Z%22%20fill%3D%22%232aa69b%22%2F%3E%3Ccircle%20cx%3D%229%22%20cy%3D%229%22%20r%3D%221.4%22%20fill%3D%22%23efe9da%22%2F%3E%3C%2Fsvg%3E")
+      6px 0 / 18px 18px repeat-y,
     #f5efe0;
   background-attachment: local;
   color: #1c2238;
@@ -1955,7 +2018,17 @@ body {
 /* Kabbalah: altes Pergament wie in der Grafik, doppelte Randlinie */
 .eg-stil-Kabbalah {
   background:
-    linear-gradient(90deg, transparent 12px, #2d1f12 12px, #2d1f12 13.5px, transparent 13.5px, transparent 17px, #2d1f12 17px, #2d1f12 17.8px, transparent 17.8px),
+    linear-gradient(
+      90deg,
+      transparent 12px,
+      #2d1f12 12px,
+      #2d1f12 13.5px,
+      transparent 13.5px,
+      transparent 17px,
+      #2d1f12 17px,
+      #2d1f12 17.8px,
+      transparent 17.8px
+    ),
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Cfilter%20id%3D%22f%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.02%22%20numOctaves%3D%224%22%20seed%3D%228%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200.45%20%200%200%200%200%200.32%20%200%200%200%200%200.12%20%200%200%200%200.35%20-0.05%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22300%22%20height%3D%22300%22%20filter%3D%22url%28%23f%29%22%2F%3E%3C%2Fsvg%3E"),
     #efdcae;
   background-attachment: local;
@@ -2030,8 +2103,18 @@ body {
   pointer-events: none;
   mix-blend-mode: screen;
   background:
-    linear-gradient(128deg, transparent 20%, rgba(255, 255, 255, 0.14) 27%, rgba(255, 255, 255, 0.05) 31%, transparent 36%),
-    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.14), transparent 34%);
+    linear-gradient(
+      128deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.14) 27%,
+      rgba(255, 255, 255, 0.05) 31%,
+      transparent 36%
+    ),
+    radial-gradient(
+      circle at 30% 24%,
+      rgba(255, 255, 255, 0.14),
+      transparent 34%
+    );
 }
 
 /* Jahreshoroskop: Zeitraum hervorgehoben */
@@ -2077,7 +2160,9 @@ body {
   border-radius: 10px;
   background: linear-gradient(180deg, #fbf3df, #ecdcb4);
   color: #2b2116;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px #c9a66b;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px #c9a66b;
   font-family: Georgia, "Times New Roman", serif;
 }
 
@@ -2261,7 +2346,12 @@ body {
 /* Notizseite: feine Linien zum Hineinschreiben */
 .buch-seite.notiz {
   background:
-    repeating-linear-gradient(180deg, transparent 0 6.4cqw, #e4d6b5 6.4cqw 6.55cqw) 0 16cqw / 100% calc(100% - 26cqw) no-repeat,
+    repeating-linear-gradient(
+        180deg,
+        transparent 0 6.4cqw,
+        #e4d6b5 6.4cqw 6.55cqw
+      )
+      0 16cqw / 100% calc(100% - 26cqw) no-repeat,
     #fbf7ee;
 }
 
@@ -2293,7 +2383,9 @@ body {
   height: 78cqw;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 0 0.6cqw #c9a66b, 0 0 0 0.9cqw #8a6a3c;
+  box-shadow:
+    0 0 0 0.6cqw #c9a66b,
+    0 0 0 0.9cqw #8a6a3c;
 }
 
 .buch-grafik svg {
@@ -2473,7 +2565,12 @@ body {
 
 .buch-ebene.dunkel .buch-seite.notiz {
   background:
-    repeating-linear-gradient(180deg, transparent 0 6.4cqw, #3a3024 6.4cqw 6.55cqw) 0 16cqw / 100% calc(100% - 26cqw) no-repeat,
+    repeating-linear-gradient(
+        180deg,
+        transparent 0 6.4cqw,
+        #3a3024 6.4cqw 6.55cqw
+      )
+      0 16cqw / 100% calc(100% - 26cqw) no-repeat,
     #14110d;
 }
 
@@ -2531,4 +2628,232 @@ body {
 
 .buch-seite.titel h1 {
   margin: 4cqw 0 4cqw !important;
+}
+
+/* Reihenfolge in der Buchauswahl */
+.da-liste li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.da-pfeile {
+  display: flex;
+  gap: 4px;
+}
+.da-pfeile button {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #c9a66b;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff8e6, #dcc191);
+  box-shadow: 0 1px 2px rgba(60, 40, 10, 0.35);
+  color: #6b5a40;
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+.da-pfeile button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Titelseite: Impressum und Leitsatz */
+.buch-seite.impressum {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 9cqw 10cqw 12cqw;
+  font-size: 2.1cqw;
+  line-height: 1.5;
+  color: #5a4a33;
+}
+.buch-seite.impressum p {
+  margin: 0 0 1.6cqw;
+}
+.buch-impressum-titel {
+  font-size: 2.6cqw;
+  font-style: italic;
+  color: #2b2116;
+}
+.buch-seite.leitsatz {
+  display: grid;
+  place-items: center;
+}
+.buch-seite.leitsatz blockquote {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqw;
+  font-size: 3.6cqw;
+  font-style: italic;
+  line-height: 1.35;
+  color: #3b2e1c;
+  text-align: center;
+}
+.buch-ebene.dunkel .buch-seite.impressum {
+  color: #b9a985;
+}
+.buch-ebene.dunkel .buch-impressum-titel,
+.buch-ebene.dunkel .buch-seite.leitsatz blockquote {
+  color: #e8d9b5;
+}
+
+/* Das stehende Buch in 3D: Deckel 150 x 150, Ruecken links, Papierblock oben */
+.b3-buehne {
+  position: relative;
+  height: 196px;
+  margin: -4px 0 8px;
+  perspective: 900px;
+  perspective-origin: 50% 20%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+.b3-buch {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transform: rotateX(-8deg) rotateY(28deg);
+}
+.b3-buch > div {
+  position: absolute;
+  box-sizing: border-box;
+}
+.b3-deckel {
+  inset: 0;
+  container-type: size;
+  transform: translateZ(calc(var(--dicke) / 2));
+  border-radius: 1px 4px 4px 1px;
+  /* dunkelblaues Leinen mit Goldpraegung */
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0 1px,
+      transparent 1px 3px
+    ),
+    linear-gradient(115deg, #24305a 0%, #141b38 55%, #0c1128 100%);
+  box-shadow:
+    inset 6px 0 6px -4px rgba(0, 0, 0, 0.6),
+    inset -1px 0 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 9cqw;
+  color: #d9b45e;
+  font-family: Georgia, "Times New Roman", serif;
+  text-align: center;
+}
+.b3-deckel::after {
+  /* Glanzlicht */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.14),
+    transparent 40%
+  );
+  pointer-events: none;
+}
+.b3-zeichen {
+  font-size: 5.5cqw;
+  letter-spacing: 0.35em;
+  margin-left: 0.35em;
+  text-shadow:
+    0 -0.5px 0 rgba(0, 0, 0, 0.6),
+    0 0.5px 0 rgba(255, 230, 160, 0.35);
+}
+.b3-titel {
+  margin: 4cqw 6cqw 0;
+  font-size: 10cqw;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #f3dc95, #b8893a 60%, #e2c070);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0.5px 0 rgba(0, 0, 0, 0.7));
+}
+.b3-scheiben {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 6cqw 0 9cqw;
+  display: flex;
+  justify-content: center;
+}
+.b3-scheiben svg {
+  width: auto;
+  height: 100%;
+  max-width: 42cqw;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+.b3-scheiben.paar svg {
+  max-width: 36cqw;
+}
+.b3-scheiben.paar svg + svg {
+  margin-left: -8cqw;
+}
+.b3-ruecken {
+  left: 0;
+  top: 0;
+  width: var(--dicke);
+  height: 100%;
+  transform-origin: left center;
+  transform: translateZ(calc(var(--dicke) / -2)) rotateY(-90deg);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.45),
+      rgba(255, 255, 255, 0.1) 35%,
+      rgba(0, 0, 0, 0.15) 70%,
+      rgba(0, 0, 0, 0.5)
+    ),
+    #1a2247;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 8px;
+  color: #d9b45e;
+  font-family: Georgia, "Times New Roman", serif;
+  overflow: hidden;
+}
+.b3-ruecken-titel {
+  writing-mode: vertical-rl;
+  font-size: min(9px, calc(var(--dicke) * 0.55));
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.b3-ruecken-marke {
+  font-size: min(8px, calc(var(--dicke) * 0.5));
+}
+.b3-oben {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: var(--dicke);
+  transform-origin: center top;
+  transform: translateZ(calc(var(--dicke) / -2)) rotateX(90deg);
+  /* Papierblock: feine Blattkanten, an der Ruecken-Seite der Einband */
+  background:
+    linear-gradient(90deg, #1a2247 0 3px, transparent 3px),
+    repeating-linear-gradient(0deg, #f4ecd8 0 1px, #d9cdb0 1px 2px);
+}
+.b3-schatten {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  width: calc(170px + var(--dicke));
+  height: 22px;
+  transform: translateX(-46%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30, 18, 4, 0.55), transparent);
+  filter: blur(3px);
 }

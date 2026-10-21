@@ -1,5 +1,6 @@
-// Das Horoskopbuch, 21 x 21 cm: Titelseite, Rangliste, je gewaehltem Horoskop links die Grafik und rechts
-// zweispaltige Textseiten, am Ende die Hintergrundseiten zum Experiment. Am Bildschirm als Vorschau (Seiten
+// Das Horoskopbuch, 21 x 21 cm: Titelseite, Impressum, Leitsatz, Einleitung, je gewaehltem Horoskop (in der
+// gewaehlten Reihenfolge) links die Grafik und rechts zweispaltige Textseiten, am Ende die Hintergrundseiten
+// zum Experiment. Das Spielergebnis kommt nicht ins Buch. Am Bildschirm als Vorschau (Seiten
 // untereinander), beim Drucken eine Seite je Blatt (@page 210 x 210 mm). Die Grafiken sind dieselben
 // Vektorgrafiken wie im Auge.
 // Seitenumbruch: Die Texte bestehen aus Bausteinen (Ueberschrift, Absatz, ...). Ein Seitensetzer misst sie in
@@ -14,6 +15,7 @@ import HoroskopIcon from "./HoroskopIcon";
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName } from "./systeme";
+import { EINLEITUNG, LEITSATZ } from "./buchtexte";
 
 const DIMENSIONEN = [
   "liebe",
@@ -25,7 +27,6 @@ const DIMENSIONEN = [
   "veraenderung",
   "spiritualitaet",
 ];
-const vorzeichen = (x) => (x > 0 ? `+${x.toFixed(0)}` : x.toFixed(0));
 const UEBERSCHRIFTEN = ["h2", "h3", "unter", "klein"];
 
 // --- Bausteine ---------------------------------------------------------------------------------------------
@@ -238,8 +239,6 @@ function bereichBloecke(t, dims) {
 function abschnitte({
   spiel,
   auswahl,
-  ergebnis,
-  vergleich,
   paar,
   texte,
   ausblick,
@@ -248,35 +247,11 @@ function abschnitte({
 }) {
   const paarSpiel = spiel === "C";
   const liste = [{ art: "titel" }];
-  const ranking = ergebnis?.alle?.ranking ?? auswahl;
-  liste.push({
-    art: "text",
-    bloecke: [
-      { k: "h2", t: paarSpiel ? "Euer Ergebnis" : "Dein Ergebnis" },
-      {
-        k: "rangliste",
-        zeilen: ranking.map((id) => ({
-          name: anzeigeName(id),
-          wert: ergebnis?.alle?.systemDetails?.[id]
-            ? vorzeichen(ergebnis.alle.systemDetails[id].skillScore)
-            : "–",
-          gewaehlt: auswahl.includes(id),
-        })),
-      },
-      ...(ergebnis
-        ? [
-            {
-              k: "klein",
-              t: `Skill 0 = Zufall, +100 = besser als alle ${vergleich}. Ohne jede Aussagekraft erreicht das beste von ${SYSTEME.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.`,
-            },
-          ]
-        : []),
-    ],
-  });
+  liste.push({ art: "impressum" }, { art: "leitsatz" });
+  liste.push({ art: "text", bloecke: EINLEITUNG });
   auswahl.forEach((id) => {
     const sys = SYSTEME.find((x) => x.id === id);
     const t = texte?.systems?.[id];
-    const d = ergebnis?.alle?.systemDetails?.[id];
     const jahr = ausblick?.systeme?.[id];
     const h = heute?.systeme?.[id];
     const bereiche = DIMENSIONEN.filter((dim) => t?.dimensions?.[dim]);
@@ -284,14 +259,6 @@ function abschnitte({
     const kopf = [
       { k: "h2", t: anzeigeName(id) },
       ...(sys?.unter ? [{ k: "unter", t: sys.unter }] : []),
-      ...(d
-        ? [
-            {
-              k: "klein",
-              t: `Skill ${vorzeichen(d.skillScore)} · besser als ${d.perzentil.toFixed(0)} von 100 ${vergleich}`,
-            },
-          ]
-        : []),
     ];
     const teile = paarSpiel
       ? [
@@ -378,8 +345,6 @@ function abschnitte({
 export default function Buch({
   spiel,
   auswahl,
-  ergebnis,
-  vergleich,
   visualPayloads,
   paar,
   texte,
@@ -404,8 +369,6 @@ export default function Buch({
   const liste = abschnitte({
     spiel,
     auswahl,
-    ergebnis,
-    vergleich,
     paar,
     texte,
     ausblick,
@@ -478,7 +441,54 @@ export default function Buch({
         </Seite>,
       );
       nummer += 1;
+    } else if (a.art === "impressum") {
+      seiten.push(
+        <Seite key="impressum" art="impressum">
+          <p className="buch-impressum-titel">{titel}</p>
+          {[geburt?.a, geburt?.b].filter(Boolean).map((g, k) => (
+            <p key={k}>
+              Geboren am{" "}
+              {new Date(`${g.geburtsdatum}T12:00`).toLocaleDateString("de-AT", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+              {g.uhrzeit ? ` um ${g.uhrzeit} Uhr` : ""}
+            </p>
+          ))}
+          <p>
+            Berechnet und gesetzt mit der Tesserakt-Schatulle am {datum}.
+            <br />
+            Enthält {auswahl.length === 1
+              ? "das Horoskop"
+              : "die Horoskope"}: {auswahl.map(anzeigeName).join(", ")}.
+          </p>
+          <p>
+            Die Horoskope folgen den überlieferten Regeln ihrer Traditionen. Sie
+            dienen der Unterhaltung und einem wissenschaftlichen Experiment und
+            ersetzen keine Beratung.
+          </p>
+          <p>
+            © {new Date().getFullYear()} Tesserakt. Alle Rechte vorbehalten.
+          </p>
+        </Seite>,
+      );
+      nummer += 1;
+    } else if (a.art === "leitsatz") {
+      seiten.push(
+        <Seite key="leitsatz" art="leitsatz">
+          <blockquote>
+            {LEITSATZ.map((z) => (
+              <span key={z}>{z}</span>
+            ))}
+          </blockquote>
+        </Seite>,
+      );
+      nummer += 1;
     } else if (a.art === "grafik") {
+      // die Grafik steht immer links (gerade Seitenzahl): notfalls eine leere Seite davor
+      if (nummer % 2)
+        seiten.push(<Seite key={`v-${i}`} art="leer" nummer={nummer++} />);
       imHoroskop = 1;
       seiten.push(
         <Seite key={`g-${a.id}`} art="grafik" nummer={nummer++}>

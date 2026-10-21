@@ -1,8 +1,10 @@
-// Auswahl fuer das Horoskopbuch: welche Horoskope ins Buch kommen (Reihenfolge wie im Ergebnis), mit
-// Preisstaffel. Von hier aus die Buchansicht (zum Ansehen und Drucken als PDF); Bestellen folgt.
+// Auswahl fuer das Horoskopbuch: welche Horoskope ins Buch kommen und in welcher Reihenfolge, der Titel und
+// die Preisstaffel. Oben das Buch als 3D-Ansicht. Von hier aus die Buchansicht (zum Ansehen und Drucken als
+// PDF); Bestellen folgt.
 import { useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
-import { anzeigeName } from "./systeme";
+import Buch3D from "./Buch3D";
+import { SYSTEME, anzeigeName } from "./systeme";
 import { buchPreis } from "./buchpreise";
 
 // Vorgabe fuer den Titel: Mein Horoskop / Meine Horoskope, bei Paaren Unser Horoskop / Unsere Horoskope
@@ -12,15 +14,20 @@ export function titelVorgabe(n, paarSpiel) {
 }
 
 export default function DruckAuswahl({
-  reihenfolge,
+  beste,
   paarSpiel,
+  geburt,
   vorher,
   onAnsehen,
   onSchliessen,
 }) {
+  // Reihenfolge im Buch: frei einstellbar, anfangs die feste Reihenfolge der Horoskope
+  const [reihe, setReihe] = useState(
+    () => vorher?.reihe ?? SYSTEME.map((s) => s.id),
+  );
   // vorausgewaehlt: die drei Horoskope mit dem besten Ergebnis (oder die Auswahl von vorhin)
   const [auswahl, setAuswahl] = useState(
-    () => new Set(vorher?.auswahl ?? reihenfolge.slice(0, 3)),
+    () => new Set(vorher?.auswahl ?? beste.slice(0, 3)),
   );
   const n = auswahl.size;
   // eigener Titel; solange leer, gilt die Vorgabe (passt sich der Anzahl an)
@@ -42,10 +49,23 @@ export default function DruckAuswahl({
     });
   }
 
-  const gewaehlt = reihenfolge.filter((id) => auswahl.has(id));
+  function verschieben(i, schritt) {
+    setReihe((alt) => {
+      const neu = [...alt];
+      [neu[i], neu[i + schritt]] = [neu[i + schritt], neu[i]];
+      return neu;
+    });
+  }
+
+  const gewaehlt = reihe.filter((id) => auswahl.has(id));
   return (
     <div className="da-ebene" role="dialog" aria-label="Horoskopbuch">
       <div className="da-blatt">
+        <Buch3D
+          titel={titel.trim() || vorgabe}
+          geburt={geburt}
+          anzahl={Math.max(n, 1)}
+        />
         <h2>Dein Horoskopbuch</h2>
         <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
         <label className="da-titel">
@@ -59,7 +79,7 @@ export default function DruckAuswahl({
           />
         </label>
         <ul className="da-liste">
-          {reihenfolge.map((id) => (
+          {reihe.map((id, i) => (
             <li key={id}>
               <label>
                 <input
@@ -76,6 +96,24 @@ export default function DruckAuswahl({
                 </svg>
                 <span>{anzeigeName(id)}</span>
               </label>
+              <span className="da-pfeile">
+                <button
+                  type="button"
+                  aria-label="nach oben"
+                  disabled={i === 0}
+                  onClick={() => verschieben(i, -1)}
+                >
+                  ▲
+                </button>
+                <button
+                  type="button"
+                  aria-label="nach unten"
+                  disabled={i === reihe.length - 1}
+                  onClick={() => verschieben(i, 1)}
+                >
+                  ▼
+                </button>
+              </span>
             </li>
           ))}
         </ul>
@@ -97,7 +135,13 @@ export default function DruckAuswahl({
             type="button"
             className="sc-start"
             disabled={!n}
-            onClick={() => onAnsehen(gewaehlt, titel.trim() || vorgabe)}
+            onClick={() =>
+              onAnsehen({
+                auswahl: gewaehlt,
+                titel: titel.trim() || vorgabe,
+                reihe,
+              })
+            }
           >
             Buch ansehen
           </button>

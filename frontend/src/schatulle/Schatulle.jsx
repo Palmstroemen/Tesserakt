@@ -143,7 +143,7 @@ export default function Schatulle() {
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
   const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
   const [kartenOffen, setKartenOffen] = useState(false); // Textkarten einmal geoeffnet (bleiben dann geladen)
-  const [druck, setDruck] = useState(null); // null | "auswahl" | { auswahl, titel } fuer die Buchansicht
+  const [druck, setDruck] = useState(null); // null | "auswahl" | { auswahl, titel, reihe } fuer die Buchansicht
   const [geburt, setGeburt] = useState(null); // eingestellte Geburtsdaten (Titelseite des Buchs): { a, b? }
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
@@ -713,10 +713,11 @@ export default function Schatulle() {
       ) : null}
       {druck === "auswahl" || druck?.zurueck ? (
         <DruckAuswahl
-          reihenfolge={ergebnis?.alle?.ranking ?? ALLE}
+          beste={ergebnis?.alle?.ranking ?? ALLE}
           paarSpiel={spiel === "C"}
+          geburt={geburt}
           vorher={druck}
-          onAnsehen={(auswahl, titel) => setDruck({ auswahl, titel })}
+          onAnsehen={(wahl) => setDruck(wahl)}
           onSchliessen={() => setDruck(null)}
         />
       ) : null}
@@ -726,8 +727,6 @@ export default function Schatulle() {
           auswahl={druck.auswahl}
           titel={druck.titel}
           geburt={geburt}
-          ergebnis={ergebnis}
-          vergleich={SPIELE[spiel].vergleich}
           visualPayloads={visualPayloads}
           paar={paar}
           texte={texte}
