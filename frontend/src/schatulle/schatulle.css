@@ -1139,6 +1139,14 @@ body {
   font-family: "GFS Didot", "Noto Serif", Georgia, serif;
 }
 
+.ht-ziffer {
+  text-anchor: middle;
+  font-size: 8px;
+  fill: #17100c;
+  opacity: 0.7;
+  font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
 .ht-figur {
   fill: #17100c;
 }

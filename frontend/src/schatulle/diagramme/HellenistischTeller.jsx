@@ -9,6 +9,7 @@ const R_GLASUR = 141; // schwarz glasierter Rand
 const R_ZAHL = 126; // Zahlzeichen
 const R_BAND_AUSSEN = 111;
 const R_BAND_INNEN = 96;
+const R_ZIFFER = 87; // kleine arabische Ziffern innen am Maeander
 
 // griechische Zahlzeichen mit Keraia; 6 = Stigma
 const ZAHLEN = [
@@ -58,8 +59,7 @@ const ATTRIBUTE = {
   },
   // Ares: Rundschild (Aspis) und Speer
   mars: {
-    form:
-      "M14 94 L84 10 L88 13 L18 97 Z M84 10 L96 2 L91 16 Z M50 26 A30 30 0 1 1 49.9 26 Z",
+    form: "M14 94 L84 10 L88 13 L18 97 Z M84 10 L96 2 L91 16 Z M50 26 A30 30 0 1 1 49.9 26 Z",
     ritz: "M50 32 A24 24 0 1 1 49.9 32 M50 46 A10 10 0 1 1 49.9 46",
   },
   // Helios: Strahlensonne
@@ -124,6 +124,7 @@ export default function HellenistischTeller({ payload }) {
   const bild = herr ? ATTRIBUTE[herr.bild] : null;
   const w = haus ? hausWinkel(haus) : 0;
   const kreide = { x: M + R_ZAHL * Math.cos(w), y: M + R_ZAHL * Math.sin(w) };
+  const kreideDrehung = (w * 180) / Math.PI - 90; // laengs zur gedrehten Zahl
 
   return (
     <svg
@@ -191,18 +192,37 @@ export default function HellenistischTeller({ payload }) {
       </g>
 
       {/* Zahlzeichen der Haeuser */}
+      {/* entlang des Kreises gedreht, Fuss zum Rand (Haus 1 unten steht aufrecht); innen am Maeander klein
+          die arabische Ziffer als Lesehilfe */}
       {ZAHLEN.map((z, i) => {
         const a = hausWinkel(i + 1);
+        const drehung = (a * 180) / Math.PI - 90;
+        const p = { x: M + R_ZAHL * Math.cos(a), y: M + R_ZAHL * Math.sin(a) };
+        const q = {
+          x: M + R_ZIFFER * Math.cos(a),
+          y: M + R_ZIFFER * Math.sin(a),
+        };
         return (
-          <text
-            key={z}
-            x={M + R_ZAHL * Math.cos(a)}
-            y={M + R_ZAHL * Math.sin(a)}
-            dy="0.36em"
-            className="ht-zahl"
-          >
-            {z}
-          </text>
+          <g key={z}>
+            <text
+              x={p.x}
+              y={p.y}
+              dy="0.36em"
+              className="ht-zahl"
+              transform={`rotate(${drehung} ${p.x} ${p.y})`}
+            >
+              {z}
+            </text>
+            <text
+              x={q.x}
+              y={q.y}
+              dy="0.36em"
+              className="ht-ziffer"
+              transform={`rotate(${drehung} ${q.x} ${q.y})`}
+            >
+              {i + 1}
+            </text>
+          </g>
         );
       })}
 
@@ -230,14 +250,14 @@ export default function HellenistischTeller({ payload }) {
             cy={kreide.y}
             rx="15"
             ry="12"
-            transform={`rotate(-12 ${kreide.x} ${kreide.y})`}
+            transform={`rotate(${kreideDrehung - 12} ${kreide.x} ${kreide.y})`}
           />
           <ellipse
             cx={kreide.x + 1}
             cy={kreide.y - 0.5}
             rx="14"
             ry="12.8"
-            transform={`rotate(8 ${kreide.x} ${kreide.y})`}
+            transform={`rotate(${kreideDrehung + 8} ${kreide.x} ${kreide.y})`}
           />
         </g>
       ) : null}
