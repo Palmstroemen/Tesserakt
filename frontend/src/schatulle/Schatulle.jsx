@@ -134,9 +134,11 @@ function anzeigeWert(stat, system, dim, wert) {
 }
 
 export default function Schatulle() {
-  // start | laden | uebergang (Rad -> Fragen) | frage | abschluss (Fragen -> Ergebnis)
-  // | abkuerzung (Rad -> Ergebnis, Entwicklung) | ende
+  // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
+  const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
+  const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
+  const [kartenOffen, setKartenOffen] = useState(false); // Textkarten einmal geoeffnet (bleiben dann geladen)
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
 
@@ -221,6 +223,9 @@ export default function Schatulle() {
     setFehler(null);
     setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
     setAbkuerzung(schnell);
+    setAuswertung(false);
+    setTextkarten(false);
+    setKartenOffen(false);
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
     if (!schnell) kameraStarten();
@@ -323,7 +328,8 @@ export default function Schatulle() {
             ),
           })),
         );
-        wechsel("abkuerzung", "ende");
+        // Abkuerzung: gleich in den Faecher mit der Auswertung
+        wechsel("uebergang", "frage");
       } else {
         setAntworten([]);
         // Uebergang: Datumsscheibe dreht sich zum magischen Auge, die Ortswalzen schwenken weg
@@ -506,12 +512,7 @@ export default function Schatulle() {
 
   // --- Ergebnis ---------------------------------------------------------------
   const ergebnis = useMemo(() => {
-    if (
-      !["abschluss", "abkuerzung", "ende"].includes(phase) ||
-      !kontroll ||
-      !matrix
-    )
-      return null;
+    if (phase !== "frage" || !kontroll || !matrix) return null;
     const mitgespielt = Object.fromEntries(
       ALLE.map((s) => [
         s,
@@ -588,65 +589,102 @@ export default function Schatulle() {
   ]);
 
   // --- Darstellung ------------------------------------------------------------
-  // Alle Platten liegen uebereinander: Waehrend eines Uebergangs spielt die alte Platte ihren Abgang als
-  // Deckschicht ueber der schon fertigen neuen (Rad -> Fragen, Fragen -> Ergebnis, Rad -> Ergebnis).
-  const zeigeRad = ["start", "laden", "uebergang", "abkuerzung"].includes(
-    phase,
-  );
-  const zeigeSpiel = ["uebergang", "frage", "abschluss"].includes(phase);
-  const zeigeErgebnis = ["abschluss", "abkuerzung", "ende"].includes(phase);
+  // Datumsscheibe und Faecher liegen uebereinander: beim Uebergang spielt die Scheibe ihren Abgang als
+  // Deckschicht ueber dem schon fertigen Faecher. Das Ergebnis bleibt im Faecher; daneben (rechts) liegen die
+  // Textkarten, beim Wischen im Auge schiebt sich der Faecher nach links weg.
+  const zeigeRad = ["start", "laden", "uebergang"].includes(phase);
+  const zeigeSpiel = ["uebergang", "frage"].includes(phase);
+  const titel =
+    spiel === "C"
+      ? "Euer Ergebnis"
+      : spiel === "B"
+        ? "Dein Rückblick"
+        : "Dein Ergebnis";
+  function nochmal() {
+    setPhase("start");
+    setAuswertung(false);
+    setTextkarten(false);
+    setKartenOffen(false);
+  }
   return (
     <div className="sc-buehne">
-      {zeigeErgebnis ? (
-        <Ergebnisplatte
-          spiel={spiel}
-          ergebnis={ergebnis}
-          vergleich={SPIELE[spiel].vergleich}
-          antwortZahl={antworten.filter((a) => a.typ !== "auffaellig").length}
-          visualPayloads={visualPayloads}
-          heute={heute}
-          ausblick={ausblick}
-          paar={paar}
-          texte={spiel !== "C" ? texte : null}
-          hinweis={
-            abkuerzung
-              ? "Abkürzung über das Datum (Entwicklung): Die Antworten wurden gewürfelt."
-              : null
-          }
-          onNochmal={() => setPhase("start")}
-        />
-      ) : null}
       {zeigeSpiel ? (
-        <div className={phase === "abschluss" ? "sc-deckschicht" : undefined}>
-          <Spielplatte
-            key={runde}
-            fragen={fragen}
-            pole={SPIELE[spiel].pole}
-            zielWert={zielWert}
-            onAntwort={antwort}
-            onFertig={() => wechsel("abschluss", "ende")}
-            kamera={kamera}
-            kameraInfo={kameraInfo}
-            auftritt={phase === "uebergang"}
-            abgang={phase === "abschluss"}
-            zusatz={zusatz}
-            sonderDia={sonderDia}
-          />
+        <div
+          className="sc-spur"
+          style={{ transform: textkarten ? "translateX(-100%)" : undefined }}
+        >
+          <div className="sc-spur-seite">
+            <Spielplatte
+              key={runde}
+              fragen={fragen}
+              pole={SPIELE[spiel].pole}
+              zielWert={zielWert}
+              onAntwort={antwort}
+              kamera={kamera}
+              kameraInfo={kameraInfo}
+              auftritt={phase === "uebergang"}
+              zusatz={zusatz}
+              sonderDia={sonderDia}
+              ergebnis={ergebnis}
+              titel={titel}
+              erklaerung={
+                ergebnis
+                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ALLE.length} Systemen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
+                    (ergebnis.fenster
+                      ? " Reihenfolge: Mittel aus dem letzten Monat und den letzten drei Monaten."
+                      : "")
+                  : null
+              }
+              hinweis={
+                abkuerzung
+                  ? "Abkürzung über das Datum (Entwicklung): Die Antworten wurden gewürfelt."
+                  : null
+              }
+              sofort={abkuerzung}
+              onAuswertung={() => setAuswertung(true)}
+              onWeiter={() => {
+                setKartenOffen(true);
+                setTextkarten(true);
+              }}
+            />
+          </div>
+          {kartenOffen ? (
+            <div className="sc-spur-seite">
+              <Ergebnisplatte
+                spiel={spiel}
+                ergebnis={ergebnis}
+                vergleich={SPIELE[spiel].vergleich}
+                antwortZahl={
+                  antworten.filter((a) => a.typ !== "auffaellig").length
+                }
+                visualPayloads={visualPayloads}
+                heute={heute}
+                ausblick={ausblick}
+                paar={paar}
+                texte={spiel !== "C" ? texte : null}
+                onZurueck={() => setTextkarten(false)}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
-      {zeigeRad ? (
-        <div
-          className={
-            phase === "uebergang" || phase === "abkuerzung"
-              ? "sc-deckschicht"
-              : undefined
-          }
+      {auswertung && phase === "frage" ? (
+        <button
+          type="button"
+          className="sc-zurueck"
+          aria-label="Noch einmal"
+          onClick={nochmal}
         >
+          ‹
+        </button>
+      ) : null}
+      {zeigeRad ? (
+        <div className={phase === "uebergang" ? "sc-deckschicht" : undefined}>
           <Datumsrad
             onSpiel={spielWahl}
             laedt={phase !== "start"}
             fehler={fehler}
-            abgang={phase === "uebergang" || phase === "abkuerzung"}
+            abgang={phase === "uebergang"}
           />
         </div>
       ) : null}

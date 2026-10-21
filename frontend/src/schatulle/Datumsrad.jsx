@@ -84,7 +84,7 @@ const RINGE = [
 const KNOEPFE = [
   { spiel: "A", x: 34, y: 34 },
   { spiel: "B", x: 366, y: 34 },
-  { spiel: "C", x: 34, y: 366 },
+  { spiel: "C", x: 34, y: 366, silber: true }, // Spiel C: zweite Person auf der silbernen Seite
 ];
 const HOEHE = MITTE.y + WALZEN.stadt + 44;
 const METALL = {
@@ -385,6 +385,12 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
             <stop offset="0.55" stopColor={METALL.gold[1]} />
             <stop offset="1" stopColor={METALL.gold[2]} />
           </radialGradient>
+          {/* Knopf C (zweite Person): Silber */}
+          <radialGradient id="dr-rahmen-silber" cx="35%" cy="30%" r="80%">
+            <stop offset="0" stopColor={METALL.silber[0]} />
+            <stop offset="0.55" stopColor={METALL.silber[1]} />
+            <stop offset="1" stopColor={METALL.silber[2]} />
+          </radialGradient>
           {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
               Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
           <filter id="dr-gravur" x="-5%" y="-5%" width="110%" height="110%">
@@ -490,7 +496,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
                 cx={k.x}
                 cy={k.y}
                 r="26"
-                fill="url(#dr-rahmen)"
+                fill={k.silber ? "url(#dr-rahmen-silber)" : "url(#dr-rahmen)"}
                 className="dr-knopfrand"
               />
               <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
@@ -498,7 +504,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
                 x={k.x}
                 y={k.y}
                 dy="0.36em"
-                className="dr-knopftext"
+                className={k.silber ? "dr-knopftext silber" : "dr-knopftext"}
                 filter="url(#dr-gravur)"
               >
                 {k.spiel}

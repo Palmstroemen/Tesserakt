@@ -84,6 +84,18 @@ Kreis oben oder höchstens 4 aktive Systeme.
   zusätzlich, welche Systeme bei welcher Frage angezeigt waren.
 - Persönliches Ergebnis: alle Systeme zeigen und markieren, bei wie vielen Fragen sie mitgespielt haben.
 
+## Ergebnis im Fächer
+
+- Nach der letzten Frage gleiten alle Schieber in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:
+  zuerst nur „Dein Ergebnis“ (Spiel C „Euer Ergebnis“, Spiel B „Dein Rückblick“), dann die Anleitung.
+- Der Hebel gibt erst frei, wenn alle sieben Systeme und der eigene Schieber ganz rechts stehen.
+- Nach dem Hebelzug wechselt das Dia zur Rangliste; die Systemschieber fahren auf ihren Skill
+  (−100 links … +100 rechts, gleiche Skala wie die Antworten). Der eigene Schieber bleibt rechts (+100).
+- Wischen oder Tippen im Auge schiebt den Fächer nach links weg, die Textkarten je System kommen herein.
+  Zurück: auf der ersten Karte nach rechts wischen oder der erste (eckige) Punkt.
+- „‹“ links oben führt zurück zur Datumsscheibe (früher „Noch einmal“).
+- Abkürzung (Tipp auf das Datum): landet direkt in diesem Fächer mit gewürfelten Antworten.
+
 ## Ecken des Quadrats: Spielwahl (Idee, noch nicht umgesetzt)
 
 - Rechts unten: Auslösehebel.

@@ -39,12 +39,14 @@ function easeMechanisch(t) {
  * Fragerunde als Faecher: oben das Auge mit dem Fragedia, unten der eigene Schieber und die Systembögen.
  * Mechanik siehe docs/Konzepte/Schatulle_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
  * onAntwort bekommt die Werte aller Systeme.
+ * Nach der letzten Frage: Ergebnis-Dia (blaues Glas); erst wenn alle Systeme und der eigene Schieber ganz
+ * rechts stehen, loest der Hebel die Auswertung aus. Dann zeigt das Dia die Rangliste und die Systemschieber
+ * fahren auf ihren Skill (-100 links .. +100 rechts). Wischen oder Tippen im Auge: onWeiter (Textkarten).
  */
 export default function Spielplatte({
   fragen,
   zielWert,
   onAntwort,
-  onFertig,
   kamera,
   kameraInfo,
   pole = ["trifft nicht zu", "trifft zu"],
@@ -52,20 +54,32 @@ export default function Spielplatte({
   abgang = false,
   zusatz = null, // statt Hinweis/Knopf unten (z. B. Messingplaettchen); solange gesetzt, ruht das Aufziehen
   sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
+  ergebnis = null, // Auswertung (ranking, systemDetails.skillScore); kann nach dem Hebelzug noch fehlen
+  titel = "Dein Ergebnis",
+  erklaerung = null, // Satz zur Skala unter der Rangliste
+  hinweis = null, // z. B. "Antworten gewuerfelt" (Abkuerzung)
+  sofort = false, // Abkuerzung: gleich mit der Auswertung beginnen
+  onAuswertung, // die Rangliste ist sichtbar
+  onWeiter, // Wischen/Tippen im Auge waehrend der Auswertung: weiter zu den Textkarten
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
 
   const startPos = {
-    user: 0,
+    user: sofort ? 1 : 0,
     dia: 0,
     hebel: 0,
-    ...Object.fromEntries(ALLE.map((s) => [s, 0])),
+    ...Object.fromEntries(ALLE.map((s) => [s, sofort ? 1 : 0])),
   };
   const [pos, setPos] = useState(startPos);
   const posRef = useRef(startPos);
-  const [zustand, setZustandState] = useState("aufziehen"); // aufziehen | frage | laeuft | ergebnis | fertig
-  const zustandRef = useRef("aufziehen");
+  // aufziehen | frage | laeuft | ergebnis | fertig | endaufzug (Ergebnis-Dia) | rechnet | auswertung
+  const startZustand = sofort ? "rechnet" : "aufziehen";
+  const [zustand, setZustandState] = useState(startZustand);
+  const zustandRef = useRef(startZustand);
+  const [anleitung, setAnleitung] = useState(false); // Anleitung auf dem Ergebnis-Dia (kommt nach dem Titel)
+  const ergebnisRef = useRef(ergebnis);
+  ergebnisRef.current = ergebnis;
   const [index, setIndexState] = useState(-1); // -1 = Einleitungsdia
   const indexRef = useRef(-1);
   const [aufgezogen, setAufgezogenState] = useState([]);
@@ -145,7 +159,12 @@ export default function Spielplatte({
   // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen"
   useEffect(() => {
     const t = setTimeout(() => {
-      if (drag.current || aufgezogenRef.current.size || indexRef.current !== -1)
+      if (
+        drag.current ||
+        aufgezogenRef.current.size ||
+        indexRef.current !== -1 ||
+        zustandRef.current !== "aufziehen"
+      )
         return;
       animiere("Numerologie", 0.13, 260, {
         fertig: () => {
@@ -231,10 +250,19 @@ export default function Spielplatte({
   function druecken(e) {
     if (zusatzRef.current) return;
     const z = zustandRef.current;
-    if (z === "laeuft" || z === "fertig" || drag.current) return;
+    if (["laeuft", "fertig", "rechnet"].includes(z) || drag.current) return;
     const { x, y } = svgPunkt(e);
+    if (z === "auswertung") {
+      // im Auge wischen oder tippen: weiter zu den Textkarten
+      if (Math.hypot(x - MITTE.x, y - MITTE.y) < LINSE_RADIUS)
+        drag.current = { art: "wisch", x0: x, x };
+      return;
+    }
     const { r, u } = polarAusPunkt(x, y, theta);
-    if (z === "frage" && Math.abs(r - radien[0]) < abstand * 0.6) {
+    if (
+      (z === "frage" || z === "endaufzug") &&
+      Math.abs(r - radien[0]) < abstand * 0.6
+    ) {
       drag.current = { art: "user" };
       e.currentTarget.setPointerCapture?.(e.pointerId);
       userSetzen(u);
@@ -254,6 +282,10 @@ export default function Spielplatte({
     const d = drag.current;
     if (!d) return;
     const { x, y } = svgPunkt(e);
+    if (d.art === "wisch") {
+      d.x = x;
+      return;
+    }
     if (d.art === "hebel") {
       const neu = Math.max(0, Math.min(1, (y - d.y0) / HEBEL.weg));
       if (Math.abs(y - d.y0) > 4) d.gezogen = true;
@@ -282,6 +314,10 @@ export default function Spielplatte({
     const d = drag.current;
     drag.current = null;
     if (!d) return;
+    if (d.art === "wisch") {
+      if (d.x - d.x0 < -30 || Math.abs(d.x - d.x0) < 6) onWeiter?.();
+      return;
+    }
     if (d.art === "hebel") {
       if (posRef.current.hebel >= 0.6 || !d.gezogen) ausloesen();
       else animiere("hebel", 0, 250);
@@ -313,12 +349,22 @@ export default function Spielplatte({
   }
 
   // --- Hebel ----------------------------------------------------------------
-  const gesperrt = zustand !== "frage" || pos.user < RUHE;
+  const USER_RECHTS = uAusWert(1) - 1e-3;
+  const bereit = (z, user, anzahl) =>
+    (z === "frage" && user >= RUHE) ||
+    (z === "endaufzug" && anzahl === ALLE.length && user >= USER_RECHTS);
+  const gesperrt = !bereit(zustand, pos.user, aufgezogen.length);
 
   function hebelDruecken(e) {
     e.stopPropagation();
     if (drag.current || zustandRef.current === "laeuft") return;
-    if (zustandRef.current !== "frage" || posRef.current.user < RUHE) {
+    if (
+      !bereit(
+        zustandRef.current,
+        posRef.current.user,
+        aufgezogenRef.current.size,
+      )
+    ) {
       sperre();
       animiere("hebel", 0.07, 70, { fertig: () => animiere("hebel", 0, 160) });
       return;
@@ -332,6 +378,15 @@ export default function Spielplatte({
   }
 
   function ausloesen() {
+    if (zustandRef.current === "endaufzug") {
+      setZustand("rechnet");
+      hebel();
+      animiere("hebel", 1, 110, {
+        fertig: () => animiere("hebel", 0, 520, { ease: easeMechanisch }),
+      });
+      if (ergebnisRef.current) auswertungZeigen();
+      return;
+    }
     const frage = fragen[indexRef.current];
     setZustand("laeuft");
     hebel();
@@ -363,13 +418,60 @@ export default function Spielplatte({
     });
   }
 
+  // --- Ergebnis ----------------------------------------------------------------
+  // Nach der letzten Frage (und ohne offene Nachfrage): Schieber in die Ruhe, Ergebnis-Dia mit Titel, dann
+  // die Anleitung
+  useEffect(() => {
+    if (zustand !== "fertig" || zusatz) return undefined;
+    const t = setTimeout(() => {
+      setZustand("endaufzug");
+      setAnleitung(false);
+      aufgezogenRef.current.clear();
+      aufgezogenAktualisieren();
+      ratsche();
+      ALLE.forEach((s, i) => animiere(s, 0, 300, { verz: i * 30 }));
+      animiere("user", 0, 300);
+    }, 900);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zustand, zusatz]);
+
+  useEffect(() => {
+    if (zustand !== "endaufzug") return undefined;
+    const t = setTimeout(() => setAnleitung(true), 1600);
+    return () => clearTimeout(t);
+  }, [zustand]);
+
+  // Auswertung, sobald gerechnet ist: Rangliste ins Auge, Schieber auf den Skill
+  useEffect(() => {
+    if (zustand === "rechnet" && ergebnis) auswertungZeigen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zustand, ergebnis]);
+
+  function auswertungZeigen() {
+    const details = ergebnisRef.current?.alle?.systemDetails ?? {};
+    setZustand("auswertung");
+    onAuswertung?.();
+    const DAUER = 1300;
+    ALLE.forEach((s, i) => {
+      const ziel = uAusWert((details[s]?.skillScore ?? 0) / 100);
+      zahnrad(
+        Math.max(3, Math.round((1 - ziel) * 30)),
+        DAUER / 1000,
+        1800 + i * 180,
+      );
+      animiere(s, ziel, DAUER, { ease: easeMechanisch, verz: 300 + i * 140 });
+    });
+  }
+
   // --- Darstellung -------------------------------------------------------------
   const strahlen = Array.from({ length: 11 }, (_, k) =>
     uAusWert(-1 + k * SCHRITT),
   );
   const zeigeUserStrahl =
-    (zustand === "laeuft" || zustand === "ergebnis" || zustand === "fertig") &&
-    pos.user >= RUHE;
+    ["laeuft", "ergebnis", "fertig", "rechnet", "auswertung"].includes(
+      zustand,
+    ) && pos.user >= RUHE;
 
   const diaText = (i) => {
     if (i < 0) return <AnleitungDia />;
@@ -681,13 +783,56 @@ export default function Spielplatte({
               ) : null}
             </div>
           ) : null}
-          {zustand === "fertig" && !zusatz ? (
-            // Abschluss im Auge: dort immer sichtbar (die Fusszeile liegt auf kleinen Handys unter dem Rand)
-            <div className="sp-abschluss">
-              <span>Alle Fragen beantwortet.</span>
-              <button type="button" className="sc-start" onClick={onFertig}>
-                Zum Ergebnis
-              </button>
+          {zustand === "endaufzug" || zustand === "rechnet" ? (
+            // Ergebnis-Dia auf blauem Glas: erst der Titel, dann die Anleitung
+            <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
+              <span className="sp-ergebnistitel">{titel}</span>
+              {zustand === "rechnet" ? (
+                <span className="sp-ergebnisanleitung">
+                  Das Räderwerk rechnet …
+                </span>
+              ) : anleitung ? (
+                <span className="sp-ergebnisanleitung">
+                  Schiebe alle Systeme und auch deinen obersten Wahlschalter
+                  jetzt ganz nach rechts. Und löse nochmals die Berechnung aus,
+                  um die Ergebnisse zu sehen.
+                </span>
+              ) : null}
+            </div>
+          ) : zustand === "auswertung" ? (
+            <div key="rangliste" className="sp-dia sp-dia-rang">
+              <div className="eg-rangliste">
+                <div className="eg-rangtitel">{titel}</div>
+                {(ergebnis?.alle?.ranking ?? []).map((s) => (
+                  <div
+                    key={s}
+                    className="eg-rang"
+                    style={{
+                      "--farbe": SYSTEME.find((x) => x.id === s)?.farbe,
+                    }}
+                  >
+                    <i />
+                    <span>{SYSTEME.find((x) => x.id === s)?.name ?? s}</span>
+                    <b>
+                      {(() => {
+                        const v = Math.round(
+                          ergebnis.alle.systemDetails[s].skillScore,
+                        );
+                        return v > 0 ? `+${v}` : `${v}`;
+                      })()}
+                    </b>
+                  </div>
+                ))}
+              </div>
+              {erklaerung ? (
+                <span className="sp-ergebnisklein">{erklaerung}</span>
+              ) : null}
+              {hinweis ? (
+                <span className="sp-ergebnisklein">{hinweis}</span>
+              ) : null}
+              <span className="sp-ergebnisklein">
+                Wischen für die Systeme ›
+              </span>
             </div>
           ) : sonderDia ? (
             <div key={sonderDia} className="sp-dia sp-sonderdia">

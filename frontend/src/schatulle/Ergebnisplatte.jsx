@@ -215,13 +215,13 @@ export default function Ergebnisplatte({
   ausblick,
   paar,
   texte,
-  hinweis,
-  onNochmal,
+  onZurueck, // zurueck zum Faecher (Rangliste und Ergebnisschieber)
 }) {
   const mainRef = useRef(null);
   const bandRef = useRef(null);
   const [breite, setBreite] = useState(390);
-  const [pos, setPos] = useState(0); // 0 = Uebersicht, 1.. = Systeme (fliessend beim Wischen)
+  const [pos, setPos] = useState(0); // Index der Systemkarte (fliessend beim Wischen)
+  const wisch = useRef(null);
 
   useEffect(() => {
     const el = mainRef.current;
@@ -235,7 +235,24 @@ export default function Ergebnisplatte({
   const k = breite / 400; // CSS-Pixel je viewBox-Einheit
   const linsePx = 2 * LINSE_RADIUS * k;
   const reihenfolge = ergebnis?.alle.ranking ?? SYSTEME.map((s) => s.id);
-  const karten = ["uebersicht", ...reihenfolge];
+  // Die Rangliste steht im Faecher (Spielplatte); hier nur die Systeme
+  const karten = reihenfolge;
+
+  // von der ersten Karte weiter nach rechts gewischt: zurueck zum Faecher
+  function wischStart(e) {
+    wisch.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      links: (bandRef.current?.scrollLeft ?? 0) <= 2,
+    };
+  }
+  function wischEnde(e) {
+    const w = wisch.current;
+    wisch.current = null;
+    if (!w?.links) return;
+    const t = e.changedTouches[0];
+    if (t.clientX - w.x > 50 && Math.abs(t.clientY - w.y) < 60) onZurueck?.();
+  }
 
   function scrollen() {
     const b = bandRef.current;
@@ -298,37 +315,7 @@ export default function Ergebnisplatte({
               const sys = SYSTEME.find((s) => s.id === id);
               return (
                 <div key={id} className="eg-dia" style={{ width: linsePx }}>
-                  {id === "uebersicht" ? (
-                    <div className="eg-rangliste">
-                      <div className="eg-rangtitel">
-                        {spiel === "C"
-                          ? "Euer Ergebnis"
-                          : spiel === "B"
-                            ? "Dein Rückblick"
-                            : "Dein Ergebnis"}
-                      </div>
-                      {ergebnis
-                        ? reihenfolge.map((s) => (
-                            <div
-                              key={s}
-                              className="eg-rang"
-                              style={{
-                                "--farbe": SYSTEME.find((x) => x.id === s)
-                                  .farbe,
-                              }}
-                            >
-                              <i />
-                              <span>{anzeigeName(s)}</span>
-                              <b>
-                                {vorzeichen(
-                                  ergebnis.alle.systemDetails[s].skillScore,
-                                )}
-                              </b>
-                            </div>
-                          ))
-                        : "Das Räderwerk rechnet …"}
-                    </div>
-                  ) : spiel === "C" && PAARBILD[id] && paar?.systeme?.[id] ? (
+                  {spiel === "C" && PAARBILD[id] && paar?.systeme?.[id] ? (
                     <div className="eg-vollbild">
                       {(() => {
                         const Bild = PAARBILD[id];
@@ -368,46 +355,14 @@ export default function Ergebnisplatte({
           "--eg-oben": `${(MITTE.y + BOGEN - PLATTE_OBEN + 10) * k}px`,
         }}
       >
-        <div className="eg-band" ref={bandRef} onScroll={scrollen}>
+        <div
+          className="eg-band"
+          ref={bandRef}
+          onScroll={scrollen}
+          onTouchStart={wischStart}
+          onTouchEnd={wischEnde}
+        >
           {karten.map((id) => {
-            if (id === "uebersicht") {
-              return (
-                <article key={id} className="eg-karte">
-                  {ergebnis ? (
-                    <>
-                      <p>
-                        Skill 0 = Zufall, +100 = besser als alle {vergleich}.
-                        Auch ohne jede Aussagekraft erreicht das beste von{" "}
-                        {reihenfolge.length} Systemen im Mittel etwa +
-                        {ergebnis.erwartung.toFixed(0)}.
-                      </p>
-                      {ergebnis.fenster ? (
-                        <p className="eg-leise">
-                          Rückblick: Die Reihenfolge ist das Mittel aus dem
-                          letzten Monat und den letzten drei Monaten. Auf den
-                          Karten stehen beide einzeln und dazu, wie gut die
-                          Systeme deine Zeitpunkte getroffen haben.
-                        </p>
-                      ) : null}
-                      <p className="eg-leise">
-                        Wisch zur Seite für die einzelnen Systeme und ihr
-                        Horoskop.
-                      </p>
-                      {hinweis ? <p className="eg-leise">{hinweis}</p> : null}
-                      <button
-                        type="button"
-                        className="sc-start"
-                        onClick={onNochmal}
-                      >
-                        Noch einmal
-                      </button>
-                    </>
-                  ) : (
-                    <p>Das Räderwerk vergleicht mit hundert {vergleich} …</p>
-                  )}
-                </article>
-              );
-            }
             const sys = SYSTEME.find((s) => s.id === id);
             const d = ergebnis?.alle.systemDetails[id];
             const h = heute?.systeme?.[id];
@@ -511,11 +466,18 @@ export default function Ergebnisplatte({
           })}
         </div>
         <nav className="eg-punkte" aria-label="Systeme">
+          {/* erster Punkt: zurueck zum Faecher mit der Rangliste */}
+          <button
+            type="button"
+            aria-label="Rangliste"
+            className="faecher"
+            onClick={() => onZurueck?.()}
+          />
           {karten.map((id, i) => (
             <button
               key={id}
               type="button"
-              aria-label={id === "uebersicht" ? "Übersicht" : anzeigeName(id)}
+              aria-label={anzeigeName(id)}
               className={Math.round(pos) === i ? "an" : ""}
               style={{
                 "--farbe": SYSTEME.find((s) => s.id === id)?.farbe ?? "#f0d59c",
