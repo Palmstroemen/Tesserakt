@@ -1005,3 +1005,65 @@ body {
   opacity: 0.8;
   font-family: Georgia, serif;
 }
+
+/* Kabbalah: Silber, eingepraegt, Edelsteine */
+.ks-zierring {
+  fill: none;
+  stroke: #aeb5bd;
+  stroke-width: 1.4;
+}
+
+.ks-pfad {
+  stroke: #a3abb4;
+  stroke-width: 6.5;
+  stroke-linecap: round;
+}
+
+.ks-pfad-aktiv {
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.ks-knoten {
+  fill: #b9c0c8;
+}
+
+.ks-knoten-innen {
+  fill: #cfd5db;
+}
+
+.ks-buchstabe {
+  text-anchor: middle;
+  font-size: 9.5px;
+  fill: #4d555e;
+  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+}
+
+.ks-buchstabe-stein {
+  text-anchor: middle;
+  font-size: 8.5px;
+  fill: #fff;
+  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 0.8;
+}
+
+.ks-fassung {
+  fill: #e6eaee;
+  stroke: #5d646c;
+  stroke-width: 0.8;
+}
+
+.ks-name {
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  fill: #434a52;
+  font-family: Georgia, serif;
+}
+
+.ks-name.aktiv {
+  font-weight: bold;
+  fill: #1f2328;
+}

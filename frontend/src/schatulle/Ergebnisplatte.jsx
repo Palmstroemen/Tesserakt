@@ -10,6 +10,7 @@ import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import WestlichNacht from "./diagramme/WestlichNacht";
+import KabbalahSilber from "./diagramme/KabbalahSilber";
 
 // Ergebnis in der Schatulle: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
@@ -27,6 +28,7 @@ const DIAGRAMME = {
 // Die uebrigen Systeme zeigen vorerst das Diagramm aus dem alten Spiel (eingepasst).
 const VOLLBILD = {
   Westlich: WestlichNacht,
+  Kabbalah: KabbalahSilber,
 };
 const DIMENSIONEN = [
   "liebe",

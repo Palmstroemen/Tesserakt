@@ -8,7 +8,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict
 
-from rule_engine import life_path
+from rule_engine import PFAD_ORDER, life_path, load_rules
 
 SEPHIROTH_NAMES = [
     "Kether", "Chokmah", "Binah", "Chesed", "Geburah",
@@ -30,10 +30,27 @@ def _life_path_to_sephira_index(lpn: int) -> int:
 
 
 def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
-    """Build kabbalahTree payload: lifePathNumber, activeSephira (number + name), sephirothList."""
+    """Build kabbalahTree payload: lifePathNumber, activeSephira (number + name), sephirothList,
+    activePath (einer der 22 Pfade, gleiche Zuordnung wie in der Wertung: Tag des Jahres) und die
+    hebraeischen Buchstaben aller Pfade."""
     lpn = life_path(birth_dt)
     idx = _life_path_to_sephira_index(lpn)
     name = SEPHIROTH_NAMES[idx - 1] if 1 <= idx <= 10 else "Malkuth"
+    # Pfad: wie rule_engine (pfad_index aus dem Tag des Jahres, Pfade 11..32 aus kabbalah_pfade.json)
+    pfad_index = int((birth_dt.timetuple().tm_yday - 1) * 22 / 365) % 22
+    alle = load_rules("Kabbalah").get("pfade", {})
+    pfade = [
+        {
+            "number": int(k),
+            "from": alle[k]["von_sephira"]["nummer"],
+            "to": alle[k]["zu_sephira"]["nummer"],
+            "letter": alle[k].get("buchstabe_hebraeisch"),
+            "letterName": alle[k].get("buchstabe_name"),
+        }
+        for k in PFAD_ORDER
+        if k in alle
+    ]
+    aktiver_pfad = next((p for p in pfade if p["number"] == int(PFAD_ORDER[pfad_index])), None)
     sephiroth_list = [
         {"number": i, "name": SEPHIROTH_NAMES[i - 1]}
         for i in range(1, 11)
@@ -43,4 +60,6 @@ def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
         "lifePathNumber": lpn,
         "activeSephira": {"number": idx, "name": name},
         "sephirothList": sephiroth_list,
+        "activePath": aktiver_pfad,
+        "paths": pfade,
     }
