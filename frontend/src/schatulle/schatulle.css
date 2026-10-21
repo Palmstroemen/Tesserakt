@@ -658,3 +658,73 @@ body {
   pointer-events: none;
   filter: drop-shadow(0 0 2px rgba(192, 57, 43, 0.7));
 }
+
+/* --- Uebergang Datumsrad -> Fragerunde ------------------------------------------ */
+.sc-buehne {
+  position: relative;
+}
+
+.sc-deckschicht {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.dr-abgang .dr-scheibe,
+.dr-abgang .dr-walzen,
+.sp-auftritt .sp-auge {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+}
+
+/* Scheibe dreht sich auf die schmale Kante ... */
+.dr-abgang .dr-scheibe {
+  animation: dr-scheibe-ab 0.4s ease-in forwards;
+}
+
+@keyframes dr-scheibe-ab {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* ... und von der Kante dreht sich das magische Auge herein */
+.sp-auftritt .sp-auge,
+.sp-auftritt .sp-linse {
+  animation: sp-auge-auf 0.45s ease-out 0.4s both;
+}
+
+@keyframes sp-auge-auf {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Ortswalzen schwenken um den Kreismittelpunkt nach rechts weg und geben die Systembögen frei */
+.dr-abgang .dr-walzen {
+  animation: dr-walzen-ab 1.15s cubic-bezier(0.55, 0, 0.8, 0.2) forwards;
+}
+
+@keyframes dr-walzen-ab {
+  12% {
+    transform: rotate(3deg); /* kurzes Ausholen */
+  }
+  to {
+    transform: rotate(-115deg);
+  }
+}
+
+.dr-abgang .dr-knoepfe,
+.sc-deckschicht .dr-fuss {
+  animation: sc-ausblenden 0.35s ease-out forwards;
+}
+
+@keyframes sc-ausblenden {
+  to {
+    opacity: 0;
+  }
+}

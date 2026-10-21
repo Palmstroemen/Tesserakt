@@ -239,7 +239,7 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
 // Stadt zu sehen (die erste liegt gerade unter dem Schlitzende), ein Landeswechsel aendert nichts Sichtbares.
 const ANFANG_ORTE = [
   { key: "?", label: "Ort unbekannt", ort: null },
-  { key: "pfeil", label: "——————→", breite: 130, waehlbar: false },
+  { key: "pfeil", label: "——— oder doch? ———→", breite: 175, waehlbar: false },
   { key: "leer", label: "", breite: 60, waehlbar: false },
 ];
 

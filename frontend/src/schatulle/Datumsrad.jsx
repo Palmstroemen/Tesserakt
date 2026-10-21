@@ -157,7 +157,7 @@ const START = {
 };
 const FLIP_MS = 800;
 
-export default function Datumsrad({ onSpiel, laedt, fehler }) {
+export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
   const [drehung, setDrehung] = useState(START);
   const [seite, setSeite] = useState("gold"); // gold = erste Person, silber = zweite Person (Spiel C)
   const [scheibe, setScheibe] = useState({ metall: "gold", skala: 1 }); // Muenzdrehung der Scheibe
@@ -347,7 +347,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
       <svg
         ref={svgRef}
         viewBox={`0 0 400 ${HOEHE}`}
-        className="sp-svg dr-svg"
+        className={abgang ? "sp-svg dr-svg dr-abgang" : "sp-svg dr-svg"}
         onPointerDown={druecken}
         onPointerMove={bewegen}
         onPointerUp={loslassen}
@@ -395,107 +395,114 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
         </defs>
 
         {/* Ortswalzen unter dem Kreis */}
-        <OrtWalzen svgPunkt={svgPunkt} metall={seite} onOrt={setOrt} />
+        {/* beim Abgang schwenken die Walzen um den Kreismittelpunkt nach rechts weg */}
+        <g className="dr-walzen">
+          <OrtWalzen svgPunkt={svgPunkt} metall={seite} onOrt={setOrt} />
+        </g>
 
-        {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze */}
-        <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
-          <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
+        {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze; beim Abgang zum magischen Auge */}
+        <g className="dr-scheibe">
+          <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
+            <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
 
-          {RINGE.map((r, i) => (
-            <g
-              key={r.id}
-              transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}
-            >
-              {ringInhalt[i].band}
-            </g>
-          ))}
-          <g filter="url(#dr-gravur)">
             {RINGE.map((r, i) => (
               <g
                 key={r.id}
                 transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}
               >
-                {ringInhalt[i].gravur}
+                {ringInhalt[i].band}
               </g>
             ))}
-          </g>
-          {/* Trennfugen zwischen den Ringen */}
-          {[...RINGE.map((r) => r.aussen), 56].map((r) => (
-            <circle
-              key={r}
-              cx={MITTE.x}
-              cy={MITTE.y}
-              r={r}
-              className="dr-fuge"
+            <g filter="url(#dr-gravur)">
+              {RINGE.map((r, i) => (
+                <g
+                  key={r.id}
+                  transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}
+                >
+                  {ringInhalt[i].gravur}
+                </g>
+              ))}
+            </g>
+            {/* Trennfugen zwischen den Ringen */}
+            {[...RINGE.map((r) => r.aussen), 56].map((r) => (
+              <circle
+                key={r}
+                cx={MITTE.x}
+                cy={MITTE.y}
+                r={r}
+                className="dr-fuge"
+              />
+            ))}
+
+            {/* feste Marke oben: Fenster ueber alle Ringe */}
+            <rect
+              x={MITTE.x - 13}
+              y={MITTE.y - 163}
+              width="26"
+              height="108"
+              rx="5"
+              className="dr-fenster"
             />
-          ))}
+            <path
+              d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`}
+              className="dr-marke"
+            />
 
-          {/* feste Marke oben: Fenster ueber alle Ringe */}
-          <rect
-            x={MITTE.x - 13}
-            y={MITTE.y - 163}
-            width="26"
-            height="108"
-            rx="5"
-            className="dr-fenster"
-          />
-          <path
-            d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`}
-            className="dr-marke"
-          />
-
-          {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
-          <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
-          <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
-            {werte.tag}. {MONATE_LANG[werte.monat]}
-          </text>
-          <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
-            {werte.jahr}
-          </text>
-          <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
-            {String(werte.stunde).padStart(2, "0")}:00
-          </text>
-          {!gueltig ? (
-            <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
-              …
+            {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
+            <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
+            <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
+              {werte.tag}. {MONATE_LANG[werte.monat]}
             </text>
-          ) : null}
+            <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
+              {werte.jahr}
+            </text>
+            <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
+              {String(werte.stunde).padStart(2, "0")}:00
+            </text>
+            {!gueltig ? (
+              <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
+                …
+              </text>
+            ) : null}
+          </g>
         </g>
 
         {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C) */}
-        {KNOEPFE.map((k) => (
-          <g
-            key={k.spiel}
-            className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
-            onPointerDown={(e) => knopf(e, k.spiel)}
-            role="button"
-            aria-label={`Spiel ${k.spiel}`}
-          >
-            <circle
-              cx={k.x}
-              cy={k.y}
-              r="26"
-              fill="url(#dr-rahmen)"
-              className="dr-knopfrand"
-            />
-            <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
-            <text
-              x={k.x}
-              y={k.y}
-              dy="0.36em"
-              className="dr-knopftext"
-              filter="url(#dr-gravur)"
+        <g className="dr-knoepfe">
+          {KNOEPFE.map((k) => (
+            <g
+              key={k.spiel}
+              className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
+              onPointerDown={(e) => knopf(e, k.spiel)}
+              role="button"
+              aria-label={`Spiel ${k.spiel}`}
             >
-              {k.spiel}
-            </text>
-          </g>
-        ))}
+              <circle
+                cx={k.x}
+                cy={k.y}
+                r="26"
+                fill="url(#dr-rahmen)"
+                className="dr-knopfrand"
+              />
+              <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
+              <text
+                x={k.x}
+                y={k.y}
+                dy="0.36em"
+                className="dr-knopftext"
+                filter="url(#dr-gravur)"
+              >
+                {k.spiel}
+              </text>
+            </g>
+          ))}
+        </g>
       </svg>
 
       <div className="sp-fuss dr-fuss">
-        <p className="sc-hinweis">
-          {ort ? `${ort.name}, ${ort.landName}` : "Geburtsort unbekannt"}
-        </p>
+        {ort ? (
+          <p className="sc-hinweis">{`${ort.name}, ${ort.landName}`}</p>
+        ) : null}
         <p className="sc-hinweis">
           {laedt ? "Die Schatulle öffnet sich …" : (gesperrtMeldung ?? hinweis)}
         </p>
