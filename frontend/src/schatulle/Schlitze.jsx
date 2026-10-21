@@ -258,7 +258,7 @@ function muster(id, r, theta, w) {
 // goldenes Plaettchen zwischen u-Werten von..bis; Welle und Kanten am Anker (dort sitzt der Knopf)
 // Gold der Abdeckplaettchen: flach (kein Verlauf, sonst wirkt der Faecher gewoelbt wie eine Saeule) und
 // dunkler als die Messingplatte darueber; Licht und Schatten nur in den Kerben und an den Kanten
-const GOLD = "#7d5f27";
+const GOLD = "#6c5120";
 
 function Goldplatte({ r, theta, w, von, bis, anker }) {
   const { laenge, linie } = werkzeug(r, theta);
@@ -342,6 +342,32 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
   );
 }
 
+// Innenschatten (einmal in <defs> der Spielplatte): die Form des Schlitzes umgekehrt, nach unten versetzt und
+// weichgezeichnet, nur innerhalb des Schlitzes - Licht von oben, Schatten an der Oberkante und in den Endboegen
+function Innenschatten({ id, dy, weich, deckkraft }) {
+  return (
+    <filter id={id} x="-10%" y="-30%" width="120%" height="160%">
+      <feComponentTransfer in="SourceAlpha" result="aussen">
+        <feFuncA type="table" tableValues="1 0" />
+      </feComponentTransfer>
+      <feOffset in="aussen" dx="0" dy={dy} result="versetzt" />
+      <feGaussianBlur in="versetzt" stdDeviation={weich} result="weich" />
+      <feFlood floodColor="#000" floodOpacity={deckkraft} />
+      <feComposite in2="weich" operator="in" result="schatten" />
+      <feComposite in="schatten" in2="SourceAlpha" operator="in" />
+    </filter>
+  );
+}
+
+export function SchlitzDefs() {
+  return (
+    <>
+      <Innenschatten id="sp-schatten" dy={3.5} weich={3} deckkraft={0.75} />
+      <Innenschatten id="sp-schatten-tief" dy={7} weich={5} deckkraft={0.7} />
+    </>
+  );
+}
+
 export default function Schlitz({
   id,
   k,
@@ -396,45 +422,34 @@ export default function Schlitz({
           fill="none"
         />
         {teile}
-        {/* das Muster liegt am tiefsten: gedaempft und im Schatten der Plaettchen und der Faecherplatte */}
+        {/* das Muster liegt am tiefsten: gedaempft, mit grossem Innenschatten (folgt auch den runden Enden) */}
         <path
           d={bogenPfad(r, theta)}
           stroke="#120a04"
           strokeWidth={w + 2}
+          strokeLinecap="round"
           opacity="0.32"
           fill="none"
         />
         <path
-          d={bogenPfad(r - w * 0.22, theta)}
+          d={bogenPfad(r, theta)}
           stroke="#000"
-          strokeWidth={w * 0.56}
-          opacity="0.3"
+          strokeWidth={w}
+          strokeLinecap="round"
           fill="none"
-        />
-        <path
-          d={bogenPfad(r - w * 0.36, theta)}
-          stroke="#000"
-          strokeWidth={w * 0.28}
-          opacity="0.3"
-          fill="none"
+          filter="url(#sp-schatten-tief)"
         />
         {platten.map((p, i) => (
           <Goldplatte key={i} r={r} theta={theta} w={w} {...p} />
         ))}
-        {/* Tiefe: Schatten der Faecherplatte an der oberen (inneren) Kante, feine Lichtkante unten */}
+        {/* Schatten der Faecherplatte auf Plaettchen und Muster, rundum bis in die Endboegen; feine Lichtkante unten */}
         <path
-          d={bogenPfad(r - w / 2 + 1.4, theta)}
+          d={bogenPfad(r, theta)}
           stroke="#000"
-          strokeWidth="2.8"
-          opacity="0.6"
+          strokeWidth={w}
+          strokeLinecap="round"
           fill="none"
-        />
-        <path
-          d={bogenPfad(r - w / 2 + 4, theta)}
-          stroke="#000"
-          strokeWidth="4"
-          opacity="0.22"
-          fill="none"
+          filter="url(#sp-schatten)"
         />
         <path
           d={bogenPfad(r + w / 2 - 0.6, theta)}
