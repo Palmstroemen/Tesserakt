@@ -1545,7 +1545,7 @@ body {
 .eg-spiegel.glas {
   mix-blend-mode: soft-light;
   filter: grayscale(0.7) contrast(3) brightness(0.95);
-  opacity: 0.55;
+  opacity: 0.38;
 }
 
 .eg-spiegel-quelle {
