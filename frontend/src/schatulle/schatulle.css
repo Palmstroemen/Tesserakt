@@ -1,3 +1,11 @@
+/* Ostarabische Ziffern fuer Arabisch: Amiri (SIL Open Font License, siehe schriften/Amiri-OFL.txt),
+   auf die zehn Ziffern zugeschnitten */
+@font-face {
+  font-family: "Tesserakt Amiri";
+  src: url("./schriften/Amiri-Ziffern.woff2") format("woff2");
+  font-display: swap;
+}
+
 /* Pinselschrift fuer Bazi: Ma Shan Zheng (SIL Open Font License, siehe schriften/MaShanZheng-OFL.txt),
    auf die benoetigten Zeichen zugeschnitten */
 @font-face {
@@ -1213,4 +1221,16 @@ body {
 
 .az-zeichen.aktiv {
   fill: #3a2606;
+}
+
+.az-ziffer {
+  text-anchor: middle;
+  font-size: 13px;
+  fill: #1b3f86;
+  font-family: "Tesserakt Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
+}
+
+.az-skalakachel {
+  stroke: #9c9178;
+  stroke-width: 0.4;
 }

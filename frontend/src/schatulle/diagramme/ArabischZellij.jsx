@@ -2,15 +2,22 @@
 // Fachlich die Firdaria (Visuals.md 2.6): neun Perioden in 75 Jahren (sieben Planeten, Nord- und
 // Suedknoten), Reihenfolge nach Tag- oder Nachtgeburt. Ring = die Perioden als Kachelsegmente (Breite =
 // Dauer, 0 Jahre oben, im Uhrzeigersinn), die aktive in Blattgold; ein Messingzeiger (Alhidade) zeigt die
-// heutige Stelle im Zyklus. Mitte: zwoelfzackiger Kachelstern mit Windrose; die Nabe golden bei Tag-,
+// heutige Stelle im Zyklus auf einer Randskala (alle 5 Jahre eine ostarabische Ziffer). Mitte: zwoelfzackiger Kachelstern mit Windrose; die Nabe golden bei Tag-,
 // silbern bei Nachtgeburt. Bewusst kein achtzackiger Stern mit Kreis (Rub el Hizb, Zeichen im Koran).
 const G = 300;
 const M = G / 2;
-const R_RING_AUSSEN = 146;
-const R_RING_INNEN = 110;
-const R_FELD = 106;
-const R_STERN = 72;
-const R_STERN_INNEN = 41;
+const R_SKALA = 140; // Randskala 0..75 Jahre (Ziffern und kleine Kacheln)
+const R_RING_AUSSEN = 128;
+const R_RING_INNEN = 98;
+const R_FELD = 94;
+const R_STERN = 64;
+const R_STERN_INNEN = 36;
+
+// ostarabische Ziffern (wie in arabischer Schrift ueblich), Zahlen werden links nach rechts geschrieben
+const OSTARABISCH = (n) =>
+  String(n).replace(/\d/g, (z) => String.fromCharCode(0x0660 + Number(z)));
+// Kacheln zwischen den Ziffern: Tuerkis, Weiss, Blau, Weiss, ...
+const SKALA_FARBEN = ["#2aa69b", "#efe9da", "#1f4fa3", "#efe9da"];
 
 const T = "︎"; // Textdarstellung der Zeichen erzwingen
 
@@ -192,6 +199,43 @@ export default function ArabischZellij({ payload }) {
         );
       })}
 
+      {/* Randskala: alle 5 Jahre eine Ziffer, dazwischen kleine quadratische Kacheln */}
+      {(() => {
+        let kachel = 0;
+        return Array.from({ length: 75 }, (_, jahr) => {
+          const grad = winkelVon(jahr);
+          const [x, y] = p(R_SKALA, grad);
+          if (jahr % 5 === 0) {
+            return (
+              <text
+                key={`j${jahr}`}
+                x={x}
+                y={y}
+                dy="0.32em"
+                className="az-ziffer"
+                transform={`rotate(${grad} ${x} ${y})`}
+              >
+                {OSTARABISCH(jahr)}
+              </text>
+            );
+          }
+          const farbe = SKALA_FARBEN[kachel % SKALA_FARBEN.length];
+          kachel += 1;
+          return (
+            <rect
+              key={`j${jahr}`}
+              x={x - 2.4}
+              y={y - 2.4}
+              width="4.8"
+              height="4.8"
+              fill={farbe}
+              className="az-skalakachel"
+              transform={`rotate(${grad} ${x} ${y})`}
+            />
+          );
+        });
+      })()}
+
       {/* Glasur ueber Kacheln */}
       <circle
         cx={M}
@@ -205,7 +249,7 @@ export default function ArabischZellij({ payload }) {
       <g filter="url(#az-schatten)" transform={`rotate(${zeiger} ${M} ${M})`}>
         <polygon
           points={pts([
-            [M, M - R_RING_AUSSEN + 3],
+            [M, M - R_SKALA + 6],
             [M + 3.2, M - 20],
             [M + 2.2, M + 30],
             [M - 2.2, M + 30],
@@ -215,7 +259,7 @@ export default function ArabischZellij({ payload }) {
         />
         <line
           x1={M}
-          y1={M - R_RING_AUSSEN + 8}
+          y1={M - R_SKALA + 10}
           x2={M}
           y2={M + 26}
           stroke="#7a5512"
