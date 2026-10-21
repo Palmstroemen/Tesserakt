@@ -1124,6 +1124,65 @@ body {
   font-size: 13px;
 }
 
+/* Westlich fuer Paare: Doppelrad, Gold innen, Silber aussen */
+.wp-trenn {
+  fill: none;
+  stroke: #e3e7ee;
+  stroke-width: 0.7;
+  opacity: 0.45;
+}
+
+.wp-innen {
+  fill: none;
+  stroke: #f0c75e;
+  stroke-width: 0.5;
+  opacity: 0.3;
+}
+
+.wp .wp-zeichen {
+  font-size: 11px;
+}
+
+.wp-leiter {
+  stroke-width: 0.5;
+  opacity: 0.6;
+}
+
+.wp-planet {
+  text-anchor: middle;
+  font-size: 15px;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.wp-ac {
+  text-anchor: middle;
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  font-family: Georgia, serif;
+}
+
+.wp-faden {
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.wp-faden.flackert {
+  animation: wp-flackern 2.4s ease-in-out infinite;
+}
+
+@keyframes wp-flackern {
+  30% {
+    opacity: 0.35;
+  }
+  45% {
+    opacity: 0.85;
+  }
+  60% {
+    opacity: 0.5;
+  }
+}
+
 /* Bazi fuer Paare: zwei Karten auf dem Lacktablett, roter Faden */
 .bp-glanz {
   fill: #fff;

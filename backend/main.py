@@ -38,6 +38,8 @@ from rule_engine import (
     YANG_STEMS,
     bazi_jahr_monat,
     glueckssaeulen_start,
+    life_path,
+    personal_year,
     _HOUSE_LORD,
 )
 import ausblick
@@ -799,18 +801,21 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
     quelle = next(q for q in load_struktur("Arabisch")["vektor_quellen"] if q.get("typ") == "firdaria")
     firdaria = _firdaria_periode(quelle, load_rules("Arabisch"), inputs)
     tag = sonne_ueber_horizont(natal)
+    # Bazi und Numerologie direkt aus dem Geburtsdatum (unabhaengig davon, welche Systeme angefragt sind)
+    saeulen = build_four_pillars(geburt, _zu_weltzeit(geburt, req.zeitzone), req.longitude)["pillars"]
+    lebenszahl = life_path(geburt)
     return {
         "punkte": punkte,
         "nakshatra": inputs.get("mond_nakshatra_index"),
         "mond_zeichen_sid": inputs.get("mond_zeichen_siderisch"),
-        "bazi": {"tag_zweig": inputs["geburts_day_branch"], "jahr_zweig": inputs["geburts_year_branch"],
-                 "tag_stamm": inputs["day_master_stem"]},
-        "saeulen": build_four_pillars(geburt, _zu_weltzeit(geburt, req.zeitzone), req.longitude)["pillars"],
+        "bazi": {"tag_zweig": saeulen["day"]["branch"], "jahr_zweig": saeulen["year"]["branch"],
+                 "tag_stamm": saeulen["day"]["stem"]},
+        "saeulen": saeulen,
         "firdaria": firdaria[0] if firdaria else None,
         "glueckslos": paar.glueckslos(natal.asc_deg, punkte["sonne"], punkte["mond"], tag) if natal.has_location else None,
-        "sephira": _life_path_to_sephira_index(int(inputs["lebenspfadzahl"])),
-        "lebenszahl": int(inputs["lebenspfadzahl"]),
-        "pers_jahr": int(inputs["persoenliches_jahr"]),
+        "sephira": _life_path_to_sephira_index(lebenszahl),
+        "lebenszahl": lebenszahl,
+        "pers_jahr": personal_year(geburt, now),
     }
 
 
@@ -827,6 +832,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
     systeme: Dict[str, Any] = {}
     if "Westlich" in payload.systeme:
         systeme["Westlich"] = paar.westlich(a["punkte"], b["punkte"], t)
+        systeme["Westlich"]["punkte"] = {"a": a["punkte"], "b": b["punkte"]}  # fuer das Doppelrad
     if "Hellenistisch" in payload.systeme:
         systeme["Hellenistisch"] = paar.hellenistisch(a["punkte"], b["punkte"], t)
     if "Vedisch" in payload.systeme and a["nakshatra"] is not None and b["nakshatra"] is not None:

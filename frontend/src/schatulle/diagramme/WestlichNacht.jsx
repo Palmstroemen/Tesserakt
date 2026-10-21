@@ -14,8 +14,8 @@ const R_ASPEKT = 66; // Endpunkte der Aspektlinien
 const R_NABE = 30;
 
 // ︎: Textdarstellung erzwingen (sonst zeigen manche Geraete ♀ ♂ ♈ … als bunte Emoji)
-const T = "︎";
-const ZEICHEN = [
+export const T = "︎";
+export const ZEICHEN = [
   "♈",
   "♉",
   "♊",
@@ -57,7 +57,7 @@ function punkt(laenge, asc, r) {
 // eng stehende Planeten fuer die Symbole auseinanderruecken (mind. 13°), Linie zur echten Position.
 // Benachbarte Planeten werden zu Gruppen zusammengefasst und gleichmaessig um die Gruppenmitte verteilt,
 // bis sich keine Gruppen mehr ueberlappen.
-function verteilen(planeten) {
+export function verteilen(planeten) {
   const MIN = 13;
   if (!planeten.length) return [];
   const liste = [...planeten].sort((a, b) => a.longitudeDeg - b.longitudeDeg);
@@ -77,7 +77,7 @@ function verteilen(planeten) {
   const lage = reihe.map((p) => (p.longitudeDeg - basis + 360) % 360);
   let gruppen = lage.map((x, i) => ({ von: i, bis: i, mitte: x }));
   const breite = (g) => (g.bis - g.von) * MIN;
-  for (let geaendert = true; geaendert; ) {
+  for (let geaendert = true; geaendert;) {
     geaendert = false;
     for (let i = 0; i < gruppen.length - 1; i += 1) {
       const a = gruppen[i];
@@ -85,7 +85,8 @@ function verteilen(planeten) {
       if (b.mitte - breite(b) / 2 - (a.mitte + breite(a) / 2) < MIN) {
         const von = a.von;
         const bis = b.bis;
-        const mitte = lage.slice(von, bis + 1).reduce((x, y) => x + y, 0) / (bis - von + 1);
+        const mitte =
+          lage.slice(von, bis + 1).reduce((x, y) => x + y, 0) / (bis - von + 1);
         gruppen.splice(i, 2, { von, bis, mitte });
         geaendert = true;
         break;
@@ -94,13 +95,14 @@ function verteilen(planeten) {
   }
   const anzeige = [];
   gruppen.forEach((g) => {
-    for (let k = g.von; k <= g.bis; k += 1) anzeige[k] = g.mitte + (k - g.von - (g.bis - g.von) / 2) * MIN;
+    for (let k = g.von; k <= g.bis; k += 1)
+      anzeige[k] = g.mitte + (k - g.von - (g.bis - g.von) / 2) * MIN;
   });
   return reihe.map((p, i) => ({ ...p, anzeige: basis + anzeige[i] }));
 }
 
 // fester Sternenhimmel (gleich bei jedem Aufruf), einige funkeln
-function sterne(anzahl) {
+export function sterne(anzahl) {
   let z = 20251021;
   const zufall = () => {
     z = (z * 1664525 + 1013904223) % 4294967296;
