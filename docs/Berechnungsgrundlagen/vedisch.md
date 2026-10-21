@@ -13,6 +13,11 @@
   bereits verstrichenen Anteil; aktuelle Mahadasha aus dem Alter mit Nachkommastellen.
 - **Antardasha (Bhukti):** Unterperiode der laufenden Mahadasha, beginnend mit dem Mahadasha-Herrscher in
   Vimshottari-Reihenfolge; Dauer = Mahadasha-Jahre × Antardasha-Jahre / 120. Eigene Regelebene (Gewicht 0,6).
+- **Gochara (Transite):** Haus jedes laufenden Planeten (Sonne, Mars, Merkur, Jupiter, Venus, Saturn,
+  Rahu, Ketu; Rahu als mittlerer Mondknoten), gezählt in ganzen Zeichen vom siderischen Zeichen des
+  Geburtsmondes. Günstig nach der klassischen Tabelle (Phaladeepika Kap. 26): Sonne 3/6/10/11; Mars,
+  Saturn, Rahu, Ketu 3/6/11; Merkur 2/4/6/8/10/11; Jupiter 2/5/7/9/11; Venus 1/2/3/4/5/8/9/11/12; sonst
+  ungünstig. Saturn im 12., 1. oder 2. Haus = **Sade Sati** (eigene Regel). Eigene Regelebene (Gewicht 0,5).
 - **Yogas:** einfache Raja-Yogas aus der Stellung der Hausherrscher (ganze Zeichen ab dem siderischen
   Aszendenten).
 - **Quellen der Regeln:** Parashara (BPHS), Mantreswara (Phaladeepika).
@@ -25,6 +30,7 @@
 | 20.10.2026 | **Ayanamsha:** Der Code-Kommentar nannte Lahiri, tatsächlich galt die Voreinstellung der Swiss Ephemeris, **Fagan/Bradley** (etwa 0,9° mehr). Nahe den Nakshatra-Grenzen ergab das ein falsches Geburts-Nakshatra und damit einen falschen Dasha-Beginn. | Lahiri ausdrücklich gesetzt. |
 | 20.10.2026 | **Yogas** wurden mit **tropischen** Zeichen bestimmt, rund 24° neben den siderischen. | Siderische Zeichen für Aszendent und Planeten. |
 | 21.10.2026 | Die **Antardasha** wurde nicht verwendet; die Regeldaten enthielten nur 4 von 9 Hauptperioden. | Matrix auf alle 81 Kombinationen ergänzt und als Regelebene eingebaut (siehe unten). |
+| 21.10.2026 | **Gochara** fehlte ganz (keine Regeln). | Klassische Tabelle der günstigen Häuser und Sade Sati als Regelebene ergänzt. |
 
 ## Bekannte Vereinfachungen
 
@@ -38,7 +44,10 @@
 - In BPHS hängt das Ergebnis einer Antardasha stark von Haus und Würde beider Herrscher im Geburtshoroskop
   ab. Unsere Matrix kennt nur die Kombination der beiden Planeten.
 - Keine Pratyantardasha (dritte Ebene).
-- **Gochara (Transite)** fehlt; es liegen keine Regeln vor.
+- **Gochara vereinfacht:** keine **Vedha** (Aufhebung eines günstigen Transits durch einen Planeten in einem
+  bestimmten Gegenhaus), kein Ashtakavarga, kein laufender Mond. Die betroffenen Lebensbereiche je Planet
+  haben wir aus den klassischen Bedeutungen (Karakatva) abgeleitet; günstig = 0,75, ungünstig = 0,25 in
+  diesen Bereichen. Die Tabelle der günstigen Häuser selbst ist klassisch.
 - Nur ein kleiner Teil der Yogas; keine Divisionalhoroskope (Navamsa usw.), keine Shadbala.
 - Ohne Geburtsort sind Aszendent und Yogas ungenau (`00_allgemein.md`); das Nakshatra kaum (der Mond
   wandert etwa 0,5° pro Stunde, ein Nakshatra umfasst 13°20').

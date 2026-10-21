@@ -579,6 +579,37 @@ def handle_nach_planet_herrscher(quelle: dict, rules: dict, inputs: dict) -> Dic
             return extract_dims(planeten.get(planet, {}), quelle.get("dim_feld","dimensionen"))
     return {}
 
+GOCHARA_REIHENFOLGE = ["saturn", "rahu", "ketu", "jupiter", "mars", "sonne", "venus", "merkur"]
+
+
+def handle_gochara(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
+    """Gochara: je laufendem Planet (ohne Mond) guenstig/unguenstig nach seinem Haus vom Geburtsmond;
+    Saturn im 12., 1. oder 2. Haus als Sade Sati. Langsame Planeten zuerst, abnehmendes Gewicht."""
+    container = rules.get(quelle.get("schluessel", "gochara"), {})
+    planeten = container.get("planeten", {})
+    sade_sati = container.get("sade_sati", {})
+    haus_von = dict(inputs.get("gochara", []))
+    basis = neutral_vector()
+    gewicht = quelle.get("gewicht", 0.5)
+    abnahme = quelle.get("gewicht_abnahme", 0.05)
+    minimum = quelle.get("gewicht_minimum", 0.2)
+    for planet in GOCHARA_REIHENFOLGE:
+        if planet not in haus_von or planet not in planeten:
+            continue
+        haus = haus_von[planet]
+        if planet == "saturn" and haus in sade_sati.get("haeuser", []):
+            eintrag = sade_sati.get("dimensionen", {})
+        elif haus in planeten[planet].get("guenstige_haeuser", []):
+            eintrag = planeten[planet].get("dimensionen_guenstig", {})
+        else:
+            eintrag = planeten[planet].get("dimensionen_unguenstig", {})
+        dims = {d: _rule_value_to_signed(v) for d, v in eintrag.items() if d in DIMENSIONS}
+        if dims:
+            basis = blend(basis, dims, gewicht)
+            gewicht = max(minimum, gewicht - abnahme)
+    return basis
+
+
 def handle_transit(quelle: dict, rules: dict, inputs: dict) -> Dict[str, float]:
     """Mehrere Transite — gibt gewichteten Gesamt-Overlay zurück."""
     transits = inputs.get("transits", [])
@@ -1032,6 +1063,7 @@ HANDLER = {
     "natal_aspekte":         handle_natal_aspekte,
     "unter_firdaria":        handle_unter_firdaria,
     "antardasha":            handle_antardasha,
+    "gochara":               handle_gochara,
     "planeten_in_haeusern":  handle_planeten_in_haeusern,
     "nach_day_master":       handle_nach_day_master,
     "nach_branch":           handle_nach_branch,

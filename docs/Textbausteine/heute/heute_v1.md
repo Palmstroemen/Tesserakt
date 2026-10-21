@@ -76,6 +76,14 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - saturn: Deine Mahadasha ist die Saturn-Periode – Jahre der Disziplin und harter, aber dauerhafter Arbeit. Heute bringt Beständigkeit dich weiter.
 - merkur: Deine Mahadasha ist die Merkur-Periode – Jahre des Lernens, der Kommunikation und des Handels. Heute ist ein guter Tag für Austausch.
 
+## Vedisch: Gochara {#vedisch_gochara}
+
+- jupiter_guenstig: Jupiter läuft vom Zeichen deines Geburtsmondes aus gesehen günstig ({haus}. Haus) – eine Zeit, in der Unterstützung, Wachstum und gute Ratschläge leichter zu dir finden.
+- jupiter_unguenstig: Jupiter steht vom Zeichen deines Geburtsmondes aus im {haus}. Haus, das gilt als weniger förderlich – Wachstum braucht jetzt mehr eigene Mühe.
+- saturn_guenstig: Saturn läuft vom Zeichen deines Geburtsmondes aus günstig ({haus}. Haus) – Ausdauer zahlt sich aus, Hindernisse lassen sich überwinden.
+- saturn_unguenstig: Saturn steht vom Zeichen deines Geburtsmondes aus im {haus}. Haus – Pflichten und Verzögerungen fordern Geduld.
+- sade_sati: Du bist in der Sade Sati: Saturn zieht über deinen Geburtsmond und seine Nachbarzeichen. Diese siebeneinhalb Jahre gelten als Zeit der Prüfung und Reifung – nimm dir heute nicht zu viel auf einmal vor.
+
 ## Elemente {#elemente}
 
 - holz: Holz

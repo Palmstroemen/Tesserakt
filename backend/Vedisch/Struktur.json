@@ -29,6 +29,16 @@
       "pflicht": false
     },
     {
+      "id": "gochara",
+      "schluessel": "gochara",
+      "typ": "gochara",
+      "eingabe": "gochara",
+      "gewicht": 0.5,
+      "gewicht_abnahme": 0.05,
+      "gewicht_minimum": 0.2,
+      "pflicht": false
+    },
+    {
       "id": "nakshatra",
       "schluessel": "nakshatras",
       "typ": "nakshatra",

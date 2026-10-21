@@ -54,7 +54,8 @@
 - [x] Spiel C (/partner): Geburtsort und Zeitzone fuer beide Personen
 - [ ] Sekt einheitlich ueber den Sonnenstand bestimmen (bisher teils Uhrzeit 6-18 Uhr)
 - [x] Vedisch: Antardasha-Matrix vollstaendig (45 Kombinationen ergaenzt, gekennzeichnet) und als Regelebene eingebaut
-- [ ] Vedisch: Gochara-Regeln (Transite vom Geburtsmond)
+- [x] Vedisch: Gochara-Regeln (Transite vom Geburtsmond, Sade Sati) als Regelebene
+- [ ] Vedisch: Vedha und Ashtakavarga fuer Gochara (optional)
 - [ ] Vedisch: ergaenzte Antardasha-Deutungen von jemandem mit Jyotish-Kenntnis gegenlesen lassen
 - [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen
 - [ ] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr

@@ -204,6 +204,32 @@ def _laufende_positionen(stichtag: datetime) -> Dict[str, float]:
     return {_PLANET_ID_DE[p.id]: p.longitude_deg for p in eph.planets if p.id in _PLANET_ID_DE}
 
 
+@lru_cache(maxsize=512)
+def _laufende_zeichen_siderisch(stichtag: datetime) -> Dict[str, int]:
+    """Siderische Zeichen (0 = Widder, Lahiri) der laufenden Planeten am Stichtag, inkl. Rahu (mittlerer
+    Mondknoten) und Ketu (gegenueber). Fuer Gochara."""
+    import swisseph as swe
+
+    eph = ephemeris_compute(stichtag, latitude_deg=None, longitude_deg=None)
+    ayan = ayanamsha_lahiri(eph.jd)
+    laengen = {_PLANET_ID_DE[p.id]: p.longitude_deg for p in eph.planets if p.id in _PLANET_ID_DE}
+    rahu = swe.calc_ut(eph.jd, swe.MEAN_NODE)[0][0]
+    laengen["rahu"], laengen["ketu"] = rahu, (rahu + 180.0) % 360.0
+    return {pl: int(((lon - ayan) % 360.0) // 30) for pl, lon in laengen.items()}
+
+
+def _setze_gochara(inputs: Dict[str, object], natal, now: datetime) -> None:
+    """Gochara: Haus (ganze Zeichen) jedes laufenden Planeten vom siderischen Zeichen des Geburtsmondes."""
+    moon = next((p for p in natal.planets if p.id == "moon"), None)
+    if moon is None:
+        return
+    mond_zeichen = int(((moon.longitude_deg - ayanamsha_lahiri(natal.jd)) % 360.0) // 30)
+    inputs["mond_zeichen_siderisch"] = mond_zeichen
+    inputs["gochara"] = [
+        (pl, (zeichen - mond_zeichen) % 12 + 1) for pl, zeichen in _laufende_zeichen_siderisch(now).items()
+    ]
+
+
 def _setze_transite(inputs: Dict[str, object], natal, now: datetime) -> None:
     """Ersetzt den Kalender-Platzhalter durch echte Transite zu Sonne, Mond (und Aszendent/MC mit Geburtsort)."""
     punkte = {_PLANET_ID_DE[p.id]: p.longitude_deg for p in natal.planets if p.id in ("sun", "moon")}
@@ -304,6 +330,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             inputs["mond_nakshatra_anteil"] = anteil
             alter = inputs.get("lebensalter_exakt", inputs.get("lebensalter", 0))
             inputs["vimshottari_position"] = vimshottari_position_now(idx, anteil, alter)
+        _setze_gochara(inputs, ephemeris_result, now)
         inputs["aktivierte_yogas"] = compute_aktivierte_yogas(
             ephemeris_result.asc_deg, ephemeris_result.planets, ayanamsha_lahiri(ephemeris_result.jd)
         )
@@ -656,6 +683,15 @@ def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
             order, dauern = _load_dasha_data()
             planet = _current_mahadasha(order, dauern, float(inputs["vimshottari_position"]))["planet"]
             faktoren.append(t["vedisch_dasha"].get(planet, ""))
+            haus_von = dict(inputs.get("gochara", []))
+            gochara = load_rules("Vedisch").get("gochara", {})
+            if haus_von.get("saturn") in gochara.get("sade_sati", {}).get("haeuser", []):
+                faktoren.append(t["vedisch_gochara"]["sade_sati"])
+            for pl in ("jupiter", "saturn"):
+                if pl not in haus_von or (pl == "saturn" and haus_von[pl] in gochara.get("sade_sati", {}).get("haeuser", [])):
+                    continue
+                art = "guenstig" if haus_von[pl] in gochara["planeten"][pl]["guenstige_haeuser"] else "unguenstig"
+                faktoren.append(t["vedisch_gochara"][f"{pl}_{art}"].replace("{haus}", str(haus_von[pl])))
         elif s == "Westlich":
             transits = inputs.get("transits", [])
             for gruppe in (_SPANNUNG, _HARMONISCH):
