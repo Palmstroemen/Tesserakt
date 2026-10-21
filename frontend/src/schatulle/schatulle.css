@@ -2765,20 +2765,19 @@ body {
   line-height: 1.1;
 }
 .b3-scheiben {
-  flex: 1 1 auto;
-  min-height: 0;
-  margin: 5cqw 0 3cqw;
+  margin: 4cqw 0 3cqw;
   display: flex;
   justify-content: center;
 }
+/* feste Groesse: WebKit gibt einer SVG mit width: auto in diesem Flex-Aufbau die Breite 0 */
 .b3-scheiben svg {
-  width: auto;
-  height: 100%;
-  max-width: 42cqw;
+  width: 36cqw;
+  height: 36cqw;
   filter: drop-shadow(0 1px 1.5px rgba(40, 25, 5, 0.45));
 }
 .b3-scheiben.paar svg {
-  max-width: 36cqw;
+  width: 32cqw;
+  height: 32cqw;
 }
 .b3-scheiben.paar svg + svg {
   margin-left: -8cqw;
