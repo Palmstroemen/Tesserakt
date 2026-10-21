@@ -56,7 +56,7 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
   const [laedt, setLaedt] = useState(false);
   const [reihenfolge, setReihenfolge] = useState([]);
   const [index, setIndex] = useState(0);
-  const [wert, setWert] = useState(-1);
+  const [wert, setWert] = useState(0); // Start: ausgewogen
   const [antworten, setAntworten] = useState([]);
   const [saved, setSaved] = useState(false);
   const [texte, setTexte] = useState(null);
@@ -84,7 +84,7 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
       setReihenfolge(shuffle(katalog.fragen));
       setIndex(0);
       setAntworten([]);
-      setWert(-1);
+      setWert(0);
       setSaved(false);
       // Kontrollgruppe (zufaellige Paare) waehrend der Fragen im Hintergrund
       postJson("/partner/kontrolle", { ...requestBody, session_id: ergebnis.inputs.session_id, stichtag: ergebnis.inputs.stichtag })
@@ -113,7 +113,7 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
       },
     ]);
     setIndex((i) => i + 1);
-    setWert(-1);
+    setWert(0);
   }
 
   const ergebnis = useMemo(() => {
