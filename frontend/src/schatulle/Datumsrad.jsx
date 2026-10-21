@@ -347,7 +347,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
       <svg
         ref={svgRef}
         viewBox={`0 0 400 ${HOEHE}`}
-        className={`sp-svg dr-svg dr-${scheibe.metall}`}
+        className="sp-svg dr-svg"
         onPointerDown={druecken}
         onPointerMove={bewegen}
         onPointerUp={loslassen}
@@ -371,15 +371,11 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
             <stop offset="0.5" stopColor="#8a6a3c" />
             <stop offset="1" stopColor="#4a3720" />
           </radialGradient>
-          <radialGradient
-            id="ow-platte-silber"
-            cx={MITTE.x}
-            cy={MITTE.y}
-            r={WALZEN.stadt + 40}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0.5" stopColor="#7d848c" />
-            <stop offset="1" stopColor="#3d4248" />
+          {/* Rahmen (Knoepfe): bleibt immer Gold */}
+          <radialGradient id="dr-rahmen" cx="35%" cy="30%" r="80%">
+            <stop offset="0" stopColor={METALL.gold[0]} />
+            <stop offset="0.55" stopColor={METALL.gold[1]} />
+            <stop offset="1" stopColor={METALL.gold[2]} />
           </radialGradient>
           {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
               Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
@@ -402,7 +398,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
         <OrtWalzen svgPunkt={svgPunkt} metall={seite} onOrt={setOrt} />
 
         {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze */}
-        <g transform={scheibeTransform}>
+        <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
           <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
 
           {RINGE.map((r, i) => (
@@ -479,7 +475,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler }) {
               cx={k.x}
               cy={k.y}
               r="26"
-              fill="url(#sp-messing)"
+              fill="url(#dr-rahmen)"
               className="dr-knopfrand"
             />
             <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />

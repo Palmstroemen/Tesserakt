@@ -570,16 +570,6 @@ body {
   fill: #e6eaee;
 }
 
-/* Silberne Platte unter den Walzen blendet beim Seitenwechsel ein */
-.ow-platte-silber {
-  opacity: 0;
-  transition: opacity 0.9s ease-in-out;
-}
-
-.ow-platte-silber.an {
-  opacity: 1;
-}
-
 /* Spielknoepfe in den Ecken */
 .dr-knopf {
   cursor: pointer;
@@ -621,10 +611,6 @@ body {
   pointer-events: none;
 }
 
-.dr-silber .dr-knopftext {
-  fill: #dfe4e9;
-}
-
 /* Ortswalzen */
 .ow-walze {
   cursor: grab;
@@ -640,10 +626,6 @@ body {
   fill: none;
   stroke: #d8b878;
   stroke-linecap: round;
-}
-
-.ow-silber .ow-rand {
-  stroke: #3d4248;
 }
 
 .ow-silber .ow-schlitz {

@@ -297,9 +297,8 @@ export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt }) {
   const platte = plattePfad(WALZEN.land - 34, WALZEN.stadt + 34, theta + 0.07);
   return (
     <g className="ow">
-      {/* Platte: Gold und Silber uebereinander, Silber blendet beim Seitenwechsel ein */}
+      {/* Platte gehoert zum Rahmen und bleibt Gold; nur die Streifen in den Schlitzen wechseln das Metall */}
       <path d={platte} fill="url(#ow-platte-gold)" stroke="#2b2014" strokeWidth="2" />
-      <path d={platte} fill="url(#ow-platte-silber)" className={metall === "silber" ? "ow-platte-silber an" : "ow-platte-silber"} />
       {laender.length ? (
         <Walze r={WALZEN.land} eintraege={laender} index={landIdx} onIndex={setLandIdx} svgPunkt={svgPunkt} metall={metall} />
       ) : null}
