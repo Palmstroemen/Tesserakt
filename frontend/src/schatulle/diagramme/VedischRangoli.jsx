@@ -3,8 +3,8 @@
 // deren Mittelpunkte auf dem Rand liegen, so dass nur die innere Haelfte hereinreicht. Lage = wann im
 // Leben (0 Jahre oben, im Uhrzeigersinn bis 120), Groesse = Dauer der Periode, Farbe = traditionelle
 // Navagraha-Farbe. Vergangene Perioden verblasst, die aktive mit Punkten umrandet. Innen ein Kolam-Ring aus
-// 27 Reismehlpunkten (Nakshatras), das Geburts-Nakshatra mit dem Stab umkringelt; eine mit dem Stab
-// gezogene Rille zeigt das heutige Lebensalter. Reines SVG.
+// 27 Reismehlpunkten (Nakshatras); ein goldener Armreif liegt um das Geburts-Nakshatra, eine gedrehte
+// Schnur fuehrt von der Mitte zum heutigen Lebensalter. Reines SVG.
 const G = 300;
 const M = G / 2;
 const R_RUND = 124; // Rand des Rundes: hier liegen die Mittelpunkte der Pulverbogen
@@ -173,6 +173,11 @@ export default function VedischRangoli({ payload }) {
           />
           <feComposite in="rand" in2="kornAlpha" operator="in" />
         </filter>
+        <linearGradient id="vr-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#fff0b0" />
+          <stop offset="0.45" stopColor="#e2b23c" />
+          <stop offset="1" stopColor="#9c6a10" />
+        </linearGradient>
         <clipPath id="vr-rund">
           <circle cx={M} cy={M} r={R_RUND} />
         </clipPath>
@@ -288,21 +293,78 @@ export default function VedischRangoli({ payload }) {
         })}
       </g>
 
-      {/* mit dem Stab gezogen: Kringel um das Geburts-Nakshatra und die Rille zum heutigen Alter */}
-      <g className="vr-stab">
-        {nakshatra != null ? (
-          <circle
-            cx={nakPunkt(nakshatra).x}
-            cy={nakPunkt(nakshatra).y}
-            r="6.5"
-          />
-        ) : null}
-        <line x1={M} y1={M} x2={jetzt.x} y2={jetzt.y} />
-        <circle cx={M} cy={M} r="3" />
-      </g>
-      <g className="vr-stab-licht">
-        <line x1={M + 0.6} y1={M + 0.8} x2={jetzt.x + 0.6} y2={jetzt.y + 0.8} />
-      </g>
+      {/* Schnur von der Mitte zum heutigen Lebensalter: leicht durchhaengend, gedreht, mit Knoten und
+          ausgefransten Enden */}
+      {(() => {
+        const dx = jetzt.x - M;
+        const dy = jetzt.y - M;
+        const l = Math.hypot(dx, dy);
+        // Durchhang quer zur Richtung
+        const q = {
+          x: M + dx * 0.5 - (dy / l) * 5,
+          y: M + dy * 0.5 + (dx / l) * 5,
+        };
+        const d = `M ${M} ${M} Q ${q.x} ${q.y} ${jetzt.x} ${jetzt.y}`;
+        const ende = { x: jetzt.x, y: jetzt.y };
+        const ux = dx / l;
+        const uy = dy / l;
+        return (
+          <g className="vr-schnur">
+            <path
+              d={d}
+              className="vr-schnur-schatten"
+              transform="translate(1.2 1.6)"
+            />
+            <path d={d} className="vr-schnur-grund" />
+            <path d={d} className="vr-schnur-drall" />
+            {/* Knoten in der Mitte und am Ende */}
+            <circle cx={M} cy={M} r="3.4" className="vr-knoten" />
+            <circle cx={ende.x} cy={ende.y} r="3" className="vr-knoten" />
+            {/* ueberstehende, ausgefranste Enden */}
+            {[-0.5, 0.15, 0.6].map((w, k) => {
+              const rx = ux * Math.cos(w) - uy * Math.sin(w);
+              const ry = ux * Math.sin(w) + uy * Math.cos(w);
+              const lang = 7 + k * 2;
+              return (
+                <path
+                  key={k}
+                  d={`M ${ende.x} ${ende.y} q ${rx * lang * 0.6 - ry * 2} ${ry * lang * 0.6 + rx * 2} ${rx * lang} ${ry * lang}`}
+                  className="vr-faser"
+                />
+              );
+            })}
+          </g>
+        );
+      })()}
+
+      {/* goldener Armreif um das Geburts-Nakshatra (leicht schraeg liegend) */}
+      {nakshatra != null
+        ? (() => {
+            const k = nakPunkt(nakshatra);
+            return (
+              <g transform={`rotate(-25 ${k.x} ${k.y})`}>
+                <ellipse
+                  cx={k.x + 1.2}
+                  cy={k.y + 1.8}
+                  rx="8.6"
+                  ry="7.4"
+                  className="vr-reif-schatten"
+                />
+                <ellipse
+                  cx={k.x}
+                  cy={k.y}
+                  rx="8.6"
+                  ry="7.4"
+                  className="vr-reif"
+                />
+                <path
+                  d={`M ${k.x - 7} ${k.y - 3.5} A 8.6 7.4 0 0 1 ${k.x + 2} ${k.y - 7.3}`}
+                  className="vr-reif-glanz"
+                />
+              </g>
+            );
+          })()
+        : null}
     </svg>
   );
 }

@@ -1197,19 +1197,59 @@ body {
   opacity: 0.28;
 }
 
-.vr-stab line,
-.vr-stab circle {
+.vr-schnur path {
   fill: none;
-  stroke: #120b06;
-  stroke-width: 1.6;
   stroke-linecap: round;
-  opacity: 0.85;
 }
 
-.vr-stab-licht line {
-  stroke: #fff6e0;
-  stroke-width: 0.6;
-  opacity: 0.35;
+.vr-schnur-schatten {
+  stroke: #0b0603;
+  stroke-width: 3.2;
+  opacity: 0.45;
+}
+
+.vr-schnur-grund {
+  stroke: #1d5f8a;
+  stroke-width: 2.8;
+}
+
+/* Drall der gedrehten Schnur: helle Schraegstriche */
+.vr-schnur-drall {
+  stroke: #57c4c9;
+  stroke-width: 2.8;
+  stroke-dasharray: 1.4 1.6;
+}
+
+.vr-knoten {
+  fill: #1d5f8a;
+  stroke: #57c4c9;
+  stroke-width: 0.9;
+}
+
+.vr-faser {
+  stroke: #3f9fb0;
+  stroke-width: 1;
+  opacity: 0.9;
+}
+
+.vr-reif {
+  fill: none;
+  stroke: url(#vr-gold);
+  stroke-width: 2.6;
+}
+
+.vr-reif-schatten {
+  fill: none;
+  stroke: #0b0603;
+  stroke-width: 2.6;
+  opacity: 0.4;
+}
+
+.vr-reif-glanz {
+  fill: none;
+  stroke: #fffbe6;
+  stroke-width: 0.8;
+  opacity: 0.8;
 }
 
 /* Arabisch: Zellij-Kacheln, Windrose, Messing */
