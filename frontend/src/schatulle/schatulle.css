@@ -1141,9 +1141,9 @@ body {
 
 .ht-ziffer {
   text-anchor: middle;
-  font-size: 8px;
+  font-size: 10px;
   fill: #17100c;
-  opacity: 0.7;
+  opacity: 0.8;
   font-family: "GFS Didot", "Noto Serif", Georgia, serif;
 }
 
