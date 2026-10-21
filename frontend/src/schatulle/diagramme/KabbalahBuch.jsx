@@ -4,10 +4,10 @@
 // mit Nummer und Namen. Jemand hat mit Farbstift darin gearbeitet: die aktive Sephira schraffiert und
 // umkringelt, den aktiven Pfad ausgemalt. Papier: vergilbtes Pergament. Fachlich: Visuals.md 2.5.
 const G = 300;
-const M = G / 2;
+export const M = G / 2;
 const R = 57; // Abstand benachbarter Sephiroth
 const OBEN = M - 2 * R; // Kether; Baum (Kether..Malkuth = 4R) mittig
-const KREIS = 20;
+export const KREIS = 20;
 const KANAL = 8;
 
 const TINTE = "#2d1f12";
@@ -18,7 +18,7 @@ function ecke(winkel) {
   return { x: M + R * Math.cos(w), y: OBEN + R + R * Math.sin(w) };
 }
 const S6 = ecke(180);
-const KNOTEN = {
+export const KNOTEN = {
   1: ecke(0),
   2: ecke(60),
   3: ecke(300),
@@ -37,7 +37,7 @@ function lageBuchstabe(p) {
 }
 
 // Mitte des Buchstaben-Medaillons eines Pfads
-function buchstabenOrt(p) {
+export function buchstabenOrt(p) {
   const a = KNOTEN[p.from];
   const b = KNOTEN[p.to];
   const t = lageBuchstabe(p);
@@ -66,8 +66,8 @@ function zufallVon(saat) {
   };
 }
 
-// Schraffur in einem Kreis: schraege, leicht unregelmaessige Striche
-function schraffur(x, y, r, saat) {
+// Schraffur in einem Kreis: schraege, leicht unregelmaessige Striche; richtung -1 spiegelt (Kreuzschraffur)
+export function schraffur(x, y, r, saat, richtung = 1) {
   const zufall = zufallVon(saat);
   let d = "";
   for (let t = -r; t <= r; t += 2.6) {
@@ -75,9 +75,9 @@ function schraffur(x, y, r, saat) {
       Math.sqrt(Math.max(0, r * r - t * t)) * (0.85 + zufall() * 0.12);
     const v = (zufall() - 0.5) * 1.4;
     // 45° geneigt
-    const ax = x + (t - halb) * 0.7071 + v;
+    const ax = x + richtung * ((t - halb) * 0.7071 + v);
     const ay = y + (t + halb) * 0.7071 - v;
-    const bx = x + (t + halb) * 0.7071 - v;
+    const bx = x + richtung * ((t + halb) * 0.7071 - v);
     const by = y + (t - halb) * 0.7071 + v;
     d += `M ${ax.toFixed(1)} ${ay.toFixed(1)} L ${bx.toFixed(1)} ${by.toFixed(1)} `;
   }
@@ -85,7 +85,7 @@ function schraffur(x, y, r, saat) {
 }
 
 // zwei schnelle, nicht geschlossene Kringel um einen Kreis
-function kringel(x, y, r, saat) {
+export function kringel(x, y, r, saat) {
   const zufall = zufallVon(saat);
   const punkte = [];
   for (let i = 0; i <= 64; i += 1) {
@@ -100,13 +100,14 @@ function kringel(x, y, r, saat) {
 }
 
 // Pfad mit Farbstift ausgemalt: Zickzack quer durch den Kanal
-function zickzack(a, b, saat) {
+// von/bis: Abschnitt entlang des Pfads (Standard: von Kreisrand zu Kreisrand)
+export function zickzack(a, b, saat, von = KREIS + 1, bis = null) {
   const zufall = zufallVon(saat);
   const l = Math.hypot(b.x - a.x, b.y - a.y);
   const ux = (b.x - a.x) / l;
   const uy = (b.y - a.y) / l;
-  const start = KREIS + 1;
-  const ende = l - KREIS - 1;
+  const start = von;
+  const ende = bis ?? l - KREIS - 1;
   let d = "";
   let seite = 1;
   for (let s = start; s <= ende; s += 2.2) {
@@ -148,7 +149,15 @@ const BEREICH = {
 const liste = (dims) =>
   dims.length ? BEREICH[dims[0]] + (dims.length > 1 ? " u.a." : "") : null;
 
-function Notiz({ zeilen, farbe, seite, y, ziel, saat }) {
+export function Notiz({
+  zeilen,
+  farbe,
+  seite,
+  y,
+  ziel,
+  saat,
+  klasse = "kb-notiz",
+}) {
   const GR = 9;
   const ZEILE = 11;
   const x = seite === "links" ? 74 : 226;
@@ -159,7 +168,7 @@ function Notiz({ zeilen, farbe, seite, y, ziel, saat }) {
   const mx = (sx + ziel.x) / 2 + (saat % 2 ? 4 : -4);
   const my = (sy + ziel.y) / 2 - 6;
   return (
-    <g filter="url(#kb-stift)" className="kb-notiz" style={{ color: farbe }}>
+    <g filter="url(#kb-stift)" className={klasse} style={{ color: farbe }}>
       <g transform={`rotate(${seite === "links" ? -4 : 3} ${x} ${y})`}>
         {zeilen.map((z, i) => (
           <text
@@ -249,25 +258,11 @@ function randnotizen(payload, aktiv, pfad, stift, stiftPfad) {
   ));
 }
 
-export default function KabbalahBuch({ payload }) {
-  if (!payload || payload.chartType !== "kabbalahTree") return null;
-  const aktiv = payload.activeSephira?.number;
-  const pfad = payload.activePath;
-  const namen = Object.fromEntries(
-    (payload.sephirothList ?? []).map((s) => [s.number, s.name]),
-  );
-  const pfade = payload.paths ?? [];
-  const stift = STIFT[aktiv] ?? STIFT[6];
-  // zweiter Farbstift fuer den Pfad (verschiedene Aspekte, verschiedene Farben); nicht dieselbe wie die Sephira
-  const stiftPfad = aktiv === 4 ? "#6b4420" : "#2f4f86";
-
+// Die gedruckte Seite: Pergament mit Flecken und der Baum in Druckertinte, dazu die Filter (Druck, Farbstift).
+// Auch fuer die Paar-Grafik (KabbalahPaar).
+export function Seite({ pfade, namen }) {
   return (
-    <svg
-      viewBox={`0 0 ${G} ${G}`}
-      className="kb"
-      role="img"
-      aria-label={`Baum des Lebens, aktive Sephira ${namen[aktiv] ?? ""}`}
-    >
+    <>
       <defs>
         <radialGradient id="kb-pergament" cx="48%" cy="45%" r="62%">
           <stop offset="0" stopColor="#f6e8c4" />
@@ -373,7 +368,6 @@ export default function KabbalahBuch({ payload }) {
         {pfade.map((p) => {
           const a = KNOTEN[p.from];
           const b = KNOTEN[p.to];
-          const istAktiv = pfad && p.number === pfad.number;
           return (
             <line
               key={`i${p.number}`}
@@ -411,7 +405,6 @@ export default function KabbalahBuch({ payload }) {
         {/* Sephiroth: doppelt umrandete Kreise mit Nummer und Namen */}
         {Object.entries(KNOTEN).map(([n, k]) => {
           const nr = Number(n);
-          const istAktiv = nr === aktiv;
           return (
             <g key={n}>
               <circle
@@ -440,6 +433,30 @@ export default function KabbalahBuch({ payload }) {
           );
         })}
       </g>
+    </>
+  );
+}
+
+export default function KabbalahBuch({ payload }) {
+  if (!payload || payload.chartType !== "kabbalahTree") return null;
+  const aktiv = payload.activeSephira?.number;
+  const pfad = payload.activePath;
+  const namen = Object.fromEntries(
+    (payload.sephirothList ?? []).map((s) => [s.number, s.name]),
+  );
+  const pfade = payload.paths ?? [];
+  const stift = STIFT[aktiv] ?? STIFT[6];
+  // zweiter Farbstift fuer den Pfad (verschiedene Aspekte, verschiedene Farben); nicht dieselbe wie die Sephira
+  const stiftPfad = aktiv === 4 ? "#6b4420" : "#2f4f86";
+
+  return (
+    <svg
+      viewBox={`0 0 ${G} ${G}`}
+      className="kb"
+      role="img"
+      aria-label={`Baum des Lebens, aktive Sephira ${namen[aktiv] ?? ""}`}
+    >
+      <Seite pfade={pfade} namen={namen} />
 
       {/* Farbstift ueber dem Druck, multipliziert wie echter Buntstift auf bedrucktem Papier */}
       <g

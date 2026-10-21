@@ -262,6 +262,8 @@ def kabbalah(seph_a: int, seph_b: int, namen: List[str], pfade: Dict[str, Dict],
     pfad = next((p for p in pfade.values() if isinstance(p, dict)
                  and {p.get("von_sephira", {}).get("nummer"), p.get("zu_sephira", {}).get("nummer")} == {seph_a, seph_b}),
                 None)
+    art = ("gleich" if seph_a == seph_b else "pfad" if pfad
+           else "saeule" if SAEULE[seph_a] == SAEULE[seph_b] else "getrennt")
     if seph_a == seph_b:
         satz = tk["gleich"].replace("{a}", na)
     elif pfad:
@@ -275,7 +277,8 @@ def kabbalah(seph_a: int, seph_b: int, namen: List[str], pfade: Dict[str, Dict],
         satz = (tk["getrennt"].replace("{a}", na).replace("{b}", nb)
                 .replace("{sa}", ts[SAEULE[seph_a]].replace("mittleren", "mittlere"))
                 .replace("{sb}", ts[SAEULE[seph_b]].replace("mittleren", "mittlere")))
-    return {"aussagen": [satz], "sephiroth": [seph_a, seph_b], "pfad": pfad["pfad_nummer"] if pfad else None}
+    return {"aussagen": [satz], "sephiroth": [seph_a, seph_b], "pfad": pfad["pfad_nummer"] if pfad else None,
+            "art": art}
 
 
 # ---------------------------------------------------------------------------------------------------------

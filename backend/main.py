@@ -814,6 +814,7 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
         "firdaria": firdaria[0] if firdaria else None,
         "glueckslos": paar.glueckslos(natal.asc_deg, punkte["sonne"], punkte["mond"], tag) if natal.has_location else None,
         "sephira": _life_path_to_sephira_index(lebenszahl),
+        "baum": build_kabbalah_chart(geburt),
         "lebenszahl": lebenszahl,
         "pers_jahr": personal_year(geburt, now),
     }
@@ -851,6 +852,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
                                             a["punkte"], b["punkte"], t, th["arabisch_genitiv"])
     if "Kabbalah" in payload.systeme:
         systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, load_rules("Kabbalah")["pfade"], t)
+        systeme["Kabbalah"]["baum"] = {"a": a["baum"], "b": b["baum"]}  # fuer die Buchseite mit zwei Stiften
     if "Numerologie" in payload.systeme:
         matrix = load_rules("Numerologie")["lebenspfad_kompatibilitaet"]["matrix"]
         systeme["Numerologie"] = paar.numerologie(a["lebenszahl"], b["lebenszahl"], a["pers_jahr"], b["pers_jahr"], matrix, t)

@@ -1477,6 +1477,22 @@ body {
   font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;
 }
 
+/* Kabbalah fuer Paare: zweite Handschrift, gestrichelte Stiftlinien in beiden Farben */
+.kp-zweite-hand text {
+  font-family: "Tesserakt Lehrerin", "Comic Sans MS", cursive;
+  font-size: 10.5px;
+}
+
+.kb-stift .kp-strich {
+  stroke-width: 2.6;
+  stroke-dasharray: 5 5;
+  opacity: 1;
+}
+
+.kb-stift .kp-strich.versetzt {
+  stroke-dashoffset: 5;
+}
+
 .kb-bezug {
   fill: none;
   stroke-width: 0.9;

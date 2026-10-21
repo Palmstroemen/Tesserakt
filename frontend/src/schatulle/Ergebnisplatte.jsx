@@ -15,6 +15,7 @@ import KabbalahBuch from "./diagramme/KabbalahBuch";
 import BaziKarte from "./diagramme/BaziKarte";
 import BaziPaar from "./diagramme/BaziPaar";
 import WestlichPaar from "./diagramme/WestlichPaar";
+import KabbalahPaar from "./diagramme/KabbalahPaar";
 import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
 import ArabischZellij from "./diagramme/ArabischZellij";
@@ -46,6 +47,7 @@ const VOLLBILD = {
 // Spiel C: Grafiken fuer zwei (du in Gold, dein Gegenueber in Silber), Daten aus /horoscope/paar
 const PAARBILD = {
   Westlich: WestlichPaar,
+  Kabbalah: KabbalahPaar,
   Bazi: BaziPaar,
 };
 const DIMENSIONEN = [
