@@ -225,6 +225,8 @@ export default function Spielplatte({
       animiere(s, 0, 260, { verz: i * 25 }),
     );
     animiere("user", 0, 260);
+    // mit dem Zuruecklaufen der Schieber geht der Hebel wieder hoch und die Sperre schnappt ein
+    animiere("hebel", 0, 520, { ease: easeMechanisch });
   }
 
   function greifen(r, u) {
@@ -398,7 +400,11 @@ export default function Spielplatte({
       )
     ) {
       sperre();
-      animiere("hebel", 0.07, 70, { fertig: () => animiere("hebel", 0, 160) });
+      // steht der Hebel noch unten (nach dem Ausloesen), ruckt er nicht
+      if (posRef.current.hebel < 0.5)
+        animiere("hebel", 0.07, 70, {
+          fertig: () => animiere("hebel", 0, 160),
+        });
       return;
     }
     drag.current = {
@@ -414,18 +420,14 @@ export default function Spielplatte({
     if (zustandRef.current === "endaufzug") {
       setZustand("rechnet");
       hebel();
-      animiere("hebel", 1, 110, {
-        fertig: () => animiere("hebel", 0, 520, { ease: easeMechanisch }),
-      });
+      animiere("hebel", 1, 110); // bleibt unten (Auswertung)
       if (ergebnisRef.current) auswertungZeigen();
       return;
     }
     const frage = fragen[indexRef.current];
     setZustand("laeuft");
     hebel();
-    animiere("hebel", 1, 110, {
-      fertig: () => animiere("hebel", 0, 520, { ease: easeMechanisch }),
-    });
+    animiere("hebel", 1, 110); // bleibt unten, bis die Schieber zuruecklaufen
     const aktiv = ALLE.filter((s) => aufgezogenRef.current.has(s));
     onAntwort(frage, wertAusU(posRef.current.user), aktiv);
     const DAUER = 1100;
@@ -463,6 +465,7 @@ export default function Spielplatte({
       ratsche();
       ALLE.forEach((s, i) => animiere(s, 0, 300, { verz: i * 30 }));
       animiere("user", 0, 300);
+      animiere("hebel", 0, 520, { ease: easeMechanisch });
     }, 900);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
