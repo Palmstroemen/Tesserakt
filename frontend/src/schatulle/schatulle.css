@@ -478,13 +478,13 @@ body {
 }
 
 .dr-strich {
-  stroke: #3a2c1a;
-  stroke-width: 0.8;
+  stroke: #4a3519;
+  stroke-width: 1;
 }
 
 .dr-text {
   text-anchor: middle;
-  fill: #2b2014;
+  fill: #4a3519;
   font-family: Georgia, serif;
   pointer-events: none;
 }
@@ -496,7 +496,7 @@ body {
 }
 
 .dr-fenster {
-  fill: rgba(255, 244, 214, 0.28);
+  fill: rgba(255, 244, 214, 0.12);
   stroke: #3a2c1a;
   stroke-width: 1.2;
   pointer-events: none;
@@ -517,12 +517,12 @@ body {
   text-anchor: middle;
   fill: #f0d59c;
   font-family: Georgia, serif;
-  font-size: 12px;
+  font-size: 15px;
   pointer-events: none;
 }
 
 .dr-anzeige.klein {
-  font-size: 8.5px;
+  font-size: 12px;
   fill: var(--sc-text-leise);
 }
 

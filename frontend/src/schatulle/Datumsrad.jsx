@@ -21,11 +21,11 @@ const RINGE = [
     anzahl: JAHR_BIS - JAHR_VON + 1,
     // jedes 5. Jahr beschriftet; an der Nahtstelle (letzte Jahre vor 1920) frei lassen
     text: (k) => ((JAHR_VON + k) % 5 === 0 && JAHR_BIS - (JAHR_VON + k) >= 3 ? String(JAHR_VON + k) : ""),
-    schrift: 8.5,
+    schrift: 11.5,
   },
-  { id: "monat", innen: 104, aussen: 128, anzahl: 12, text: (k) => MONATE[k], schrift: 9 },
-  { id: "tag", innen: 80, aussen: 104, anzahl: 31, text: (k) => String(k + 1), schrift: 7.5 },
-  { id: "stunde", innen: 56, aussen: 80, anzahl: 24, text: (k) => String(k), schrift: 7.5 },
+  { id: "monat", innen: 104, aussen: 128, anzahl: 12, text: (k) => MONATE[k], schrift: 12.5 },
+  { id: "tag", innen: 80, aussen: 104, anzahl: 31, text: (k) => String(k + 1), schrift: 10.5 },
+  { id: "stunde", innen: 56, aussen: 80, anzahl: 24, text: (k) => String(k), schrift: 10.5 },
 ];
 const HEBEL = { x: 354, oben: 300, weg: 84 };
 
@@ -37,13 +37,17 @@ const mod = (a, n) => ((a % n) + n) % n;
 const schritt = (ring) => 360 / ring.anzahl;
 const indexAus = (ring, drehung) => mod(Math.round(-drehung / schritt(ring)), ring.anzahl);
 
+function Band({ ring }) {
+  const mitte = (ring.innen + ring.aussen) / 2;
+  return <circle cx={MITTE.x} cy={MITTE.y} r={mitte} className={`dr-band dr-${ring.id}`} strokeWidth={ring.aussen - ring.innen - 1} />;
+}
+
 function Ring({ ring }) {
-  // statischer Inhalt eines Rings (wird nur als Ganzes gedreht)
+  // eingravierte Striche und Beschriftung eines Rings (wird nur als Ganzes gedreht)
   const mitte = (ring.innen + ring.aussen) / 2;
   const s = schritt(ring);
   return (
     <>
-      <circle cx={MITTE.x} cy={MITTE.y} r={mitte} className={`dr-band dr-${ring.id}`} strokeWidth={ring.aussen - ring.innen - 1} />
       {Array.from({ length: ring.anzahl }, (_, k) => {
         const t = ring.text(k);
         return (
@@ -197,10 +201,11 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
     onStart({
       geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(Math.min(tag, tageImMonat(jahr, monat)))}`,
       uhrzeit: `${zwei(stunde)}:00`,
+      uhrzeitBekannt: stundeBewegt, // fuer spaetere Auswertung (noch nicht gespeichert)
     });
   }
 
-  const ringInhalt = useMemo(() => RINGE.map((r) => <Ring key={r.id} ring={r} />), []);
+  const ringInhalt = useMemo(() => RINGE.map((r) => ({ band: <Band ring={r} />, gravur: <Ring ring={r} /> })), []);
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
   const knaufY = HEBEL.oben + hebelPos * HEBEL.weg;
 
@@ -223,14 +228,36 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
             <stop offset="0.55" stopColor="#b08d57" />
             <stop offset="1" stopColor="#5a4325" />
           </radialGradient>
+          {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
+              Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
+          <filter id="dr-gravur" x="-5%" y="-5%" width="110%" height="110%">
+            <feOffset in="SourceAlpha" dy="0.9" result="unten" />
+            <feFlood floodColor="#fff4d6" floodOpacity="0.75" />
+            <feComposite in2="unten" operator="in" result="licht" />
+            <feOffset in="SourceAlpha" dy="-0.6" result="oben" />
+            <feFlood floodColor="#000" floodOpacity="0.55" />
+            <feComposite in2="oben" operator="in" result="schatten" />
+            <feMerge>
+              <feMergeNode in="licht" />
+              <feMergeNode in="schatten" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
         <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
 
         {RINGE.map((r, i) => (
           <g key={r.id} transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}>
-            {ringInhalt[i]}
+            {ringInhalt[i].band}
           </g>
         ))}
+        <g filter="url(#dr-gravur)">
+          {RINGE.map((r, i) => (
+            <g key={r.id} transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}>
+              {ringInhalt[i].gravur}
+            </g>
+          ))}
+        </g>
         {/* Trennfugen zwischen den Ringen */}
         {[...RINGE.map((r) => r.aussen), 56].map((r) => (
           <circle key={r} cx={MITTE.x} cy={MITTE.y} r={r} className="dr-fuge" />
@@ -242,14 +269,14 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
 
         {/* Mitte: Ergebnis lesbar */}
         <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
-        <text x={MITTE.x} y={MITTE.y - 6} className="dr-anzeige">
+        <text x={MITTE.x} y={MITTE.y - 9} className="dr-anzeige">
           {werte.tag}. {MONATE_LANG[werte.monat]}
         </text>
         <text x={MITTE.x} y={MITTE.y + 10} className="dr-anzeige">
           {werte.jahr}
         </text>
-        <text x={MITTE.x} y={MITTE.y + 26} className="dr-anzeige klein">
-          {stundeBewegt ? `${werte.stunde} Uhr` : `${werte.stunde} Uhr (falls unbekannt)`}
+        <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige klein">
+          {String(werte.stunde).padStart(2, "0")}:00
         </text>
         {!gueltig ? (
           <text x={MITTE.x} y={MITTE.y - 24} className="dr-anzeige klein">
