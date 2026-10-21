@@ -383,6 +383,13 @@ body {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
 }
 
+.sp-stein-fassung {
+  fill: #c9a462;
+  stroke: #6e5020;
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
 .sp-rubin-fassung {
   fill: #c9a462;
   stroke: #6e5020;

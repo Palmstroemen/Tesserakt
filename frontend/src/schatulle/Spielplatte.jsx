@@ -549,6 +549,15 @@ export default function Spielplatte({
           <defs>
             <SchlitzDefs />
             <LuenetteDefs praefix="sp" />
+            <linearGradient id="sp-stein-tafel" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#b9dcff" />
+              <stop offset="0.5" stopColor="#4a8ae6" />
+              <stop offset="1" stopColor="#1d4cad" />
+            </linearGradient>
+            <radialGradient id="sp-stein-glanz" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stopColor="#fff" stopOpacity="0.95" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </radialGradient>
             <radialGradient id="sp-rubin" cx="45%" cy="40%" r="65%">
               <stop offset="0" stopColor="#d4304e" />
               <stop offset="0.55" stopColor="#8e1027" />
@@ -745,20 +754,52 @@ export default function Spielplatte({
                     d="M -23.5 -16 L 23.5 -16 L 17.4 6.5 L 0 9.4 L -17.4 6.5 Z"
                     className="sp-griff-flaeche"
                   />
-                  {/* eingravierte Pfeilspitze: Schatten an der oberen Flanke, Licht an der unteren */}
+                  {/* blauer, geschliffener Dreieck-Edelstein, Spitze nach unten zur Skala, in Goldfassung */}
                   <path
-                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
-                    className="sp-griff-kerbe schatten"
-                    transform="translate(0 -0.7)"
+                    d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+                    fill="#2a1c08"
+                    opacity="0.4"
+                    transform="translate(0 1)"
                   />
                   <path
-                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
-                    className="sp-griff-kerbe licht"
-                    transform="translate(0 0.8)"
+                    d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+                    className="sp-stein-fassung"
                   />
                   <path
-                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
-                    className="sp-griff-kerbe"
+                    d="M -9.4 -10.2 L 9.4 -10.2 L 4.4 -6.6 L -4.4 -6.6 Z"
+                    fill="#8cc2ff"
+                  />
+                  <path
+                    d="M -9.4 -10.2 L -4.4 -6.6 L 0 2.2 L 0 8 Z"
+                    fill="#2f6fd1"
+                  />
+                  <path
+                    d="M 9.4 -10.2 L 4.4 -6.6 L 0 2.2 L 0 8 Z"
+                    fill="#163a8a"
+                  />
+                  <path
+                    d="M -4.4 -6.6 L 4.4 -6.6 L 0 2.2 Z"
+                    fill="url(#sp-stein-tafel)"
+                  />
+                  <path
+                    d="M -9.4 -10.2 L 9.4 -10.2 L 0 8 Z"
+                    fill="none"
+                    stroke="#0c2154"
+                    strokeWidth="0.4"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M -2.6 -5.6 L -1.4 -5.6"
+                    stroke="#fff"
+                    strokeWidth="0.9"
+                    strokeLinecap="round"
+                    opacity="0.9"
+                  />
+                  <circle
+                    cx="-2"
+                    cy="-5.6"
+                    r="1.6"
+                    fill="url(#sp-stein-glanz)"
                   />
                 </g>
               );
