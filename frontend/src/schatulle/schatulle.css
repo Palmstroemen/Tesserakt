@@ -798,9 +798,10 @@ body {
   transform-origin: 200px 200px;
 }
 
-/* Scheibe dreht sich auf die schmale Kante ... */
+/* Scheibe dreht sich auf die schmale Kante ... (wie der Flip nach Silber: 0,7 s je Haelfte, Verlauf einer
+   drehenden Muenze, cos/sin) */
 .dr-abgang .dr-scheibe {
-  animation: dr-scheibe-ab 0.4s ease-in forwards;
+  animation: dr-scheibe-ab 0.7s cubic-bezier(0.12, 0, 0.39, 0) forwards;
 }
 
 @keyframes dr-scheibe-ab {
@@ -812,7 +813,7 @@ body {
 /* ... und von der Kante dreht sich das magische Auge herein */
 .sp-auftritt .sp-auge,
 .sp-auftritt .sp-linse {
-  animation: sp-auge-auf 0.45s ease-out 0.4s both;
+  animation: sp-auge-auf 0.7s cubic-bezier(0.61, 1, 0.88, 1) 0.7s both;
 }
 
 @keyframes sp-auge-auf {

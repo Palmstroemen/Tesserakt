@@ -96,7 +96,7 @@ function rueckblickFragen(katalog, rueckblick) {
     ...auffaellig,
   ]);
 }
-const UEBERGANG_MS = 1300;
+const UEBERGANG_MS = 1500; // Scheibe -> Auge: zwei Flip-Haelften zu 0,7 s
 
 function mischen(liste) {
   const kopie = [...liste];
