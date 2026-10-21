@@ -21,6 +21,8 @@ const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
 const HEBEL = { x: 376, oben: 322, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
+// Prototyp: Belichtung und Lichtmesser-Werte im Auge anzeigen (aus; zum Kamera-Testen auf true)
+const MESSWERTE_ZEIGEN = false;
 
 function layoutAusFenster() {
   const breite = Math.min(window.innerWidth, 440);
@@ -152,7 +154,7 @@ export default function Spielplatte({
     if (videoRef.current) videoRef.current.srcObject = kamera ?? null;
   }, [kamera]);
 
-  const licht = useLichtmesser(videoRef, Boolean(kamera));
+  const licht = useLichtmesser(videoRef, MESSWERTE_ZEIGEN && Boolean(kamera));
 
   // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen"
   useEffect(() => {
@@ -759,7 +761,7 @@ export default function Spielplatte({
             />
           ) : null}
           {/* Prototyp: Messwerte, um echte Helligkeit trotz Belichtungsautomatik zu erkennen */}
-          {kamera ? (
+          {MESSWERTE_ZEIGEN && kamera ? (
             <div className="sp-messung">
               {kameraInfo}
               {licht ? (
