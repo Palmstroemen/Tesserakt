@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
 import HoroskopIcon from "./HoroskopIcon";
-import Schlitz, { SchlitzDefs } from "./Schlitze";
+import Schlitz from "./Schlitze";
 import {
   AUGE_RADIUS,
   LINSE_RADIUS,
@@ -514,7 +514,6 @@ export default function Spielplatte({
           onPointerCancel={loslassen}
         >
           <defs>
-            <SchlitzDefs />
             <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
               <stop offset="0" stopColor="#f3d79a" />
               <stop offset="0.55" stopColor="#b08d57" />

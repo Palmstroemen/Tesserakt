@@ -256,6 +256,10 @@ function muster(id, r, theta, w) {
 }
 
 // goldenes Plaettchen zwischen u-Werten von..bis; Welle und Kanten am Anker (dort sitzt der Knopf)
+// Gold der Abdeckplaettchen: flach (kein Verlauf, sonst wirkt der Faecher gewoelbt wie eine Saeule) und
+// dunkler als die Messingplatte darueber; Licht und Schatten nur in den Kerben und an den Kanten
+const GOLD = "#7d5f27";
+
 function Goldplatte({ r, theta, w, von, bis, anker }) {
   const { laenge, linie } = werkzeug(r, theta);
   const sVon = von * laenge;
@@ -285,7 +289,7 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
       />
       <path
         d={linie(punkte.map(([s, v]) => [s, v + breite * 0.5]))}
-        stroke="#f0cf86"
+        stroke="#b8924a"
         strokeWidth={breite * 0.45}
         fill="none"
         opacity="0.45"
@@ -296,7 +300,7 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
     <g>
       <path
         d={linie(entlang(sVon, sBis, 0))}
-        stroke="url(#sp-gold)"
+        stroke={GOLD}
         strokeWidth={w + 6}
         fill="none"
       />
@@ -327,7 +331,7 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
             />
             <path
               d={kante(s + (i ? -0.5 : 0.5), -w / 2, w / 2)}
-              stroke="#e8c47a"
+              stroke="#b8924a"
               strokeWidth="0.7"
               opacity="0.7"
             />
@@ -335,17 +339,6 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
         ) : null,
       )}
     </g>
-  );
-}
-
-// Farbverlauf fuer das Gold (einmal in <defs> der Spielplatte)
-export function SchlitzDefs() {
-  return (
-    <linearGradient id="sp-gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stopColor="#c9a35a" />
-      <stop offset="0.5" stopColor="#a7802f" />
-      <stop offset="1" stopColor="#77561e" />
-    </linearGradient>
   );
 }
 
