@@ -1540,7 +1540,21 @@ body {
   mix-blend-mode: screen; /* eine Reflexion fuegt nur Licht hinzu */
 }
 
-/* Mitte: klarer */
+/* gewoelbtes Glas (WebGL-Fischauge); Woelbung und Randauslauf rechnet der Shader */
+.eg-spiegel.glas {
+  filter: grayscale(0.35) contrast(2.1) brightness(0.95);
+  opacity: 0.2;
+}
+
+.eg-spiegel-quelle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Rueckfall ohne WebGL - Mitte: klarer */
 .eg-spiegel.innen {
   transform: scaleX(-1) scale(1.3);
   filter: grayscale(0.35) contrast(2.2) brightness(0.95) blur(0.6px);
