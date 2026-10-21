@@ -50,8 +50,8 @@ const DIMENSIONEN = [
   "veraenderung",
   "spiritualitaet",
 ];
-const PLATTE_OBEN = 300; // Textfeld beginnt bei y = 300 (viewBox), Kreisbogen schneidet die Oberkante aus
-const BOGEN = 186; // Radius des ausgeschnittenen Bogens um MITTE
+const PLATTE_OBEN = 330; // Textfeld beginnt bei y = 300 (viewBox), Kreisbogen schneidet die Oberkante aus
+const BOGEN = 210; // Radius des ausgeschnittenen Bogens um MITTE
 const DIAGRAMM_BREITE = 300; // natuerliche Breite, in der die Diagramme gezeichnet werden
 
 // Diagramm in seiner natuerlichen Breite zeichnen, dann so verkleinern, dass es nach Breite UND Hoehe
@@ -197,7 +197,11 @@ export default function Ergebnisplatte({
                   {id === "uebersicht" ? (
                     <div className="eg-rangliste">
                       <div className="eg-rangtitel">
-                        {spiel === "C" ? "Euer Ergebnis" : "Dein Ergebnis"}
+                        {spiel === "C"
+                          ? "Euer Ergebnis"
+                          : spiel === "B"
+                            ? "Dein Rückblick"
+                            : "Dein Ergebnis"}
                       </div>
                       {ergebnis
                         ? reihenfolge.map((s) => (
@@ -265,6 +269,14 @@ export default function Ergebnisplatte({
                         {reihenfolge.length} Systemen im Mittel etwa +
                         {ergebnis.erwartung.toFixed(0)}.
                       </p>
+                      {ergebnis.fenster ? (
+                        <p className="eg-leise">
+                          Rückblick: Die Reihenfolge ist das Mittel aus dem
+                          letzten Monat und den letzten drei Monaten. Auf den
+                          Karten stehen beide einzeln und dazu, wie gut die
+                          Systeme deine Zeitpunkte getroffen haben.
+                        </p>
+                      ) : null}
                       <p className="eg-leise">
                         Wisch zur Seite für die einzelnen Systeme und ihr
                         Horoskop.
@@ -298,11 +310,40 @@ export default function Ergebnisplatte({
                   <span>{id}</span>
                   {d ? <b>{vorzeichen(d.skillScore)}</b> : null}
                 </header>
+                {d && ergebnis.fenster ? (
+                  <table className="eg-fenster">
+                    <tbody>
+                      {[
+                        [
+                          "Letzter Monat",
+                          ergebnis.fenster.monat.systemDetails[id]?.skillScore,
+                        ],
+                        [
+                          "Letzte drei Monate",
+                          ergebnis.fenster.quartal.systemDetails[id]
+                            ?.skillScore,
+                        ],
+                        [
+                          "Zeitpunkte",
+                          ergebnis.fenster.timing.ohneAussage?.includes(id)
+                            ? null
+                            : ergebnis.fenster.timing.systemDetails[id]
+                                ?.skillScore,
+                        ],
+                      ].map(([titel, wert]) => (
+                        <tr key={titel}>
+                          <td>{titel}</td>
+                          <td>{wert == null ? "–" : vorzeichen(wert)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : null}
                 {d ? (
                   <p className="eg-leise">
-                    besser als {d.perzentil.toFixed(0)} von 100 {vergleich} ·
-                    mitgespielt bei {ergebnis.mitgespielt[id]} von {antwortZahl}{" "}
-                    Fragen
+                    {ergebnis.fenster ? "im Mittel " : ""}besser als{" "}
+                    {d.perzentil.toFixed(0)} von 100 {vergleich} · mitgespielt
+                    bei {ergebnis.mitgespielt[id]} von {antwortZahl} Fragen
                   </p>
                 ) : null}
                 {h ? (

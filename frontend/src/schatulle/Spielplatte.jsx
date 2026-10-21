@@ -20,7 +20,7 @@ import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 const ALLE = SYSTEME.map((s) => s.id);
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
-const HEBEL = { x: 354, oben: 300, weg: 84 };
+const HEBEL = { x: 376, oben: 322, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
 
 function layoutAusFenster() {
@@ -50,6 +50,8 @@ export default function Spielplatte({
   pole = ["trifft nicht zu", "trifft zu"],
   auftritt = false,
   abgang = false,
+  zusatz = null, // statt Hinweis/Knopf unten (z. B. Messingplaettchen); solange gesetzt, ruht das Aufziehen
+  sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
@@ -71,6 +73,8 @@ export default function Spielplatte({
   const [angefasst, setAngefasst] = useState(false);
 
   const svgRef = useRef(null);
+  const zusatzRef = useRef(zusatz);
+  zusatzRef.current = zusatz;
   const videoRef = useRef(null);
   const drag = useRef(null);
   const anim = useRef(new Map());
@@ -226,6 +230,7 @@ export default function Spielplatte({
   }
 
   function druecken(e) {
+    if (zusatzRef.current) return;
     const z = zustandRef.current;
     if (z === "laeuft" || z === "fertig" || drag.current) return;
     const { x, y } = svgPunkt(e);
@@ -340,7 +345,7 @@ export default function Spielplatte({
     const DAUER = 1100;
     const VERZ = 140;
     aktiv.forEach((s, i) => {
-      const ziel = uAusWert(zielWert(s, frage.dimension));
+      const ziel = uAusWert(zielWert(s, frage.dimension, frage));
       zahnrad(
         Math.max(3, Math.round((1 - ziel) * 30)),
         DAUER / 1000,
@@ -694,12 +699,18 @@ export default function Spielplatte({
               ) : null}
             </div>
           ) : null}
-          <div
-            className={index < 0 ? "sp-dia bild" : "sp-dia"}
-            style={{ transform: `translateX(${-pos.dia * 115}%)` }}
-          >
-            {diaText(index)}
-          </div>
+          {sonderDia ? (
+            <div key={sonderDia} className="sp-dia sp-sonderdia">
+              {sonderDia}
+            </div>
+          ) : (
+            <div
+              className={index < 0 ? "sp-dia bild" : "sp-dia"}
+              style={{ transform: `translateX(${-pos.dia * 115}%)` }}
+            >
+              {diaText(index)}
+            </div>
+          )}
           {pos.dia > 0 ? (
             <div
               className="sp-dia"
@@ -716,7 +727,9 @@ export default function Spielplatte({
           <span>◂ {pole[0]}</span>
           <span>{pole[1]} ▸</span>
         </div>
-        {zustand === "fertig" ? (
+        {zusatz ? (
+          zusatz
+        ) : zustand === "fertig" ? (
           <button type="button" className="sc-start" onClick={onFertig}>
             Zum Ergebnis
           </button>

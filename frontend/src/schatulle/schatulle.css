@@ -547,12 +547,12 @@ body {
   text-anchor: middle;
   fill: #f0d59c;
   font-family: Georgia, serif;
-  font-size: 15px;
+  font-size: 18px;
   pointer-events: none;
 }
 
 .dr-anzeige.zeit {
-  font-size: 15px;
+  font-size: 18px;
   fill: #d8c49a;
 }
 
@@ -1341,4 +1341,70 @@ body {
   fill: none;
   stroke-width: 0.9;
   stroke-linecap: round;
+}
+
+/* Sonder-Dia (Nachfragen in Spiel B): gleitet wie ein Dia herein */
+.sp-sonderdia {
+  animation: sc-dia 0.7s ease-out;
+}
+
+/* Messingplaettchen fuer Antworten ohne Schieber (Spiel B: Ja/Nein, Zeitpunkt) */
+.sp-plaettchen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.sp-plaettchen button {
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 9px 13px;
+  min-height: 42px;
+  border-radius: 6px;
+  border: 1px solid #3a2c1a;
+  background: linear-gradient(180deg, #e7cb8c, #a77f43);
+  color: #20160b;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 245, 210, 0.7);
+  cursor: pointer;
+}
+
+.sp-plaettchen button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.sp-frage-klein {
+  margin: 0 0 4px;
+  color: var(--sc-text-leise);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@keyframes sc-dia {
+  from {
+    opacity: 0;
+    transform: translateX(40%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Spiel B: Teilwertungen je Zeitfenster auf der Systemkarte */
+.eg-fenster {
+  border-collapse: collapse;
+  margin: 6px 0 4px;
+  font-size: 0.92rem;
+}
+
+.eg-fenster td {
+  padding: 1px 14px 1px 0;
+}
+
+.eg-fenster td:last-child {
+  text-align: right;
+  font-weight: bold;
 }

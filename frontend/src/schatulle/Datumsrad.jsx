@@ -46,45 +46,45 @@ const MONATE_LANG = [
 const RINGE = [
   {
     id: "jahr",
-    innen: 128,
-    aussen: 162,
+    innen: 152,
+    aussen: 192,
     anzahl: JAHR_BIS - JAHR_VON + 1,
     // jedes 5. Jahr beschriftet; an der Nahtstelle (letzte Jahre vor 1920) frei lassen
     text: (k) =>
       (JAHR_VON + k) % 5 === 0 && JAHR_BIS - (JAHR_VON + k) >= 3
         ? String(JAHR_VON + k)
         : "",
-    schrift: 11.5,
+    schrift: 13,
   },
   {
     id: "monat",
-    innen: 104,
-    aussen: 128,
+    innen: 124,
+    aussen: 152,
     anzahl: 12,
     text: (k) => MONATE[k],
-    schrift: 12.5,
+    schrift: 14,
   },
   {
     id: "tag",
-    innen: 80,
-    aussen: 104,
+    innen: 96,
+    aussen: 124,
     anzahl: 31,
     text: (k) => String(k + 1),
-    schrift: 10.5,
+    schrift: 12,
   },
   {
     id: "stunde",
-    innen: 56,
-    aussen: 80,
+    innen: 68,
+    aussen: 96,
     anzahl: 24,
     text: (k) => String(k),
-    schrift: 10.5,
+    schrift: 12,
   },
 ];
 const KNOEPFE = [
-  { spiel: "A", x: 40, y: 40 },
-  { spiel: "B", x: 360, y: 40 },
-  { spiel: "C", x: 40, y: 360 },
+  { spiel: "A", x: 34, y: 34 },
+  { spiel: "B", x: 366, y: 34 },
+  { spiel: "C", x: 34, y: 366 },
 ];
 const HOEHE = MITTE.y + WALZEN.stadt + 44;
 const METALL = {
@@ -232,6 +232,12 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
     if (laedt) return;
     const p = svgPunkt(e);
     const r = Math.hypot(p.x - MITTE.x, p.y - MITTE.y);
+    // Tipp auf das Datum in der Mitte: Abkuerzung zum Ergebnis (Entwicklung)
+    if (r < 64 && scheibe.skala === 1) {
+      hebel();
+      onSpiel("X", eingabe());
+      return;
+    }
     const ring = RINGE.find((x) => r >= x.innen - 2 && r <= x.aussen + 4);
     if (!ring) return;
     cancelAnimationFrame(anim.current);
@@ -403,7 +409,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
         {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze; beim Abgang zum magischen Auge */}
         <g className="dr-scheibe">
           <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
-            <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
+            <circle cx={MITTE.x} cy={MITTE.y} r="196" fill="url(#sp-messing)" />
 
             {RINGE.map((r, i) => (
               <g
@@ -425,7 +431,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
               ))}
             </g>
             {/* Trennfugen zwischen den Ringen */}
-            {[...RINGE.map((r) => r.aussen), 56].map((r) => (
+            {[...RINGE.map((r) => r.aussen), 68].map((r) => (
               <circle
                 key={r}
                 cx={MITTE.x}
@@ -437,31 +443,31 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
 
             {/* feste Marke oben: Fenster ueber alle Ringe */}
             <rect
-              x={MITTE.x - 13}
-              y={MITTE.y - 163}
-              width="26"
-              height="108"
+              x={MITTE.x - 15}
+              y={MITTE.y - 193}
+              width="30"
+              height="128"
               rx="5"
               className="dr-fenster"
             />
             <path
-              d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`}
+              d={`M ${MITTE.x - 7} ${MITTE.y - 199} L ${MITTE.x + 7} ${MITTE.y - 199} L ${MITTE.x} ${MITTE.y - 190} Z`}
               className="dr-marke"
             />
 
             {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
-            <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
-            <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
+            <circle cx={MITTE.x} cy={MITTE.y} r="67" className="dr-mitte" />
+            <text x={MITTE.x} y={MITTE.y - 15} className="dr-anzeige">
               {werte.tag}. {MONATE_LANG[werte.monat]}
             </text>
-            <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
+            <text x={MITTE.x} y={MITTE.y + 8} className="dr-anzeige">
               {werte.jahr}
             </text>
-            <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
+            <text x={MITTE.x} y={MITTE.y + 36} className="dr-anzeige zeit">
               {String(werte.stunde).padStart(2, "0")}:00
             </text>
             {!gueltig ? (
-              <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
+              <text x={MITTE.x} y={MITTE.y - 38} className="dr-anzeige klein">
                 …
               </text>
             ) : null}

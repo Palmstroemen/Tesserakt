@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { calculateRating, erwarteterSkillBester } from "../logic/rating";
+import {
+  calculateRating,
+  calculateTimingRating,
+  erwarteterSkillBester,
+} from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 import { SYSTEME } from "./systeme";
 import Datumsrad from "./Datumsrad";
@@ -43,8 +47,55 @@ const SPIELE = {
     pole: ["trifft nicht zu", "trifft zu"],
     vergleich: "anderen Geburtsdaten",
   },
+  B: {
+    pole: ["trifft nicht zu", "trifft zu"],
+    vergleich: "anderen Geburtsdaten",
+  },
   C: { pole: ["eher ich", "eher Partner:in"], vergleich: "zufälligen Paaren" },
 };
+
+// Spiel B: Antworten auf "Wann war das ungefaehr?" (Tage vor heute; null = weiss nicht mehr)
+const ZEITPUNKTE = [
+  { label: "vor 1 Woche", tage: 7 },
+  { label: "vor 2 Wochen", tage: 14 },
+  { label: "vor 1 Monat", tage: 30 },
+  { label: "vor 2 Monaten", tage: 60 },
+  { label: "vor 3 Monaten", tage: 90 },
+  { label: "weiß nicht mehr", tage: null },
+];
+const ERINNERUNG_AB = 0.2; // ab dieser Zustimmung zu einem auffaelligen Moment wird nach dem Zeitpunkt gefragt
+
+// Spiel B: Fragenreihe aus dem Katalog; Sehen mehrere Systeme denselben Moment, wird einmal gefragt
+function rueckblickFragen(katalog, rueckblick) {
+  const einleitung = katalog._meta.fenster_einleitung;
+  const nachFormulierung = new Map();
+  for (const m of rueckblick.auffaellig) {
+    const formulierung = katalog.auffaellig[m.dimension][m.richtung];
+    const frage = nachFormulierung.get(formulierung.id) ?? {
+      id: formulierung.id,
+      typ: "auffaellig",
+      fenster: m.fenster,
+      dimension: m.dimension,
+      momente: [],
+      formulierung: formulierung.text,
+    };
+    frage.momente.push(m);
+    nachFormulierung.set(formulierung.id, frage);
+  }
+  const auffaellig = [...nachFormulierung.values()].map((frage) => {
+    // Einleitung nach dem juengsten Zeitpunkt (ein Moment vor 10 Tagen liegt auch im letzten Monat)
+    const juengster = Math.min(...frage.momente.map((m) => m.tage_zurueck));
+    return {
+      ...frage,
+      text: `${einleitung[juengster <= 30 ? "monat" : "quartal"]} ${frage.formulierung}`,
+    };
+  });
+  // gewertete und auffaellige gemischt, damit die auffaelligen nicht erkennbar sind
+  return mischen([
+    ...katalog.gewertet.map((f) => ({ ...f, typ: "gewertet" })),
+    ...auffaellig,
+  ]);
+}
 const UEBERGANG_MS = 1300;
 
 function mischen(liste) {
@@ -98,6 +149,15 @@ export default function Schatulle() {
   const [texte, setTexte] = useState(null);
   const [abkuerzung, setAbkuerzung] = useState(false);
 
+  // Spiel B
+  const [rueckblick, setRueckblick] = useState(null); // /rueckblick: mittel je Fenster, auffaellig, timing
+  const [kontrollB, setKontrollB] = useState(null); // /rueckblick/kontrolle
+  const [zeitFragen, setZeitFragen] = useState([]);
+  const [nachfrage, setNachfrage] = useState(false); // "Wann war das?" zur letzten auffaelligen Antwort
+  const [zIndex, setZIndex] = useState(0);
+  const [zJa, setZJa] = useState(false);
+  const [zAntworten, setZAntworten] = useState([]);
+
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
   const [kamera, setKamera] = useState(null);
@@ -122,6 +182,13 @@ export default function Schatulle() {
   }, []);
 
   const stat = useMemo(() => anzeigeStatistik(kontroll), [kontroll]);
+  const statB = useMemo(
+    () => ({
+      monat: anzeigeStatistik(kontrollB?.kontrollvektoren?.monat),
+      quartal: anzeigeStatistik(kontrollB?.kontrollvektoren?.quartal),
+    }),
+    [kontrollB],
+  );
 
   function kameraStarten() {
     // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell)
@@ -143,17 +210,23 @@ export default function Schatulle() {
     setTimeout(() => setPhase(ziel), UEBERGANG_MS);
   }
 
-  // B ist in der Schatulle noch kein Spiel: dient vorerst als Abkuerzung zum Ergebnis (Entwicklung).
-  // Die Antworten werden gewuerfelt; gerechnet wird wie in Spiel A.
+  // wahl: "A", "B", "C" oder "X" (Abkuerzung zum Ergebnis per Tipp auf das Datum, Entwicklung: gewuerfelte
+  // Antworten, gerechnet wie Spiel A)
   async function spielWahl(wahl, eingabe) {
     setFehler(null);
-    setSpiel(wahl === "C" ? "C" : "A");
-    setAbkuerzung(wahl === "B");
+    setSpiel(wahl === "X" ? "A" : wahl);
+    setAbkuerzung(wahl === "X");
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
-    if (wahl !== "B") kameraStarten();
+    if (wahl !== "X") kameraStarten();
     setVisualPayloads(null);
     setHeute(null);
+    setRueckblick(null);
+    setKontrollB(null);
+    setNachfrage(false);
+    setZIndex(0);
+    setZJa(false);
+    setZAntworten([]);
     try {
       let body;
       let kontrollPfad;
@@ -169,7 +242,7 @@ export default function Schatulle() {
           fetch(`${API_BASE}/fragen/beziehung`).then((r) => r.json()),
           postJson("/partner", body),
         ]);
-        katalogFragen = katalog.fragen ?? [];
+        katalogFragen = mischen(katalog.fragen ?? []);
         vek = v.differenz;
         body = {
           ...body,
@@ -184,29 +257,44 @@ export default function Schatulle() {
           systeme: ALLE,
           ...ortFelder(eingabe.ort),
         };
-        const [katalog, v] = await Promise.all([
-          fetch(`${API_BASE}/fragen`).then((r) => r.json()),
+        const [katalog, v, rb] = await Promise.all([
+          fetch(`${API_BASE}/fragen${wahl === "B" ? "/rueckblick" : ""}`).then(
+            (r) => r.json(),
+          ),
           postJson("/vektor", body),
+          wahl === "B" ? postJson("/rueckblick", body) : Promise.resolve(null),
         ]);
-        katalogFragen = katalog.fragen ?? [];
         vek = v.vektoren;
         setVisualPayloads(v.inputs.visualPayloads ?? null);
         // Horoskop fuer heute (Teil des Ergebnisses), im Hintergrund
         postJson("/horoscope/heute", body)
           .then(setHeute)
           .catch(() => {});
-        body = {
-          ...body,
-          session_id: v.inputs.session_id,
-          stichtag: v.inputs.stichtag,
-        };
-        kontrollPfad = "/kontrolle";
+        if (wahl === "B") {
+          setRueckblick(rb);
+          setZeitFragen(katalog.zeitpunkt ?? []);
+          katalogFragen = rueckblickFragen(katalog, rb);
+          body = {
+            ...body,
+            session_id: rb.inputs.session_id,
+            stichtag: rb.inputs.stichtag,
+          };
+          kontrollPfad = "/rueckblick/kontrolle";
+        } else {
+          katalogFragen = mischen(katalog.fragen ?? []);
+          body = {
+            ...body,
+            session_id: v.inputs.session_id,
+            stichtag: v.inputs.stichtag,
+          };
+          kontrollPfad = "/kontrolle";
+        }
       }
-      setFragen(mischen(katalogFragen));
+      setFragen(katalogFragen);
       setVektoren(vek);
       setKontroll(null);
       setRunde((r) => r + 1);
-      if (wahl === "B") {
+      if (wahl === "X") {
         setAntworten(
           katalogFragen.map((f) => ({
             frage_id: f.id,
@@ -229,7 +317,10 @@ export default function Schatulle() {
       }
       // Kontrollgruppe im Hintergrund (fuer Anzeige-Skalierung und Skill)
       postJson(kontrollPfad, body)
-        .then((k) => setKontroll(k.kontrollvektoren))
+        .then((k) => {
+          if (wahl === "B") setKontrollB(k);
+          setKontroll(wahl === "B" ? {} : k.kontrollvektoren);
+        })
         .catch(() => setKontroll({}));
     } catch (err) {
       setFehler(err.message);
@@ -237,14 +328,56 @@ export default function Schatulle() {
     }
   }
 
+  // Zielwert eines Systems fuer die Anzeige der Symbole
+  function zielWert(s, dim, frage) {
+    if (spiel !== "B")
+      return anzeigeWert(stat, s, dim, Number(vektoren[s][dim]));
+    if (frage.typ === "gewertet")
+      return anzeigeWert(
+        statB[frage.fenster],
+        s,
+        dim,
+        Number(rueckblick.mittel[frage.fenster][s][dim]),
+      );
+    // auffaelliger Moment: Systeme, die ihn sehen, zeigen "trifft zu", die anderen bleiben in der Mitte
+    return frage.momente.some((m) => m.system === s) ? 0.85 : 0;
+  }
+
   // Antwort festhalten: Systemwerte fuer alle 7 (das Aufziehen wirkt nur auf die Anzeige)
   function antwort(frage, selbstWert, angezeigt) {
+    const wert = Number(selbstWert.toFixed(2));
+    if (spiel === "B") {
+      const gewertet = frage.typ === "gewertet";
+      setAntworten((prev) => [
+        ...prev,
+        {
+          frage_id: frage.id,
+          typ: frage.typ,
+          fenster: frage.fenster,
+          dimension: frage.dimension,
+          text: frage.text,
+          selbst_wert: wert,
+          angezeigt,
+          system_werte: gewertet
+            ? Object.fromEntries(
+                ALLE.map((s) => [
+                  s,
+                  Number(rueckblick.mittel[frage.fenster][s][frage.dimension]),
+                ]),
+              )
+            : {},
+          momente: frage.momente ?? [],
+        },
+      ]);
+      if (!gewertet && wert >= ERINNERUNG_AB) setNachfrage(true);
+      return;
+    }
     setAntworten((prev) => [
       ...prev,
       {
         frage_id: frage.id,
         dimension: frage.dimension,
-        selbst_wert: Number(selbstWert.toFixed(2)),
+        selbst_wert: wert,
         angezeigt,
         system_werte: Object.fromEntries(
           ALLE.map((s) => [s, Number(vektoren[s][frage.dimension])]),
@@ -256,6 +389,107 @@ export default function Schatulle() {
     ]);
   }
 
+  // Spiel B: Nachfrage zur letzten auffaelligen Antwort
+  function erinnerung(tage) {
+    setAntworten((prev) =>
+      prev.map((a, i) =>
+        i === prev.length - 1
+          ? { ...a, erinnerung: { tage_zurueck: tage } }
+          : a,
+      ),
+    );
+    setNachfrage(false);
+    rastKlick();
+  }
+
+  // Spiel B: Zeitpunkt-Fragen nach der Fragerunde
+  function zeitpunktAntwort(antwortArt, tage = null) {
+    const frage = zeitFragen[zIndex];
+    setZAntworten((prev) => [
+      ...prev,
+      {
+        frage_id: frage.id,
+        dimension: frage.dimension,
+        antwort: antwortArt,
+        tage_zurueck: tage,
+      },
+    ]);
+    setZJa(false);
+    setZIndex((i) => i + 1);
+    rastKlick();
+  }
+
+  const zeitModus =
+    spiel === "B" &&
+    fragen.length > 0 &&
+    antworten.length === fragen.length &&
+    !nachfrage &&
+    zIndex < zeitFragen.length;
+
+  let zusatz = null;
+  let sonderDia = null;
+  if (spiel === "B" && phase === "frage") {
+    if (nachfrage) {
+      sonderDia = "Weißt du noch ungefähr, wann das war?";
+      zusatz = (
+        <div className="sp-plaettchen">
+          {ZEITPUNKTE.map((z) => (
+            <button
+              key={z.label}
+              type="button"
+              onClick={() => erinnerung(z.tage)}
+            >
+              {z.label}
+            </button>
+          ))}
+        </div>
+      );
+    } else if (zeitModus) {
+      const frage = zeitFragen[zIndex];
+      sonderDia = zJa ? "Wann war das ungefähr?" : frage.text;
+      zusatz = (
+        <>
+          <p className="sp-frage-klein">
+            Zum Schluss: Erinnerung {zIndex + 1} von {zeitFragen.length}
+          </p>
+          <div className="sp-plaettchen">
+            {zJa ? (
+              ZEITPUNKTE.map((z) => (
+                <button
+                  key={z.label}
+                  type="button"
+                  onClick={() =>
+                    zeitpunktAntwort(
+                      z.tage === null ? "weiss_nicht" : "ja",
+                      z.tage,
+                    )
+                  }
+                >
+                  {z.label}
+                </button>
+              ))
+            ) : (
+              <>
+                <button type="button" onClick={() => setZJa(true)}>
+                  Ja
+                </button>
+                <button type="button" onClick={() => zeitpunktAntwort("nein")}>
+                  Nein
+                </button>
+                <button
+                  type="button"
+                  onClick={() => zeitpunktAntwort("weiss_nicht")}
+                >
+                  Weiß ich nicht
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      );
+    }
+  }
+
   // --- Ergebnis ---------------------------------------------------------------
   const ergebnis = useMemo(() => {
     if (
@@ -264,20 +498,80 @@ export default function Schatulle() {
       !matrix
     )
       return null;
-    const alle = calculateRating(
-      Object.fromEntries(ALLE.map((s) => [s, vektoren[s]])),
-      antworten,
-      matrix,
-      kontroll,
-    );
     const mitgespielt = Object.fromEntries(
       ALLE.map((s) => [
         s,
-        antworten.filter((a) => a.angezeigt.includes(s)).length,
+        antworten.filter(
+          (a) => a.typ !== "auffaellig" && a.angezeigt.includes(s),
+        ).length,
       ]),
     );
-    return { alle, mitgespielt, erwartung: erwarteterSkillBester(ALLE.length) };
-  }, [phase, kontroll, matrix, vektoren, antworten]);
+    const erwartung = erwarteterSkillBester(ALLE.length);
+    if (spiel !== "B") {
+      const alle = calculateRating(
+        Object.fromEntries(ALLE.map((s) => [s, vektoren[s]])),
+        antworten,
+        matrix,
+        kontroll,
+      );
+      return { alle, mitgespielt, erwartung };
+    }
+    if (!kontrollB || !rueckblick) return null;
+    const fenster = {};
+    for (const f of ["monat", "quartal"]) {
+      const eintraege = antworten.filter(
+        (a) => a.typ === "gewertet" && a.fenster === f,
+      );
+      fenster[f] = calculateRating(
+        rueckblick.mittel[f],
+        eintraege,
+        matrix,
+        kontrollB.kontrollvektoren?.[f] ?? {},
+      );
+    }
+    fenster.timing = calculateTimingRating(
+      zAntworten.filter((a) => a.antwort === "ja"),
+      rueckblick.timing,
+      kontrollB.timing ?? {},
+      ALLE,
+      rueckblick.inputs.timing_konstant ?? null,
+    );
+    // Gesamtreihenfolge: Mittel aus letztem Monat und letzten drei Monaten
+    const mittel = (s, feld) => {
+      const w = ["monat", "quartal"]
+        .map((f) => fenster[f].systemDetails[s]?.[feld])
+        .filter((x) => x != null);
+      return w.length ? w.reduce((a, b) => a + b, 0) / w.length : 0;
+    };
+    const systemDetails = Object.fromEntries(
+      ALLE.map((s) => [
+        s,
+        {
+          skillScore: mittel(s, "skillScore"),
+          perzentil: mittel(s, "perzentil"),
+        },
+      ]),
+    );
+    const ranking = [...ALLE].sort(
+      (a, b) => systemDetails[b].skillScore - systemDetails[a].skillScore,
+    );
+    return {
+      alle: { ranking, systemDetails },
+      fenster,
+      mitgespielt,
+      erwartung,
+    };
+  }, [
+    phase,
+    kontroll,
+    kontrollB,
+    matrix,
+    vektoren,
+    antworten,
+    zAntworten,
+    rueckblick,
+    spiel,
+  ]);
 
   // --- Darstellung ------------------------------------------------------------
   // Alle Platten liegen uebereinander: Waehrend eines Uebergangs spielt die alte Platte ihren Abgang als
@@ -294,13 +588,13 @@ export default function Schatulle() {
           spiel={spiel}
           ergebnis={ergebnis}
           vergleich={SPIELE[spiel].vergleich}
-          antwortZahl={antworten.length}
+          antwortZahl={antworten.filter((a) => a.typ !== "auffaellig").length}
           visualPayloads={visualPayloads}
           heute={heute}
-          texte={spiel === "A" ? texte : null}
+          texte={spiel !== "C" ? texte : null}
           hinweis={
             abkuerzung
-              ? "Abkürzung über B (Entwicklung): Die Antworten wurden gewürfelt."
+              ? "Abkürzung über das Datum (Entwicklung): Die Antworten wurden gewürfelt."
               : null
           }
           onNochmal={() => setPhase("start")}
@@ -312,15 +606,15 @@ export default function Schatulle() {
             key={runde}
             fragen={fragen}
             pole={SPIELE[spiel].pole}
-            zielWert={(s, dim) =>
-              anzeigeWert(stat, s, dim, Number(vektoren[s][dim]))
-            }
+            zielWert={zielWert}
             onAntwort={antwort}
             onFertig={() => wechsel("abschluss", "ende")}
             kamera={kamera}
             kameraInfo={kameraInfo}
             auftritt={phase === "uebergang"}
             abgang={phase === "abschluss"}
+            zusatz={zusatz}
+            sonderDia={sonderDia}
           />
         </div>
       ) : null}

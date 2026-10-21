@@ -3,13 +3,13 @@
 // Position auf einem Bogen: u = 0 (Ruheposition, ganz links) .. 1 (ganz rechts).
 // Alle Boegen decken denselben Winkelbereich ab, damit die Strahlen die Skala bilden.
 export const MITTE = { x: 200, y: 200 };
-export const AUGE_RADIUS = 166;
-export const LINSE_RADIUS = 150;
+export const AUGE_RADIUS = 194; // Rund oben: fast bis zum Rand (Breite 400)
+export const LINSE_RADIUS = 176;
 export const RUHE_ANTEIL = 0.16; // u-Bereich der Ruheposition vor der Skala
 export const ANZAHL_BOEGEN = 8; // eigener Schieber + 7 Systeme
 
 export function faecherLayout(verfuegbareHoehe) {
-  const r0 = 188;
+  const r0 = 214; // innerster Bogen knapp ausserhalb des Auges
   const abstand = Math.max(30, Math.min(44, (verfuegbareHoehe - 200 - r0 - 28) / (ANZAHL_BOEGEN - 1)));
   const radien = Array.from({ length: ANZAHL_BOEGEN }, (_, k) => r0 + k * abstand);
   const symbol = Math.min(16, abstand * 0.38);
