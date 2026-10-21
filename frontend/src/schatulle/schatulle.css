@@ -1542,8 +1542,8 @@ body {
 
 /* gewoelbtes Glas (WebGL-Fischauge); Woelbung und Randauslauf rechnet der Shader */
 .eg-spiegel.glas {
-  filter: grayscale(0.7) contrast(2.1) brightness(0.95);
-  opacity: 0.2;
+  filter: grayscale(0.7) contrast(3) brightness(0.95);
+  opacity: 0.13;
 }
 
 .eg-spiegel-quelle {
