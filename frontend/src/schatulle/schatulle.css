@@ -1163,3 +1163,35 @@ body {
   stroke-width: 2.2;
   opacity: 0.9;
 }
+
+/* Vedisch: Rangoli aus Farbpulver, Kolam-Punkte, Stabspuren */
+.vr-punkt {
+  fill: #f6f2e6;
+}
+
+.vr-rand {
+  fill: none;
+  stroke: #f6f2e6;
+  stroke-width: 2.2;
+  opacity: 0.9;
+}
+
+.vr-streu {
+  fill: #f6f2e6;
+  opacity: 0.28;
+}
+
+.vr-stab line,
+.vr-stab circle {
+  fill: none;
+  stroke: #120b06;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.vr-stab-licht line {
+  stroke: #fff6e0;
+  stroke-width: 0.6;
+  opacity: 0.35;
+}

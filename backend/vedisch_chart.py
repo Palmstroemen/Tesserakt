@@ -134,26 +134,43 @@ def build_dasha_chart(
     except Exception:
         order = ORDER_KEY
         dauern = {"ketu": 7, "venus": 20, "sonne": 6, "mond": 10, "mars": 7, "rahu": 18, "jupiter": 16, "saturn": 19, "merkur": 17}
+    alter = (today - birth_dt).total_seconds() / (365.2425 * 86400)
     if nakshatra_index is not None and nakshatra_anteil is not None:
-        alter = (today - birth_dt).total_seconds() / (365.2425 * 86400)
         position = vimshottari_position_now(nakshatra_index, nakshatra_anteil, alter)
     else:
         position = (age + (birth_dt.year - 1900)) % 120
-    active = _current_mahadasha(order, dauern, position)
+    # Perioden in Lebensjahren ab der Geburt: Das Leben beginnt mitten in der Dasha, in die man geboren
+    # wurde (Rest der Periode), danach folgen die uebrigen in fester Reihenfolge. (Frueher standen hier
+    # Positionen im 120-Jahre-Zyklus ab Ketu, die wie Lebensalter aussahen.)
+    pos_geburt = (position - alter) % 120.0
+    zyklus = []
     run = 0.0
-    periods = []
     for planet in order:
         d = dauern.get(planet, 0)
-        start_age = int(run)
-        end_age = int(run + d)
+        zyklus.append((planet, run, run + d, d))
+        run += d
+    erste = next(i for i, (_, a0, a1, _) in enumerate(zyklus) if a0 <= pos_geburt < a1)
+    periods = []
+    leben = 0.0
+    i = erste
+    while leben < 120.0 - 1e-9:
+        planet, a0, a1, d = zyklus[i % len(zyklus)]
+        rest = (a1 - pos_geburt) if i == erste else d
         periods.append({
             "planet": planet,
             "label": PLANET_LABELS.get(planet, planet),
-            "startAge": start_age,
-            "endAge": end_age,
+            "startAge": round(leben, 1),
+            "endAge": round(min(120.0, leben + rest), 1),
             "years": d,
         })
-        run += d
+        leben += rest
+        i += 1
+    aktiv_periode = next((p for p in periods if p["startAge"] <= alter < p["endAge"]), None)
+    active = (
+        {k: aktiv_periode[k] for k in ("planet", "label", "startAge", "endAge")}
+        if aktiv_periode
+        else _current_mahadasha(order, dauern, position)
+    )
     if nakshatra_index is not None:
         nakshatra_idx = min(26, max(0, nakshatra_index))
     else:

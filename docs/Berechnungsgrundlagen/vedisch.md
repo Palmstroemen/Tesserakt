@@ -31,6 +31,7 @@
 | 20.10.2026 | **Yogas** wurden mit **tropischen** Zeichen bestimmt, rund 24° neben den siderischen. | Siderische Zeichen für Aszendent und Planeten. |
 | 21.10.2026 | Die **Antardasha** wurde nicht verwendet; die Regeldaten enthielten nur 4 von 9 Hauptperioden. | Matrix auf alle 81 Kombinationen ergänzt und als Regelebene eingebaut (siehe unten). |
 | 21.10.2026 | **Gochara** fehlte ganz (keine Regeln). | Klassische Tabelle der günstigen Häuser und Sade Sati als Regelebene ergänzt. |
+| 21.10.2026 | Die Dasha-Grafik zeigte die Perioden als Positionen im 120-Jahre-Zyklus ab Ketu, nicht als Lebensalter (z. B. „Saturn 84–103 Jahre“ bei einer 41-Jährigen); die Liste begann bei allen mit Ketu. Die Wertung nutzte schon immer den richtigen Planeten. | Perioden in Lebensjahren ab der Geburt, beginnend mit dem Rest der Geburts-Dasha. |
 
 ## Bekannte Vereinfachungen
 
