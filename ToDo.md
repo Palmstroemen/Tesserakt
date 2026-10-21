@@ -98,3 +98,9 @@
   Speicherort der Personen (bisher bewusst ohne Accounts), Einwilligung der gespeicherten Personen.
 
 - [ ] **Wertungsverhalten (Varianz) ermitteln und Feedback:** Varianz der Selbsteinschätzungen pro Person berechnen; bei niedriger Varianz (viele neutrale Bewertungen rund um 3) auf der Ergebnisseite Hinweis geben, dass hohe Skill-Werte in solchen Fällen weniger aussagekräftig sein könnten – gerade unentschlossene Nutzer könnten sonst in „neutralen“ Konstellationen leicht hohe Skill-Werte erzielen und das als Bestätigung lesen.
+
+- [ ] **Regelbewertung durch Fachleute:** Astrologinnen und Astrologen (je Tradition) bewerten einzelne Regeln
+  und Deutungen der Regeldateien (passt / passt nicht / umstritten, mit Quelle). Daraus eine Gewichtung je Regel
+  und ein sichtbarer Stand, wo Konsens besteht und wo Schulen auseinandergehen. Wichtig fürs Experiment:
+  Gewichte nur vorab festlegen, nicht nach den Spielergebnissen nachjustieren. (Idee aus dem frühen
+  Prototyp `docs/regelwerk_explorer.html`, 2026-02, gelöscht 2026-10-21; Stand in der Git-Historie.)
