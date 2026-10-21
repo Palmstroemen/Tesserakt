@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import PartnerGeburtsdatumInput from "./PartnerGeburtsdatumInput";
 import PartnerSlider from "./PartnerSlider";
 import RankingTabelle from "./RankingTabelle";
-import { Paragraphs } from "./SystemDeutungTabs";
 import { calculateRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
@@ -60,7 +59,8 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
   const [wert, setWert] = useState(0); // Start: ausgewogen
   const [antworten, setAntworten] = useState([]);
   const [saved, setSaved] = useState(false);
-  const [texte, setTexte] = useState(null);
+  const [anfrage, setAnfrage] = useState(null); // Geburtsdaten beider Personen fuer /horoscope/paar
+  const [texte, setTexte] = useState(null); // /horoscope/paar
   const [aktivesSystem, setAktivesSystem] = useState(null);
 
   useEffect(() => {
@@ -81,6 +81,8 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
       };
       const ergebnis = await postJson("/partner", requestBody);
       setPartnerDaten(partner);
+      setAnfrage(requestBody);
+      setTexte(null);
       setDaten(ergebnis);
       setReihenfolge(shuffle(katalog.fragen));
       setIndex(0);
@@ -124,14 +126,13 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
 
   useEffect(() => {
     if (!fertig) return;
-    fetch(`${API_BASE}/horoscope/spiel_c/texts?locale=de`)
-      .then((r) => (r.ok ? r.json() : null))
+    postJson("/horoscope/paar", anfrage)
       .then(setTexte)
       .catch(() => setTexte(null));
-  }, [fertig]);
+  }, [fertig, anfrage]);
 
   const systemeMitText = useMemo(
-    () => (ergebnis?.ranking ?? []).filter((s) => texte?.by_system?.[s]?.horoskop_ausfuehrlich),
+    () => (ergebnis?.ranking ?? []).filter((s) => texte?.systeme?.[s]?.aussagen?.length),
     [ergebnis, texte]
   );
   useEffect(() => {
@@ -225,7 +226,9 @@ export default function SpielC({ birthDate, birthTime, birthPlace, optionalName,
             <div role="tabpanel" className="tabs-content">
               <h3>Ihr Partnerschaftshoroskop – {aktivesSystem}</h3>
               <div className="deutung-horoskop-ausfuehrlich">
-                <Paragraphs text={texte.by_system[aktivesSystem].horoskop_ausfuehrlich} />
+                {texte.systeme[aktivesSystem].aussagen.map((a, i) => (
+                  <p key={i}>{a}</p>
+                ))}
               </div>
             </div>
           ) : null}
