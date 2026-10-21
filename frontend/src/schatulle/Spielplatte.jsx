@@ -699,7 +699,15 @@ export default function Spielplatte({
               ) : null}
             </div>
           ) : null}
-          {sonderDia ? (
+          {zustand === "fertig" && !zusatz ? (
+            // Abschluss im Auge: dort immer sichtbar (die Fusszeile liegt auf kleinen Handys unter dem Rand)
+            <div className="sp-abschluss">
+              <span>Alle Fragen beantwortet.</span>
+              <button type="button" className="sc-start" onClick={onFertig}>
+                Zum Ergebnis
+              </button>
+            </div>
+          ) : sonderDia ? (
             <div key={sonderDia} className="sp-dia sp-sonderdia">
               {sonderDia}
             </div>

@@ -235,7 +235,9 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
     // Tipp auf das Datum in der Mitte: Abkuerzung zum Ergebnis (Entwicklung)
     if (r < 64 && scheibe.skala === 1) {
       hebel();
-      onSpiel("X", eingabe());
+      // auf der silbernen Seite: Abkuerzung durch Spiel C (erste Person gold, zweite die eingestellte)
+      if (seite === "silber") onSpiel("XC", { a: erstePerson, b: eingabe() });
+      else onSpiel("X", eingabe());
       return;
     }
     const ring = RINGE.find((x) => r >= x.innen - 2 && r <= x.aussen + 4);

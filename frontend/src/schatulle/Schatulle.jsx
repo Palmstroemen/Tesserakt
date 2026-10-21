@@ -212,15 +212,18 @@ export default function Schatulle() {
     setTimeout(() => setPhase(ziel), UEBERGANG_MS);
   }
 
-  // wahl: "A", "B", "C" oder "X" (Abkuerzung zum Ergebnis per Tipp auf das Datum, Entwicklung: gewuerfelte
-  // Antworten, gerechnet wie Spiel A)
+  // wahl: "A", "B", "C", "X" oder "XC". X und XC sind Abkuerzungen zum Ergebnis per Tipp auf das Datum
+  // (Entwicklung, gewuerfelte Antworten): X auf der goldenen Scheibe, gerechnet wie Spiel A; XC auf der
+  // silbernen, gerechnet wie Spiel C.
   async function spielWahl(wahl, eingabe) {
+    const schnell = wahl === "X" || wahl === "XC";
+    const paarSpiel = wahl === "C" || wahl === "XC";
     setFehler(null);
-    setSpiel(wahl === "X" ? "A" : wahl);
-    setAbkuerzung(wahl === "X");
+    setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
+    setAbkuerzung(schnell);
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
-    if (wahl !== "X") kameraStarten();
+    if (!schnell) kameraStarten();
     setVisualPayloads(null);
     setHeute(null);
     setAusblick(null);
@@ -236,7 +239,7 @@ export default function Schatulle() {
       let kontrollPfad;
       let katalogFragen;
       let vek;
-      if (wahl === "C") {
+      if (paarSpiel) {
         body = {
           ...personFelder("a", eingabe.a),
           ...personFelder("b", eingabe.b),
@@ -305,7 +308,7 @@ export default function Schatulle() {
       setVektoren(vek);
       setKontroll(null);
       setRunde((r) => r + 1);
-      if (wahl === "X") {
+      if (schnell) {
         setAntworten(
           katalogFragen.map((f) => ({
             frage_id: f.id,
