@@ -1,9 +1,11 @@
-// Das Horoskopbuch als stehendes Buch in 3D (reines CSS): Vorderdeckel mit Titel und Datumsscheibe, Ruecken
-// mit Titel, oben der Papierblock, darunter ein weicher Schatten. Die Dicke waechst mit der Zahl der Horoskope.
+// Das Horoskopbuch als stehendes Buch in 3D (reines CSS): der Vorderdeckel ist die Titelseite (Gold, Titel,
+// Datumsscheibe, Horoskop-Zeichen), Ruecken mit Titel, oben der Papierblock, darunter ein weicher Schatten.
+// Die Dicke waechst mit der Zahl der Horoskope.
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
+import HoroskopIcon from "./HoroskopIcon";
 
-export default function Buch3D({ titel, geburt, anzahl }) {
-  const dicke = 10 + anzahl * 3;
+export default function Buch3D({ titel, geburt, auswahl }) {
+  const dicke = 10 + Math.max(auswahl.length, 1) * 3;
   return (
     <div className="b3-buehne" aria-hidden="true">
       <div className="b3-schatten" style={{ "--dicke": `${dicke}px` }} />
@@ -31,6 +33,13 @@ export default function Buch3D({ titel, geburt, anzahl }) {
               ) : null}
             </div>
           ) : null}
+          <div className="b3-icons">
+            {auswahl.map((id) => (
+              <svg key={id} viewBox="-12 -12 24 24">
+                <HoroskopIcon id={id} r={10} />
+              </svg>
+            ))}
+          </div>
         </div>
       </div>
     </div>

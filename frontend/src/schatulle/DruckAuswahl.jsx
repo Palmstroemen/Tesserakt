@@ -64,7 +64,7 @@ export default function DruckAuswahl({
         <Buch3D
           titel={titel.trim() || vorgabe}
           geburt={geburt}
-          anzahl={Math.max(n, 1)}
+          auswahl={gewaehlt}
         />
         <h2>Dein Horoskopbuch</h2>
         <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
