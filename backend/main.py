@@ -35,6 +35,7 @@ from rule_engine import (
     stem_to_element,
     _HOUSE_LORD,
 )
+import ausblick
 import orte
 from store import compare_group, init_db, persist_session
 
@@ -719,6 +720,24 @@ def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
                 faktoren.append(t["westlich_ruhig"]["text"])
         systeme[s] = {"faktoren": [f for f in faktoren if f], "tendenzen": _tendenzen(vektoren[s], t)}
     return {"stichtag": now.date().isoformat(), "systeme": systeme}
+
+
+@app.post("/horoscope/ausblick")
+def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
+    """Jahreshoroskop: datierte Ereignisse der naechsten 12 Monate je System (bisher Westlich)."""
+    path = _content_root() / "content" / "horoscope" / "de" / "heute_v1.json"
+    t = json.loads(path.read_text(encoding="utf-8"))["gruppen"]
+    birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
+    natal = ephemeris_compute(_zu_weltzeit(birth_dt, payload.zeitzone), latitude_deg=payload.latitude, longitude_deg=payload.longitude)
+    start = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    systeme: Dict[str, List[Dict[str, Any]]] = {}
+    if "Westlich" in payload.systeme:
+        punkte = {_PLANET_ID_DE[p.id]: p.longitude_deg for p in natal.planets if p.id in ("sun", "moon")}
+        if natal.has_location:
+            punkte["aszendent"] = natal.asc_deg
+            punkte["mc"] = natal.mc_deg
+        systeme["Westlich"] = ausblick.westlich(punkte, _laufende_positionen, start, t)
+    return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
 
 
 @app.get("/horoscope/spiel_c/texts")

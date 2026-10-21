@@ -112,6 +112,14 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - trine: {Planet} steht im Trigon zu {ziel} – bei {thema} fließt es. Ein guter Tag, um auf Bewährtes zu vertrauen.
 - opposition: {Planet} steht in Opposition zu {ziel} – bei {thema} ziehen Kräfte in verschiedene Richtungen. Ausgleich ist gefragt, nicht ein Entweder-oder.
 
+## Jahreshoroskop: Aspekte in Zukunftsform {#ausblick_aspekt}
+
+- konjunktion: {Planet} kommt in Konjunktion zu {ziel} – bei {thema} bündeln sich die Kräfte. Was in dieser Zeit beginnt, hat Gewicht.
+- sextil: {Planet} bildet ein Sextil zu {ziel} – bei {thema} öffnen sich kleine Türen. Wer sie nutzt, kommt leichter voran.
+- quadrat: {Planet} tritt ins Quadrat zu {ziel} – bei {thema} entsteht Reibung. Was nicht passt, wird nach einer Lösung drängen.
+- trine: {Planet} bildet ein Trigon zu {ziel} – bei {thema} wird es fließen. Eine gute Zeit, um auf Bewährtes zu vertrauen.
+- opposition: {Planet} tritt in Opposition zu {ziel} – bei {thema} ziehen Kräfte in verschiedene Richtungen. Ausgleich wird gefragt sein, nicht ein Entweder-oder.
+
 ## Planetennamen {#planetennamen}
 
 - sonne: Die Sonne

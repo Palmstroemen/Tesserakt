@@ -146,6 +146,7 @@ export default function Schatulle() {
   const [kontroll, setKontroll] = useState(null);
   const [visualPayloads, setVisualPayloads] = useState(null);
   const [heute, setHeute] = useState(null);
+  const [ausblick, setAusblick] = useState(null); // Jahreshoroskop: datierte Ereignisse der naechsten 12 Monate
   const [texte, setTexte] = useState(null);
   const [abkuerzung, setAbkuerzung] = useState(false);
 
@@ -221,6 +222,7 @@ export default function Schatulle() {
     if (wahl !== "X") kameraStarten();
     setVisualPayloads(null);
     setHeute(null);
+    setAusblick(null);
     setRueckblick(null);
     setKontrollB(null);
     setNachfrage(false);
@@ -269,6 +271,9 @@ export default function Schatulle() {
         // Horoskop fuer heute (Teil des Ergebnisses), im Hintergrund
         postJson("/horoscope/heute", body)
           .then(setHeute)
+          .catch(() => {});
+        postJson("/horoscope/ausblick", body)
+          .then(setAusblick)
           .catch(() => {});
         if (wahl === "B") {
           setRueckblick(rb);
@@ -591,6 +596,7 @@ export default function Schatulle() {
           antwortZahl={antworten.filter((a) => a.typ !== "auffaellig").length}
           visualPayloads={visualPayloads}
           heute={heute}
+          ausblick={ausblick}
           texte={spiel !== "C" ? texte : null}
           hinweis={
             abkuerzung

@@ -1596,3 +1596,8 @@ body {
     linear-gradient(128deg, transparent 20%, rgba(255, 255, 255, 0.14) 27%, rgba(255, 255, 255, 0.05) 31%, transparent 36%),
     radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.14), transparent 34%);
 }
+
+/* Jahreshoroskop: Zeitraum hervorgehoben */
+.eg-jahr b {
+  font-weight: bold;
+}

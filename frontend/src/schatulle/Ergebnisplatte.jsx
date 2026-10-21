@@ -195,6 +195,7 @@ export default function Ergebnisplatte({
   antwortZahl,
   visualPayloads,
   heute,
+  ausblick,
   texte,
   hinweis,
   onNochmal,
@@ -385,6 +386,7 @@ export default function Ergebnisplatte({
             const sys = SYSTEME.find((s) => s.id === id);
             const d = ergebnis?.alle.systemDetails[id];
             const h = heute?.systeme?.[id];
+            const jahr = ausblick?.systeme?.[id];
             const t = texte?.systems?.[id];
             return (
               <article
@@ -441,6 +443,23 @@ export default function Ergebnisplatte({
                       .map((p, i) => (
                         <p key={i}>{p}</p>
                       ))}
+                  </>
+                ) : null}
+                {jahr?.length ? (
+                  <>
+                    <h4>Dein Jahr</h4>
+                    {jahr.map((e) => {
+                      // "Zeitraum: Satz" -> Zeitraum hervorgehoben
+                      const k = e.text.indexOf(": ");
+                      return (
+                        <p
+                          key={`${e.planet}-${e.ziel}-${e.aspekt}-${e.von}`}
+                          className="eg-jahr"
+                        >
+                          <b>{e.text.slice(0, k)}</b> – {e.text.slice(k + 2)}
+                        </p>
+                      );
+                    })}
                   </>
                 ) : null}
                 {t ? (
