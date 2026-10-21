@@ -16,7 +16,7 @@ Fullstack-Projekt mit klarer Trennung zwischen:
 |-------|--------------|--------|
 | **A** | Persoenlichkeit – 1 Person, 16 Fragen, Systemvergleich nach Skill | MVP live |
 | **B** | Prognose/Zeit – Rueckblick auf vergangene Zeitfenster | Phase 2 |
-| **C** | Beziehung – 2-Personen-Kompatibilitaet | In Arbeit |
+| **C** | Beziehung – wer von beiden ist wo staerker? Skill gegen zufaellige Paare | MVP |
 
 ## Systeme
 
@@ -47,7 +47,8 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
 - `frontend/src/`
   - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
   - Hooks: `useVektoren`, `useRating`
-  - Logik: `rating.js`, `partnerQuestions.js`, `partnerRating.js`
+  - Logik: `rating.js` (Skill/Perzentil fuer alle Spiele, Timing), `ort.js`
+  - Spiele B und C: `SpielB.jsx`, `SpielC.jsx`
 - `docs/Berechnungsgrundlagen/`
   - "Beipackzettel" je System: Konventionen, korrigierte Fehler, bekannte Vereinfachungen
 - `content/horoscope/de/`

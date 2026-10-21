@@ -2,16 +2,18 @@
 ## Konzept und Datenmodell (harmonisiert)
 
 *Tesserakt - Drittes Spiel*  
-*Stand: Februar 2026*
+*Stand: Oktober 2026, MVP umgesetzt (Backend /partner, /partner/kontrolle; Frontend SpielC.jsx)*
 
 ---
 
 ## 1. Zielbild
 
-Spiel C vergleicht die erlebte Beziehungsqualitaet mit einer berechneten 2-Personen-Kompatibilitaet.
+Spiel C fragt **vergleichend**: Wer von euch beiden ist in welchem Lebensbereich staerker ausgepraegt
+("Wer zeigt Zuneigung im Alltag eher offen?" - eher ich ... ausgewogen ... eher Partner:in).
+Verglichen wird mit dem **Unterschied der beiden Horoskope** je System: `(B - A) / 2`.
 
 Kernfrage:
-> Welche Systeme treffen Beziehungsqualitaet am besten - und besser als zufaellige andere Geburtsdaten?
+> Erkennt ein System, wer von euch in welchem Bereich staerker ist - besser als bei zufaelligen Paaren?
 
 **Status:** Phase 3  
 **Abhaengigkeiten:** Datenmodell C, Regelwerke, UI-Flow, Consent
@@ -26,7 +28,7 @@ Kernfrage:
 | Fokus | Persoenlichkeit | Zeitfenster | Kompatibilitaet |
 | Zeitbezug | Natal | Rueckblick | Natal |
 | Datenbasis | Geburtsdaten + Antworten | Geburtsdaten + Zeitfragen | Geburtsdaten beider + Beziehungsfragen |
-| Kontrollgruppe je System | Ja | Ja (geplant) | Ja (geplant) |
+| Kontrollgruppe je System | 100 zufaellige Geburtsdaten | wie A, je Zeitfenster | 100 zufaellige Paare |
 
 Hinweis:
 - Spiel C ist eigenstaendig nutzbar.
@@ -37,24 +39,23 @@ Hinweis:
 
 ---
 
-## 3. Verbindliche Metrik-Policy fuer Spiel C
+## 3. Metrik (umgesetzt)
 
-Auch in Spiel C sollen dieselben Kernmetriken wie in Spiel A gelten:
+- **Skill** = `2 * (Perzentil - 50)`, Perzentil gegen **100 zufaellige Paare**: beide Geburtsdaten
+  zufaellig im Fenster +-5 Jahre um das jeweils echte Datum (gleiche Uhrzeit, gleicher Ort, gleiches
+  Geschlecht; Seeds `session_id:kontrolle_a` / `session_id:kontrolle_b`, Paar i = (A_i, B_i)).
+- Entschieden (Oktober 2026): Variante "beide zufaellig". Symmetrisch (wer A, wer B ist, spielt keine
+  Rolle) und passend zur Frage nach dem Paar. Alternativen (nur Partner bzw. nur ich zufaellig) waeren
+  ebenfalls fair, beantworten aber die Frage nach einer Einzelperson.
+- Fragen: `backend/fragen_beziehung.json` (Katalog `beziehung_v1`, ids 401-416), Gewichte wie Spiel A
+  ueber die Konsens-Matrix. Bewertung mit derselben Funktion wie Spiel A (`calculateRating`).
+- Sessions werden gespeichert (`spieltyp: "Beziehung"`).
 
-- **Skill** = `2 * (Perzentil - 50)` gegen eine Kontrollgruppe je System
-- **Perzentil**
-- **Fit (absolut)**
+Vorher (Prototyp bis Oktober 2026): alte Baseline-Metrik (1/6), Bazi doppelt als "Bazi_male" und
+"Bazi_female", keine Speicherung, kein Ort und keine Zeitzone fuer die Partnerperson.
 
-Regeln:
-- Bewertung pro Frage anhand Nutzerantwort vs Systemwert.
-- Gewichtung nur auf sinnvoll abgedeckten Dimensionen.
-- Kontrollgruppe: offen, ob zufaellige Geburtsdaten fuer Person B, fuer beide Personen oder
-  zufaellige Paare verwendet werden (Decision Backlog).
-
-Stand: Der Prototyp (`frontend/src/logic/partnerRating.js`) nutzt noch die alte Baseline-Metrik.
-
-**Status:** verbindlich (Designvorgabe), Umsetzung offen  
-**Abhaengigkeiten:** C-Ratinglogik, Ergebnis-UI
+**Status:** umgesetzt
+**Abhaengigkeiten:** -
 
 ---
 
@@ -131,17 +132,19 @@ Stand: Der Prototyp (`frontend/src/logic/partnerRating.js`) nutzt noch die alte 
 
 ---
 
-## 7. Datenschutz in Spiel C
+## 7. Datenschutz in Spiel C (umgesetzt)
 
-Pflichtprinzipien:
+- Geburtsdatum, -zeit und -ort der Partnerperson sind auch ohne Namen **pseudonym, nicht anonym**:
+  Die Kombination kann auf eine Person zeigen.
+- **Pflicht-Haekchen** vor dem Start: "Die andere Person weiss, dass ich ihre Geburtsdaten hier eingebe,
+  und ist einverstanden." Gespeichert als `metadaten.partner_einwilligung`.
+- **Datensparsam gespeichert:** Geburtsdatum und -zeit beider Personen; vom Ort nur Zeitzone und auf 1 Grad
+  (~100 km) gerundete Koordinaten (gilt seit Oktober 2026 auch fuer Spiel A); kein Name.
+- Genaue Koordinaten werden nur waehrend der Berechnung im Speicher verwendet.
+- Oeffentliche Auswertungen nur aggregiert.
 
-- Explizite Zustimmung fuer Datennutzung beider Personen.
-- Keine oeffentliche Ausgabe identifizierbarer Paar-Daten.
-- Aggregation/Anonymisierung fuer Statistik-Views.
-- Loeschkonzept fuer verknuepfte Referenzen (z. B. `SET NULL` statt Kaskadeloeschung auf C-Session).
-
-**Status:** Phase 3 Pflicht  
-**Abhaengigkeiten:** Rechtspruefung, DB-Regeln, Exportpipeline
+**Status:** umgesetzt (rechtliche Pruefung steht aus)
+**Abhaengigkeiten:** Rechtspruefung
 
 ---
 

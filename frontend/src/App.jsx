@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import GeburtsdatumInput from "./components/GeburtsdatumInput";
 import GameSelector from "./components/GameSelector";
 import SpielB from "./components/SpielB";
-import PartnerGeburtsdatumInput from "./components/PartnerGeburtsdatumInput";
-import PartnerSlider from "./components/PartnerSlider";
+import SpielC from "./components/SpielC";
 import SystemSelector from "./components/SystemSelector";
 import SelbsteinschaetzungSlider from "./components/SelbsteinschaetzungSlider";
 import SystemVergleichBalken from "./components/SystemVergleichBalken";
@@ -15,9 +14,7 @@ import { useVektoren } from "./hooks/useVektoren";
 import { useKontrolle } from "./hooks/useKontrolle";
 import { useFragen } from "./hooks/useFragen";
 import { useRating } from "./hooks/useRating";
-import { PARTNER_FRAGEN } from "./logic/partnerQuestions";
 import { getQuestionWeights } from "./logic/rating";
-import { expectedPartner, calculatePartnerRating } from "./logic/partnerRating";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
@@ -65,40 +62,6 @@ export default function App() {
   const [ratingHistory, setRatingHistory] = useState([]);
   const [saved, setSaved] = useState(false);
 
-  const [partnerBirthDate, setPartnerBirthDate] = useState("");
-  const [partnerBirthTime, setPartnerBirthTime] = useState("12:00");
-  const [partnerData, setPartnerData] = useState(null);
-  const [partnerLoading, setPartnerLoading] = useState(false);
-  const [partnerError, setPartnerError] = useState(null);
-  const [partnerQuestionOrder, setPartnerQuestionOrder] = useState([]);
-  const [partnerCurrentIndex, setPartnerCurrentIndex] = useState(0);
-  const [partnerAnswers, setPartnerAnswers] = useState([]);
-  const [partnerCurrentValue, setPartnerCurrentValue] = useState(-1);
-  const [partnerFinished, setPartnerFinished] = useState(false);
-  const [partnerTexts, setPartnerTexts] = useState(null);
-  const [partnerTextsLoading, setPartnerTextsLoading] = useState(false);
-  const [partnerActiveSystem, setPartnerActiveSystem] = useState(null);
-
-  useEffect(() => {
-    if (!partnerFinished) return;
-    let cancelled = false;
-    setPartnerTextsLoading(true);
-    fetch(`${API_BASE}/horoscope/spiel_c/texts?locale=de`)
-      .then((r) => {
-        if (!r.ok) throw new Error(r.statusText);
-        return r.json();
-      })
-      .then((data) => {
-        if (!cancelled) setPartnerTexts(data);
-      })
-      .catch(() => {
-        if (!cancelled) setPartnerTexts(null);
-      })
-      .finally(() => {
-        if (!cancelled) setPartnerTextsLoading(false);
-      });
-    return () => { cancelled = true; };
-  }, [partnerFinished]);
 
   useEffect(() => {
     async function loadSystems() {
@@ -144,19 +107,6 @@ export default function App() {
   const kontrolleBereit = Boolean(kontrollvektoren) || Boolean(kontrollState.error);
   const rating = useRating(vektoren, answers, inputs, kontrollvektoren);
 
-  const partnerRating = useMemo(
-    () => calculatePartnerRating(partnerAnswers, partnerData?.vektorenA, partnerData?.vektorenB, rating.matrix),
-    [partnerAnswers, partnerData?.vektorenA, partnerData?.vektorenB, rating.matrix]
-  );
-  const partnerSystems = useMemo(() => {
-    const rank = partnerRating?.ranking ?? [];
-    return rank.filter((s) => partnerTexts?.by_system?.[s]?.horoskop_ausfuehrlich);
-  }, [partnerRating?.ranking, partnerTexts]);
-  useEffect(() => {
-    if (partnerFinished && partnerSystems?.length && (!partnerActiveSystem || !partnerSystems.includes(partnerActiveSystem))) {
-      setPartnerActiveSystem(partnerSystems[0]);
-    }
-  }, [partnerFinished, partnerSystems, partnerActiveSystem]);
 
   const isAssessmentGame = selectedGame === "personality" || selectedGame === "fremd";
   const activeFrage = questionOrder[currentIndex];
@@ -250,14 +200,6 @@ export default function App() {
     setAnswers([]);
     setRatingHistory([]);
     setSaved(false);
-    setPartnerData(null);
-    setPartnerBirthDate("");
-    setPartnerBirthTime("");
-    setPartnerQuestionOrder([]);
-    setPartnerCurrentIndex(0);
-    setPartnerAnswers([]);
-    setPartnerFinished(false);
-    setPartnerError(null);
   }
 
   function backToGameSelection() {
@@ -268,102 +210,10 @@ export default function App() {
     setAnswers([]);
     setRatingHistory([]);
     setSaved(false);
-    setPartnerData(null);
-    setPartnerBirthDate("");
-    setPartnerBirthTime("");
-    setPartnerQuestionOrder([]);
-    setPartnerCurrentIndex(0);
-    setPartnerAnswers([]);
-    setPartnerFinished(false);
-    setPartnerError(null);
-  }
-
-  async function handlePartnerDateConfirm(partnerDate, partnerTime) {
-    setPartnerError(null);
-    setPartnerLoading(true);
-    try {
-      const response = await fetch(`${API_BASE}/partner`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          geburtsdatum_a: birthDate,
-          uhrzeit_a: birthTime || "12:00",
-          geburtsdatum_b: partnerDate,
-          uhrzeit_b: partnerTime || "12:00",
-          systeme: availableSystems.length ? availableSystems : ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"],
-        }),
-      });
-      if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(err.detail || response.statusText);
-      }
-      const data = await response.json();
-      setPartnerData({
-        vektorenA: data.vektorenA,
-        vektorenB: data.vektorenB,
-        inputsA: data.inputsA,
-        inputsB: data.inputsB,
-      });
-      setPartnerBirthDate(partnerDate);
-      setPartnerBirthTime(partnerTime || "12:00");
-      setPartnerQuestionOrder(shuffleQuestions([...PARTNER_FRAGEN]));
-      setPartnerCurrentIndex(0);
-      setPartnerAnswers([]);
-      setPartnerCurrentValue(-1);
-      setPartnerFinished(false);
-    } catch (e) {
-      setPartnerError(e.message || "Partner-Daten konnten nicht geladen werden.");
-    } finally {
-      setPartnerLoading(false);
-    }
   }
 
   function startPartnerFromResult() {
     setSelectedGame("relationship");
-    setPartnerData(null);
-    setPartnerBirthDate("");
-    setPartnerBirthTime("");
-    setPartnerQuestionOrder([]);
-    setPartnerCurrentIndex(0);
-    setPartnerAnswers([]);
-    setPartnerFinished(false);
-    setPartnerError(null);
-  }
-
-  function resetPartnerAndShowForm() {
-    setPartnerData(null);
-    setPartnerQuestionOrder([]);
-    setPartnerCurrentIndex(0);
-    setPartnerAnswers([]);
-    setPartnerFinished(false);
-    setPartnerActiveSystem(null);
-  }
-
-  function submitPartnerAnswer() {
-    const activePartnerFrage = partnerQuestionOrder[partnerCurrentIndex];
-    if (!activePartnerFrage || !partnerData) return;
-    const expected =
-      rating.matrix &&
-      expectedPartner(
-        partnerData.vektorenA,
-        partnerData.vektorenB,
-        activePartnerFrage.dimension,
-        rating.matrix
-      );
-    setPartnerAnswers((prev) => [
-      ...prev,
-      {
-        frage_id: activePartnerFrage.id,
-        dimension: activePartnerFrage.dimension,
-        partner_wert: partnerCurrentValue,
-        expected,
-      },
-    ]);
-    setPartnerCurrentValue(-1);
-    setPartnerCurrentIndex((i) => i + 1);
-    if (partnerCurrentIndex + 1 >= partnerQuestionOrder.length) {
-      setPartnerFinished(true);
-    }
   }
 
   /** Spiel komplett zuruecksetzen: zurueck zur Spielauswahl, gleiches Geburtsdatum. */
@@ -458,116 +308,19 @@ export default function App() {
               onBack={backToGameSelection}
             />
           ) : null}
-          {selectedGame === "relationship" && !partnerData ? (
-            <>
-              <PartnerGeburtsdatumInput
-                onConfirm={handlePartnerDateConfirm}
-                onBack={backToGameSelection}
-              />
-              {partnerLoading ? <p>Partner-Vektoren werden berechnet...</p> : null}
-              {partnerError ? <p className="error">{partnerError}</p> : null}
-            </>
+          {selectedGame === "relationship" ? (
+            <SpielC
+              birthDate={birthDate}
+              birthTime={birthTime}
+              birthPlace={birthPlace}
+              optionalName={optionalName}
+              optionalGender={optionalGender}
+              matrix={rating.matrix}
+              onBack={backToGameSelection}
+              onRestart={restartGame}
+            />
           ) : null}
         </>
-      ) : null}
-
-      {selectedGame === "relationship" && partnerData && !partnerFinished && partnerQuestionOrder.length > 0 ? (
-        <section className="card">
-          <h2>
-            Beziehungsfrage {partnerCurrentIndex + 1}/{partnerQuestionOrder.length}
-          </h2>
-          <div className="question-text">
-            <p>{partnerQuestionOrder[partnerCurrentIndex]?.text}</p>
-          </div>
-          <PartnerSlider
-            value={partnerCurrentValue}
-            onChange={setPartnerCurrentValue}
-          />
-          <div className="question-submit-wrap">
-            <button type="button" onClick={submitPartnerAnswer}>
-              Antwort speichern und weiter
-            </button>
-          </div>
-        </section>
-      ) : null}
-
-      {selectedGame === "relationship" && partnerFinished ? (
-        <section className="card">
-          <h2>Partnerhoroskop – Ergebnis</h2>
-          <>
-            {partnerRating.fitScore != null ? (
-              <p>
-                Übereinstimmung mit den Horoskop-Tendenzen: <strong>{partnerRating.fitScore} %</strong>
-              </p>
-            ) : null}
-            {partnerRating.ranking?.length > 0 ? (
-              <table className="table partner-ranking-table">
-                <thead>
-                  <tr>
-                    <th>Rang</th>
-                    <th>System</th>
-                    <th>Fit</th>
-                    <th>Skill vs Zufall</th>
-                    <th aria-hidden="true" />
-                  </tr>
-                </thead>
-                <tbody>
-                  {partnerRating.ranking.map((system, index) => (
-                    <tr key={system}>
-                      <td>{index + 1}</td>
-                      <td>{system}</td>
-                      <td>{partnerRating.systemDetails[system]?.fitScore != null ? partnerRating.systemDetails[system].fitScore.toFixed(1) : "-"}</td>
-                      <td>{partnerRating.systemDetails[system]?.skillScore != null ? partnerRating.systemDetails[system].skillScore.toFixed(1) : "-"}</td>
-                      <td />
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : null}
-            {partnerTextsLoading ? (
-              <p>Partnerschaftstexte werden geladen…</p>
-            ) : partnerSystems.length === 0 ? (
-              <p className="partner-text-fallback">Fuer eure Systeme ist noch kein Partnerschaftstext hinterlegt.</p>
-            ) : (
-              <div className="system-deutung-tabs">
-                <p className="tabs-hint">Reihenfolge entspricht dem Ranking.</p>
-                <div className="tabs-header" role="tablist">
-                  {partnerSystems.map((system) => (
-                    <button
-                      key={system}
-                      type="button"
-                      role="tab"
-                      aria-selected={partnerActiveSystem === system}
-                      className={partnerActiveSystem === system ? "tab active" : "tab"}
-                      onClick={() => setPartnerActiveSystem(system)}
-                    >
-                      {system}
-                    </button>
-                  ))}
-                </div>
-                {partnerActiveSystem && partnerTexts?.by_system?.[partnerActiveSystem]?.horoskop_ausfuehrlich ? (
-                  <div role="tabpanel" className="tabs-content">
-                    <h3>Ihr Partnerschaftshoroskop – {partnerActiveSystem}</h3>
-                    <div className="deutung-horoskop-ausfuehrlich">
-                      <Paragraphs text={partnerTexts.by_system[partnerActiveSystem].horoskop_ausfuehrlich} />
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            )}
-            <p className="partner-result-hint">
-              Die Auswertung basiert auf euren Geburtsdaten und euren Einschätzungen zu den Beziehungsfragen.
-            </p>
-            <p>
-              <button type="button" className="button-restart" onClick={resetPartnerAndShowForm}>
-                Nochmal andere Partner:in
-              </button>
-              <button type="button" className="button-restart" onClick={restartGame}>
-                Neue Analyse
-              </button>
-            </p>
-          </>
-        </section>
       ) : null}
 
       {loading ? <p>Vektoren werden berechnet...</p> : null}

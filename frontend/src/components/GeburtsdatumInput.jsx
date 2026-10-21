@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
-function OrtSuche({ ort, onChange }) {
+export function OrtSuche({ ort, onChange }) {
   const [text, setText] = useState(ort ? ort.name : "");
   const [vorschlaege, setVorschlaege] = useState([]);
 
@@ -82,7 +82,7 @@ export default function GeburtsdatumInput({ value, timeValue, placeValue, onConf
       </div>
       <p className="hint">
         {ort
-          ? `${ort.name}, ${ort.land} – Zeitzone ${ort.zeitzone}`
+          ? `${ort.name}, ${ort.land} – Zeitzone ${ort.zeitzone}.`
           : "Der Geburtsort ist optional, macht Aszendent und Häuser aber erst genau (Zeitzone und Sommerzeit werden umgerechnet). Kleinere Orte: nächstgelegene Stadt wählen."}{" "}
         <span className="quelle">Ortsdaten: GeoNames (CC BY 4.0).</span>
       </p>

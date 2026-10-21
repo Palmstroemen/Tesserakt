@@ -39,16 +39,18 @@
    - [ ] Texte Spiel B (Fragen, Horoskop fuer heute) redaktionell ueberarbeiten
 
 3. **Spiel C anschliessend**
-   - [ ] Basis-Kompatibilitaetsflow fuer zwei Personen aufsetzen (ohne komplexe Synastrie zuerst)
-   - [ ] Spiel-C-Rating auf Skill mit Kontrollgruppe umstellen (`partnerRating.js` nutzt noch alte Baseline)
-   - [ ] Consent/Datenschutz-Flow fuer zweite Person sauber integrieren
-   - [ ] DoD C: lauffaehiger Minimal-Flow mit robusten Edge-Case-Checks
+   - [x] Basis-Flow fuer zwei Personen (eigene Komponente `SpielC.jsx`, gleiche Pipeline wie A/B)
+   - [x] Spiel-C-Rating auf Skill mit Kontrollgruppe (100 zufaellige Paare), Nullhypothese geprueft
+   - [x] Einwilligung der Partnerperson (Pflicht-Haekchen), Ort nur grob gespeichert, kein Name
+   - [x] DoD C: E2E-Durchlauf (21.10.2026) inkl. Speicherung
+   - [ ] Beziehungsfragen redaktionell pruefen (z. B. Frage 413 "Klammert einer ..." -> Lebensbereich Veraenderung?)
+   - [ ] Spaeter: Synastrie / systemeigene Interaktionsregeln, optionale Verknuepfung mit A-Sessions
 
 ## Rechengenauigkeit (aus den Beipackzetteln, `docs/Berechnungsgrundlagen/`)
 
 - [x] Zeitzone und Sommerzeit umrechnen (Geburtsort -> Zeitzone, historische Regeln via zoneinfo)
 - [x] Geburtsort im Spiel abfragen (Ortssuche offline, GeoNames)
-- [ ] Spiel C (/partner): Geburtsort und Zeitzone fuer beide Personen
+- [x] Spiel C (/partner): Geburtsort und Zeitzone fuer beide Personen
 - [ ] Sekt einheitlich ueber den Sonnenstand bestimmen (bisher teils Uhrzeit 6-18 Uhr)
 - [ ] Vedisch: Antardasha-Regeln fuer 5 fehlende Hauptperioden ergaenzen, Gochara-Regeln
 - [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen

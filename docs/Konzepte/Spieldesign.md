@@ -46,8 +46,9 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 
 ### 2.3 Spiel C - Beziehung
 
-- 2 Personen, Kompatibilitaetslogik, optionaler Session-Link zu Spiel A.
-- Nicht live; Konzept fuer Phase 3.
+- 2 Personen, vergleichende Fragen ("eher ich ... eher Partner:in") gegen den Unterschied der Horoskope.
+- Skill gegen 100 zufaellige Paare; Einwilligungs-Haekchen fuer die Daten der Partnerperson.
+- MVP umgesetzt; Konzept: `Konzept Spiel C.md`.
 
 **Status:** Phase 3  
 **Abhaengigkeiten:** Datenmodell C, Regelwerke, Datenschutzflow

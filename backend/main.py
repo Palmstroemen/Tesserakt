@@ -54,6 +54,9 @@ DEFAULT_SYSTEMS = list(SUBFOLDERS)
 # Fragen fuer Spiel A inkl. Gewichte je System (einzige Quelle; das Frontend laedt sie ueber /fragen)
 with (Path(__file__).resolve().parent / "fragen.json").open(encoding="utf-8") as _f:
     FRAGEN: List[Dict[str, Any]] = json.load(_f)["fragen"]
+# Fragen fuer Spiel C (vergleichend), ausgeliefert ueber /fragen/beziehung
+with (Path(__file__).resolve().parent / "fragen_beziehung.json").open(encoding="utf-8") as _f:
+    FRAGEN_BEZIEHUNG: Dict[str, Any] = json.load(_f)
 # Fragen fuer Spiel B (gewertet + auffaellige Momente), ausgeliefert ueber /fragen/rueckblick
 with (Path(__file__).resolve().parent / "fragen_rueckblick.json").open(encoding="utf-8") as _f:
     FRAGEN_RUECKBLICK: Dict[str, Any] = json.load(_f)
@@ -106,20 +109,29 @@ class KontrollResponse(BaseModel):
 
 
 class PartnerRequest(BaseModel):
+    """Spiel C: Person A (Spieler:in) und Person B (Partner:in), je mit optionalem Ort, Geschlecht, Name."""
     geburtsdatum_a: str = Field(examples=["1985-03-15"])
     uhrzeit_a: Optional[str] = Field(default="12:00", examples=["14:30"])
     geburtsname_a: Optional[str] = Field(default=None, description="Geburtsname Person A (Numerologie)")
+    geschlecht_a: Optional[str] = None
+    latitude_a: Optional[float] = None
+    longitude_a: Optional[float] = None
+    zeitzone_a: Optional[str] = None
     geburtsdatum_b: str = Field(examples=["1990-07-20"])
     uhrzeit_b: Optional[str] = Field(default="12:00", examples=["09:00"])
     geburtsname_b: Optional[str] = Field(default=None, description="Geburtsname Person B (Numerologie)")
+    geschlecht_b: Optional[str] = None
+    latitude_b: Optional[float] = None
+    longitude_b: Optional[float] = None
+    zeitzone_b: Optional[str] = None
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
+    session_id: Optional[str] = None
 
 
-class PartnerResponse(BaseModel):
-    vektorenA: Dict[str, Dict[str, float]]
-    vektorenB: Dict[str, Dict[str, float]]
-    inputsA: Dict[str, object]
-    inputsB: Dict[str, object]
+class PartnerKontrollRequest(PartnerRequest):
+    session_id: str = Field(description="session_id aus /partner (Seed der Kontroll-Paare)")
+    stichtag: Optional[str] = None
+    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=1, le=500)
 
 
 class AntwortPayload(BaseModel):
@@ -334,9 +346,10 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
     return inputs, vektoren, radix, bazi_pillars
 
 
-def _kontroll_geburtsdaten(birth_dt: datetime, session_id: str, anzahl: int) -> List[datetime]:
-    """Reproduzierbare Zufallsdaten (Seed aus session_id) im Fenster +-KONTROLL_JAHRE um das Geburtsdatum, gleiche Uhrzeit."""
-    rng = random.Random(_stable_seed(f"{session_id}:kontrolle"))
+def _kontroll_geburtsdaten(birth_dt: datetime, session_id: str, anzahl: int, schluessel: str = "kontrolle") -> List[datetime]:
+    """Reproduzierbare Zufallsdaten (Seed aus session_id und schluessel) im Fenster +-KONTROLL_JAHRE um das
+    Geburtsdatum, gleiche Uhrzeit. Spiel C nutzt eigene Schluessel je Person (kontrolle_a, kontrolle_b)."""
+    rng = random.Random(_stable_seed(f"{session_id}:{schluessel}"))
     try:
         start = birth_dt.replace(year=birth_dt.year - KONTROLL_JAHRE)
         ende = birth_dt.replace(year=birth_dt.year + KONTROLL_JAHRE)
@@ -388,12 +401,8 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     response_inputs.pop("geburtsname", None)
     response_inputs["session_id"] = session_id
     response_inputs["stichtag"] = now.date().isoformat()
-    # Geburtsort fuer die Reproduzierbarkeit; Koordinaten auf 0.1 Grad (~10 km) gerundet
-    response_inputs["geburtsort"] = {
-        "zeitzone": payload.zeitzone,
-        "lat": round(payload.latitude, 1) if payload.latitude is not None else None,
-        "lon": round(payload.longitude, 1) if payload.longitude is not None else None,
-    }
+    # Geburtsort datensparsam: Zeitzone und auf 1 Grad (~100 km) gerundete Koordinaten
+    response_inputs["geburtsort"] = _grober_ort(payload)
 
     # Attach precomputed chart payloads so frontend has them without extra request
     visual_payloads: Dict[str, Any] = {}
@@ -446,74 +455,99 @@ def post_kontrolle(payload: KontrollRequest) -> KontrollResponse:
     return KontrollResponse(kontrollvektoren=kontrollvektoren, kontrolle=kontrolle)
 
 
-@app.post("/partner", response_model=PartnerResponse)
-def post_partner(payload: PartnerRequest) -> PartnerResponse:
-    """Zwei Geburtsdaten; liefert Vektoren und Inputs fuer Person A (User) und Person B (Partner)."""
-    birth_dt_a = parse_birth_datetime(payload.geburtsdatum_a, payload.uhrzeit_a)
-    birth_dt_b = parse_birth_datetime(payload.geburtsdatum_b, payload.uhrzeit_b)
-    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
-
-    requested = payload.systeme or DEFAULT_SYSTEMS.copy()
-    unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
-    if unknown:
-        raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
-    system_list = list(requested)
-
-    def inputs_and_vektoren(birth_dt: datetime, geburtsname: Optional[str] = None):
-        bazi_p = None
-        bazi_luck_m: Optional[tuple] = None
-        bazi_luck_f: Optional[tuple] = None
-        if "Bazi" in system_list:
-            bazi_p = build_four_pillars(birth_dt)
-            bazi_luck_m, bazi_luck_f = luck_pillar_for_both_sexes(birth_dt, now)
-        db = bazi_p["pillars"]["day"]["branch"] if bazi_p else None
-        hs = bazi_p["pillars"]["hour"]["stem"] if bazi_p else None
-        hb = bazi_p["pillars"]["hour"]["branch"] if bazi_p else None
-        ephemeris_result = None
-        if "Westlich" in system_list:
-            ephemeris_result = ephemeris_compute(birth_dt, latitude_deg=None, longitude_deg=None)
-            ephemeris_sonnenzeichen = sun_sign_from_longitude(
-                next((p.longitude_deg for p in ephemeris_result.planets if p.id == "sun"), 0.0)
-            )
-            radix = build_radix_wheel(ephemeris_result)
-            inp = build_inputs(
-                birth_dt, now,
-                ephemeris_sonnenzeichen=ephemeris_sonnenzeichen,
-                radix_planets=radix.get("planets"),
-                radix_aspects=radix.get("aspects"),
-                bazi_day_branch=db,
-                bazi_hour_stem=hs,
-                bazi_hour_branch=hb,
-                geburtsname=geburtsname,
-            )
-        else:
-            inp = build_inputs(birth_dt, now, bazi_day_branch=db, bazi_hour_stem=hs, bazi_hour_branch=hb, geburtsname=geburtsname)
-        if any(s in system_list for s in _TRANSIT_SYSTEME):
-            natal = ephemeris_result or ephemeris_compute(birth_dt, latitude_deg=None, longitude_deg=None)
-            _setze_transite(inp, natal, now)
-        vektoren: Dict[str, Dict[str, float]] = {}
-        for system_name in system_list:
-            if system_name == "Bazi":
-                assert bazi_luck_m is not None and bazi_luck_f is not None
-                ms, mb = bazi_luck_m
-                fs, fb = bazi_luck_f
-                inp_m = {**inp, "luck_pillar_stem": ms, "luck_pillar_branch": mb}
-                inp_f = {**inp, "luck_pillar_stem": fs, "luck_pillar_branch": fb}
-                vektoren["Bazi_male"] = _compute_system_vector("Bazi", inp_m)
-                vektoren["Bazi_female"] = _compute_system_vector("Bazi", inp_f)
-                continue
-            vektoren[system_name] = _compute_system_vector(system_name, inp)
-        return _serialize_inputs(inp), vektoren
-
-    inputs_a, vektoren_a = inputs_and_vektoren(birth_dt_a, payload.geburtsname_a)
-    inputs_b, vektoren_b = inputs_and_vektoren(birth_dt_b, payload.geburtsname_b)
-
-    return PartnerResponse(
-        vektorenA=vektoren_a,
-        vektorenB=vektoren_b,
-        inputsA=inputs_a,
-        inputsB=inputs_b,
+def _person(payload: PartnerRequest, x: str) -> VektorRequest:
+    """Person A oder B als VektorRequest (gleiche Pipeline wie Spiel A und B)."""
+    return VektorRequest(
+        geburtsdatum=getattr(payload, f"geburtsdatum_{x}"),
+        uhrzeit=getattr(payload, f"uhrzeit_{x}"),
+        geburtsname=getattr(payload, f"geburtsname_{x}"),
+        geschlecht=getattr(payload, f"geschlecht_{x}"),
+        latitude=getattr(payload, f"latitude_{x}"),
+        longitude=getattr(payload, f"longitude_{x}"),
+        zeitzone=getattr(payload, f"zeitzone_{x}"),
+        systeme=payload.systeme,
     )
+
+
+def _differenz(vek_a: Dict[str, Dict[str, float]], vek_b: Dict[str, Dict[str, float]], systeme: List[str]) -> Dict[str, Dict[str, float]]:
+    """Erwartung fuer vergleichende Fragen: (B - A) / 2 je System und Lebensbereich, Skala -1..+1."""
+    return {s: {d: max(-1.0, min(1.0, (vek_b[s][d] - vek_a[s][d]) / 2)) for d in DIMENSIONS} for s in systeme}
+
+
+def _grober_ort(req: VektorRequest) -> Dict[str, Any]:
+    """Datensparsam: Zeitzone und auf 1 Grad (~100 km) gerundete Koordinaten."""
+    return {
+        "zeitzone": req.zeitzone,
+        "lat": round(req.latitude) if req.latitude is not None else None,
+        "lon": round(req.longitude) if req.longitude is not None else None,
+    }
+
+
+@app.post("/partner")
+def post_partner(payload: PartnerRequest) -> Dict[str, Any]:
+    """Spiel C: Vektoren beider Personen und die Erwartung je System fuer die vergleichenden Fragen."""
+    _validate_systeme(payload.systeme)
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    session_id = payload.session_id or str(uuid4())
+    personen = {}
+    for x in ("a", "b"):
+        req = _person(payload, x)
+        geburt = parse_birth_datetime(req.geburtsdatum, req.uhrzeit)
+        inputs, vektoren, _, _ = _berechne_vektoren(req, geburt, now, session_id)
+        personen[x] = (req, inputs, {s: vektoren[s] for s in payload.systeme})
+    return {
+        "vektorenA": personen["a"][2],
+        "vektorenB": personen["b"][2],
+        "differenz": _differenz(personen["a"][2], personen["b"][2], payload.systeme),
+        "inputs": {
+            "session_id": session_id,
+            "stichtag": now.date().isoformat(),
+            "systeme": payload.systeme,
+            "geburtsort_a": _grober_ort(personen["a"][0]),
+            "geburtsort_b": _grober_ort(personen["b"][0]),
+            "katalog_version": FRAGEN_BEZIEHUNG["_meta"]["katalog_version"],
+        },
+    }
+
+
+@app.post("/partner/kontrolle")
+def post_partner_kontrolle(payload: PartnerKontrollRequest) -> Dict[str, Any]:
+    """Spiel C, Kontrollgruppe: 100 zufaellige Paare - beide Geburtsdaten zufaellig im Fenster +-5 Jahre um das
+    jeweils echte Datum (gleiche Uhrzeit, Ort, Geschlecht). Liefert je System die Differenzvektoren."""
+    _validate_systeme(payload.systeme)
+    if payload.stichtag:
+        try:
+            now = datetime.strptime(payload.stichtag, "%Y-%m-%d").replace(hour=12)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail="stichtag muss YYYY-MM-DD sein") from exc
+    else:
+        now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    req = {x: _person(payload, x) for x in ("a", "b")}
+    daten = {
+        x: _kontroll_geburtsdaten(parse_birth_datetime(req[x].geburtsdatum, req[x].uhrzeit), payload.session_id,
+                                  payload.kontroll_anzahl, schluessel=f"kontrolle_{x}")
+        for x in ("a", "b")
+    }
+    kontrollvektoren: Dict[str, List[Dict[str, float]]] = {s: [] for s in payload.systeme}
+    for datum_a, datum_b in zip(daten["a"], daten["b"]):
+        _, vek_a, _, _ = _berechne_vektoren(req["a"], datum_a, now, payload.session_id)
+        _, vek_b, _, _ = _berechne_vektoren(req["b"], datum_b, now, payload.session_id)
+        for s, diff in _differenz(vek_a, vek_b, payload.systeme).items():
+            kontrollvektoren[s].append(diff)
+    return {
+        "kontrollvektoren": kontrollvektoren,
+        "kontrolle": {
+            "anzahl": payload.kontroll_anzahl,
+            "jahre": KONTROLL_JAHRE,
+            "seed_schema": "sha256(session_id:kontrolle_a) / sha256(session_id:kontrolle_b), Paar i = (A_i, B_i)",
+            "stichtag": now.date().isoformat(),
+        },
+    }
+
+
+@app.get("/fragen/beziehung")
+def get_fragen_beziehung() -> Dict[str, Any]:
+    return FRAGEN_BEZIEHUNG
 
 
 @app.get("/systeme")

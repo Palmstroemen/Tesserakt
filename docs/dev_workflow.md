@@ -27,6 +27,8 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 - `POST /rueckblick`, `POST /rueckblick/kontrolle`, `GET /fragen/rueckblick` -> Spiel B (Rueckblick)
 - `POST /horoscope/heute` -> "Dein Horoskop fuer heute" (Belohnung in Spiel B)
 - `GET /horoscope/erklaerungen` -> Erklaertexte (Skill, Methodik, Experiment)
+- `POST /partner`, `POST /partner/kontrolle`, `GET /fragen/beziehung` -> Spiel C (Beziehung; Kontrollgruppe = zufaellige Paare)
+- `GET /orte?q=` -> Geburtsort-Suche (offline, GeoNames)
 - `POST /kontrolle` -> Kontrollvektoren je System fuer Perzentil/Skill (mit `session_id` + `stichtag` aus `/vektor`; Frontend laedt sie waehrend der Fragephase)
 - `GET /fragen` -> liefert die 16 Fragen
 - `GET /matrix` -> liefert die Gewichtungsmatrix

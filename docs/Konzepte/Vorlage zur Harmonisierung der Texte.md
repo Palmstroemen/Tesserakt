@@ -29,7 +29,7 @@ Diese Begriffe gelten in allen Konzepten identisch:
 
 - **Spiel A - Persoenlichkeit**: 1-Personen-Profil (aktueller Hauptflow).
 - **Spiel B - Prognose/Zeit**: Rueckblick auf vergangene Zeitfenster (nicht live im MVP).
-- **Spiel C - Beziehung**: 2-Personen-Kompatibilitaet (Konzeptphase).
+- **Spiel C - Beziehung**: 2-Personen-Vergleich (MVP umgesetzt).
 - **Systeme**: Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch.
 - **Kontrollgruppe (je System)**: dasselbe System, berechnet fuer zufaellige andere Geburtsdaten
   (Default 100, Fenster +-5 Jahre, gleiche Uhrzeit/Ort/Geschlecht/Name, reproduzierbar per `session_id`).
@@ -116,14 +116,14 @@ Formulierungsregel fuer Texte:
 - Logik: Systemwert = Horoskop des Zeitraums (Mittel ueber Stichproben-Tage); Skill wie in A, je Fenster.
 - Fragenauswahl darf nicht vom echten Horoskop abhaengen (verzerrt den Skill), siehe `Konzept Spiel B.md`.
 
-## 6.3 Spiel C (Konzept verbindlich, Umsetzung spaeter)
+## 6.3 Spiel C (MVP umgesetzt)
 
-- Ziel: Kompatibilitaetsabgleich fuer 2 Personen.
-- Daten: Geburtsdaten A/B, optionale Link-Codes zu Spiel-A-Sessions.
-- Logik: Basis ueber Differenzvektor, dann systemeigene Interaktionsregeln.
-- Datenschutz: explizite Zustimmung fuer Daten der zweiten Person.
-- Metrik: soll ebenfalls auf Skill mit Kontrollgruppe je System umgestellt werden; der Prototyp
-  (`partnerRating.js`) nutzt noch die alte Baseline-Metrik.
+- Ziel: Erkennt ein System, wer von beiden in welchem Lebensbereich staerker ist?
+- Daten: Geburtsdaten, -zeit, optional Ort/Geschlecht/Name fuer A und B.
+- Logik: vergleichende Fragen gegen den Differenzvektor `(B - A) / 2`; spaeter systemeigene
+  Interaktionsregeln (z. B. Synastrie).
+- Metrik: Skill wie A, Kontrollgruppe = 100 zufaellige Paare (beide Geburtsdaten zufaellig).
+- Datenschutz: Pflicht-Haekchen zur Einwilligung der Partnerperson; Ort nur grob gespeichert, kein Name.
 
 ---
 

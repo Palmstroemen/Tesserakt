@@ -22,6 +22,10 @@ Fragen aus backend/fragen_rueckblick.json, Skill getrennt fuer Monat und Quartal
 Beispiel:
   python3 tools/skill_metric_test.py --runs 2000 --kontrolle 100 --cache tools/output/skill_sim.json
   python3 tools/skill_metric_test.py --spiel b --runs 500 --cache tools/output/skill_sim_b.json
+  python3 tools/skill_metric_test.py --spiel c --runs 500 --cache tools/output/skill_sim_c.json
+
+Spiel C (Beziehung): /partner + /partner/kontrolle (100 zufaellige Paare), vergleichende Fragen aus
+backend/fragen_beziehung.json, Erwartung (B - A) / 2.
 """
 
 from __future__ import annotations
@@ -105,6 +109,26 @@ def timing_skill(person: dict, antworten: List[tuple], systeme: List[str]) -> Di
         if perz is not None:
             result[s] = 2.0 * (perz - 50.0)
     return result
+
+
+def _simulate_paar(args: tuple) -> dict:
+    """Spiel C: Differenzvektoren fuer ein zufaelliges Paar und 100 zufaellige Kontroll-Paare."""
+    index, seed, kontroll_anzahl, year_min, year_max = args
+    sys.path.insert(0, str(BACKEND_DIR))
+    import main as M  # pylint: disable=import-error
+
+    rng = random.Random(f"{seed}:paar:{index}")
+    start = datetime(year_min, 1, 1)
+    tage = (datetime(year_max, 12, 31) - start).days
+    a = start + timedelta(days=rng.randrange(tage + 1), minutes=rng.randrange(1440))
+    b = start + timedelta(days=rng.randrange(tage + 1), minutes=rng.randrange(1440))
+    body = dict(geburtsdatum_a=a.strftime("%Y-%m-%d"), uhrzeit_a=a.strftime("%H:%M"),
+                geburtsdatum_b=b.strftime("%Y-%m-%d"), uhrzeit_b=b.strftime("%H:%M"), systeme=SYSTEME)
+    with contextlib.redirect_stdout(io.StringIO()):
+        r = M.post_partner(M.PartnerRequest(**body, session_id=f"simc-{seed}-{index}"))
+        k = M.post_partner_kontrolle(M.PartnerKontrollRequest(**body, session_id=f"simc-{seed}-{index}",
+                                                               stichtag=r["inputs"]["stichtag"], kontroll_anzahl=kontroll_anzahl))
+    return {"vektoren": r["differenz"], "kontroll": k["kontrollvektoren"]}
 
 
 def generate_personen(runs: int, seed: int, kontroll_anzahl: int, year_min: int, year_max: int, workers: int,
@@ -258,10 +282,14 @@ def main() -> None:
     parser.add_argument("--sensitiv-system", type=str, default="Westlich", help="System, das im Sensitivitaetstest recht hat.")
     parser.add_argument("--cache", type=str, default=None, help="JSON-Datei: simulierte Personen laden/speichern.")
     parser.add_argument("--json-out", type=str, default=None, help="Optional: Ergebnisse als JSON speichern.")
-    parser.add_argument("--spiel", choices=["a", "b"], default="a", help="a = Persoenlichkeit (default), b = Rueckblick.")
+    parser.add_argument("--spiel", choices=["a", "b", "c"], default="a",
+                        help="a = Persoenlichkeit (default), b = Rueckblick, c = Beziehung.")
     args = parser.parse_args()
     if args.spiel == "b":
         main_b(args)
+        return
+    if args.spiel == "c":
+        main_c(args)
         return
 
     personen = None
@@ -352,6 +380,33 @@ def main_b(args: argparse.Namespace) -> None:
     if args.json_out:
         Path(args.json_out).parent.mkdir(parents=True, exist_ok=True)
         Path(args.json_out).write_text(json.dumps(ergebnisse, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def main_c(args: argparse.Namespace) -> None:
+    """Spiel C: Nullhypothese mit vergleichenden Antworten ohne Bezug zu den Geburtsdaten."""
+    paare = None
+    if args.cache and Path(args.cache).exists():
+        paare = json.loads(Path(args.cache).read_text(encoding="utf-8"))[: args.runs]
+    if paare is None:
+        print(f"Berechne {args.runs} Paare x {args.kontrolle} Kontroll-Paare ...", file=sys.stderr)
+        paare = generate_personen(args.runs, args.seed, args.kontrolle, args.year_min, args.year_max,
+                                  args.workers, simulate=_simulate_paar)
+        if args.cache:
+            Path(args.cache).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.cache).write_text(json.dumps(paare), encoding="utf-8")
+    fragen = json.loads((BACKEND_DIR / "fragen_beziehung.json").read_text(encoding="utf-8"))["fragen"]
+    matrix = load_matrix()
+    rng = random.Random(args.seed)
+    print(f"Spiel C - Paare: {len(paare)}, Fragen: {len(fragen)} (backend/fragen_beziehung.json)")
+    stile = {
+        "zufaellig (gleichverteilt)": lambda: slider(rng.uniform(-1, 1)),
+        "meist ausgewogen (nahe 0)": lambda: slider(rng.gauss(0.0, 0.25)),
+        "eher ich (Mittel -0.4)": lambda: slider(rng.gauss(-0.4, 0.4)),
+        "Startwert nicht bewegt (-1)": lambda: -1.0,
+    }
+    for stil, antwort in stile.items():
+        skills = [skill_scores(p, [antwort() for _ in fragen], fragen, matrix, SYSTEME) for p in paare]
+        drucke_szenario(f"SPIEL C - NULLHYPOTHESE - Antwortstil: {stil}", skills, SYSTEME)
 
 
 if __name__ == "__main__":
