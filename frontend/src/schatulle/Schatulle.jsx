@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { OrtSuche } from "../components/GeburtsdatumInput";
 import { calculateRating, erwarteterSkillBester } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 import { SYSTEME } from "./systeme";
@@ -56,7 +55,10 @@ function anzeigeWert(stat, system, dim, wert) {
 
 export default function Schatulle() {
   const [phase, setPhase] = useState("start"); // start | laden | frage | ende
-  const [ort, setOrt] = useState(null);
+  // Spiel C: zweite Person (silber); A merkt sich die Einstellungen der ersten Person (gold)
+  const [person, setPerson] = useState("a");
+  const [datenA, setDatenA] = useState(null);
+  const [flip, setFlip] = useState(false);
   const [fehler, setFehler] = useState(null);
 
   const [fragen, setFragen] = useState([]);
@@ -84,7 +86,32 @@ export default function Schatulle() {
 
   const stat = useMemo(() => anzeigeStatistik(kontroll), [kontroll]);
 
-  async function starten({ geburtsdatum, uhrzeit }) {
+  function spielWahl(spiel, eingabe) {
+    setFehler(null);
+    if (spiel === "C" && person === "a") {
+      setDatenA(eingabe);
+      setPerson("b");
+      setFlip(true);
+      return;
+    }
+    if (person === "b" && spiel !== "C") {
+      // zurueck zur eigenen (goldenen) Seite
+      setPerson("a");
+      setFlip(true);
+      return;
+    }
+    if (spiel === "A") {
+      starten(eingabe);
+      return;
+    }
+    setFehler(
+      spiel === "B"
+        ? "Spiel B gibt es in der Schatulle noch nicht."
+        : "Spiel C gibt es in der Schatulle noch nicht – beide Geburtsdaten sind aber eingestellt."
+    );
+  }
+
+  async function starten({ geburtsdatum, uhrzeit, ort }) {
     if (!fragen.length) {
       setFehler("Die Fragen sind noch nicht geladen – läuft das Backend?");
       return;
@@ -153,14 +180,17 @@ export default function Schatulle() {
   if (phase === "start" || phase === "laden") {
     return (
       <Datumsrad
-        onStart={starten}
+        key={person}
+        metall={person === "a" ? "gold" : "silber"}
+        anfang={person === "a" ? datenA?.roh : null}
+        flip={flip}
+        onSpiel={spielWahl}
         laedt={phase === "laden"}
         fehler={fehler}
-        unten={
-          <section className="sc-karte dr-ort">
-            {/* vorlaeufig, bis es die Ortswalzen gibt */}
-            <OrtSuche ort={ort} onChange={setOrt} />
-          </section>
+        hinweis={
+          person === "a"
+            ? "Dreh die Ringe auf dein Geburtsdatum, dann wähle ein Spiel: A, B oder C."
+            : "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann noch einmal C."
         }
       />
     );

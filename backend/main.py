@@ -887,6 +887,18 @@ def post_rueckblick_kontrolle(payload: KontrollRequest) -> Dict[str, Any]:
     return {"kontrollvektoren": kontrollvektoren, "timing": timing, "kontrolle": kontrolle}
 
 
+@app.get("/orte/laender")
+def get_laender(zeitzone: str = "") -> Dict[str, Any]:
+    """Laender fuer die Ortswalze; vorschlag = Land zur Zeitzone des Geraets."""
+    return orte.laender(zeitzone)
+
+
+@app.get("/orte/staedte")
+def get_staedte(land: str, limit: int = 60) -> Dict[str, Any]:
+    """Groessere Orte eines Landes (ISO-Code), alphabetisch, fuer die Ortswalze."""
+    return {"staedte": orte.staedte(land, max(1, min(limit, 200)))}
+
+
 @app.get("/orte")
 def get_orte(q: str = "", limit: int = 8) -> Dict[str, Any]:
     """Geburtsort-Suche (offline, GeoNames via geonamescache): Name, Land, Koordinaten, Zeitzone."""

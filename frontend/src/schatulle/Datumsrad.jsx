@@ -1,12 +1,14 @@
 import { useMemo, useRef, useState } from "react";
 import { MITTE } from "./geometrie";
+import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 
 // Geburtsdatum als vier drehbare Ringe im oberen Kreis (wie ein Astrolabium), von aussen nach innen:
 // Jahr, Monat, Tag, Stunde. Die Marke oben zeigt die gewaehlten Werte; die Mitte zeigt sie lesbar.
 // Der Tag-Ring hat immer 31 Rasten; ungueltige Tage (31.2.) laufen nach dem Loslassen zurueck.
 // Die Stunde steht auf 12; wer sie nicht kennt, laesst sie einfach stehen (12:00 wie im Backend).
-// Rechts unten im Quadrat der Hebel: startet das Spiel.
+// In den Ecken des Quadrats die Spiele: A links oben, B rechts oben, C links unten. C klappt beim ersten
+// Druck auf die silberne Seite um (Geburtsdatum der zweiten Person). Darunter die Ortswalzen.
 const JAHR_BIS = new Date().getFullYear();
 const JAHR_VON = 1920;
 const MONATE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
@@ -27,7 +29,16 @@ const RINGE = [
   { id: "tag", innen: 80, aussen: 104, anzahl: 31, text: (k) => String(k + 1), schrift: 10.5 },
   { id: "stunde", innen: 56, aussen: 80, anzahl: 24, text: (k) => String(k), schrift: 10.5 },
 ];
-const HEBEL = { x: 354, oben: 300, weg: 84 };
+const KNOEPFE = [
+  { spiel: "A", x: 40, y: 40 },
+  { spiel: "B", x: 360, y: 40 },
+  { spiel: "C", x: 40, y: 360 },
+];
+const HOEHE = MITTE.y + WALZEN.stadt + 44;
+const METALL = {
+  gold: ["#f3d79a", "#b08d57", "#5a4325"],
+  silber: ["#f4f6f8", "#a9b1ba", "#4e555c"],
+};
 
 function tageImMonat(jahr, monat) {
   return new Date(jahr, monat + 1, 0).getDate();
@@ -71,16 +82,20 @@ function Ring({ ring }) {
   );
 }
 
-export default function Datumsrad({ onStart, laedt, fehler, unten }) {
-  // Startwerte: 1. Jänner 1985, 12 Uhr
-  const [drehung, setDrehung] = useState(() => ({
-    jahr: -(1985 - JAHR_VON) * schritt(RINGE[0]),
-    monat: 0,
-    tag: 0,
-    stunde: -12 * schritt(RINGE[3]),
-  }));
-  const [stundeBewegt, setStundeBewegt] = useState(false);
-  const [hebelPos, setHebelPos] = useState(0);
+export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "gold", anfang, flip }) {
+  // Startwerte: 1. Jänner 1985, 12 Uhr (oder die zuletzt eingestellten Werte dieser Person)
+  const [drehung, setDrehung] = useState(() => {
+    const a = anfang ?? { jahr: 1985, monat: 0, tag: 1, stunde: 12 };
+    return {
+      jahr: -(a.jahr - JAHR_VON) * schritt(RINGE[0]),
+      monat: -a.monat * schritt(RINGE[1]),
+      tag: -(a.tag - 1) * schritt(RINGE[2]),
+      stunde: -a.stunde * schritt(RINGE[3]),
+    };
+  });
+  const [stundeBewegt, setStundeBewegt] = useState(anfang?.uhrzeitBekannt ?? false);
+  const [ort, setOrt] = useState(null);
+  const [gedrueckt, setGedrueckt] = useState(null);
   const drehRef = useRef(drehung);
   const svgRef = useRef(null);
   const drag = useRef(null);
@@ -150,13 +165,7 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
   function bewegen(e) {
     const d = drag.current;
     if (!d) return;
-    const p = svgPunkt(e);
-    if (d.art === "hebel") {
-      setHebelPos(Math.max(0, Math.min(1, (p.y - d.y0) / HEBEL.weg)));
-      if (Math.abs(p.y - d.y0) > 4) d.gezogen = true;
-      return;
-    }
-    const w = winkelVon(p);
+    const w = winkelVon(svgPunkt(e));
     let delta = w - d.winkel;
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
@@ -173,60 +182,56 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
   function loslassen() {
     const d = drag.current;
     drag.current = null;
-    if (!d) return;
-    if (d.art === "hebel") {
-      if (hebelPos >= 0.6 || !d.gezogen) ausloesen();
-      else setHebelPos(0);
-      return;
-    }
-    einrasten();
+    if (d) einrasten();
   }
 
-  function hebelDruecken(e) {
+  function knopf(e, spiel) {
     e.stopPropagation();
     if (laedt) {
       sperre();
       return;
     }
-    drag.current = { art: "hebel", y0: svgPunkt(e).y, gezogen: false };
-    svgRef.current.setPointerCapture?.(e.pointerId);
-  }
-
-  function ausloesen() {
     hebel();
-    setHebelPos(1);
-    setTimeout(() => setHebelPos(0), 260);
+    setGedrueckt(spiel);
+    setTimeout(() => setGedrueckt(null), 180);
     const { jahr, monat, tag, stunde } = werte;
     const zwei = (n) => String(n).padStart(2, "0");
-    onStart({
-      geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(Math.min(tag, tageImMonat(jahr, monat)))}`,
+    const t = Math.min(tag, tageImMonat(jahr, monat));
+    onSpiel(spiel, {
+      geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(t)}`,
       uhrzeit: `${zwei(stunde)}:00`,
       uhrzeitBekannt: stundeBewegt, // fuer spaetere Auswertung (noch nicht gespeichert)
+      ort,
+      roh: { jahr, monat, tag: t, stunde, uhrzeitBekannt: stundeBewegt, ort },
     });
   }
 
   const ringInhalt = useMemo(() => RINGE.map((r) => ({ band: <Band ring={r} />, gravur: <Ring ring={r} /> })), []);
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
-  const knaufY = HEBEL.oben + hebelPos * HEBEL.weg;
+  const [hell, mittel, dunkel] = METALL[metall];
 
   return (
     <main className="sp">
       <svg
         ref={svgRef}
-        viewBox="0 0 400 400"
-        className="sp-svg"
+        viewBox={`0 0 400 ${HOEHE}`}
+        className={`sp-svg dr-svg dr-${metall}${flip ? " dr-flip" : ""}`}
         onPointerDown={druecken}
         onPointerMove={bewegen}
         onPointerUp={loslassen}
         onPointerCancel={loslassen}
         role="group"
-        aria-label="Geburtsdatum einstellen"
+        aria-label="Geburtsdatum und Geburtsort einstellen"
       >
         <defs>
           <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
-            <stop offset="0" stopColor="#f3d79a" />
-            <stop offset="0.55" stopColor="#b08d57" />
-            <stop offset="1" stopColor="#5a4325" />
+            <stop offset="0" stopColor={hell} />
+            <stop offset="0.55" stopColor={mittel} />
+            <stop offset="1" stopColor={dunkel} />
+          </radialGradient>
+          <radialGradient id="ow-platte" cx={MITTE.x} cy={MITTE.y} r={WALZEN.stadt + 40} gradientUnits="userSpaceOnUse">
+            <stop offset="0.5" stopColor={metall === "gold" ? "#8a6a3c" : "#7d848c"} />
+            <stop offset="1" stopColor={metall === "gold" ? "#4a3720" : "#3d4248"} />
           </radialGradient>
           {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
               Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
@@ -244,6 +249,10 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
             </feMerge>
           </filter>
         </defs>
+
+        {/* Ortswalzen unter dem Kreis */}
+        <OrtWalzen svgPunkt={svgPunkt} anfang={anfang?.ort} onOrt={setOrt} />
+
         <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
 
         {RINGE.map((r, i) => (
@@ -267,37 +276,47 @@ export default function Datumsrad({ onStart, laedt, fehler, unten }) {
         <rect x={MITTE.x - 13} y={MITTE.y - 163} width="26" height="108" rx="5" className="dr-fenster" />
         <path d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`} className="dr-marke" />
 
-        {/* Mitte: Ergebnis lesbar */}
+        {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
         <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
-        <text x={MITTE.x} y={MITTE.y - 9} className="dr-anzeige">
+        <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
           {werte.tag}. {MONATE_LANG[werte.monat]}
         </text>
-        <text x={MITTE.x} y={MITTE.y + 10} className="dr-anzeige">
+        <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
           {werte.jahr}
         </text>
-        <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige klein">
+        <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
           {String(werte.stunde).padStart(2, "0")}:00
         </text>
         {!gueltig ? (
-          <text x={MITTE.x} y={MITTE.y - 24} className="dr-anzeige klein">
+          <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
             …
           </text>
         ) : null}
 
-        {/* Hebel rechts unten: startet das Spiel */}
-        <g className="sp-hebel" onPointerDown={hebelDruecken}>
-          <rect x={HEBEL.x - 7} y={HEBEL.oben - 10} width="14" height={HEBEL.weg + 20} rx="7" className="sp-hebelschlitz" />
-          <rect x={HEBEL.x - 26} y={HEBEL.oben - 26} width="52" height={HEBEL.weg + 52} fill="transparent" />
-          <circle cx={HEBEL.x} cy={knaufY} r="15" className={laedt ? "sp-hebelknauf gesperrt" : "sp-hebelknauf"} />
-        </g>
+        {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C) */}
+        {KNOEPFE.map((k) => (
+          <g
+            key={k.spiel}
+            className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${laedt ? " gesperrt" : ""}`}
+            onPointerDown={(e) => knopf(e, k.spiel)}
+            role="button"
+            aria-label={`Spiel ${k.spiel}`}
+          >
+            <circle cx={k.x} cy={k.y} r="26" fill="url(#sp-messing)" className="dr-knopfrand" />
+            <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
+            <text x={k.x} y={k.y} dy="0.36em" className="dr-knopftext" filter="url(#dr-gravur)">
+              {k.spiel}
+            </text>
+          </g>
+        ))}
       </svg>
 
       <div className="sp-fuss dr-fuss">
         <p className="sc-hinweis">
-          {laedt ? "Die Schatulle öffnet sich …" : "Dreh die Ringe auf dein Geburtsdatum und zieh den Hebel."}
+          {ort ? `${ort.name}, ${ort.landName}` : "Geburtsort unbekannt"}
         </p>
+        <p className="sc-hinweis">{laedt ? "Die Schatulle öffnet sich …" : hinweis}</p>
         {fehler ? <p className="sc-fehler">{fehler}</p> : null}
-        {unten}
       </div>
     </main>
   );

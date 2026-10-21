@@ -521,6 +521,11 @@ body {
   pointer-events: none;
 }
 
+.dr-anzeige.zeit {
+  font-size: 15px;
+  fill: #d8c49a;
+}
+
 .dr-anzeige.klein {
   font-size: 12px;
   fill: var(--sc-text-leise);
@@ -532,4 +537,131 @@ body {
 
 .dr-ort {
   max-width: 360px;
+}
+
+/* Silberne Seite (zweite Person in Spiel C) */
+.dr-silber .dr-band {
+  stroke: #d3d8de;
+}
+
+.dr-silber .dr-band.dr-monat,
+.dr-silber .dr-band.dr-stunde {
+  stroke: #b9c0c7;
+}
+
+.dr-silber .dr-text,
+.dr-silber .dr-strich {
+  fill: #2f3439;
+}
+
+.dr-silber .dr-strich {
+  stroke: #2f3439;
+}
+
+.dr-silber .dr-fuge {
+  stroke: #4e555c;
+}
+
+.dr-silber .dr-mitte {
+  stroke: #d3d8de;
+}
+
+.dr-silber .dr-anzeige {
+  fill: #e6eaee;
+}
+
+/* Umklappen beim Wechsel zwischen gold und silber */
+.dr-flip {
+  animation: dr-flip 0.7s ease-out;
+}
+
+@keyframes dr-flip {
+  from {
+    transform: perspective(900px) rotateY(90deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Spielknoepfe in den Ecken */
+.dr-knopf {
+  cursor: pointer;
+}
+
+.dr-knopf circle,
+.dr-knopf text {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.12s;
+}
+
+.dr-knopf.gedrueckt circle,
+.dr-knopf.gedrueckt text {
+  transform: scale(0.9);
+}
+
+.dr-knopf.gesperrt {
+  opacity: 0.5;
+}
+
+.dr-knopfrand {
+  stroke: #2b2014;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+.dr-knopfmitte {
+  fill: #1d1712;
+  stroke: rgba(255, 244, 214, 0.5);
+  stroke-width: 1;
+}
+
+.dr-knopftext {
+  text-anchor: middle;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  fill: #e8c98a;
+  pointer-events: none;
+}
+
+.dr-silber .dr-knopftext {
+  fill: #dfe4e9;
+}
+
+/* Ortswalzen */
+.ow-walze {
+  cursor: grab;
+}
+
+.ow-schlitz {
+  fill: none;
+  stroke: #0d0906;
+  stroke-linecap: round;
+}
+
+.ow-name {
+  text-anchor: middle;
+  font-family: Georgia, serif;
+  fill: #a8895a;
+  pointer-events: none;
+}
+
+.ow-name.gewaehlt {
+  fill: #f0d59c;
+}
+
+.dr-silber .ow-name {
+  fill: #9aa2aa;
+}
+
+.dr-silber .ow-name.gewaehlt {
+  fill: #f2f4f6;
+}
+
+.ow-zeiger {
+  stroke: #c0392b;
+  stroke-width: 1.6;
+  pointer-events: none;
+  filter: drop-shadow(0 0 2px rgba(192, 57, 43, 0.7));
 }
