@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException
@@ -33,6 +33,11 @@ from rule_engine import (
     _firdaria_periode,
     luck_pillar_for_both_sexes,
     stem_to_element,
+    STEMS,
+    BRANCHES,
+    YANG_STEMS,
+    bazi_jahr_monat,
+    glueckssaeulen_start,
     _HOUSE_LORD,
 )
 import ausblick
@@ -722,6 +727,23 @@ def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
     return {"stichtag": now.date().isoformat(), "systeme": systeme}
 
 
+def _naechste_glueckssaeule(
+    birth_dt: datetime, birth_ut: datetime, geschlecht: Optional[str], ab: datetime
+) -> Optional[Tuple[datetime, str, str]]:
+    """Beginn, Stamm und Zweig der naechsten Glueckssaeule nach `ab`; die Laufrichtung haengt vom Geschlecht
+    ab (Yang-Jahr: Mann vorwaerts, Frau rueckwaerts), ohne Angabe also keine."""
+    if geschlecht not in ("weiblich", "maennlich"):
+        return None
+    ys, _, ms, mb = bazi_jahr_monat(birth_dt, birth_ut)
+    vorwaerts = (ys in YANG_STEMS) == (geschlecht == "maennlich")
+    beginn = glueckssaeulen_start(birth_ut, vorwaerts)
+    alter = (ab - birth_dt).total_seconds() / (365.2425 * 86400)
+    k = 0 if alter < beginn else 1 + int((alter - beginn) // 10)  # naechste: Saeule Nr. k + 1
+    schritt = (k + 1) if vorwaerts else -(k + 1)
+    tag = birth_dt + timedelta(days=(beginn + 10 * k) * 365.2425)
+    return tag, STEMS[(STEMS.index(ms) + schritt) % 10], BRANCHES[(BRANCHES.index(mb) + schritt) % 12]
+
+
 @app.post("/horoscope/ausblick")
 def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
     """Jahreshoroskop: datierte Ereignisse der naechsten 12 Monate je System (bisher Westlich)."""
@@ -745,6 +767,14 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
         systeme["Vedisch"] = ausblick.vedisch(
             vimshottari_position_now(idx, anteil, 0.0), birth_dt, mond_zeichen, _laufende_zeichen_siderisch, start, t,
             dasha["antardasha_matrix"], load_rules("Vedisch").get("gochara", {}),
+        )
+    if "Bazi" in payload.systeme:
+        birth_ut = _zu_weltzeit(birth_dt, payload.zeitzone)
+        saeulen = build_four_pillars(birth_dt, birth_ut, payload.longitude)["pillars"]
+        systeme["Bazi"] = ausblick.bazi(
+            stem_to_element(saeulen["day"]["stem"]), saeulen["day"]["branch"], saeulen["year"]["branch"],
+            bazi_jahr_monat, stem_to_element, _bazi_beziehung, start, t, load_rules("Bazi"),
+            _naechste_glueckssaeule(birth_dt, birth_ut, payload.geschlecht, start),
         )
     return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
 

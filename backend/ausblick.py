@@ -10,6 +10,10 @@ chronologisch zurueckgegeben.
 Vedisch: Vimshottari-Unterperioden (Antardasha) und Beginn einer neuen Mahadasha, dazu Gochara von Jupiter
 und Saturn (Zeichenwechsel, Haeuser vom siderischen Zeichen des Geburtsmondes) mit den Phasen der Sade Sati.
 Deutung der Unterperioden aus der Antardasha-Matrix (Vedisch/jyotish_dasha.json, nach BPHS und Phaladeepika).
+
+Chinesisch: Sonnenmonate (Wechsel bei Sonnenlaenge 315 + k*30 Grad) zu Bloecken gleichen Elements gefasst und
+mit dem Tagesmeister verglichen; Jahreswechsel zu Lichun; Monate, deren Zweig mit dem Zweig der Tagessaeule
+zusammenstoesst (Chong); neue Glueckssaeule, wenn sie ins Jahr faellt (nur mit Angabe des Geschlechts).
 """
 
 from __future__ import annotations
@@ -284,4 +288,91 @@ def vedisch(
                     text = f"{text} {e['nachsatz']}"
                 neu(e["von"], e["bis"], "gochara", text, planet=pl, haus=haus)
                 letztes = haus
+    return sorted(erg, key=lambda e: e["von"])
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Chinesisch
+
+CHONG = {"zi": "wu", "chou": "wei", "yin": "shen", "mao": "you", "chen": "xu", "si": "hai"}
+CHONG.update({b: a for a, b in list(CHONG.items())})
+
+
+def _chong_text(regeln: Dict[str, Dict[str, str]], a: str, b: str) -> str:
+    """Deutung eines Zusammenstosses aus den Regeldaten, ohne die Kopfzeile ('Ratte-Pferd (Zi-Wu): Wasser
+    clashed Feuer.')."""
+    eintrag = regeln.get(f"{a}_{b}") or regeln.get(f"{b}_{a}") or {}
+    text = eintrag.get("text_de", "")
+    if "): " in text:
+        text = text.split("): ", 1)[1]
+        text = text.split(". ", 1)[1] if ". " in text else text
+    return text
+
+
+def bazi(
+    tagesmeister: str,
+    tag_zweig: str,
+    jahr_zweig: str,
+    jahr_monat: Callable[[datetime], Tuple[str, str, str, str]],
+    element: Callable[[str], str],
+    beziehung: Callable[[str, str], str],
+    start: datetime,
+    t: Dict[str, Dict[str, str]],
+    regeln: Dict[str, object],
+    glueckssaeule: Optional[Tuple[datetime, str, str]] = None,
+    tage: int = 365,
+) -> List[Dict[str, object]]:
+    """Element-Bloecke der Monate, Jahreswechsel, Chong-Monate und eine neue Glueckssaeule (Beginn, Stamm,
+    Zweig) in den naechsten `tage` Tagen. `tagesmeister` ist das Element des Tagesstamms."""
+    ende = start + timedelta(days=tage)
+    tage_liste = [start + timedelta(days=i) for i in range(tage + 1)]
+    tb, el, tiere, tiere_k = t["ausblick_bazi"], t["elemente"], t["bazi_tiere"], t["bazi_tiere_monat"]
+    saeulen = [jahr_monat(tag) for tag in tage_liste]
+    dm = el[tagesmeister]
+    clashes = regeln["clash_und_combination_vollstaendig"]["sechs_clashes"]
+    erg: List[Dict[str, object]] = []
+
+    def neu(von: datetime, bis: datetime, art: str, text: str, **mehr: object) -> None:
+        erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": art,
+                    "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}", **mehr})
+
+    def um(tag: datetime, art: str, text: str, **mehr: object) -> None:
+        erg.append({"von": tag.date().isoformat(), "bis": tag.date().isoformat(), "art": art,
+                    "text": f"Um den {tag.day}. {MONATE[tag.month - 1]}: {text}", **mehr})
+
+    # Monate: Stamm-Element wechselt alle zwei Monate (Yang- und Yin-Stamm desselben Elements)
+    for monat_el, von, bis in _abschnitte([element(s[2]) for s in saeulen], tage_liste):
+        rel = beziehung(tagesmeister, monat_el)
+        neu(von, bis, "monat", tb[f"monat_{rel}"].replace("{dm}", dm).replace("{monat}", el[monat_el]),
+            element=monat_el, beziehung=rel)
+
+    # Monate, deren Zweig mit dem Zweig der Tagessaeule zusammenstoesst
+    for zweig, von, bis in _abschnitte([s[3] for s in saeulen], tage_liste):
+        if CHONG.get(zweig) == tag_zweig:
+            neu(von, bis, "chong", tb["chong_monat"].replace("{tier}", tiere_k[zweig])
+                .replace("{natal}", tiere[tag_zweig]).replace("{text}", _chong_text(clashes, zweig, tag_zweig)),
+                zweig=zweig)
+
+    # Jahreswechsel zu Lichun
+    for i in range(1, len(saeulen)):
+        if saeulen[i][1] != saeulen[i - 1][1]:
+            stamm, zweig = saeulen[i][0], saeulen[i][1]
+            jahr_el = element(stamm)
+            rel = beziehung(tagesmeister, jahr_el)
+            name = f"{el[jahr_el]}-{tiere_k[zweig]}"
+            um(tage_liste[i], "jahr", tb[f"jahr_{rel}"].replace("{jahr}", name).replace("{dm}", dm),
+               stamm=stamm, zweig=zweig, beziehung=rel)
+            if CHONG.get(zweig) == jahr_zweig:
+                um(tage_liste[i], "chong_jahr", tb["chong_jahr"].replace("{natal}", tiere[jahr_zweig])
+                   .replace("{text}", _chong_text(clashes, zweig, jahr_zweig)), zweig=zweig)
+
+    # neue Glueckssaeule
+    if glueckssaeule and start < glueckssaeule[0] <= ende:
+        tag, stamm, zweig = glueckssaeule
+        lp = regeln["luck_pillars"]
+        stamm_text = lp["stem_luck_pillars"].get(stamm, {}).get("text_de", "")
+        zweig_text = lp["branch_luck_pillars"].get("wu_branch" if zweig == "wu" else zweig, {}).get("text_de", "")
+        um(tag, "glueckssaeule", tb["glueckssaeule"]
+           .replace("{saeule}", f"{el[element(stamm)]}-{tiere_k[zweig]}-Säule ({stamm.capitalize()} {zweig.capitalize()})")
+           .replace("{stamm}", stamm_text).replace("{zweig}", zweig_text), stamm=stamm, zweig=zweig)
     return sorted(erg, key=lambda e: e["von"])

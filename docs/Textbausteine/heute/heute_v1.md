@@ -111,6 +111,52 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - saturn: Saturn
 - merkur: Merkur
 
+## Jahreshoroskop Chinesisch {#ausblick_bazi}
+
+- monat_gleich: Die Monate tragen das Element {monat}, wie dein Tagesmeister. Das Selbstvertrauen wird wachsen; Menschen mit ähnlichen Zielen treten auf – als Kameraden oder als Konkurrenz.
+- monat_naehrt: {monat} nährt deinen Tagesmeister ({dm}). Unterstützung, Lernen und Rückhalt werden leichter zu finden sein – eine Zeit, um Hilfe anzunehmen.
+- monat_erschoepft: Dein Tagesmeister ({dm}) nährt {monat}. Deine Kraft wird in Ausdruck, Ideen und Projekte fließen – schöpferisch, aber fordernd. Plane Pausen ein.
+- monat_kontrolliert: {monat} setzt deinen Tagesmeister ({dm}) unter Druck. Pflichten und Erwartungen von außen werden spürbar sein; klare Prioritäten helfen.
+- monat_beherrscht: Dein Tagesmeister ({dm}) beherrscht {monat}. Du wirst zugreifen und gestalten können – Chancen auf Gewinn, solange du dich nicht überdehnst.
+- jahr_gleich: Mit Lichun, dem Frühlingsanfang, beginnt ein {jahr}-Jahr. Es trägt dasselbe Element wie dein Tagesmeister ({dm}) – ein Jahr, in dem du dich auf eigene Kraft stützt.
+- jahr_naehrt: Mit Lichun, dem Frühlingsanfang, beginnt ein {jahr}-Jahr. Sein Element nährt deinen Tagesmeister ({dm}) – ein Jahr mit Rückenwind und Rückhalt.
+- jahr_erschoepft: Mit Lichun, dem Frühlingsanfang, beginnt ein {jahr}-Jahr. Dein Tagesmeister ({dm}) nährt sein Element – ein schaffensreiches Jahr, das viel Kraft verlangt.
+- jahr_kontrolliert: Mit Lichun, dem Frühlingsanfang, beginnt ein {jahr}-Jahr. Sein Element setzt deinen Tagesmeister ({dm}) unter Druck – ein Jahr der Bewährung und der Pflichten.
+- jahr_beherrscht: Mit Lichun, dem Frühlingsanfang, beginnt ein {jahr}-Jahr. Dein Tagesmeister ({dm}) beherrscht sein Element – ein Jahr, in dem du Ernte einfahren kannst.
+- chong_monat: Der {tier}-Monat prallt auf den Zweig deiner Tagessäule ({natal}) – ein Zusammenstoß (Chong), der Veränderung erzwingt. {text}
+- chong_jahr: Das neue Jahr prallt auf den Zweig deines Geburtsjahres ({natal}) – ein Zusammenstoß (Chong) mit dem Jahresherrscher. {text}
+- glueckssaeule: Eine neue Glückssäule beginnt und prägt die nächsten zehn Jahre: {saeule}. {stamm} {zweig}
+
+## Chinesisch: Tierkreiszweige {#bazi_tiere}
+
+- zi: Ratte
+- chou: Büffel
+- yin: Tiger
+- mao: Hase
+- chen: Drache
+- si: Schlange
+- wu: Pferd
+- wei: Ziege
+- shen: Affe
+- you: Hahn
+- xu: Hund
+- hai: Schwein
+
+## Chinesisch: Tierkreiszweige in Zusammensetzungen {#bazi_tiere_monat}
+
+- zi: Ratten
+- chou: Büffel
+- yin: Tiger
+- mao: Hasen
+- chen: Drachen
+- si: Schlangen
+- wu: Pferde
+- wei: Ziegen
+- shen: Affen
+- you: Hahnen
+- xu: Hunde
+- hai: Schweine
+
 ## Elemente {#elemente}
 
 - holz: Holz

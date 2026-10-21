@@ -47,6 +47,22 @@
   Monatswechsel oder um Lichun im falschen Monat bzw. Jahr landen.
 - Keine verborgenen Stämme, keine Zehn Götter im Detail, keine Shen Sha im Spiel.
 
+## Jahreshoroskop (Ausblick auf 12 Monate)
+
+`backend/ausblick.py`, Endpunkt `POST /horoscope/ausblick`. Für jeden Tag der nächsten 365 Tage die Jahres-
+und Monatssäule (Sonnenmonate wie oben):
+
+- **Monate:** Das Element des Monatsstamms wechselt alle zwei Monate (Yang- und Yin-Stamm desselben
+  Elements); jeder Block wird mit dem Tagesmeister verglichen (gleich, nährt, erschöpft, kontrolliert,
+  beherrscht), wie im Horoskop für heute.
+- **Jahreswechsel zu Lichun:** neues Jahr mit Element und Tier, verglichen mit dem Tagesmeister; stößt
+  sein Zweig mit dem Zweig des Geburtsjahres zusammen (Chong), steht das eigens da.
+- **Chong-Monate:** Monate, deren Zweig mit dem Zweig der Tagessäule zusammenstößt; Deutung aus
+  `sechs_clashes`.
+- **Glückssäule:** beginnt eine neue im Jahr, mit den Deutungen von Stamm und Zweig. Nur mit Angabe des
+  Geschlechts, weil davon die Laufrichtung abhängt.
+- Nicht berücksichtigt: Kombinationen (Liu He, San He), Harms, Punishments, Zehn Götter, Shen Sha.
+
 ## Was ein erfahrener Bazi-Meister anders macht
 
 Er beurteilt die Stärke des Tagesmeisters im Zusammenhang, bestimmt nützliche und schädliche Elemente,
