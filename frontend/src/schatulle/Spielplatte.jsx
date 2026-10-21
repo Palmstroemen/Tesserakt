@@ -532,6 +532,22 @@ export default function Spielplatte({
         >
           <defs>
             <SchlitzDefs />
+            {/* Schatten der Faecherplatte auf die Grundplatte (Licht von oben) */}
+            <filter
+              id="sp-plattenschatten"
+              x="-10%"
+              y="-10%"
+              width="120%"
+              height="125%"
+            >
+              <feDropShadow
+                dx="0"
+                dy="4"
+                stdDeviation="4"
+                floodColor="#1a1006"
+                floodOpacity="0.5"
+              />
+            </filter>
             {/* Platte: Messing, etwa so hell wie der Ring um das Glas; einfacher Verlauf ueber die Flaeche */}
             <radialGradient id="sp-platte" cx="40%" cy="15%" r="95%">
               <stop offset="0" stopColor="#f0d394" />
@@ -569,9 +585,10 @@ export default function Spielplatte({
               d={plattePfad(
                 radien[0] - abstand * 0.6,
                 platteAussen,
-                theta + 0.16,
+                theta + 0.22,
               )}
               fill="url(#sp-platte)"
+              filter="url(#sp-plattenschatten)"
               stroke="#2b2014"
               strokeWidth="2"
             />
