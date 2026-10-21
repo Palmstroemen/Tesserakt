@@ -634,29 +634,44 @@ body {
   cursor: grab;
 }
 
+.ow-rand {
+  fill: none;
+  stroke: #3a2c1a;
+  stroke-linecap: round;
+}
+
 .ow-schlitz {
   fill: none;
-  stroke: #0d0906;
+  stroke: #d8b878;
   stroke-linecap: round;
+}
+
+.dr-silber .ow-rand {
+  stroke: #3d4248;
+}
+
+.dr-silber .ow-schlitz {
+  stroke: #d3d8de;
 }
 
 .ow-name {
   text-anchor: middle;
   font-family: Georgia, serif;
-  fill: #a8895a;
+  fill: #4a3519;
   pointer-events: none;
 }
 
 .ow-name.gewaehlt {
-  fill: #f0d59c;
+  fill: #2b1d0c;
+  font-weight: bold;
 }
 
 .dr-silber .ow-name {
-  fill: #9aa2aa;
+  fill: #2f3439;
 }
 
 .dr-silber .ow-name.gewaehlt {
-  fill: #f2f4f6;
+  fill: #15181b;
 }
 
 .ow-zeiger {

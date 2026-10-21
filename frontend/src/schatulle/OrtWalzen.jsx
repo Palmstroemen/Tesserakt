@@ -135,6 +135,8 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, schrift = 13 }) {
           <path d={bogenPfad(r, theta)} stroke="white" strokeWidth={WALZEN.schlitz - 4} strokeLinecap="round" fill="none" />
         </mask>
       </defs>
+      {/* heller Messingstreifen mit dunklem Rand, wie die Ringe des Datumsrads */}
+      <path d={bogenPfad(r, theta)} className="ow-rand" strokeWidth={WALZEN.schlitz + 3} />
       <path d={bogenPfad(r, theta)} className="ow-schlitz" strokeWidth={WALZEN.schlitz} />
       <g mask={`url(#${maskeId})`}>
         <g filter="url(#dr-gravur)">
@@ -157,12 +159,12 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, schrift = 13 }) {
   );
 }
 
-// Anfang der Ortswalze: "Ort unbekannt", ein Pfeil und Leerraum. In der Ruhestellung ist so keine Stadt
-// zu sehen, und ein Wechsel des Landes veraendert nichts Sichtbares auf der Platte.
+// Anfang der Ortswalze: "Ort unbekannt", ein Pfeil und etwas Leerraum. In der Ruhestellung ist so keine
+// Stadt zu sehen (die erste liegt gerade unter dem Schlitzende), ein Landeswechsel aendert nichts Sichtbares.
 const ANFANG_ORTE = [
   { key: "?", label: "Ort unbekannt", ort: null },
   { key: "pfeil", label: "——————→", breite: 130, waehlbar: false },
-  { key: "leer", label: "", breite: 230, waehlbar: false },
+  { key: "leer", label: "", breite: 60, waehlbar: false },
 ];
 
 export default function OrtWalzen({ svgPunkt, anfang, onOrt }) {
