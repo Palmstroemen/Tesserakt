@@ -272,6 +272,26 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
       [s, v1],
       [s, v2],
     ]);
+  // Eine Kerbe in Goldfarbe, nur durch die Praegung sichtbar: Licht kommt von oben (innen, v < 0), also liegt
+  // die obere Flanke im Schatten und die untere fängt ein wenig Licht.
+  const kerbe = (punkte, breite, key) => (
+    <g key={key}>
+      <path
+        d={linie(punkte.map(([s, v]) => [s, v - breite * 0.45]))}
+        stroke="#3d2a0c"
+        strokeWidth={breite * 0.55}
+        fill="none"
+        opacity="0.55"
+      />
+      <path
+        d={linie(punkte.map(([s, v]) => [s, v + breite * 0.5]))}
+        stroke="#f0cf86"
+        strokeWidth={breite * 0.45}
+        fill="none"
+        opacity="0.45"
+      />
+    </g>
+  );
   return (
     <g>
       <path
@@ -280,54 +300,36 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
         strokeWidth={w + 6}
         fill="none"
       />
-      {/* Ziselierung: Rillen nahe den Raendern und die gepraegte Welle (Schatten unten, Licht oben) */}
-      {[-1, 1].map((k) => (
-        <g key={k}>
-          <path
-            d={linie(welle.map(([s]) => [s, k * w * 0.36 + 0.4]))}
-            stroke="#6b4a14"
-            strokeWidth={w * 0.05}
-            fill="none"
-            opacity="0.7"
-          />
-          <path
-            d={linie(welle.map(([s]) => [s, k * w * 0.36 - 0.3]))}
-            stroke="#fff1c4"
-            strokeWidth={w * 0.035}
-            fill="none"
-            opacity="0.8"
-          />
-        </g>
-      ))}
-      <path
-        d={linie(welle.map(([s, v]) => [s, v + 0.5]))}
-        stroke="#6b4a14"
-        strokeWidth={w * 0.075}
-        fill="none"
-        opacity="0.75"
-      />
-      <path
-        d={linie(welle.map(([s, v]) => [s, v - 0.35]))}
-        stroke="#fff1c4"
-        strokeWidth={w * 0.05}
-        fill="none"
-        opacity="0.85"
-      />
-      {/* Kanten des Plaettchens: Schatten auf das Muster, Lichtkante auf dem Gold */}
+      {/* Ziselierung: zwei Randrillen und die Welle, alle als Kerben */}
+      {[-1, 1].map((k) =>
+        kerbe(
+          welle.map(([s]) => [s, k * w * 0.36]),
+          w * 0.06,
+          `r${k}`,
+        ),
+      )}
+      {kerbe(welle, w * 0.09, "welle")}
+      {/* Kanten des Plaettchens: Schatten auf das tiefer liegende Muster, feine Lichtkante auf dem Gold */}
       {[sVon, sBis].map((s, i) =>
         s > -w / 2 && s < laenge + w / 2 ? (
           <g key={i}>
             <path
-              d={kante(s + (i ? 1.2 : -1.2), -w / 2, w / 2)}
+              d={kante(s + (i ? 2.2 : -2.2), -w / 2, w / 2)}
               stroke="#000"
-              strokeWidth="2.6"
-              opacity="0.35"
+              strokeWidth="4.4"
+              opacity="0.45"
+            />
+            <path
+              d={kante(s + (i ? 0.9 : -0.9), -w / 2, w / 2)}
+              stroke="#000"
+              strokeWidth="1.6"
+              opacity="0.5"
             />
             <path
               d={kante(s + (i ? -0.5 : 0.5), -w / 2, w / 2)}
-              stroke="#fff1c4"
-              strokeWidth="0.8"
-              opacity="0.8"
+              stroke="#e8c47a"
+              strokeWidth="0.7"
+              opacity="0.7"
             />
           </g>
         ) : null,
@@ -340,9 +342,9 @@ function Goldplatte({ r, theta, w, von, bis, anker }) {
 export function SchlitzDefs() {
   return (
     <linearGradient id="sp-gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stopColor="#f6dc9c" />
-      <stop offset="0.5" stopColor="#d4a84f" />
-      <stop offset="1" stopColor="#8f6a28" />
+      <stop offset="0" stopColor="#c9a35a" />
+      <stop offset="0.5" stopColor="#a7802f" />
+      <stop offset="1" stopColor="#77561e" />
     </linearGradient>
   );
 }
@@ -401,29 +403,51 @@ export default function Schlitz({
           fill="none"
         />
         {teile}
-        {platten.map((p, i) => (
-          <Goldplatte key={i} r={r} theta={theta} w={w} {...p} />
-        ))}
-        {/* Tiefe: Schatten an der oberen (inneren) Kante, feine Lichtkante unten */}
+        {/* das Muster liegt am tiefsten: gedaempft und im Schatten der Plaettchen und der Faecherplatte */}
         <path
-          d={bogenPfad(r - w / 2 + 1.3, theta)}
-          stroke="#000"
-          strokeWidth="2.6"
-          opacity="0.5"
+          d={bogenPfad(r, theta)}
+          stroke="#120a04"
+          strokeWidth={w + 2}
+          opacity="0.32"
           fill="none"
         />
         <path
-          d={bogenPfad(r - w / 2 + 3.6, theta)}
+          d={bogenPfad(r - w * 0.22, theta)}
           stroke="#000"
-          strokeWidth="2.6"
-          opacity="0.18"
+          strokeWidth={w * 0.56}
+          opacity="0.3"
+          fill="none"
+        />
+        <path
+          d={bogenPfad(r - w * 0.36, theta)}
+          stroke="#000"
+          strokeWidth={w * 0.28}
+          opacity="0.3"
+          fill="none"
+        />
+        {platten.map((p, i) => (
+          <Goldplatte key={i} r={r} theta={theta} w={w} {...p} />
+        ))}
+        {/* Tiefe: Schatten der Faecherplatte an der oberen (inneren) Kante, feine Lichtkante unten */}
+        <path
+          d={bogenPfad(r - w / 2 + 1.4, theta)}
+          stroke="#000"
+          strokeWidth="2.8"
+          opacity="0.6"
+          fill="none"
+        />
+        <path
+          d={bogenPfad(r - w / 2 + 4, theta)}
+          stroke="#000"
+          strokeWidth="4"
+          opacity="0.22"
           fill="none"
         />
         <path
           d={bogenPfad(r + w / 2 - 0.6, theta)}
           stroke="#fff"
           strokeWidth="1"
-          opacity="0.15"
+          opacity="0.12"
           fill="none"
         />
       </g>

@@ -656,7 +656,7 @@ export default function Spielplatte({
               const aktiv = aufgezogen.includes(s.id) || pos[s.id] > RUHE;
               return (
                 <g key={s.id} opacity={aktiv ? 1 : 0.8} className="sp-symbol">
-                  <HoroskopIcon id={s.id} x={p.x} y={p.y} r={symbol} />
+                  <HoroskopIcon id={s.id} x={p.x} y={p.y} r={symbol * 1.15} />
                 </g>
               );
             })}

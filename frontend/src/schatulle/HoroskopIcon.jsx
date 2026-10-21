@@ -137,23 +137,53 @@ export default function HoroskopIcon({
   r = 10,
   rand = true,
 }) {
+  // glaenzender Knopf: Bild unter einer gewoelbten Glasur mit Glanzlicht, Goldfassung
   return (
     <g transform={`translate(${x} ${y}) scale(${r})`}>
-      <clipPath id={`hi-rund-${id}`}>
-        <circle r="1" />
-      </clipPath>
+      <defs>
+        <clipPath id={`hi-rund-${id}`}>
+          <circle r="1" />
+        </clipPath>
+        <radialGradient id="hi-kuppel" cx="38%" cy="30%" r="80%">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.4" />
+          <stop offset="0.45" stopColor="#fff" stopOpacity="0.06" />
+          <stop offset="0.85" stopColor="#000" stopOpacity="0.22" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.45" />
+        </radialGradient>
+        <radialGradient id="hi-glanzlicht" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.85" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="hi-fassung" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fbe7a8" />
+          <stop offset="0.5" stopColor="#c9a35a" />
+          <stop offset="1" stopColor="#6e5020" />
+        </linearGradient>
+      </defs>
       <circle r="1" fill={GRUND[id] ?? "#888"} />
       <g clipPath={`url(#hi-rund-${id})`}>
         <Bild id={id} />
+        {/* Woelbung der Glasur und Glanzlicht */}
+        <circle r="1" fill="url(#hi-kuppel)" />
+        <ellipse
+          cx="-0.3"
+          cy="-0.45"
+          rx="0.42"
+          ry="0.22"
+          transform="rotate(-28 -0.3 -0.45)"
+          fill="url(#hi-glanzlicht)"
+        />
       </g>
       {rand ? (
-        <circle
-          r="1"
-          fill="none"
-          stroke="#f0d59c"
-          strokeWidth={1.5 / r}
-          className="hi-rand"
-        />
+        <>
+          <circle r="1.06" fill="none" stroke="#2b2014" strokeWidth="0.08" />
+          <circle
+            r="0.97"
+            fill="none"
+            stroke="url(#hi-fassung)"
+            strokeWidth="0.12"
+          />
+        </>
       ) : null}
     </g>
   );
