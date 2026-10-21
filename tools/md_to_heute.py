@@ -7,6 +7,8 @@ Die Markdown-Datei ist die Quelle (dort werden die Texte bearbeitet). Format:
   - schluessel: Text (Platzhalter in geschweiften Klammern, z. B. {dm}, {Planet}, {thema})
 
 Ausfuehren: python3 tools/md_to_heute.py
+Andere Textsammlung im selben Format: python3 tools/md_to_heute.py paar  (docs/Textbausteine/paar/paar_v1.md
+-> content/horoscope/de/paar_v1.json)
 """
 from __future__ import annotations
 
@@ -16,8 +18,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "docs" / "Textbausteine" / "heute" / "heute_v1.md"
-OUT_FILE = ROOT / "content" / "horoscope" / "de" / "heute_v1.json"
+NAME = sys.argv[1] if len(sys.argv) > 1 else "heute"
+SRC = ROOT / "docs" / "Textbausteine" / NAME / f"{NAME}_v1.md"
+OUT_FILE = ROOT / "content" / "horoscope" / "de" / f"{NAME}_v1.json"
 
 GRUPPE = re.compile(r"^##\s+.+?\{#([a-z0-9_]+)\}\s*$")
 EINTRAG = re.compile(r"^-\s+([a-z0-9_]+):\s+(.+)$")
@@ -40,7 +43,7 @@ def main() -> None:
         "schemaVersion": "1.0",
         "locale": "de",
         "textVersion": "v1",
-        "_meta": {"quelle": "docs/Textbausteine/heute/heute_v1.md (nicht dieses JSON bearbeiten)",
+        "_meta": {"quelle": f"docs/Textbausteine/{NAME}/{NAME}_v1.md (nicht dieses JSON bearbeiten)",
                   "erzeugt_mit": "tools/md_to_heute.py"},
         "gruppen": gruppen,
     }

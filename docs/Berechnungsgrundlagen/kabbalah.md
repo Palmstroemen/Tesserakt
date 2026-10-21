@@ -30,6 +30,13 @@ daher zu einem guten Teil **unsere eigene Konvention** – das sagen wir offen.
 - Sephira und Pfad ändern sich nie; die Kabbalah liefert in Spiel B daher für jeden Zeitraum dieselbe
   Aussage.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Lage der beiden Sephiroth (aus den Lebenszahlen, wie oben) im Lebensbaum: dieselbe Sephira, durch
+einen der 22 Pfade direkt verbunden (mit Buchstabe und Tarot-Trumpf aus `kabbalah_pfade.json`), auf
+derselben Säule (Gnade, Strenge, Mitte) oder getrennt. Das ist eine Anwendung unserer eigenen Zuordnung,
+keine überlieferte Partnerschaftsregel.
+
 ## Was ein erfahrener Kabbalist anders macht
 
 Er würde vermutlich bezweifeln, dass sich der Lebensbaum überhaupt so auf ein Geburtsdatum abbilden

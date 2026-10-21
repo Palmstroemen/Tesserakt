@@ -196,6 +196,7 @@ export default function Ergebnisplatte({
   visualPayloads,
   heute,
   ausblick,
+  paar,
   texte,
   hinweis,
   onNochmal,
@@ -387,6 +388,7 @@ export default function Ergebnisplatte({
             const d = ergebnis?.alle.systemDetails[id];
             const h = heute?.systeme?.[id];
             const jahr = ausblick?.systeme?.[id];
+            const euer = paar?.systeme?.[id];
             const t = texte?.systems?.[id];
             return (
               <article
@@ -448,14 +450,11 @@ export default function Ergebnisplatte({
                 {jahr?.length ? (
                   <>
                     <h4>Dein Jahr</h4>
-                    {jahr.map((e) => {
+                    {jahr.map((e, i) => {
                       // "Zeitraum: Satz" -> Zeitraum hervorgehoben
                       const k = e.text.indexOf(": ");
                       return (
-                        <p
-                          key={`${e.planet}-${e.ziel}-${e.aspekt}-${e.von}`}
-                          className="eg-jahr"
-                        >
+                        <p key={`${i}-${e.von}`} className="eg-jahr">
                           <b>{e.text.slice(0, k)}</b> – {e.text.slice(k + 2)}
                         </p>
                       );
@@ -474,10 +473,14 @@ export default function Ergebnisplatte({
                     <Dimensionen daten={t} />
                     <Paragraphs text={t.paracelsus_outro} />
                   </>
-                ) : spiel === "C" ? (
-                  <p className="eg-leise">
-                    Die Deutungstexte für Paare folgen.
-                  </p>
+                ) : null}
+                {euer?.aussagen?.length ? (
+                  <>
+                    <h4>Euer Paar</h4>
+                    {euer.aussagen.map((a, i) => (
+                      <p key={i}>{a}</p>
+                    ))}
+                  </>
                 ) : null}
               </article>
             );

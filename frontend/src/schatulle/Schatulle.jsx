@@ -147,6 +147,7 @@ export default function Schatulle() {
   const [visualPayloads, setVisualPayloads] = useState(null);
   const [heute, setHeute] = useState(null);
   const [ausblick, setAusblick] = useState(null); // Jahreshoroskop: datierte Ereignisse der naechsten 12 Monate
+  const [paar, setPaar] = useState(null); // Spiel C: Partnerschaftshoroskop je System
   const [texte, setTexte] = useState(null);
   const [abkuerzung, setAbkuerzung] = useState(false);
 
@@ -223,6 +224,7 @@ export default function Schatulle() {
     setVisualPayloads(null);
     setHeute(null);
     setAusblick(null);
+    setPaar(null);
     setRueckblick(null);
     setKontrollB(null);
     setNachfrage(false);
@@ -246,6 +248,10 @@ export default function Schatulle() {
         ]);
         katalogFragen = mischen(katalog.fragen ?? []);
         vek = v.differenz;
+        // Partnerschaftshoroskop (Teil des Ergebnisses), im Hintergrund
+        postJson("/horoscope/paar", body)
+          .then(setPaar)
+          .catch(() => {});
         body = {
           ...body,
           session_id: v.inputs.session_id,
@@ -597,6 +603,7 @@ export default function Schatulle() {
           visualPayloads={visualPayloads}
           heute={heute}
           ausblick={ausblick}
+          paar={paar}
           texte={spiel !== "C" ? texte : null}
           hinweis={
             abkuerzung

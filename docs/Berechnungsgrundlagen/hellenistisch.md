@@ -46,6 +46,13 @@
   entfällt die Wanderung.
 - Nicht berücksichtigt: Monatsprofektionen, Solar Return, Zodiacal Releasing.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Ganze Zeichen: wie Mond–Mond, Sonne–Mond (beide Richtungen), Sonne–Sonne und (mit beiden Geburtsorten)
+Aszendent–Aszendent einander sehen – gleiches Zeichen, Sextil, Quadrat, Trigon, Opposition – oder in
+Aversion stehen (2., 6., 8., 12. Zeichen: kein Sehen). Die Betonung der Lichter folgt Ptolemäus
+(Tetrabiblos IV.5). Lose der Ehe und Herrscherbeziehungen fehlen.
+
 ## Was ein erfahrener Astrologe der hellenistischen Tradition anders macht
 
 Er beurteilt den Jahresherrscher nach seiner Stellung im Geburtshoroskop und seinen Transiten, nutzt

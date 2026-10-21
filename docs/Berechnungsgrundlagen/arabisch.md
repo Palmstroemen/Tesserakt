@@ -41,6 +41,13 @@ Planeten, wie in der Wertung). Jede Unterperiode im Jahr steht mit ihrer Deutung
 Qualitätsmatrix da (Abu Ma'shar, Al-Biruni, Sahl); beginnt eine neue Haupt-Firdaria, als eigenes
 Ereignis. Die Knoten-Perioden haben bei uns keine Unterperioden (siehe oben).
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Freundschaft der laufenden Haupt-Firdaria-Herrscher beider Personen (Tabelle nach Abu Ma'shar und
+Al-Biruni in `arabisch_firdaria.json`); ist sie nicht gegenseitig, gilt sie als gemischt. Dazu das Los
+des Glücks jeder Person, wenn es in das Zeichen von Sonne, Mond oder Aszendent des anderen fällt (nur
+mit Geburtsort). Das Los der Ehe fehlt, weil es das Geschlecht braucht.
+
 ## Was ein erfahrener Astrologe der arabischen Tradition anders macht
 
 Er beurteilt die Firdaria-Herrscher nach ihrer Stellung und Würde im Geburtshoroskop, verbindet sie mit

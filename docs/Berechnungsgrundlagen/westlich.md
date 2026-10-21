@@ -34,6 +34,13 @@
 - Die Deutung der Transite unterscheidet nicht, **welchen** Geburtspunkt ein Planet trifft – die
   Regeln sind nach laufendem Planet und Aspekt geordnet.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Synastrie: Aspekte zwischen Sonne, Mond, Venus, Mars und (mit Geburtsort) Aszendent der einen Person und
+denselben Punkten der anderen. Orbis 6° mit Sonne oder Mond, sonst 5°. Gewichtet nach Enge und Paar
+(Sonne–Mond und Venus–Mars dreifach, gleiche Punkte und Aszendent–Licht doppelt); die vier stärksten
+werden genannt. Keine Häuserüberlagerung, kein Composit, kein Davison.
+
 ## Was eine erfahrene Astrologin anders macht
 
 Sie würde Transite nach dem getroffenen Geburtsplaneten, dem Haus und der Stellung des laufenden

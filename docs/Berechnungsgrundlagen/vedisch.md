@@ -70,6 +70,20 @@
 - Vereinfachungen wie oben (kein Vedha, kein Ashtakavarga); Rahu/Ketu und die schnellen Planeten fehlen
   im Ausblick, Pratyantardashas (dritte Ebene) ebenfalls.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Fünf der acht Kutas (Ashtakoota) aus den Mond-Nakshatras und siderischen Mondzeichen, zusammen
+28 Punkte: Tara (3), Yoni (4), Gana (6), Bhakoot (7), Nadi (8). Bewertung: ab drei Vierteln sehr
+günstig, ab der Hälfte günstig (nach Parasharas Halbe-Punkte-Regel), sonst schwierig. Vereinfachungen:
+Yoni nur gleich (4), neutral (2) oder Erzfeinde (0), ohne die Abstufung befreundet/feindlich; Stri Dirgha
+und Vashya fehlen (Stri Dirgha bräuchte das Geschlecht, die Schatulle fragt es nicht ab); keine
+Aufhebung von Doshas.
+
+Abweichungen von `jyotish_nakshatras.json` (die Daten sind dort in diesen Punkten falsch):
+- **Tara:** ungünstig sind die Reste 3, 5, 7 (Vipat, Pratyari, Naidhana), nicht alle geraden Zahlen.
+- **Yoni:** übliche Tabelle; die Datei ordnet Uttara Ashadha und Shravana falsch zu (richtig: Mungo und Affe).
+- **Nadi:** festes Zickzack Adi–Madhya–Antya–Antya–Madhya–Adi; die Datei weicht bei Magha, Hasta und Mula ab.
+
 ## Was ein erfahrener Jyotishi anders macht
 
 Er liest Dasha und Antardasha zusammen mit Gochara und den Divisionalhoroskopen, beurteilt die Stärke

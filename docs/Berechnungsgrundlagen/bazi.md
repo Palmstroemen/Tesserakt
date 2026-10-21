@@ -63,6 +63,14 @@ und Monatssäule (Sonnenmonate wie oben):
   Geschlechts, weil davon die Laufrichtung abhängt.
 - Nicht berücksichtigt: Kombinationen (Liu He, San He), Harms, Punishments, Zehn Götter, Shen Sha.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Zweige der Tagessäulen (Ehepalast) und der Jahressäulen beider Personen: gleich, Sechser-Kombination
+(Liu He), Zusammenstoß (Chong), Schaden (Liu Hai) oder gemeinsames Dreieck (San He), Deutungen aus
+`clash_und_combination_vollstaendig`. Dazu die Elemente der Tagesmeister (gleich, nährt, wird genährt,
+kontrolliert, wird kontrolliert) und Stamm-Kombinationen der Tagesstämme (Jia–Ji, Yi–Geng, Bing–Xin,
+Ding–Ren, Wu–Gui). Ohne Geschlecht keine Ehepartner-Sterne (Zehn Götter).
+
 ## Was ein erfahrener Bazi-Meister anders macht
 
 Er beurteilt die Stärke des Tagesmeisters im Zusammenhang, bestimmt nützliche und schädliche Elemente,

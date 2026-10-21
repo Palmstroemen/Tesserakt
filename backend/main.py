@@ -18,7 +18,7 @@ from arabic_chart import build_firdaria_chart, compute_lot_houses
 from bazi_chart import build_four_pillars
 from chart import build_radix_wheel
 from hellenistisch_chart import build_profection_chart
-from kabbalah_chart import build_kabbalah_chart
+from kabbalah_chart import SEPHIROTH_NAMES, _life_path_to_sephira_index, build_kabbalah_chart
 from numerology_chart import build_numerology_chart
 from vedisch_chart import _current_mahadasha, _load_dasha_data, build_dasha_chart, compute_aktivierte_yogas, vimshottari_position_now
 from ephemeris import ayanamsha_lahiri, compute as ephemeris_compute, moon_nakshatra, sonne_ueber_horizont, sun_sign_from_longitude
@@ -41,6 +41,7 @@ from rule_engine import (
     _HOUSE_LORD,
 )
 import ausblick
+import paar
 import orte
 from store import compare_group, init_db, persist_session
 
@@ -785,6 +786,67 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
             _naechste_glueckssaeule(birth_dt, birth_ut, payload.geschlecht, start),
         )
     return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
+
+
+def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str, Any]:
+    """Was die Partnerregeln je Person brauchen (Spiel C)."""
+    geburt = parse_birth_datetime(req.geburtsdatum, req.uhrzeit)
+    inputs, _, _, _ = _berechne_vektoren(req, geburt, now, session_id)
+    natal = ephemeris_compute(_zu_weltzeit(geburt, req.zeitzone), latitude_deg=req.latitude, longitude_deg=req.longitude)
+    punkte = {_PLANET_ID_DE[p.id]: p.longitude_deg for p in natal.planets if p.id in ("sun", "moon", "venus", "mars")}
+    if natal.has_location:
+        punkte["aszendent"] = natal.asc_deg
+    quelle = next(q for q in load_struktur("Arabisch")["vektor_quellen"] if q.get("typ") == "firdaria")
+    firdaria = _firdaria_periode(quelle, load_rules("Arabisch"), inputs)
+    tag = sonne_ueber_horizont(natal)
+    return {
+        "punkte": punkte,
+        "nakshatra": inputs.get("mond_nakshatra_index"),
+        "mond_zeichen_sid": inputs.get("mond_zeichen_siderisch"),
+        "bazi": {"tag_zweig": inputs["geburts_day_branch"], "jahr_zweig": inputs["geburts_year_branch"],
+                 "tag_stamm": inputs["day_master_stem"]},
+        "firdaria": firdaria[0] if firdaria else None,
+        "glueckslos": paar.glueckslos(natal.asc_deg, punkte["sonne"], punkte["mond"], tag) if natal.has_location else None,
+        "sephira": _life_path_to_sephira_index(int(inputs["lebenspfadzahl"])),
+        "lebenszahl": int(inputs["lebenspfadzahl"]),
+        "pers_jahr": int(inputs["persoenliches_jahr"]),
+    }
+
+
+@app.post("/horoscope/paar")
+def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
+    """Partnerschaftshoroskop (Ergebnis von Spiel C): je System Aussagen aus echten Partnerregeln
+    (backend/paar.py, Texte content/horoscope/de/paar_v1.json)."""
+    _validate_systeme(payload.systeme)
+    t = json.loads((_content_root() / "content" / "horoscope" / "de" / "paar_v1.json").read_text(encoding="utf-8"))["gruppen"]
+    th = json.loads((_content_root() / "content" / "horoscope" / "de" / "heute_v1.json").read_text(encoding="utf-8"))["gruppen"]
+    now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
+    sid = payload.session_id or str(uuid4())
+    a, b = (_paar_person(_person(payload, x), now, sid) for x in ("a", "b"))
+    systeme: Dict[str, Any] = {}
+    if "Westlich" in payload.systeme:
+        systeme["Westlich"] = paar.westlich(a["punkte"], b["punkte"], t)
+    if "Hellenistisch" in payload.systeme:
+        systeme["Hellenistisch"] = paar.hellenistisch(a["punkte"], b["punkte"], t)
+    if "Vedisch" in payload.systeme and a["nakshatra"] is not None and b["nakshatra"] is not None:
+        nak = load_rules("Vedisch")
+        ganas = [v["gana"].lower() for v in sorted(nak["nakshatras"].values(), key=lambda v: v["nummer"])]
+        gana_matrix = nak["nakshatra_kompatibilitaet"]["gana_kompatibilitaet"]["matrix"]
+        systeme["Vedisch"] = paar.vedisch(a["nakshatra"], b["nakshatra"], a["mond_zeichen_sid"], b["mond_zeichen_sid"],
+                                          ganas, gana_matrix, t)
+    if "Bazi" in payload.systeme:
+        systeme["Bazi"] = paar.bazi(a["bazi"], b["bazi"], _bazi_beziehung, stem_to_element, load_rules("Bazi"), t,
+                                    th["bazi_tiere"], th["elemente"])
+    if "Arabisch" in payload.systeme and a["firdaria"] and b["firdaria"]:
+        freundschaft = load_rules("Arabisch")["unter_firdaria"]["qualitaets_matrix"]["freundschaftsbeziehungen"]
+        systeme["Arabisch"] = paar.arabisch(a["firdaria"], b["firdaria"], freundschaft, a["glueckslos"], b["glueckslos"],
+                                            a["punkte"], b["punkte"], t, th["arabisch_genitiv"])
+    if "Kabbalah" in payload.systeme:
+        systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, load_rules("Kabbalah")["pfade"], t)
+    if "Numerologie" in payload.systeme:
+        matrix = load_rules("Numerologie")["lebenspfad_kompatibilitaet"]["matrix"]
+        systeme["Numerologie"] = paar.numerologie(a["lebenszahl"], b["lebenszahl"], a["pers_jahr"], b["pers_jahr"], matrix, t)
+    return {"stichtag": now.date().isoformat(), "systeme": systeme}
 
 
 @app.get("/horoscope/spiel_c/texts")

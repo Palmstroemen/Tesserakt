@@ -43,6 +43,12 @@
   die Meisterzahl.
 - **Pinnacle:** beginnt am nächsten Geburtstag ein neuer Abschnitt, mit Profil aus `pinnacle_profile`.
 
+## Partnerschaft (Ergebnis von Spiel C)
+
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Kompatibilitätsmatrix der Lebenszahlen (`lebenspfad_kompatibilitaet`, nach Cheiro und Balliett),
+Meisterzahlen als 2, 4, 6; die Bewertung „als Lebenspartnerschaft“ ist die Spalte `partnerschaft` (1–5).
+Sind beide im selben persönlichen Jahr, wird das genannt.
+
 ## Was eine erfahrene Numerologin anders macht
 
 Sie verbindet Lebenszahl, Namenszahlen und Zyklen zu einem Gesamtbild, wählt zwischen Schulen
