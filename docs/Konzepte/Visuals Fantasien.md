@@ -1214,7 +1214,7 @@ Die Dias: Negativ-Schrift als Alpha-Maske
 Die Fragen sind nicht als Textur mit schwarzer Schrift auf weißem Grund. Sie sind als Alpha-Maske angelegt:
 
 javascript
-// Die Frage als Canvas malen (weisse Schrift auf schwarz)
+// Die Frage als Canvas malen (weiße Schrift auf schwarz)
 const questionCanvas = document.createElement('canvas');
 const ctx = questionCanvas.getContext('2d');
 ctx.fillStyle = '#000000';
@@ -1226,14 +1226,14 @@ ctx.fillText('LIEBE?', 100, 256);
 // Als Textur mit hohem Kontrast
 const questionTexture = new THREE.CanvasTexture(questionCanvas);
 
-// Im Shader: Die Helligkeit des Kamerabildes scheint nur durch die weissen Stellen durch
+// Im Shader: Die Helligkeit des Kamerabildes scheint nur durch die weißen Stellen durch
 // (vereinfacht: Kameratextur * Frage-Textur als Alpha)
 Im Shader passiert dann die Magie:
 
 glsl
 // Fragment-Shader (vereinfacht)
 vec4 camColor = texture2D(cameraTexture, vUv);
-float questionMask = texture2D(questionTexture, vUv).r; // 0=schwarz, 1=weiss
+float questionMask = texture2D(questionTexture, vUv).r; // 0=schwarz, 1=weiß
 
 // Die Frage leuchtet im Gegenlicht, der Rest bleibt dunkel
 vec4 finalColor = camColor * questionMask;
@@ -1349,7 +1349,7 @@ Ja! Die Dias sind nicht perfekt. Sie sind alt. Sie haben Gebrauchsspuren.
 Technische Umsetzung
 javascript
 // Jedes Dia bekommt:
-// 1. Eine Textur mit der Frage (als Negativ, weisse Schrift auf schwarz)
+// 1. Eine Textur mit der Frage (als Negativ, weiße Schrift auf schwarz)
 // 2. Eine zweite Textur mit Kratzern und Staub (als Alpha-Maske oder Overlay)
 // 3. Eine dritte Textur mit leichten Verfärbungen (Flecken, Sepia)
 
@@ -3490,7 +3490,7 @@ Ok. Muss man nicht für Aszendenten ohnedies ungefähr den Geburtsort angeben? R
 
 Es könnte auch herauskommen, dass Prognosen für Fische-Geborene besser funktionieren als für Waagen. Es kann so viel herauskommen. Wir werden jedenfalls den kulturellen Hintergrund der Jugendzeit auch erfragen. Könnte ja sein, dass die Eltern gleich nach der Geburt von China in die USA ausgewandert sind. Aber das werden eher seltene Ausreißer sein.
 3 Webseiten gelesen
-Wunderbar durchdacht. Sie stossen in die wirklich feinen Nuancen vor – genau dort, wo die Wissenschaft spannend wird.
+Wunderbar durchdacht. Sie stoßen in die wirklich feinen Nuancen vor – genau dort, wo die Wissenschaft spannend wird.
 
 Aszendent und Geburtsort: Ja, der Längengrad reicht (meistens)
 Kurze Antwort: Für den Aszendenten brauchen Sie Längen- und Breitengrad – aber der Längengrad ist der kritische für die Uhrzeit-Korrektur.
@@ -3546,12 +3546,12 @@ Löwe (Juli-Aug) besonders selbstbewusst	Sommergeburten = mehr Außenaktivität 
 Steinbock (Dez-Jan) besonders strukturiert	Wintergeburten = mehr Ruhe, weniger Reize?
 Das Schöne: Ihre App kann das mit den gleichen Daten testen. Einfach die Übereinstimmungswerte pro Sternzeichen mitteln – und vergleichen.
 
-Die kulturelle Migration: Seltene Ausreisser, aber wichtig für die Qualität
+Die kulturelle Migration: Seltene Ausreißer, aber wichtig für die Qualität
 Ihr Punkt ist wichtig:
 
 "Wir werden jedenfalls den kulturellen Hintergrund der Jugendzeit auch erfragen. Könnte ja sein, dass die Eltern gleich nach der Geburt von China in die USA ausgewandert sind."
 
-Das ist methodisch sauber. Für die grosse Mehrheit (99%+) reicht Geburtsland + aktuelle IP. Aber die Ausreisser können Ihre Ergebnisse verfälschen, wenn Sie sie nicht erfassen.
+Das ist methodisch sauber. Für die große Mehrheit (99%+) reicht Geburtsland + aktuelle IP. Aber die Ausreißer können Ihre Ergebnisse verfälschen, wenn Sie sie nicht erfassen.
 
 Lösung: Eine einfache Zusatzfrage
 
@@ -3575,7 +3575,7 @@ Für die Analyse: Sie können dann:
 
 Hauptgruppe: Geburtsland = Aufwuchsland
 
-Kontrollgruppe: Migration (separat auswerten oder ausschliessen)
+Kontrollgruppe: Migration (separat auswerten oder ausschließen)
 
 Seltene Fälle: Gemischt (eigene Kategorie)
 

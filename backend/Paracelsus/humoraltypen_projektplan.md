@@ -121,7 +121,7 @@ def berechne_temperament(system_vektoren: dict, mapping: dict) -> dict:
 
 **Grenzfälle die behandelt werden müssen:**
 - Merkur als "variabel" → Fallback auf Zeichentemperament
-- Bazi Erde → primaer melancholisch, mit sekundaer phlegmatisch
+- Bazi Erde → primär melancholisch, mit sekundär phlegmatisch
 - Kether (Kabbalah) → keine Zuordnung → dieses System aus Aggregation ausschließen
 - Gleichstand zwei Temperamente → beide als primär ausgeben (seltener Fall)
 

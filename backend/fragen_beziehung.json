@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "beschreibung": "Beziehungsfragen fuer Spiel C. Vergleichend: -1 = eher ich (Person A), 0 = ausgewogen, +1 = eher Partner:in (Person B). Verglichen mit (vektor_B - vektor_A) / 2 je System. ids nicht aendern (frage_id in der Datenbank; A 1-16, B 101-304, C 401-416).",
+    "beschreibung": "Beziehungsfragen für Spiel C. Vergleichend: -1 = eher ich (Person A), 0 = ausgewogen, +1 = eher Partner:in (Person B). Verglichen mit (vektor_B - vektor_A) / 2 je System. ids nicht ändern (frage_id in der Datenbank; A 1-16, B 101-304, C 401-416).",
     "katalog_version": "beziehung_v1"
   },
   "fragen": [

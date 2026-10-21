@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "beschreibung": "Fragen fuer Spiel B (Rueckblick). gewertet: Zustand im Zeitfenster, verglichen mit dem Mittel der Horoskope im Fenster; gehen in den Skill ein. auffaellig: nicht gewertet, Auswahl nach staerkstem Ausschlag (Extremwert) im Fenster; Text wird mit der Fenster-Einleitung kombiniert. ids nicht aendern (frage_id in der Datenbank; A: 1-16, B gewertet: 101-116, B auffaellig: 201-216). zeitpunkt: feste Ereignisfragen fuer alle (ids 301-304), gewertet als Skill 'Timing': Abstand zwischen erinnertem Datum und dem Hoehepunkt des Systems im Quartal, verglichen mit den Kontroll-Geburtsdaten.",
+    "beschreibung": "Fragen für Spiel B (Rückblick). gewertet: Zustand im Zeitfenster, verglichen mit dem Mittel der Horoskope im Fenster; gehen in den Skill ein. auffällig: nicht gewertet, Auswahl nach stärkstem Ausschlag (Extremwert) im Fenster; Text wird mit der Fenster-Einleitung kombiniert. ids nicht ändern (frage_id in der Datenbank; A: 1-16, B gewertet: 101-116, B auffällig: 201-216). zeitpunkt: feste Ereignisfragen für alle (ids 301-304), gewertet als Skill 'Timing': Abstand zwischen erinnertem Datum und dem Höhepunkt des Systems im Quartal, verglichen mit den Kontroll-Geburtsdaten.",
     "skala": "trifft nicht zu (-1) ... trifft zu (+1)",
     "fenster_einleitung": {
       "monat": "In den letzten 30 Tagen",

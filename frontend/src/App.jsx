@@ -392,11 +392,11 @@ export default function App() {
               />
             ) : (
               <p className="mechanik-wartet" aria-live="polite">
-                Das Raederwerk vergleicht dein Geburtsdatum mit hundert anderen ...
+                Das Räderwerk vergleicht dein Geburtsdatum mit hundert anderen ...
               </p>
             )}
             {kontrollState.error ? (
-              <p className="hint">Kontrollgruppe konnte nicht berechnet werden; Skill ist deshalb nicht verfuegbar.</p>
+              <p className="hint">Kontrollgruppe konnte nicht berechnet werden; Skill ist deshalb nicht verfügbar.</p>
             ) : null}
             <TemperamentProfil temperament={rating.temperament} />
             <p>{saved ? "Session gespeichert." : "Session wird gespeichert..."}</p>

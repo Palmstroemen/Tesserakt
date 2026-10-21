@@ -7,43 +7,43 @@
 
 ## 1. Ziel des Experiments
 
-Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Menschen treffen.
+Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschätzung von Menschen treffen.
 
 - Vergleich mehrerer Systeme unter identischen Fragen.
-- Kontrollgruppe je System: dasselbe System fuer 100 zufaellige andere Geburtsdaten.
+- Kontrollgruppe je System: dasselbe System für 100 zufällige andere Geburtsdaten.
 - Ergebnisfokus auf **Skill** (0 = Zufallsniveau, +-100 = besser/schlechter als alle Kontroll-Geburtsdaten).
-- Forschungsfrage: Liegt der durchschnittliche Skill eines Systems ueber viele Sessions deutlich ueber 0?
+- Forschungsfrage: Liegt der durchschnittliche Skill eines Systems über viele Sessions deutlich über 0?
 
 **Status:** MVP live (Spiel A), Erweiterungen geplant  
-**Abhaengigkeiten:** Backend-Rating, Fragenkatalog, Ergebnis-UI
+**Abhängigkeiten:** Backend-Rating, Fragenkatalog, Ergebnis-UI
 
 ---
 
 ## 2. Einheitliches Spielfeld A/B/C
 
-## 2.1 Spiel A - Persoenlichkeit
+## 2.1 Spiel A - Persönlichkeit
 
 - 1 Person, Geburtsdaten, Frageflow.
 - Ergebnis als Systemvergleich nach Skill.
 
 **Status:** MVP live  
-**Abhaengigkeiten:** Frontend-Flow, Vektor-API, Session-Speicherung
+**Abhängigkeiten:** Frontend-Flow, Vektor-API, Session-Speicherung
 
 ## 2.2 Spiel B - Prognose/Zeit
 
-- Rueckblick auf vergangene Zeitfenster.
-- Fragen dynamisch aus Delta-Staerke.
+- Rückblick auf vergangene Zeitfenster.
+- Fragen dynamisch aus Delta-Stärke.
 
 **Status:** Phase 2/3  
-**Abhaengigkeiten:** Periodenvektoren, Fragegenerator, Anti-Redundanz
+**Abhängigkeiten:** Periodenvektoren, Fragegenerator, Anti-Redundanz
 
 ## 2.3 Spiel C - Beziehung
 
-- 2-Personen-Kompatibilitaet.
+- 2-Personen-Kompatibilität.
 - Optionaler Link zu Spiel-A-Sessions.
 
 **Status:** Phase 3  
-**Abhaengigkeiten:** Datenmodell C, Regelwerke, Datenschutzflow
+**Abhängigkeiten:** Datenmodell C, Regelwerke, Datenschutzflow
 
 ---
 
@@ -51,7 +51,7 @@ Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Men
 
 1. Pro Frage wird ein Fehler zwischen Nutzerwert und Systemwert berechnet.
 2. Gewichtet wird nur dort, wo das System die Dimension sinnvoll abdeckt.
-3. Derselbe Fehler wird fuer 100 Kontroll-Geburtsdaten desselben Systems berechnet.
+3. Derselbe Fehler wird für 100 Kontroll-Geburtsdaten desselben Systems berechnet.
 4. Primare Metriken:
    - **Skill** = `2 * (Perzentil - 50)` (Kernmetrik)
    - **Perzentil**
@@ -59,13 +59,13 @@ Das Projekt testet, wie gut verschiedene Systeme die Selbsteinschaetzung von Men
 
 Simulation (3000 Personen, `tools/skill_metric_test.py`): Ohne Aussagekraft liegt Skill je System
 im Mittel bei 0 (SD ~58), jedes System gewinnt ~1/7 der Spiele, der Sieger erreicht im Mittel ~+75.
-Haette ein System schwache echte Aussagekraft (Korrelation 0.2), laege sein Mittel bei ~+38.
+Hätte ein System schwache echte Aussagekraft (Korrelation 0.2), läge sein Mittel bei ~+38.
 
 Nicht als Kernmetrik kommunizieren:
 - `Rank-Score`
 
 **Status:** MVP live  
-**Abhaengigkeiten:** Rating-Pipeline, Matrix, Ranking-UI
+**Abhängigkeiten:** Rating-Pipeline, Matrix, Ranking-UI
 
 ---
 
@@ -75,15 +75,15 @@ Das Produkt soll gleichzeitig:
 
 - neugierig machen,
 - Unterschiede zwischen Systemen sichtbar machen,
-- und methodisch aufklaeren (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt, Grenzen der Aussagekraft).
+- und methodisch aufklären (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt, Grenzen der Aussagekraft).
 
-Tonalitaet:
-- respektvoll gegenueber kulturellen Traditionen,
+Tonalität:
+- respektvoll gegenüber kulturellen Traditionen,
 - wissenschaftlich sauber,
 - nicht zynisch.
 
 **Status:** MVP + Phase 2  
-**Abhaengigkeiten:** Content, UX-Texte, Ergebnisdarstellung
+**Abhängigkeiten:** Content, UX-Texte, Ergebnisdarstellung
 
 ---
 
@@ -103,13 +103,13 @@ Tonalitaet:
 - Arabisch: geometrisch-ornamental.
 - Numerologie: mathematisch/diagrammatisch.
 - Kabbalah: Baumstruktur/gravurhaft.
-- Vedisch: feinlinig, symbolisch, materialitaetsbetont.
+- Vedisch: feinlinig, symbolisch, materialitätsbetont.
 
 Hinweis:
 - Diese Stilfamilien sind Designrichtungen, keine Produktpflicht im MVP.
 
 **Status:** Phase 2 (Designsystem-Ausbau)  
-**Abhaengigkeiten:** Art Direction, Komponentenbibliothek, Performance-Budget
+**Abhängigkeiten:** Art Direction, Komponentenbibliothek, Performance-Budget
 
 ---
 
@@ -120,7 +120,7 @@ Hinweis:
 - Progressive Enhancement: High-End-Effekte nur optional.
 
 **Status:** MVP laufend, Phase 2 Optimierung  
-**Abhaengigkeiten:** Frontend-Performance, Device-Profiling
+**Abhängigkeiten:** Frontend-Performance, Device-Profiling
 
 ---
 
@@ -131,17 +131,17 @@ Hinweis:
 - Die Kontrollgruppe nicht als "Entwertung", sondern als methodischen Vergleich kommunizieren.
 
 **Status:** fortlaufend  
-**Abhaengigkeiten:** Redaktion, Quellenpflege
+**Abhängigkeiten:** Redaktion, Quellenpflege
 
 ---
 
 ## 8. Decision Backlog
 
-1. Oeffentliche Produktbezeichnung fuer "Vedisch" final festlegen.
+1. Öffentliche Produktbezeichnung für "Vedisch" final festlegen.
 2. Rolle von Humoraltypen final festlegen (Meta-System vs Zusatzanalyse).
 
 **Status:** offen  
-**Abhaengigkeiten:** Product, Research, Content
+**Abhängigkeiten:** Product, Research, Content
 
 ---
 

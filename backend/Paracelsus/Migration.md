@@ -53,7 +53,7 @@ ALTER TABLE persoenlichkeit_sessions
 CREATE INDEX idx_ps_temperament_primaer
     ON persoenlichkeit_sessions (temperament_primaer)
     WHERE abgeschlossen = TRUE
-      AND veroeffentlichen = TRUE
+      AND veröffentlichen = TRUE
       AND temperament_primaer IS NOT NULL;
 
 
@@ -76,7 +76,7 @@ CREATE INDEX idx_ps_temperament_primaer
 --   day_master_elem                             → Basis-Feld, nullable
 --   kindheit_kulturraum                         → NEU v2.1, nullable
 --   glaube_astrologie                           → NEU v2.1, nullable SMALLINT 1-5
---   abgeschlossen, veroeffentlichen             → Session-Status, vorhanden
+--   abgeschlossen, veröffentlichen             → Session-Status, vorhanden
 --   temperament_verteilung                      → Schritt 5
 
 DROP VIEW IF EXISTS v_temperament_statistik;
@@ -95,7 +95,7 @@ SELECT
     CASE
         WHEN glaube_astrologie <= 2 THEN 'skeptisch'
         WHEN glaube_astrologie =  3 THEN 'neutral'
-        WHEN glaube_astrologie >= 4 THEN 'glaeubig'
+        WHEN glaube_astrologie >= 4 THEN 'gläubig'
         ELSE NULL
     END AS glaube_gruppe,
 
@@ -127,7 +127,7 @@ SELECT
 
 FROM persoenlichkeit_sessions
 WHERE abgeschlossen      = TRUE
-  AND veroeffentlichen   = TRUE
+  AND veröffentlichen   = TRUE
   AND temperament_primaer IS NOT NULL
 GROUP BY
     temperament_primaer,

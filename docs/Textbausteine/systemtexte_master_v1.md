@@ -1,11 +1,11 @@
 # Systemtexte Master v1
-## Blueprint fuer systemgetrennte Horoskop-Antworten
+## Blueprint für systemgetrennte Horoskop-Antworten
 
-Ziel: Pro System eine eigenstaendige, ausfuehrliche Antwort im 8-Dimensionsmodell erzeugen, mit konsistenter Tonalitaet und wiederverwendbaren Baustein-Tags.
+Ziel: Pro System eine eigenständige, ausführliche Antwort im 8-Dimensionsmodell erzeugen, mit konsistenter Tonalität und wiederverwendbaren Baustein-Tags.
 
 ---
 
-## 1. Gueltiger Umfang
+## 1. Gültiger Umfang
 
 - Spielkontext: `spiel_a`
 - Systeme:
@@ -38,13 +38,13 @@ Ziel: Pro System eine eigenstaendige, ausfuehrliche Antwort im 8-Dimensionsmodel
 
 ## 2.2 Formulierungsmodus
 
-Erwuenscht:
+Erwünscht:
 - `Das System beschreibt ...`
 - `Demnach muesstest du ...`
 - `Das kann bedeuten ..., muss aber nicht ...`
 - `Typischerweise zeigt sich ...`
 
-Nicht erwuenscht:
+Nicht erwünscht:
 - `Du bist ...`
 - `Du wirst sicher ...`
 - absolute Wahrheitsbehauptungen
@@ -52,14 +52,14 @@ Nicht erwuenscht:
 ## 2.3 Systemnennung
 
 - Das System soll explizit erkennbar bleiben.
-- In Fliesstext durchschnittlich etwa jeder vierte Satz mit Systembezug.
+- In Fließtext durchschnittlich etwa jeder vierte Satz mit Systembezug.
 - Keine dauernde Wiederholung im selben Absatz.
 
-## 2.4 Aufklaerungsanteil
+## 2.4 Aufklärungsanteil
 
 - Intro pro System: 2-4 Absatze, inkl. 1 interessanter Besonderheit.
 - Vergleich zur westlichen Astrologie dort, wo er sinnvoll ist.
-- Methodikhinweise kurz halten, nicht ueberfrachten.
+- Methodikhinweise kurz halten, nicht überfrachten.
 
 ---
 
@@ -70,10 +70,10 @@ Nicht erwuenscht:
    - Besonderheit
    - kurzer Vergleich zur westlichen Astrologie
 
-2. **8 Dimensionsbloecke**
+2. **8 Dimensionsblöcke**
    - je Dimension:
      - Kernsatz im Konjunktiv
-     - 1-2 differenzierende Nachsaetze
+     - 1-2 differenzierende Nachsätze
      - optional Lernhinweis
 
 3. **Paracelsus-Abschluss**
@@ -82,7 +82,7 @@ Nicht erwuenscht:
    - kein Absolutheitsanspruch
 
 4. **Baustein-Tags**
-   - maschinenlesbare Marker fuer spaetere Composer-Logik
+   - maschinenlesbare Marker für spätere Composer-Logik
 
 ---
 
@@ -92,7 +92,7 @@ Prefixe:
 
 - `INTRO_*`
 - `DIM_*`
-- `META_*` (z. B. Zwischenerklaerung)
+- `META_*` (z. B. Zwischenerklärung)
 - `OUTRO_PARACELSUS_*`
 
 Beispiele:
@@ -108,7 +108,7 @@ Hinweis:
 
 ---
 
-## 5. Mapping: System -> Datei -> Inhaltsbloecke
+## 5. Mapping: System -> Datei -> Inhaltsblöcke
 
 | System | Runtime-Quelle | Intro | 8 Dimensionen | Paracelsus-Outro |
 |---|---|---|---|---|
@@ -128,13 +128,13 @@ Hinweis:
 
 1. Intro
 2. Kernprofil-Absatz (optional)
-3. 8 Dimensionsbloecke (fest oder priorisiert nach Gewicht)
+3. 8 Dimensionsblöcke (fest oder priorisiert nach Gewicht)
 4. Paracelsus-Outro
 
 ## 6.2 Dedupe
 
 - Gleichlautende Kernaussagen in derselben Antwort nicht mehrfach.
-- Bei inhaltlicher Naehe lieber mit Nuancierung zusammenfassen.
+- Bei inhaltlicher Nähe lieber mit Nuancierung zusammenfassen.
 
 ## 6.3 Variationssteuerung
 
@@ -152,12 +152,12 @@ Hinweis:
 
 ---
 
-## 7. Quality Checklist fuer Redaktionsreview
+## 7. Quality Checklist für Redaktionsreview
 
 - [ ] System ist im Intro klar benannt.
 - [ ] Vergleich zur westlichen Astrologie enthalten (wo sinnvoll).
 - [ ] Alle 8 Dimensionen vorhanden.
-- [ ] Keine direkte Identitaetszuschreibung (`Du bist ...`).
+- [ ] Keine direkte Identitätszuschreibung (`Du bist ...`).
 - [ ] Konjunktiv und Tendenzsprache konsistent.
 - [ ] Paracelsus-Abschluss vorhanden.
 - [ ] Tags pro Abschnitt gesetzt.
@@ -173,4 +173,4 @@ Demnach muesstest du ...
 Das muss nicht bedeuten ..., aber ...
 ```
 
-Diese Mikrostruktur gilt als Standard fuer alle sieben Systemdateien.
+Diese Mikrostruktur gilt als Standard für alle sieben Systemdateien.

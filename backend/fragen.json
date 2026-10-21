@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "beschreibung": "Fragen fuer Spiel A. gewichte: wie stark ein System die Frage abdeckt (0 = gar nicht). id = frage_id in der Datenbank, nicht aendern."
+    "beschreibung": "Fragen für Spiel A. gewichte: wie stark ein System die Frage abdeckt (0 = gar nicht). id = frage_id in der Datenbank, nicht ändern."
   },
   "fragen": [
     {

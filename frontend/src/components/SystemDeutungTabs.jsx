@@ -64,7 +64,7 @@ export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads
     return (
       <section className="card">
         <h2>Deutung nach System</h2>
-        <p>Keine Systemtexte geladen. Nur gewaehlte Systeme werden hier angezeigt.</p>
+        <p>Keine Systemtexte geladen. Nur gewählte Systeme werden hier angezeigt.</p>
       </section>
     );
   }
@@ -72,7 +72,7 @@ export default function SystemDeutungTabs({ ranking, systemTexts, visualPayloads
   return (
     <section className="card system-deutung-tabs">
       <h2>Deutung nach System</h2>
-      <p className="tabs-hint">Nur die von dir gewaehlten Systeme; Reihenfolge entspricht dem Ranking.</p>
+      <p className="tabs-hint">Nur die von dir gewählten Systeme; Reihenfolge entspricht dem Ranking.</p>
       <div className="tabs-header" role="tablist">
         {systems.map((system) => (
           <button

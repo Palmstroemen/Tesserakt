@@ -16,7 +16,7 @@ const ZEITPUNKTE = [
   { label: "vor etwa 1 Monat", tage: 30 },
   { label: "vor etwa 2 Monaten", tage: 60 },
   { label: "vor etwa 3 Monaten", tage: 90 },
-  { label: "weiss ich nicht mehr", tage: null },
+  { label: "weiß ich nicht mehr", tage: null },
 ];
 const ERINNERUNG_AB = 0.2; // ab dieser Zustimmung wird nach dem Zeitpunkt gefragt
 

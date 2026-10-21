@@ -25,7 +25,7 @@ export default function GameSelector({ selectedGame, onSelect }) {
   return (
     <section className="card">
       <h2>Spielauswahl</h2>
-      <p>Waehle das Spiel fuer diesen Durchlauf.</p>
+      <p>Wähle das Spiel für diesen Durchlauf.</p>
       <div className="game-grid">
         {GAME_OPTIONS.map((option) => (
           <button

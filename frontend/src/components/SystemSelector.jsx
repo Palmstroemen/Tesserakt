@@ -19,7 +19,7 @@ export default function SystemSelector({
   return (
     <section className="card">
       <h2>Systemauswahl</h2>
-      <p>Waehle die Systeme fuer diesen Testlauf. Du kannst beliebige Kombinationen verwenden.</p>
+      <p>Wähle die Systeme für diesen Testlauf. Du kannst beliebige Kombinationen verwenden.</p>
       <div className="checkbox-grid">
         {systems.map((system) => (
           <label key={system} className="checkbox-row">
@@ -36,7 +36,7 @@ export default function SystemSelector({
       {showOptionalData ? (
         <div className="system-selector-optional">
           <p className="system-selector-optional-intro">
-            Die folgenden Systeme wuerden von weiteren Daten profitieren und exaktere Beschreibungen
+            Die folgenden Systeme würden von weiteren Daten profitieren und exaktere Beschreibungen
             liefern. Du musst aber keine Angaben machen.
           </p>
           <p className="system-selector-optional-privacy">

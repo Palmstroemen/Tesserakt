@@ -4,7 +4,7 @@ export default function VergleichsGruppeViz({ doy, stunde, frage_id, selbst }) {
   const { granularitaet, daten, loading, error } = useVergleich(doy, stunde, frage_id);
 
   if (loading) {
-    return <p>Vergleichsgruppe laedt...</p>;
+    return <p>Vergleichsgruppe lädt ...</p>;
   }
   if (error) {
     return <p>Vergleich nicht verfuegbar: {error}</p>;

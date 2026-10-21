@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "locale": "de",
   "textVersion": "v1",
-  "notes": "Starterset fuer die regelbasierte Textengine. Claims sind systemneutral, Evidence und Framing systemspezifisch.",
+  "notes": "Starterset für die regelbasierte Textengine. Claims sind systemneutral, Evidence und Framing systemspezifisch.",
   "lexicon": {
     "de": {
       "systems": {
@@ -17,18 +17,18 @@
     }
   },
   "claims": [
-    { "id": "claim.liebe.conflict_tendency.low", "dimension": "liebe", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "liebe_conflict_tendency", "text": "In Beziehungen koennten gelegentlich Reibungen auftreten." },
-    { "id": "claim.liebe.conflict_tendency.medium", "dimension": "liebe", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "liebe_conflict_tendency", "text": "Du koenntest in Beziehungen wiederholt in Konfliktsituationen geraten." },
-    { "id": "claim.liebe.conflict_tendency.high", "dimension": "liebe", "polarity": "mixed", "strengthBand": "high", "dedupeKey": "liebe_conflict_tendency", "text": "Spannungen in Beziehungen koennten bei dir ein zentrales Entwicklungsthema sein." },
+    { "id": "claim.liebe.conflict_tendency.low", "dimension": "liebe", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "liebe_conflict_tendency", "text": "In Beziehungen könnten gelegentlich Reibungen auftreten." },
+    { "id": "claim.liebe.conflict_tendency.medium", "dimension": "liebe", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "liebe_conflict_tendency", "text": "Du könntest in Beziehungen wiederholt in Konfliktsituationen geraten." },
+    { "id": "claim.liebe.conflict_tendency.high", "dimension": "liebe", "polarity": "mixed", "strengthBand": "high", "dedupeKey": "liebe_conflict_tendency", "text": "Spannungen in Beziehungen könnten bei dir ein zentrales Entwicklungsthema sein." },
     { "id": "claim.liebe.attachment_tendency.medium", "dimension": "liebe", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "liebe_attachment_tendency", "text": "Du neigst dazu, Bindungen ernst zu nehmen und Beziehungen langfristig zu denken." },
-    { "id": "claim.beruf.structure_orientation.medium", "dimension": "beruf", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "beruf_structure_orientation", "text": "Im Beruf koennte eine klare Struktur dir besonders helfen." },
+    { "id": "claim.beruf.structure_orientation.medium", "dimension": "beruf", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "beruf_structure_orientation", "text": "Im Beruf könnte eine klare Struktur dir besonders helfen." },
     { "id": "claim.beruf.structure_orientation.high", "dimension": "beruf", "polarity": "positive", "strengthBand": "high", "dedupeKey": "beruf_structure_orientation", "text": "Du wirkst beruflich besonders stark, wenn Rollen, Ziele und Prozesse klar definiert sind." },
-    { "id": "claim.finanzen.risk_control.medium", "dimension": "finanzen", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "finanzen_risk_control", "text": "Bei finanziellen Entscheidungen koennte ein Balancepunkt zwischen Sicherheit und Mut entscheidend sein." },
+    { "id": "claim.finanzen.risk_control.medium", "dimension": "finanzen", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "finanzen_risk_control", "text": "Bei finanziellen Entscheidungen könnte ein Balancepunkt zwischen Sicherheit und Mut entscheidend sein." },
     { "id": "claim.gesundheit.energy_cycle.medium", "dimension": "gesundheit", "polarity": "mixed", "strengthBand": "medium", "dedupeKey": "gesundheit_energy_cycle", "text": "Deine Energie scheint eher in Wellen zu verlaufen als konstant linear." },
-    { "id": "claim.soziales.group_comfort.low", "dimension": "soziales", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "soziales_group_comfort", "text": "In groesseren Gruppen kannst du phasenweise eher zurueckhaltend sein." },
+    { "id": "claim.soziales.group_comfort.low", "dimension": "soziales", "polarity": "mixed", "strengthBand": "low", "dedupeKey": "soziales_group_comfort", "text": "In größeren Gruppen kannst du phasenweise eher zurückhaltend sein." },
     { "id": "claim.kreativitaet.pattern_break.high", "dimension": "kreativitaet", "polarity": "positive", "strengthBand": "high", "dedupeKey": "kreativitaet_pattern_break", "text": "Du hast ein starkes Potenzial, festgefahrene Muster kreativ zu durchbrechen." },
-    { "id": "claim.veraenderung.transition_skill.medium", "dimension": "veraenderung", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "veraenderung_transition_skill", "text": "Uebergaenge und Neuanfaenge koennten dir besser gelingen, wenn du sie aktiv gestaltest." },
-    { "id": "claim.spiritualitaet.intuition_channel.medium", "dimension": "spiritualitaet", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "spiritualitaet_intuition_channel", "text": "Intuitive Eindruecke scheinen fuer dich ein relevanter Orientierungskanal zu sein." }
+    { "id": "claim.veraenderung.transition_skill.medium", "dimension": "veraenderung", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "veraenderung_transition_skill", "text": "Übergänge und Neuanfänge könnten dir besser gelingen, wenn du sie aktiv gestaltest." },
+    { "id": "claim.spiritualitaet.intuition_channel.medium", "dimension": "spiritualitaet", "polarity": "positive", "strengthBand": "medium", "dedupeKey": "spiritualitaet_intuition_channel", "text": "Intuitive Eindrücke scheinen für dich ein relevanter Orientierungskanal zu sein." }
   ],
   "evidence": [
     { "id": "ev.westlich.mars_house_sign", "system": "Westlich", "code": "mars_house_sign", "slotSchema": ["planet", "house", "sign"], "text": "weil dein {planet} im {house}. Haus im Zeichen {sign} steht" },
@@ -42,12 +42,12 @@
     { "id": "ev.kabbalah.sephira", "system": "Kabbalah", "code": "sephira", "slotSchema": ["sephiraName"], "text": "weil die Zuordnung zur Sephira {sephiraName} hier besonders betont wird" },
     { "id": "ev.arabisch.firdaria_period", "system": "Arabisch", "code": "firdaria_period", "slotSchema": ["periodLord"], "text": "weil deine aktuelle Firdaria-Periode unter {periodLord} steht" },
     { "id": "ev.vedisch.mahadasha_planet", "system": "Vedisch", "code": "mahadasha_planet", "slotSchema": ["mahadashaPlanet"], "text": "weil in deiner aktuellen Mahadasha die Planetenkraft von {mahadashaPlanet} dominiert" },
-    { "id": "ev.vedisch.nakshatra", "system": "Vedisch", "code": "nakshatra", "slotSchema": ["nakshatraName"], "text": "weil dein Nakshatra-Profil in {nakshatraName} diese Tendenz verstaerkt" }
+    { "id": "ev.vedisch.nakshatra", "system": "Vedisch", "code": "nakshatra", "slotSchema": ["nakshatraName"], "text": "weil dein Nakshatra-Profil in {nakshatraName} diese Tendenz verstärkt" }
   ],
   "framing": [
-    { "id": "fr.assumption.nom.nahelegen", "text": "wuerde {system.nom} nahelegen", "requiresSlots": ["system.nom"] },
+    { "id": "fr.assumption.nom.nahelegen", "text": "würde {system.nom} nahelegen", "requiresSlots": ["system.nom"] },
     { "id": "fr.assumption.dat.angenommen", "text": "wird in {system.dat} angenommen", "requiresSlots": ["system.dat"] },
-    { "id": "fr.assumption.nom.deuten", "text": "wuerde {system.nom} so deuten", "requiresSlots": ["system.nom"] },
+    { "id": "fr.assumption.nom.deuten", "text": "würde {system.nom} so deuten", "requiresSlots": ["system.nom"] },
     { "id": "fr.assumption.dat.lesen", "text": "wird in {system.dat} in diese Richtung gelesen", "requiresSlots": ["system.dat"] }
   ],
   "patterns": [

@@ -1,5 +1,5 @@
 # Textbausteine v1
-## Sprachneutrale NLG-Architektur fuer Horoskoptexte
+## Sprachneutrale NLG-Architektur für Horoskoptexte
 
 Ziel: Wiederverwendbare, mehrsprachige Textgenerierung mit geringer Serverlast und hoher Kontrollierbarkeit.
 
@@ -14,11 +14,11 @@ Die Textausgabe wird in drei Schichten getrennt:
 1. **Meaning Layer (sprachneutral)**
    - Was wird ausgesagt? (Claim, Evidence, Unsicherheit)
 2. **Language Realization (sprachspezifisch)**
-   - Wie wird es in Sprache X gebaut? (Satzstellung, Faelle, Flexion)
+   - Wie wird es in Sprache X gebaut? (Satzstellung, Fälle, Flexion)
 3. **Style/Variation Layer**
-   - Tonalitaet, Reihenfolge, Variantenpool zur Redundanzreduktion
+   - Tonalität, Reihenfolge, Variantenpool zur Redundanzreduktion
 
-Damit werden Logik und Sprachform getrennt und spaetere Sprachen leichter erweiterbar.
+Damit werden Logik und Sprachform getrennt und spätere Sprachen leichter erweiterbar.
 
 ---
 
@@ -134,14 +134,14 @@ Beispiele:
 - `Możesz częściej doświadczać napięć w relacjach, ponieważ Mars znajduje się w 2. domu w znaku Panny.`
 
 Hinweis:
-- Kasus/Flexion muessen in der PL-Realisierungsschicht behandelt werden, nicht im universellen Claim.
+- Kasus/Flexion müssen in der PL-Realisierungsschicht behandelt werden, nicht im universellen Claim.
 
 ## 5.3 Chinesisch (ZH) - konzeptionell
 
 - `你在关系中可能会反复遇到冲突，因为你的火星位于处女座第二宫。`
 
 Hinweis:
-- Wortstellung und Partikel in ZH ueber sprachspezifische Muster steuern.
+- Wortstellung und Partikel in ZH über sprachspezifische Muster steuern.
 
 ---
 
@@ -152,36 +152,36 @@ Hinweis:
 - ICU MessageFormat / FormatJS
 - Fluent oder i18next + ICU
 
-Fuer:
+Für:
 - Variablen, Plural, Textvarianten, Grundmuster
 
-## 6.2 Fuer komplexe Morphologie
+## 6.2 Für komplexe Morphologie
 
 - Grammatical Framework (GF) oder sprachspezifische Morphologie-Module
 
-Fuer:
+Für:
 - Kasus/Flexion bei PL/HU etc.
 
 ---
 
-## 7) Effizienz fuer hohe Nutzerzahlen
+## 7) Effizienz für hohe Nutzerzahlen
 
 - Kein LLM im Hot Path.
 - Rendering deterministisch aus Frames + Templates.
 - Caching-Key:
   - `sessionId + spiel + locale + textVersion + styleMode`
-- Ergebnistext speichern und nur bei geaenderten Inputs neu bauen.
+- Ergebnistext speichern und nur bei geänderten Inputs neu bauen.
 
 Optional:
-- Asynchroner KI-Polish nur fuer Langtext/Premium-Ansicht.
+- Asynchroner KI-Polish nur für Langtext/Premium-Ansicht.
 
 ---
 
-## 8) Minimaler Startumfang (MVP fuer Textengine)
+## 8) Minimaler Startumfang (MVP für Textengine)
 
 1. 40-60 Universal Claims (A-Dimensionen)
 2. 25-40 Evidence-Bausteine je Kernsystem (Westlich, Bazi, Numerologie)
 3. 6-10 Satzmuster pro Sprache (DE zuerst)
 4. Dedupe + Variationslogik + Caching
 
-Damit entsteht ein stabiler, guenstiger Textgenerator ohne spaeteren Architekturbruch bei Mehrsprachigkeit.
+Damit entsteht ein stabiler, günstiger Textgenerator ohne späteren Architekturbruch bei Mehrsprachigkeit.

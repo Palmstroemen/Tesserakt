@@ -1,7 +1,7 @@
 # Tesserakt
 
 **Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
-Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschaetzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufaellige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklaerung: `docs/Textbausteine/erklaerungen/01_skill.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
+Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschätzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufällige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklärung: `docs/Textbausteine/erklaerungen/01_skill.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
 
 Fullstack-Projekt mit klarer Trennung zwischen:
 
@@ -14,13 +14,13 @@ Fullstack-Projekt mit klarer Trennung zwischen:
 
 | Spiel | Beschreibung | Status |
 |-------|--------------|--------|
-| **A** | Persoenlichkeit – 1 Person, 16 Fragen, Systemvergleich nach Skill | MVP live |
-| **B** | Prognose/Zeit – Rueckblick auf vergangene Zeitfenster | Phase 2 |
-| **C** | Beziehung – wer von beiden ist wo staerker? Skill gegen zufaellige Paare | MVP |
+| **A** | Persönlichkeit – 1 Person, 16 Fragen, Systemvergleich nach Skill | MVP live |
+| **B** | Prognose/Zeit – Rückblick auf vergangene Zeitfenster | Phase 2 |
+| **C** | Beziehung – wer von beiden ist wo stärker? Skill gegen zufällige Paare | MVP |
 
 ## Systeme
 
-Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – standardmaessig alle aktiv, einzeln abwaehlbar. Jedes System hat eine eigene Kontrollgruppe (zufaellige andere Geburtsdaten, Endpunkt `/kontrolle`).
+Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – standardmäßig alle aktiv, einzeln abwählbar. Jedes System hat eine eigene Kontrollgruppe (zufällige andere Geburtsdaten, Endpunkt `/kontrolle`).
 
 ## Projektstruktur
 
@@ -41,18 +41,18 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
 
 - `backend/`
   - Engines: `rule_engine.py`, `rating_engine.py`
-  - Fragen fuer Spiel A inkl. Gewichte je System: `fragen.json` (einzige Quelle, Frontend laedt ueber `/fragen`)
+  - Fragen für Spiel A inkl. Gewichte je System: `fragen.json` (einzige Quelle, Frontend lädt über `/fragen`)
   - Chart-Module: `chart.py`, `bazi_chart.py`, `vedisch_chart.py`, `hellenistisch_chart.py`, etc.
   - Systemordner mit Regeln: `Westlich/`, `Bazi/`, `Numerologie/`, `Kabbalah/`, `Arabisch/`, `Hellenistisch/`, `Vedisch/`
 - `frontend/src/`
   - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
   - Hooks: `useVektoren`, `useRating`
-  - Logik: `rating.js` (Skill/Perzentil fuer alle Spiele, Timing), `ort.js`
+  - Logik: `rating.js` (Skill/Perzentil für alle Spiele, Timing), `ort.js`
   - Spiele B und C: `SpielB.jsx`, `SpielC.jsx`
 - `docs/Berechnungsgrundlagen/`
   - "Beipackzettel" je System: Konventionen, korrigierte Fehler, bekannte Vereinfachungen
 - `content/horoscope/de/`
-  - Systemtexte fuer Spiel A und Spiel C
+  - Systemtexte für Spiel A und Spiel C
 - `tools/`
   - `skill_metric_test.py`, `system_diagnostics.py`, `vector_value_histogram.py`, etc.
 
@@ -63,11 +63,11 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
 
 ## Workspace
 
-Zum Arbeiten in Cursor/VS Code den Multi-Root-Workspace `Tesserakt.code-workspace` oeffnen.
+Zum Arbeiten in Cursor/VS Code den Multi-Root-Workspace `Tesserakt.code-workspace` öffnen.
 
 ## Scope-Quelle
 
-Die verbindliche Aufgabenliste fuer die Umsetzung wird in `ToDo.md` gepflegt.
+Die verbindliche Aufgabenliste für die Umsetzung wird in `ToDo.md` gepflegt.
 
 ## Entwicklung
 

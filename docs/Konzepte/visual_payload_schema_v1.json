@@ -17,7 +17,7 @@
         "ephemerisMode": "precise"
       },
       "explanation": {
-        "short": "Kurztext (2-4 Saetze)",
+        "short": "Kurztext (2-4 Sätze)",
         "long": "Langtext optional"
       },
       "visualPayload": {
@@ -87,7 +87,7 @@
         "ephemerisMode": "simplified"
       },
       "explanation": {
-        "short": "Kurztext (2-4 Saetze)",
+        "short": "Kurztext (2-4 Sätze)",
         "long": "Langtext optional"
       },
       "visualPayload": {
@@ -125,7 +125,7 @@
         "lots": [
           {
             "id": "fortune",
-            "label": "Lot des Gluecks",
+            "label": "Lot des Glücks",
             "longitudeDeg": 251.4,
             "house": 6
           }
@@ -146,7 +146,7 @@
         "ephemerisMode": "na"
       },
       "explanation": {
-        "short": "Kurztext (2-4 Saetze)",
+        "short": "Kurztext (2-4 Sätze)",
         "long": "Langtext optional"
       },
       "visualPayload": {

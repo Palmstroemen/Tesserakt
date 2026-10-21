@@ -213,9 +213,9 @@ def slider(x: float) -> float:
 
 
 NULL_STILE: Dict[str, Callable[[random.Random], float]] = {
-    "zufaellig (gleichverteilt)": lambda r: slider(r.uniform(-1, 1)),
+    "zufällig (gleichverteilt)": lambda r: slider(r.uniform(-1, 1)),
     "positiv geneigt (Mittel +0.4)": lambda r: slider(r.gauss(0.4, 0.4)),
-    "zurueckhaltend (nahe 0)": lambda r: slider(r.gauss(0.0, 0.25)),
+    "zurückhaltend (nahe 0)": lambda r: slider(r.gauss(0.0, 0.25)),
     "extrem (meist +-1)": lambda r: slider(r.choice([-1, 1]) * (1 - abs(r.gauss(0, 0.15)))),
 }
 
@@ -278,12 +278,12 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--korrelationen", type=str, default="0.2,0.4,0.6",
-                        help="Korrelationen fuer den Sensitivitaetstest (default: 0.2,0.4,0.6).")
-    parser.add_argument("--sensitiv-system", type=str, default="Westlich", help="System, das im Sensitivitaetstest recht hat.")
+                        help="Korrelationen für den Sensitivitätstest (default: 0.2,0.4,0.6).")
+    parser.add_argument("--sensitiv-system", type=str, default="Westlich", help="System, das im Sensitivitätstest recht hat.")
     parser.add_argument("--cache", type=str, default=None, help="JSON-Datei: simulierte Personen laden/speichern.")
     parser.add_argument("--json-out", type=str, default=None, help="Optional: Ergebnisse als JSON speichern.")
     parser.add_argument("--spiel", choices=["a", "b", "c"], default="a",
-                        help="a = Persoenlichkeit (default), b = Rueckblick, c = Beziehung.")
+                        help="a = Persönlichkeit (default), b = Rückblick, c = Beziehung.")
     args = parser.parse_args()
     if args.spiel == "b":
         main_b(args)
@@ -366,7 +366,7 @@ def main_b(args: argparse.Namespace) -> None:
     zeitfragen = [str(f["id"]) for f in json.loads(FRAGEN_B_JSON.read_text(encoding="utf-8"))["zeitpunkt"]]
     erinnerung = {
         "gleichverteilt (1-90 Tage)": lambda: rng.randint(1, 90),
-        "juengere Ereignisse haeufiger": lambda: min(90, max(1, int(rng.expovariate(1 / 25)) + 1)),
+        "jüngere Ereignisse häufiger": lambda: min(90, max(1, int(rng.expovariate(1 / 25)) + 1)),
         "grobe Antworten (Buttons 7/14/30/60/90)": lambda: rng.choice([7, 14, 30, 60, 90]),
     }
     for stil, tag in erinnerung.items():
@@ -399,7 +399,7 @@ def main_c(args: argparse.Namespace) -> None:
     rng = random.Random(args.seed)
     print(f"Spiel C - Paare: {len(paare)}, Fragen: {len(fragen)} (backend/fragen_beziehung.json)")
     stile = {
-        "zufaellig (gleichverteilt)": lambda: slider(rng.uniform(-1, 1)),
+        "zufällig (gleichverteilt)": lambda: slider(rng.uniform(-1, 1)),
         "meist ausgewogen (nahe 0)": lambda: slider(rng.gauss(0.0, 0.25)),
         "eher ich (Mittel -0.4)": lambda: slider(rng.gauss(-0.4, 0.4)),
         "Startwert nicht bewegt (-1)": lambda: -1.0,

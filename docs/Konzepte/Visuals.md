@@ -11,9 +11,9 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ## 1. Gemeinsamer Rahmen (alle Systeme)
 
-- Header: Systemname, kurzer Kontextsatz, Datenqualitaet (Geburtszeit genau/ungenau)
+- Header: Systemname, kurzer Kontextsatz, Datenqualität (Geburtszeit genau/ungenau)
 - Kernaussage: Skill (mit Perzentil), Fit (absolut)
-- Hauptvisual: systemspezifisch (nicht ueberall Kreis)
+- Hauptvisual: systemspezifisch (nicht überall Kreis)
 - Detailtabs: Grundlage, Interpretation, Methodik
 - Footer-Hinweis: Vergleichsmetrik basiert auf Antworten, nicht auf objektiver Wahrheit
 
@@ -23,29 +23,29 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ## 2.1 Westlich (Standard-Radix)
 
-**Primaervisual**
+**Primärvisual**
 - 12 Zeichenring
-- 12 Haeuser
+- 12 Häuser
 - Planeten-Glyphen
 - Aspektlinien (0/60/90/120/180, Orb konfigurierbar)
 - AC/DC, MC/IC
 
-**Sekundaerinfos**
+**Sekundärinfos**
 - Tabelle: Planet, Zeichen, Haus, Grad
 - Aspektliste: Planet A - Planet B - Aspekttyp - Orb
 
 **MVP-Hinweis**
-- Wenn keine praezisen Ephemeriden genutzt werden: als vereinfachtes Modell markieren
+- Wenn keine präzisen Ephemeriden genutzt werden: als vereinfachtes Modell markieren
 
-## 2.2 Hellenistisch (eigener Stil, aehnliche Geometrie)
+## 2.2 Hellenistisch (eigener Stil, ähnliche Geometrie)
 
-**Primaervisual**
+**Primärvisual**
 - Kreisdiagramm wie Westlich, aber:
   - Whole Sign Houses als Default
   - Fokus auf Hausaktivierung/Jahresherrscher (Profektionen)
   - optional Lots als Markierungen
 
-**Sekundaerinfos**
+**Sekundärinfos**
 - Aktives Haus (Profektion), Herrscher, zentrale Deutung
 - Tag-/Nacht-Sekte als Badge
 
@@ -54,13 +54,13 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ## 2.3 Bazi / Chinesisch (kein Rad als Primaerstandard)
 
-**Primaervisual**
-- 4-Saeulen-Panel (Jahr/Monat/Tag/Stunde)
-- je Saeule: Himmelsstamm + Erdzweig
+**Primärvisual**
+- 4-Säulen-Panel (Jahr/Monat/Tag/Stunde)
+- je Säule: Himmelsstamm + Erdzweig
 - 5-Elemente-Balance (Balken oder Radar)
 - Luck-Pillars-Timeline (10-Jahres-Phasen)
 
-**Sekundaerinfos**
+**Sekundärinfos**
 - Day Master
 - guenstige/unguensige Elementtendenzen (wenn vorhanden)
 - optional Interaktionshinweise (naehrend/kontrollierend)
@@ -70,34 +70,34 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ## 2.4 Numerologie
 
-**Primaervisual**
+**Primärvisual**
 - Zahlenkarte (Lebenspfadzahl zentral, Nebenwerte ringfoermig/karteikartenartig)
 
-**Sekundaerinfos**
+**Sekundärinfos**
 - Herkunft der Zahlen (Geburtsdatum, optional Name)
 - Kurzdeutung je Kernzahl
 
 ## 2.5 Kabbalah
 
-**Primaervisual**
+**Primärvisual**
 - Baum des Lebens (10 Sephiroth + Pfade), aktive Knoten hervorgehoben
 
-**Sekundaerinfos**
+**Sekundärinfos**
 - Zugeordnete Sephira, Schwerpunktachsen, Kurzdeutung
 
 ## 2.6 Arabisch
 
-**Primaervisual**
+**Primärvisual**
 - Zeitachsen-/Periodendiagramm (Firdaria), optional Lose-Panel
 
-**Sekundaerinfos**
-- Aktuelle Periode, naechster Wechsel, thematische Schwerpunkte
+**Sekundärinfos**
+- Aktuelle Periode, nächster Wechsel, thematische Schwerpunkte
 
 ## 2.7 Vedisch / Jyotish (je nach internem Modell)
 
-**Wenn intern als Jyotish gefuehrt**
-- Primaervisual: Nakshatra-/Dasha-orientiert (eher Tabelle/Timeline als West-Rad)
-- Sekundaerinfos: aktive Mahadasha-Periode, relevante Qualitaeten
+**Wenn intern als Jyotish geführt**
+- Primärvisual: Nakshatra-/Dasha-orientiert (eher Tabelle/Timeline als West-Rad)
+- Sekundärinfos: aktive Mahadasha-Periode, relevante Qualitäten
 
 ---
 
@@ -110,7 +110,7 @@ Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt
 
 ---
 
-## 4. Datenmodell fuer Frontend-Komponenten
+## 4. Datenmodell für Frontend-Komponenten
 
 Jedes System liefert mindestens:
 
@@ -118,9 +118,9 @@ Jedes System liefert mindestens:
 - `scores`: `skill`, `perzentil`, `fit`
 - `qualityFlags`: `birthTimeKnown`, `modelType`
 - `visualPayload`: system-spezifische Datenstruktur
-- `explanation`: 2-4 Saetze + optional Longform
+- `explanation`: 2-4 Sätze + optional Longform
 
-Damit koennen Systemkomponenten getrennt rendern, aber im selben UX-Rahmen bleiben.
+Damit können Systemkomponenten getrennt rendern, aber im selben UX-Rahmen bleiben.
 
 ---
 
@@ -131,21 +131,21 @@ Damit koennen Systemkomponenten getrennt rendern, aber im selben UX-Rahmen bleib
 
 ---
 
-## 6. Layer-Architektur fuer Hover/Blend (v1)
+## 6. Layer-Architektur für Hover/Blend (v1)
 
-Um spaetere Changier-/Parallax-Effekte ohne Umbau zu ermoeglichen, wird jedes Diagramm
+Um spätere Changier-/Parallax-Effekte ohne Umbau zu ermöglichen, wird jedes Diagramm
 von Anfang an als Layer-Szene gebaut (nicht als ein einziges "End-SVG").
 
 **Pflichtlayer (alle Systeme)**
 - `baseLayer`: statische Grundgeometrie (Ringe, Panels, Achsen, Rahmen)
-- `dataLayer`: fachliche Hauptobjekte (Planeten, Saeulen, Knoten, Zahlen)
+- `dataLayer`: fachliche Hauptobjekte (Planeten, Säulen, Knoten, Zahlen)
 - `relationLayer`: Verbindungen/Aspekte/Interaktionen
 - `highlightLayer`: Fokus-Overlay (Opacity, Glow, Stroke-Boost)
 - `labelLayer`: Beschriftung/Legende
 - `fxLayer` (optional): sanfte Muster, Lichtverlauf, Grid-Reaktion
 
 **Interaktionsmodi (umschaltbar)**
-- `gridFocus`: Fokus folgt einem 3x3-Raster ueber der ganzen Visualisierung
+- `gridFocus`: Fokus folgt einem 3x3-Raster über der ganzen Visualisierung
 - `entityFocus`: Fokus folgt direkt einem Objekt (z. B. Planet hover)
 - `hybrid`: gridFocus als Default, entityFocus bei explizitem Objekt-Hover
 
@@ -174,7 +174,7 @@ BL | BC | BR
 - **4 Felder**: `TC`, `ML`, `MR`, `BC` (Kreuz)
 - **5 Felder**: `TL`, `TC`, `TR`, `ML`, `MR`
 - **6 Felder**: `TL`, `TC`, `TR`, `BL`, `BC`, `BR`
-- **8 Felder**: alle ausser `MC`
+- **8 Felder**: alle außer `MC`
 
 ---
 
@@ -183,7 +183,7 @@ BL | BC | BR
 ## 8.1 Westlich
 
 **Layergewichtung**
-- baseLayer: Zeichenring, Haeuser, Achsen
+- baseLayer: Zeichenring, Häuser, Achsen
 - dataLayer: Planeten
 - relationLayer: Aspekte
 - highlightLayer: Fokus Planet, Fokus Aspektgruppe
@@ -191,7 +191,7 @@ BL | BC | BR
 **Rasterprofil (8 Felder + Zentrum)**
 - `MC`: full chart
 - `TL/TC/TR`: Luft/Feuer-orientierte Betonung (oben)
-- `ML/MR`: linke/rechte Hemisphaere
+- `ML/MR`: linke/rechte Hemisphäre
 - `BL/BC/BR`: Wasser/Erde-orientierte Betonung (unten)
 
 **Schnellvariante**
@@ -213,7 +213,7 @@ BL | BC | BR
 ## 8.3 Bazi (Chinesisch)
 
 **Layergewichtung**
-- baseLayer: 4-Saeulen-Rahmen
+- baseLayer: 4-Säulen-Rahmen
 - dataLayer: Himmelsstaemme/Erdzweige, Day Master
 - relationLayer: Elementzyklen (naehrend/kontrollierend)
 - highlightLayer: aktive Luck-Pillar + Elementfokus
@@ -224,7 +224,7 @@ BL | BC | BR
 - `BL/BC/BR`: Luck-Pillar und Element-Dynamik
 
 **Schnellvariante**
-- 3 Felder oben (`TL/TC/TR`) fuer reine Saeulenbetonung
+- 3 Felder oben (`TL/TC/TR`) für reine Säulenbetonung
 
 ## 8.4 Numerologie
 
@@ -238,8 +238,8 @@ BL | BC | BR
 - `MC`: full view
 - `TC`: Lebenspfad/zentral
 - `ML`: innere Zahlen (z. B. Seelenzahl)
-- `MR`: aeussere Zahlen (z. B. Persoenlichkeitszahl)
-- `BC`: Zeitbezug (persoenliches Jahr)
+- `MR`: äußere Zahlen (z. B. Persönlichkeitszahl)
+- `BC`: Zeitbezug (persönliches Jahr)
 
 ## 8.5 Kabbalah
 
@@ -252,7 +252,7 @@ BL | BC | BR
 **Rasterprofil (5 Felder)**
 - `MC`: kompletter Baum
 - `TC`: obere Triade
-- `ML/MR`: linke/rechte Saeule
+- `ML/MR`: linke/rechte Säule
 - `BC`: Malkuth/Fundament-Ebene
 
 ## 8.6 Arabisch
@@ -260,12 +260,12 @@ BL | BC | BR
 **Layergewichtung**
 - baseLayer: Periodenring/-achse (Firdaria)
 - dataLayer: aktive Periode/Subperiode
-- relationLayer: Lose/periodische Uebergaenge
-- highlightLayer: aktueller Zeitschnitt + naechster Wechsel
+- relationLayer: Lose/periodische Übergänge
+- highlightLayer: aktueller Zeitschnitt + nächster Wechsel
 
 **Rasterprofil (3 oder 4 Felder)**
 - 3 Felder: `TL`, `TC`, `TR` (Vergangenheit/Gegenwart/naechste Periode)
-- optional 4 Felder mit `BC` fuer Lose-Schwerpunkt
+- optional 4 Felder mit `BC` für Lose-Schwerpunkt
 
 ## 8.7 Vedisch / Jyotish
 
@@ -282,16 +282,16 @@ BL | BC | BR
 
 ---
 
-## 9. Implementierungsnotizen (wichtig fuer Prototyp)
+## 9. Implementierungsnotizen (wichtig für Prototyp)
 
 - Interaktions-Engine von Rendering trennen:
   - `sceneModel` (Daten),
   - `layerRenderer` (SVG-Gruppen),
   - `focusController` (grid/entity/hybrid).
-- Nur `focusController` darf Layer-Opacity/Filter aendern.
+- Nur `focusController` darf Layer-Opacity/Filter ändern.
 - Jeder Systemrenderer liefert:
   - `supportedGridProfile` (`2|3|4|5|6|8`),
   - `defaultMode` (`gridFocus`),
   - `focusMap` (Feld -> Highlight-Regeln).
 
-So bleibt der schnelle Prototyp spaeter ohne Zerlegen auf Changier-/Parallax-Effekte erweiterbar.
+So bleibt der schnelle Prototyp später ohne Zerlegen auf Changier-/Parallax-Effekte erweiterbar.

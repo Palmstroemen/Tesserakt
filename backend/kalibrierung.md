@@ -19,7 +19,7 @@ Hellenistisch hatte keinen Eintrag (Fallback auf Dimensionen).
 
 ## Dimensionen (Fallback)
 
-Alle Dimensionen (liebe, beruf, finanzen, gesundheit, soziales, kreativitaet, veraenderung, spiritualitaet): `offset: 0`, `multiplier: 1`.
+Alle Dimensionen (liebe, beruf, finanzen, gesundheit, soziales, kreativität, veränderung, spiritualität): `offset: 0`, `multiplier: 1`.
 
 ---
 

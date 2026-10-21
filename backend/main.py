@@ -97,12 +97,12 @@ TIMING_KONSTANT = (TIMING_RASTER[0] + TIMING_RASTER[-1]) / 2  # kein Hoehepunkt 
 class VektorRequest(BaseModel):
     geburtsdatum: str = Field(examples=["1985-03-15"])
     uhrzeit: Optional[str] = Field(default="12:00", examples=["14:30"])
-    session_id: Optional[str] = Field(default=None, description="Optional; Seed fuer die Kontroll-Geburtsdaten in /kontrolle")
+    session_id: Optional[str] = Field(default=None, description="Optional; Seed für die Kontroll-Geburtsdaten in /kontrolle")
     systeme: List[str] = Field(default_factory=lambda: DEFAULT_SYSTEMS.copy())
-    latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (fuer Placidus-Haeuser)")
-    longitude: Optional[float] = Field(default=None, description="Geburtsort Laenge (fuer Placidus-Haeuser)")
-    geburtsname: Optional[str] = Field(default=None, description="Vollstaendiger Geburtsname fuer Numerologie Namenszahlen (Seelendrang, Ausdruck, Persoenlichkeit)")
-    geschlecht: Optional[str] = Field(default=None, description="weiblich | maennlich | keine Angabe")
+    latitude: Optional[float] = Field(default=None, description="Geburtsort Breite (für Placidus-Häuser)")
+    longitude: Optional[float] = Field(default=None, description="Geburtsort Länge (für Placidus-Häuser)")
+    geburtsname: Optional[str] = Field(default=None, description="Vollständiger Geburtsname für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit)")
+    geschlecht: Optional[str] = Field(default=None, description="weiblich | männlich | keine Angabe")
     zeitzone: Optional[str] = Field(default=None, description="IANA-Zeitzone des Geburtsorts (z. B. Europe/Vienna); ohne Angabe gilt die Uhrzeit als Weltzeit")
 
 
@@ -114,7 +114,7 @@ class VektorResponse(BaseModel):
 class KontrollRequest(VektorRequest):
     session_id: str = Field(description="session_id aus /vektor (Seed der Kontroll-Geburtsdaten)")
     stichtag: Optional[str] = Field(default=None, description="Stichtag aus /vektor (YYYY-MM-DD), damit Zeitregeln identisch sind")
-    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=1, le=500, description="Anzahl zufaelliger Geburtsdaten je System fuer die Perzentil-Kontrollgruppe")
+    kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=1, le=500, description="Anzahl zufälliger Geburtsdaten je System für die Perzentil-Kontrollgruppe")
 
 
 class KontrollResponse(BaseModel):
@@ -167,7 +167,7 @@ class SessionPayload(BaseModel):
     abgeschlossen: bool = True
     veroeffentlichen: bool = True
     sprache: Optional[str] = Field(default=None, max_length=16, description="Sprache der Fragen, z. B. de")
-    geraet_sprache: Optional[str] = Field(default=None, max_length=35, description="Spracheinstellung des Geraets, z. B. de-AT")
+    geraet_sprache: Optional[str] = Field(default=None, max_length=35, description="Spracheinstellung des Geräts, z. B. de-AT")
 
 
 def parse_birth_datetime(geburtsdatum: str, uhrzeit: Optional[str]) -> datetime:
@@ -428,7 +428,7 @@ def _kontrollvektoren(payload: KontrollRequest, birth_dt: datetime, now: datetim
 
 def _validate_systeme(requested: List[str]) -> None:
     if not requested:
-        raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewaehlt werden")
+        raise HTTPException(status_code=422, detail="Mindestens ein System muss ausgewählt werden")
     unknown = [name for name in requested if name not in SUPPORTED_SYSTEMS]
     if unknown:
         raise HTTPException(status_code=400, detail=f"Nicht unterstuetzte Systeme: {', '.join(unknown)}")
@@ -613,7 +613,7 @@ def _content_root() -> Path:
 def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
     """Liefert Systemtexte fuer die Deutungs-Tabs (intro, dimensions, paracelsus_outro)."""
     if locale != "de":
-        raise HTTPException(status_code=404, detail="Nur locale=de verfuegbar")
+        raise HTTPException(status_code=404, detail="Nur locale=de verfügbar")
     path = _content_root() / "content" / "horoscope" / "de" / "system_texts_v1.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail="system_texts_v1.json nicht gefunden")
@@ -626,7 +626,7 @@ def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
 def get_erklaerungen(locale: str = "de") -> Dict[str, object]:
     """Erklaertexte (Skill, Methodik, Experiment), erzeugt aus docs/Textbausteine/erklaerungen/*.md."""
     if locale != "de":
-        raise HTTPException(status_code=404, detail="Nur locale=de verfuegbar")
+        raise HTTPException(status_code=404, detail="Nur locale=de verfügbar")
     path = _content_root() / "content" / "horoscope" / "de" / "erklaerungen_v1.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail="erklaerungen_v1.json nicht gefunden")

@@ -8,28 +8,28 @@
 
 ## 1. Rolle im Produkt
 
-Dieses Dokument beschreibt den **Gamification-Ausbau** fuer Spiel A.
+Dieses Dokument beschreibt den **Gamification-Ausbau** für Spiel A.
 
 - Es erweitert den bestehenden MVP-Flow.
 - Es ersetzt nicht die Kernmetriken (Skill/Perzentil/Fit), sondern inszeniert sie.
 - Es ist mit der SSOT (`Vorlage zur Harmonisierung der Texte.md`) abgestimmt.
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Frontend-Flow, Content, Telemetrie
+**Abhängigkeiten:** Frontend-Flow, Content, Telemetrie
 
 ---
 
 ## 2. Ziel der Gamification
 
-- Abbrueche reduzieren.
-- Schrittweise Erklaerung der Systeme liefern.
+- Abbrüche reduzieren.
+- Schrittweise Erklärung der Systeme liefern.
 - Wahrnehmbaren Fortschritt vor dem Endranking schaffen.
 
 Nebenwirkung:
-- Bessere Datenqualitaet durch mehr abgeschlossene Sessions.
+- Bessere Datenqualität durch mehr abgeschlossene Sessions.
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Frageverlauf, Zwischenresultate, UX-Messaging
+**Abhängigkeiten:** Frageverlauf, Zwischenresultate, UX-Messaging
 
 ---
 
@@ -42,14 +42,14 @@ In allen Zwischen- und Endansichten gelten:
 - **Fit (absolut)**
 
 Gewinner-Regel:
-- Wo ein Sieger gezeigt wird, auch zeigen, welchen Skill der Sieger ohne Aussagekraft erreichen wuerde
+- Wo ein Sieger gezeigt wird, auch zeigen, welchen Skill der Sieger ohne Aussagekraft erreichen würde
   (bei 7 Systemen ~+75).
 
 Nicht als primare Anzeige:
 - `Rank-Score`
 
 **Status:** verbindlich  
-**Abhaengigkeiten:** Rating-Backend, Ergebnis-UI
+**Abhängigkeiten:** Rating-Backend, Ergebnis-UI
 
 ---
 
@@ -57,7 +57,7 @@ Nicht als primare Anzeige:
 
 Es gibt zwei denkbare Modelle:
 
-- **Variante A (grobe Stufen):** wenige groessere Freischaltungen.
+- **Variante A (grobe Stufen):** wenige größere Freischaltungen.
 - **Variante B (feingranular):** systemweise Freischaltungen.
 
 Empfehlung:
@@ -65,17 +65,17 @@ Empfehlung:
 - Desktop optional: Variante A oder "Expert Mode"
 
 **Status:** Phase 2 Entscheidung  
-**Abhaengigkeiten:** UX-Tests, Produktmetriken
+**Abhängigkeiten:** UX-Tests, Produktmetriken
 
 ---
 
-## 5. Zielstruktur fuer Variante B (empfohlen)
+## 5. Zielstruktur für Variante B (empfohlen)
 
 ### 5.1 Grundlogik
 
 - Jedes System bekommt eine interne Konfidenz.
 - Freischaltung erfolgt, wenn systemrelevante Dimensionen ausreichend abgedeckt sind.
-- Nutzer sieht einfache Fortschrittssignale, keine technische Komplexitaet.
+- Nutzer sieht einfache Fortschrittssignale, keine technische Komplexität.
 
 ### 5.2 Reihenfolge (Vorschlag)
 
@@ -86,13 +86,13 @@ Empfehlung:
 5. Hellenistisch
 6. Arabisch
 7. Vedisch
-8. Finale: gesamtes Ranking inkl. Aufklaerung (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt)
+8. Finale: gesamtes Ranking inkl. Aufklärung (Vergleich mit anderen Geburtsdaten, Gewinner-Effekt)
 
 Hinweis:
 - Die finale Reihenfolge bleibt ein Product-Entscheid.
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Konfidenzmodell, Contentbausteine, Localisation
+**Abhängigkeiten:** Konfidenzmodell, Contentbausteine, Localisation
 
 ---
 
@@ -100,17 +100,17 @@ Hinweis:
 
 Jede Freischaltung nutzt denselben Rahmen:
 
-1. **Kurzkontext** (2-4 Saetze, neutral).
+1. **Kurzkontext** (2-4 Sätze, neutral).
 2. **System-Teilresultat** (mit Skill-Teilaspekt).
-3. **Weiterer Anreiz** (naechste Freischaltung).
+3. **Weiterer Anreiz** (nächste Freischaltung).
 
 Didaktikstufen:
-- Stufe 1: neutral und erklaerend.
+- Stufe 1: neutral und erklärend.
 - Stufe 2: erste Unterschiede/Widersprueche.
-- Stufe 3: methodische Aufklaerung (Kontrollgruppe, Gewinner-Effekt).
+- Stufe 3: methodische Aufklärung (Kontrollgruppe, Gewinner-Effekt).
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Contentredaktion, UI-Komponenten
+**Abhängigkeiten:** Contentredaktion, UI-Komponenten
 
 ---
 
@@ -125,7 +125,7 @@ Wichtig:
 - Ranking basiert weiterhin auf Skill.
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Fragen-Mapping, Telemetrie, A/B-Tests
+**Abhängigkeiten:** Fragen-Mapping, Telemetrie, A/B-Tests
 
 ---
 
@@ -134,20 +134,20 @@ Wichtig:
 - Kurz und konkret.
 - Nicht missionarisch.
 - Keine Uberladung mit Fachbegriffen.
-- Jede Seite sagt klar, was jetzt sichtbar ist und was als Naechstes folgt.
+- Jede Seite sagt klar, was jetzt sichtbar ist und was als Nächstes folgt.
 
 **Status:** Phase 2  
-**Abhaengigkeiten:** Copywriting, QA
+**Abhängigkeiten:** Copywriting, QA
 
 ---
 
 ## 9. Offene Entscheidungen
 
-1. Finale Systemreihenfolge fuer Variante B.
+1. Finale Systemreihenfolge für Variante B.
 2. Umfang pro Freischaltseite (Text vs Visualisierung).
 
 **Status:** offen  
-**Abhaengigkeiten:** Product, Content, Research
+**Abhängigkeiten:** Product, Content, Research
 
 ---
 
@@ -155,5 +155,5 @@ Wichtig:
 
 - Dieses Dokument beschreibt den geplanten Gamification-Ausbau, nicht den aktuellen MVP.
 - Verbindliche Metrik- und Begriffsdefinitionen kommen aus `Vorlage zur Harmonisierung der Texte.md`.
-- Alle Freischaltungsmechaniken muessen Skill/Perzentil/Fit konsistent darstellen.
+- Alle Freischaltungsmechaniken müssen Skill/Perzentil/Fit konsistent darstellen.
 
