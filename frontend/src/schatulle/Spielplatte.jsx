@@ -374,6 +374,10 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, kam
               <stop offset="0.75" stopColor="#6e5330" />
               <stop offset="1" stopColor="#4a3720" />
             </radialGradient>
+            {/* Lichtschein fuer die eigene Einschaetzung (SVG-Filter: CSS-Filter auf SVG-Elementen kann WebKit nicht) */}
+            <filter id="sp-schein" filterUnits="userSpaceOnUse" x="0" y="0" width="400" height={hoehe}>
+              <feGaussianBlur stdDeviation="10" />
+            </filter>
           </defs>
 
           {/* Platte */}

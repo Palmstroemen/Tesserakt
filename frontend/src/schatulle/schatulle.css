@@ -244,10 +244,13 @@ body {
   fill: #8a6a3c;
 }
 
+/* eigene Einschaetzung nach dem Ausloesen: nur ein schwacher Lichtschein entlang des Strahls */
 .sp-userstrahl {
   stroke: #f0d59c;
-  stroke-width: 1.4;
-  stroke-dasharray: 4 4;
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0.1;
+  filter: url(#sp-schein);
   pointer-events: none;
 }
 
@@ -461,4 +464,72 @@ body {
 .sc-perzentil {
   font-size: 0.85rem;
   color: var(--sc-text-leise);
+}
+
+/* --- Datumsrad (Start) ------------------------------------------------------- */
+.dr-band {
+  fill: none;
+  stroke: #d8b878;
+}
+
+.dr-band.dr-monat,
+.dr-band.dr-stunde {
+  stroke: #c4a265;
+}
+
+.dr-strich {
+  stroke: #3a2c1a;
+  stroke-width: 0.8;
+}
+
+.dr-text {
+  text-anchor: middle;
+  fill: #2b2014;
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+.dr-fuge {
+  fill: none;
+  stroke: #5a4325;
+  stroke-width: 1.2;
+}
+
+.dr-fenster {
+  fill: rgba(255, 244, 214, 0.28);
+  stroke: #3a2c1a;
+  stroke-width: 1.2;
+  pointer-events: none;
+}
+
+.dr-marke {
+  fill: #9a3b2a;
+  pointer-events: none;
+}
+
+.dr-mitte {
+  fill: #1d1712;
+  stroke: #e8c98a;
+  stroke-width: 1.5;
+}
+
+.dr-anzeige {
+  text-anchor: middle;
+  fill: #f0d59c;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.dr-anzeige.klein {
+  font-size: 8.5px;
+  fill: var(--sc-text-leise);
+}
+
+.dr-fuss {
+  padding-top: 12px;
+}
+
+.dr-ort {
+  max-width: 360px;
 }

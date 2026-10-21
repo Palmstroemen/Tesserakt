@@ -3,6 +3,7 @@ import { OrtSuche } from "../components/GeburtsdatumInput";
 import { calculateRating, erwarteterSkillBester } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 import { SYSTEME } from "./systeme";
+import Datumsrad from "./Datumsrad";
 import Spielplatte from "./Spielplatte";
 import { rastKlick } from "./klang";
 import { belichtungFesthalten } from "./kamera";
@@ -55,8 +56,6 @@ function anzeigeWert(stat, system, dim, wert) {
 
 export default function Schatulle() {
   const [phase, setPhase] = useState("start"); // start | laden | frage | ende
-  const [datum, setDatum] = useState("");
-  const [zeit, setZeit] = useState("12:00");
   const [ort, setOrt] = useState(null);
   const [fehler, setFehler] = useState(null);
 
@@ -85,7 +84,11 @@ export default function Schatulle() {
 
   const stat = useMemo(() => anzeigeStatistik(kontroll), [kontroll]);
 
-  async function starten() {
+  async function starten({ geburtsdatum, uhrzeit }) {
+    if (!fragen.length) {
+      setFehler("Die Fragen sind noch nicht geladen – läuft das Backend?");
+      return;
+    }
     setFehler(null);
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
@@ -101,7 +104,7 @@ export default function Schatulle() {
         setKameraInfo(`Kamera: ${err.name}`);
       });
     try {
-      const body = { geburtsdatum: datum, uhrzeit: zeit, systeme: ALLE, ...ortFelder(ort) };
+      const body = { geburtsdatum, ...(uhrzeit ? { uhrzeit } : {}), systeme: ALLE, ...ortFelder(ort) };
       const v = await postJson("/vektor", body);
       setVektoren(v.vektoren);
       setFragen((f) => mischen(f));
@@ -149,51 +152,17 @@ export default function Schatulle() {
   // --- Darstellung ------------------------------------------------------------
   if (phase === "start" || phase === "laden") {
     return (
-      <main className="sc">
-        <div className="sc-deckel" aria-hidden="true">
-          <svg viewBox="0 0 200 200">
-            <defs>
-              <radialGradient id="sc-messing" cx="35%" cy="30%" r="80%">
-                <stop offset="0" stopColor="#f3d79a" />
-                <stop offset="0.55" stopColor="#b08d57" />
-                <stop offset="1" stopColor="#5a4325" />
-              </radialGradient>
-            </defs>
-            <circle cx="100" cy="100" r="96" fill="url(#sc-messing)" />
-            <circle cx="100" cy="100" r="78" fill="#1d1712" stroke="#e8c98a" strokeWidth="1.5" />
-            {/* Sonne (links, Gold) und Mond (rechts, Silber) greifen mit gezackter Naht ineinander - kein Taijitu */}
-            <path d="M100 32 A68 68 0 0 0 100 168 L92 151 L106 134 L92 117 L106 100 L92 83 L106 66 L92 49 Z" fill="#e8c98a" />
-            <path d="M100 32 A68 68 0 0 1 100 168 L92 151 L106 134 L92 117 L106 100 L92 83 L106 66 L92 49 Z" fill="#a9b1ba" />
-            <circle cx="70" cy="100" r="14" fill="none" stroke="#9c7a3e" strokeWidth="2" />
-            {Array.from({ length: 8 }, (_, k) => {
-              const a = (k * Math.PI) / 4;
-              return <line key={k} x1={70 + 19 * Math.cos(a)} y1={100 + 19 * Math.sin(a)} x2={70 + 26 * Math.cos(a)} y2={100 + 26 * Math.sin(a)} stroke="#9c7a3e" strokeWidth="2" />;
-            })}
-            <path d="M138 82 A20 20 0 1 0 138 118 A15 15 0 1 1 138 82" fill="#6f7882" />
-          </svg>
-        </div>
-        <h1 className="sc-titel">Tesserakt</h1>
-        <section className="sc-karte">
-          <label>
-            Geburtsdatum
-            <input type="date" value={datum} onChange={(e) => setDatum(e.target.value)} />
-          </label>
-          <label>
-            Uhrzeit
-            <input type="time" value={zeit} onChange={(e) => setZeit(e.target.value)} />
-          </label>
-          <OrtSuche ort={ort} onChange={setOrt} />
-          {fehler ? <p className="sc-fehler">{fehler}</p> : null}
-          <button
-            type="button"
-            className="sc-start"
-            disabled={!datum || !fragen.length || phase === "laden"}
-            onClick={starten}
-          >
-            {phase === "laden" ? "Die Schatulle öffnet sich …" : "Schatulle öffnen"}
-          </button>
-        </section>
-      </main>
+      <Datumsrad
+        onStart={starten}
+        laedt={phase === "laden"}
+        fehler={fehler}
+        unten={
+          <section className="sc-karte dr-ort">
+            {/* vorlaeufig, bis es die Ortswalzen gibt */}
+            <OrtSuche ort={ort} onChange={setOrt} />
+          </section>
+        }
+      />
     );
   }
 
