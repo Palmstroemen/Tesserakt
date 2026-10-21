@@ -378,31 +378,14 @@ body {
   stroke-width: 1.5;
 }
 
-/* Ausloesehebel: rechteckiger Messinggriff mit gravierten Griffrillen (wie der Wahlschalter) */
+/* Ausloesehebel: grosser weinroter Rubin */
 .sp-hebelgriff {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
 }
 
-.sp-hebelgriff-koerper {
-  fill: #a8864c;
-  stroke: #3a2c1a;
-  stroke-width: 1.4;
-}
-
-.sp-hebelgriff-flaeche {
-  fill: #e2c27f;
-  stroke: #fbe7a8;
-  stroke-width: 0.7;
-}
-
-.sp-rubin-fassung {
-  fill: #c9a462;
-  stroke: #6e5020;
+.sp-rubin {
+  stroke: #3d0410;
   stroke-width: 0.8;
-}
-
-.sp-hebelgriff.gesperrt .sp-hebelgriff-flaeche {
-  fill: #c9a462;
 }
 
 /* Sperrplaettchen: liegt hinter dem Hebelschlitz und schiebt sich seitlich hinein, solange der eigene

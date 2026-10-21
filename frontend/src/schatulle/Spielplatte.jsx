@@ -908,60 +908,45 @@ export default function Spielplatte({
                 opacity="0.35"
               />
             </g>
-            {/* Griff: rechteckig, Messing, mit einem weinroten Rubin */}
+            {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
             <g
               transform={`translate(${HEBEL.x} ${knaufY})`}
-              className={gesperrt ? "sp-hebelgriff gesperrt" : "sp-hebelgriff"}
+              className="sp-hebelgriff"
             >
-              <rect
-                x="-20"
-                y="-13"
-                width="40"
-                height="26"
-                rx="3"
-                className="sp-hebelgriff-koerper"
-              />
-              <rect
-                x="-17"
-                y="-10"
-                width="34"
-                height="20"
-                rx="2"
-                className="sp-hebelgriff-flaeche"
-              />
-              {/* weinroter Rubin (Cabochon) in Messingfassung, mit Glanzlicht */}
-              <ellipse
-                cx="0"
-                cy="0.6"
-                rx="10.6"
-                ry="7.6"
-                fill="#3a2a10"
-                opacity="0.5"
-              />
               <ellipse
                 cx="0"
                 cy="0"
-                rx="10.2"
-                ry="7.2"
-                className="sp-rubin-fassung"
+                rx="16"
+                ry="12"
+                fill="url(#sp-rubin)"
+                className="sp-rubin"
               />
-              <ellipse cx="0" cy="0" rx="8.4" ry="5.6" fill="url(#sp-rubin)" />
               <ellipse
-                cx="1.8"
-                cy="2"
-                rx="5"
-                ry="2.6"
+                cx="2.8"
+                cy="3.2"
+                rx="8"
+                ry="4.2"
                 fill="url(#sp-rubin-schimmer)"
               />
               <ellipse
-                cx="-3.2"
-                cy="-2.4"
-                rx="3.2"
-                ry="1.5"
-                transform="rotate(-18 -3.2 -2.4)"
+                cx="-5"
+                cy="-4"
+                rx="5.2"
+                ry="2.4"
+                transform="rotate(-18 -5 -4)"
                 fill="url(#sp-rubin-glanz)"
               />
-              <circle cx="3.6" cy="-2.6" r="0.6" fill="#fff" opacity="0.8" />
+              <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
+              {gesperrt ? (
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="16"
+                  ry="12"
+                  fill="#000"
+                  opacity="0.25"
+                />
+              ) : null}
             </g>
           </g>
 
