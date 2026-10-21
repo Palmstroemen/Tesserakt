@@ -95,6 +95,14 @@ Gochara-Planeten zu Lebensbereichen sind unsere Ableitung, nicht Wortlaut der Qu
   **neu seit Oktober 2026**
 - **GeoNames** (CC BY 4.0) über `geonamescache`: Geburtsorte mit Koordinaten und Zeitzonen –
   **neu seit Oktober 2026**
+- **Ma Shan Zheng** (Pinselschrift, SIL Open Font License 1.1, The Ma Shan Zheng Project Authors): für die
+  Bazi-Grafik, auf die benötigten Zeichen zugeschnitten (`frontend/src/schatulle/schriften/`) –
+  **neu seit Oktober 2026**
+
+## Vorbilder für die Grafiken
+
+- Bazi: rote Bazi-Karten mit den acht Zeichen in Tusche, z. B. National Museum of Singapore, Familienreihe
+  1922–1931 (Acc. No. 2011-03153), und Verlobungskarten (庚帖); Säulen senkrecht, von rechts nach links
 
 ## Hinweise
 

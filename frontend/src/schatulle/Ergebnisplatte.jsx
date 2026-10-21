@@ -11,6 +11,7 @@ import { SYSTEME } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import WestlichNacht from "./diagramme/WestlichNacht";
 import KabbalahSilber from "./diagramme/KabbalahSilber";
+import BaziKarte from "./diagramme/BaziKarte";
 
 // Ergebnis in der Schatulle: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
@@ -29,6 +30,7 @@ const DIAGRAMME = {
 const VOLLBILD = {
   Westlich: WestlichNacht,
   Kabbalah: KabbalahSilber,
+  Bazi: BaziKarte,
 };
 const DIMENSIONEN = [
   "liebe",

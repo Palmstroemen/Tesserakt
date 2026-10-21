@@ -1,3 +1,11 @@
+/* Pinselschrift fuer Bazi: Ma Shan Zheng (SIL Open Font License, siehe schriften/MaShanZheng-OFL.txt),
+   auf die benoetigten Zeichen zugeschnitten */
+@font-face {
+  font-family: "Tesserakt Pinsel";
+  src: url("./schriften/MaShanZheng-Bazi.woff2") format("woff2");
+  font-display: swap;
+}
+
 /* Prototyp Schatulle: mobile first, eine Spalte (max. 440 CSS-Pixel), am Desktop zentriert. */
 :root {
   --sc-grund: #16110d;
@@ -1066,4 +1074,40 @@ body {
 .ks-name.aktiv {
   font-weight: bold;
   fill: #1f2328;
+}
+
+/* Bazi: rote Karte, Tusche, Gold */
+.bk-linien line {
+  stroke: #2a0c08;
+  stroke-width: 0.7;
+  opacity: 0.35;
+}
+
+.bk-raute {
+  filter: drop-shadow(0 0.6px 0.8px rgba(60, 10, 5, 0.6));
+}
+
+.bk-tusche text,
+.bk-elementzeichen {
+  text-anchor: middle;
+  fill: #170806;
+  font-family: "Tesserakt Pinsel", "Noto Serif CJK SC", "Noto Serif SC", serif;
+}
+
+.bk-kopf {
+  font-size: 17px;
+  opacity: 0.85;
+}
+
+.bk-zeichen {
+  font-size: 44px;
+}
+
+.bk-element {
+  stroke: #f3cf6e;
+  stroke-width: 0.8;
+}
+
+.bk-elementzeichen {
+  font-size: 13px;
 }
