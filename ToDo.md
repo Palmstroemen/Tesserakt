@@ -104,3 +104,10 @@
   und ein sichtbarer Stand, wo Konsens besteht und wo Schulen auseinandergehen. Wichtig fürs Experiment:
   Gewichte nur vorab festlegen, nicht nach den Spielergebnissen nachjustieren. (Idee aus dem frühen
   Prototyp `docs/regelwerk_explorer.html`, 2026-02, gelöscht 2026-10-21; Stand in der Git-Historie.)
+
+- [ ] **Intro der Schatulle (Idee, noch nicht umsetzen):** Vorspann, die Schale öffnet sich, darin liegt als
+  Erstes ein kleiner, zusammengefalteter Zettel. Er ist eine Legende, keine Anleitung: nur die Icons mit den
+  Namen, z. B. „(Icon) Hellenistisches Horoskop, (Icon) Chinesisches Horoskop, …“. Dieselben Icons kommen auf
+  die Schieber im Fächer (statt der Buchstaben W, Ch, N, …), damit man die Schieber den Horoskopen zuordnen
+  kann. Wie man spielt, bleibt zu entdecken. Der Zettel sollte später wieder aufrufbar sein (z. B. in der Schale
+  liegen bleiben).
