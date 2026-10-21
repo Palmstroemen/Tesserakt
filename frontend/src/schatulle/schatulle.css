@@ -1166,11 +1166,18 @@ body {
 }
 
 .ht-beischrift {
-  text-anchor: middle;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.32em;
   fill: #17100c;
   font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
+.ht-lesbar {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  fill: #17100c;
+  opacity: 0.8;
+  font-family: Georgia, serif;
 }
 
 .ht-kreide {

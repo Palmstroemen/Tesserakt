@@ -10,6 +10,7 @@ const R_ZAHL = 126; // Zahlzeichen
 const R_BAND_AUSSEN = 111;
 const R_BAND_INNEN = 96;
 const R_ZIFFER = 87; // kleine arabische Ziffern innen am Maeander
+const R_NAME = 64; // Bogen fuer die Namen ueber und unter dem Symbol
 
 // griechische Zahlzeichen mit Keraia; 6 = Stigma
 const ZAHLEN = [
@@ -32,15 +33,15 @@ function hausWinkel(n) {
   return ((90 - (n - 1) * 30) * Math.PI) / 180;
 }
 
-// Jahresherrscher: Gott, Beischrift, Attribut
+// Jahresherrscher: Gott (griechische Beischrift und lesbarer Name), Attribut
 const HERRSCHER = {
-  sonne: { name: "ΗΛΙΟΣ", bild: "sonne" },
-  mond: { name: "ΣΕΛΗΝΗ", bild: "mond" },
-  merkur: { name: "ΕΡΜΗΣ", bild: "merkur" },
-  venus: { name: "ΑΦΡΟΔΙΤΗ", bild: "venus" },
-  mars: { name: "ΑΡΗΣ", bild: "mars" },
-  jupiter: { name: "ΖΕΥΣ", bild: "jupiter" },
-  saturn: { name: "ΚΡΟΝΟΣ", bild: "saturn" },
+  sonne: { name: "ΗΛΙΟΣ", lesbar: "Helios", bild: "sonne" },
+  mond: { name: "ΣΕΛΗΝΗ", lesbar: "Selene", bild: "mond" },
+  merkur: { name: "ΕΡΜΗΣ", lesbar: "Hermes", bild: "merkur" },
+  venus: { name: "ΑΦΡΟΔΙΤΗ", lesbar: "Aphrodite", bild: "venus" },
+  mars: { name: "ΑΡΗΣ", lesbar: "Ares", bild: "mars" },
+  jupiter: { name: "ΖΕΥΣ", lesbar: "Zeus", bild: "jupiter" },
+  saturn: { name: "ΚΡΟΝΟΣ", lesbar: "Kronos", bild: "saturn" },
 };
 
 // Attribute als schwarze Silhouetten in einem 100 x 100 Feld; "ritz" = eingeritzte Linien (Tonfarbe)
@@ -226,9 +227,10 @@ export default function HellenistischTeller({ payload }) {
         );
       })}
 
-      {/* Mitte: Attribut des Jahresherrschers, schwarzfigurig mit Ritzlinien, darunter die Beischrift */}
+      {/* Mitte: Attribut des Jahresherrschers, schwarzfigurig mit Ritzlinien, genau mittig; darueber im Bogen
+          die griechische Beischrift, darunter im Bogen der lesbare Name */}
       {bild ? (
-        <g transform={`translate(${M - 55} ${M - 72}) scale(1.1)`}>
+        <g transform={`translate(${M - 47.5} ${M - 47.5}) scale(0.95)`}>
           <path d={bild.form} className="ht-figur" />
           {bild.schlangen ? (
             <path d={bild.schlangen} className="ht-schlange" />
@@ -237,9 +239,38 @@ export default function HellenistischTeller({ payload }) {
         </g>
       ) : null}
       {herr ? (
-        <text x={M} y={M + 62} className="ht-beischrift">
-          {herr.name}
-        </text>
+        <>
+          <path
+            id="ht-bogen-oben"
+            d={`M ${M - R_NAME} ${M} A ${R_NAME} ${R_NAME} 0 0 1 ${M + R_NAME} ${M}`}
+            fill="none"
+          />
+          <path
+            id="ht-bogen-unten"
+            d={`M ${M - R_NAME - 7} ${M} A ${R_NAME + 7} ${R_NAME + 7} 0 0 0 ${M + R_NAME + 7} ${M}`}
+            fill="none"
+          />
+          <text className="ht-beischrift">
+            <textPath
+              href="#ht-bogen-oben"
+              xlinkHref="#ht-bogen-oben"
+              startOffset="50%"
+              textAnchor="middle"
+            >
+              {herr.name}
+            </textPath>
+          </text>
+          <text className="ht-lesbar">
+            <textPath
+              href="#ht-bogen-unten"
+              xlinkHref="#ht-bogen-unten"
+              startOffset="50%"
+              textAnchor="middle"
+            >
+              {herr.lesbar}
+            </textPath>
+          </text>
+        </>
       ) : null}
 
       {/* Kreidekringel um das Profektionshaus */}
