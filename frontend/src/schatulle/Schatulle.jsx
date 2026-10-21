@@ -55,10 +55,6 @@ function anzeigeWert(stat, system, dim, wert) {
 
 export default function Schatulle() {
   const [phase, setPhase] = useState("start"); // start | laden | frage | ende
-  // Spiel C: zweite Person (silber); A merkt sich die Einstellungen der ersten Person (gold)
-  const [person, setPerson] = useState("a");
-  const [datenA, setDatenA] = useState(null);
-  const [flip, setFlip] = useState(false);
   const [fehler, setFehler] = useState(null);
 
   const [fragen, setFragen] = useState([]);
@@ -88,27 +84,11 @@ export default function Schatulle() {
 
   function spielWahl(spiel, eingabe) {
     setFehler(null);
-    if (spiel === "C" && person === "a") {
-      setDatenA(eingabe);
-      setPerson("b");
-      setFlip(true);
-      return;
-    }
-    if (person === "b" && spiel !== "C") {
-      // zurueck zur eigenen (goldenen) Seite
-      setPerson("a");
-      setFlip(true);
-      return;
-    }
     if (spiel === "A") {
       starten(eingabe);
       return;
     }
-    setFehler(
-      spiel === "B"
-        ? "Spiel B gibt es in der Schatulle noch nicht."
-        : "Spiel C gibt es in der Schatulle noch nicht – beide Geburtsdaten sind aber eingestellt."
-    );
+    setFehler(`Spiel ${spiel} gibt es in der Schatulle noch nicht.`);
   }
 
   async function starten({ geburtsdatum, uhrzeit, ort }) {
@@ -179,20 +159,7 @@ export default function Schatulle() {
   // --- Darstellung ------------------------------------------------------------
   if (phase === "start" || phase === "laden") {
     return (
-      <Datumsrad
-        key={person}
-        metall={person === "a" ? "gold" : "silber"}
-        anfang={person === "a" ? datenA?.roh : null}
-        flip={flip}
-        onSpiel={spielWahl}
-        laedt={phase === "laden"}
-        fehler={fehler}
-        hinweis={
-          person === "a"
-            ? "Dreh die Ringe auf dein Geburtsdatum, dann wähle ein Spiel: A, B oder C."
-            : "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann noch einmal C."
-        }
-      />
+      <Datumsrad onSpiel={spielWahl} laedt={phase === "laden"} fehler={fehler} />
     );
   }
 

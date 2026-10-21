@@ -7,12 +7,40 @@ import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 // Jahr, Monat, Tag, Stunde. Die Marke oben zeigt die gewaehlten Werte; die Mitte zeigt sie lesbar.
 // Der Tag-Ring hat immer 31 Rasten; ungueltige Tage (31.2.) laufen nach dem Loslassen zurueck.
 // Die Stunde steht auf 12; wer sie nicht kennt, laesst sie einfach stehen (12:00 wie im Backend).
-// In den Ecken des Quadrats die Spiele: A links oben, B rechts oben, C links unten. C klappt beim ersten
-// Druck auf die silberne Seite um (Geburtsdatum der zweiten Person). Darunter die Ortswalzen.
+// In den Ecken des Quadrats die Spiele: A links oben, B rechts oben, C links unten. Die Knoepfe sind erst
+// aktiv, wenn das Datum eingestellt wurde. A und B starten ihr Spiel; C dreht die Scheibe wie eine Muenze
+// auf die silberne Seite (zweite Person), die Ortswalzen laufen dazu auf Silber; ein weiteres C startet
+// Spiel C. Auf der silbernen Seite haben A und B keine Funktion. Darunter die Ortswalzen.
 const JAHR_BIS = new Date().getFullYear();
 const JAHR_VON = 1920;
-const MONATE = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
-const MONATE_LANG = ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const MONATE = [
+  "Jan",
+  "Feb",
+  "Mär",
+  "Apr",
+  "Mai",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Okt",
+  "Nov",
+  "Dez",
+];
+const MONATE_LANG = [
+  "Jänner",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
 
 // Ringe: Band zwischen innen und aussen (viewBox-Einheiten), Anzahl Rasten, Beschriftung je Rast
 const RINGE = [
@@ -22,12 +50,36 @@ const RINGE = [
     aussen: 162,
     anzahl: JAHR_BIS - JAHR_VON + 1,
     // jedes 5. Jahr beschriftet; an der Nahtstelle (letzte Jahre vor 1920) frei lassen
-    text: (k) => ((JAHR_VON + k) % 5 === 0 && JAHR_BIS - (JAHR_VON + k) >= 3 ? String(JAHR_VON + k) : ""),
+    text: (k) =>
+      (JAHR_VON + k) % 5 === 0 && JAHR_BIS - (JAHR_VON + k) >= 3
+        ? String(JAHR_VON + k)
+        : "",
     schrift: 11.5,
   },
-  { id: "monat", innen: 104, aussen: 128, anzahl: 12, text: (k) => MONATE[k], schrift: 12.5 },
-  { id: "tag", innen: 80, aussen: 104, anzahl: 31, text: (k) => String(k + 1), schrift: 10.5 },
-  { id: "stunde", innen: 56, aussen: 80, anzahl: 24, text: (k) => String(k), schrift: 10.5 },
+  {
+    id: "monat",
+    innen: 104,
+    aussen: 128,
+    anzahl: 12,
+    text: (k) => MONATE[k],
+    schrift: 12.5,
+  },
+  {
+    id: "tag",
+    innen: 80,
+    aussen: 104,
+    anzahl: 31,
+    text: (k) => String(k + 1),
+    schrift: 10.5,
+  },
+  {
+    id: "stunde",
+    innen: 56,
+    aussen: 80,
+    anzahl: 24,
+    text: (k) => String(k),
+    schrift: 10.5,
+  },
 ];
 const KNOEPFE = [
   { spiel: "A", x: 40, y: 40 },
@@ -46,11 +98,20 @@ function tageImMonat(jahr, monat) {
 
 const mod = (a, n) => ((a % n) + n) % n;
 const schritt = (ring) => 360 / ring.anzahl;
-const indexAus = (ring, drehung) => mod(Math.round(-drehung / schritt(ring)), ring.anzahl);
+const indexAus = (ring, drehung) =>
+  mod(Math.round(-drehung / schritt(ring)), ring.anzahl);
 
 function Band({ ring }) {
   const mitte = (ring.innen + ring.aussen) / 2;
-  return <circle cx={MITTE.x} cy={MITTE.y} r={mitte} className={`dr-band dr-${ring.id}`} strokeWidth={ring.aussen - ring.innen - 1} />;
+  return (
+    <circle
+      cx={MITTE.x}
+      cy={MITTE.y}
+      r={mitte}
+      className={`dr-band dr-${ring.id}`}
+      strokeWidth={ring.aussen - ring.innen - 1}
+    />
+  );
 }
 
 function Ring({ ring }) {
@@ -71,7 +132,12 @@ function Ring({ ring }) {
               className="dr-strich"
             />
             {t ? (
-              <text x={MITTE.x} y={MITTE.y - mitte + ring.schrift * 0.55} fontSize={ring.schrift} className="dr-text">
+              <text
+                x={MITTE.x}
+                y={MITTE.y - mitte + ring.schrift * 0.55}
+                fontSize={ring.schrift}
+                className="dr-text"
+              >
                 {t}
               </text>
             ) : null}
@@ -82,19 +148,24 @@ function Ring({ ring }) {
   );
 }
 
-export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "gold", anfang, flip }) {
-  // Startwerte: 1. Jänner 1985, 12 Uhr (oder die zuletzt eingestellten Werte dieser Person)
-  const [drehung, setDrehung] = useState(() => {
-    const a = anfang ?? { jahr: 1985, monat: 0, tag: 1, stunde: 12 };
-    return {
-      jahr: -(a.jahr - JAHR_VON) * schritt(RINGE[0]),
-      monat: -a.monat * schritt(RINGE[1]),
-      tag: -(a.tag - 1) * schritt(RINGE[2]),
-      stunde: -a.stunde * schritt(RINGE[3]),
-    };
-  });
-  const [stundeBewegt, setStundeBewegt] = useState(anfang?.uhrzeitBekannt ?? false);
+// Startstellung der Ringe: 1. Jänner 1985, 12 Uhr
+const START = {
+  jahr: -(1985 - JAHR_VON) * schritt(RINGE[0]),
+  monat: 0,
+  tag: 0,
+  stunde: -12 * schritt(RINGE[3]),
+};
+const FLIP_MS = 800;
+
+export default function Datumsrad({ onSpiel, laedt, fehler }) {
+  const [drehung, setDrehung] = useState(START);
+  const [seite, setSeite] = useState("gold"); // gold = erste Person, silber = zweite Person (Spiel C)
+  const [scheibe, setScheibe] = useState({ metall: "gold", skala: 1 }); // Muenzdrehung der Scheibe
+  const [eingestellt, setEingestellt] = useState(false); // Datum dieser Seite bewegt?
+  const [stundeBewegt, setStundeBewegt] = useState(false);
   const [ort, setOrt] = useState(null);
+  const [erstePerson, setErstePerson] = useState(null);
+  const [gesperrtMeldung, setGesperrtMeldung] = useState(null);
   const [gedrueckt, setGedrueckt] = useState(null);
   const drehRef = useRef(drehung);
   const svgRef = useRef(null);
@@ -117,7 +188,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
     p.y = e.clientY;
     return p.matrixTransform(svgRef.current.getScreenCTM().inverse());
   }
-  const winkelVon = ({ x, y }) => (Math.atan2(x - MITTE.x, MITTE.y - y) * 180) / Math.PI; // 0 = oben, im Uhrzeigersinn
+  const winkelVon = ({ x, y }) =>
+    (Math.atan2(x - MITTE.x, MITTE.y - y) * 180) / Math.PI; // 0 = oben, im Uhrzeigersinn
 
   function animiere(ziele, dauer, fertig) {
     cancelAnimationFrame(anim.current);
@@ -127,7 +199,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
       const t = Math.min(1, (jetzt - start) / dauer);
       const e = 1 - (1 - t) ** 3;
       const neu = {};
-      for (const [k, z] of Object.entries(ziele)) neu[k] = von[k] + (z - von[k]) * e;
+      for (const [k, z] of Object.entries(ziele))
+        neu[k] = von[k] + (z - von[k]) * e;
       setze(neu);
       if (t < 1) anim.current = requestAnimationFrame(tick);
       else fertig?.();
@@ -138,7 +211,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
   function einrasten() {
     // alle Ringe auf die naechste Raste; ungueltigen Tag auf den letzten des Monats zuruecklaufen lassen
     const ziele = {};
-    for (const r of RINGE) ziele[r.id] = Math.round(drehRef.current[r.id] / schritt(r)) * schritt(r);
+    for (const r of RINGE)
+      ziele[r.id] = Math.round(drehRef.current[r.id] / schritt(r)) * schritt(r);
     animiere(ziele, 160, () => {
       const jahr = JAHR_VON + indexAus(RINGE[0], drehRef.current.jahr);
       const monat = indexAus(RINGE[1], drehRef.current.monat);
@@ -146,7 +220,10 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
       const max = tageImMonat(jahr, monat);
       if (tag > max) {
         zahnrad(tag - max + 2, 0.35, 2200);
-        animiere({ tag: drehRef.current.tag + (tag - max) * schritt(RINGE[2]) }, 380);
+        animiere(
+          { tag: drehRef.current.tag + (tag - max) * schritt(RINGE[2]) },
+          380,
+        );
       }
     });
   }
@@ -158,7 +235,11 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
     const ring = RINGE.find((x) => r >= x.innen - 2 && r <= x.aussen + 4);
     if (!ring) return;
     cancelAnimationFrame(anim.current);
-    drag.current = { ring, winkel: winkelVon(p), index: indexAus(ring, drehRef.current[ring.id]) };
+    drag.current = {
+      ring,
+      winkel: winkelVon(p),
+      index: indexAus(ring, drehRef.current[ring.id]),
+    };
     e.currentTarget.setPointerCapture?.(e.pointerId);
   }
 
@@ -175,6 +256,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
     if (idx !== d.index) {
       rastKlick();
       if (d.ring.id === "stunde") setStundeBewegt(true);
+      else setEingestellt(true);
+      setGesperrtMeldung(null);
       d.index = idx;
     }
   }
@@ -185,37 +268,86 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
     if (d) einrasten();
   }
 
+  function eingabe() {
+    const { jahr, monat, tag, stunde } = werte;
+    const zwei = (n) => String(n).padStart(2, "0");
+    return {
+      geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(Math.min(tag, tageImMonat(jahr, monat)))}`,
+      uhrzeit: `${zwei(stunde)}:00`,
+      uhrzeitBekannt: stundeBewegt, // fuer spaetere Auswertung (noch nicht gespeichert)
+      ort,
+    };
+  }
+
+  const wechselt = scheibe.skala < 1;
+  const aktiv = (spiel) =>
+    !laedt && !wechselt && eingestellt && (seite === "gold" || spiel === "C");
+
   function knopf(e, spiel) {
     e.stopPropagation();
-    if (laedt) {
+    if (!aktiv(spiel)) {
       sperre();
+      if (!eingestellt && !(seite === "silber" && spiel !== "C"))
+        setGesperrtMeldung("Erst das Geburtsdatum einstellen.");
       return;
     }
     hebel();
     setGedrueckt(spiel);
     setTimeout(() => setGedrueckt(null), 180);
-    const { jahr, monat, tag, stunde } = werte;
-    const zwei = (n) => String(n).padStart(2, "0");
-    const t = Math.min(tag, tageImMonat(jahr, monat));
-    onSpiel(spiel, {
-      geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(t)}`,
-      uhrzeit: `${zwei(stunde)}:00`,
-      uhrzeitBekannt: stundeBewegt, // fuer spaetere Auswertung (noch nicht gespeichert)
-      ort,
-      roh: { jahr, monat, tag: t, stunde, uhrzeitBekannt: stundeBewegt, ort },
-    });
+    if (spiel === "C" && seite === "gold") {
+      seiteWechseln();
+      return;
+    }
+    if (spiel === "C") onSpiel("C", { a: erstePerson, b: eingabe() });
+    else onSpiel(spiel, eingabe());
   }
 
-  const ringInhalt = useMemo(() => RINGE.map((r) => ({ band: <Band ring={r} />, gravur: <Ring ring={r} /> })), []);
+  function seiteWechseln() {
+    // Scheibe dreht sich wie eine Muenze; in der Mitte (unsichtbar schmal) wechseln Metall und Ringe
+    setErstePerson(eingabe());
+    setSeite("silber");
+    setEingestellt(false);
+    setStundeBewegt(false);
+    const start = performance.now();
+    let gewechselt = false;
+    const tick = (jetzt) => {
+      const t = Math.min(1, (jetzt - start) / FLIP_MS);
+      if (!gewechselt && t >= 0.5) {
+        gewechselt = true;
+        cancelAnimationFrame(anim.current);
+        setze(START);
+      }
+      setScheibe({
+        metall: t < 0.5 ? "gold" : "silber",
+        skala: t < 1 ? Math.max(0.02, Math.abs(Math.cos(Math.PI * t))) : 1,
+      });
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const ringInhalt = useMemo(
+    () =>
+      RINGE.map((r) => ({
+        band: <Band ring={r} />,
+        gravur: <Ring ring={r} />,
+      })),
+    [],
+  );
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
-  const [hell, mittel, dunkel] = METALL[metall];
+  const [hell, mittel, dunkel] = METALL[scheibe.metall];
+  const scheibeTransform = `translate(${MITTE.x} ${MITTE.y}) scale(${scheibe.skala} 1) translate(${-MITTE.x} ${-MITTE.y})`;
+  const hinweis =
+    seite === "gold"
+      ? "Dreh die Ringe auf dein Geburtsdatum, dann wähle ein Spiel: A, B oder C."
+      : "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann C.";
 
   return (
     <main className="sp">
       <svg
         ref={svgRef}
         viewBox={`0 0 400 ${HOEHE}`}
-        className={`sp-svg dr-svg dr-${metall}${flip ? " dr-flip" : ""}`}
+        className={`sp-svg dr-svg dr-${scheibe.metall}`}
         onPointerDown={druecken}
         onPointerMove={bewegen}
         onPointerUp={loslassen}
@@ -229,9 +361,25 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
             <stop offset="0.55" stopColor={mittel} />
             <stop offset="1" stopColor={dunkel} />
           </radialGradient>
-          <radialGradient id="ow-platte" cx={MITTE.x} cy={MITTE.y} r={WALZEN.stadt + 40} gradientUnits="userSpaceOnUse">
-            <stop offset="0.5" stopColor={metall === "gold" ? "#8a6a3c" : "#7d848c"} />
-            <stop offset="1" stopColor={metall === "gold" ? "#4a3720" : "#3d4248"} />
+          <radialGradient
+            id="ow-platte-gold"
+            cx={MITTE.x}
+            cy={MITTE.y}
+            r={WALZEN.stadt + 40}
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.5" stopColor="#8a6a3c" />
+            <stop offset="1" stopColor="#4a3720" />
+          </radialGradient>
+          <radialGradient
+            id="ow-platte-silber"
+            cx={MITTE.x}
+            cy={MITTE.y}
+            r={WALZEN.stadt + 40}
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0.5" stopColor="#7d848c" />
+            <stop offset="1" stopColor="#3d4248" />
           </radialGradient>
           {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
               Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
@@ -251,60 +399,97 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
         </defs>
 
         {/* Ortswalzen unter dem Kreis */}
-        <OrtWalzen svgPunkt={svgPunkt} anfang={anfang?.ort} onOrt={setOrt} />
+        <OrtWalzen svgPunkt={svgPunkt} metall={seite} onOrt={setOrt} />
 
-        <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
+        {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze */}
+        <g transform={scheibeTransform}>
+          <circle cx={MITTE.x} cy={MITTE.y} r="166" fill="url(#sp-messing)" />
 
-        {RINGE.map((r, i) => (
-          <g key={r.id} transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}>
-            {ringInhalt[i].band}
-          </g>
-        ))}
-        <g filter="url(#dr-gravur)">
           {RINGE.map((r, i) => (
-            <g key={r.id} transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}>
-              {ringInhalt[i].gravur}
+            <g
+              key={r.id}
+              transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}
+            >
+              {ringInhalt[i].band}
             </g>
           ))}
-        </g>
-        {/* Trennfugen zwischen den Ringen */}
-        {[...RINGE.map((r) => r.aussen), 56].map((r) => (
-          <circle key={r} cx={MITTE.x} cy={MITTE.y} r={r} className="dr-fuge" />
-        ))}
+          <g filter="url(#dr-gravur)">
+            {RINGE.map((r, i) => (
+              <g
+                key={r.id}
+                transform={`rotate(${drehung[r.id]} ${MITTE.x} ${MITTE.y})`}
+              >
+                {ringInhalt[i].gravur}
+              </g>
+            ))}
+          </g>
+          {/* Trennfugen zwischen den Ringen */}
+          {[...RINGE.map((r) => r.aussen), 56].map((r) => (
+            <circle
+              key={r}
+              cx={MITTE.x}
+              cy={MITTE.y}
+              r={r}
+              className="dr-fuge"
+            />
+          ))}
 
-        {/* feste Marke oben: Fenster ueber alle Ringe */}
-        <rect x={MITTE.x - 13} y={MITTE.y - 163} width="26" height="108" rx="5" className="dr-fenster" />
-        <path d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`} className="dr-marke" />
+          {/* feste Marke oben: Fenster ueber alle Ringe */}
+          <rect
+            x={MITTE.x - 13}
+            y={MITTE.y - 163}
+            width="26"
+            height="108"
+            rx="5"
+            className="dr-fenster"
+          />
+          <path
+            d={`M ${MITTE.x - 7} ${MITTE.y - 172} L ${MITTE.x + 7} ${MITTE.y - 172} L ${MITTE.x} ${MITTE.y - 163} Z`}
+            className="dr-marke"
+          />
 
-        {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
-        <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
-        <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
-          {werte.tag}. {MONATE_LANG[werte.monat]}
-        </text>
-        <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
-          {werte.jahr}
-        </text>
-        <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
-          {String(werte.stunde).padStart(2, "0")}:00
-        </text>
-        {!gueltig ? (
-          <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
-            …
+          {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
+          <circle cx={MITTE.x} cy={MITTE.y} r="55" className="dr-mitte" />
+          <text x={MITTE.x} y={MITTE.y - 12} className="dr-anzeige">
+            {werte.tag}. {MONATE_LANG[werte.monat]}
           </text>
-        ) : null}
+          <text x={MITTE.x} y={MITTE.y + 7} className="dr-anzeige">
+            {werte.jahr}
+          </text>
+          <text x={MITTE.x} y={MITTE.y + 30} className="dr-anzeige zeit">
+            {String(werte.stunde).padStart(2, "0")}:00
+          </text>
+          {!gueltig ? (
+            <text x={MITTE.x} y={MITTE.y - 30} className="dr-anzeige klein">
+              …
+            </text>
+          ) : null}
+        </g>
 
         {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C) */}
         {KNOEPFE.map((k) => (
           <g
             key={k.spiel}
-            className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${laedt ? " gesperrt" : ""}`}
+            className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
             onPointerDown={(e) => knopf(e, k.spiel)}
             role="button"
             aria-label={`Spiel ${k.spiel}`}
           >
-            <circle cx={k.x} cy={k.y} r="26" fill="url(#sp-messing)" className="dr-knopfrand" />
+            <circle
+              cx={k.x}
+              cy={k.y}
+              r="26"
+              fill="url(#sp-messing)"
+              className="dr-knopfrand"
+            />
             <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
-            <text x={k.x} y={k.y} dy="0.36em" className="dr-knopftext" filter="url(#dr-gravur)">
+            <text
+              x={k.x}
+              y={k.y}
+              dy="0.36em"
+              className="dr-knopftext"
+              filter="url(#dr-gravur)"
+            >
               {k.spiel}
             </text>
           </g>
@@ -315,7 +500,9 @@ export default function Datumsrad({ onSpiel, laedt, fehler, hinweis, metall = "g
         <p className="sc-hinweis">
           {ort ? `${ort.name}, ${ort.landName}` : "Geburtsort unbekannt"}
         </p>
-        <p className="sc-hinweis">{laedt ? "Die Schatulle öffnet sich …" : hinweis}</p>
+        <p className="sc-hinweis">
+          {laedt ? "Die Schatulle öffnet sich …" : (gesperrtMeldung ?? hinweis)}
+        </p>
         {fehler ? <p className="sc-fehler">{fehler}</p> : null}
       </div>
     </main>

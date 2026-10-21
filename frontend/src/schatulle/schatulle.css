@@ -570,18 +570,14 @@ body {
   fill: #e6eaee;
 }
 
-/* Umklappen beim Wechsel zwischen gold und silber */
-.dr-flip {
-  animation: dr-flip 0.7s ease-out;
+/* Silberne Platte unter den Walzen blendet beim Seitenwechsel ein */
+.ow-platte-silber {
+  opacity: 0;
+  transition: opacity 0.9s ease-in-out;
 }
 
-@keyframes dr-flip {
-  from {
-    transform: perspective(900px) rotateY(90deg);
-  }
-  to {
-    transform: none;
-  }
+.ow-platte-silber.an {
+  opacity: 1;
 }
 
 /* Spielknoepfe in den Ecken */
@@ -646,11 +642,11 @@ body {
   stroke-linecap: round;
 }
 
-.dr-silber .ow-rand {
+.ow-silber .ow-rand {
   stroke: #3d4248;
 }
 
-.dr-silber .ow-schlitz {
+.ow-silber .ow-schlitz {
   stroke: #d3d8de;
 }
 
@@ -666,11 +662,11 @@ body {
   font-weight: bold;
 }
 
-.dr-silber .ow-name {
+.ow-silber .ow-name {
   fill: #2f3439;
 }
 
-.dr-silber .ow-name.gewaehlt {
+.ow-silber .ow-name.gewaehlt {
   fill: #15181b;
 }
 
