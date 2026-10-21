@@ -532,9 +532,10 @@ export default function Spielplatte({
               r={radien[radien.length - 1] + abstand}
               gradientUnits="userSpaceOnUse"
             >
-              <stop offset="0.3" stopColor="#8a6a3c" />
-              <stop offset="0.75" stopColor="#6e5330" />
-              <stop offset="1" stopColor="#4a3720" />
+              {/* Mittelgold, eine Spur heller als die Abdeckplaettchen in den Schlitzen (Schlitze.jsx GOLD) */}
+              <stop offset="0.3" stopColor="#957438" />
+              <stop offset="0.75" stopColor="#7c5e2c" />
+              <stop offset="1" stopColor="#58411f" />
             </radialGradient>
             {/* Lichtschein fuer die eigene Einschaetzung (SVG-Filter: CSS-Filter auf SVG-Elementen kann WebKit nicht) */}
             <filter
