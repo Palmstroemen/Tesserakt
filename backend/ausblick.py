@@ -6,12 +6,18 @@ und MC). Fuer jeden Tag wird die Position bestimmt; ein Aspekt wird zum Ereignis
 Orbis liegt. Ruecklaeufige Schleifen (mehrere exakte Treffer kurz hintereinander) werden zusammengefasst.
 Die Ereignisse werden nach Gewicht (langsame Planeten und Sonne/Mond schwerer) ausgewaehlt und
 chronologisch zurueckgegeben.
+
+Vedisch: Vimshottari-Unterperioden (Antardasha) und Beginn einer neuen Mahadasha, dazu Gochara von Jupiter
+und Saturn (Zeichenwechsel, Haeuser vom siderischen Zeichen des Geburtsmondes) mit den Phasen der Sade Sati.
+Deutung der Unterperioden aus der Antardasha-Matrix (Vedisch/jyotish_dasha.json, nach BPHS und Phaladeepika).
 """
 
 from __future__ import annotations
 
 from datetime import datetime, timedelta
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional, Tuple
+
+from vedisch_chart import PLANET_LABELS, _load_dasha_data
 
 ASPEKTE = {"konjunktion": 0.0, "sextil": 60.0, "quadrat": 90.0, "trine": 120.0, "opposition": 180.0}
 # Orbis je laufendem Planeten (Grad): schnelle Planeten nur eng, sonst waere fast immer etwas aktiv
@@ -49,6 +55,30 @@ def zeitraum_text(von: datetime, bis: datetime, exakt: List[datetime]) -> str:
     if a == b:
         return a
     return f"{a} bis {b}"
+
+
+def zeitraum_offen(von: datetime, bis: datetime, start: datetime, ende: datetime) -> str:
+    """Zeitraum innerhalb des Jahres; was schon vorher begann oder darueber hinaus reicht, bleibt offen
+    ('Bis Mitte März', 'Ab Ende August', 'Das ganze Jahr')."""
+    offen_vorne, offen_hinten = von <= start, bis >= ende
+    if offen_vorne and offen_hinten:
+        return "Das ganze Jahr"
+    if offen_vorne:
+        return f"Bis {monatsteil(bis)}"
+    if offen_hinten:
+        return f"Ab {monatsteil(von)}"
+    return zeitraum_text(von, bis, [von + (bis - von) / 2])
+
+
+def _abschnitte(werte: List[object], tage_liste: List[datetime]) -> List[Tuple[object, datetime, datetime]]:
+    """Folgen gleicher Werte als (Wert, erster Tag, letzter Tag)."""
+    erg: List[Tuple[object, datetime, datetime]] = []
+    for w, tag in zip(werte, tage_liste):
+        if erg and erg[-1][0] == w:
+            erg[-1] = (w, erg[-1][1], tag)
+        else:
+            erg.append((w, tag, tag))
+    return erg
 
 
 def westlich_ereignisse(
@@ -147,3 +177,111 @@ def als_json(e: Dict[str, object], text: str) -> Dict[str, object]:
 def westlich(natal_punkte: Dict[str, float], positionen: Callable[[datetime], Dict[str, float]],
              start: datetime, t: Dict[str, Dict[str, str]], tage: int = 365) -> List[Dict[str, object]]:
     return [als_json(e, westlich_text(e, t)) for e in westlich_ereignisse(natal_punkte, positionen, start, tage)]
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Vedisch
+
+MIN_TAGE = 20  # kuerzere Reste im laufenden Haus werden im Jahreshoroskop nicht eigens genannt
+
+
+def _dasha_bei(position: float, order: List[str], dauern: Dict[str, int]) -> Tuple[str, str]:
+    """(Mahadasha, Antardasha) an einer Position 0..120 im Vimshottari-Zyklus. Die Unterperioden folgen
+    in derselben Reihenfolge, beginnend mit dem Lord der Mahadasha; Dauer = MD-Jahre * AD-Jahre / 120."""
+    position %= 120.0
+    lauf = 0.0
+    for i, md in enumerate(order):
+        d = dauern[md]
+        if position < lauf + d:
+            innen = position - lauf
+            for k in range(len(order)):
+                ad = order[(i + k) % len(order)]
+                teil = d * dauern[ad] / 120.0
+                if innen < teil:
+                    return md, ad
+                innen -= teil
+            return md, order[(i - 1) % len(order)]
+        lauf += d
+    return order[-1], order[-2]
+
+
+def vedisch(
+    pos_geburt: float,
+    geburt: datetime,
+    mond_zeichen: Optional[int],
+    zeichen: Callable[[datetime], Dict[str, int]],
+    start: datetime,
+    t: Dict[str, Dict[str, str]],
+    matrix: Dict[str, Dict[str, Dict[str, str]]],
+    gochara: Dict[str, object],
+    tage: int = 365,
+) -> List[Dict[str, object]]:
+    """Unterperioden, neue Mahadasha und Gochara-Wechsel von Jupiter und Saturn in den naechsten `tage` Tagen.
+    `pos_geburt`: Position im 120-Jahre-Zyklus bei der Geburt (aus dem Mond-Nakshatra)."""
+    order, dauern = _load_dasha_data()
+    ende = start + timedelta(days=tage)
+    tage_liste = [start + timedelta(days=i) for i in range(tage + 1)]
+    jahr = 365.2425 * 86400
+    tv, namen = t["ausblick_vedisch"], t["vedisch_namen"]
+    erg: List[Dict[str, object]] = []
+
+    def neu(von: datetime, bis: datetime, art: str, text: str, **mehr: object) -> None:
+        erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": art,
+                    "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}", **mehr})
+
+    # Dasha: Unterperioden im Jahr, neue Mahadasha als eigenes Ereignis
+    dasha = [_dasha_bei(pos_geburt + (tag - geburt).total_seconds() / jahr, order, dauern) for tag in tage_liste]
+    for i, ((md, ad), von, bis) in enumerate(_abschnitte(dasha, tage_liste)):
+        if i > 0 and md != dasha[0][0] and ad == md:
+            erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "mahadasha",
+                        "md": md, "text": f"Um den {von.day}. {MONATE[von.month - 1]}: "
+                        + tv["mahadasha_beginn"].replace("{md}", namen[md]).replace("{jahre}", str(dauern[md]))})
+        beschreibung = matrix.get(f"{md}_antardasha", {}).get(f"{md}_{ad}", {}).get("beschreibung", "")
+        neu(von, bis, "antardasha", tv["antardasha"].replace("{ad}", PLANET_LABELS[ad])
+            .replace("{md}", namen[md]).replace("{beschreibung}", beschreibung), md=md, ad=ad)
+
+    # Gochara: Haeuser von Jupiter und Saturn vom Mondzeichen. Jedes Haus wird einmal genannt (ab dem ersten
+    # Eintritt); eine ruecklaeufige Rueckkehr ins vorige Haus steht als Nachsatz dabei. Ein Rest von weniger
+    # als MIN_TAGE im laufenden Haus wird uebergangen.
+    if mond_zeichen is not None:
+        sade = gochara.get("sade_sati", {}).get("haeuser", [12, 1, 2])
+        planeten = gochara.get("planeten", {})
+        laeufe = [zeichen(tag) for tag in tage_liste]
+        for pl in ("jupiter", "saturn"):
+            haeuser = [(z[pl] - mond_zeichen) % 12 + 1 for z in laeufe]
+            abschnitte = _abschnitte(haeuser, tage_liste)
+            eintraege: Dict[int, Dict[str, object]] = {}
+            vorher: Optional[int] = None
+            uebergangen: set = set()
+            for i, (haus, von, bis) in enumerate(abschnitte):
+                if haus in eintraege or haus in uebergangen:
+                    if haus in eintraege and not eintraege[haus]["erster"]:
+                        eintraege[haus]["bis"] = bis
+                    if vorher in eintraege:
+                        zurueck = (f"ab {monatsteil(von)}" if bis >= ende
+                                   else f"von {monatsteil(von)} bis {monatsteil(bis)}")
+                        eintraege[vorher]["nachsatz"] = (tv["rueckkehr"].replace("{Planet}", PLANET_LABELS[pl])
+                                                         .replace("{zeitraum}", zurueck).replace("{haus}", str(haus)))
+                elif i == 0 and len(abschnitte) > 1 and (bis - von).days < MIN_TAGE:
+                    uebergangen.add(haus)
+                else:
+                    eintraege[haus] = {"haus": haus, "von": von, "bis": bis, "nachsatz": "", "erster": i == 0}
+                vorher = haus
+            letztes: Optional[int] = None
+            for haus, e in eintraege.items():
+                laufend = e["erster"]
+                if pl == "saturn" and haus in sade:
+                    art = {12: "sade_sati_beginn", 1: "sade_sati_hoehe", 2: "sade_sati_ausklang"}[haus]
+                    text = tv["sade_sati_laufend" if art == "sade_sati_beginn" and laufend else art]
+                elif pl == "saturn" and haus == 3 and (letztes == 2 or (letztes is None and haeuser[0] == 2)):
+                    art, text = "sade_sati_ende", tv["sade_sati_ende"]
+                else:
+                    guenstig = haus in planeten.get(pl, {}).get("guenstige_haeuser", [])
+                    art = f"{pl}_{'guenstig' if guenstig else 'unguenstig'}"
+                    # laufender Zustand im Praesens (Bausteine von heute), Wechsel in Zukunftsform
+                    text = (t["vedisch_gochara"][art] if laufend else tv[art]).replace("{haus}", str(haus))
+                if e["nachsatz"]:
+                    text = f"{text} {e['nachsatz']}"
+                neu(e["von"], e["bis"], "gochara", text, planet=pl, haus=haus)
+                letztes = haus
+    return sorted(erg, key=lambda e: e["von"])

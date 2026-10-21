@@ -80,6 +80,31 @@
       "saturn_unguenstig": "Saturn steht vom Zeichen deines Geburtsmondes aus im {haus}. Haus – Pflichten und Verzögerungen fordern Geduld.",
       "sade_sati": "Du bist in der Sade Sati: Saturn zieht über deinen Geburtsmond und seine Nachbarzeichen. Diese siebeneinhalb Jahre gelten als Zeit der Prüfung und Reifung – nimm dir heute nicht zu viel auf einmal vor."
     },
+    "ausblick_vedisch": {
+      "antardasha": "Unterperiode (Antardasha) {ad} in deiner {md}-Mahadasha – {beschreibung}",
+      "mahadasha_beginn": "Deine {md}-Mahadasha beginnt – ein neuer großer Lebensabschnitt von {jahre} Jahren.",
+      "jupiter_guenstig": "Jupiter zieht in das {haus}. Haus von deinem Geburtsmond aus – das gilt als günstig: Unterstützung, Wachstum und gute Ratschläge werden leichter zu dir finden.",
+      "jupiter_unguenstig": "Jupiter zieht in das {haus}. Haus von deinem Geburtsmond aus, das gilt als weniger förderlich – Wachstum wird mehr eigene Mühe brauchen.",
+      "saturn_guenstig": "Saturn zieht in das {haus}. Haus von deinem Geburtsmond aus – das gilt als günstig: Ausdauer wird sich auszahlen, Hindernisse lassen sich überwinden.",
+      "saturn_unguenstig": "Saturn zieht in das {haus}. Haus von deinem Geburtsmond aus – Pflichten und Verzögerungen werden Geduld fordern.",
+      "rueckkehr": "Rückläufig kehrt {Planet} {zeitraum} noch einmal ins {haus}. Haus zurück.",
+      "sade_sati_beginn": "Die Sade Sati beginnt: Saturn tritt in das Zeichen vor deinem Geburtsmond. Siebeneinhalb Jahre der Prüfung und Reifung kündigen sich an – baue rechtzeitig Reserven auf.",
+      "sade_sati_laufend": "Du bist in der Sade Sati: Saturn steht im Zeichen vor deinem Geburtsmond. Siebeneinhalb Jahre der Prüfung und Reifung haben begonnen – baue Reserven auf, bevor er über den Mond zieht.",
+      "sade_sati_hoehe": "Saturn steht im Zeichen deines Geburtsmondes – der Kern der Sade Sati. Gefühle und Kräfte werden geprüft; was jetzt Bestand hat, trägt lange.",
+      "sade_sati_ausklang": "Saturn steht im Zeichen nach deinem Geburtsmond – die Sade Sati klingt aus. Die Last wird leichter, Geld und Familie stehen noch auf dem Prüfstand.",
+      "sade_sati_ende": "Die Sade Sati endet: Saturn verlässt die Nachbarschaft deines Geburtsmondes und zieht in das 3. Haus, das als günstig gilt. Ein Aufatmen nach langen Jahren."
+    },
+    "vedisch_namen": {
+      "ketu": "Ketu",
+      "venus": "Venus",
+      "sonne": "Sonnen",
+      "mond": "Mond",
+      "mars": "Mars",
+      "rahu": "Rahu",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn",
+      "merkur": "Merkur"
+    },
     "elemente": {
       "holz": "Holz",
       "feuer": "Feuer",

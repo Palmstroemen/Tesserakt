@@ -737,6 +737,15 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
             punkte["aszendent"] = natal.asc_deg
             punkte["mc"] = natal.mc_deg
         systeme["Westlich"] = ausblick.westlich(punkte, _laufende_positionen, start, t)
+    if "Vedisch" in payload.systeme:
+        moon = next(p for p in natal.planets if p.id == "moon")
+        idx, anteil = moon_nakshatra(natal.jd, moon.longitude_deg)
+        mond_zeichen = int(((moon.longitude_deg - ayanamsha_lahiri(natal.jd)) % 360.0) // 30)
+        dasha = json.loads((Path(__file__).resolve().parent / "Vedisch" / "jyotish_dasha.json").read_text(encoding="utf-8"))
+        systeme["Vedisch"] = ausblick.vedisch(
+            vimshottari_position_now(idx, anteil, 0.0), birth_dt, mond_zeichen, _laufende_zeichen_siderisch, start, t,
+            dasha["antardasha_matrix"], load_rules("Vedisch").get("gochara", {}),
+        )
     return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
 
 

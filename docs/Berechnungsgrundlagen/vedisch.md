@@ -55,6 +55,21 @@
 - Ohne Ephemeris (z. B. in Tests) fällt das Nakshatra auf eine grobe Schätzung aus dem Tag des Jahres
   zurück. Im Spiel steht die Ephemeris immer zur Verfügung.
 
+## Jahreshoroskop (Ausblick auf 12 Monate)
+
+`backend/ausblick.py`, Endpunkt `POST /horoscope/ausblick`. Für jeden Tag der nächsten 365 Tage:
+
+- **Dasha:** Mahadasha und Antardasha aus der Position im 120-Jahre-Zyklus (Geburtsposition aus dem
+  Mond-Nakshatra plus Lebensalter). Antardasha-Dauer = MD-Jahre × AD-Jahre / 120, beginnend mit dem Lord der
+  Mahadasha (BPHS Kap. 48). Jede Unterperiode im Jahr wird mit ihrer Deutung aus der Antardasha-Matrix
+  genannt; beginnt eine neue Mahadasha, steht das als eigenes Ereignis da.
+- **Gochara:** siderisches Zeichen (Lahiri) von Jupiter und Saturn, Haus vom Zeichen des Geburtsmondes,
+  günstig/ungünstig nach derselben Tabelle wie oben. Jedes Haus wird einmal genannt; eine rückläufige
+  Rückkehr ins vorige Haus steht als Nachsatz dabei. Saturn im 12., 1. und 2. Haus: Beginn, Kern und
+  Ausklang der Sade Sati; der Wechsel vom 2. ins 3. Haus als ihr Ende.
+- Vereinfachungen wie oben (kein Vedha, kein Ashtakavarga); Rahu/Ketu und die schnellen Planeten fehlen
+  im Ausblick, Pratyantardashas (dritte Ebene) ebenfalls.
+
 ## Was ein erfahrener Jyotishi anders macht
 
 Er liest Dasha und Antardasha zusammen mit Gochara und den Divisionalhoroskopen, beurteilt die Stärke
