@@ -60,6 +60,15 @@
 - [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen
 - [ ] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr
 
+## Quellen und Lizenzen (`docs/Berechnungsgrundlagen/quellen.md`)
+
+- [ ] Angaben "public domain" in den Regeldateien korrigieren (neuere Uebersetzungen, DeVore, Joey Yap)
+- [ ] Lizenz Swiss Ephemeris (AGPL oder kommerziell) vor oeffentlichem Betrieb klaeren
+
 ## Ideen / Backlog
+
+- [ ] **Premiumversion:** Horoskope direkt erstellen, ohne Fragespiel, mit einigen speicherbaren Personen
+  (Familie). Bausteine vorhanden: Vektoren, Diagramme, Systemtexte, Horoskop fuer heute. Offen: Konto bzw.
+  Speicherort der Personen (bisher bewusst ohne Accounts), Einwilligung der gespeicherten Personen.
 
 - [ ] **Wertungsverhalten (Varianz) ermitteln und Feedback:** Varianz der Selbsteinschaetzungen pro Person berechnen; bei niedriger Varianz (viele neutrale Bewertungen rund um 3) auf der Ergebnisseite Hinweis geben, dass hohe Skill-Werte in solchen Faellen weniger aussagekraeftig sein koennten – gerade unentschlossene Nutzer koennten sonst in „neutralen“ Konstellationen leicht hohe Skill-Werte erzielen und das als Bestaetigung lesen.

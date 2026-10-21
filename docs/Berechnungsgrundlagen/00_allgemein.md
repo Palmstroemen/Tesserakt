@@ -8,7 +8,7 @@ Sie sind keine Werbung und keine Verteidigung. Wer eine Tradition gut kennt, wir
 finden, an denen sie oder er es anders machen würde – oft zu Recht.
 
 Eine Datei pro System: `westlich.md`, `bazi.md`, `numerologie.md`, `kabbalah.md`, `arabisch.md`,
-`hellenistisch.md`, `vedisch.md`.
+`hellenistisch.md`, `vedisch.md`. Die verwendeten Bücher stehen in `quellen.md`.
 
 ---
 
