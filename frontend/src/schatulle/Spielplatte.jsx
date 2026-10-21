@@ -913,6 +913,31 @@ export default function Spielplatte({
               transform={`translate(${HEBEL.x} ${knaufY})`}
               className="sp-hebelgriff"
             >
+              {/* goldene Fassung, wirft einen kleinen Schatten */}
+              <ellipse
+                cx="0"
+                cy="1"
+                rx="18.6"
+                ry="14.4"
+                fill="#2a1c08"
+                opacity="0.45"
+              />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="18.4"
+                ry="14.2"
+                className="sp-rubin-fassung"
+              />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="17"
+                ry="12.9"
+                fill="none"
+                stroke="url(#sp-fase-aussen)"
+                strokeWidth="2.2"
+              />
               <ellipse
                 cx="0"
                 cy="0"
