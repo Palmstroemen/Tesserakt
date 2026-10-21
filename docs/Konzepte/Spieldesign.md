@@ -19,6 +19,7 @@ Tesserakt verbindet Spielerlebnis mit Citizen-Science:
 - **Unterhaltung**: persoenliches Ergebnis und interaktives Feedback.
 - **Aufklaerung**: transparente Unterschiede zwischen Systemen und ehrlicher Umgang mit Zufallstreffern.
 - **Forschung**: anonymisierte, aggregierte Auswertung ueber viele Sessions.
+- **Monetarisierug**: premium-Version könnte das 'mühsame' Fragespiel umgehen und direkt Horoskope erstellen, eventuell einige Personen speicherbar (Familie), individuelle Geschenkbücher personalisiert und konfigurierbar (welche Systeme. 1 System 15€, 2 Systeme 20€, ... Verschiedene Cover)  
 
 **Status:** MVP + langfristig  
 **Abhaengigkeiten:** Content, UI, Daten

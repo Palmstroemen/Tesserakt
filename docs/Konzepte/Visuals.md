@@ -1,3 +1,8 @@
+# UI-Spezifikation allgemein
+* Responsive Design
+* Mobile first
+* Konsistent mit Büchern
+* Verspielt mit vielen Wow-Effekten
 # UI-Spezifikation pro System (v1)
 
 Ziel: fachlich korrekte Standarddarstellung je System, aber einheitliche Produkt-UX.
