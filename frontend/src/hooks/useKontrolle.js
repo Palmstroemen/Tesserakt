@@ -1,7 +1,7 @@
 import { ortFelder } from "../logic/ort";
 import { useEffect, useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 // Laedt die Kontrollvektoren (Perzentil/Skill) im Hintergrund, sobald /vektor eine session_id geliefert hat.
 // Die Fragephase gibt dem Backend dafuer genug Zeit; das Ergebnis wird erst auf der Ergebnisseite gebraucht.

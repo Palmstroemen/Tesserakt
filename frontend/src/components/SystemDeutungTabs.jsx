@@ -7,7 +7,7 @@ import ProfectionChart from "./ProfectionChart";
 import FirdariaChart from "./FirdariaChart";
 import DashaChart from "./DashaChart";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 /** Entfernt [TAG] Zeilen aus dem Text fuer die Anzeige. */
 function stripTagLines(text) {

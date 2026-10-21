@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 // Erklaertexte (Themen mit kurz, Abschnitten und Bloecken) aus content/horoscope/de/erklaerungen_v1.json.
 export function useErklaerungen(locale = "de") {

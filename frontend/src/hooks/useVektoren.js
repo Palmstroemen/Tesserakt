@@ -1,7 +1,7 @@
 import { ortFelder } from "../logic/ort";
 import { useEffect, useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 export function useVektoren(geburtsdatum, uhrzeit, systeme, geburtsname, geschlecht, ort) {
   const [vektoren, setVektoren] = useState(null);

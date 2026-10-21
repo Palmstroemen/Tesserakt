@@ -6,7 +6,7 @@ import { Paragraphs } from "./SystemDeutungTabs";
 import { calculateRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 const SYSTEME = ["Westlich", "Bazi", "Numerologie", "Kabbalah", "Arabisch", "Hellenistisch", "Vedisch"];
 
 function shuffle(items) {

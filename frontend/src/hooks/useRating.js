@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { calculateRating } from "../logic/rating";
 import { calculateTemperament } from "../logic/temperament";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 const FALLBACK_MATRIX = {
   konsens_gewichtung: {

@@ -4,7 +4,7 @@ import RankingTabelle from "./RankingTabelle";
 import { calculateRating, calculateTimingRating } from "../logic/rating";
 import { ortFelder } from "../logic/ort";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 
 const FENSTER_LABEL = { monat: "Letzter Monat", quartal: "Letzte drei Monate" };
 

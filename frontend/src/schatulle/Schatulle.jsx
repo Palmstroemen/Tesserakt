@@ -6,7 +6,7 @@ import { SYSTEME } from "./systeme";
 import { BOGEN_RADIEN, MITTE, SCHIEBER_RADIUS, bogenPfad, punkt, winkel, wertAusPunkt } from "./geometrie";
 import { hebel, rastKlick, setStumm, zahnrad } from "./klang";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+import { API_BASE } from "../logic/api";
 const ALLE = SYSTEME.map((s) => s.id);
 const RUHE = 90; // Zeigerstellung vor dem Ausloesen (Mitte)
 const SCHRITT = 0.2; // Schieber: 11 Rasten von -1 bis +1
