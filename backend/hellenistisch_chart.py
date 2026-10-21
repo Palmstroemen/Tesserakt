@@ -7,9 +7,12 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict
 
+from rule_engine import _jahresherrscher
 
-def build_profection_chart(birth_dt: datetime, is_day: bool | None = None) -> Dict[str, Any]:
-    """Build profectionChart payload: age, activeHouse (1-12), isDayChart, activeHouseLabel."""
+
+def build_profection_chart(birth_dt: datetime, is_day: bool | None = None, asc_zeichen: int | None = None) -> Dict[str, Any]:
+    """Build profectionChart payload: age, activeHouse (1-12), isDayChart, activeHouseLabel; dazu (Whole Sign)
+    das profizierte Zeichen (0 = Widder) und der Jahresherrscher, gleiche Zuordnung wie in der Wertung."""
     today = datetime.now()
     age = today.year - birth_dt.year
     if (today.month, today.day) < (birth_dt.month, birth_dt.day):
@@ -25,4 +28,6 @@ def build_profection_chart(birth_dt: datetime, is_day: bool | None = None) -> Di
         "activeHouse": active_house,
         "activeHouseLabel": f"Haus {active_house}",
         "isDayChart": is_day_chart,
+        "activeSign": (int(asc_zeichen or 0) + active_house - 1) % 12,
+        "yearLord": _jahresherrscher(active_house, {"asc_zeichen": asc_zeichen or 0}),
     }

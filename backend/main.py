@@ -453,7 +453,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     if "Kabbalah" in payload.systeme:
         visual_payloads["Kabbalah"] = build_kabbalah_chart(birth_dt)
     if "Hellenistisch" in payload.systeme:
-        visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt, inputs.get("tag_geburt"))
+        visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt, inputs.get("tag_geburt"), inputs.get("asc_zeichen"))
     if "Arabisch" in payload.systeme:
         visual_payloads["Arabisch"] = build_firdaria_chart(birth_dt, inputs.get("tag_geburt"))
     if "Vedisch" in payload.systeme:

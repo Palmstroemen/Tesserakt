@@ -1111,3 +1111,63 @@ body {
 .bk-elementzeichen {
   font-size: 13px;
 }
+
+/* Hellenistisch: schwarzfiguriger Teller */
+.ht-glasur {
+  fill: none;
+  stroke: #17100c;
+}
+
+.ht-linie {
+  fill: none;
+  stroke: #17100c;
+  stroke-width: 1.6;
+}
+
+.ht-maeander polyline {
+  fill: none;
+  stroke: #17100c;
+  stroke-width: 1.7;
+  stroke-linejoin: miter;
+}
+
+.ht-zahl {
+  text-anchor: middle;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  fill: #17100c;
+  font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
+.ht-figur {
+  fill: #17100c;
+}
+
+.ht-schlange {
+  fill: none;
+  stroke: #17100c;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.ht-ritz {
+  fill: none;
+  stroke: #c46a36;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.ht-beischrift {
+  text-anchor: middle;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  fill: #17100c;
+  font-family: "GFS Didot", "Noto Serif", Georgia, serif;
+}
+
+.ht-kreide {
+  fill: none;
+  stroke: #f6f1e4;
+  stroke-width: 2.2;
+  opacity: 0.9;
+}
