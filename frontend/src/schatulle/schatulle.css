@@ -1,0 +1,366 @@
+/* Prototyp Schatulle: mobile first, eine Spalte (max. 440 CSS-Pixel), am Desktop zentriert. */
+:root {
+  --sc-grund: #16110d;
+  --sc-holz: #241b14;
+  --sc-messing: #c9a66b;
+  --sc-messing-hell: #f0d59c;
+  --sc-messing-dunkel: #6b5230;
+  --sc-text: #efe3c8;
+  --sc-text-leise: #b6a684;
+}
+
+html,
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 0%, #2a2018 0%, var(--sc-grund) 70%);
+  color: var(--sc-text);
+  font-family: Georgia, "Times New Roman", serif;
+  min-height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sc {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+
+.sc-titel {
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sc-messing-hell);
+  font-size: 1.3rem;
+}
+
+.sc-stumm {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.sc-deckel {
+  width: min(62vw, 240px);
+  margin-top: 18px;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.6));
+}
+
+.sc-karte {
+  width: 100%;
+  background: linear-gradient(160deg, #2c2219, #1b1510);
+  border: 1px solid var(--sc-messing-dunkel);
+  border-radius: 14px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sc-karte label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: var(--sc-text-leise);
+  position: relative;
+}
+
+.sc-karte input {
+  font: inherit;
+  color: var(--sc-text);
+  background: #120e0b;
+  border: 1px solid var(--sc-messing-dunkel);
+  border-radius: 8px;
+  padding: 10px;
+  color-scheme: dark;
+}
+
+/* Vorschlagsliste der Ortssuche (Klassen aus GeburtsdatumInput) */
+.ort-vorschlaege {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  background: #120e0b;
+  border: 1px solid var(--sc-messing-dunkel);
+  border-radius: 8px;
+}
+
+.ort-vorschlaege button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--sc-text);
+  padding: 10px;
+  font: inherit;
+}
+
+.sc-hinweis {
+  margin: 0;
+  color: var(--sc-text-leise);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.sc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sc-chip {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--farbe);
+  background: transparent;
+  color: var(--sc-text-leise);
+  cursor: pointer;
+}
+
+.sc-chip.an {
+  background: color-mix(in srgb, var(--farbe) 28%, transparent);
+  color: var(--sc-text);
+}
+
+.sc-start {
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--sc-messing-hell);
+  background: linear-gradient(180deg, #d9b878, #8a6a3c);
+  color: #1b130b;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.sc-start:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.sc-fehler {
+  color: #ff9b8a;
+  margin: 0;
+}
+
+/* --- Fragerunde ------------------------------------------------------------- */
+.sc-spiel {
+  gap: 6px;
+  justify-content: space-between; /* Auge oben, Bedienung unten im Daumenbereich */
+}
+
+.sc-zaehler {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--sc-text-leise);
+  text-transform: uppercase;
+}
+
+.sc-auge {
+  position: relative;
+  width: min(78vw, 300px);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+}
+
+.sc-auge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sc-frage {
+  position: absolute;
+  inset: 22%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #2b2116;
+  font-size: clamp(0.95rem, 4.2vw, 1.1rem);
+  line-height: 1.3;
+  animation: sc-dia 0.9s ease-out;
+}
+
+@keyframes sc-dia {
+  from {
+    filter: blur(6px);
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    filter: none;
+    transform: none;
+  }
+}
+
+.sc-platte {
+  width: 100%;
+}
+
+.sc-platte svg {
+  width: 100%;
+  touch-action: none; /* Wischen bedient den Schieber, nicht die Seite */
+  user-select: none;
+  display: block;
+}
+
+.sc-schlitz {
+  fill: none;
+  stroke: #0b0806;
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+
+.sc-bogen {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+.sc-etikett {
+  font-size: 11px;
+  text-anchor: middle;
+  font-family: Georgia, serif;
+}
+
+.sc-zeiger {
+  stroke: #120e0b;
+  stroke-width: 1.5;
+}
+
+.sc-schiene {
+  fill: none;
+  stroke: var(--sc-messing);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.sc-raste {
+  stroke: var(--sc-messing-hell);
+  stroke-width: 1.5;
+}
+
+.sc-knauf {
+  fill: #d9b878;
+  stroke: #3a2c1a;
+  stroke-width: 2;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+.sc-nutzerlinie {
+  stroke: var(--sc-messing-hell);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.sc-ende {
+  font-size: 15px;
+  fill: var(--sc-text-leise);
+}
+
+.sc-ausloeser circle {
+  fill: #8a6a3c;
+  stroke: var(--sc-messing-hell);
+  stroke-width: 2;
+  cursor: pointer;
+  transition: transform 0.15s, fill 0.15s;
+  transform-origin: 200px 214px;
+}
+
+.sc-ausloeser text {
+  fill: #1b130b;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.sc-ausloeser.gedrueckt circle {
+  transform: scale(0.92);
+  fill: #5a4325;
+  cursor: default;
+}
+
+.sc-skala {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--sc-text-leise);
+  padding: 0 4px;
+}
+
+.sc-fuss {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Ergebnis ------------------------------------------------------------------ */
+.sc-karten {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+
+.sc-ergebniskarte {
+  flex: 0 0 72%;
+  scroll-snap-align: center;
+  border-radius: 14px;
+  border: 1px solid var(--farbe);
+  background: linear-gradient(170deg, color-mix(in srgb, var(--farbe) 30%, #1b1510), #1b1510 70%);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 200px;
+}
+
+.sc-ergebniskarte header {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--sc-text);
+}
+
+.sc-skill {
+  font-size: 3rem;
+  color: var(--farbe);
+}
+
+.sc-perzentil {
+  font-size: 0.85rem;
+  color: var(--sc-text-leise);
+}
