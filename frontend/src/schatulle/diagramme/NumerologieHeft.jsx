@@ -7,6 +7,7 @@
 const G = 300;
 const M = G / 2;
 const MEISTER = [11, 22, 33];
+const ZOOM = 1.1;
 
 const TINTE = "#1d2a6b";
 const STIFT = { tag: "#2e8b3e", monat: "#e07a10", jahr: "#7a3fb0" };
@@ -143,164 +144,182 @@ export default function NumerologieHeft({ payload }) {
         </filter>
       </defs>
 
-      {/* kariertes Heftpapier */}
-      <circle cx={M} cy={M} r={G / 2} fill="#fbfaf4" />
-      <circle cx={M} cy={M} r={G / 2} fill="url(#nh-karo)" />
-      <line x1="26" y1="0" x2="26" y2={G} stroke="#e7a3a3" strokeWidth="0.8" />
+      {/* das ganze Blatt etwas herangezoomt (Kamera naeher am Heft) */}
+      <g
+        transform={`translate(${M} ${M}) scale(${ZOOM}) translate(${-M} ${-M + 6})`}
+      >
+        {/* kariertes Heftpapier */}
+        <rect x="-20" y="-20" width={G + 40} height={G + 40} fill="#fbfaf4" />
+        <rect
+          x="-20"
+          y="-20"
+          width={G + 40}
+          height={G + 40}
+          fill="url(#nh-karo)"
+        />
+        <line
+          x1="32"
+          y1="-20"
+          x2="32"
+          y2={G + 20}
+          stroke="#e7a3a3"
+          strokeWidth="0.8"
+        />
 
-      {/* Geburtsdatum in Fuellertinte, Teile in Farbstift unterstrichen */}
-      {datum.map((t, i) => (
-        <text
-          key={i}
-          x={t.x}
-          y={74}
-          className="nh-schrift"
-          fontSize={GR_DATUM}
-          fill={TINTE}
-        >
-          {t.t}
-        </text>
-      ))}
-      <g filter="url(#nh-stift)">
-        {datum
-          .filter((t) => t.farbe)
-          .map((t, i) => (
-            <Strich
-              key={i}
-              x1={t.x + 1}
-              x2={t.x + t.b - 1}
-              y={80}
-              farbe={t.farbe}
-              breit={2}
-              saat={i + 2}
-            />
-          ))}
-      </g>
+        {/* Geburtsdatum in Fuellertinte, Teile in Farbstift unterstrichen */}
+        {datum.map((t, i) => (
+          <text
+            key={i}
+            x={t.x}
+            y={74}
+            className="nh-schrift"
+            fontSize={GR_DATUM}
+            fill={TINTE}
+          >
+            {t.t}
+          </text>
+        ))}
+        <g filter="url(#nh-stift)">
+          {datum
+            .filter((t) => t.farbe)
+            .map((t, i) => (
+              <Strich
+                key={i}
+                x1={t.x + 1}
+                x2={t.x + t.b - 1}
+                y={80}
+                farbe={t.farbe}
+                breit={2}
+                saat={i + 2}
+              />
+            ))}
+        </g>
 
-      {/* drei Zeilen in Farbstift: Quersumme von Tag, Monat, Jahr */}
-      <g filter="url(#nh-stift)">
-        {zeilen.map((z, i) => {
-          const rechnung = `${z.q.weg} `;
-          const wx = WERT + (z.q.weg ? breite(rechnung, GR) : 0);
-          return (
-            <g key={z.label}>
-              <text
-                x={LINKS}
-                y={z.y}
-                className="nh-schrift"
-                fontSize={GR}
-                fill={z.farbe}
-              >
-                {z.label}
-              </text>
-              {z.q.weg ? (
+        {/* drei Zeilen in Farbstift: Quersumme von Tag, Monat, Jahr */}
+        <g filter="url(#nh-stift)">
+          {zeilen.map((z, i) => {
+            const rechnung = `${z.q.weg} `;
+            const wx = WERT + (z.q.weg ? breite(rechnung, GR) : 0);
+            return (
+              <g key={z.label}>
                 <text
-                  x={WERT}
+                  x={LINKS}
                   y={z.y}
                   className="nh-schrift"
                   fontSize={GR}
                   fill={z.farbe}
                 >
-                  {rechnung}
+                  {z.label}
                 </text>
-              ) : null}
-              <text
-                x={wx}
-                y={z.y}
-                className="nh-schrift"
-                fontSize={GR + 1}
-                fill={z.farbe}
-              >
-                {z.q.wert}
-              </text>
-              <Strich
-                x1={wx - 1}
-                x2={wx + breite(String(z.q.wert), GR + 1) + 1}
-                y={z.y + 4}
-                farbe={z.farbe}
-                saat={i + 5}
-              />
-            </g>
-          );
-        })}
-      </g>
+                {z.q.weg ? (
+                  <text
+                    x={WERT}
+                    y={z.y}
+                    className="nh-schrift"
+                    fontSize={GR}
+                    fill={z.farbe}
+                  >
+                    {rechnung}
+                  </text>
+                ) : null}
+                <text
+                  x={wx}
+                  y={z.y}
+                  className="nh-schrift"
+                  fontSize={GR + 1}
+                  fill={z.farbe}
+                >
+                  {z.q.wert}
+                </text>
+                <Strich
+                  x1={wx - 1}
+                  x2={wx + breite(String(z.q.wert), GR + 1) + 1}
+                  y={z.y + 4}
+                  farbe={z.farbe}
+                  saat={i + 5}
+                />
+              </g>
+            );
+          })}
+        </g>
 
-      {/* Summenstrich, Summe und Quersumme in Tinte */}
-      <line
-        x1={WERT - 4}
-        y1={164}
-        x2={WERT + 92}
-        y2={163}
-        stroke={TINTE}
-        strokeWidth="1.1"
-        strokeLinecap="round"
-      />
-      <text
-        x={WERT}
-        y={ySumme}
-        className="nh-schrift"
-        fontSize={GR}
-        fill={TINTE}
-      >
-        {summenZeile}
-        {qSumme.weg ? summe : ""}
-      </text>
-      {qSumme.weg ? (
+        {/* Summenstrich, Summe und Quersumme in Tinte */}
+        <line
+          x1={WERT - 4}
+          y1={164}
+          x2={WERT + 92}
+          y2={163}
+          stroke={TINTE}
+          strokeWidth="1.1"
+          strokeLinecap="round"
+        />
         <text
-          x={WERT - 52}
-          y={yQuer}
+          x={WERT}
+          y={ySumme}
           className="nh-schrift"
           fontSize={GR}
           fill={TINTE}
         >
-          {`Quersumme: ${qSumme.weg}`}
+          {summenZeile}
+          {qSumme.weg ? summe : ""}
         </text>
-      ) : null}
-      <text
-        x={ergebnisX}
-        y={ergebnisY}
-        className="nh-schrift"
-        fontSize={GR + 3}
-        fill={TINTE}
-      >
-        {ergebnis}
-      </text>
-      <Strich
-        x1={ergebnisX - 1}
-        x2={ergebnisX + breite(String(ergebnis), GR + 3) + 1}
-        y={ergebnisY + 4}
-        farbe={TINTE}
-        breit={1.3}
-        saat={9}
-      />
+        {qSumme.weg ? (
+          <text
+            x={WERT - 52}
+            y={yQuer}
+            className="nh-schrift"
+            fontSize={GR}
+            fill={TINTE}
+          >
+            {`Quersumme: ${qSumme.weg}`}
+          </text>
+        ) : null}
+        <text
+          x={ergebnisX}
+          y={ergebnisY}
+          className="nh-schrift"
+          fontSize={GR + 3}
+          fill={TINTE}
+        >
+          {ergebnis}
+        </text>
+        <Strich
+          x1={ergebnisX - 1}
+          x2={ergebnisX + breite(String(ergebnis), GR + 3) + 1}
+          y={ergebnisY + 4}
+          farbe={TINTE}
+          breit={1.3}
+          saat={9}
+        />
 
-      {/* Rot: eingekringelt und schraeg darunter die Bemerkung */}
-      {(() => {
-        const cx = ergebnisX + breite(String(ergebnis), GR + 3) / 2;
-        const cy = ergebnisY - 5;
-        return (
-          <g className="nh-rot">
-            <ellipse
-              cx={cx}
-              cy={cy}
-              rx="14"
-              ry="11"
-              transform={`rotate(-8 ${cx} ${cy})`}
-              stroke={ROT}
-            />
-            <path d={`M ${cx + 12} ${cy - 9} q 6 -3 9 2`} stroke={ROT} />
-            <text
-              x={cx - 6}
-              y={cy + 32}
-              fill={ROT}
-              className="nh-lehrerin"
-              transform={`rotate(-10 ${cx - 6} ${cy + 32})`}
-            >
-              {meister ? "Meisterzahl!" : "Lebenszahl"}
-            </text>
-          </g>
-        );
-      })()}
+        {/* Rot: eingekringelt und schraeg darunter die Bemerkung */}
+        {(() => {
+          const cx = ergebnisX + breite(String(ergebnis), GR + 3) / 2;
+          const cy = ergebnisY - 5;
+          return (
+            <g className="nh-rot">
+              <ellipse
+                cx={cx}
+                cy={cy}
+                rx="14"
+                ry="11"
+                transform={`rotate(-8 ${cx} ${cy})`}
+                stroke={ROT}
+              />
+              <path d={`M ${cx + 12} ${cy - 9} q 6 -3 9 2`} stroke={ROT} />
+              <text
+                x={cx - 6}
+                y={cy + 32}
+                fill={ROT}
+                className="nh-lehrerin"
+                transform={`rotate(-10 ${cx - 6} ${cy + 32})`}
+              >
+                {meister ? "Meisterzahl!" : "Lebenszahl"}
+              </text>
+            </g>
+          );
+        })()}
+      </g>
     </svg>
   );
 }
