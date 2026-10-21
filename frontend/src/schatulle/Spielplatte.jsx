@@ -525,18 +525,6 @@ export default function Spielplatte({
               <stop offset="0.7" stopColor="#d9ccaa" />
               <stop offset="1" stopColor="#8f7a52" />
             </radialGradient>
-            <radialGradient
-              id="sp-platte"
-              cx={MITTE.x}
-              cy={MITTE.y}
-              r={radien[radien.length - 1] + abstand}
-              gradientUnits="userSpaceOnUse"
-            >
-              {/* Mittelgold, eine Spur heller als die Abdeckplaettchen in den Schlitzen (Schlitze.jsx GOLD) */}
-              <stop offset="0.3" stopColor="#957438" />
-              <stop offset="0.75" stopColor="#7c5e2c" />
-              <stop offset="1" stopColor="#58411f" />
-            </radialGradient>
             {/* Lichtschein fuer die eigene Einschaetzung (SVG-Filter: CSS-Filter auf SVG-Elementen kann WebKit nicht) */}
             <filter
               id="sp-schein"
@@ -552,14 +540,14 @@ export default function Spielplatte({
 
           {/* Faecher: schwenkt beim Abgang zum Ergebnis um den Kreismittelpunkt weg */}
           <g className="sp-faecher">
-            {/* Platte */}
+            {/* Platte: derselbe Messington wie der Ring um das Glas */}
             <path
               d={plattePfad(
                 radien[0] - abstand * 0.6,
                 radien[radien.length - 1] + abstand * 0.62,
                 theta + 0.16,
               )}
-              fill="url(#sp-platte)"
+              fill="url(#sp-messing)"
               stroke="#2b2014"
               strokeWidth="2"
             />
