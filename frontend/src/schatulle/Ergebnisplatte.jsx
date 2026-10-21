@@ -13,6 +13,7 @@ import { spiegelglasStarten } from "./spiegelglas";
 import WestlichNacht from "./diagramme/WestlichNacht";
 import KabbalahBuch from "./diagramme/KabbalahBuch";
 import BaziKarte from "./diagramme/BaziKarte";
+import BaziPaar from "./diagramme/BaziPaar";
 import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
 import ArabischZellij from "./diagramme/ArabischZellij";
@@ -40,6 +41,10 @@ const VOLLBILD = {
   Vedisch: VedischRangoli,
   Arabisch: ArabischZellij,
   Numerologie: NumerologieHeft,
+};
+// Spiel C: Grafiken fuer zwei (du in Gold, dein Gegenueber in Silber), Daten aus /horoscope/paar
+const PAARBILD = {
+  Bazi: BaziPaar,
 };
 const DIMENSIONEN = [
   "liebe",
@@ -310,6 +315,13 @@ export default function Ergebnisplatte({
                             </div>
                           ))
                         : "Das Räderwerk rechnet …"}
+                    </div>
+                  ) : spiel === "C" && PAARBILD[id] && paar?.systeme?.[id] ? (
+                    <div className="eg-vollbild">
+                      {(() => {
+                        const Bild = PAARBILD[id];
+                        return <Bild daten={paar.systeme[id]} />;
+                      })()}
                     </div>
                   ) : VOLLBILD[id] && payload ? (
                     <div className="eg-vollbild">

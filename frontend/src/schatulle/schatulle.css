@@ -1124,6 +1124,67 @@ body {
   font-size: 13px;
 }
 
+/* Bazi fuer Paare: zwei Karten auf dem Lacktablett, roter Faden */
+.bp-glanz {
+  fill: #fff;
+  opacity: 0.05;
+}
+
+.bp-rahmen {
+  fill: none;
+  stroke-width: 0.8;
+  opacity: 0.55;
+}
+
+.bp-schrift text {
+  text-anchor: middle;
+  font-family: "Tesserakt Pinsel", "Noto Serif CJK SC", "Noto Serif SC", serif;
+  filter: drop-shadow(0 0.6px 0.4px rgba(50, 5, 3, 0.75));
+}
+
+.bp-kopf {
+  font-size: 12px;
+}
+
+.bp-zeichen {
+  font-size: 30px;
+}
+
+.bp .bp-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.bp-faden path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bp-faden-grund {
+  stroke: #4a0508;
+  stroke-width: 3.2;
+}
+
+.bp-faden-seide {
+  stroke: #d0222b;
+  stroke-width: 2;
+}
+
+.bp-faden-glanz {
+  stroke: #ff9a96;
+  stroke-width: 0.5;
+  opacity: 0.6;
+}
+
+.bp-franse {
+  fill: none;
+  stroke: #d0222b;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
 /* Hellenistisch: schwarzfiguriger Teller */
 .ht-glasur {
   fill: none;

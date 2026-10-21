@@ -176,6 +176,7 @@ def bazi(a: Dict[str, str], b: Dict[str, str], beziehung: Callable[[str, str], s
     """`a`, `b`: tag_zweig, jahr_zweig, tag_stamm. Tageszweig = Ehepalast."""
     tabellen = regeln["clash_und_combination_vollstaendig"]
     aussagen: List[str] = []
+    arten: Dict[str, str] = {}
     for ebene in ("tag", "jahr"):
         za, zb = a[f"{ebene}_zweig"], b[f"{ebene}_zweig"]
         text, art = "", "neutral"
@@ -195,12 +196,14 @@ def bazi(a: Dict[str, str], b: Dict[str, str], beziehung: Callable[[str, str], s
                 .replace("{b}", tiere[zb]).replace("{text}", text)
                 .replace("{element}", elemente.get(dreieck.split("_")[0], "") if dreieck else ""))
         aussagen.append(satz.strip())
+        arten[ebene] = art
     ea, eb = element(a["tag_stamm"]), element(b["tag_stamm"])
     aussagen.append(t["bazi_dm"][beziehung(ea, eb)].replace("{a}", elemente[ea]).replace("{b}", elemente[eb]))
     if {a["tag_stamm"], b["tag_stamm"]} in STAMM_HE:
         aussagen.append(t["bazi_dm"]["stamm_he"].replace("{sa}", a["tag_stamm"].capitalize())
                         .replace("{sb}", b["tag_stamm"].capitalize()))
-    return {"aussagen": aussagen}
+    # Grafik (roter Faden zwischen den Ehepalaesten): Art der Beziehung der Tages- und Jahreszweige
+    return {"aussagen": aussagen, "ehepalast": arten["tag"], "jahrestiere": arten["jahr"]}
 
 
 # ---------------------------------------------------------------------------------------------------------

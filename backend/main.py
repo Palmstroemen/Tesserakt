@@ -805,6 +805,7 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
         "mond_zeichen_sid": inputs.get("mond_zeichen_siderisch"),
         "bazi": {"tag_zweig": inputs["geburts_day_branch"], "jahr_zweig": inputs["geburts_year_branch"],
                  "tag_stamm": inputs["day_master_stem"]},
+        "saeulen": build_four_pillars(geburt, _zu_weltzeit(geburt, req.zeitzone), req.longitude)["pillars"],
         "firdaria": firdaria[0] if firdaria else None,
         "glueckslos": paar.glueckslos(natal.asc_deg, punkte["sonne"], punkte["mond"], tag) if natal.has_location else None,
         "sephira": _life_path_to_sephira_index(int(inputs["lebenspfadzahl"])),
@@ -837,6 +838,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
     if "Bazi" in payload.systeme:
         systeme["Bazi"] = paar.bazi(a["bazi"], b["bazi"], _bazi_beziehung, stem_to_element, load_rules("Bazi"), t,
                                     th["bazi_tiere"], th["elemente"])
+        systeme["Bazi"]["saeulen"] = {"a": a["saeulen"], "b": b["saeulen"]}
     if "Arabisch" in payload.systeme and a["firdaria"] and b["firdaria"]:
         freundschaft = load_rules("Arabisch")["unter_firdaria"]["qualitaets_matrix"]["freundschaftsbeziehungen"]
         systeme["Arabisch"] = paar.arabisch(a["firdaria"], b["firdaria"], freundschaft, a["glueckslos"], b["glueckslos"],

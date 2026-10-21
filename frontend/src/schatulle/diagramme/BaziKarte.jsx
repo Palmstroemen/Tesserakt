@@ -6,7 +6,7 @@
 const G = 300;
 const M = G / 2;
 
-const STAMM = {
+export const STAMM = {
   jia: "甲",
   yi: "乙",
   bing: "丙",
@@ -18,7 +18,7 @@ const STAMM = {
   ren: "壬",
   gui: "癸",
 };
-const ZWEIG = {
+export const ZWEIG = {
   zi: "子",
   chou: "丑",
   yin: "寅",
