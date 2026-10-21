@@ -11,7 +11,7 @@ import { rastKlick, zahnrad } from "./klang";
 // Inhalt laeuft rechts hinaus, von links dreht derselbe Inhalt im neuen Metall herein.
 export const WALZEN = { land: 262, stadt: 322, theta: 0.6, schlitz: 30 };
 const ZEITZONE = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
-const WECHSEL_MS = 900;
+const WECHSEL_MS = 1500;
 
 let regionNamen = null;
 function landName(code, fallback) {
@@ -173,7 +173,7 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
     return (
       <g key={schluessel} className={`ow-schicht ow-${met}`}>
         <path d={bogenPfad(r, theta + 0.2)} className="ow-schlitz" strokeWidth={WALZEN.schlitz} />
-        <g filter="url(#dr-gravur)">
+        <g filter={wechsel ? undefined : "url(#dr-gravur)"}>
           {liste.map((e, i) => {
             const abstand = lagenListe[i] - v + schub;
             if (!e.label || Math.abs(abstand) / r > theta + 0.5) return null;

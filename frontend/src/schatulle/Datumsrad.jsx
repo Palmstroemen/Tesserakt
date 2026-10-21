@@ -155,7 +155,7 @@ const START = {
   tag: 0,
   stunde: -12 * schritt(RINGE[3]),
 };
-const FLIP_MS = 800;
+const FLIP_MS = 1400;
 
 export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
   const [drehung, setDrehung] = useState(START);
@@ -413,7 +413,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
                 {ringInhalt[i].band}
               </g>
             ))}
-            <g filter="url(#dr-gravur)">
+            {/* Gravur waehrend der Muenzdrehung aus: der Filter muesste sonst jedes Bild neu rechnen (ruckelt) */}
+            <g filter={wechselt ? undefined : "url(#dr-gravur)"}>
               {RINGE.map((r, i) => (
                 <g
                   key={r.id}
