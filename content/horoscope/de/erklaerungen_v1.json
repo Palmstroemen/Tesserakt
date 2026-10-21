@@ -131,7 +131,7 @@
                 "**Westlich:** Tierkreiszeichen, Planeten in Zeichen und Häusern, Aspekte zwischen den Planeten und aktuelle Transite.",
                 "**Bazi (chinesisch):** die vier Säulen, dein Tagesmeister, das Zusammenspiel der fünf Elemente und die aktuelle Glückssäule.",
                 "**Numerologie:** Lebenszahl, Namenszahlen und persönliche Zyklen.",
-                "**Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden, und – wenn du ihn angibst – die Zahlenwerte deines Namens (Gematria).",
+                "**Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden.",
                 "**Arabisch:** die arabischen Lose, etwa das Los des Glücks, und die Firdaria – Lebensabschnitte, die von wechselnden Planeten regiert werden.",
                 "**Hellenistisch:** die antike Astrologie mit Geburtszeichen, Jahresprofektionen und Jahresherrscher, Tag- oder Nachtgeburt (Sekte) und den Losen.",
                 "**Vedisch (Jyotish):** dein Mond-Nakshatra, die Planetenperioden (Dasha) und besondere Konstellationen (Yogas)."
@@ -228,6 +228,8 @@
               "punkte": [
                 "Du brauchst kein Konto.",
                 "Wir speichern dein Geburtsdatum, die Uhrzeit, deine Antworten und das Ergebnis – ohne deinen Namen.",
+                "Vom Geburtsort speichern wir nur die Zeitzone und eine grobe Region (etwa 100 km).",
+                "Wenn du deinen Namen angibst, nutzt ihn nur die Numerologie für ihre Namenszahlen. Gespeichert werden diese drei Zahlen, nicht der Name.",
                 "Veröffentlicht werden nur zusammengefasste, anonyme Auswertungen über viele Spiele."
               ]
             }

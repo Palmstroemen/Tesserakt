@@ -57,7 +57,8 @@
 - [x] Vedisch: Gochara-Regeln (Transite vom Geburtsmond, Sade Sati) als Regelebene
 - [ ] Vedisch: Vedha und Ashtakavarga fuer Gochara (optional)
 - [ ] Vedisch: ergaenzte Antardasha-Deutungen von jemandem mit Jyotish-Kenntnis gegenlesen lassen
-- [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen
+- [x] Kabbalah: Gematria-Platzhalter aus der Wertung genommen (rechnete nichts aus dem Namen)
+- [ ] Spaeter (Neuigkeit): echte Gematria, ggf. eigenes Namens-Spiel; Umschrift-Konvention festlegen
 - [x] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr
 
 ## Quellen und Lizenzen (`docs/Berechnungsgrundlagen/quellen.md`)

@@ -22,6 +22,8 @@ Ein einzelnes Ergebnis hängt stark vom Zufall ab – davon, wie du heute antwor
 
 - Du brauchst kein Konto.
 - Wir speichern dein Geburtsdatum, die Uhrzeit, deine Antworten und das Ergebnis – ohne deinen Namen.
+- Vom Geburtsort speichern wir nur die Zeitzone und eine grobe Region (etwa 100 km).
+- Wenn du deinen Namen angibst, nutzt ihn nur die Numerologie für ihre Namenszahlen. Gespeichert werden diese drei Zahlen, nicht der Name.
 - Veröffentlicht werden nur zusammengefasste, anonyme Auswertungen über viele Spiele.
 
 ## Wie ehrlich ist die Selbsteinschätzung? {#selbsteinschaetzung}

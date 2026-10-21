@@ -13,7 +13,7 @@ Uhrzeit und Geburtsort sind vor allem für die astrologischen Systeme wichtig: S
 - **Westlich:** Tierkreiszeichen, Planeten in Zeichen und Häusern, Aspekte zwischen den Planeten und aktuelle Transite.
 - **Bazi (chinesisch):** die vier Säulen, dein Tagesmeister, das Zusammenspiel der fünf Elemente und die aktuelle Glückssäule.
 - **Numerologie:** Lebenszahl, Namenszahlen und persönliche Zyklen.
-- **Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden, und – wenn du ihn angibst – die Zahlenwerte deines Namens (Gematria).
+- **Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden.
 - **Arabisch:** die arabischen Lose, etwa das Los des Glücks, und die Firdaria – Lebensabschnitte, die von wechselnden Planeten regiert werden.
 - **Hellenistisch:** die antike Astrologie mit Geburtszeichen, Jahresprofektionen und Jahresherrscher, Tag- oder Nachtgeburt (Sekte) und den Losen.
 - **Vedisch (Jyotish):** dein Mond-Nakshatra, die Planetenperioden (Dasha) und besondere Konstellationen (Yogas).

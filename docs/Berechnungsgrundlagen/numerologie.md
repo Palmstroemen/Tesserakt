@@ -6,9 +6,12 @@
 
 - **Lebenszahl:** Tag, Monat und Jahr werden **getrennt** auf eine Ziffer reduziert, dann addiert und
   erneut reduziert. Meisterzahlen 11, 22, 33 bleiben erhalten.
-- **Namenszahlen** (nur mit angegebenem Geburtsnamen): pythagoreische Zuordnung A=1 … I=9, J=1 … ;
-  Seelendrang (Vokale, Y zählt als Vokal), Ausdruckszahl (alle Buchstaben), Persönlichkeitszahl
-  (Konsonanten).
+- **Namenszahlen** (nur mit angegebenem Geburtsnamen, freiwillig): pythagoreische Zuordnung A=1 … I=9,
+  J=1 … ; Seelendrang (Vokale, Y zählt als Vokal), Ausdruckszahl (alle Buchstaben), Persönlichkeitszahl
+  (Konsonanten). Die Numerologie ist das einzige System, das einen Namen verwendet.
+- **Datenschutz:** Der Name wird nur für die Berechnung übermittelt und **nicht gespeichert**. Gespeichert
+  werden die drei daraus abgeleiteten Zahlen (je 1–9 bzw. 11/22/33); ein Rückschluss auf den Namen ist
+  daraus praktisch nicht möglich.
 - **Persönliches Jahr:** Geburtsmonat + Geburtstag + laufendes Jahr (jeweils reduziert).
 - **Persönlicher Monat:** persönliches Jahr + Kalendermonat.
 - **Pinnacles:** vier Lebensabschnitte; der erste endet mit 36 minus Lebenszahl.
