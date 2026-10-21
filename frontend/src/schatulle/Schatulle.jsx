@@ -143,7 +143,8 @@ export default function Schatulle() {
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
   const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
   const [kartenOffen, setKartenOffen] = useState(false); // Textkarten einmal geoeffnet (bleiben dann geladen)
-  const [druck, setDruck] = useState(null); // null | "auswahl" | Liste der Horoskope fuer die Buchansicht
+  const [druck, setDruck] = useState(null); // null | "auswahl" | { auswahl, titel } fuer die Buchansicht
+  const [geburt, setGeburt] = useState(null); // eingestellte Geburtsdaten (Titelseite des Buchs): { a, b? }
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
 
@@ -236,6 +237,7 @@ export default function Schatulle() {
   async function spielWahl(wahl, eingabe) {
     const schnell = wahl === "X" || wahl === "XC";
     const paarSpiel = wahl === "C" || wahl === "XC";
+    setGeburt(paarSpiel ? { a: eingabe.a, b: eingabe.b } : { a: eingabe });
     setFehler(null);
     setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
     setAbkuerzung(schnell);
@@ -709,17 +711,21 @@ export default function Schatulle() {
           </svg>
         </button>
       ) : null}
-      {druck === "auswahl" ? (
+      {druck === "auswahl" || druck?.zurueck ? (
         <DruckAuswahl
           reihenfolge={ergebnis?.alle?.ranking ?? ALLE}
-          onAnsehen={(liste) => setDruck(liste)}
+          paarSpiel={spiel === "C"}
+          vorher={druck}
+          onAnsehen={(auswahl, titel) => setDruck({ auswahl, titel })}
           onSchliessen={() => setDruck(null)}
         />
       ) : null}
-      {Array.isArray(druck) ? (
+      {druck?.auswahl && !druck.zurueck ? (
         <Buch
           spiel={spiel}
-          auswahl={druck}
+          auswahl={druck.auswahl}
+          titel={druck.titel}
+          geburt={geburt}
           ergebnis={ergebnis}
           vergleich={SPIELE[spiel].vergleich}
           visualPayloads={visualPayloads}
@@ -727,7 +733,7 @@ export default function Schatulle() {
           texte={texte}
           ausblick={ausblick}
           heute={heute}
-          onSchliessen={() => setDruck("auswahl")}
+          onSchliessen={() => setDruck({ ...druck, zurueck: true })}
         />
       ) : null}
       {zeigeRad ? (

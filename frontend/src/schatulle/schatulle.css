@@ -2486,3 +2486,49 @@ body {
     display: none;
   }
 }
+
+/* Titelfeld in der Buchauswahl */
+.da-titel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: #6b5a40;
+}
+
+.da-titel input {
+  font: inherit;
+  font-size: 1rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #c9a66b;
+  background: #fffaf0;
+  color: #2b2116;
+}
+
+/* Datumsscheibe(n) auf der Titelseite */
+.buch-scheiben {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 5cqw;
+}
+
+.buch-scheiben svg {
+  width: 40cqw;
+  height: 40cqw;
+  filter: drop-shadow(0 0.8cqw 1.2cqw rgba(40, 25, 5, 0.45));
+}
+
+.buch-scheiben.paar svg {
+  width: 34cqw;
+  height: 34cqw;
+}
+
+.buch-scheiben.paar svg + svg {
+  margin-left: -6cqw;
+}
+
+.buch-seite.titel h1 {
+  margin: 4cqw 0 4cqw !important;
+}

@@ -11,6 +11,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { API_BASE } from "../logic/api";
 import HoroskopIcon from "./HoroskopIcon";
+import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName } from "./systeme";
 
@@ -384,6 +385,8 @@ export default function Buch({
   texte,
   ausblick,
   heute,
+  titel,
+  geburt,
   onSchliessen,
 }) {
   const [erklaerungen, setErklaerungen] = useState([]);
@@ -447,7 +450,23 @@ export default function Buch({
       seiten.push(
         <Seite key="titel" art="titel">
           <div className="buch-titelzeichen">TESSERAKT</div>
-          <h1>{paarSpiel ? "Unser Horoskopbuch" : "Mein Horoskopbuch"}</h1>
+          <h1>{titel}</h1>
+          {/* die Datumsscheibe der Schatulle mit dem Geburtsdatum (bei Paaren Gold und Silber) */}
+          {geburt?.a ? (
+            <div className={geburt.b ? "buch-scheiben paar" : "buch-scheiben"}>
+              <Datumsscheibe
+                datum={datumAus(geburt.a.geburtsdatum, geburt.a.uhrzeit)}
+                praefix="buch-a"
+              />
+              {geburt.b ? (
+                <Datumsscheibe
+                  datum={datumAus(geburt.b.geburtsdatum, geburt.b.uhrzeit)}
+                  metall="silber"
+                  praefix="buch-b"
+                />
+              ) : null}
+            </div>
+          ) : null}
           <div className="buch-titelicons">
             {auswahl.map((id) => (
               <svg key={id} viewBox="-12 -12 24 24" aria-hidden="true">

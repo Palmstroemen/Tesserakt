@@ -5,12 +5,32 @@ import HoroskopIcon from "./HoroskopIcon";
 import { anzeigeName } from "./systeme";
 import { buchPreis } from "./buchpreise";
 
-export default function DruckAuswahl({ reihenfolge, onAnsehen, onSchliessen }) {
-  // vorausgewaehlt: die drei Horoskope mit dem besten Ergebnis
+// Vorgabe fuer den Titel: Mein Horoskop / Meine Horoskope, bei Paaren Unser Horoskop / Unsere Horoskope
+export function titelVorgabe(n, paarSpiel) {
+  if (paarSpiel) return n === 1 ? "Unser Horoskop" : "Unsere Horoskope";
+  return n === 1 ? "Mein Horoskop" : "Meine Horoskope";
+}
+
+export default function DruckAuswahl({
+  reihenfolge,
+  paarSpiel,
+  vorher,
+  onAnsehen,
+  onSchliessen,
+}) {
+  // vorausgewaehlt: die drei Horoskope mit dem besten Ergebnis (oder die Auswahl von vorhin)
   const [auswahl, setAuswahl] = useState(
-    () => new Set(reihenfolge.slice(0, 3)),
+    () => new Set(vorher?.auswahl ?? reihenfolge.slice(0, 3)),
   );
   const n = auswahl.size;
+  // eigener Titel; solange leer, gilt die Vorgabe (passt sich der Anzahl an)
+  const [titel, setTitel] = useState(() =>
+    vorher?.titel &&
+    vorher.titel !== titelVorgabe(vorher.auswahl.length, paarSpiel)
+      ? vorher.titel
+      : "",
+  );
+  const vorgabe = titelVorgabe(n, paarSpiel);
   const { grund, preis, aktion } = buchPreis(n);
 
   function umschalten(id) {
@@ -28,6 +48,16 @@ export default function DruckAuswahl({ reihenfolge, onAnsehen, onSchliessen }) {
       <div className="da-blatt">
         <h2>Dein Horoskopbuch</h2>
         <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
+        <label className="da-titel">
+          <span>Titel</span>
+          <input
+            type="text"
+            value={titel}
+            placeholder={vorgabe}
+            maxLength={40}
+            onChange={(e) => setTitel(e.target.value)}
+          />
+        </label>
         <ul className="da-liste">
           {reihenfolge.map((id) => (
             <li key={id}>
@@ -67,7 +97,7 @@ export default function DruckAuswahl({ reihenfolge, onAnsehen, onSchliessen }) {
             type="button"
             className="sc-start"
             disabled={!n}
-            onClick={() => onAnsehen(gewaehlt)}
+            onClick={() => onAnsehen(gewaehlt, titel.trim() || vorgabe)}
           >
             Buch ansehen
           </button>

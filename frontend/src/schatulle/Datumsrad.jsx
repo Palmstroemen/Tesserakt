@@ -12,7 +12,7 @@ import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 // auf die silberne Seite (zweite Person), die Ortswalzen laufen dazu auf Silber; ein weiteres C startet
 // Spiel C. Auf der silbernen Seite haben A und B keine Funktion. Darunter die Ortswalzen.
 const JAHR_BIS = new Date().getFullYear();
-const JAHR_VON = 1920;
+export const JAHR_VON = 1920;
 const MONATE = [
   "Jan",
   "Feb",
@@ -27,7 +27,7 @@ const MONATE = [
   "Nov",
   "Dez",
 ];
-const MONATE_LANG = [
+export const MONATE_LANG = [
   "Jänner",
   "Februar",
   "März",
@@ -43,7 +43,7 @@ const MONATE_LANG = [
 ];
 
 // Ringe: Band zwischen innen und aussen (viewBox-Einheiten), Anzahl Rasten, Beschriftung je Rast
-const RINGE = [
+export const RINGE = [
   {
     id: "jahr",
     innen: 152,
@@ -87,7 +87,7 @@ const KNOEPFE = [
   { spiel: "C", x: 34, y: 366, silber: true }, // Spiel C: zweite Person auf der silbernen Seite
 ];
 const HOEHE = MITTE.y + WALZEN.stadt + 44;
-const METALL = {
+export const METALL = {
   gold: ["#f3d79a", "#b08d57", "#5a4325"],
   silber: ["#f4f6f8", "#a9b1ba", "#4e555c"],
 };
@@ -97,11 +97,11 @@ function tageImMonat(jahr, monat) {
 }
 
 const mod = (a, n) => ((a % n) + n) % n;
-const schritt = (ring) => 360 / ring.anzahl;
+export const schritt = (ring) => 360 / ring.anzahl;
 const indexAus = (ring, drehung) =>
   mod(Math.round(-drehung / schritt(ring)), ring.anzahl);
 
-function Band({ ring }) {
+export function Band({ ring }) {
   const mitte = (ring.innen + ring.aussen) / 2;
   return (
     <circle
@@ -114,7 +114,7 @@ function Band({ ring }) {
   );
 }
 
-function Ring({ ring }) {
+export function Ring({ ring }) {
   // eingravierte Striche und Beschriftung eines Rings (wird nur als Ganzes gedreht)
   const mitte = (ring.innen + ring.aussen) / 2;
   const s = schritt(ring);
