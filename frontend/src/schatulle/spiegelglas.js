@@ -5,7 +5,7 @@
 export const WOELBUNG = 0.9;
 // FORM: Exponent des Profils. 2 = Kugelkappe (gleichmaessig gekruemmt), 4 = Uhrglas (flaches Ellipsoid:
 // Mitte fast eben, die Kruemmung sitzt am Rand)
-export const FORM = 4.0;
+export const FORM = 6.0;
 // ZOOM: Ausschnitt des Kamerabildes samt Woelbung (1 = ganzes Bild, kleiner = naeher heran)
 export const ZOOM = 0.78;
 
