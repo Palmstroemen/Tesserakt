@@ -1332,3 +1332,13 @@ body {
   stroke-linejoin: round;
   opacity: 0.85;
 }
+
+.kb-notiz text {
+  font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;
+}
+
+.kb-bezug {
+  fill: none;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}

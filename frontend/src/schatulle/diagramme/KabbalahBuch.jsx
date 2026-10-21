@@ -134,6 +134,121 @@ const FLECKEN = (() => {
   });
 })();
 
+// Randnotizen: kurze Zeilen in Handschrift am Seitenrand, mit gekritzeltem Bezugsstrich zum Element
+const BEREICH = {
+  liebe: "Liebe",
+  beruf: "Beruf",
+  finanzen: "Finanzen",
+  gesundheit: "Gesundheit",
+  soziales: "Soziales",
+  kreativitaet: "Kreativität",
+  veraenderung: "Veränderung",
+  spiritualitaet: "Spiritualität",
+};
+const liste = (dims) =>
+  dims.length ? BEREICH[dims[0]] + (dims.length > 1 ? " u.a." : "") : null;
+
+function Notiz({ zeilen, farbe, seite, y, ziel, saat }) {
+  const GR = 9;
+  const ZEILE = 11;
+  const x = seite === "links" ? 74 : 226;
+  const oben = y - ((zeilen.length - 1) * ZEILE) / 2;
+  // Bezugsstrich vom Textrand zum Element, leicht gebogen
+  const sx = seite === "links" ? x + 2 : x - 2;
+  const sy = y;
+  const mx = (sx + ziel.x) / 2 + (saat % 2 ? 4 : -4);
+  const my = (sy + ziel.y) / 2 - 6;
+  return (
+    <g filter="url(#kb-stift)" className="kb-notiz" style={{ color: farbe }}>
+      <g transform={`rotate(${seite === "links" ? -4 : 3} ${x} ${y})`}>
+        {zeilen.map((z, i) => (
+          <text
+            key={i}
+            x={x}
+            y={oben + i * ZEILE}
+            dy="0.35em"
+            fontSize={GR}
+            textAnchor={seite === "links" ? "end" : "start"}
+            fill={farbe}
+          >
+            {z}
+          </text>
+        ))}
+      </g>
+      <path
+        d={`M ${sx} ${sy} Q ${mx} ${my} ${ziel.x} ${ziel.y}`}
+        stroke={farbe}
+        className="kb-bezug"
+      />
+      <circle cx={ziel.x} cy={ziel.y} r="1.2" fill={farbe} />
+    </g>
+  );
+}
+
+function randnotizen(payload, aktiv, pfad, stift, stiftPfad) {
+  const n = payload.notes;
+  if (!n) return null;
+  const ZEILE = 11;
+  const notizen = [];
+  const k = KNOTEN[aktiv];
+  if (k && n.sephira) {
+    const zeilen = [
+      n.sephira.deutsch,
+      liste(n.sephira.stark) && `stark: ${liste(n.sephira.stark)}`,
+      liste(n.sephira.schwach) && `schwach: ${liste(n.sephira.schwach)}`,
+    ].filter(Boolean);
+    const seite = k.x < M - 1 ? "links" : "rechts";
+    notizen.push({
+      key: "s",
+      zeilen,
+      farbe: stift,
+      seite,
+      wunsch: k.y + 30,
+      ziel: { x: k.x + (seite === "links" ? -KREIS - 4 : KREIS + 4), y: k.y },
+    });
+  }
+  if (pfad && n.pfad && KNOTEN[pfad.from] && KNOTEN[pfad.to]) {
+    const b = buchstabenOrt(pfad);
+    const zeilen = [
+      `${pfad.letter} = ${n.pfad.bedeutung}`,
+      n.pfad.tarot && `Tarot: ${n.pfad.tarot}`,
+      liste(n.pfad.stark) && `stark: ${liste(n.pfad.stark)}`,
+    ].filter(Boolean);
+    const seite = b.x < M - 1 ? "links" : "rechts";
+    notizen.push({
+      key: "p",
+      zeilen,
+      farbe: stiftPfad,
+      seite,
+      wunsch: b.y + 24,
+      ziel: { x: b.x + (seite === "links" ? -9 : 9), y: b.y },
+    });
+  }
+  // je Seite von oben nach unten setzen, ohne Ueberlappung, im breiten Mittelband des Kreises
+  ["links", "rechts"].forEach((seite) => {
+    let frei = 98;
+    notizen
+      .filter((t) => t.seite === seite)
+      .sort((a, b) => a.wunsch - b.wunsch)
+      .forEach((t) => {
+        const hoehe = (t.zeilen.length - 1) * ZEILE;
+        t.y = Math.min(222 - hoehe / 2, Math.max(frei + hoehe / 2, t.wunsch));
+        frei = t.y + hoehe / 2 + ZEILE + 6;
+      });
+  });
+  return notizen.map((t, i) => (
+    <Notiz
+      key={t.key}
+      zeilen={t.zeilen}
+      farbe={t.farbe}
+      seite={t.seite}
+      y={t.y}
+      ziel={t.ziel}
+      saat={i + 1}
+    />
+  ));
+}
+
 export default function KabbalahBuch({ payload }) {
   if (!payload || payload.chartType !== "kabbalahTree") return null;
   const aktiv = payload.activeSephira?.number;
@@ -143,6 +258,8 @@ export default function KabbalahBuch({ payload }) {
   );
   const pfade = payload.paths ?? [];
   const stift = STIFT[aktiv] ?? STIFT[6];
+  // zweiter Farbstift fuer den Pfad (verschiedene Aspekte, verschiedene Farben); nicht dieselbe wie die Sephira
+  const stiftPfad = aktiv === 4 ? "#6b4420" : "#2f4f86";
 
   return (
     <svg
@@ -333,7 +450,10 @@ export default function KabbalahBuch({ payload }) {
       >
         {pfad && KNOTEN[pfad.from] && KNOTEN[pfad.to] ? (
           <>
-            <path d={zickzack(KNOTEN[pfad.from], KNOTEN[pfad.to], 7)} />
+            <path
+              d={zickzack(KNOTEN[pfad.from], KNOTEN[pfad.to], 7)}
+              stroke={stiftPfad}
+            />
             {/* auch das Buchstaben-Medaillon des Pfads schraffiert (kurze Pfade sind sonst kaum zu sehen) */}
             <path
               d={schraffur(
@@ -342,6 +462,7 @@ export default function KabbalahBuch({ payload }) {
                 5.6,
                 5,
               )}
+              stroke={stiftPfad}
             />
           </>
         ) : null}
@@ -356,7 +477,7 @@ export default function KabbalahBuch({ payload }) {
       {pfad && KNOTEN[pfad.from] && KNOTEN[pfad.to] ? (
         <path
           d={kringel(buchstabenOrt(pfad).x, buchstabenOrt(pfad).y, 9, 23)}
-          stroke={stift}
+          stroke={stiftPfad}
           className="kb-kringel"
           filter="url(#kb-stift)"
         />
@@ -371,6 +492,8 @@ export default function KabbalahBuch({ payload }) {
           filter="url(#kb-stift)"
         />
       ) : null}
+      {/* Randnotizen mit Bezugsstrich, je Aspekt in seiner Farbstift-Farbe */}
+      {randnotizen(payload, aktiv, pfad, stift, stiftPfad)}
     </svg>
   );
 }

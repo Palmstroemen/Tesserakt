@@ -6,7 +6,7 @@ Uses same reduction as rule_engine (11->2, 22->4, 33->6; else reduce to 1-10).
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from rule_engine import PFAD_ORDER, life_path, load_rules
 
@@ -51,6 +51,34 @@ def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
         if k in alle
     ]
     aktiver_pfad = next((p for p in pfade if p["number"] == int(PFAD_ORDER[pfad_index])), None)
+
+    # Notizen fuer die Grafik (Randbemerkungen): dieselben Regeldaten, die auch die Wertung nutzt
+    def extreme(vektor: Dict[str, float]) -> Dict[str, List[str]]:
+        if not vektor:
+            return {"stark": [], "schwach": []}
+        hoch = max(vektor.values())
+        tief = min(vektor.values())
+        return {
+            "stark": [d for d, v in vektor.items() if v == hoch],
+            "schwach": [d for d, v in vektor.items() if v == tief and tief < hoch],
+        }
+
+    seph_daten = load_rules("Kabbalah").get("sephiroth", {})
+    seph = next((v for v in seph_daten.values() if v.get("nummer") == idx), {}) if isinstance(seph_daten, dict) else {}
+    notizen = {
+        "sephira": {
+            "deutsch": (seph.get("name_deutsch") or "").split(" / ")[-1],
+            **extreme(seph.get("dimensionen_vektor") or {}),
+        },
+    }
+    if aktiver_pfad:
+        roh = alle[str(aktiver_pfad["number"])]
+        tarot = (roh.get("tarot") or "").split("—")[-1].split("(")[0].strip()
+        notizen["pfad"] = {
+            "bedeutung": (roh.get("buchstabe_bedeutung") or "").split("—")[0].split("/")[0].strip(),
+            "tarot": tarot,
+            **extreme(roh.get("dimensionen_vektor") or {}),
+        }
     sephiroth_list = [
         {"number": i, "name": SEPHIROTH_NAMES[i - 1]}
         for i in range(1, 11)
@@ -61,5 +89,6 @@ def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
         "activeSephira": {"number": idx, "name": name},
         "sephirothList": sephiroth_list,
         "activePath": aktiver_pfad,
+        "notes": notizen,
         "paths": pfade,
     }
