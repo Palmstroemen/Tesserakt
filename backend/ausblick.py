@@ -14,6 +14,10 @@ Deutung der Unterperioden aus der Antardasha-Matrix (Vedisch/jyotish_dasha.json,
 Chinesisch: Sonnenmonate (Wechsel bei Sonnenlaenge 315 + k*30 Grad) zu Bloecken gleichen Elements gefasst und
 mit dem Tagesmeister verglichen; Jahreswechsel zu Lichun; Monate, deren Zweig mit dem Zweig der Tagessaeule
 zusammenstoesst (Chong); neue Glueckssaeule, wenn sie ins Jahr faellt (nur mit Angabe des Geschlechts).
+
+Hellenistisch: Jahresprofektion bis zum naechsten Geburtstag und ab ihm (Haus und Jahresherrscher, ganze
+Zeichen vom Aszendenten). Ist der Herrscher Mars, Jupiter oder Saturn, dazu seine Wanderung durch die Haeuser
+(tropisch); die schnellen Herrscher wechseln fast monatlich das Zeichen und bleiben ohne Einzeldaten.
 """
 
 from __future__ import annotations
@@ -83,6 +87,34 @@ def _abschnitte(werte: List[object], tage_liste: List[datetime]) -> List[Tuple[o
         else:
             erg.append((w, tag, tag))
     return erg
+
+
+def _wanderung(haeuser: List[int], tage_liste: List[datetime], min_tage: int) -> List[Dict[str, object]]:
+    """Weg eines Planeten durch die Haeuser: je Haus ein Eintrag ab dem Eintritt. Ein Schritt ins vorige Haus
+    ist Rueckläufigkeit und wird beim Eintrag davor vermerkt (`rueck`); laeuft der Planet danach wieder vor,
+    verlaengert sich dieser Eintrag. Ein kurzer Rest im laufenden Haus am Anfang wird uebergangen."""
+    abschnitte = _abschnitte(haeuser, tage_liste)
+    erg: List[Dict[str, object]] = []
+    for i, (haus, von, bis) in enumerate(abschnitte):
+        if i == 0 and len(abschnitte) > 1 and (bis - von).days < min_tage:
+            continue
+        letzter = erg[-1] if erg else None
+        if letzter and haus == (letzter["haus"] - 2) % 12 + 1:
+            letzter["rueck"].append((haus, von, bis))
+        elif letzter and haus == letzter["haus"]:
+            letzter["bis"] = bis
+        else:
+            erg.append({"haus": haus, "von": von, "bis": bis, "erster": i == 0, "rueck": []})
+    return erg
+
+
+def _rueck_text(vorlage: str, planet: str, e: Dict[str, object], ende: datetime) -> str:
+    """Nachsatz zur ruecklaeufigen Rueckkehr ins vorige Haus (leer, wenn es keine gab)."""
+    teile = []
+    for haus, von, bis in e["rueck"]:
+        zeitraum = f"ab {monatsteil(von)}" if bis >= ende else f"von {monatsteil(von)} bis {monatsteil(bis)}"
+        teile.append(vorlage.replace("{Planet}", planet).replace("{zeitraum}", zeitraum).replace("{haus}", str(haus)))
+    return " ".join(teile)
 
 
 def westlich_ereignisse(
@@ -244,50 +276,27 @@ def vedisch(
         neu(von, bis, "antardasha", tv["antardasha"].replace("{ad}", PLANET_LABELS[ad])
             .replace("{md}", namen[md]).replace("{beschreibung}", beschreibung), md=md, ad=ad)
 
-    # Gochara: Haeuser von Jupiter und Saturn vom Mondzeichen. Jedes Haus wird einmal genannt (ab dem ersten
-    # Eintritt); eine ruecklaeufige Rueckkehr ins vorige Haus steht als Nachsatz dabei. Ein Rest von weniger
-    # als MIN_TAGE im laufenden Haus wird uebergangen.
+    # Gochara: Haeuser von Jupiter und Saturn vom Mondzeichen, Weg durch die Haeuser wie in _wanderung
     if mond_zeichen is not None:
         sade = gochara.get("sade_sati", {}).get("haeuser", [12, 1, 2])
         planeten = gochara.get("planeten", {})
         laeufe = [zeichen(tag) for tag in tage_liste]
         for pl in ("jupiter", "saturn"):
             haeuser = [(z[pl] - mond_zeichen) % 12 + 1 for z in laeufe]
-            abschnitte = _abschnitte(haeuser, tage_liste)
-            eintraege: Dict[int, Dict[str, object]] = {}
-            vorher: Optional[int] = None
-            uebergangen: set = set()
-            for i, (haus, von, bis) in enumerate(abschnitte):
-                if haus in eintraege or haus in uebergangen:
-                    if haus in eintraege and not eintraege[haus]["erster"]:
-                        eintraege[haus]["bis"] = bis
-                    if vorher in eintraege:
-                        zurueck = (f"ab {monatsteil(von)}" if bis >= ende
-                                   else f"von {monatsteil(von)} bis {monatsteil(bis)}")
-                        eintraege[vorher]["nachsatz"] = (tv["rueckkehr"].replace("{Planet}", PLANET_LABELS[pl])
-                                                         .replace("{zeitraum}", zurueck).replace("{haus}", str(haus)))
-                elif i == 0 and len(abschnitte) > 1 and (bis - von).days < MIN_TAGE:
-                    uebergangen.add(haus)
-                else:
-                    eintraege[haus] = {"haus": haus, "von": von, "bis": bis, "nachsatz": "", "erster": i == 0}
-                vorher = haus
-            letztes: Optional[int] = None
-            for haus, e in eintraege.items():
-                laufend = e["erster"]
+            for e in _wanderung(haeuser, tage_liste, MIN_TAGE):
+                haus, laufend = e["haus"], e["erster"]
                 if pl == "saturn" and haus in sade:
                     art = {12: "sade_sati_beginn", 1: "sade_sati_hoehe", 2: "sade_sati_ausklang"}[haus]
                     text = tv["sade_sati_laufend" if art == "sade_sati_beginn" and laufend else art]
-                elif pl == "saturn" and haus == 3 and (letztes == 2 or (letztes is None and haeuser[0] == 2)):
+                elif pl == "saturn" and haus == 3 and not laufend:
                     art, text = "sade_sati_ende", tv["sade_sati_ende"]
                 else:
                     guenstig = haus in planeten.get(pl, {}).get("guenstige_haeuser", [])
                     art = f"{pl}_{'guenstig' if guenstig else 'unguenstig'}"
                     # laufender Zustand im Praesens (Bausteine von heute), Wechsel in Zukunftsform
                     text = (t["vedisch_gochara"][art] if laufend else tv[art]).replace("{haus}", str(haus))
-                if e["nachsatz"]:
-                    text = f"{text} {e['nachsatz']}"
-                neu(e["von"], e["bis"], "gochara", text, planet=pl, haus=haus)
-                letztes = haus
+                nachsatz = _rueck_text(tv["rueckkehr"], PLANET_LABELS[pl], e, ende)
+                neu(e["von"], e["bis"], "gochara", f"{text} {nachsatz}".strip(), planet=pl, haus=haus)
     return sorted(erg, key=lambda e: e["von"])
 
 
@@ -375,4 +384,69 @@ def bazi(
         um(tag, "glueckssaeule", tb["glueckssaeule"]
            .replace("{saeule}", f"{el[element(stamm)]}-{tiere_k[zweig]}-Säule ({stamm.capitalize()} {zweig.capitalize()})")
            .replace("{stamm}", stamm_text).replace("{zweig}", zweig_text), stamm=stamm, zweig=zweig)
+    return sorted(erg, key=lambda e: e["von"])
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Hellenistisch
+
+LANGSAME_HERRSCHER = ("mars", "jupiter", "saturn")
+
+
+def _naechster_geburtstag(geburt: datetime, start: datetime) -> datetime:
+    for jahr in (start.year, start.year + 1):
+        try:
+            tag = geburt.replace(year=jahr, hour=12, minute=0, second=0, microsecond=0)
+        except ValueError:  # 29. Februar
+            tag = datetime(jahr, 3, 1, 12)
+        if tag > start:
+            return tag
+    return start + timedelta(days=365)
+
+
+def hellenistisch(
+    geburt: datetime,
+    asc_zeichen: Optional[int],
+    hauslord: List[str],
+    positionen: Callable[[datetime], Dict[str, float]],
+    start: datetime,
+    t: Dict[str, Dict[str, str]],
+    tage: int = 365,
+) -> List[Dict[str, object]]:
+    """Laufendes und naechstes Profektionsjahr, bei langsamen Jahresherrschern deren Wanderung. Ohne
+    Aszendent (kein Geburtsort) wird wie im Spiel ab Widder gezaehlt, die Wanderung entfaellt dann."""
+    th = t["ausblick_hellenistisch"]
+    ende = start + timedelta(days=tage)
+    geb = _naechster_geburtstag(geburt, start)
+    alter = geb.year - geburt.year - 1  # vollendete Jahre bis zum naechsten Geburtstag
+    datum = f"{geb.day}. {MONATE[geb.month - 1]}"
+    asc = asc_zeichen or 0
+    erg: List[Dict[str, object]] = []
+    herrscher_von: Dict[datetime, str] = {}
+    for a, von, bis, vorsatz in ((alter, start, geb - timedelta(days=1), f"Bis zu deinem Geburtstag am {datum}"),
+                                 (alter + 1, geb, ende, f"Ab deinem Geburtstag am {datum}")):
+        haus = a % 12 + 1
+        herrscher = hauslord[(asc + haus - 1) % 12]
+        herrscher_von[von] = herrscher
+        erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "profektion",
+                    "haus": haus, "herrscher": herrscher,
+                    "text": f"{vorsatz}: {t['hellenistisch_haus'][str(haus)]} {th[herrscher]}"})
+    if asc_zeichen is None:
+        return erg
+    # Wanderung des Herrschers; bleibt er ueber den Geburtstag derselbe, durchgehend
+    tage_liste = [start + timedelta(days=i) for i in range(tage + 1)]
+    herrscher_tag = [herrscher_von[geb] if tag >= geb else herrscher_von[start] for tag in tage_liste]
+    for herrscher, von, bis in _abschnitte(herrscher_tag, tage_liste):
+        if herrscher not in LANGSAME_HERRSCHER:
+            continue
+        block = [tag for tag in tage_liste if von <= tag <= bis]
+        haeuser = [(int(positionen(tag)[herrscher] // 30) - asc) % 12 + 1 for tag in block]
+        name = t["planetennamen"][herrscher]
+        for e in _wanderung(haeuser, block, MIN_TAGE):
+            text = (th["wanderung"].replace("{Planet}", name).replace("{haus}", str(e["haus"]))
+                    .replace("{thema}", t["hellenistisch_haus_kurz"][str(e["haus"])]))
+            text = f"{text} {_rueck_text(th['pendeln'], name, e, ende)}".strip()
+            erg.append({"von": e["von"].date().isoformat(), "bis": e["bis"].date().isoformat(), "art": "wanderung",
+                        "planet": herrscher, "haus": e["haus"],
+                        "text": f"{zeitraum_offen(e['von'], e['bis'], start, ende)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])

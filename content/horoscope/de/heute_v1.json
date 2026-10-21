@@ -44,6 +44,31 @@
       "jupiter": "Jahresherrscher ist Jupiter – Wachstum, Vertrauen und Großzügigkeit begleiten dein Jahr; heute lohnt ein weiter Blick.",
       "saturn": "Jahresherrscher ist Saturn – Ausdauer und Verantwortung prägen dein Jahr; heute bringt dich Beständigkeit weiter als Eile."
     },
+    "ausblick_hellenistisch": {
+      "sonne": "Jahresherrscher ist die Sonne – Sichtbarkeit und Selbstvertrauen werden gefragt sein.",
+      "mond": "Jahresherrscher ist der Mond – Gefühle, Bedürfnisse und Stimmungen geben den Takt vor.",
+      "merkur": "Jahresherrscher ist Merkur – Gespräche, Verhandlungen und Lernen tragen das Jahr.",
+      "venus": "Jahresherrscher ist Venus – Beziehungen, Schönheit und Ausgleich prägen das Jahr.",
+      "mars": "Jahresherrscher ist Mars – Tatkraft und Durchsetzung werden gefragt sein, aber auch Reibung.",
+      "jupiter": "Jahresherrscher ist Jupiter – Wachstum, Vertrauen und Großzügigkeit begleiten das Jahr.",
+      "saturn": "Jahresherrscher ist Saturn – Ausdauer und Verantwortung prägen das Jahr.",
+      "wanderung": "Dein Jahresherrscher {Planet} wandert durch dein {haus}. Haus ({thema}) – dort wird sich das Jahr am deutlichsten zeigen.",
+      "pendeln": "Rückläufig kehrt {Planet} {zeitraum} noch einmal ins {haus}. Haus zurück."
+    },
+    "hellenistisch_haus_kurz": {
+      "1": "du selbst, dein Auftreten",
+      "2": "Besitz und Einkommen",
+      "3": "Kommunikation, Geschwister, kurze Wege",
+      "4": "Zuhause und Familie",
+      "5": "Freude, Kreativität, Kinder",
+      "6": "Arbeitsalltag und Gesundheit",
+      "7": "Partnerschaft und Verträge",
+      "8": "gemeinsame Ressourcen und Wandlung",
+      "9": "Reisen, Bildung, Weltanschauung",
+      "10": "Beruf und Ansehen",
+      "11": "Freundschaften und Hoffnungen",
+      "12": "Rückzug und Verborgenes"
+    },
     "bazi_beziehung": {
       "gleich": "Der laufende Monat trägt dasselbe Element wie dein Tagesmeister ({dm}). Das stärkt dein Selbstvertrauen – und bringt Menschen ins Spiel, die Ähnliches wollen wie du. Konkurrenz und Kameradschaft liegen nah beieinander.",
       "naehrt": "Der laufende Monat ({monat}) nährt deinen Tagesmeister ({dm}). Unterstützung, Lernen und Rückhalt sind leichter zu finden – ein guter Moment, um Hilfe anzunehmen.",

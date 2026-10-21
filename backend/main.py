@@ -768,6 +768,9 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
             vimshottari_position_now(idx, anteil, 0.0), birth_dt, mond_zeichen, _laufende_zeichen_siderisch, start, t,
             dasha["antardasha_matrix"], load_rules("Vedisch").get("gochara", {}),
         )
+    if "Hellenistisch" in payload.systeme:
+        asc_zeichen = int(natal.asc_deg // 30) % 12 if natal.has_location else None
+        systeme["Hellenistisch"] = ausblick.hellenistisch(birth_dt, asc_zeichen, _HOUSE_LORD, _laufende_positionen, start, t)
     if "Bazi" in payload.systeme:
         birth_ut = _zu_weltzeit(birth_dt, payload.zeitzone)
         saeulen = build_four_pillars(birth_dt, birth_ut, payload.longitude)["pillars"]

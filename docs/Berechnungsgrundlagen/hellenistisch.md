@@ -33,6 +33,19 @@
 - Keine Zodiakal-Freisetzung (Zodiacal Releasing), keine monatlichen Profektionen, keine Würden-
   bewertung der Herrscher im Spiel, obwohl Regeln dazu vorliegen.
 
+## Jahreshoroskop (Ausblick auf 12 Monate)
+
+`backend/ausblick.py`, Endpunkt `POST /horoscope/ausblick`:
+
+- **Profektion:** das laufende Profektionsjahr bis zum nächsten Geburtstag und das neue ab ihm, jeweils
+  mit Haus und Jahresherrscher (ganze Zeichen vom Aszendenten; ohne Geburtsort wie im Spiel ab Widder).
+- **Wanderung des Jahresherrschers:** Ist er Mars, Jupiter oder Saturn, sein Weg durch die Häuser
+  (tropisch, ganze Zeichen) mit Datum; ein Schritt ins vorige Haus gilt als rückläufige Rückkehr und steht
+  als Nachsatz da. Bleibt der Herrscher über den Geburtstag derselbe, durchgehend. Sonne, Mond, Merkur und
+  Venus wechseln fast monatlich das Zeichen; für sie nennen wir keine Einzeldaten. Ohne Geburtsort
+  entfällt die Wanderung.
+- Nicht berücksichtigt: Monatsprofektionen, Solar Return, Zodiacal Releasing.
+
 ## Was ein erfahrener Astrologe der hellenistischen Tradition anders macht
 
 Er beurteilt den Jahresherrscher nach seiner Stellung im Geburtshoroskop und seinen Transiten, nutzt
