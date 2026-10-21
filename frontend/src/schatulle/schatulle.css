@@ -326,9 +326,9 @@ body {
 
 /* Polbeschriftung, in die Platte gepraegt (dunkle Flanke oben, Licht unten) */
 .sp-pole text {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
+  font-family: "Gill Sans", "Gill Sans MT", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px;
+  letter-spacing: 0.08em;
   fill: #4e3714;
 }
 
