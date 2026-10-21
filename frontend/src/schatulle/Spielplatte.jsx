@@ -20,7 +20,7 @@ import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 
 const ALLE = SYSTEME.map((s) => s.id);
 // eingravierte Kuerzel links der Schlitze (Reihenfolge wie SYSTEME)
-const KUERZEL = ["Wes", "Chi", "Num", "Kab", "Arab", "Hel", "Ved"];
+const KUERZEL = ["Wes", "Chin", "Num", "Kaba", "Arab", "Helin", "Ved"];
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
 const HEBEL = { x: 376, oben: 334, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
