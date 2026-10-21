@@ -9,6 +9,7 @@ import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
+import WestlichNacht from "./diagramme/WestlichNacht";
 
 // Ergebnis in der Schatulle: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
@@ -21,6 +22,11 @@ const DIAGRAMME = {
   Hellenistisch: ProfectionChart,
   Arabisch: FirdariaChart,
   Vedisch: DashaChart,
+};
+// Neu gezeichnete Grafiken im Stil des jeweiligen Systems; sie fuellen die ganze Linse.
+// Die uebrigen Systeme zeigen vorerst das Diagramm aus dem alten Spiel (eingepasst).
+const VOLLBILD = {
+  Westlich: WestlichNacht,
 };
 const DIMENSIONEN = [
   "liebe",
@@ -201,6 +207,13 @@ export default function Ergebnisplatte({
                             </div>
                           ))
                         : "Das Räderwerk rechnet …"}
+                    </div>
+                  ) : VOLLBILD[id] && payload ? (
+                    <div className="eg-vollbild">
+                      {(() => {
+                        const Bild = VOLLBILD[id];
+                        return <Bild payload={payload} />;
+                      })()}
                     </div>
                   ) : Diagramm && payload ? (
                     <Eingepasst linsePx={linsePx}>

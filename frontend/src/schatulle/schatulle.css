@@ -908,3 +908,100 @@ body {
 .sp-abgang .sp-fuss {
   animation: sc-ausblenden 0.6s ease-out forwards;
 }
+
+/* --- Systemgrafiken im Auge ---------------------------------------------------- */
+.eg-vollbild {
+  width: 100%;
+  height: 100%;
+}
+
+.eg-vollbild svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Westlich: Nachthimmel */
+.wn-stern {
+  fill: #fff6e0;
+  opacity: 0.55;
+}
+
+.wn-stern.funkelt {
+  animation: wn-funkeln 3.6s ease-in-out infinite;
+}
+
+@keyframes wn-funkeln {
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.wn-ring {
+  fill: none;
+  stroke: #c9b8ff;
+  stroke-width: 0.8;
+  opacity: 0.7;
+}
+
+.wn-ring.leise {
+  opacity: 0.3;
+}
+
+.wn-grenze {
+  stroke: #c9b8ff;
+  stroke-width: 0.6;
+  opacity: 0.45;
+}
+
+.wn-zeichen {
+  text-anchor: middle;
+  font-size: 13px;
+  fill: #e8deff;
+  opacity: 0.85;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.wn-haus {
+  stroke: #9d8ad8;
+  stroke-width: 0.5;
+  opacity: 0.35;
+}
+
+.wn-haus.achse {
+  stroke: #e8deff;
+  stroke-width: 0.9;
+  opacity: 0.75;
+}
+
+.wn-aspekt {
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.wn-leiter {
+  stroke: currentColor;
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+
+.wn-planet {
+  text-anchor: middle;
+  font-size: 15px;
+  fill: currentColor;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+}
+
+.wn-rueck {
+  font-size: 6px;
+  baseline-shift: sub;
+}
+
+.wn-achse {
+  text-anchor: middle;
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  fill: #e8deff;
+  opacity: 0.8;
+  font-family: Georgia, serif;
+}
