@@ -67,6 +67,14 @@ export default function Schatulle() {
 
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
+  const [kamera, setKamera] = useState(null);
+
+  // Kamera beim Verlassen der Fragerunde abschalten
+  useEffect(() => {
+    if (phase === "frage" || phase === "laden" || !kamera) return;
+    kamera.getTracks().forEach((t) => t.stop());
+    setKamera(null);
+  }, [phase, kamera]);
 
   useEffect(() => {
     fetch(`${API_BASE}/fragen`).then((r) => r.json()).then((d) => setFragen(d.fragen ?? [])).catch(() => {});
@@ -81,6 +89,11 @@ export default function Schatulle() {
     setFehler(null);
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
+    // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell)
+    navigator.mediaDevices
+      ?.getUserMedia({ video: { facingMode: "environment" }, audio: false })
+      .then(setKamera)
+      .catch(() => setKamera(null));
     try {
       const body = { geburtsdatum: datum, uhrzeit: zeit, systeme: ALLE, ...ortFelder(ort) };
       const v = await postJson("/vektor", body);
@@ -233,6 +246,7 @@ export default function Schatulle() {
       onAntwort={antwort}
       onFertig={() => setPhase("ende")}
       stummKnopf={stummKnopf}
+      kamera={kamera}
     />
   );
 }

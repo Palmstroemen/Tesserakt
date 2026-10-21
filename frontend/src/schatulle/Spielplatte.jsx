@@ -39,7 +39,7 @@ function easeMechanisch(t) {
  * Mechanik siehe docs/Konzepte/Schatulle_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
  * onAntwort bekommt die Werte aller Systeme.
  */
-export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stummKnopf }) {
+export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stummKnopf, kamera }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe } = layout;
 
@@ -55,6 +55,7 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
   const [angefasst, setAngefasst] = useState(false);
 
   const svgRef = useRef(null);
+  const videoRef = useRef(null);
   const drag = useRef(null);
   const anim = useRef(new Map());
   const raf = useRef(0);
@@ -102,6 +103,10 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
   }
 
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
+
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.srcObject = kamera ?? null;
+  }, [kamera]);
 
   // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen"
   useEffect(() => {
@@ -447,6 +452,8 @@ export default function Spielplatte({ fragen, zielWert, onAntwort, onFertig, stu
 
         {/* Fragedia in der Linse: folgt beim Aufziehen dem Finger */}
         <div className="sp-linse" style={linse} aria-live="polite">
+          {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
+          {kamera ? <video ref={videoRef} className="sp-kamera" autoPlay muted playsInline /> : null}
           <div className={index < 0 ? "sp-dia bild" : "sp-dia"} style={{ transform: `translateX(${-pos.dia * 115}%)` }}>
             {diaText(index)}
           </div>

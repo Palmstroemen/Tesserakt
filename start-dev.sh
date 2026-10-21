@@ -4,7 +4,9 @@
 # Nach dem Start: http://localhost:5173 im Browser öffnen.
 # Backend-Ausgaben (Uvicorn, print, Tracebacks) gehen in logs/backend.log.
 #
-# Mit --handy sind Backend und Frontend auch im WLAN erreichbar (Test auf dem Handy):
+# Mit --handy ist das Frontend auch im WLAN erreichbar (Test auf dem Handy), per HTTPS mit einem
+# selbst signierten Zertifikat (die Kamera verlangt HTTPS). Das Backend wird ueber Vite (/api)
+# weitergeleitet. Das Handy zeigt beim ersten Aufruf eine Zertifikatswarnung, die man bestaetigen muss.
 #   ./start-dev.sh --handy   -> Adresse fuers Handy wird angezeigt
 
 set -e
@@ -17,6 +19,20 @@ if [[ "${1:-}" == "--handy" ]]; then
   VITE_HOST_ARG="--host"
 fi
 cd "$ROOT"
+
+LAN_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
+if [[ -n "$VITE_HOST_ARG" ]]; then
+  # Selbst signiertes Zertifikat fuer HTTPS im WLAN (neu, wenn sich die IP geaendert hat)
+  ZERT_DIR="${ROOT}/.zertifikat"
+  if [[ ! -f "$ZERT_DIR/cert.pem" || "$(cat "$ZERT_DIR/ip" 2>/dev/null)" != "$LAN_IP" ]]; then
+    mkdir -p "$ZERT_DIR"
+    openssl req -x509 -newkey rsa:2048 -nodes -days 365 -subj "/CN=Tesserakt Entwicklung" \
+      -keyout "$ZERT_DIR/key.pem" -out "$ZERT_DIR/cert.pem" \
+      -addext "subjectAltName=IP:${LAN_IP},DNS:localhost,IP:127.0.0.1" >/dev/null 2>&1
+    echo "$LAN_IP" > "$ZERT_DIR/ip"
+  fi
+  export TESSERAKT_HTTPS_DIR="$ZERT_DIR"
+fi
 
 # Laufende Backend- und Frontend-Prozesse auf den Ports beenden
 for port in 8000 5173; do
@@ -62,14 +78,16 @@ sleep 2
 
 echo "Starte Frontend (Port 5173) ..."
 echo ""
-echo "  → App im Browser: http://localhost:5173"
-echo "  → Schatulle (Prototyp): http://localhost:5173/schatulle.html"
+PROTO="http"
+[[ -n "$VITE_HOST_ARG" ]] && PROTO="https"
+echo "  → App im Browser: ${PROTO}://localhost:5173"
+echo "  → Schatulle (Prototyp): ${PROTO}://localhost:5173/schatulle.html"
 if [[ -n "$VITE_HOST_ARG" ]]; then
-  LAN_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
   echo ""
-  echo "  → AUF DEM HANDY (gleiches WLAN): http://${LAN_IP}:5173/schatulle.html"
+  echo "  → AUF DEM HANDY (gleiches WLAN): https://${LAN_IP}:5173/schatulle.html"
+  echo "    Zertifikatswarnung einmal bestaetigen (selbst signiert)."
   echo "    Klappt die Verbindung nicht, blockiert evtl. die Firewall:"
-  echo "    sudo ufw allow 5173/tcp && sudo ufw allow 8000/tcp"
+  echo "    sudo ufw allow 5173/tcp"
 fi
 echo "  → Backend-Log:    $BACKEND_LOG  (z.B. tail -f logs/backend.log)"
 echo "  → Beenden mit Ctrl+C"

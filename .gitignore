@@ -41,6 +41,7 @@ pnpm-debug.log*
 .~lock*
 backend/assessment.db
 logs/
+.zertifikat/
 
 # Generierte Ausgaben / Editor-Logs
 tools/output/
