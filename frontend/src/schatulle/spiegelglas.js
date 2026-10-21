@@ -6,6 +6,8 @@ export const WOELBUNG = 1.4;
 // RAND: Anteil des Radius, auf dem sich das Glas umbiegt (0.1 = die aeussersten 10 %, auf dem iPhone ca.
 // 3 mm). Innerhalb davon ist es eben wie ein Uhrglas; FORM bestimmt, wie schnell es am Rand umbiegt.
 export const RAND = 0.1;
+// GRUNDWOELBUNG: sanfte Woelbung ueber die ganze Flaeche (Kugelkappe), damit die Mitte nicht ganz eben wirkt
+export const GRUNDWOELBUNG = 0.25;
 export const FORM = 2.0;
 // ZOOM: Ausschnitt des Kamerabildes samt Woelbung (1 = ganzes Bild, kleiner = naeher heran)
 export const ZOOM = 0.78;
@@ -25,6 +27,7 @@ uniform float k;
 uniform float zoom;
 uniform float form;
 uniform float rand;
+uniform float grund;
 uniform vec2 deckung; // Ausschnitt des Videos (cover), je Achse <= 1
 varying vec2 p;
 void main() {
@@ -34,7 +37,8 @@ void main() {
   // leicht aus der Mitte versetzt (Bild wandert nach links oben): eine Spiegelung sitzt selten mittig wie ein Selfie
   // eben bis kurz vor den Rand, dann biegt das Glas um und zeigt dort mehr von der Umgebung
   float aussen = clamp((r - (1.0 - rand)) / rand, 0.0, 1.0);
-  vec2 q = p * (1.0 + k * pow(aussen, form)) * zoom + vec2(0.18, -0.12);
+  float flaeche = (1.0 + grund * r * r) / (1.0 + grund); // leichte Kugelkappe ueber alles
+  vec2 q = p * flaeche * (1.0 + k * pow(aussen, form)) * zoom + vec2(0.18, -0.12);
   vec2 uv = vec2(0.5 - q.x * 0.5 * deckung.x, 0.5 - q.y * 0.5 * deckung.y); // x gespiegelt, y Bild nach unten
   vec3 farbe = texture2D(bild, uv).rgb;
   float a = 1.0 - 0.75 * smoothstep(0.55, 1.0, r);
@@ -84,6 +88,7 @@ export function spiegelglasStarten(canvas, video) {
   gl.uniform1f(gl.getUniformLocation(prog, "zoom"), ZOOM);
   gl.uniform1f(gl.getUniformLocation(prog, "form"), FORM);
   gl.uniform1f(gl.getUniformLocation(prog, "rand"), RAND);
+  gl.uniform1f(gl.getUniformLocation(prog, "grund"), GRUNDWOELBUNG);
   const deckung = gl.getUniformLocation(prog, "deckung");
 
   let laeuft = true;
