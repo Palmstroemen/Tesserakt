@@ -24,7 +24,15 @@ const ALLE = SYSTEME.map((s) => s.id);
 const KUERZEL = ["Wes", "Chin", "Num", "Kaba", "Arab", "Helin", "Ved"];
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
-const HEBEL = { x: 376, oben: 334, weg: 62 }; // rechts unten in der Ecke, ausserhalb des Auges
+// Ausloesehebel: radial schraeg rechts unten neben dem Auge, ausserhalb der Faecherplatte. Der Schlitz liegt
+// auf einem Strahl vom Augenmittelpunkt (Winkel phi aus der Senkrechten), gezogen wird nach aussen.
+const HEBEL = { r0: 212, phi: 0.74, weg: 62 };
+const HEBEL_RICHTUNG = { x: Math.sin(HEBEL.phi), y: Math.cos(HEBEL.phi) };
+const HEBEL_ANKER = {
+  x: MITTE.x + HEBEL.r0 * HEBEL_RICHTUNG.x,
+  y: MITTE.y + HEBEL.r0 * HEBEL_RICHTUNG.y,
+};
+const HEBEL_DREHUNG = (-HEBEL.phi * 180) / Math.PI;
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
 // Prototyp: Belichtung und Lichtmesser-Werte im Auge anzeigen (aus; zum Kamera-Testen auf true)
 const MESSWERTE_ZEIGEN = false;
@@ -308,8 +316,11 @@ export default function Spielplatte({
       return;
     }
     if (d.art === "hebel") {
-      const neu = Math.max(0, Math.min(1, (y - d.y0) / HEBEL.weg));
-      if (Math.abs(y - d.y0) > 4) d.gezogen = true;
+      // Fingerbewegung auf die Schlitzachse projiziert
+      const weg =
+        (x - d.p0.x) * HEBEL_RICHTUNG.x + (y - d.p0.y) * HEBEL_RICHTUNG.y;
+      const neu = Math.max(0, Math.min(1, d.h0 + weg / HEBEL.weg));
+      if (Math.abs(weg) > 4) d.gezogen = true;
       setzePos({ hebel: neu });
       return;
     }
@@ -392,7 +403,8 @@ export default function Spielplatte({
     }
     drag.current = {
       art: "hebel",
-      y0: svgPunkt(e).y - posRef.current.hebel * HEBEL.weg,
+      p0: svgPunkt(e),
+      h0: posRef.current.hebel,
       gezogen: false,
     };
     svgRef.current.setPointerCapture?.(e.pointerId);
@@ -515,7 +527,7 @@ export default function Spielplatte({
     top: `${((MITTE.y - LINSE_RADIUS) / hoehe) * 100}%`,
     height: `${((2 * LINSE_RADIUS) / hoehe) * 100}%`,
   };
-  const knaufY = HEBEL.oben + pos.hebel * HEBEL.weg;
+  const knaufY = pos.hebel * HEBEL.weg; // im gedrehten Hebel-Koordinatensystem
 
   return (
     <main
@@ -601,6 +613,7 @@ export default function Spielplatte({
                 radien[0] - abstand * 0.6,
                 platteAussen,
                 theta + 0.22,
+                Math.PI / 2, // rechts bis 3 Uhr: dort steht der Ausloesehebel auf der Platte
               )}
               fill="url(#sp-platte)"
               filter="url(#sp-plattenschatten)"
@@ -856,32 +869,30 @@ export default function Spielplatte({
             <LuenettePraegung praefix="sp" />
           </g>
 
-          {/* Hebel mit Sperrklinke, rechts unten im Quadrat */}
-          <g className="sp-hebel" onPointerDown={hebelDruecken}>
+          {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben) */}
+          <g
+            className="sp-hebel"
+            onPointerDown={hebelDruecken}
+            transform={`translate(${HEBEL_ANKER.x} ${HEBEL_ANKER.y}) rotate(${HEBEL_DREHUNG})`}
+          >
             <rect
-              x={HEBEL.x - 7}
-              y={HEBEL.oben - 10}
+              x={-7}
+              y={-10}
               width="14"
               height={HEBEL.weg + 20}
               rx="7"
               className="sp-hebelschlitz"
             />
             <rect
-              x={HEBEL.x - 26}
-              y={HEBEL.oben - 26}
+              x={-26}
+              y={-26}
               width="52"
               height={HEBEL.weg + 52}
               fill="transparent"
             />
             {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
             <clipPath id="sp-hebelschlitz-form">
-              <rect
-                x={HEBEL.x - 7}
-                y={HEBEL.oben - 10}
-                width="14"
-                height={HEBEL.weg + 20}
-                rx="7"
-              />
+              <rect x={-7} y={-10} width="14" height={HEBEL.weg + 20} rx="7" />
             </clipPath>
             <g clipPath="url(#sp-hebelschlitz-form)">
               {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
@@ -891,8 +902,8 @@ export default function Spielplatte({
                 }
               >
                 <rect
-                  x={HEBEL.x - 7}
-                  y={HEBEL.oben + 14}
+                  x={-7}
+                  y={14}
                   width="14"
                   height={HEBEL.weg - 4}
                   className="sp-sperre-plaettchen"
@@ -900,8 +911,8 @@ export default function Spielplatte({
               </g>
               {/* Schatten der Plattenkante auf dem Plaettchen */}
               <rect
-                x={HEBEL.x - 7}
-                y={HEBEL.oben - 10}
+                x={-7}
+                y={-10}
                 width="14"
                 height="3"
                 fill="#000"
@@ -910,30 +921,30 @@ export default function Spielplatte({
             </g>
             {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
             <g
-              transform={`translate(${HEBEL.x} ${knaufY})`}
+              transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
               className="sp-hebelgriff"
             >
               {/* goldene Fassung, wirft einen kleinen Schatten */}
               <ellipse
                 cx="0"
                 cy="1"
-                rx="18.6"
-                ry="14.4"
+                rx="16.6"
+                ry="16.6"
                 fill="#2a1c08"
                 opacity="0.45"
               />
               <ellipse
                 cx="0"
                 cy="0"
-                rx="18.4"
-                ry="14.2"
+                rx="16.4"
+                ry="16.4"
                 className="sp-rubin-fassung"
               />
               <ellipse
                 cx="0"
                 cy="0"
-                rx="17"
-                ry="12.9"
+                rx="15"
+                ry="15"
                 fill="none"
                 stroke="url(#sp-fase-aussen)"
                 strokeWidth="2.2"
@@ -941,8 +952,8 @@ export default function Spielplatte({
               <ellipse
                 cx="0"
                 cy="0"
-                rx="16"
-                ry="12"
+                rx="14"
+                ry="14"
                 fill="url(#sp-rubin)"
                 className="sp-rubin"
               />
@@ -966,8 +977,8 @@ export default function Spielplatte({
                 <ellipse
                   cx="0"
                   cy="0"
-                  rx="16"
-                  ry="12"
+                  rx="14"
+                  ry="14"
                   fill="#000"
                   opacity="0.25"
                 />
