@@ -10,6 +10,11 @@ import { rastKlick, zahnrad } from "./klang";
 // Wechselt die Seite (gold -> silber, Spiel C), drehen die Walzen eine Vierteldrehung weiter: Der alte
 // Inhalt laeuft rechts hinaus, von links dreht derselbe Inhalt im neuen Metall herein.
 export const WALZEN = { land: 262, stadt: 322, theta: 0.6, schlitz: 30 };
+// Oeffnungswinkel je Walze: die aeussere (Ort) so schmal, dass ihre Enden senkrecht unter denen der Landwalze liegen
+const OEFFNUNG = {
+  [WALZEN.land]: WALZEN.theta,
+  [WALZEN.stadt]: Math.asin((WALZEN.land * Math.sin(WALZEN.theta)) / WALZEN.stadt),
+};
 const ZEITZONE = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
 const WECHSEL_MS = 1500;
 
@@ -50,7 +55,7 @@ function sektor(von, bis, radius) {
 }
 
 function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 }) {
-  const { theta } = WALZEN;
+  const theta = OEFFNUNG[r] ?? WALZEN.theta;
   const lagen = useMemo(() => lagenVon(eintraege, schrift), [eintraege, schrift]);
 
   const [versatz, setVersatz] = useState(lagen[index] ?? 0);
