@@ -1528,3 +1528,42 @@ body {
 .eg-stil:not(.eg-stil-Westlich) .eg-kopf b {
   color: inherit;
 }
+
+/* Uhrglas: Spiegelung des eigenen Bildes (Frontkamera) und Glanz */
+.eg-spiegel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  mix-blend-mode: screen; /* eine Reflexion fuegt nur Licht hinzu */
+}
+
+/* Mitte: klarer */
+.eg-spiegel.innen {
+  transform: scaleX(-1) scale(1.3);
+  filter: grayscale(0.35) contrast(2.2) brightness(0.95) blur(0.6px);
+  opacity: 0.16;
+  -webkit-mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+  mask-image: radial-gradient(circle, #000 28%, transparent 68%);
+}
+
+/* Rand: staerker vergroessert und weich, wie auf gewoelbtem Glas */
+.eg-spiegel.aussen {
+  transform: scaleX(-1) scale(1.6);
+  filter: grayscale(0.35) contrast(2) brightness(0.9) blur(3px);
+  opacity: 0.13;
+  -webkit-mask-image: radial-gradient(circle, transparent 32%, #000 72%);
+  mask-image: radial-gradient(circle, transparent 32%, #000 72%);
+}
+
+.eg-glanz {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    linear-gradient(128deg, transparent 20%, rgba(255, 255, 255, 0.14) 27%, rgba(255, 255, 255, 0.05) 31%, transparent 36%),
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.14), transparent 34%);
+}

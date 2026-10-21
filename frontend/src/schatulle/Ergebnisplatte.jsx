@@ -103,6 +103,65 @@ function Dimensionen({ daten }) {
   });
 }
 
+// Uhrglas-Spiegelung: Die Frontkamera liefert das eigene Bild; gespiegelt, hochtransparent und kontrastreich
+// ueber die Grafik gelegt (nur aufhellend, wie eine Reflexion). Zwei Lagen deuten die Woelbung an: die Mitte
+// klarer, der Rand staerker vergroessert und weichgezeichnet. Dazu ein Glanzstreifen, auch ohne Kamera.
+function Spiegel() {
+  const [strom, setStrom] = useState(null);
+  const innen = useRef(null);
+  const aussen = useRef(null);
+
+  useEffect(() => {
+    let st = null;
+    let vorbei = false;
+    navigator.mediaDevices
+      ?.getUserMedia({ video: { facingMode: "user" }, audio: false })
+      .then((s) => {
+        if (vorbei) {
+          s.getTracks().forEach((t) => t.stop());
+          return;
+        }
+        st = s;
+        setStrom(s);
+      })
+      .catch(() => {});
+    return () => {
+      vorbei = true;
+      st?.getTracks().forEach((t) => t.stop());
+    };
+  }, []);
+
+  useEffect(() => {
+    [innen, aussen].forEach((r) => {
+      if (r.current) r.current.srcObject = strom;
+    });
+  }, [strom]);
+
+  return (
+    <>
+      {strom ? (
+        <>
+          <video
+            ref={aussen}
+            className="eg-spiegel aussen"
+            autoPlay
+            muted
+            playsInline
+          />
+          <video
+            ref={innen}
+            className="eg-spiegel innen"
+            autoPlay
+            muted
+            playsInline
+          />
+        </>
+      ) : null}
+      <div className="eg-glanz" />
+    </>
+  );
+}
+
 export default function Ergebnisplatte({
   spiel,
   ergebnis,
@@ -244,6 +303,7 @@ export default function Ergebnisplatte({
               );
             })}
           </div>
+          <Spiegel />
         </div>
       </div>
 
