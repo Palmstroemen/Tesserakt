@@ -251,16 +251,45 @@ def year_pillar(year: int) -> Tuple[str, str]:
     offset = (year - 1924) % 60
     return STEMS[offset % 10], BRANCHES[offset % 12]
 
-_SONNENLAENGE_CACHE: Dict[Tuple[int, int, int, int], float] = {}
+_SONNENLAENGE_CACHE: Dict[Tuple[int, int, int, int, int], float] = {}
 
 def sonnenlaenge(dt: datetime) -> float:
     """Ekliptikale Laenge der Sonne in Grad (Swiss Ephemeris; Zeit wie in ephemeris.py als UT behandelt)."""
-    key = (dt.year, dt.month, dt.day, dt.hour)
+    key = (dt.year, dt.month, dt.day, dt.hour, dt.minute)
     if key not in _SONNENLAENGE_CACHE:
         import swisseph as swe
         jd = swe.julday(dt.year, dt.month, dt.day, dt.hour + dt.minute / 60.0)
         _SONNENLAENGE_CACHE[key] = swe.calc_ut(jd, swe.SUN)[0][0]
     return _SONNENLAENGE_CACHE[key]
+
+def bazi_sonnenzeit(ortszeit: datetime, ut: Optional[datetime] = None, laengengrad: Optional[float] = None) -> datetime:
+    """Wahre Sonnenzeit am Geburtsort fuer Bazi-Tag und -Stunde: Weltzeit + Laengengrad * 4 min + Zeitgleichung.
+    Ohne Weltzeit oder Laengengrad (kein Geburtsort) bleibt es bei der eingegebenen Uhrzeit."""
+    if ut is None or laengengrad is None:
+        return ortszeit
+    import swisseph as swe
+    mittlere_ortszeit = ut + timedelta(hours=laengengrad / 15.0)
+    jd = swe.julday(ut.year, ut.month, ut.day, ut.hour + ut.minute / 60.0 + ut.second / 3600.0)
+    return mittlere_ortszeit + timedelta(days=swe.time_equ(jd))
+
+def bazi_tag(sonnenzeit: datetime) -> datetime:
+    """Zeitpunkt, nach dessen Datum die Tagessaeule bestimmt wird: Der neue Tag beginnt mit der
+    Ratten-Stunde um 23 Uhr (Sonnenzeit), daher eine Stunde vorgeruckt."""
+    return sonnenzeit + timedelta(hours=1)
+
+def glueckssaeulen_start(geburt_ut: datetime, vorwaerts: bool) -> float:
+    """Startalter der ersten Glueckssaeule in Jahren: Tage bis zum naechsten (vorwaerts) bzw. seit dem
+    vorigen (rueckwaerts) Sonnenmonatswechsel (Sonnenlaenge 315 + k*30 Grad), drei Tage = ein Jahr."""
+    lon = sonnenlaenge(geburt_ut)
+    seit = (lon - 315.0) % 30.0  # Grad seit dem letzten Wechsel
+    ziel = 30.0 - seit if vorwaerts else -seit
+    # Zeitpunkt des Wechsels: Startschaetzung ueber die mittlere Bewegung, dann zwei Newton-Schritte
+    t = geburt_ut + timedelta(days=ziel / 0.9856)
+    for _ in range(3):
+        diff = ((sonnenlaenge(t) - lon - ziel + 180.0) % 360.0) - 180.0
+        t -= timedelta(days=diff / 0.9856)
+    tage = abs((t - geburt_ut).total_seconds()) / 86400.0
+    return tage / 3.0
 
 def bazi_jahr_monat(dt: datetime, ut: Optional[datetime] = None) -> Tuple[str, str, str, str]:
     """Jahres- und Monatssaeule nach Sonnenmonaten: das Jahr beginnt mit Lichun (Sonne 315 Grad, ~4. Februar),
@@ -302,18 +331,25 @@ def luck_pillar_for_both_sexes(
     birth_date: datetime, target_date: datetime, geburt_ut: Optional[datetime] = None
 ) -> Tuple[Tuple[str, str], Tuple[str, str]]:
     """
-    Da Yun (Luck Pillar) for current 10-year block: (male_stem, male_branch), (female_stem, female_branch).
-    Start from month pillar at birth; male/female use forward or backward by Yang/Yin year.
+    Da Yun (Luck Pillar): (male_stem, male_branch), (female_stem, female_branch) am Zieldatum.
+    Vorwaerts (Yang-Jahr maennlich, Yin-Jahr weiblich) bzw. rueckwaerts ab der Monatssaeule. Die erste
+    Glueckssaeule beginnt mit dem Startalter aus dem Abstand zum Sonnenmonatswechsel (drei Tage = ein Jahr),
+    danach alle zehn Jahre. Vor dem Startalter gilt die Monatssaeule.
     """
-    age = vollendete_jahre(birth_date, target_date)
-    block = max(0, age // 10)
+    alter = alter_exakt(birth_date, target_date)
     ys, _, ms, mb = bazi_jahr_monat(birth_date, geburt_ut)
     stem_idx = STEMS.index(ms) if ms in STEMS else 0
     branch_idx = BRANCHES.index(mb) if mb in BRANCHES else 0
-    forward_stem = STEMS[(stem_idx + block) % 10]
-    forward_branch = BRANCHES[(branch_idx + block) % 12]
-    backward_stem = STEMS[(stem_idx - block) % 10]
-    backward_branch = BRANCHES[(branch_idx - block) % 12]
+
+    def block(vorwaerts: bool) -> int:
+        start = glueckssaeulen_start(geburt_ut or birth_date, vorwaerts)
+        return 0 if alter < start else 1 + int((alter - start) // 10)
+
+    fb, bb = block(True), block(False)
+    forward_stem = STEMS[(stem_idx + fb) % 10]
+    forward_branch = BRANCHES[(branch_idx + fb) % 12]
+    backward_stem = STEMS[(stem_idx - bb) % 10]
+    backward_branch = BRANCHES[(branch_idx - bb) % 12]
     yang_year = ys in YANG_STEMS
     if yang_year:
         male_stem, male_branch = forward_stem, forward_branch
@@ -489,6 +525,7 @@ def build_inputs(
     geburtsname: Optional[str] = None,
     geschlecht: Optional[str] = None,
     geburt_ut: Optional[datetime] = None,
+    laengengrad: Optional[float] = None,
 ) -> dict:
     """Berechnet alle möglichen Eingabewerte die Struktur.json-Typen benötigen.
     birth_date ist Ortszeit (Kalender, Alter, Numerologie, Bazi-Tag/Stunde); geburt_ut derselbe Moment
@@ -500,7 +537,7 @@ def build_inputs(
     geburtsname: für Numerologie Namenszahlen (Seelendrang, Ausdruck, Persönlichkeit).
     geschlecht: weiblich | maennlich für Arabisch (Lot der Ehe), Bazi, Vedisch."""
     ys, yb, ms, mb = bazi_jahr_monat(birth_date, geburt_ut)
-    ds_val  = day_stem(birth_date)
+    ds_val  = day_stem(bazi_tag(bazi_sonnenzeit(birth_date, geburt_ut, laengengrad)))
     dm_el   = stem_to_element(ds_val)
     tys, tyb, tms, tmb = bazi_jahr_monat(target_date)
     age     = vollendete_jahre(birth_date, target_date)

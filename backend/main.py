@@ -277,7 +277,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
     bazi_luck_male: Optional[tuple] = None
     bazi_luck_female: Optional[tuple] = None
     if "Bazi" in payload.systeme:
-        bazi_pillars = build_four_pillars(birth_dt, birth_ut)
+        bazi_pillars = build_four_pillars(birth_dt, birth_ut, payload.longitude)
         bazi_luck_male, bazi_luck_female = luck_pillar_for_both_sexes(birth_dt, now, birth_ut)
     bazi_day_branch = bazi_pillars["pillars"]["day"]["branch"] if bazi_pillars else None
     bazi_hour_stem = bazi_pillars["pillars"]["hour"]["stem"] if bazi_pillars else None
@@ -308,6 +308,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             geburtsname=payload.geburtsname,
             geschlecht=payload.geschlecht,
             geburt_ut=birth_ut,
+            laengengrad=payload.longitude,
         )
     else:
         inputs = build_inputs(
@@ -318,6 +319,7 @@ def _berechne_vektoren(payload: VektorRequest, birth_dt: datetime, now: datetime
             geburtsname=payload.geburtsname,
             geschlecht=payload.geschlecht,
             geburt_ut=birth_ut,
+            laengengrad=payload.longitude,
         )
     if ephemeris_result is not None and any(s in payload.systeme for s in _TRANSIT_SYSTEME):
         _setze_transite(inputs, ephemeris_result, now)

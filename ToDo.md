@@ -58,7 +58,7 @@
 - [ ] Vedisch: Vedha und Ashtakavarga fuer Gochara (optional)
 - [ ] Vedisch: ergaenzte Antardasha-Deutungen von jemandem mit Jyotish-Kenntnis gegenlesen lassen
 - [ ] Kabbalah: Gematria-Namensanalyse tatsaechlich aus dem Namen berechnen
-- [ ] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr
+- [x] Bazi: Glueckssaeulen-Beginn exakt (Abstand zum Sonnenmonatswechsel), wahre Sonnenzeit, Tagesgrenze 23 Uhr
 
 ## Quellen und Lizenzen (`docs/Berechnungsgrundlagen/quellen.md`)
 

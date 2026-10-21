@@ -13,6 +13,8 @@ from rule_engine import (
     STEMS,
     day_stem,
     bazi_jahr_monat,
+    bazi_sonnenzeit,
+    bazi_tag,
     stem_to_element,
 )
 
@@ -29,27 +31,29 @@ _STEM_ELEMENT_EN = {
 }
 
 
-def hour_pillar(birth_dt: datetime) -> tuple[str, str]:
-    """Hour branch from 2-hour blocks; hour stem from 日上起时 (day stem + hour branch)."""
-    hour = birth_dt.hour
+def hour_pillar(sonnenzeit: datetime) -> tuple[str, str]:
+    """Hour branch from 2-hour blocks of (true solar) time; hour stem from 日上起时 (Fuenf Ratten: day stem +
+    hour branch). Der Tag wechselt mit der Ratten-Stunde um 23 Uhr (bazi_tag)."""
+    hour = sonnenzeit.hour
     # 23-1 = zi(0), 1-3 = chou(1), 3-5 = yin(2), ...
     branch_index = ((hour + 1) // 2) % 12
     branch = BRANCHES[branch_index]
-    ds = day_stem(birth_dt)
+    ds = day_stem(bazi_tag(sonnenzeit))
     stem_index = STEMS.index(ds) if ds in STEMS else 0
     hour_stem_index = (stem_index * 2 + branch_index) % 10
     stem = STEMS[hour_stem_index]
     return stem, branch
 
 
-def build_four_pillars(birth_dt: datetime, geburt_ut: datetime | None = None) -> Dict[str, Any]:
+def build_four_pillars(birth_dt: datetime, geburt_ut: datetime | None = None, laengengrad: float | None = None) -> Dict[str, Any]:
     """
     Build fourPillars visual payload from birth datetime.
     Year/Month/Day/Hour pillars, day master, five elements (counts from 8 chars).
     """
     ys, yb, ms, mb = bazi_jahr_monat(birth_dt, geburt_ut)
-    ds, db = day_stem(birth_dt), _day_branch(birth_dt)
-    hs, hb = hour_pillar(birth_dt)
+    sonnenzeit = bazi_sonnenzeit(birth_dt, geburt_ut, laengengrad)
+    ds, db = day_stem(bazi_tag(sonnenzeit)), _day_branch(bazi_tag(sonnenzeit))
+    hs, hb = hour_pillar(sonnenzeit)
 
     def pillar(stem: str, branch: str, estimated: bool = False) -> Dict[str, Any]:
         return {
@@ -60,7 +64,6 @@ def build_four_pillars(birth_dt: datetime, geburt_ut: datetime | None = None) ->
             "estimated": estimated,
         }
 
-    db = _day_branch(birth_dt)
     pillars = {
         "year": pillar(ys, yb),
         "month": pillar(ms, mb),
