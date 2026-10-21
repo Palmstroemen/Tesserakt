@@ -80,6 +80,9 @@ export default function Spielplatte({
   const [layout, setLayout] = useState(layoutAusFenster);
   const { radien, abstand, symbol, theta, schlitz, hoehe, platteAussen } =
     layout;
+  // eigener Schieber: duenner Schlitz, etwas naeher am Auge, damit er sich von den Horoskop-Schiebern abhebt
+  const rUser = radien[0] - abstand * 0.22;
+  const userBreite = schlitz * 0.32;
 
   const startPos = {
     user: sofort ? 1 : 0,
@@ -276,7 +279,7 @@ export default function Spielplatte({
     const { r, u } = polarAusPunkt(x, y, theta);
     if (
       (z === "frage" || z === "endaufzug") &&
-      Math.abs(r - radien[0]) < abstand * 0.6
+      Math.abs(r - rUser) < abstand * 0.6
     ) {
       drag.current = { art: "user" };
       e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -574,7 +577,9 @@ export default function Spielplatte({
             {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
             {strahlen.map((u, k) =>
               radien.slice(0, -1).map((r, j) => {
-                const a = punktU(r + schlitz / 2 + 3, u, theta);
+                const a = j
+                  ? punktU(r + schlitz / 2 + 3, u, theta)
+                  : punktU(rUser + userBreite / 2 + 3, u, theta);
                 const b = punktU(radien[j + 1] - schlitz / 2 - 3, u, theta);
                 const mitte = k === 5;
                 return (
@@ -603,16 +608,18 @@ export default function Spielplatte({
             )}
 
             {/* Schlitze */}
-            {radien.map((r, k) => {
+            {radien.map((rSys, k) => {
               const sys = k ? SYSTEME[k - 1] : null;
-              const sperrA = punktU(r - schlitz / 2, RUHE_ANTEIL * 0.55, theta);
-              const sperrB = punktU(r + schlitz / 2, RUHE_ANTEIL * 0.55, theta);
+              const r = k ? rSys : rUser;
+              const breite = k ? schlitz : userBreite;
+              const sperrA = punktU(r - breite / 2, RUHE_ANTEIL * 0.55, theta);
+              const sperrB = punktU(r + breite / 2, RUHE_ANTEIL * 0.55, theta);
               return (
                 <g key={r}>
                   <path
                     d={bogenPfad(r, theta)}
                     className="sp-schlitz"
-                    strokeWidth={k ? schlitz + 2.4 : schlitz * 0.55}
+                    strokeWidth={k ? schlitz + 2.4 : userBreite}
                   />
                   {sys ? (
                     <Schlitz
@@ -640,7 +647,7 @@ export default function Spielplatte({
             {/* eigener Strahl nach dem Ausloesen */}
             {zeigeUserStrahl
               ? (() => {
-                  const a = punktU(radien[0], pos.user, theta);
+                  const a = punktU(rUser, pos.user, theta);
                   const b = punktU(
                     radien[radien.length - 1] + symbol,
                     pos.user,
@@ -669,16 +676,88 @@ export default function Spielplatte({
               );
             })}
 
-            {/* eigener Schieber */}
+            {/* eigener Schieber: breiter Messinggriff mit eingravierter Pfeilspitze nach unten, dreht sich mit dem
+                Bogen und reicht bis an die Luenette */}
             {(() => {
-              const p = punktU(radien[0], pos.user, theta);
+              const p = punktU(rUser, pos.user, theta);
+              const phi = -theta + 2 * theta * pos.user;
+              const e = symbol / 11.4; // Massstab wie die Knoepfe
               return (
-                <circle
-                  cx={p.x}
-                  cy={p.y}
-                  r={symbol * 0.85}
-                  className={pos.user < RUHE ? "sp-knauf ruhe" : "sp-knauf"}
-                />
+                <g
+                  transform={`translate(${p.x} ${p.y}) rotate(${(-phi * 180) / Math.PI}) scale(${e})`}
+                  className={pos.user < RUHE ? "sp-griff ruhe" : "sp-griff"}
+                >
+                  <path
+                    d="M -27 -19 L 27 -19 Q 30 -19 29.6 -16.5 L 21.6 8 Q 20.2 11 15.2 11.6 L 0 13 L -15.2 11.6 Q -20.2 11 -21.6 8 L -29.6 -16.5 Q -30 -19 -27 -19 Z"
+                    className="sp-griff-koerper"
+                  />
+                  <path
+                    d="M -23.5 -16 L 23.5 -16 L 17.4 6.5 L 0 9.4 L -17.4 6.5 Z"
+                    className="sp-griff-flaeche"
+                  />
+                  {/* eingravierte Pfeilspitze: Schatten an der oberen Flanke, Licht an der unteren */}
+                  <path
+                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
+                    className="sp-griff-kerbe schatten"
+                    transform="translate(0 -0.7)"
+                  />
+                  <path
+                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
+                    className="sp-griff-kerbe licht"
+                    transform="translate(0 0.8)"
+                  />
+                  <path
+                    d="M 0 -12 L 0 3 M -6 -3.5 L 0 3.5 L 6 -3.5"
+                    className="sp-griff-kerbe"
+                  />
+                </g>
+              );
+            })()}
+
+            {/* Polbeschriftung: dem Bogen unter dem aeussersten Schlitz folgend in die Platte gepraegt */}
+            {(() => {
+              const rText =
+                radien[radien.length - 1] + schlitz / 2 + abstand * 0.62;
+              return (
+                <g className="sp-pole">
+                  <path
+                    id="sp-polbogen"
+                    d={bogenPfad(rText, theta + 0.08, 0, 1)}
+                    fill="none"
+                  />
+                  {[
+                    ["schatten", "translate(0 -0.6)"],
+                    ["licht", "translate(0 0.8)"],
+                    ["", undefined],
+                  ].map(([art, verschiebung]) => (
+                    <g
+                      key={art || "mitte"}
+                      transform={verschiebung}
+                      className={art}
+                    >
+                      <text>
+                        <textPath
+                          href="#sp-polbogen"
+                          xlinkHref="#sp-polbogen"
+                          startOffset="22%"
+                          textAnchor="middle"
+                        >
+                          ◂ {pole[0]}
+                        </textPath>
+                      </text>
+                      <text>
+                        <textPath
+                          href="#sp-polbogen"
+                          xlinkHref="#sp-polbogen"
+                          startOffset="78%"
+                          textAnchor="middle"
+                        >
+                          {pole[1]} ▸
+                        </textPath>
+                      </text>
+                    </g>
+                  ))}
+                </g>
               );
             })()}
           </g>
@@ -844,13 +923,7 @@ export default function Spielplatte({
         </div>
       </div>
 
-      <div className="sp-fuss">
-        <div className="sp-skala">
-          <span>◂ {pole[0]}</span>
-          <span>{pole[1]} ▸</span>
-        </div>
-        {zusatz}
-      </div>
+      <div className="sp-fuss">{zusatz}</div>
     </main>
   );
 }
