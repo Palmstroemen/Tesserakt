@@ -1299,3 +1299,36 @@ body {
   stroke-width: 1.4;
   stroke-linecap: round;
 }
+
+/* Kabbalah: gedruckte Buchseite auf Pergament, Farbstift */
+.kb-buchstabe {
+  text-anchor: middle;
+  font-size: 9px;
+  fill: #2d1f12;
+  font-family: "SBL Hebrew", "Ezra SIL", "Noto Serif Hebrew", "Times New Roman", serif;
+}
+
+.kb-nummer {
+  text-anchor: middle;
+  font-size: 7px;
+  fill: #2d1f12;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.kb-name {
+  text-anchor: middle;
+  font-size: 7.6px;
+  letter-spacing: -0.15px;
+  fill: #2d1f12;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
+
+.kb-stift path,
+.kb-kringel {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}

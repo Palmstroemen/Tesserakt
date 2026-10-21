@@ -10,7 +10,7 @@ import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import WestlichNacht from "./diagramme/WestlichNacht";
-import KabbalahSilber from "./diagramme/KabbalahSilber";
+import KabbalahBuch from "./diagramme/KabbalahBuch";
 import BaziKarte from "./diagramme/BaziKarte";
 import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
@@ -33,7 +33,7 @@ const DIAGRAMME = {
 // Die uebrigen Systeme zeigen vorerst das Diagramm aus dem alten Spiel (eingepasst).
 const VOLLBILD = {
   Westlich: WestlichNacht,
-  Kabbalah: KabbalahSilber,
+  Kabbalah: KabbalahBuch,
   Bazi: BaziKarte,
   Hellenistisch: HellenistischTeller,
   Vedisch: VedischRangoli,
