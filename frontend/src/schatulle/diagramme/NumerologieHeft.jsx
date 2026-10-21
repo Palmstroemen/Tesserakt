@@ -6,15 +6,15 @@
 // Schriften: Patrick Hand (Schueler), Caveat (Lehrerin), beide SIL OFL, zugeschnitten.
 const G = 300;
 const M = G / 2;
-const MEISTER = [11, 22, 33];
+export const MEISTER = [11, 22, 33];
 const ZOOM = 1.1;
 
-const TINTE = "#1d2a6b";
-const STIFT = { tag: "#2e8b3e", monat: "#e07a10", jahr: "#7a3fb0" };
-const ROT = "#d0201a";
+export const TINTE = "#1d2a6b";
+export const STIFT = { tag: "#2e8b3e", monat: "#e07a10", jahr: "#7a3fb0" };
+export const ROT = "#d0201a";
 
 // Rechenweg einer Quersumme wie im Backend: "1+9+8+5 = 23 → 5"; einstellig oder Meisterzahl: nur die Zahl
-function quersumme(n) {
+export function quersumme(n) {
   if (n <= 9 || MEISTER.includes(n)) return { weg: "", wert: n };
   const ziffern = String(n).split("").map(Number);
   let s = ziffern.reduce((a, b) => a + b, 0);
@@ -34,10 +34,10 @@ function quersumme(n) {
 }
 
 // ungefaehre Breite in der Schuelerschrift (fuer Unterstreichungen und Abstaende)
-const breite = (text, gr) => text.length * gr * 0.47;
+export const breite = (text, gr) => text.length * gr * 0.47;
 
 // Unterstrich von Hand: leicht gewellt und schraeg
-function Strich({ x1, x2, y, farbe, breit = 1.6, saat = 1 }) {
+export function Strich({ x1, x2, y, farbe, breit = 1.6, saat = 1 }) {
   const m = (x1 + x2) / 2;
   const w = ((saat * 37) % 7) / 7 - 0.5;
   return (

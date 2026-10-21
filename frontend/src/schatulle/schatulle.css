@@ -1579,6 +1579,14 @@ body {
   font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;
 }
 
+.np-mitte {
+  text-anchor: middle;
+}
+
+.nh-lehrerin.np-klein {
+  font-size: 12px;
+}
+
 .nh-lehrerin {
   text-anchor: middle;
   font-size: 17px;

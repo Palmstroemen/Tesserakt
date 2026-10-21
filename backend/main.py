@@ -817,6 +817,7 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
         "sephira": _life_path_to_sephira_index(lebenszahl),
         "baum": build_kabbalah_chart(geburt),
         "lebenszahl": lebenszahl,
+        "datum": {"day": geburt.day, "month": geburt.month, "year": geburt.year},
         "pers_jahr": personal_year(geburt, now),
     }
 
@@ -860,6 +861,9 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
     if "Numerologie" in payload.systeme:
         matrix = load_rules("Numerologie")["lebenspfad_kompatibilitaet"]["matrix"]
         systeme["Numerologie"] = paar.numerologie(a["lebenszahl"], b["lebenszahl"], a["pers_jahr"], b["pers_jahr"], matrix, t)
+        systeme["Numerologie"].update({"datum": {"a": a["datum"], "b": b["datum"]},  # fuer die Heftseite
+                                       "lebenszahl": {"a": a["lebenszahl"], "b": b["lebenszahl"]},
+                                       "bewertung": t["numerologie_bewertung"].get(str(int(systeme["Numerologie"]["partnerschaft"] or 0)))})
     return {"stichtag": now.date().isoformat(), "systeme": systeme}
 
 
