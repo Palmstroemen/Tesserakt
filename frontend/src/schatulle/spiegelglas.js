@@ -1,8 +1,11 @@
 // Gewoelbtes Uhrglas: zeichnet ein Video (Frontkamera) mit Fischaugen-Verzerrung in ein Canvas (WebGL).
-// Wie in einem gewoelbten Spiegel ist die Mitte gross und nah, der Rand zusammengedrueckt und zeigt mehr
+// Wie bei einem Uhrglas ist die Mitte fast eben, zum Rand hin wird das Bild zusammengedrueckt und zeigt mehr
 // von der Umgebung. Gespiegelt wie ein echter Spiegel; zum Rand hin leicht ausgeblendet.
 // WOELBUNG: 0 = flach, 1 = deutlich, 2 = stark.
-export const WOELBUNG = 0.55;
+export const WOELBUNG = 0.9;
+// FORM: Exponent des Profils. 2 = Kugelkappe (gleichmaessig gekruemmt), 4 = Uhrglas (flaches Ellipsoid:
+// Mitte fast eben, die Kruemmung sitzt am Rand)
+export const FORM = 4.0;
 // ZOOM: Ausschnitt des Kamerabildes samt Woelbung (1 = ganzes Bild, kleiner = naeher heran)
 export const ZOOM = 0.78;
 
@@ -19,6 +22,7 @@ precision mediump float;
 uniform sampler2D bild;
 uniform float k;
 uniform float zoom;
+uniform float form;
 uniform vec2 deckung; // Ausschnitt des Videos (cover), je Achse <= 1
 varying vec2 p;
 void main() {
@@ -26,7 +30,7 @@ void main() {
   if (r > 1.0) { gl_FragColor = vec4(0.0); return; }
   // Fischauge: der Quellradius waechst zum Rand hin schneller -> Mitte vergroessert, Rand gestaucht
   // leicht aus der Mitte versetzt (Bild wandert nach links oben): eine Spiegelung sitzt selten mittig wie ein Selfie
-  vec2 q = p * (1.0 + k * r * r) / (1.0 + k) * zoom + vec2(0.18, -0.12);
+  vec2 q = p * (1.0 + k * pow(r, form)) / (1.0 + k) * zoom + vec2(0.18, -0.12);
   vec2 uv = vec2(0.5 - q.x * 0.5 * deckung.x, 0.5 - q.y * 0.5 * deckung.y); // x gespiegelt, y Bild nach unten
   vec3 farbe = texture2D(bild, uv).rgb;
   float a = 1.0 - 0.75 * smoothstep(0.55, 1.0, r);
@@ -74,6 +78,7 @@ export function spiegelglasStarten(canvas, video) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.uniform1f(gl.getUniformLocation(prog, "k"), WOELBUNG);
   gl.uniform1f(gl.getUniformLocation(prog, "zoom"), ZOOM);
+  gl.uniform1f(gl.getUniformLocation(prog, "form"), FORM);
   const deckung = gl.getUniformLocation(prog, "deckung");
 
   let laeuft = true;
