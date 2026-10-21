@@ -1,29 +1,61 @@
-// Halbkreis-Geometrie der Bedienplatte: Wert -1 (links, "trifft nicht zu") .. +1 (rechts, "trifft zu").
-export const MITTE = { x: 200, y: 214 };
-export const SCHIEBER_RADIUS = 186;
-export const BOGEN_RADIEN = [66, 82, 98, 114, 130, 146, 162]; // innen -> aussen, je System
+// Faecher-Geometrie der Spielplatte (viewBox-Breite 400).
+// Oben: Quadrat 400 x 400 mit dem Auge um MITTE. Unten: Boegen um denselben Mittelpunkt.
+// Position auf einem Bogen: u = 0 (Ruheposition, ganz links) .. 1 (ganz rechts).
+// Alle Boegen decken denselben Winkelbereich ab, damit die Strahlen die Skala bilden.
+export const MITTE = { x: 200, y: 200 };
+export const AUGE_RADIUS = 166;
+export const LINSE_RADIUS = 150;
+export const RUHE_ANTEIL = 0.16; // u-Bereich der Ruheposition vor der Skala
+export const ANZAHL_BOEGEN = 8; // eigener Schieber + 7 Systeme
 
-export function winkel(wert) {
-  // Grad, mathematisch: 180 = links, 0 = rechts
-  return 180 - ((Math.max(-1, Math.min(1, wert)) + 1) / 2) * 180;
+export function faecherLayout(verfuegbareHoehe) {
+  const r0 = 188;
+  const abstand = Math.max(30, Math.min(44, (verfuegbareHoehe - 200 - r0 - 28) / (ANZAHL_BOEGEN - 1)));
+  const radien = Array.from({ length: ANZAHL_BOEGEN }, (_, k) => r0 + k * abstand);
+  const symbol = Math.min(16, abstand * 0.38);
+  const aussen = radien[ANZAHL_BOEGEN - 1];
+  const theta = Math.asin((195 - symbol) / aussen); // halber Oeffnungswinkel (rad)
+  return {
+    radien,
+    abstand,
+    symbol,
+    theta,
+    schlitz: symbol * 1.15,
+    hoehe: Math.ceil(MITTE.y + aussen + symbol + 14),
+  };
 }
 
-export function punkt(radius, grad) {
-  const rad = (grad * Math.PI) / 180;
-  return { x: MITTE.x + radius * Math.cos(rad), y: MITTE.y - radius * Math.sin(rad) };
+export function punktU(r, u, theta) {
+  const phi = -theta + 2 * theta * u; // 0 = senkrecht nach unten
+  return { x: MITTE.x + r * Math.sin(phi), y: MITTE.y + r * Math.cos(phi) };
 }
 
-export function bogenPfad(radius, vonGrad = 180, bisGrad = 0) {
-  const a = punkt(radius, vonGrad);
-  const b = punkt(radius, bisGrad);
-  const gross = Math.abs(vonGrad - bisGrad) > 180 ? 1 : 0;
-  return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${gross} 1 ${b.x} ${b.y}`;
+export function polarAusPunkt(x, y, theta) {
+  const dx = x - MITTE.x;
+  const dy = y - MITTE.y;
+  const phi = Math.atan2(dx, dy);
+  return { r: Math.hypot(dx, dy), u: (phi + theta) / (2 * theta) };
 }
 
-export function wertAusPunkt(x, y) {
-  // Winkel des Zeigers aus einer Position auf der Platte -> Wert -1..+1
-  let grad = (Math.atan2(MITTE.y - y, x - MITTE.x) * 180) / Math.PI;
-  if (grad < 0) grad = x < MITTE.x ? 180 : 0; // unterhalb der Achse: an den naechsten Rand
-  grad = Math.max(0, Math.min(180, grad));
-  return 1 - (grad / 180) * 2;
+export function uAusWert(wert) {
+  return RUHE_ANTEIL + ((Math.max(-1, Math.min(1, wert)) + 1) / 2) * (1 - RUHE_ANTEIL);
+}
+
+export function wertAusU(u) {
+  return ((u - RUHE_ANTEIL) / (1 - RUHE_ANTEIL)) * 2 - 1;
+}
+
+export function bogenPfad(r, theta, von = 0, bis = 1) {
+  const a = punktU(r, von, theta);
+  const b = punktU(r, bis, theta);
+  return `M ${a.x} ${a.y} A ${r} ${r} 0 0 0 ${b.x} ${b.y}`;
+}
+
+export function plattePfad(innen, aussen, winkel) {
+  const p = (r, phi) => ({ x: MITTE.x + r * Math.sin(phi), y: MITTE.y + r * Math.cos(phi) });
+  const al = p(aussen, -winkel);
+  const ar = p(aussen, winkel);
+  const ir = p(innen, winkel);
+  const il = p(innen, -winkel);
+  return `M ${al.x} ${al.y} A ${aussen} ${aussen} 0 0 0 ${ar.x} ${ar.y} L ${ir.x} ${ir.y} A ${innen} ${innen} 0 0 1 ${il.x} ${il.y} Z`;
 }
