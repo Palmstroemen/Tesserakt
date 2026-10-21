@@ -629,7 +629,7 @@ export default function Schatulle() {
               titel={titel}
               erklaerung={
                 ergebnis
-                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ALLE.length} Systemen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
+                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ALLE.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
                     (ergebnis.fenster
                       ? " Reihenfolge: Mittel aus dem letzten Monat und den letzten drei Monaten."
                       : "")

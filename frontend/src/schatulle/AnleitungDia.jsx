@@ -41,7 +41,7 @@ export default function AnleitungDia() {
         SO GEHT'S
       </text>
 
-      <Zeile y={64} nummer="1" zeilen={["zwei Systeme", "aufziehen"]}>
+      <Zeile y={64} nummer="1" zeilen={["zwei Horoskope", "aufziehen"]}>
         <path d={b1} fill="none" stroke={TINTE} strokeWidth="5" strokeLinecap="round" opacity="0.85" />
         <path d={b2} fill="none" stroke={TINTE} strokeWidth="5" strokeLinecap="round" opacity="0.85" />
         <circle r="4.5" fill="#7d63e6" stroke="#f0d59c" strokeWidth="0.8">
