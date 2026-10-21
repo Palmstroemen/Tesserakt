@@ -26,7 +26,7 @@ const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
 // Ausloesehebel: radial schraeg rechts unten neben dem Auge, ausserhalb der Faecherplatte. Der Schlitz liegt
 // auf einem Strahl vom Augenmittelpunkt (Winkel phi aus der Senkrechten), gezogen wird nach aussen.
-const HEBEL = { r0: 212, phi: 0.74, weg: 62 };
+const HEBEL = { r0: 232, phi: 0.6, weg: 62 };
 const HEBEL_RICHTUNG = { x: Math.sin(HEBEL.phi), y: Math.cos(HEBEL.phi) };
 const HEBEL_ANKER = {
   x: MITTE.x + HEBEL.r0 * HEBEL_RICHTUNG.x,
