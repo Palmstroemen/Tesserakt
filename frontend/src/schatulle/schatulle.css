@@ -2038,3 +2038,374 @@ body {
 .eg-jahr b {
   font-weight: bold;
 }
+
+/* --- Drucken: Knopf rechts oben, Auswahl, Buch --------------------------------------------------- */
+.sc-drucken {
+  left: auto;
+  right: 10px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.sc-drucken svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #2b2014;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.da-ebene {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(30, 20, 8, 0.55);
+  padding: 16px;
+}
+
+.da-blatt {
+  position: relative;
+  width: min(100%, 380px);
+  max-height: 90svh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 22px 22px 18px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbf3df, #ecdcb4);
+  color: #2b2116;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px #c9a66b;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.da-blatt h2 {
+  margin: 0 0 2px;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+.da-format {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: #6b5a40;
+}
+
+.da-liste {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.da-liste label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.da-liste input {
+  width: 18px;
+  height: 18px;
+  accent-color: #8a6a3c;
+}
+
+.da-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.da-preis {
+  margin: 0 0 14px;
+}
+
+.da-preis b {
+  font-size: 1.15rem;
+}
+
+.da-aktion {
+  color: #8e1027;
+  font-size: 0.85rem;
+}
+
+.da-knoepfe {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.da-schliessen {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  color: #6b5a40;
+  cursor: pointer;
+}
+
+/* Buch: Vorschau am Bildschirm, beim Drucken 21 x 21 cm je Seite */
+.buch-ebene {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow-y: auto;
+  background: #3a2c1a;
+  --seite: min(calc(100vw - 24px), 560px);
+}
+
+.buch-leiste {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 12px 8px 60px;
+  background: rgba(40, 28, 14, 0.92);
+  color: #efe3c8;
+  font-size: 0.85rem;
+}
+
+.buch-leiste .buch-zurueck {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 4px);
+  left: 10px;
+}
+
+.buch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0 40px;
+}
+
+.buch-seite {
+  position: relative;
+  width: var(--seite);
+  height: var(--seite);
+  box-sizing: border-box;
+  container-type: size;
+  overflow: hidden;
+  padding: 8cqw 8cqw 9cqw;
+  background: #fbf7ee;
+  color: #241a10;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.05cqw;
+  line-height: 1.42;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  break-after: page;
+  page-break-after: always;
+}
+
+/* Textseiten zweispaltig; Seitenueberschriften ueber beide Spalten */
+.buch-seite.text {
+  column-count: 2;
+  column-gap: 5cqw;
+  column-fill: auto;
+}
+
+.buch-seite.text h2,
+.buch-seite.text .buch-unter {
+  column-span: all;
+}
+
+.buch-seite h2 {
+  margin: 0 0 1.2cqw;
+  font-size: 4.2cqw;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+}
+
+.buch-seite h3 {
+  margin: 2.4cqw 0 0.8cqw;
+  font-size: 2.3cqw;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b4f24;
+  break-after: avoid;
+}
+
+.buch-seite p {
+  margin: 0 0 1.2cqw;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.buch-seite ul {
+  margin: 0 0 1.2cqw;
+  padding-left: 3cqw;
+}
+
+.buch-unter {
+  margin-top: -0.4cqw !important;
+  font-style: italic;
+  color: #6b5a40;
+}
+
+.buch-klein {
+  font-size: 1.75cqw;
+  color: #6b5a40;
+}
+
+.buch-bereich {
+  margin: 0 0 1cqw;
+}
+
+/* Notizseite: feine Linien zum Hineinschreiben */
+.buch-seite.notiz {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 6.4cqw, #e4d6b5 6.4cqw 6.55cqw) 0 16cqw / 100% calc(100% - 26cqw) no-repeat,
+    #fbf7ee;
+}
+
+.buch-schluss {
+  margin-top: 2cqw;
+  font-style: italic;
+}
+
+.buch-nummer {
+  position: absolute;
+  bottom: 4cqw;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.7cqw;
+  color: #8a7350;
+}
+
+.buch-seite.grafik {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 7cqw;
+}
+
+.buch-grafik {
+  width: 78cqw;
+  height: 78cqw;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 0.6cqw #c9a66b, 0 0 0 0.9cqw #8a6a3c;
+}
+
+.buch-grafik svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.buch-bildunterschrift {
+  margin-top: 3cqw;
+  font-size: 2.4cqw;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6b4f24;
+}
+
+.buch-seite.titel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at 50% 35%, #f3e3bd, #d9bf86 70%, #b8955a);
+}
+
+.buch-titelzeichen {
+  font-family: "Tesserakt Cinzel", Georgia, serif;
+  font-size: 3cqw;
+  letter-spacing: 0.5em;
+  color: #6b4f24;
+}
+
+.buch-seite.titel h1 {
+  margin: 3cqw 0 6cqw;
+  font-size: 7cqw;
+  font-weight: normal;
+}
+
+.buch-titelicons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2cqw;
+  max-width: 70cqw;
+}
+
+.buch-titelicons svg {
+  width: 9cqw;
+  height: 9cqw;
+}
+
+.buch-datum {
+  margin-top: 6cqw;
+  font-size: 2cqw;
+  color: #6b4f24;
+}
+
+.buch-rangliste {
+  width: 100%;
+  border-collapse: collapse;
+  break-inside: avoid;
+}
+
+.buch-rangliste td {
+  padding: 0.6cqw 0;
+  border-bottom: 0.15cqw solid #e2d3b0;
+}
+
+.buch-rangliste td:last-child {
+  text-align: right;
+}
+
+.buch-rangliste tr:not(.gewaehlt) {
+  color: #9a8765;
+}
+
+.buch-seite.leer {
+  background: #fbf7ee;
+}
+
+@media print {
+  @page {
+    size: 210mm 210mm;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: none !important;
+  }
+
+  #root,
+  .buch-leiste {
+    display: none !important;
+  }
+
+  .buch-ebene {
+    position: static;
+    overflow: visible;
+    background: none;
+    --seite: 210mm;
+  }
+
+  .buch {
+    display: block;
+    padding: 0;
+  }
+
+  .buch-seite {
+    box-shadow: none;
+    margin: 0;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

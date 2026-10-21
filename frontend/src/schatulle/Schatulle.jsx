@@ -9,6 +9,8 @@ import { SYSTEME } from "./systeme";
 import Datumsrad from "./Datumsrad";
 import Spielplatte from "./Spielplatte";
 import Ergebnisplatte from "./Ergebnisplatte";
+import DruckAuswahl from "./DruckAuswahl";
+import Buch from "./Buch";
 import { rastKlick, zahnrad } from "./klang";
 import { belichtungFesthalten } from "./kamera";
 
@@ -133,12 +135,15 @@ function anzeigeWert(stat, system, dim, wert) {
   return Math.max(-1, Math.min(1, (wert - s.mittel) / (2 * s.sd)));
 }
 
+const auswahlSichtbar = (auswertung, phase) => auswertung && phase === "frage";
+
 export default function Schatulle() {
   // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
   const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
   const [kartenOffen, setKartenOffen] = useState(false); // Textkarten einmal geoeffnet (bleiben dann geladen)
+  const [druck, setDruck] = useState(null); // null | "auswahl" | Liste der Horoskope fuer die Buchansicht
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
 
@@ -612,6 +617,7 @@ export default function Schatulle() {
         ? "Dein Rückblick"
         : "Dein Ergebnis";
   function nochmal() {
+    setDruck(null);
     setPhase("start");
     setAuswertung(false);
     setTextkarten(false);
@@ -689,6 +695,40 @@ export default function Schatulle() {
         >
           ‹
         </button>
+      ) : null}
+      {auswahlSichtbar(auswertung, phase) ? (
+        <button
+          type="button"
+          className="sc-zurueck sc-drucken"
+          aria-label="Drucken"
+          onClick={() => setDruck("auswahl")}
+        >
+          <svg viewBox="-12 -12 24 24" aria-hidden="true">
+            {/* aufgeschlagenes Buch */}
+            <path d="M0 -5 C -3 -7 -7 -7 -9 -6 L -9 6 C -7 5 -3 5 0 7 C 3 5 7 5 9 6 L 9 -6 C 7 -7 3 -7 0 -5 Z M0 -5 L0 7" />
+          </svg>
+        </button>
+      ) : null}
+      {druck === "auswahl" ? (
+        <DruckAuswahl
+          reihenfolge={ergebnis?.alle?.ranking ?? ALLE}
+          onAnsehen={(liste) => setDruck(liste)}
+          onSchliessen={() => setDruck(null)}
+        />
+      ) : null}
+      {Array.isArray(druck) ? (
+        <Buch
+          spiel={spiel}
+          auswahl={druck}
+          ergebnis={ergebnis}
+          vergleich={SPIELE[spiel].vergleich}
+          visualPayloads={visualPayloads}
+          paar={paar}
+          texte={texte}
+          ausblick={ausblick}
+          heute={heute}
+          onSchliessen={() => setDruck("auswahl")}
+        />
       ) : null}
       {zeigeRad ? (
         <div className={phase === "uebergang" ? "sc-deckschicht" : undefined}>

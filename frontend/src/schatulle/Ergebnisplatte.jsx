@@ -40,7 +40,7 @@ const DIAGRAMME = {
 };
 // Neu gezeichnete Grafiken im Stil des jeweiligen Systems; sie fuellen die ganze Linse.
 // Die uebrigen Systeme zeigen vorerst das Diagramm aus dem alten Spiel (eingepasst).
-const VOLLBILD = {
+export const VOLLBILD = {
   Westlich: WestlichNacht,
   Kabbalah: KabbalahBuch,
   Bazi: BaziKarte,
@@ -50,7 +50,7 @@ const VOLLBILD = {
   Numerologie: NumerologieHeft,
 };
 // Spiel C: Grafiken fuer zwei (du in Gold, dein Gegenueber in Silber), Daten aus /horoscope/paar
-const PAARBILD = {
+export const PAARBILD = {
   Westlich: WestlichPaar,
   Kabbalah: KabbalahPaar,
   Hellenistisch: HellenistischPaar,
