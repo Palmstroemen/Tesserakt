@@ -843,6 +843,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
         gana_matrix = nak["nakshatra_kompatibilitaet"]["gana_kompatibilitaet"]["matrix"]
         systeme["Vedisch"] = paar.vedisch(a["nakshatra"], b["nakshatra"], a["mond_zeichen_sid"], b["mond_zeichen_sid"],
                                           ganas, gana_matrix, t)
+        systeme["Vedisch"]["nakshatra"] = {"a": a["nakshatra"], "b": b["nakshatra"]}  # fuer das Rangoli
     if "Bazi" in payload.systeme:
         systeme["Bazi"] = paar.bazi(a["bazi"], b["bazi"], _bazi_beziehung, stem_to_element, load_rules("Bazi"), t,
                                     th["bazi_tiere"], th["elemente"])

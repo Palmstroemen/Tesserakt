@@ -1347,6 +1347,81 @@ body {
   opacity: 0.9;
 }
 
+/* Vedisch fuer Paare: Kuta-Bluete, zwei Reifen, zwei Schnuere */
+.vp-schild {
+  text-anchor: middle;
+  font-size: 7.5px;
+  letter-spacing: 0.04em;
+  fill: #f0eadb;
+  opacity: 0.85;
+  font-family: Georgia, serif;
+}
+
+.vp-schnur path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.vp-schnur-schatten {
+  stroke: #0b0603;
+  stroke-width: 3.2;
+  opacity: 0.45;
+}
+
+.vp-schnur.gold .vp-schnur-grund {
+  stroke: #b47a10;
+  stroke-width: 2.8;
+}
+
+.vp-schnur.gold .vp-schnur-drall {
+  stroke: #ffd769;
+  stroke-width: 2.8;
+  stroke-dasharray: 1.4 1.6;
+}
+
+.vp-schnur.silber .vp-schnur-grund {
+  stroke: #7d8691;
+  stroke-width: 2.8;
+}
+
+.vp-schnur.silber .vp-schnur-drall {
+  stroke: #f2f4f7;
+  stroke-width: 2.8;
+  stroke-dasharray: 1.4 1.6;
+}
+
+.vp-knoten {
+  fill: #c99a3a;
+  stroke: #eef1f4;
+  stroke-width: 1.2;
+}
+
+.vp-faser {
+  fill: none;
+  stroke: #e6c46a;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.vp-reif {
+  fill: none;
+  stroke-width: 2.8;
+}
+
+.vp-reif-schatten {
+  fill: none;
+  stroke: #0b0603;
+  stroke-width: 2.8;
+  opacity: 0.4;
+}
+
+.vp-reif-glanz {
+  fill: none;
+  stroke: #fffbe6;
+  stroke-width: 0.8;
+  opacity: 0.8;
+}
+
 /* Hellenistisch fuer Paare: Zeichennamen am Rand, Kreidezeichen und -striche */
 .hp-name {
   text-anchor: middle;
