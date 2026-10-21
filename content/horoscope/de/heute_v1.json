@@ -21,6 +21,11 @@
       "22": "Dein persönlicher Monat trägt die Meisterzahl Zweiundzwanzig – große Pläne können jetzt Form annehmen, wenn Vision und Praxis zusammenfinden.",
       "33": "Dein persönlicher Monat trägt die Meisterzahl Dreiunddreißig – Hingabe und Fürsorge für andere stehen im Mittelpunkt, ohne dass du dich selbst vergessen solltest."
     },
+    "ausblick_numerologie": {
+      "jahr": "Dein persönliches Jahr steht auf der {zahl} – {thema}. {beschreibung}",
+      "monat": "Persönlicher Monat {zahl}: {text}",
+      "pinnacle": "Ein neuer Lebensabschnitt beginnt, dein Pinnacle steht ab jetzt auf der {zahl} – {thema}. {beschreibung}"
+    },
     "hellenistisch_haus": {
       "1": "Dein Profektionsjahr aktiviert das erste Haus – du selbst, dein Auftreten und dein Körper stehen in diesem Lebensjahr im Mittelpunkt.",
       "2": "Dein Profektionsjahr aktiviert das zweite Haus – Besitz, Einkommen und das, was dir Sicherheit gibt, sind die Themen dieses Lebensjahres.",

@@ -21,6 +21,9 @@ Zeichen vom Aszendenten). Ist der Herrscher Mars, Jupiter oder Saturn, dazu sein
 
 Arabisch: Firdaria-Unterperioden (Hauptdauer / 7, beginnend mit dem Hauptherrscher im Zyklus der sieben
 Planeten, wie in der Wertung) mit Deutung aus der Qualitaetsmatrix; Beginn einer neuen Haupt-Firdaria.
+
+Numerologie: persoenliches Jahr bis zum Jahreswechsel und danach, jeder persoenliche Monat mit dem Feld
+aus der Matrix Jahr x Monat (Meisterzahlen dort als 2, 4, 6 gelesen) und ein neuer Pinnacle am Geburtstag.
 """
 
 from __future__ import annotations
@@ -28,6 +31,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import Callable, Dict, List, Optional, Tuple
 
+from rule_engine import current_pinnacle_number, life_path, personal_month, personal_year
 from vedisch_chart import PLANET_LABELS, _load_dasha_data
 
 ASPEKTE = {"konjunktion": 0.0, "sextil": 60.0, "quadrat": 90.0, "trine": 120.0, "opposition": 180.0}
@@ -509,3 +513,68 @@ def arabisch(
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "unter",
                     "haupt": haupt, "unter": unter, "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Numerologie
+
+def _einstellig(n: int) -> int:
+    """Meisterzahl auf ihre Grundziffer (11 -> 2, 22 -> 4, 33 -> 6), fuer die 9x9-Matrix."""
+    return n if n <= 9 else sum(int(z) for z in str(n))
+
+
+def numerologie(geburt: datetime, start: datetime, t: Dict[str, Dict[str, str]], regeln: Dict[str, object],
+                tage: int = 365) -> List[Dict[str, object]]:
+    """Persoenliche Jahre und Monate der naechsten `tage` Tage, dazu ein neuer Pinnacle."""
+    tn = t["ausblick_numerologie"]
+    ende = start + timedelta(days=tage)
+    jahre = regeln["persoenliches_jahr_profile"]
+    matrix = regeln["persoenlicher_monat_matrix_81"]["matrix"]
+    erg: List[Dict[str, object]] = []
+
+    # persoenliche Jahre (Wechsel am 1. Jaenner)
+    for jahr in range(start.year, ende.year + 1):
+        von = max(start, datetime(jahr, 1, 1, 12))
+        bis = min(ende, datetime(jahr, 12, 31, 12))
+        pj = personal_year(geburt, von)
+        profil = jahre.get(f"PJ{pj}", {})
+        text = (tn["jahr"].replace("{zahl}", str(pj)).replace("{thema}", profil.get("schluesselthema", ""))
+                .replace("{beschreibung}", profil.get("beschreibung", "")))
+        vorsatz = "Bis Ende Dezember" if von == start and bis < ende else (
+            f"Ab {MONATE[von.month - 1]}" if bis >= ende else zeitraum_offen(von, bis, start, ende))
+        erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "jahr", "zahl": pj,
+                    "text": f"{vorsatz}: {text}"})
+
+    # persoenliche Monate: der laufende und die elf folgenden
+    tag = datetime(start.year, start.month, 1, 12)
+    for _ in range(12):
+        pj = personal_year(geburt, tag)
+        pm = personal_month(pj, tag.month)
+        feld = matrix.get(f"PJ{_einstellig(pj)}", {}).get(f"PM{_einstellig(pm)}", "")
+        von = max(tag, start)
+        naechster = datetime(tag.year + tag.month // 12, tag.month % 12 + 1, 1, 12)
+        name = MONATE[tag.month - 1]
+        vorsatz = f"Bis Ende {name}" if tag < start else f"Im {name}"
+        erg.append({"von": von.date().isoformat(), "bis": (min(naechster, ende) - timedelta(days=1)).date().isoformat(),
+                    "art": "monat", "zahl": pm,
+                    "text": f"{vorsatz}: {tn['monat'].replace('{zahl}', str(pm)).replace('{text}', feld)}"})
+        tag = naechster
+
+    # neuer Pinnacle (wechselt am Geburtstag)
+    lpn = life_path(geburt)
+    geb = _naechster_geburtstag(geburt, start)
+    if geb <= ende and _pinnacle_wechsel(geburt, geb, lpn):
+        neu = current_pinnacle_number(geburt, geb, lpn)
+        profil = regeln["pinnacle_profile"].get(f"PIN{neu}", {})
+        erg.append({"von": geb.date().isoformat(), "bis": geb.date().isoformat(), "art": "pinnacle", "zahl": neu,
+                    "text": f"Ab deinem Geburtstag am {geb.day}. {MONATE[geb.month - 1]}: "
+                    + tn["pinnacle"].replace("{zahl}", str(neu)).replace("{thema}", profil.get("thema", ""))
+                    .replace("{beschreibung}", profil.get("beschreibung", ""))})
+    return sorted(erg, key=lambda e: (e["von"], e["art"] != "jahr"))
+
+
+def _pinnacle_wechsel(geburt: datetime, geb: datetime, lpn: int) -> bool:
+    """Ob am Geburtstag `geb` ein neuer Pinnacle-Abschnitt beginnt (Grenzen wie in current_pinnacle_number)."""
+    alter = geb.year - geburt.year
+    p1 = max(0, 36 - lpn)
+    return alter in (p1, p1 + 9, p1 + 18)

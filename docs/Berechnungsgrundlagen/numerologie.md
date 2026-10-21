@@ -31,6 +31,18 @@
 - Namensvarianten (Rufname, Ehename) werden nicht unterschieden; es zählt der eingegebene Name.
 - Keine Karmazahlen, Lektionen oder Herausforderungen im Spiel.
 
+## Jahreshoroskop (Ausblick auf 12 Monate)
+
+`backend/ausblick.py`, Endpunkt `POST /horoscope/ausblick`:
+
+- **Persönliches Jahr** bis zum Jahreswechsel und ab dem 1. Jänner, mit Profil aus
+  `persoenliches_jahr_profile`.
+- **Persönlicher Monat** für den laufenden und die elf folgenden Monate, gedeutet mit dem Feld der Matrix
+  persönliches Jahr × persönlicher Monat (`persoenlicher_monat_matrix_81`). Die Matrix kennt nur 1–9;
+  Meisterzahlen lesen wir dort als ihre Grundziffer (11 → 2, 22 → 4, 33 → 6), die angezeigte Zahl bleibt
+  die Meisterzahl.
+- **Pinnacle:** beginnt am nächsten Geburtstag ein neuer Abschnitt, mit Profil aus `pinnacle_profile`.
+
 ## Was eine erfahrene Numerologin anders macht
 
 Sie verbindet Lebenszahl, Namenszahlen und Zyklen zu einem Gesamtbild, wählt zwischen Schulen

@@ -774,6 +774,8 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
     if "Arabisch" in payload.systeme:
         quelle = next(q for q in load_struktur("Arabisch")["vektor_quellen"] if q.get("typ") == "firdaria")
         systeme["Arabisch"] = ausblick.arabisch(birth_dt, sonne_ueber_horizont(natal), quelle, load_rules("Arabisch"), start, t)
+    if "Numerologie" in payload.systeme:
+        systeme["Numerologie"] = ausblick.numerologie(birth_dt, start, t, load_rules("Numerologie"))
     if "Bazi" in payload.systeme:
         birth_ut = _zu_weltzeit(birth_dt, payload.zeitzone)
         saeulen = build_four_pillars(birth_dt, birth_ut, payload.longitude)["pillars"]
