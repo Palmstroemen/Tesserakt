@@ -33,6 +33,14 @@
 - Keine Almuten-, Direktions- oder Jahreshoroskop-Rechnung im Spiel, obwohl Regeln dazu vorliegen.
 - Die Lose hängen am Aszendenten und sind ohne Geburtsort entsprechend ungenau.
 
+## Jahreshoroskop (Ausblick auf 12 Monate)
+
+`backend/ausblick.py`, Endpunkt `POST /horoscope/ausblick`: für jeden Tag der nächsten 365 Tage Haupt-
+Firdaria und Unterperiode (Hauptdauer ÷ 7, beginnend mit dem Hauptherrscher im Zyklus der sieben
+Planeten, wie in der Wertung). Jede Unterperiode im Jahr steht mit ihrer Deutung aus der
+Qualitätsmatrix da (Abu Ma'shar, Al-Biruni, Sahl); beginnt eine neue Haupt-Firdaria, als eigenes
+Ereignis. Die Knoten-Perioden haben bei uns keine Unterperioden (siehe oben).
+
 ## Was ein erfahrener Astrologe der arabischen Tradition anders macht
 
 Er beurteilt die Firdaria-Herrscher nach ihrer Stellung und Würde im Geburtshoroskop, verbindet sie mit

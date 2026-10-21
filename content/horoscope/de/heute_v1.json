@@ -87,6 +87,30 @@
       "nordknoten": "Du stehst in der Firdaria des Nordknotens – eine kurze Phase, die Neues und Aufstieg begünstigt. Heute ist offen für Gelegenheiten.",
       "suedknoten": "Du stehst in der Firdaria des Südknotens – eine kurze Phase des Loslassens. Heute fällt es leichter, Überholtes hinter dir zu lassen."
     },
+    "ausblick_arabisch": {
+      "unter": "Unterperiode {unter} in der Firdaria {haupt} – {beschreibung}",
+      "knoten": "Du stehst in der Firdaria {haupt}; sie hat keine Unterperioden.",
+      "sonne": "Die Firdaria der Sonne beginnt – zehn Jahre, in denen Rang, Anerkennung und deine öffentliche Rolle Gewicht bekommen.",
+      "venus": "Die Firdaria der Venus beginnt – acht Jahre der Beziehungen, der Freude und des Ausgleichs.",
+      "merkur": "Die Firdaria des Merkur beginnt – dreizehn Jahre des Lernens, Handelns und Verhandelns.",
+      "mond": "Die Firdaria des Mondes beginnt – neun Jahre der Gefühle, der Familie und der Veränderung.",
+      "saturn": "Die Firdaria des Saturn beginnt – elf Jahre der Verantwortung, der Prüfungen und der langsamen Erträge.",
+      "jupiter": "Die Firdaria des Jupiter beginnt – zwölf Jahre des Wachstums, der Förderung und des Vertrauens.",
+      "mars": "Die Firdaria des Mars beginnt – sieben Jahre des Antriebs, des Wettbewerbs und mancher Konflikte.",
+      "nordknoten": "Die Firdaria des Nordknotens beginnt – eine kurze Phase von drei Jahren, die Neues und Aufstieg begünstigt.",
+      "suedknoten": "Die Firdaria des Südknotens beginnt – eine kurze Phase von zwei Jahren, in der Loslassen leichter fällt."
+    },
+    "arabisch_genitiv": {
+      "sonne": "der Sonne",
+      "venus": "der Venus",
+      "merkur": "des Merkur",
+      "mond": "des Mondes",
+      "saturn": "des Saturn",
+      "jupiter": "des Jupiter",
+      "mars": "des Mars",
+      "nordknoten": "des Nordknotens",
+      "suedknoten": "des Südknotens"
+    },
     "vedisch_dasha": {
       "ketu": "Deine Mahadasha ist die Ketu-Periode – eine Zeit der Loslösung und inneren Suche. Heute bringt Rückzug mehr Klarheit als Betriebsamkeit.",
       "venus": "Deine Mahadasha ist die Venus-Periode – Jahre der Beziehungen, des Genusses und des Wohlstands. Heute darf Harmonie Vorrang haben.",

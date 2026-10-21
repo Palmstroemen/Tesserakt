@@ -18,6 +18,9 @@ zusammenstoesst (Chong); neue Glueckssaeule, wenn sie ins Jahr faellt (nur mit A
 Hellenistisch: Jahresprofektion bis zum naechsten Geburtstag und ab ihm (Haus und Jahresherrscher, ganze
 Zeichen vom Aszendenten). Ist der Herrscher Mars, Jupiter oder Saturn, dazu seine Wanderung durch die Haeuser
 (tropisch); die schnellen Herrscher wechseln fast monatlich das Zeichen und bleiben ohne Einzeldaten.
+
+Arabisch: Firdaria-Unterperioden (Hauptdauer / 7, beginnend mit dem Hauptherrscher im Zyklus der sieben
+Planeten, wie in der Wertung) mit Deutung aus der Qualitaetsmatrix; Beginn einer neuen Haupt-Firdaria.
 """
 
 from __future__ import annotations
@@ -449,4 +452,60 @@ def hellenistisch(
             erg.append({"von": e["von"].date().isoformat(), "bis": e["bis"].date().isoformat(), "art": "wanderung",
                         "planet": herrscher, "haus": e["haus"],
                         "text": f"{zeitraum_offen(e['von'], e['bis'], start, ende)}: {text}"})
+    return sorted(erg, key=lambda e: e["von"])
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Arabisch
+
+KNOTEN = ("nordknoten", "suedknoten")
+
+
+def _firdaria_bei(alter: float, reihenfolge: List[str], dauern: Dict[str, float], zyklus: List[str],
+                  laenge: float = 75.0) -> Tuple[str, Optional[str]]:
+    """(Haupt-Firdaria, Unterperiode) im Lebensalter `alter`; Knoten-Perioden ohne Unterperiode."""
+    lage = alter % laenge
+    lauf = 0.0
+    for planet in reihenfolge:
+        d = dauern[planet]
+        if lage < lauf + d:
+            if planet in KNOTEN or planet not in zyklus:
+                return planet, None
+            n = min(6, int((lage - lauf) / (d / 7.0)))
+            return planet, zyklus[(zyklus.index(planet) + n) % len(zyklus)]
+        lauf += d
+    return reihenfolge[-1], None
+
+
+def arabisch(
+    geburt: datetime,
+    tag_geburt: bool,
+    quelle: Dict[str, object],
+    regeln: Dict[str, object],
+    start: datetime,
+    t: Dict[str, Dict[str, str]],
+    tage: int = 365,
+) -> List[Dict[str, object]]:
+    """Firdaria-Unterperioden und neue Haupt-Firdaria in den naechsten `tage` Tagen."""
+    ta, gen = t["ausblick_arabisch"], t["arabisch_genitiv"]
+    ende = start + timedelta(days=tage)
+    tage_liste = [start + timedelta(days=i) for i in range(tage + 1)]
+    reihenfolge = quelle["reihenfolge_tag" if tag_geburt else "reihenfolge_nacht"]
+    dauern = {p: float(regeln["haupt_firdaria"][p]["dauer_jahre"]) for p in reihenfolge}
+    zyklus = [p for p in quelle["reihenfolge_tag"] if p not in KNOTEN]
+    kombis = regeln["unter_firdaria"]["qualitaets_matrix"]["kombinationen_tag_horoskop"]
+    jahr = 365.2425 * 86400
+    perioden = [_firdaria_bei((tag - geburt).total_seconds() / jahr, reihenfolge, dauern, zyklus) for tag in tage_liste]
+    erg: List[Dict[str, object]] = []
+    for i, ((haupt, unter), von, bis) in enumerate(_abschnitte(perioden, tage_liste)):
+        if i > 0 and haupt != perioden[0][0] and (unter is None or unter == haupt):
+            erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "firdaria",
+                        "haupt": haupt, "text": f"Um den {von.day}. {MONATE[von.month - 1]}: {ta[haupt]}"})
+        if unter is None:
+            text = ta["knoten"].replace("{haupt}", gen[haupt])
+        else:
+            beschreibung = kombis.get(f"{haupt}_hauptperiode", {}).get(f"{haupt}_{unter}", {}).get("beschreibung", "")
+            text = ta["unter"].replace("{unter}", gen[unter]).replace("{haupt}", gen[haupt]).replace("{beschreibung}", beschreibung)
+        erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "unter",
+                    "haupt": haupt, "unter": unter, "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])
