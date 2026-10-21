@@ -1,11 +1,15 @@
-// Das Horoskopbuch, 21 x 21 cm: Titelseite, Rangliste, je gewaehltem Horoskop vier Seiten (links die Grafik,
-// rechts der Text, dann zwei Textseiten) und am Ende die Hintergrundseiten zum Experiment. Am Bildschirm als
-// Vorschau (Seiten untereinander), beim Drucken eine Seite je Blatt (@page 210 x 210 mm). Die Grafiken sind
-// dieselben Vektorgrafiken wie im Auge; Schriftgroessen in cqw, damit Vorschau und Druck gleich umbrechen.
-import { useEffect, useState } from "react";
+// Das Horoskopbuch, 21 x 21 cm: Titelseite, Rangliste, je gewaehltem Horoskop links die Grafik und rechts
+// zweispaltige Textseiten, am Ende die Hintergrundseiten zum Experiment. Am Bildschirm als Vorschau (Seiten
+// untereinander), beim Drucken eine Seite je Blatt (@page 210 x 210 mm). Die Grafiken sind dieselben
+// Vektorgrafiken wie im Auge.
+// Seitenumbruch: Die Texte bestehen aus Bausteinen (Ueberschrift, Absatz, ...). Ein Seitensetzer misst sie in
+// einer unsichtbaren Musterseite und fuellt jede Seite, bis beide Spalten voll sind; ein zu langer Absatz wird
+// zwischen zwei Saetzen geteilt, eine Ueberschrift bleibt nicht allein am Seitenende. Alle Groessen sind in
+// cqw (relativ zur Seite), daher gilt der Umbruch der Vorschau auch fuer den Druck.
+// Zwei Ausfuehrungen: hell (Papier) und dunkel (fast schwarz, helle Schrift, goldene Ueberschriften).
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { API_BASE } from "../logic/api";
-import { Paragraphs } from "../components/SystemDeutungTabs";
 import HoroskopIcon from "./HoroskopIcon";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName } from "./systeme";
@@ -21,8 +25,54 @@ const DIMENSIONEN = [
   "spiritualitaet",
 ];
 const vorzeichen = (x) => (x > 0 ? `+${x.toFixed(0)}` : x.toFixed(0));
+const UEBERSCHRIFTEN = ["h2", "h3", "unter", "klein"];
 
-// **fett** in den Erklaertexten
+// --- Bausteine ---------------------------------------------------------------------------------------------
+// { k: "h2" | "unter" | "klein" | "h3" | "p" | "schluss" | "li" | "rangliste", t, fett?, zeilen? }
+
+// Absaetze aus einem Systemtext ([TAG]-Zeilen entfernt, Absaetze durch Leerzeilen)
+function absaetze(text, k = "p") {
+  if (!text) return [];
+  return text
+    .replace(/\n?\[TAG\]\s*\S+[^\n]*/g, "")
+    .trim()
+    .split(/\n\n+/)
+    .filter(Boolean)
+    .map((t) => ({ k, t }));
+}
+
+const escape = (t) =>
+  t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const fettHtml = (t) => escape(t).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+
+// HTML eines Bausteins fuer die Musterseite (muss der Darstellung in <Baustein> entsprechen)
+function htmlVon(b) {
+  const vor = b.fett ? `<b>${escape(b.fett)}</b> ` : "";
+  switch (b.k) {
+    case "h2":
+      return `<h2>${escape(b.t)}</h2>`;
+    case "h3":
+      return `<h3>${escape(b.t)}</h3>`;
+    case "unter":
+      return `<p class="buch-unter">${escape(b.t)}</p>`;
+    case "klein":
+      return `<p class="buch-klein">${escape(b.t)}</p>`;
+    case "schluss":
+      return `<p class="buch-schluss">${fettHtml(b.t)}</p>`;
+    case "li":
+      return `<p class="buch-li">${fettHtml(b.t)}</p>`;
+    case "rangliste":
+      return `<table class="buch-rangliste"><tbody>${b.zeilen
+        .map(
+          (z) =>
+            `<tr><td>${escape(z.name)}</td><td>${escape(z.wert)}</td></tr>`,
+        )
+        .join("")}</tbody></table>`;
+    default:
+      return `<p>${vor}${fettHtml(b.t)}</p>`;
+  }
+}
+
 function Inline({ text }) {
   return text
     .split(/(\*\*[^*]+\*\*)/g)
@@ -35,6 +85,121 @@ function Inline({ text }) {
     );
 }
 
+function Baustein({ b }) {
+  switch (b.k) {
+    case "h2":
+      return <h2>{b.t}</h2>;
+    case "h3":
+      return <h3>{b.t}</h3>;
+    case "unter":
+      return <p className="buch-unter">{b.t}</p>;
+    case "klein":
+      return <p className="buch-klein">{b.t}</p>;
+    case "schluss":
+      return (
+        <p className="buch-schluss">
+          <Inline text={b.t} />
+        </p>
+      );
+    case "li":
+      return (
+        <p className="buch-li">
+          <Inline text={b.t} />
+        </p>
+      );
+    case "rangliste":
+      return (
+        <table className="buch-rangliste">
+          <tbody>
+            {b.zeilen.map((z) => (
+              <tr key={z.name} className={z.gewaehlt ? "gewaehlt" : ""}>
+                <td>{z.name}</td>
+                <td>{z.wert}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    default:
+      return (
+        <p>
+          {b.fett ? <b>{b.fett}</b> : null}
+          {b.fett ? " " : null}
+          <Inline text={b.t} />
+        </p>
+      );
+  }
+}
+
+// --- Seitensetzer ------------------------------------------------------------------------------------------
+// Verteilt die Bausteine eines Abschnitts auf Seiten; el ist eine leere, unsichtbare Musterseite.
+function setzen(bloecke, el) {
+  const voll = () =>
+    el.scrollWidth > el.clientWidth + 1 ||
+    el.scrollHeight > el.clientHeight + 1;
+  const seiten = [];
+  let seite = [];
+  el.innerHTML = "";
+  const neueSeite = () => {
+    // keine Ueberschrift allein am Seitenende
+    const mit = [];
+    while (seite.length && UEBERSCHRIFTEN.includes(seite[seite.length - 1].k))
+      mit.unshift(seite.pop());
+    if (seite.length) seiten.push(seite);
+    seite = mit;
+    el.innerHTML = seite.map(htmlVon).join("");
+  };
+  const rest = [...bloecke];
+  while (rest.length) {
+    const b = rest.shift();
+    el.insertAdjacentHTML("beforeend", htmlVon(b));
+    if (!voll()) {
+      seite.push(b);
+      continue;
+    }
+    el.lastElementChild.remove();
+    // Absatz zwischen zwei Saetzen teilen: so viel wie passt auf diese Seite
+    const saetze =
+      b.t && !UEBERSCHRIFTEN.includes(b.k) && b.k !== "rangliste"
+        ? (b.t.match(/[^.!?]+[.!?]+["“”)]*\s*|[^.!?]+$/g) ?? [])
+        : [];
+    let passt = 0;
+    for (let n = saetze.length - 1; n > 0; n -= 1) {
+      el.insertAdjacentHTML(
+        "beforeend",
+        htmlVon({ ...b, t: saetze.slice(0, n).join("").trim() }),
+      );
+      const ok = !voll();
+      el.lastElementChild.remove();
+      if (ok) {
+        passt = n;
+        break;
+      }
+    }
+    if (passt) {
+      const teil = { ...b, t: saetze.slice(0, passt).join("").trim() };
+      seite.push(teil);
+      rest.unshift({
+        ...b,
+        fett: undefined,
+        t: saetze.slice(passt).join("").trim(),
+      });
+      neueSeite();
+    } else if (seite.length) {
+      rest.unshift(b);
+      neueSeite();
+    } else {
+      // passt nicht einmal allein: trotzdem setzen (sonst Endlosschleife)
+      seite.push(b);
+      el.insertAdjacentHTML("beforeend", htmlVon(b));
+    }
+  }
+  if (seite.length) seiten.push(seite);
+  el.innerHTML = "";
+  return seiten;
+}
+
+// --- Seiten ------------------------------------------------------------------------------------------------
 function Seite({ art = "", nummer, children }) {
   return (
     <section className={`buch-seite ${art}`}>
@@ -54,20 +219,159 @@ function Grafik({ id, spiel, visualPayloads, paar }) {
   return null;
 }
 
-function Lebensbereiche({ daten, nur = DIMENSIONEN }) {
-  return nur.map((d) => {
-    const zeilen = (daten?.dimensions?.[d] ?? "")
+function bereichBloecke(t, dims) {
+  return dims.flatMap((d) => {
+    const zeilen = (t?.dimensions?.[d] ?? "")
       .replace(/\[TAG\][^\n]*/g, "")
       .split("\n")
       .map((z) => z.trim())
       .filter(Boolean);
-    if (!zeilen.length) return null;
-    return (
-      <p key={d} className="buch-bereich">
-        <b>{zeilen[0]}</b> {zeilen.slice(1).join(" ")}
-      </p>
-    );
+    return zeilen.length
+      ? [{ k: "p", fett: zeilen[0], t: zeilen.slice(1).join(" ") }]
+      : [];
   });
+}
+
+// Abschnitte des Buchs: { art: "titel" | "grafik" | "text" | "horoskop-ende", id?, bloecke? }; jeder
+// Textabschnitt beginnt auf einer neuen Seite.
+function abschnitte({
+  spiel,
+  auswahl,
+  ergebnis,
+  vergleich,
+  paar,
+  texte,
+  ausblick,
+  heute,
+  erklaerungen,
+}) {
+  const paarSpiel = spiel === "C";
+  const liste = [{ art: "titel" }];
+  const ranking = ergebnis?.alle?.ranking ?? auswahl;
+  liste.push({
+    art: "text",
+    bloecke: [
+      { k: "h2", t: paarSpiel ? "Euer Ergebnis" : "Dein Ergebnis" },
+      {
+        k: "rangliste",
+        zeilen: ranking.map((id) => ({
+          name: anzeigeName(id),
+          wert: ergebnis?.alle?.systemDetails?.[id]
+            ? vorzeichen(ergebnis.alle.systemDetails[id].skillScore)
+            : "–",
+          gewaehlt: auswahl.includes(id),
+        })),
+      },
+      ...(ergebnis
+        ? [
+            {
+              k: "klein",
+              t: `Skill 0 = Zufall, +100 = besser als alle ${vergleich}. Ohne jede Aussagekraft erreicht das beste von ${SYSTEME.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.`,
+            },
+          ]
+        : []),
+    ],
+  });
+  auswahl.forEach((id) => {
+    const sys = SYSTEME.find((x) => x.id === id);
+    const t = texte?.systems?.[id];
+    const d = ergebnis?.alle?.systemDetails?.[id];
+    const jahr = ausblick?.systeme?.[id];
+    const h = heute?.systeme?.[id];
+    const bereiche = DIMENSIONEN.filter((dim) => t?.dimensions?.[dim]);
+    liste.push({ art: "grafik", id });
+    const kopf = [
+      { k: "h2", t: anzeigeName(id) },
+      ...(sys?.unter ? [{ k: "unter", t: sys.unter }] : []),
+      ...(d
+        ? [
+            {
+              k: "klein",
+              t: `Skill ${vorzeichen(d.skillScore)} · besser als ${d.perzentil.toFixed(0)} von 100 ${vergleich}`,
+            },
+          ]
+        : []),
+    ];
+    const teile = paarSpiel
+      ? [
+          [
+            ...kopf,
+            { k: "h3", t: "Euer Paar" },
+            ...(paar?.systeme?.[id]?.aussagen ?? []).map((a) => ({
+              k: "p",
+              t: a,
+            })),
+          ],
+          t?.intro
+            ? [
+                { k: "h3", t: "So denkt dieses Horoskop" },
+                ...absaetze(t.intro),
+                ...absaetze(t?.paracelsus_outro, "schluss"),
+              ]
+            : null,
+        ]
+      : [
+          [
+            ...kopf,
+            { k: "h3", t: "So denkt dieses Horoskop" },
+            ...absaetze(t?.intro),
+          ],
+          t?.horoskop_ausfuehrlich
+            ? [
+                { k: "h3", t: "Dein Horoskop" },
+                ...absaetze(t.horoskop_ausfuehrlich),
+              ]
+            : h
+              ? [
+                  { k: "h3", t: "Dein Horoskop für heute" },
+                  ...[...h.faktoren, ...h.tendenzen]
+                    .filter(Boolean)
+                    .map((x) => ({ k: "p", t: x })),
+                ]
+              : null,
+          jahr?.length
+            ? [
+                { k: "h3", t: "Dein Jahr" },
+                ...jahr.map((e) => {
+                  const k = e.text.indexOf(": ");
+                  return {
+                    k: "p",
+                    fett: e.text.slice(0, k),
+                    t: `– ${e.text.slice(k + 2)}`,
+                  };
+                }),
+              ]
+            : null,
+          bereiche.length
+            ? [
+                { k: "h3", t: "Deine Lebensbereiche" },
+                ...bereichBloecke(t, bereiche),
+                ...absaetze(t?.paracelsus_outro, "schluss"),
+              ]
+            : null,
+        ];
+    teile
+      .filter(Boolean)
+      .forEach((bloecke) => liste.push({ art: "text", bloecke }));
+    liste.push({ art: "horoskop-ende" });
+  });
+  erklaerungen.forEach((thema) => {
+    liste.push({
+      art: "text",
+      bloecke: [
+        { k: "h2", t: thema.titel },
+        ...thema.abschnitte.flatMap((a) => [
+          { k: "h3", t: a.titel },
+          ...a.bloecke.flatMap((b) =>
+            b.typ === "liste"
+              ? b.punkte.map((p) => ({ k: "li", t: `• ${p}` }))
+              : [{ k: "p", t: b.text }],
+          ),
+        ]),
+      ],
+    });
+  });
+  return liste;
 }
 
 export default function Buch({
@@ -83,6 +387,10 @@ export default function Buch({
   onSchliessen,
 }) {
   const [erklaerungen, setErklaerungen] = useState([]);
+  const [dunkel, setDunkel] = useState(false);
+  const [gesetzt, setGesetzt] = useState(null); // Abschnitte mit fertig gesetzten Textseiten
+  const muster = useRef(null);
+
   useEffect(() => {
     fetch(`${API_BASE}/horoscope/erklaerungen?locale=de`)
       .then((r) => r.json())
@@ -90,199 +398,108 @@ export default function Buch({
       .catch(() => {});
   }, []);
 
+  const liste = abschnitte({
+    spiel,
+    auswahl,
+    ergebnis,
+    vergleich,
+    paar,
+    texte,
+    ausblick,
+    heute,
+    erklaerungen,
+  });
+  const schluessel = JSON.stringify(liste);
+
+  // Seiten setzen (nach dem Laden der Schriften und bei geaenderter Fensterbreite neu)
+  useLayoutEffect(() => {
+    let aus = false;
+    const los = () => {
+      const el = muster.current;
+      if (!el || aus) return;
+      setGesetzt(
+        liste.map((a) =>
+          a.art === "text" ? { ...a, seiten: setzen(a.bloecke, el) } : a,
+        ),
+      );
+    };
+    los();
+    document.fonts?.ready.then(los);
+    window.addEventListener("resize", los);
+    return () => {
+      aus = true;
+      window.removeEventListener("resize", los);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schluessel]);
+
   const paarSpiel = spiel === "C";
-  const titel = paarSpiel ? "Unser Horoskopbuch" : "Mein Horoskopbuch";
   const datum = new Date().toLocaleDateString("de-AT", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const ranking = ergebnis?.alle?.ranking ?? auswahl;
-  let nummer = 2; // Seitenzahl ab der Rangliste
-
-  const seiten = [
-    <Seite key="titel" art="titel">
-      <div className="buch-titelzeichen">TESSERAKT</div>
-      <h1>{titel}</h1>
-      <div className="buch-titelicons">
-        {auswahl.map((id) => (
-          <svg key={id} viewBox="-12 -12 24 24" aria-hidden="true">
-            <HoroskopIcon id={id} r={10} />
-          </svg>
-        ))}
-      </div>
-      <p className="buch-datum">{datum}</p>
-    </Seite>,
-    <Seite key="ergebnis" art="text" nummer={nummer++}>
-      <h2>{paarSpiel ? "Euer Ergebnis" : "Dein Ergebnis"}</h2>
-      <table className="buch-rangliste">
-        <tbody>
-          {ranking.map((id) => (
-            <tr key={id} className={auswahl.includes(id) ? "gewaehlt" : ""}>
-              <td>{anzeigeName(id)}</td>
-              <td>
-                {ergebnis?.alle?.systemDetails?.[id]
-                  ? vorzeichen(ergebnis.alle.systemDetails[id].skillScore)
-                  : "–"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {ergebnis ? (
-        <p className="buch-klein">
-          Skill 0 = Zufall, +100 = besser als alle {vergleich}. Ohne jede
-          Aussagekraft erreicht das beste von {SYSTEME.length} Horoskopen im
-          Mittel etwa +{ergebnis.erwartung.toFixed(0)}.
-        </p>
-      ) : null}
-    </Seite>,
-  ];
-
-  auswahl.forEach((id) => {
-    const sys = SYSTEME.find((x) => x.id === id);
-    const t = texte?.systems?.[id];
-    const d = ergebnis?.alle?.systemDetails?.[id];
-    const jahr = ausblick?.systeme?.[id];
-    const h = heute?.systeme?.[id];
-    const euer = paar?.systeme?.[id];
-    const bereiche = DIMENSIONEN.filter((dim) => t?.dimensions?.[dim]);
-    // Textseiten des Horoskops; leere fallen weg
-    const texteSeiten = [
-      <>
-        <h2>{anzeigeName(id)}</h2>
-        {sys?.unter ? <p className="buch-unter">{sys.unter}</p> : null}
-        {d ? (
-          <p className="buch-klein">
-            Skill {vorzeichen(d.skillScore)} · besser als{" "}
-            {d.perzentil.toFixed(0)} von 100 {vergleich}
-          </p>
-        ) : null}
-        {paarSpiel ? (
-          <>
-            <h3>Euer Paar</h3>
-            {(euer?.aussagen ?? []).map((a, i) => (
-              <p key={i}>{a}</p>
-            ))}
-          </>
-        ) : (
-          <>
-            <h3>So denkt dieses Horoskop</h3>
-            <Paragraphs text={t?.intro ?? ""} />
-          </>
-        )}
-      </>,
-      paarSpiel ? (
-        t?.intro ? (
-          <>
-            <h3>So denkt dieses Horoskop</h3>
-            <Paragraphs text={t.intro} />
-          </>
-        ) : null
-      ) : t?.horoskop_ausfuehrlich ? (
-        <>
-          <h3>Dein Horoskop</h3>
-          <Paragraphs text={t.horoskop_ausfuehrlich} />
-        </>
-      ) : h ? (
-        <>
-          <h3>Dein Horoskop für heute</h3>
-          {[...h.faktoren, ...h.tendenzen].filter(Boolean).map((x, i) => (
-            <p key={i}>{x}</p>
-          ))}
-        </>
-      ) : null,
-      !paarSpiel && jahr?.length ? (
-        <>
-          <h3>Dein Jahr</h3>
-          {jahr.map((e, i) => {
-            const k = e.text.indexOf(": ");
-            return (
-              <p key={i} className="buch-jahr">
-                <b>{e.text.slice(0, k)}</b> – {e.text.slice(k + 2)}
-              </p>
-            );
-          })}
-        </>
-      ) : null,
-      !paarSpiel && bereiche.length ? (
-        <>
-          <h3>Deine Lebensbereiche</h3>
-          <Lebensbereiche daten={t} nur={bereiche.slice(0, 4)} />
-        </>
-      ) : null,
-      !paarSpiel && bereiche.length > 4 ? (
-        <>
-          <Lebensbereiche daten={t} nur={bereiche.slice(4)} />
-          <div className="buch-schluss">
-            <Paragraphs text={t?.paracelsus_outro ?? ""} />
-          </div>
-        </>
-      ) : t?.paracelsus_outro ? (
-        <div className="buch-schluss">
-          <Paragraphs text={t.paracelsus_outro} />
-        </div>
-      ) : null,
-    ].filter(Boolean);
-    seiten.push(
-      <Seite key={`${id}-g`} art="grafik" nummer={nummer++}>
-        <div className="buch-grafik">
-          <Grafik
-            id={id}
-            spiel={spiel}
-            visualPayloads={visualPayloads}
-            paar={paar}
-          />
-        </div>
-        <div className="buch-bildunterschrift">{anzeigeName(id)}</div>
-      </Seite>,
-      ...texteSeiten.map((inhalt, i) => (
-        <Seite key={`${id}-${i}`} art="text" nummer={nummer++}>
-          {inhalt}
-        </Seite>
-      )),
-    );
-    // die naechste Grafik soll wieder links stehen: notfalls eine Notizseite
-    if ((1 + texteSeiten.length) % 2)
+  const seiten = [];
+  let nummer = 1;
+  let imHoroskop = 0; // Seiten des laufenden Horoskops
+  (gesetzt ?? []).forEach((a, i) => {
+    if (a.art === "titel") {
       seiten.push(
-        <Seite key={`${id}-notiz`} art="notiz" nummer={nummer++}>
-          <h3>Notizen</h3>
+        <Seite key="titel" art="titel">
+          <div className="buch-titelzeichen">TESSERAKT</div>
+          <h1>{paarSpiel ? "Unser Horoskopbuch" : "Mein Horoskopbuch"}</h1>
+          <div className="buch-titelicons">
+            {auswahl.map((id) => (
+              <svg key={id} viewBox="-12 -12 24 24" aria-hidden="true">
+                <HoroskopIcon id={id} r={10} />
+              </svg>
+            ))}
+          </div>
+          <p className="buch-datum">{datum}</p>
         </Seite>,
       );
-  });
-
-  erklaerungen.forEach((thema) => {
-    seiten.push(
-      <Seite key={`h-${thema.id}`} art="text hintergrund" nummer={nummer++}>
-        <h2>{thema.titel}</h2>
-        {thema.abschnitte.map((a) => (
-          <div key={a.id}>
-            <h3>{a.titel}</h3>
-            {a.bloecke.map((b, i) =>
-              b.typ === "liste" ? (
-                <ul key={i}>
-                  {b.punkte.map((p, k) => (
-                    <li key={k}>
-                      <Inline text={p} />
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p key={i}>
-                  <Inline text={b.text} />
-                </p>
-              ),
-            )}
+      nummer += 1;
+    } else if (a.art === "grafik") {
+      imHoroskop = 1;
+      seiten.push(
+        <Seite key={`g-${a.id}`} art="grafik" nummer={nummer++}>
+          <div className="buch-grafik">
+            <Grafik
+              id={a.id}
+              spiel={spiel}
+              visualPayloads={visualPayloads}
+              paar={paar}
+            />
           </div>
-        ))}
-      </Seite>,
-    );
+          <div className="buch-bildunterschrift">{anzeigeName(a.id)}</div>
+        </Seite>,
+      );
+    } else if (a.art === "text") {
+      a.seiten.forEach((bloecke, s) => {
+        if (imHoroskop) imHoroskop += 1;
+        seiten.push(
+          <Seite key={`t-${i}-${s}`} art="text" nummer={nummer++}>
+            {bloecke.map((b, k) => (
+              <Baustein key={k} b={b} />
+            ))}
+          </Seite>,
+        );
+      });
+    } else if (a.art === "horoskop-ende") {
+      // die naechste Grafik soll wieder links stehen: notfalls eine Notizseite
+      if (imHoroskop % 2)
+        seiten.push(
+          <Seite key={`n-${i}`} art="notiz" nummer={nummer++}>
+            <h3>Notizen</h3>
+          </Seite>,
+        );
+      imHoroskop = 0;
+    }
   });
-  // gerade Seitenzahl fuer den Druck (Doppelseiten)
   if (seiten.length % 2) seiten.push(<Seite key="leer" art="leer" />);
 
   return createPortal(
-    <div className="buch-ebene">
+    <div className={dunkel ? "buch-ebene dunkel" : "buch-ebene"}>
       <div className="buch-leiste">
         <button
           type="button"
@@ -295,11 +512,22 @@ export default function Buch({
         <span>{seiten.length} Seiten · 21 × 21 cm</span>
         <button
           type="button"
+          className="buch-wahl"
+          onClick={() => setDunkel((x) => !x)}
+        >
+          {dunkel ? "Hell" : "Dunkel"}
+        </button>
+        <button
+          type="button"
           className="sc-start"
           onClick={() => window.print()}
         >
           Drucken / PDF
         </button>
+      </div>
+      {/* unsichtbare Musterseite fuer den Seitensetzer */}
+      <div className="buch-muster" aria-hidden="true">
+        <section className="buch-seite text" ref={muster} />
       </div>
       <div className="buch">{seiten}</div>
     </div>,

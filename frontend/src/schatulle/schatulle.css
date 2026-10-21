@@ -2409,3 +2409,80 @@ body {
     -webkit-print-color-adjust: exact;
   }
 }
+
+/* Musterseite fuer den Seitensetzer: gleich gross wie eine Buchseite, aber unsichtbar */
+.buch-muster {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.buch-li {
+  padding-left: 2.2cqw;
+  text-indent: -2.2cqw;
+  text-align: left !important;
+}
+
+.buch-wahl {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #c9a66b;
+  background: transparent;
+  color: #efe3c8;
+  cursor: pointer;
+}
+
+/* dunkle Ausfuehrung: fast schwarz, helle Schrift, goldene Ueberschriften */
+.buch-ebene.dunkel .buch-seite {
+  background: #14110d;
+  color: #e9e0cc;
+}
+
+.buch-ebene.dunkel .buch-seite h3,
+.buch-ebene.dunkel .buch-bildunterschrift,
+.buch-ebene.dunkel .buch-titelzeichen,
+.buch-ebene.dunkel .buch-datum {
+  color: #c9a66b;
+}
+
+.buch-ebene.dunkel .buch-unter,
+.buch-ebene.dunkel .buch-klein,
+.buch-ebene.dunkel .buch-nummer {
+  color: #a8977a;
+}
+
+.buch-ebene.dunkel .buch-rangliste td {
+  border-bottom-color: #3a3024;
+}
+
+.buch-ebene.dunkel .buch-rangliste tr:not(.gewaehlt) {
+  color: #6f6352;
+}
+
+.buch-ebene.dunkel .buch-seite.titel {
+  background: radial-gradient(circle at 50% 35%, #2a2117, #14110d 70%, #0b0907);
+}
+
+.buch-ebene.dunkel .buch-seite.titel h1 {
+  color: #f0d59c;
+}
+
+.buch-ebene.dunkel .buch-seite.notiz {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 6.4cqw, #3a3024 6.4cqw 6.55cqw) 0 16cqw / 100% calc(100% - 26cqw) no-repeat,
+    #14110d;
+}
+
+.buch-ebene.dunkel .buch-seite.leer {
+  background: #14110d;
+}
+
+@media print {
+  .buch-muster {
+    display: none;
+  }
+}
