@@ -345,10 +345,15 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
   const [hell, mittel, dunkel] = METALL[scheibe.metall];
   const scheibeTransform = `translate(${MITTE.x} ${MITTE.y}) scale(${scheibe.skala} 1) translate(${-MITTE.x} ${-MITTE.y})`;
+  // Auf der goldenen Seite kein Hinweis (entdecken statt erklaeren); die silberne Seite fragt nach der zweiten
+  // Person
   const hinweis =
     seite === "gold"
-      ? "Dreh die Ringe auf dein Geburtsdatum, dann wähle ein Spiel: A, B oder C."
+      ? null
       : "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann C.";
+  const meldung = laedt
+    ? "Der Apparat öffnet sich …"
+    : (gesperrtMeldung ?? hinweis);
 
   return (
     <main className="sp">
@@ -518,9 +523,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
         {ort ? (
           <p className="sc-hinweis">{`${ort.name}, ${ort.landName}`}</p>
         ) : null}
-        <p className="sc-hinweis">
-          {laedt ? "Der Apparat öffnet sich …" : (gesperrtMeldung ?? hinweis)}
-        </p>
+        {meldung ? <p className="sc-hinweis">{meldung}</p> : null}
         {fehler ? <p className="sc-fehler">{fehler}</p> : null}
       </div>
     </main>
