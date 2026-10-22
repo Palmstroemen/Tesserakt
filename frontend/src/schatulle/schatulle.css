@@ -3193,3 +3193,30 @@ body {
   color: rgba(85, 85, 92, 0.7);
   transform: rotate(-7deg) translateY(-4px);
 }
+.zt-kritzel {
+  display: block;
+  width: 78%;
+  margin: 14px auto 0;
+  overflow: visible;
+}
+.zt-kritzel path,
+.zt-kritzel circle {
+  fill: none;
+  stroke: rgba(70, 70, 78, 0.72);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.zt-kritzel .zweit {
+  stroke-opacity: 0.45;
+  stroke-width: 1;
+}
+.zt-kritzel .schraffur {
+  stroke-width: 1;
+}
+.zt-kritzel text {
+  font-family: "Tesserakt Schueler", "Comic Sans MS", cursive;
+  font-size: 20px;
+  fill: rgba(70, 70, 78, 0.78);
+  text-anchor: middle;
+}
