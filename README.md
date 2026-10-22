@@ -45,10 +45,10 @@ Westlich, Bazi, Numerologie, Kabbalah, Arabisch, Hellenistisch, Vedisch – stan
   - Chart-Module: `chart.py`, `bazi_chart.py`, `vedisch_chart.py`, `hellenistisch_chart.py`, etc.
   - Systemordner mit Regeln: `Westlich/`, `Bazi/`, `Numerologie/`, `Kabbalah/`, `Arabisch/`, `Hellenistisch/`, `Vedisch/`
 - `frontend/src/`
-  - Komponenten: `GeburtsdatumInput`, `SelbsteinschaetzungSlider`, `SystemDeutungTabs`, `RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.
-  - Hooks: `useVektoren`, `useRating`
-  - Logik: `rating.js` (Skill/Perzentil für alle Spiele, Timing), `ort.js`
-  - Spiele B und C: `SpielB.jsx`, `SpielC.jsx`
+  - Der Apparat (das Spiel, Spiele A, B und C): `apparat/` mit `Apparat.jsx`, `Spielplatte.jsx`, `Ergebnisplatte.jsx`, Buch
+  - Charts aus der ersten Fassung, die der Apparat weiter nutzt: `components/` (`RadixWheel`, `FourPillarsChart`, `DashaChart`, `KabbalahTree`, etc.)
+  - Logik: `rating.js` (Skill/Perzentil für alle Spiele, Timing), `ort.js`, `api.js`
+  - Texte zum Bearbeiten (Vorblatt, Datenverwendung): `texte/*.md`
 - `docs/Berechnungsgrundlagen/`
   - "Beipackzettel" je System: Konventionen, korrigierte Fehler, bekannte Vereinfachungen
 - `content/horoscope/de/`

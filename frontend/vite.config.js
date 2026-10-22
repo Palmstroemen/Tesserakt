@@ -18,13 +18,4 @@ export default defineConfig({
       "/api": { target: "http://127.0.0.1:8000", rewrite: (pfad) => pfad.replace(/^\/api/, "") },
     },
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        // Prototyp des Apparats (Fragerunde), eigene Seite neben dem bestehenden Spiel
-        apparat: resolve(__dirname, "apparat.html"),
-      },
-    },
-  },
 });
