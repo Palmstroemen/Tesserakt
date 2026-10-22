@@ -13,6 +13,7 @@ Vor der Veroeffentlichung rechtlich pruefen lassen.
 - Ohne deine Einwilligung speichern wir nichts von dem, was du im Spiel eingibst.
 - Mit deiner Einwilligung speichern wir deine Antworten und Ergebnisse – ohne Namen, ohne Geburtsort, ohne
   genaues Geburtsdatum.
+- Wir verkaufen deine Daten niemals und verwenden sie nie für Werbung.
 - Du kannst jederzeit ohne Einwilligung spielen. Das Spiel ist dasselbe.
 
 ## Die Kamera
