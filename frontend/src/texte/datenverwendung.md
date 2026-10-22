@@ -52,7 +52,11 @@ zurückführt. Antworten zur Gesundheit verwenden wir nur zusammengefasst.
 
 Allein für die Frage, ob Horoskope mehr treffen als der Zufall. Die Ergebnisse veröffentlichen wir als
 wissenschaftliche Auswertung und als offenen Datensatz, damit andere sie prüfen können. Darin bist du nicht
-erkennbar. Wir verkaufen keine Daten und verwenden sie nicht für Werbung.
+erkennbar.
+
+**Wir verkaufen keine Daten und verwenden sie nicht für Werbung.** Sie würden sich dafür auch gar nicht eignen:
+Wir haben keine Namen, keine Adressen, keine E-Mail-Adressen und keine Telefonnummern. Aus dem, was wir
+speichern, kann niemand auf dich persönlich schließen – auch wir nicht.
 
 ## Wie lange
 
