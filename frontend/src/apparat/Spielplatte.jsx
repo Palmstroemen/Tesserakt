@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useLichtmesser } from "./lichtmesser";
 import { SYSTEME } from "./systeme";
 import HoroskopIcon from "./HoroskopIcon";
@@ -60,6 +60,228 @@ function easeMechanisch(t) {
   const c = 1.4;
   return 1 + (c + 1) * (t - 1) ** 3 + c * (t - 1) ** 2;
 }
+
+// --- Feste Teile des Faechers ------------------------------------------------------
+// Sie aendern sich nur mit der Fenstergroesse. Als memo-Komponenten zeichnet React sie beim Ziehen eines
+// Schiebers nicht jedes Mal neu (sonst ruckelt es, vor allem in Safari).
+
+// Messingplatte, Einkerbungen der Skala und der Grund der Schlitze
+const Unterbau = memo(function Unterbau({
+  radien,
+  abstand,
+  theta,
+  schlitz,
+  platteAussen,
+  rUser,
+  userBreite,
+}) {
+  const strahlen = Array.from({ length: 11 }, (_, k) =>
+    uAusWert(-1 + k * SCHRITT),
+  );
+  return (
+    <>
+      {/* Platte: derselbe Messington wie der Ring um das Glas */}
+      <path
+        d={plattePfad(
+          radien[0] - abstand * 0.6,
+          platteAussen,
+          theta + 0.22,
+          Math.PI / 2, // rechts bis 3 Uhr: dort steht der Ausloesehebel auf der Platte
+        )}
+        fill="url(#sp-platte)"
+        filter="url(#sp-plattenschatten)"
+        stroke="#2b2014"
+        strokeWidth="2"
+      />
+
+      {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
+      {strahlen.map((u, k) =>
+        radien.slice(0, -1).map((r, j) => {
+          const a = j
+            ? punktU(r + schlitz / 2 + 3, u, theta)
+            : punktU(rUser + userBreite / 2 + 3, u, theta);
+          const b = punktU(radien[j + 1] - schlitz / 2 - 3, u, theta);
+          const mitte = k === 5;
+          return (
+            <g key={`${k}-${j}`}>
+              <line
+                x1={a.x}
+                y1={a.y}
+                x2={b.x}
+                y2={b.y}
+                stroke="#2a1e12"
+                strokeWidth={mitte ? 2.4 : 1.6}
+                strokeLinecap="round"
+              />
+              <line
+                x1={a.x + 0.9}
+                y1={a.y + 0.6}
+                x2={b.x + 0.9}
+                y2={b.y + 0.6}
+                stroke="#c9a66b"
+                strokeWidth="0.6"
+                opacity="0.6"
+              />
+            </g>
+          );
+        }),
+      )}
+      {/* Grund der Schlitze (die Schieber selbst zeichnet Schlitz darueber) */}
+      {radien.map((rSys, k) => (
+        <path
+          key={rSys}
+          d={bogenPfad(k ? rSys : rUser, theta)}
+          className="sp-schlitz"
+          strokeWidth={k ? schlitz + 2.4 : userBreite}
+        />
+      ))}
+    </>
+  );
+});
+
+// Sperrzaehne am Ende der Ruheposition, ueber den Schiebern
+const Sperrzaehne = memo(function Sperrzaehne({
+  radien,
+  theta,
+  schlitz,
+  rUser,
+  userBreite,
+}) {
+  return radien.map((rSys, k) => {
+    const r = k ? rSys : rUser;
+    const breite = k ? schlitz : userBreite;
+    const sperrA = punktU(r - breite / 2, RUHE_ANTEIL * 0.55, theta);
+    const sperrB = punktU(r + breite / 2, RUHE_ANTEIL * 0.55, theta);
+    return (
+      <line
+        key={r}
+        x1={sperrA.x}
+        y1={sperrA.y}
+        x2={sperrB.x}
+        y2={sperrB.y}
+        className="sp-sperrzahn"
+      />
+    );
+  });
+});
+
+// eingravierte Kuerzel der Horoskope und Polbeschriftung
+const Beschriftung = memo(function Beschriftung({
+  radien,
+  abstand,
+  theta,
+  schlitz,
+  symbol,
+  links,
+  rechts,
+}) {
+  return (
+    <>
+      {/* Kuerzel der Horoskope: links neben jedem Schlitz, auf der Verlaengerung des Bogens eingraviert */}
+      <g className="sp-pole sp-kuerzel">
+        {SYSTEME.map((sys, i) => {
+          const r = radien[i + 1];
+          const proU = 1 / (2 * theta * r); // u je viewBox-Einheit Weg auf diesem Bogen
+          const ende = -(symbol * 1.15 + 4) * proU; // vor dem Knopf in Ruhestellung
+          return (
+            <path
+              key={sys.id}
+              id={`sp-kuerzelbogen-${i}`}
+              d={bogenPfad(r, theta, ende - 70 * proU, ende)}
+              fill="none"
+            />
+          );
+        })}
+        {[
+          ["schatten", "translate(0 -0.6)"],
+          ["licht", "translate(0 0.8)"],
+          ["", undefined],
+        ].map(([art, verschiebung]) => (
+          <g key={art || "mitte"} transform={verschiebung} className={art}>
+            {KUERZEL.map((kurz, i) => (
+              <text key={kurz} dy="0.35em">
+                <textPath
+                  href={`#sp-kuerzelbogen-${i}`}
+                  xlinkHref={`#sp-kuerzelbogen-${i}`}
+                  startOffset="100%"
+                  textAnchor="end"
+                >
+                  {kurz}
+                </textPath>
+              </text>
+            ))}
+          </g>
+        ))}
+      </g>
+
+      {/* Polbeschriftung: dem Bogen unter dem aeussersten Schlitz folgend in die Platte gepraegt */}
+      {(() => {
+        const rText = radien[radien.length - 1] + schlitz / 2 + abstand * 0.62;
+        return (
+          <g className="sp-pole">
+            <path
+              id="sp-polbogen"
+              d={bogenPfad(rText, theta + 0.08, 0, 1)}
+              fill="none"
+            />
+            {[
+              ["schatten", "translate(0 -0.6)"],
+              ["licht", "translate(0 0.8)"],
+              ["", undefined],
+            ].map(([art, verschiebung]) => (
+              <g key={art || "mitte"} transform={verschiebung} className={art}>
+                <text>
+                  <textPath
+                    href="#sp-polbogen"
+                    xlinkHref="#sp-polbogen"
+                    startOffset="22%"
+                    textAnchor="middle"
+                  >
+                    ◂ {links}
+                  </textPath>
+                </text>
+                <text>
+                  <textPath
+                    href="#sp-polbogen"
+                    xlinkHref="#sp-polbogen"
+                    startOffset="78%"
+                    textAnchor="middle"
+                  >
+                    {rechts} ▸
+                  </textPath>
+                </text>
+              </g>
+            ))}
+          </g>
+        );
+      })()}
+    </>
+  );
+});
+
+// Auge: Messingring, Glas und Luenette (beim Auftritt dreht es sich wie eine Muenze herein)
+const Auge = memo(function Auge() {
+  return (
+    <g className="sp-auge">
+      <circle
+        cx={MITTE.x}
+        cy={MITTE.y}
+        r={AUGE_RADIUS}
+        fill="url(#sp-messing)"
+        filter="url(#sp-luenette-schatten)"
+      />
+      <circle
+        cx={MITTE.x}
+        cy={MITTE.y}
+        r={LINSE_RADIUS}
+        fill="url(#sp-linse)"
+        stroke="#3a2c1a"
+        strokeWidth="2"
+      />
+      <LuenettePraegung praefix="sp" />
+    </g>
+  );
+});
 
 /**
  * Fragerunde als Faecher: oben das Auge mit dem Fragedia, unten der eigene Schieber und die Systembögen.
@@ -505,9 +727,6 @@ export default function Spielplatte({
   }
 
   // --- Darstellung -------------------------------------------------------------
-  const strahlen = Array.from({ length: 11 }, (_, k) =>
-    uAusWert(-1 + k * SCHRITT),
-  );
   const zeigeUserStrahl =
     ["laeuft", "ergebnis", "fertig", "rechnet", "auswertung"].includes(
       zustand,
@@ -542,6 +761,17 @@ export default function Spielplatte({
     height: `${((2 * LINSE_RADIUS) / hoehe) * 100}%`,
   };
   const knaufY = pos.hebel * HEBEL.weg; // im gedrehten Hebel-Koordinatensystem
+  // Masse fuer die festen Teile des Faechers (aendern sich nur mit der Fenstergroesse)
+  const geo = {
+    radien,
+    abstand,
+    theta,
+    schlitz,
+    symbol,
+    platteAussen,
+    rUser,
+    userBreite,
+  };
 
   return (
     <main
@@ -630,89 +860,23 @@ export default function Spielplatte({
 
           {/* Faecher: schwenkt beim Abgang zum Ergebnis um den Kreismittelpunkt weg */}
           <g className="sp-faecher">
-            {/* Platte: derselbe Messington wie der Ring um das Glas */}
-            <path
-              d={plattePfad(
-                radien[0] - abstand * 0.6,
-                platteAussen,
-                theta + 0.22,
-                Math.PI / 2, // rechts bis 3 Uhr: dort steht der Ausloesehebel auf der Platte
-              )}
-              fill="url(#sp-platte)"
-              filter="url(#sp-plattenschatten)"
-              stroke="#2b2014"
-              strokeWidth="2"
-            />
+            <Unterbau {...geo} />
 
-            {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
-            {strahlen.map((u, k) =>
-              radien.slice(0, -1).map((r, j) => {
-                const a = j
-                  ? punktU(r + schlitz / 2 + 3, u, theta)
-                  : punktU(rUser + userBreite / 2 + 3, u, theta);
-                const b = punktU(radien[j + 1] - schlitz / 2 - 3, u, theta);
-                const mitte = k === 5;
-                return (
-                  <g key={`${k}-${j}`}>
-                    <line
-                      x1={a.x}
-                      y1={a.y}
-                      x2={b.x}
-                      y2={b.y}
-                      stroke="#2a1e12"
-                      strokeWidth={mitte ? 2.4 : 1.6}
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1={a.x + 0.9}
-                      y1={a.y + 0.6}
-                      x2={b.x + 0.9}
-                      y2={b.y + 0.6}
-                      stroke="#c9a66b"
-                      strokeWidth="0.6"
-                      opacity="0.6"
-                    />
-                  </g>
-                );
-              }),
-            )}
-
-            {/* Schlitze */}
-            {radien.map((rSys, k) => {
-              const sys = k ? SYSTEME[k - 1] : null;
-              const r = k ? rSys : rUser;
-              const breite = k ? schlitz : userBreite;
-              const sperrA = punktU(r - breite / 2, RUHE_ANTEIL * 0.55, theta);
-              const sperrB = punktU(r + breite / 2, RUHE_ANTEIL * 0.55, theta);
-              return (
-                <g key={r}>
-                  <path
-                    d={bogenPfad(r, theta)}
-                    className="sp-schlitz"
-                    strokeWidth={k ? schlitz + 2.4 : userBreite}
-                  />
-                  {sys ? (
-                    <Schlitz
-                      id={sys.id}
-                      k={k}
-                      r={r}
-                      theta={theta}
-                      w={schlitz}
-                      u={pos[sys.id]}
-                      vonMitte={vonMitte}
-                      hoehe={hoehe}
-                    />
-                  ) : null}
-                  <line
-                    x1={sperrA.x}
-                    y1={sperrA.y}
-                    x2={sperrB.x}
-                    y2={sperrB.y}
-                    className="sp-sperrzahn"
-                  />
-                </g>
-              );
-            })}
+            {/* Schlitze: nur ein bewegter Schieber wird neu gezeichnet (Schlitz ist memo) */}
+            {SYSTEME.map((sys, i) => (
+              <Schlitz
+                key={sys.id}
+                id={sys.id}
+                k={i + 1}
+                r={radien[i + 1]}
+                theta={theta}
+                w={schlitz}
+                u={pos[sys.id]}
+                vonMitte={vonMitte}
+                hoehe={hoehe}
+              />
+            ))}
+            <Sperrzaehne {...geo} />
 
             {/* eigener Strahl nach dem Ausloesen */}
             {zeigeUserStrahl
@@ -816,114 +980,9 @@ export default function Spielplatte({
               );
             })()}
 
-            {/* Kuerzel der Horoskope: links neben jedem Schlitz, auf der Verlaengerung des Bogens eingraviert */}
-            <g className="sp-pole sp-kuerzel">
-              {SYSTEME.map((sys, i) => {
-                const r = radien[i + 1];
-                const proU = 1 / (2 * theta * r); // u je viewBox-Einheit Weg auf diesem Bogen
-                const ende = -(symbol * 1.15 + 4) * proU; // vor dem Knopf in Ruhestellung
-                return (
-                  <path
-                    key={sys.id}
-                    id={`sp-kuerzelbogen-${i}`}
-                    d={bogenPfad(r, theta, ende - 70 * proU, ende)}
-                    fill="none"
-                  />
-                );
-              })}
-              {[
-                ["schatten", "translate(0 -0.6)"],
-                ["licht", "translate(0 0.8)"],
-                ["", undefined],
-              ].map(([art, verschiebung]) => (
-                <g
-                  key={art || "mitte"}
-                  transform={verschiebung}
-                  className={art}
-                >
-                  {KUERZEL.map((kurz, i) => (
-                    <text key={kurz} dy="0.35em">
-                      <textPath
-                        href={`#sp-kuerzelbogen-${i}`}
-                        xlinkHref={`#sp-kuerzelbogen-${i}`}
-                        startOffset="100%"
-                        textAnchor="end"
-                      >
-                        {kurz}
-                      </textPath>
-                    </text>
-                  ))}
-                </g>
-              ))}
-            </g>
-
-            {/* Polbeschriftung: dem Bogen unter dem aeussersten Schlitz folgend in die Platte gepraegt */}
-            {(() => {
-              const rText =
-                radien[radien.length - 1] + schlitz / 2 + abstand * 0.62;
-              return (
-                <g className="sp-pole">
-                  <path
-                    id="sp-polbogen"
-                    d={bogenPfad(rText, theta + 0.08, 0, 1)}
-                    fill="none"
-                  />
-                  {[
-                    ["schatten", "translate(0 -0.6)"],
-                    ["licht", "translate(0 0.8)"],
-                    ["", undefined],
-                  ].map(([art, verschiebung]) => (
-                    <g
-                      key={art || "mitte"}
-                      transform={verschiebung}
-                      className={art}
-                    >
-                      <text>
-                        <textPath
-                          href="#sp-polbogen"
-                          xlinkHref="#sp-polbogen"
-                          startOffset="22%"
-                          textAnchor="middle"
-                        >
-                          ◂ {pole[0]}
-                        </textPath>
-                      </text>
-                      <text>
-                        <textPath
-                          href="#sp-polbogen"
-                          xlinkHref="#sp-polbogen"
-                          startOffset="78%"
-                          textAnchor="middle"
-                        >
-                          {pole[1]} ▸
-                        </textPath>
-                      </text>
-                    </g>
-                  ))}
-                </g>
-              );
-            })()}
+            <Beschriftung {...geo} links={pole[0]} rechts={pole[1]} />
           </g>
-          {/* Auge (beim Auftritt dreht es sich wie eine Muenze herein) */}
-          <g className="sp-auge">
-            <circle
-              cx={MITTE.x}
-              cy={MITTE.y}
-              r={AUGE_RADIUS}
-              fill="url(#sp-messing)"
-              filter="url(#sp-luenette-schatten)"
-            />
-            <circle
-              cx={MITTE.x}
-              cy={MITTE.y}
-              r={LINSE_RADIUS}
-              fill="url(#sp-linse)"
-              stroke="#3a2c1a"
-              strokeWidth="2"
-            />
-            <LuenettePraegung praefix="sp" />
-          </g>
-
+          <Auge />
           {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben) */}
           <g
             className="sp-hebel"

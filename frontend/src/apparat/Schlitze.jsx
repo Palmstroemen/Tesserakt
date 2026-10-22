@@ -3,7 +3,7 @@
 // Wellenlinie den Schlitz ab; es haengt am Knopf und gleitet mit ihm. Bei den Paarfragen (Spiel C) wird von
 // der Mitte aus frei gelegt (zwei Plaettchen, links und rechts). Schatten an der Oberkante geben Tiefe.
 // Muster werden entlang des Bogens erzeugt: s = Weg entlang des Schlitzes, v = quer dazu.
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { bogenPfad, punktU, uAusWert } from "./geometrie";
 
 function zufallVon(saat) {
@@ -368,16 +368,7 @@ export function SchlitzDefs() {
   );
 }
 
-export default function Schlitz({
-  id,
-  k,
-  r,
-  theta,
-  w,
-  u,
-  vonMitte = false,
-  hoehe,
-}) {
+function Schlitz({ id, k, r, theta, w, u, vonMitte = false, hoehe }) {
   const { grund, teile } = useMemo(
     () => muster(id, r, theta, w),
     [id, r, theta, w],
@@ -462,3 +453,4 @@ export default function Schlitz({
     </g>
   );
 }
+export default memo(Schlitz);

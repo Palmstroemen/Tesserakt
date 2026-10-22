@@ -20,6 +20,25 @@ function audio() {
   return ctx;
 }
 
+// Freigabe bei der ersten Beruehrung, egal wo: Safari (iPhone) laesst Ton erst nach einem Antippen oder
+// Loslassen zu, nicht schon waehrend des Drehens an einer Scheibe. Ein stummer Ton schaltet ihn dort frei.
+function freigeben() {
+  const ac = audio();
+  if (!ac) return;
+  const quelle = ac.createBufferSource();
+  quelle.buffer = ac.createBuffer(1, 1, ac.sampleRate);
+  quelle.connect(ac.destination);
+  quelle.start();
+  if (ac.state === "running") {
+    for (const art of FREIGABE)
+      window.removeEventListener(art, freigeben, true);
+  }
+}
+const FREIGABE = ["pointerdown", "pointerup", "touchend", "click", "keydown"];
+if (typeof window !== "undefined") {
+  for (const art of FREIGABE) window.addEventListener(art, freigeben, true);
+}
+
 function rauschStoss(dauer, frequenz, lautstaerke, verzoegerung = 0) {
   const ac = audio();
   if (!ac) return;

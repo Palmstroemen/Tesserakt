@@ -5,6 +5,8 @@
 //   Numerologie: handgeschriebene 7 auf Karopapier · Kabbalah: kleiner Lebensbaum auf Pergament ·
 //   Arabisch: Windrose auf Zellij-Kachel · Hellenistisch: Maeanderhaken, schwarzfigurig auf Ton ·
 //   Vedisch: Kolam-Ring aus Reismehlpunkten mit Farbpulver in der Mitte
+import { memo } from "react";
+
 const GRUND = {
   Westlich: "#2a1450",
   Bazi: "#b2241b",
@@ -130,13 +132,7 @@ function Bild({ id }) {
   }
 }
 
-export default function HoroskopIcon({
-  id,
-  x = 0,
-  y = 0,
-  r = 10,
-  rand = true,
-}) {
+function HoroskopIcon({ id, x = 0, y = 0, r = 10, rand = true }) {
   // glaenzender Knopf: Bild unter einer gewoelbten Glasur mit Glanzlicht, Goldfassung
   return (
     <g transform={`translate(${x} ${y}) scale(${r})`}>
@@ -188,3 +184,5 @@ export default function HoroskopIcon({
     </g>
   );
 }
+
+export default memo(HoroskopIcon);
