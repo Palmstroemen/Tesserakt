@@ -61,10 +61,58 @@ export function sperre() {
   rauschStoss(0.06, 260, 0.7);
 }
 
-export function blatt() {
-  // Papier: der Zettel wird auf- oder zugefaltet (weiches, breites Rascheln)
-  rauschStoss(0.09, 2600, 0.14);
-  rauschStoss(0.12, 4200, 0.1, 0.06);
+// Papier knistert: leises breites Rauschen mit vielen kleinen Knacksern, an- und abschwellend wie die Bewegung
+// der Hand; hochpassgefiltert, damit es trocken klingt und nicht nach Wind.
+function knistern(dauer, lautstaerke, verzoegerung = 0) {
+  const ac = audio();
+  if (!ac) return;
+  const t = ac.currentTime + verzoegerung;
+  const rate = ac.sampleRate;
+  const laenge = Math.max(1, Math.floor(rate * dauer));
+  const puffer = ac.createBuffer(1, laenge, rate);
+  const daten = puffer.getChannelData(0);
+  let knacks = 0;
+  let knacksLaut = 0;
+  for (let i = 0; i < laenge; i += 1) {
+    const x = i / laenge;
+    const huelle = Math.sin(Math.PI * x) ** 1.5;
+    // neuer Knackser (etwa 120 pro Sekunde, in der Mitte der Bewegung dichter)
+    if (Math.random() < (120 / rate) * (0.4 + huelle)) {
+      knacks = Math.floor(rate * (0.001 + Math.random() * 0.004));
+      knacksLaut = 0.3 + Math.random() * 0.7;
+    }
+    let wert = (Math.random() * 2 - 1) * 0.12 * huelle;
+    if (knacks > 0) {
+      wert += (Math.random() * 2 - 1) * knacksLaut * huelle;
+      knacks -= 1;
+      knacksLaut *= 0.997;
+    }
+    daten[i] = wert;
+  }
+  const quelle = ac.createBufferSource();
+  quelle.buffer = puffer;
+  const hoch = ac.createBiquadFilter();
+  hoch.type = "highpass";
+  hoch.frequency.value = 1500;
+  hoch.Q.value = 0.7;
+  const tief = ac.createBiquadFilter();
+  tief.type = "lowpass";
+  tief.frequency.value = 9000;
+  const gain = ac.createGain();
+  gain.gain.value = lautstaerke * GESAMT;
+  quelle.connect(hoch).connect(tief).connect(gain).connect(ac.destination);
+  quelle.start(t);
+}
+
+export function papier(auf = true) {
+  // Zettel auf- oder zufalten: zwei Knicke nacheinander (auffalten etwas laenger)
+  if (auf) {
+    knistern(0.26, 0.5);
+    knistern(0.3, 0.42, 0.3);
+  } else {
+    knistern(0.18, 0.4);
+    knistern(0.2, 0.35, 0.16);
+  }
 }
 
 export function einrasten() {

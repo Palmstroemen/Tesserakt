@@ -139,7 +139,7 @@ function anzeigeWert(stat, system, dim, wert) {
 
 const auswahlSichtbar = (auswertung, phase) => auswertung && phase === "frage";
 
-export default function Schatulle({ onVorblatt }) {
+export default function Schatulle() {
   // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
@@ -747,7 +747,7 @@ export default function Schatulle({ onVorblatt }) {
           />
         </div>
       ) : null}
-      {phase === "start" ? <Zettel onVorblatt={onVorblatt} /> : null}
+      {phase === "start" ? <Zettel /> : null}
     </div>
   );
 }
