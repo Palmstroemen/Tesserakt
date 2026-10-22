@@ -1,4 +1,4 @@
-import Zettel from "./Zettel";
+import Zettel, { zettelWeglegen } from "./Zettel";
 import { kameraErlaubt } from "./einwilligung";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -240,6 +240,7 @@ export default function Schatulle() {
     const schnell = wahl === "X" || wahl === "XC";
     const paarSpiel = wahl === "C" || wahl === "XC";
     setGeburt(paarSpiel ? { a: eingabe.a, b: eingabe.b } : { a: eingabe });
+    zettelWeglegen(); // der Zettel liegt nur bis zum ersten Spiel in der Schatulle
     setFehler(null);
     setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
     setAbkuerzung(schnell);

@@ -1,9 +1,29 @@
-// Gefalteter Zettel in der Schatulle (nur auf dem Startbild): eine Legende, keine Anleitung. Aufgefaltet zeigt
-// er die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine Bleistiftnotiz.
-import { useState } from "react";
+// Gefalteter Zettel in der Schatulle (nur auf dem Startbild und nur bis zum ersten Spiel): eine Legende, keine
+// Anleitung. Aufgefaltet zeigt er die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine
+// Bleistiftnotiz und eine Skizze. Weggewischt (oder angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
+import { useRef, useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { papier } from "./klang";
+
+const SCHLUESSEL = "tesserakt-zettel";
+
+// liegt der Zettel noch in der Schatulle? (bis er weggewischt oder das erste Spiel gestartet wurde)
+export function zettelDa() {
+  try {
+    return localStorage.getItem(SCHLUESSEL) !== "weg";
+  } catch {
+    return true;
+  }
+}
+
+export function zettelWeglegen() {
+  try {
+    localStorage.setItem(SCHLUESSEL, "weg");
+  } catch {
+    // ohne Speicher: nur fuer diese Sitzung weg
+  }
+}
 
 // Bleistiftnotizen neben einzelnen Horoskopen
 const NOTIZ = { Vedisch: "indisch" };
@@ -67,25 +87,68 @@ function Kritzelei() {
 }
 
 export default function Zettel() {
-  const [offen, setOffen] = useState(false);
+  const [zustand, setZustand] = useState(() =>
+    zettelDa() ? "gefaltet" : "weg",
+  ); // gefaltet | offen | fliegt | weg
+  const [dx, setDx] = useState(0); // Wischweg waehrend des Ziehens
+  const start = useRef(null);
 
-  function umschalten(neu) {
-    papier(neu);
-    setOffen(neu);
+  function oeffnen() {
+    papier(true);
+    setZustand("offen");
   }
 
+  function wegwischen() {
+    papier(false);
+    zettelWeglegen();
+    setZustand("fliegt");
+  }
+
+  // Wischen: dem Finger folgen; loslassen nach rechts (oder antippen) wirft den Zettel hinaus
+  function runter(e) {
+    start.current = e.clientX;
+  }
+  function ziehen(e) {
+    if (start.current !== null) setDx(Math.max(0, e.clientX - start.current));
+  }
+  function hoch() {
+    if (start.current === null) return;
+    start.current = null;
+    if (dx > 50 || dx < 6) wegwischen();
+    else setDx(0);
+  }
+
+  if (zustand === "weg") return null;
   return (
     <>
       <button
         type="button"
         className="zt-gefaltet"
-        hidden={offen}
+        hidden={zustand !== "gefaltet"}
         aria-label="Zettel"
-        onClick={() => umschalten(true)}
+        onClick={oeffnen}
       />
-      {offen ? (
-        <div className="zt-ebene" onClick={() => umschalten(false)}>
-          <div className="zt-schatten">
+      {zustand === "offen" || zustand === "fliegt" ? (
+        <div
+          className={zustand === "fliegt" ? "zt-ebene weg" : "zt-ebene"}
+          onPointerDown={runter}
+          onPointerMove={ziehen}
+          onPointerUp={hoch}
+          onPointerCancel={hoch}
+          onAnimationEnd={(e) => {
+            if (e.animationName === "zt-wegfliegen") setZustand("weg");
+          }}
+        >
+          <div
+            className="zt-schatten"
+            style={
+              dx
+                ? {
+                    transform: `translateX(${dx}px) rotate(${-1.5 + dx / 25}deg)`,
+                  }
+                : undefined
+            }
+          >
             <div
               className="zt-blatt"
               role="dialog"
