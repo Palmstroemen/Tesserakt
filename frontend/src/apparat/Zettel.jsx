@@ -1,4 +1,4 @@
-// Gefalteter Zettel in der Schatulle (nur auf dem Startbild und nur bis zum ersten Spiel): eine Legende, keine
+// Gefalteter Zettel im Apparat (nur auf dem Startbild und nur bis zum ersten Spiel): eine Legende, keine
 // Anleitung. Aufgefaltet zeigt er die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine
 // Bleistiftnotiz und eine Skizze. Weggewischt (oder angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
 import { useRef, useState } from "react";
@@ -8,7 +8,7 @@ import { papier } from "./klang";
 
 const SCHLUESSEL = "tesserakt-zettel";
 
-// liegt der Zettel noch in der Schatulle? (bis er weggewischt oder das erste Spiel gestartet wurde)
+// liegt der Zettel noch im Apparat? (bis er weggewischt oder das erste Spiel gestartet wurde)
 export function zettelDa() {
   try {
     return localStorage.getItem(SCHLUESSEL) !== "weg";

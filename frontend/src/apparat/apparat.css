@@ -35,7 +35,7 @@
   font-display: swap;
 }
 
-/* Prototyp Schatulle: mobile first, eine Spalte (max. 440 CSS-Pixel), am Desktop zentriert. */
+/* Prototyp Apparat: mobile first, eine Spalte (max. 440 CSS-Pixel), am Desktop zentriert. */
 :root {
   --sc-grund: #16110d;
   --sc-holz: #241b14;
@@ -214,7 +214,7 @@ body {
   margin: 0;
 }
 
-/* --- Fragerunde: Faecher (siehe docs/Konzepte/Schatulle_Mechanik.md) ----------- */
+/* --- Fragerunde: Faecher (siehe docs/Konzepte/Apparat_Mechanik.md) ----------- */
 .sp {
   max-width: 440px;
   margin: 0 auto;
@@ -2950,7 +2950,7 @@ body {
   text-underline-offset: 3px;
 }
 
-/* --- Zettel: gefaltete Legende in der Schatulle (Startbild), handgeschrieben und abgegriffen --- */
+/* --- Zettel: gefaltete Legende im Apparat (Startbild), handgeschrieben und abgegriffen --- */
 .zt-gefaltet {
   position: fixed;
   left: 22px;

@@ -1,4 +1,4 @@
-# Schatulle – Layout und Mechanik der Fragerunde
+# Apparat – Layout und Mechanik der Fragerunde
 
 *Stand: 21. Oktober 2026. Ergebnis der Gespräche zum GUI-Design; ergänzt `Visuals.md` und `Spieldesign.md`.*
 
@@ -122,6 +122,6 @@ Kreis oben oder höchstens 4 aktive Systeme.
 
 ## Ortsauswahl und Name (offen)
 
-- Die Suchliste mit Vorschlägen ist bequem, passt aber nicht zur Schatulle.
+- Die Suchliste mit Vorschlägen ist bequem, passt aber nicht zum Apparat.
 - Idee: ein **Ring außen um den oberen Kreis wie die Skala eines alten MW-Radios** mit Ortsnamen.
 - Name (nur Numerologie, optional): noch offen.

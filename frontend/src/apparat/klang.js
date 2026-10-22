@@ -2,7 +2,7 @@
 // Der AudioContext darf erst nach einer Beruehrung starten (Browser-Regel), daher lazy.
 let ctx = null;
 let stumm = false;
-// Gesamtlautstaerke aller Geraeusche: die Schatulle ist ein feiner Mechanismus (Test: halb so laut)
+// Gesamtlautstaerke aller Geraeusche: der Apparat ist ein feiner Mechanismus (Test: halb so laut)
 const GESAMT = 0.5;
 
 export function setStumm(wert) {

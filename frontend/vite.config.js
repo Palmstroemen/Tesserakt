@@ -22,8 +22,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        // Prototyp der Schatulle (Fragerunde), eigene Seite neben dem bestehenden Spiel
-        schatulle: resolve(__dirname, "schatulle.html"),
+        // Prototyp des Apparats (Fragerunde), eigene Seite neben dem bestehenden Spiel
+        apparat: resolve(__dirname, "apparat.html"),
       },
     },
   },

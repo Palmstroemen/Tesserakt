@@ -1,4 +1,4 @@
-// Vorblatt beim ersten Start: zwei Blaetter auf der Schatulle. Erst die Kamera (Freigabe gleich hier, damit die
+// Vorblatt beim ersten Start: zwei Blaetter auf dem Apparat. Erst die Kamera (Freigabe gleich hier, damit die
 // Abfragen des Systems nicht mitten im Spiel kommen), dann die Datenverwendung mit der Bitte um ernsthafte
 // Antworten und der ausfuehrlichen Erklaerung. Die Texte stehen in src/texte/einwilligung.md und
 // datenverwendung.md.
@@ -25,7 +25,7 @@ export default function Vorblatt({ onFertig }) {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((s) => {
-        // nur die Freigabe einholen; die Schatulle startet die Kameras selbst
+        // nur die Freigabe einholen; der Apparat startet die Kameras selbst
         s.getTracks().forEach((t) => t.stop());
         setKamera(true);
       })

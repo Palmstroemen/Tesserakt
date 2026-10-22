@@ -62,7 +62,7 @@ function easeMechanisch(t) {
 
 /**
  * Fragerunde als Faecher: oben das Auge mit dem Fragedia, unten der eigene Schieber und die Systembögen.
- * Mechanik siehe docs/Konzepte/Schatulle_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
+ * Mechanik siehe docs/Konzepte/Apparat_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
  * onAntwort bekommt die Werte aller Systeme.
  * Nach der letzten Frage: Ergebnis-Dia (blaues Glas); erst wenn alle Systeme und der eigene Schieber ganz
  * rechts stehen, loest der Hebel die Auswertung aus. Dann zeigt das Dia die Rangliste und die Systemschieber

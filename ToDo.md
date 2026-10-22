@@ -70,12 +70,12 @@
 
 - [x] Sprache je Sitzung speichern: `sprache` (Sprache der Fragen, derzeit `de`) und `geraet_sprache`
   (Spracheinstellung des Geräts, z. B. `de-AT`); Spalten in `sessions`, alte Datenbanken werden nachgerüstet
-- [ ] Oberflächentexte (Schatulle zuerst, dann altes Spiel) in eine Sprachdatei auslagern
+- [ ] Oberflächentexte (Apparat zuerst, dann altes Spiel) in eine Sprachdatei auslagern
 - [ ] Fragenkataloge (`fragen*.json`): Text je Sprache, gleiche `id`
 - [ ] Monatsnamen des Datumsrads über `Intl` statt fest (dabei `de-AT` "Jänner" vs. `de-DE` "Januar")
 - [ ] Länder- und Städtenamen: `Intl.DisplayNames` mit der gewählten Sprache; Exonym-Liste nur für Deutsch
 - [ ] Lesetexte (Erklärtexte, Beipackzettel, Deutungen): übersetzen und fachlich prüfen; Backend hat schon `locale`
-- [ ] Rechts-nach-links-Sprachen (Arabisch, Hebräisch): Schatulle teilweise spiegeln (bewusst später)
+- [ ] Rechts-nach-links-Sprachen (Arabisch, Hebräisch): Apparat teilweise spiegeln (bewusst später)
 - [ ] Reihenfolge: erst Struktur ohne neue Sprache, dann Englisch, Lesetexte zuletzt
 
 ## Auswertung: Kultur und Erwartung (Idee)
@@ -96,8 +96,8 @@
 Grundsatz: Die genauen Geburtsdaten (Datum, Uhrzeit, Ort) braucht nur die Berechnung, im Moment des Spiels und
 im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnisse, nie der Ort.
 
-- [ ] Stand heute: Die Schatulle speichert noch nichts. Die alten Spiele B/C speichern über `/session` das genaue
-  Datum und die Uhrzeit, den Ort auf 1° gerundet (rund 100 km) und die Zeitzone. Beim Anschluss der Schatulle
+- [ ] Stand heute: Der Apparat speichert noch nichts. Die alten Spiele B/C speichern über `/session` das genaue
+  Datum und die Uhrzeit, den Ort auf 1° gerundet (rund 100 km) und die Zeitzone. Beim Anschluss des Apparats
   gleich nach diesem Konzept speichern.
 - [ ] **Speichern:** Ergebnisse (Vektoren je Horoskop, Antworten, Skill, Perzentil), die Regelversion, mit der
   gerechnet wurde, und den Kulturraum (Europa, China, Indien, Nordamerika, …; auch für die Auswertung „Kultur und
@@ -137,7 +137,7 @@ im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnis
   - Gesundheitsfragen eventuell gar nicht einzeln speichern, sondern nur zusammengefasst (z. B. Treffer ja/nein je
     Horoskop) oder ganz aus dem gespeicherten Teil herausnehmen.
   - Gespeichert wird nur mit Einwilligung aus dem Vorblatt (`datenErlaubt()` in
-    `frontend/src/schatulle/einwilligung.js`); die Texte dort müssen zur tatsächlichen Speicherung passen.
+    `frontend/src/apparat/einwilligung.js`); die Texte dort müssen zur tatsächlichen Speicherung passen.
 
 ## Ideen / Backlog
 
@@ -153,7 +153,7 @@ im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnis
   Gewichte nur vorab festlegen, nicht nach den Spielergebnissen nachjustieren. (Idee aus dem frühen
   Prototyp `docs/regelwerk_explorer.html`, 2026-02, gelöscht 2026-10-21; Stand in der Git-Historie.)
 
-- [ ] **Intro der Schatulle (Idee, noch nicht umsetzen):** Vorspann, die Schale öffnet sich, darin liegt als
+- [ ] **Intro des Apparats (Idee, noch nicht umsetzen):** Vorspann, die Schale öffnet sich, darin liegt als
   Erstes ein kleiner, zusammengefalteter Zettel. Er ist eine Legende, keine Anleitung: nur die Icons mit den
   Namen, z. B. „(Icon) Hellenistisches Horoskop, (Icon) Chinesisches Horoskop, …“. Dieselben Icons kommen auf
   die Schieber im Fächer (statt der Buchstaben W, Ch, N, …), damit man die Schieber den Horoskopen zuordnen

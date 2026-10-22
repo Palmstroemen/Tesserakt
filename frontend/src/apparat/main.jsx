@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import Schatulle from "./Schatulle";
+import Apparat from "./Apparat";
 import Vorblatt from "./Vorblatt";
 import { einwilligungLaden } from "./einwilligung";
 import "../components/diagramme.css";
-import "./schatulle.css";
+import "./apparat.css";
 
-// Beim ersten Start (oder nach geaenderten Einwilligungstexten) zuerst das Vorblatt, dann die Schatulle
+// Beim ersten Start (oder nach geaenderten Einwilligungstexten) zuerst das Vorblatt, dann der Apparat
 function App() {
   const [bereit, setBereit] = useState(() => einwilligungLaden() !== null);
-  return bereit ? <Schatulle /> : <Vorblatt onFertig={() => setBereit(true)} />;
+  return bereit ? <Apparat /> : <Vorblatt onFertig={() => setBereit(true)} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(

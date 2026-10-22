@@ -13,8 +13,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">@null</item>
-        <!-- Raender um die Schatulle (Statusleiste, Navigationsleiste) dunkel wie die Seite, helle Symbole -->
-        <item name="android:windowBackground">@color/schatulle_dunkel</item>
+        <!-- Raender um den Apparat (Statusleiste, Navigationsleiste) dunkel wie die Seite, helle Symbole -->
+        <item name="android:windowBackground">@color/apparat_dunkel</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>

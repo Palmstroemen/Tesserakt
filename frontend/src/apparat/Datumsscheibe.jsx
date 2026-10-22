@@ -1,4 +1,4 @@
-// Die Datumsscheibe der Schatulle als Bild mit festem Datum (z. B. fuer die Titelseite des Horoskopbuchs):
+// Die Datumsscheibe des Apparats als Bild mit festem Datum (z. B. fuer die Titelseite des Horoskopbuchs):
 // dieselben Ringe, Gravuren und Farben wie im Datumsrad, aber ohne Bedienung. Gold fuer die erste Person,
 // Silber fuer die zweite (Spiel C). praefix trennt die ids, wenn mehrere Scheiben im Dokument stehen.
 import { MITTE } from "./geometrie";

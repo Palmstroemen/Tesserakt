@@ -27,7 +27,7 @@ import VedischRangoli from "./diagramme/VedischRangoli";
 import ArabischZellij from "./diagramme/ArabischZellij";
 import NumerologieHeft from "./diagramme/NumerologieHeft";
 
-// Ergebnis in der Schatulle: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
+// Ergebnis im Apparat: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
 // dabei synchron mit wie ein Dia. Die erste Karte ist die Uebersicht (Rangliste).
 const DIAGRAMME = {

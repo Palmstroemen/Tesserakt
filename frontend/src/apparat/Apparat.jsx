@@ -139,7 +139,7 @@ function anzeigeWert(stat, system, dim, wert) {
 
 const auswahlSichtbar = (auswertung, phase) => auswertung && phase === "frage";
 
-export default function Schatulle() {
+export default function Apparat() {
   // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
@@ -240,7 +240,7 @@ export default function Schatulle() {
     const schnell = wahl === "X" || wahl === "XC";
     const paarSpiel = wahl === "C" || wahl === "XC";
     setGeburt(paarSpiel ? { a: eingabe.a, b: eingabe.b } : { a: eingabe });
-    zettelWeglegen(); // der Zettel liegt nur bis zum ersten Spiel in der Schatulle
+    zettelWeglegen(); // der Zettel liegt nur bis zum ersten Spiel im Apparat
     setFehler(null);
     setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
     setAbkuerzung(schnell);

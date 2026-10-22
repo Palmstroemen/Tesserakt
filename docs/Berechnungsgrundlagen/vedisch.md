@@ -76,7 +76,7 @@
 28 Punkte: Tara (3), Yoni (4), Gana (6), Bhakoot (7), Nadi (8). Bewertung: ab drei Vierteln sehr
 günstig, ab der Hälfte günstig (nach Parasharas Halbe-Punkte-Regel), sonst schwierig. Vereinfachungen:
 Yoni nur gleich (4), neutral (2) oder Erzfeinde (0), ohne die Abstufung befreundet/feindlich; Stri Dirgha
-und Vashya fehlen (Stri Dirgha bräuchte das Geschlecht, die Schatulle fragt es nicht ab); keine
+und Vashya fehlen (Stri Dirgha bräuchte das Geschlecht, der Apparat fragt es nicht ab); keine
 Aufhebung von Doshas.
 
 Abweichungen von `jyotish_nakshatras.json` (die Daten sind dort in diesen Punkten falsch):

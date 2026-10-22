@@ -1,4 +1,4 @@
-// Systeme der Schatulle: Reihenfolge = Bogen von innen nach aussen.
+// Systeme des Apparats: Reihenfolge = Bogen von innen nach aussen.
 // Farben aus "Visuals Fantasien" (Farbsystem-Vorschlag). Auf den Schiebern stehen Icons (HoroskopIcon.jsx);
 // die Kuerzel bleiben als Ersatz, wo kein Icon gezeichnet wird.
 // id = interner Schluessel (Datenbank, Regeldateien, Wertung) - nie aendern. name = Anzeigename,

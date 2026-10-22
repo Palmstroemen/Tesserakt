@@ -433,7 +433,7 @@ export default function Buch({
         <Seite key="titel" art="titel">
           <div className="buch-titelzeichen">TESSERAKT</div>
           <h1>{titel}</h1>
-          {/* die Datumsscheibe der Schatulle mit dem Geburtsdatum (bei Paaren Gold und Silber) */}
+          {/* die Datumsscheibe des Apparats mit dem Geburtsdatum (bei Paaren Gold und Silber) */}
           {geburt?.a ? (
             <div className={geburt.b ? "buch-scheiben paar" : "buch-scheiben"}>
               <Datumsscheibe
