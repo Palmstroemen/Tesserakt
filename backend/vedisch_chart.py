@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -27,6 +28,14 @@ PLANET_LABELS = {
 
 
 def _load_dasha_data() -> Tuple[List[str], Dict[str, int]]:
+    """Reihenfolge und Dauern der Mahadashas. Zwischengespeichert (die Kontrollgruppen rufen das tausendfach
+    auf); bei geaenderter Datei wird neu gelesen. Kopien, damit Aufrufer den Speicher nicht veraendern."""
+    order, dauern = _dasha_daten(DASHA_JSON.stat().st_mtime_ns)
+    return list(order), dict(dauern)
+
+
+@lru_cache(maxsize=2)
+def _dasha_daten(_mtime: int) -> Tuple[List[str], Dict[str, int]]:
     data = json.loads(DASHA_JSON.read_text(encoding="utf-8"))
     ueber = data.get("system_uebersicht", {})
     grund = ueber.get("grundprinzip", {})
