@@ -1,0 +1,13 @@
+{
+  "appId": "com.tesserakt.app",
+  "appName": "Tesserakt",
+  "webDir": "dist-app",
+  "server": {
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#16110d",
+    "adjustMarginsForEdgeToEdge": "force"
+  }
+}

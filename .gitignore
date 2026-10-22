@@ -22,6 +22,7 @@ env/
 # Node / frontend
 node_modules/
 dist/
+dist-app/
 build/
 .next/
 .turbo/
