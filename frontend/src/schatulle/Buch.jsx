@@ -476,7 +476,7 @@ export default function Buch({
             </p>
           ))}
           <p>
-            Berechnet und gesetzt mit dem Tesserakt-Gerät am {datum}.
+            Berechnet und gesetzt mit dem Tesserakt-Apparat am {datum}.
             <br />
             Enthält {auswahl.length === 1
               ? "das Horoskop"

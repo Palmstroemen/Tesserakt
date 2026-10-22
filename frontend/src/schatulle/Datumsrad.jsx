@@ -519,7 +519,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
           <p className="sc-hinweis">{`${ort.name}, ${ort.landName}`}</p>
         ) : null}
         <p className="sc-hinweis">
-          {laedt ? "Das Gerät öffnet sich …" : (gesperrtMeldung ?? hinweis)}
+          {laedt ? "Der Apparat öffnet sich …" : (gesperrtMeldung ?? hinweis)}
         </p>
         {fehler ? <p className="sc-fehler">{fehler}</p> : null}
       </div>

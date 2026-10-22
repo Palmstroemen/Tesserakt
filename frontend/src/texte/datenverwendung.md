@@ -9,7 +9,7 @@ Vor der Veroeffentlichung rechtlich pruefen lassen.
 
 ## Kurz gesagt
 
-- Die Kamerabilder verlassen dein Handy nie.
+- Die Kamerabilder verlassen dein Gerät nie.
 - Ohne deine Einwilligung speichern wir nichts von dem, was du im Spiel eingibst.
 - Mit deiner Einwilligung speichern wir deine Antworten und Ergebnisse – ohne Namen, ohne Geburtsort, ohne
   genaues Geburtsdatum.
@@ -18,13 +18,13 @@ Vor der Veroeffentlichung rechtlich pruefen lassen.
 
 ## Die Kamera
 
-Das Gerät nutzt zwei Kameras deines Handys für Effekte: Die Rückkamera lässt das magische Auge durchscheinen, die
-Frontkamera spiegelt dein Gesicht im Glas des Ergebnisses. Die Bilder werden nur auf deinem Handy angezeigt. Wir
+Der Apparat nutzt zwei Kameras deines Geräts für Effekte: Die Rückkamera lässt das magische Auge durchscheinen, die
+Frontkamera spiegelt dein Gesicht im Glas des Ergebnisses. Die Bilder werden nur auf deinem Gerät angezeigt. Wir
 nehmen nichts auf, speichern nichts und senden nichts an uns oder an andere.
 
 ## Was wir zum Rechnen brauchen
 
-Für die Horoskope brauchen wir dein Geburtsdatum, die Uhrzeit und den Ort. Diese Angaben schickt das Gerät zum
+Für die Horoskope brauchen wir dein Geburtsdatum, die Uhrzeit und den Ort. Diese Angaben schickt der Apparat zum
 Rechnen an unseren Server. Er rechnet damit und vergisst sie wieder – egal, ob du einwilligst oder nicht.
 
 ## Was wir speichern, wenn du einwilligst

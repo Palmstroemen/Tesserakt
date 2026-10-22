@@ -49,7 +49,7 @@ export const EINLEITUNG = [
   { k: "h3", t: "Dieses Buch" },
   {
     k: "p",
-    t: "Die Horoskope in diesem Buch wurden nach den überlieferten Regeln ihrer Tradition berechnet – so getreu, wie es die Quellen erlauben. Sie stammen aus dem Tesserakt-Gerät, einem Spiel und zugleich einem Experiment: Jede Antwort hilft, die alte Frage ein wenig genauer zu beantworten, ob die Sterne etwas über uns wissen.",
+    t: "Die Horoskope in diesem Buch wurden nach den überlieferten Regeln ihrer Tradition berechnet – so getreu, wie es die Quellen erlauben. Sie stammen aus dem Tesserakt-Apparat, einem Spiel und zugleich einem Experiment: Jede Antwort hilft, die alte Frage ein wenig genauer zu beantworten, ob die Sterne etwas über uns wissen.",
   },
   {
     k: "schluss",
