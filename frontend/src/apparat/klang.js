@@ -119,14 +119,28 @@ export function einrasten() {
   rauschStoss(0.04, 900, 0.5);
 }
 
-export function zahnrad(anzahl, dauerSekunden, frequenz = 2400) {
-  // Folge von Klicks waehrend sich ein Zeiger bewegt
+export function zahnrad(
+  anzahl,
+  dauerSekunden,
+  frequenz = 2400,
+  { verz = 0, ease = null } = {},
+) {
+  // Folge von Klicks waehrend sich ein Zeiger bewegt. Mit ease (Verlauf der Bewegung, 0..1) klickt es dort,
+  // wo der Zeiger eine Rast ueberfaehrt: schnell am Anfang, langsamer zum Ende hin.
+  const MESSPUNKTE = 200;
+  let k = 0;
   for (let i = 0; i < anzahl; i += 1) {
+    let anteil = i / anzahl;
+    if (ease) {
+      const ziel = (i + 0.5) / anzahl;
+      while (k < MESSPUNKTE && ease(k / MESSPUNKTE) < ziel) k += 1;
+      anteil = k / MESSPUNKTE;
+    }
     rauschStoss(
       0.018,
       frequenz * (0.9 + Math.random() * 0.2),
       0.18,
-      (i / anzahl) * dauerSekunden,
+      verz + anteil * dauerSekunden,
     );
   }
 }

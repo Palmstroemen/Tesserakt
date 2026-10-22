@@ -448,14 +448,20 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* So unscharf, dass nur Licht und Dunkel bleiben; warmer Ton wie Pergament. Die Belichtungsautomatik
-     der Kamera gleicht Helligkeit weitgehend aus (auf dem iPhone nicht abschaltbar), daher hier nur
-     maessig abgedunkelt. Die Unschaerfe wirkt durch scale() ca. doppelt. */
-  filter: blur(40px) sepia(1) saturate(0.6) contrast(1.6) brightness(0.8);
-  transform: scale(
-    2.2
-  ); /* gross genug, damit die Unschaerfe am Rand nicht ausfranst */
+  /* Das Bild ist schon in durchlicht.js zu Licht und Dunkel geglaettet, ganz ohne teuren Weichzeichner.
+     Warmer Ton wie Pergament; die Belichtungsautomatik der Kamera gleicht Helligkeit weitgehend aus (auf
+     dem iPhone nicht abschaltbar), daher nur maessig abgedunkelt. */
+  filter: sepia(1) saturate(0.6) contrast(1.6) brightness(0.8);
+  /* der etwas hellere Rand des kleinen Bildes faellt weg */
+  transform: scale(1.4);
+}
+
+/* Kamerabild als Quelle fuer das Durchlicht: muss laufen, wird aber nicht gezeigt */
+.sp-kamera-quelle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 .sp-linse {

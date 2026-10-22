@@ -18,6 +18,7 @@ import {
   wertAusU,
 } from "./geometrie";
 import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
+import { durchlichtStarten } from "./durchlicht";
 
 const ALLE = SYSTEME.map((s) => s.id);
 // eingravierte Kuerzel links der Schlitze (Reihenfolge wie SYSTEME)
@@ -118,6 +119,7 @@ export default function Spielplatte({
   const zusatzRef = useRef(zusatz);
   zusatzRef.current = zusatz;
   const videoRef = useRef(null);
+  const lichtRef = useRef(null);
   const drag = useRef(null);
   const anim = useRef(new Map());
   const raf = useRef(0);
@@ -180,7 +182,11 @@ export default function Spielplatte({
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
   useEffect(() => {
-    if (videoRef.current) videoRef.current.srcObject = kamera ?? null;
+    const video = videoRef.current;
+    if (!video) return undefined;
+    video.srcObject = kamera ?? null;
+    if (!kamera || !lichtRef.current) return undefined;
+    return durchlichtStarten(lichtRef.current, video);
   }, [kamera]);
 
   const licht = useLichtmesser(videoRef, MESSWERTE_ZEIGEN && Boolean(kamera));
@@ -434,14 +440,17 @@ export default function Spielplatte({
     const VERZ = 140;
     aktiv.forEach((s, i) => {
       const ziel = uAusWert(zielWert(s, frage.dimension, frage));
+      const verz = 120 + i * VERZ;
+      // Klicks im Takt der Bewegung: erst wenn dieser Schieber losfaehrt, dicht am Anfang, dann seltener
       zahnrad(
         Math.max(3, Math.round((1 - ziel) * 30)),
         DAUER / 1000,
         1800 + i * 180,
+        { verz: verz / 1000, ease: easeMechanisch },
       );
       animiere(s, ziel, DAUER, {
         ease: easeMechanisch,
-        verz: 120 + i * VERZ,
+        verz,
         fertig:
           i === aktiv.length - 1
             ? () =>
@@ -484,12 +493,14 @@ export default function Spielplatte({
     const DAUER = 1300;
     ALLE.forEach((s, i) => {
       const ziel = uAusWert((details[s]?.skillScore ?? 0) / 100);
+      const verz = 300 + i * 140;
       zahnrad(
         Math.max(3, Math.round((1 - ziel) * 30)),
         DAUER / 1000,
         1800 + i * 180,
+        { verz: verz / 1000, ease: easeMechanisch },
       );
-      animiere(s, ziel, DAUER, { ease: easeMechanisch, verz: 300 + i * 140 });
+      animiere(s, ziel, DAUER, { ease: easeMechanisch, verz });
     });
   }
 
@@ -1037,13 +1048,16 @@ export default function Spielplatte({
         <div className="sp-linse" style={linse} aria-live="polite">
           {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
           {kamera ? (
-            <video
-              ref={videoRef}
-              className="sp-kamera"
-              autoPlay
-              muted
-              playsInline
-            />
+            <>
+              <video
+                ref={videoRef}
+                className="sp-kamera-quelle"
+                autoPlay
+                muted
+                playsInline
+              />
+              <canvas ref={lichtRef} className="sp-kamera" />
+            </>
           ) : null}
           {/* Prototyp: Messwerte, um echte Helligkeit trotz Belichtungsautomatik zu erkennen */}
           {MESSWERTE_ZEIGEN && kamera ? (
