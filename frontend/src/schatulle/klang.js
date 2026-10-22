@@ -27,7 +27,8 @@ function rauschStoss(dauer, frequenz, lautstaerke, verzoegerung = 0) {
   const laenge = Math.max(1, Math.floor(ac.sampleRate * dauer));
   const puffer = ac.createBuffer(1, laenge, ac.sampleRate);
   const daten = puffer.getChannelData(0);
-  for (let i = 0; i < laenge; i += 1) daten[i] = (Math.random() * 2 - 1) * (1 - i / laenge) ** 3;
+  for (let i = 0; i < laenge; i += 1)
+    daten[i] = (Math.random() * 2 - 1) * (1 - i / laenge) ** 3;
   const quelle = ac.createBufferSource();
   quelle.buffer = puffer;
   const filter = ac.createBiquadFilter();
@@ -60,6 +61,12 @@ export function sperre() {
   rauschStoss(0.06, 260, 0.7);
 }
 
+export function blatt() {
+  // Papier: der Zettel wird auf- oder zugefaltet (weiches, breites Rascheln)
+  rauschStoss(0.09, 2600, 0.14);
+  rauschStoss(0.12, 4200, 0.1, 0.06);
+}
+
 export function einrasten() {
   rauschStoss(0.04, 900, 0.5);
 }
@@ -67,6 +74,11 @@ export function einrasten() {
 export function zahnrad(anzahl, dauerSekunden, frequenz = 2400) {
   // Folge von Klicks waehrend sich ein Zeiger bewegt
   for (let i = 0; i < anzahl; i += 1) {
-    rauschStoss(0.018, frequenz * (0.9 + Math.random() * 0.2), 0.18, (i / anzahl) * dauerSekunden);
+    rauschStoss(
+      0.018,
+      frequenz * (0.9 + Math.random() * 0.2),
+      0.18,
+      (i / anzahl) * dauerSekunden,
+    );
   }
 }

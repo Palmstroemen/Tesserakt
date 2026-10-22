@@ -1,3 +1,4 @@
+import Zettel from "./Zettel";
 import { kameraErlaubt } from "./einwilligung";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -138,7 +139,7 @@ function anzeigeWert(stat, system, dim, wert) {
 
 const auswahlSichtbar = (auswertung, phase) => auswertung && phase === "frage";
 
-export default function Schatulle() {
+export default function Schatulle({ onVorblatt }) {
   // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
@@ -746,6 +747,7 @@ export default function Schatulle() {
           />
         </div>
       ) : null}
+      {phase === "start" ? <Zettel onVorblatt={onVorblatt} /> : null}
     </div>
   );
 }
