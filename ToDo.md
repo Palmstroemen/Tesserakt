@@ -91,6 +91,44 @@
 - [ ] Vorab festlegen, welche Vergleiche gerechnet werden (sonst findet man bei vielen Untergruppen immer
   irgendwo einen Zufallstreffer)
 
+## Datenschutz: Rechnen und Speichern trennen (Konzept, 2026-10-22)
+
+Grundsatz: Die genauen Geburtsdaten (Datum, Uhrzeit, Ort) braucht nur die Berechnung, im Moment des Spiels und
+im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnisse, nie der Ort.
+
+- [ ] Stand heute: Die Schatulle speichert noch nichts. Die alten Spiele B/C speichern über `/session` das genaue
+  Datum und die Uhrzeit, den Ort auf 1° gerundet (rund 100 km) und die Zeitzone. Beim Anschluss der Schatulle
+  gleich nach diesem Konzept speichern.
+- [ ] **Speichern:** Ergebnisse (Vektoren je Horoskop, Antworten, Skill, Perzentil), die Regelversion, mit der
+  gerechnet wurde, und den Kulturraum (Europa, China, Indien, Nordamerika, …; auch für die Auswertung „Kultur und
+  Erwartung“ oben).
+- [ ] **Ortsfreie Zwischenergebnisse statt Ort:** Damit lässt sich fast alles später neu rechnen, ohne dass ein
+  Ort gespeichert ist:
+  - Zeichen des Aszendenten (nicht in Grad): reicht für die Ganzzeichen-Häuser (Hellenistisch, Vedisch-Lagna,
+    Arabisch). Dazu Tag- oder Nachtgeburt.
+  - Bazi-Stundensäule (sie hängt über die wahre Sonnenzeit vom Längengrad ab).
+  - Numerologie, Kabbalah: nur das Datum.
+  - Westlich: Planeten in Zeichen und Aspekte brauchen nur Datum und Uhrzeit. Placidus-Häuser brauchen den
+    Breitengrad: entweder auf Ganzzeichen-Häuser umstellen oder die Hausstellungen als Ergebnis speichern.
+- [ ] **Nicht speichern:** den Aszendenten in Grad (grenzt bei bekanntem Datum und bekannter Uhrzeit auf eine
+  Nord-Süd-Linie ein, etwa wie der Längengrad), den MC (zusammen mit dem Aszendenten lässt sich der Ort wieder
+  zurückrechnen) und die Planetenstände in Grad (der Mond wandert etwa ½° pro Stunde, ein Horoskop in Grad ist ein
+  Fingerabdruck des Geburtszeitpunkts).
+- [ ] Ein verrauschter Ort (z. B. ±200 km Ost-West, ±100 km Nord-Süd) wäre nur **nach** der Berechnung zulässig.
+  Davor verfälscht er das Ergebnis: 200 km Ost-West sind auf 48° Nord etwa 11 Minuten Sternzeit, der Aszendent
+  verschiebt sich um rund 3°, bei grob jedem achten Menschen in ein anderes Zeichen.
+- [ ] **Der eigentliche Fingerabdruck ist Datum und Uhrzeit**, nicht der Ort. Grobe Schätzung der Menge möglicher
+  Personen: genaues Datum + Stunde + Europa ≈ 800; mit dem Aszendenten in Grad noch 50–100; mit nur dem Zeichen des
+  Aszendenten weiterhin ≈ 800.
+- [ ] **Zwei Stufen:**
+  - Intern: genaues Datum und Uhrzeit für die Neuberechnung, nur mit ausdrücklicher Einwilligung. Rechtlich
+    pseudonymisiert, also weiter personenbezogen (Auskunft, Löschung). Eventuell verschlüsselt, getrennt und mit
+    Ablaufdatum.
+  - Veröffentlichter Datensatz: Datum vergröbern (Geburtsjahr oder Monat), Kulturraum, Ergebnisse. Voraussichtlich
+    anonym und dann außerhalb der DSGVO frei veröffentlichbar.
+- [ ] Alternative zur Neuberechnung: Jede Runde mit ihrer Regelversion festschreiben und neue Regeln nur an neuen
+  Spielen prüfen. Methodisch sogar sauberer, weil es nachträgliches Anpassen an die Daten verhindert.
+
 ## Ideen / Backlog
 
 - [ ] **Premiumversion:** Horoskope direkt erstellen, ohne Fragespiel, mit einigen speicherbaren Personen
