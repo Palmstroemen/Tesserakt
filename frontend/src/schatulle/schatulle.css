@@ -2857,3 +2857,95 @@ body {
   background: radial-gradient(closest-side, rgba(30, 18, 4, 0.55), transparent);
   filter: blur(3px);
 }
+
+/* --- Vorblatt (Kamera und Einwilligung beim ersten Start) --- */
+.vb-ebene {
+  position: fixed;
+  inset: 0;
+  /* mittig, solange das Blatt passt; ein laengeres Blatt beginnt oben und laesst sich scrollen */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: max(16px, env(safe-area-inset-top)) 16px
+    max(16px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  overflow-y: auto;
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(255, 230, 170, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #a07c46, #6e5230);
+}
+.vb-blatt {
+  width: min(100%, 400px);
+  box-sizing: border-box;
+  padding: 26px 24px 22px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fbf3df, #ecdcb4);
+  color: #2b2116;
+  box-shadow:
+    0 10px 30px rgba(30, 18, 4, 0.55),
+    inset 0 0 0 1px #c9a66b;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+  margin-block: auto;
+  animation: vb-auflegen 700ms ease-out;
+}
+@keyframes vb-auflegen {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-1.5deg);
+  }
+}
+.vb-blatt h1,
+.vb-blatt h2 {
+  margin: 0 0 12px;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.vb-blatt h1 {
+  font-size: 1.45rem;
+}
+.vb-blatt h2 {
+  font-size: 1.3rem;
+}
+.vb-erklaerung h2 {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: #6b4f24;
+}
+.vb-blatt p,
+.vb-blatt ul {
+  margin: 0 0 12px;
+}
+.vb-blatt ul {
+  padding-left: 1.2em;
+}
+.vb-knoepfe {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 18px;
+}
+.vb-leise,
+.vb-link {
+  font: inherit;
+  border: none;
+  background: none;
+  color: #6b4f24;
+  cursor: pointer;
+  padding: 10px;
+}
+.vb-leise:disabled {
+  opacity: 0.45;
+}
+.vb-link {
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

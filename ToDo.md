@@ -128,6 +128,16 @@ im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnis
     anonym und dann außerhalb der DSGVO frei veröffentlichbar.
 - [ ] Alternative zur Neuberechnung: Jede Runde mit ihrer Regelversion festschreiben und neue Regeln nur an neuen
   Spielen prüfen. Methodisch sogar sauberer, weil es nachträgliches Anpassen an die Daten verhindert.
+- [ ] **Die Antworten selbst sind das Heikelste.** Selbsteinschätzungen wie „Ich kann mit Geld überhaupt nicht
+  umgehen“ sind sehr persönlich. Antworten zum Lebensbereich Gesundheit können nach der DSGVO Gesundheitsdaten
+  sein (besondere Kategorie, Art. 9): nur mit ausdrücklicher Einwilligung und besonders geschützt.
+  - Antworten nie zusammen mit dem genauen Geburtsdatum speichern (getrennte Tabellen, kein gemeinsamer Schlüssel
+    außer einer zufälligen Kennung; die interne Stufe mit genauen Daten nur verschlüsselt).
+  - Im veröffentlichten Datensatz nur die vergröberten Merkmale (Geburtsjahr oder Klasse, Kulturraum).
+  - Gesundheitsfragen eventuell gar nicht einzeln speichern, sondern nur zusammengefasst (z. B. Treffer ja/nein je
+    Horoskop) oder ganz aus dem gespeicherten Teil herausnehmen.
+  - Gespeichert wird nur mit Einwilligung aus dem Vorblatt (`datenErlaubt()` in
+    `frontend/src/schatulle/einwilligung.js`); die Texte dort müssen zur tatsächlichen Speicherung passen.
 
 ## Ideen / Backlog
 

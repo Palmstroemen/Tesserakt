@@ -1,3 +1,4 @@
+import { kameraErlaubt } from "./einwilligung";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   calculateRating,
@@ -173,8 +174,8 @@ export default function Schatulle() {
   const [kamera, setKamera] = useState(null);
   const [kameraInfo, setKameraInfo] = useState("");
 
-  // Kamera gleich beim Oeffnen anfordern und laufen lassen: so kommt die Freigabe-Abfrage einmal am Anfang
-  // und nicht mitten im Spiel (die Frontkamera fuer den Spiegel im Ergebnis gilt dann als schon freigegeben).
+  // Kamera gleich beim Oeffnen anfordern und laufen lassen (nur wenn im Vorblatt freigegeben; die Abfrage des
+  // Systems kam dann schon dort, nicht mitten im Spiel).
   // Abgeschaltet wird erst beim Verlassen der Seite.
   const kameraRef = useRef(null);
   const kameraAbgelehnt = useRef(false);
@@ -210,7 +211,7 @@ export default function Schatulle() {
     const laeuft = kameraRef.current
       ?.getVideoTracks()
       .some((t) => t.readyState === "live");
-    if (laeuft || kameraAbgelehnt.current) return;
+    if (laeuft || kameraAbgelehnt.current || !kameraErlaubt()) return;
     navigator.mediaDevices
       ?.getUserMedia({ video: { facingMode: "environment" }, audio: false })
       .then((stream) => {

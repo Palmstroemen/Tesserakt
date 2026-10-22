@@ -1,3 +1,4 @@
+import { kameraErlaubt } from "./einwilligung";
 import { useEffect, useRef, useState } from "react";
 import RadixWheel from "../components/RadixWheel";
 import FourPillarsChart from "../components/FourPillarsChart";
@@ -136,6 +137,7 @@ function Spiegel() {
   useEffect(() => {
     let st = null;
     let vorbei = false;
+    if (!kameraErlaubt()) return undefined;
     navigator.mediaDevices
       ?.getUserMedia({ video: { facingMode: "user" }, audio: false })
       .then((s) => {
