@@ -2,18 +2,18 @@
 version: 1
 ---
 <!--
-Vorblatt der Schatulle (erscheint beim ersten Start und wieder, wenn sich "version" oben aendert).
+Vorblatt des Geraets (erscheint beim ersten Start und wieder, wenn sich "version" oben aendert).
 Aufbau: Die erste "##"-Ueberschrift ist das Blatt zur Kamera, die zweite das Blatt zu den Daten.
 Die Knoepfe setzt das Programm darunter. Erlaubt: Absaetze, **fett**, Listen mit "- ".
-Wird die Bedeutung geaendert (nicht nur Tippfehler), "version" erhoehen: dann fragt die Schatulle neu.
+Wird die Bedeutung geaendert (nicht nur Tippfehler), "version" erhoehen: dann fragt das Geraet neu.
 -->
 
-## Die Schatulle schaut zurück
+## Das Gerät schaut zurück
 
-Das magische Auge zeigt, was hinter deinem Gerät liegt, und im Glas des Ergebnisses spiegelt sich dein Gesicht.
-Dafür nutzt die Schatulle die Kameras deines Geräts – **nur für diese Effekte**.
+Das magische Auge zeigt, was hinter deinem Handy liegt, und im Glas des Ergebnisses spiegelt sich dein Gesicht.
+Dafür nutzt das Gerät die Kameras deines Handys – **nur für diese Effekte**.
 
-Die Bilder bleiben auf deinem Gerät. Wir nehmen nichts auf, speichern nichts und senden nichts.
+Die Bilder bleiben auf deinem Handy. Wir nehmen nichts auf, speichern nichts und senden nichts.
 
 Ohne Kamera funktioniert das Spiel genauso. Das Auge bleibt dann einfach etwas ruhiger.
 
