@@ -21,8 +21,8 @@ import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
 
 const ALLE = SYSTEME.map((s) => s.id);
-// eingravierte Kuerzel links der Schlitze (Reihenfolge wie SYSTEME)
-const KUERZEL = ["Wes", "Chin", "Num", "Kaba", "Arab", "Helin", "Ved"];
+// eingravierte Kuerzel links der Schlitze
+const KUERZEL = SYSTEME.map((s) => s.gravur);
 const SCHRITT = 0.2; // eigener Schieber: 11 Rasten von -1 bis +1
 const SCHWELLE = 0.5; // ab hier rastet ein Schieber rechts ein (bzw. schaltet das Dia weiter)
 // Ausloesehebel: radial schraeg rechts unten neben dem Auge, ausserhalb der Faecherplatte. Der Schlitz liegt

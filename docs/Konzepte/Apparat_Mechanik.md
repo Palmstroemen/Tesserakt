@@ -33,6 +33,15 @@ Kreis oben oder höchstens 4 aktive Systeme.
   kleine Lücke bzw. einen Sperrzahn von der Skala getrennt.
 - Systemsymbole und der eigene Schieber stehen anfangs dort.
 
+## Reihenfolge der Bögen
+
+- Von innen nach außen: Numerologie, Kabbalah, Chinesisch, Vedisch, Arabisch, Westlich, Hellenistisch.
+- Innen die Zahl, außen der Himmel: neben dem eigenen Schieber das persönlichste System (rechnet nur mit dem
+  eigenen Datum), nach außen immer „kosmischer“ bis zum hellenistischen Ursprung am Rand. Keine Wertung,
+  sondern ein Verlauf; wer ihn bemerkt, entdeckt etwas.
+
+
+
 ## Aufziehen (bei jeder Frage neu)
 
 - Wer ein System mitspielen lassen will, **zieht sein Symbol von ganz links nach ganz rechts** und zieht damit
