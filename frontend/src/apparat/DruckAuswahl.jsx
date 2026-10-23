@@ -30,6 +30,11 @@ export function BuchWerbung({ paarSpiel, geburt, onSchliessen }) {
             : "Wenn du fertig bist, kannst du alle deine Horoskope als Buch bestellen."}
         </p>
         <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
+        <p className="da-werbung">
+          {paarSpiel
+            ? "Ein schönes Geschenk, wenn ihr's für jemanden anderen macht."
+            : "Ein schönes Geschenk, wenn du's für jemanden anderen machst."}
+        </p>
         <button
           type="button"
           className="da-schliessen"
