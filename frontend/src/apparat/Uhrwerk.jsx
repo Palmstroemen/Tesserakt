@@ -9,6 +9,7 @@ import { useEffect, useRef } from "react";
 const EBENEN = [
   // Radien und Teilung in Einheiten des Lochradius; hell = Helligkeit des Messings (Tiefe). Meist Raeder
   // zwischen rMin und rMax, jedes fuenfte ein grosses bis rGross: auch in der Tiefe liegen grosse Raeder.
+  // riesen: [von, bis, Anzahl] Raeder fast so gross wie das Loch, langsam; sie werden zuerst gesetzt.
   {
     rMin: 0.035,
     rMax: 0.08,
@@ -16,6 +17,7 @@ const EBENEN = [
     teilung: 0.02,
     hell: 0.15,
     anzahl: 70,
+    riesen: [0.62, 0.88, 2],
   },
   {
     rMin: 0.04,
@@ -23,6 +25,7 @@ const EBENEN = [
     rGross: 0.27,
     teilung: 0.026,
     hell: 0.25,
+    riesen: [0.5, 0.7, 2],
     anzahl: 55,
   },
   {
@@ -31,6 +34,7 @@ const EBENEN = [
     rGross: 0.3,
     teilung: 0.034,
     hell: 0.4,
+    riesen: [0.42, 0.6, 1],
     anzahl: 40,
   },
   {
@@ -39,6 +43,7 @@ const EBENEN = [
     rGross: 0.3,
     teilung: 0.044,
     hell: 0.62,
+    riesen: [0.34, 0.48, 1],
     anzahl: 22,
   },
   {
@@ -73,6 +78,27 @@ function ebeneAnlegen(e, zufall, frei) {
     frei(x, y, r) &&
     raeder.every((g) => Math.hypot(g.x - x, g.y - y) > g.r + r + e.teilung);
   const neu = (r) => Math.max(6, Math.round((2 * Math.PI * r) / e.teilung));
+  if (e.riesen) {
+    const [von, bis, anzahl] = e.riesen;
+    for (let k = 0, v = 0; k < anzahl && v < 200; v += 1) {
+      const n = neu(von + zufall() * (bis - von));
+      const rr = (n * e.teilung) / (2 * Math.PI);
+      const a = zufall() * Math.PI * 2;
+      const d = zufall() * 0.75;
+      const x = Math.cos(a) * d;
+      const y = Math.sin(a) * d;
+      if (!passt(x, y, rr)) continue;
+      raeder.push({
+        x,
+        y,
+        n,
+        r: rr,
+        w: (0.08 + zufall() * 0.12) * (zufall() < 0.5 ? -1 : 1),
+        phase: zufall() * Math.PI * 2,
+      });
+      k += 1;
+    }
+  }
   let versuche = 0;
   while (raeder.length < e.anzahl && versuche < e.anzahl * 40) {
     versuche += 1;
@@ -179,7 +205,7 @@ function radBild(rPx, n, hell, teilungPx, schatten) {
   g.stroke();
   // Speichen (gleich breit, nicht keilfoermig): Fenster dazwischen ausschneiden
   if (rPx > 12) {
-    const speichen = rPx > 40 ? 6 : rPx > 22 ? 5 : 4;
+    const speichen = rPx > 150 ? 8 : rPx > 40 ? 6 : rPx > 22 ? 5 : 4;
     const rIn = rPx * 0.3;
     const rAus = innen - rPx * 0.1;
     const halb = rPx * 0.055; // halbe Speichenbreite
@@ -293,7 +319,65 @@ function werkAnlegen(R) {
       return { ...g, bild: bilder.get(g.n) };
     });
   });
-  return { ebenen, unruh: { ...unruh, bild: unruhBild(unruh.r * R) } };
+  return {
+    grund: grundBild(R),
+    ebenen,
+    unruh: { ...unruh, bild: unruhBild(unruh.r * R) },
+  };
+}
+
+// Grund: Werkplatte aus gebuerstetem Messing (Sonnenschliff, feine Kreise um die Mitte), mit Lagersteinen;
+// sie liegt tief im Schatten (die Ebenen darueber dunkeln sie weiter ab)
+function grundBild(R) {
+  const c = document.createElement("canvas");
+  c.width = 2 * R;
+  c.height = 2 * R;
+  const g = c.getContext("2d");
+  const zufall = zufallVon(77);
+  const verlauf = g.createRadialGradient(R * 0.8, R * 0.6, 0, R, R, R * 1.1);
+  verlauf.addColorStop(0, "#8a6a38");
+  verlauf.addColorStop(1, "#4a3618");
+  g.fillStyle = verlauf;
+  g.fillRect(0, 0, 2 * R, 2 * R);
+  g.lineWidth = Math.max(0.5, R / 400);
+  for (let r = 2; r < R * 1.45; r += g.lineWidth * (1 + zufall() * 1.5)) {
+    const hell = zufall() < 0.5;
+    g.strokeStyle = hell
+      ? `rgba(255,230,170,${0.04 + zufall() * 0.07})`
+      : `rgba(30,18,5,${0.05 + zufall() * 0.09})`;
+    g.beginPath();
+    g.arc(R, R, r, 0, 2 * Math.PI);
+    g.stroke();
+  }
+  // Glanzkeile des Sonnenschliffs (Licht von oben links)
+  const keil = g.createConicGradient
+    ? g.createConicGradient(-Math.PI * 0.75, R, R)
+    : null;
+  if (keil) {
+    keil.addColorStop(0, "rgba(255,235,180,0.16)");
+    keil.addColorStop(0.12, "rgba(255,235,180,0)");
+    keil.addColorStop(0.5, "rgba(255,235,180,0.12)");
+    keil.addColorStop(0.62, "rgba(255,235,180,0)");
+    keil.addColorStop(1, "rgba(255,235,180,0.16)");
+    g.fillStyle = keil;
+    g.fillRect(0, 0, 2 * R, 2 * R);
+  }
+  for (let k = 0; k < 9; k += 1) {
+    const a = zufall() * Math.PI * 2;
+    const d = (0.2 + zufall() * 0.7) * R;
+    const x = R + Math.cos(a) * d;
+    const y = R + Math.sin(a) * d;
+    const rs = R * 0.018;
+    g.beginPath();
+    g.arc(x, y, rs * 1.9, 0, 2 * Math.PI);
+    g.fillStyle = "#c9a35e";
+    g.fill();
+    g.beginPath();
+    g.arc(x, y, rs, 0, 2 * Math.PI);
+    g.fillStyle = "#8e1426";
+    g.fill();
+  }
+  return c;
 }
 
 // einmal angelegt fuer alle Faecher (wartend und im Spiel), solange die Groesse gleich bleibt
@@ -315,11 +399,7 @@ export default function Uhrwerk({ laeuft }) {
     const g = c.getContext("2d");
     const R = c.width / 2;
     g.setTransform(1, 0, 0, 1, 0, 0);
-    const grund = g.createRadialGradient(R, R, 0, R, R, R);
-    grund.addColorStop(0, "#1c130a");
-    grund.addColorStop(1, "#050302");
-    g.fillStyle = grund;
-    g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(w.grund, 0, 0);
     w.ebenen.forEach((raeder, i) => {
       for (const rad of raeder) {
         const a = rad.phase + rad.w * t;
