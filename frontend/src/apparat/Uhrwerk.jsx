@@ -321,11 +321,164 @@ function werkAnlegen(R) {
       return { ...g, bild: bilder.get(g.n) };
     });
   });
+  // Schichten nach den Ebenen 1, 2 und 3 (zwischen ihnen und der naechsten)
+  const schichtZufall = zufallVon(4711);
+  const schichten = EBENEN.map((e, i) =>
+    i >= 1 && i < EBENEN.length - 1
+      ? schichtBild(R, schichtZufall, (e.hell + EBENEN[i + 1].hell) / 2)
+      : null,
+  );
   return {
     grund: grundBild(R),
     ebenen,
+    schichten,
     unruh: { ...unruh, bild: unruhBild(unruh.r * R) },
   };
+}
+
+// Feste Schicht zwischen zwei Raederebenen: eine Platte vom Rand her mit runden Ausschnitten (dort sieht man
+// tiefer) und ein, zwei geschwungene Bruecken quer darueber, mit Schrauben und Lagersteinen. Messing mit
+// Genfer Streifen, Fase an der Kante, Schatten nach unten. Einmal gezeichnet, steht still.
+function schichtBild(R, zufall, hell) {
+  const c = document.createElement("canvas");
+  c.width = 2 * R;
+  c.height = 2 * R;
+  const g = c.getContext("2d");
+  g.translate(R, R);
+  g.scale(R, R); // Einheiten des Lochradius
+  const form = new Path2D();
+  const loecher = [];
+  // Platte: Kreisabschnitt vom Rand her, mit Ausschnitten
+  const a = zufall() * Math.PI * 2;
+  const d = 1.15 + zufall() * 0.15;
+  const pr = 0.82;
+  const px = Math.cos(a) * d;
+  const py = Math.sin(a) * d;
+  form.arc(px, py, pr, 0, 2 * Math.PI);
+  const ausschnitte = 1 + Math.floor(zufall() * 2);
+  for (let k = 0; k < ausschnitte; k += 1) {
+    const b = a + Math.PI + (zufall() - 0.5) * 0.9;
+    const lr = 0.1 + zufall() * 0.1;
+    const ld = pr - lr - 0.08 - zufall() * 0.1;
+    const lx = px + Math.cos(b) * ld;
+    const ly = py + Math.sin(b) * ld;
+    form.moveTo(lx + lr, ly);
+    form.arc(lx, ly, lr, 0, 2 * Math.PI, true);
+    loecher.push([lx, ly, lr]);
+  }
+  // Bruecken: Bogen zwischen zwei Punkten am Rand, mit runden Enden
+  const bruecken = [];
+  const anzahl = 1 + Math.floor(zufall() * 2);
+  for (let k = 0; k < anzahl; k += 1) {
+    const w0 = zufall() * Math.PI * 2;
+    const w1 = w0 + Math.PI * (0.45 + zufall() * 0.5);
+    const p0 = [Math.cos(w0) * 1.1, Math.sin(w0) * 1.1];
+    const p1 = [Math.cos(w1) * 1.1, Math.sin(w1) * 1.1];
+    const m = [
+      (p0[0] + p1[0]) * 0.25 + (zufall() - 0.5) * 0.4,
+      (p0[1] + p1[1]) * 0.25 + (zufall() - 0.5) * 0.4,
+    ];
+    bruecken.push({ p0, p1, m, breite: 0.07 + zufall() * 0.06 });
+  }
+  const farbe = (rgb, f = 1) =>
+    `rgb(${rgb.map((v) => Math.round(v * hell * f)).join(",")})`;
+  const zeichneForm = (fuellen) => {
+    fuellen(form, "evenodd");
+    for (const br of bruecken) {
+      g.lineCap = "round";
+      g.lineWidth = br.breite;
+      const p = new Path2D();
+      p.moveTo(...br.p0);
+      p.quadraticCurveTo(...br.m, ...br.p1);
+      fuellen(p, null, br.breite);
+    }
+  };
+  // Messing, darauf Genfer Streifen (breite schraege Baender, in der Mitte heller)
+  zeichneForm((p, regel, breite) => {
+    if (breite) {
+      g.strokeStyle = "#000";
+      g.stroke(p);
+    } else {
+      g.fillStyle = "#000";
+      g.fill(p, regel);
+    }
+  });
+  g.save();
+  g.globalCompositeOperation = "source-atop";
+  g.rotate(-0.5);
+  const band = 0.14;
+  for (let x = -1.6; x < 1.6; x += band) {
+    const v = g.createLinearGradient(x, 0, x + band, 0);
+    v.addColorStop(0, farbe([150, 112, 58]));
+    v.addColorStop(0.5, farbe([228, 190, 120]));
+    v.addColorStop(1, farbe([150, 112, 58]));
+    g.fillStyle = v;
+    g.fillRect(x, -1.6, band, 3.2);
+  }
+  g.restore();
+  // dahinter: dunkle Kante und Schatten auf die Ebene darunter
+  g.save();
+  g.globalCompositeOperation = "destination-over";
+  const SAUM = 0.012;
+  zeichneForm((p, regel, breite) => {
+    g.strokeStyle = "rgba(15,8,0,0.9)";
+    g.lineWidth = (breite ?? 0) + SAUM;
+    g.stroke(p);
+  });
+  g.shadowColor = "rgba(0,0,0,0.8)";
+  g.shadowBlur = R * 0.05;
+  g.shadowOffsetY = R * 0.02;
+  zeichneForm((p, regel, breite) => {
+    g.strokeStyle = g.fillStyle = "rgba(0,0,0,0.6)";
+    if (breite) {
+      g.lineWidth = breite + SAUM;
+      g.stroke(p);
+    } else g.fill(p, regel);
+  });
+  g.restore();
+  for (const [lx, ly, lr] of loecher) {
+    g.beginPath();
+    g.arc(lx, ly, lr, Math.PI * 1.1, Math.PI * 1.9);
+    g.strokeStyle = "rgba(10,5,0,0.8)";
+    g.lineWidth = 0.012;
+    g.stroke();
+    g.beginPath();
+    g.arc(lx, ly, lr, Math.PI * 0.1, Math.PI * 0.9);
+    g.strokeStyle = `rgba(255,235,180,${0.4 * hell})`;
+    g.lineWidth = 0.006;
+    g.stroke();
+  }
+  // Schrauben und Lagersteine auf den Bruecken
+  for (const br of bruecken) {
+    for (const t of [0.22, 0.5, 0.78]) {
+      const x =
+        (1 - t) ** 2 * br.p0[0] + 2 * (1 - t) * t * br.m[0] + t ** 2 * br.p1[0];
+      const y =
+        (1 - t) ** 2 * br.p0[1] + 2 * (1 - t) * t * br.m[1] + t ** 2 * br.p1[1];
+      if (Math.hypot(x, y) > 0.98) continue;
+      const rs = br.breite * 0.28;
+      g.beginPath();
+      g.arc(x, y, rs, 0, 2 * Math.PI);
+      if (t === 0.5) {
+        g.fillStyle = farbe([230, 200, 140]);
+        g.fill();
+        g.beginPath();
+        g.arc(x, y, rs * 0.5, 0, 2 * Math.PI);
+        g.fillStyle = farbe([200, 30, 45], 1 / Math.max(hell, 0.6));
+        g.fill();
+      } else {
+        g.fillStyle = farbe([90, 95, 110]); // gebläute Schraube
+        g.fill();
+        g.save();
+        g.translate(x, y);
+        g.rotate(zufall() * Math.PI);
+        g.fillStyle = "rgba(0,0,0,0.7)";
+        g.fillRect(-rs * 0.8, -rs * 0.15, rs * 1.6, rs * 0.3);
+        g.restore();
+      }
+    }
+  }
+  return c;
 }
 
 // Grund: Werkplatte aus gebuerstetem Messing (Sonnenschliff, feine Kreise um die Mitte), mit Lagersteinen;
@@ -427,6 +580,7 @@ export default function Uhrwerk({ laeuft }) {
         g.setTransform(1, 0, 0, 1, 0, 0);
         g.fillStyle = "rgba(8,5,2,0.22)";
         g.fillRect(0, 0, c.width, c.height);
+        if (w.schichten[i]) g.drawImage(w.schichten[i], 0, 0);
       }
     });
     // Rand des Lochs: in die Tiefe hinein dunkler
