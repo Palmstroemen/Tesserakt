@@ -32,6 +32,32 @@ export function faecherLayout(verfuegbareHoehe) {
   };
 }
 
+// Faecher fuer das aktuelle Fenster, dazu die Platte: innen knapp unter dem Auge, aussen fast bis zum
+// unteren Bildschirmrand (mindestens knapp ueber den aeussersten Schlitz hinaus). Die Platte darf ueber das
+// SVG hinaus unter die Beschriftung reichen.
+export function layoutAusFenster() {
+  const breite = Math.min(window.innerWidth, 440);
+  const fenster = (window.innerHeight * 400) / breite; // Bildschirmhoehe in viewBox-Einheiten
+  const layout = faecherLayout(fenster - 78); // Platz fuer die Polbeschriftung
+  const aussen = layout.radien[layout.radien.length - 1];
+  return {
+    ...layout,
+    platteInnen: layout.radien[0] - layout.abstand * 0.6,
+    platteAussen: Math.max(
+      aussen + layout.abstand * 0.62,
+      fenster - MITTE.y - 10,
+    ),
+  };
+}
+
+// Drehscheibe: Faecherplatte und Walzenplatte (Ortseingabe) sitzen nebeneinander auf einer Scheibe, mit einem
+// schmalen Spalt. Im Faecher reicht die Faecherplatte rechts bis 4:30, die Walzenplatte liegt daneben (bis
+// 1:30); auf der Datumsseite steht die Walzenplatte unten und der Faecher links. Beim Uebergang dreht sich
+// die Scheibe um eine Vierteldrehung (apparat.css: dr-walzen-ab, sp-faecher-ein).
+export const SPALT = 0.02; // rad
+export const FAECHER_RECHTS = Math.PI / 4; // rechte Kante der Faecherplatte (4:30)
+export const WALZENPLATTE = Math.PI / 4 - SPALT; // halber Winkel der Walzenplatte
+
 export function punktU(r, u, theta) {
   const phi = -theta + 2 * theta * u; // 0 = senkrecht nach unten
   return { x: MITTE.x + r * Math.sin(phi), y: MITTE.y + r * Math.cos(phi) };

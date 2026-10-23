@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { API_BASE } from "../logic/api";
-import { MITTE, bogenPfad, plattePfad } from "./geometrie";
+import { MITTE, bogenPfad } from "./geometrie";
+import { Walzenplatte } from "./platte";
 import { rastKlick, zahnrad } from "./klang";
 
 // Geburtsort als zwei Walzen unter dem Kreis, wie die Skala eines alten MW-Radios: Die Namen stehen
@@ -246,7 +247,7 @@ const ANFANG_ORTE = [
   { key: "pfeil", label: "—— oder doch? ——→", waehlbar: false },
 ];
 
-export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt }) {
+export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt, platteInnen, platteAussen }) {
   const [laender, setLaender] = useState([]);
   const [landIdx, setLandIdx] = useState(0);
   const [staedte, setStaedte] = useState(ANFANG_ORTE);
@@ -296,12 +297,11 @@ export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stadt, land]);
 
-  const { theta } = WALZEN;
-  const platte = plattePfad(WALZEN.land - 34, WALZEN.stadt + 34, theta + 0.07);
   return (
     <g className="ow">
-      {/* Platte gehoert zum Rahmen und bleibt Gold; nur die Streifen in den Schlitzen wechseln das Metall */}
-      <path d={platte} fill="url(#ow-platte-gold)" stroke="#2b2014" strokeWidth="2" />
+      {/* Platte: Teil der Drehscheibe, gleiche Radien wie die Faecherplatte; bleibt Gold, nur die Streifen in
+          den Schlitzen wechseln das Metall */}
+      <Walzenplatte innen={platteInnen} aussen={platteAussen} fuellung="url(#ow-platte-gold)" />
       {laender.length ? (
         <Walze r={WALZEN.land} eintraege={laender} index={landIdx} onIndex={setLandIdx} svgPunkt={svgPunkt} metall={metall} />
       ) : null}

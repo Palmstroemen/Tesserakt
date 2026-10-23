@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
-import { MITTE } from "./geometrie";
+import { MITTE, layoutAusFenster } from "./geometrie";
+import { PlattenVerlauf } from "./platte";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 
@@ -158,6 +159,8 @@ const START = {
 const FLIP_MS = 1400;
 
 export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
+  // Masse der Drehscheibe wie im Faecher (die Walzenplatte hat dieselben Radien wie die Faecherplatte)
+  const platte = useMemo(() => layoutAusFenster(), []);
   const [drehung, setDrehung] = useState(START);
   const [seite, setSeite] = useState("gold"); // gold = erste Person, silber = zweite Person (Spiel C)
   const [scheibe, setScheibe] = useState({ metall: "gold", skala: 1 }); // Muenzdrehung der Scheibe
@@ -374,16 +377,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
             <stop offset="0.55" stopColor={mittel} />
             <stop offset="1" stopColor={dunkel} />
           </radialGradient>
-          <radialGradient
-            id="ow-platte-gold"
-            cx={MITTE.x}
-            cy={MITTE.y}
-            r={WALZEN.stadt + 40}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0.5" stopColor="#8a6a3c" />
-            <stop offset="1" stopColor="#4a3720" />
-          </radialGradient>
+          <PlattenVerlauf id="ow-platte-gold" aussen={platte.platteAussen} />
           {/* Rahmen (Knoepfe): bleibt immer Gold */}
           <radialGradient id="dr-rahmen" cx="35%" cy="30%" r="80%">
             <stop offset="0" stopColor={METALL.gold[0]} />
@@ -416,7 +410,13 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
         {/* Ortswalzen unter dem Kreis */}
         {/* beim Abgang schwenken die Walzen um den Kreismittelpunkt nach rechts weg */}
         <g className="dr-walzen">
-          <OrtWalzen svgPunkt={svgPunkt} metall={seite} onOrt={setOrt} />
+          <OrtWalzen
+            svgPunkt={svgPunkt}
+            metall={seite}
+            onOrt={setOrt}
+            platteInnen={platte.platteInnen}
+            platteAussen={platte.platteAussen}
+          />
         </g>
 
         {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze; beim Abgang zum magischen Auge */}

@@ -4,13 +4,15 @@ import { SYSTEME } from "./systeme";
 import HoroskopIcon from "./HoroskopIcon";
 import Schlitz, { SchlitzDefs } from "./Schlitze";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
+import { PlattenVerlauf, Walzenplatte } from "./platte";
 import {
   AUGE_RADIUS,
+  FAECHER_RECHTS,
   LINSE_RADIUS,
   MITTE,
   RUHE_ANTEIL,
   bogenPfad,
-  faecherLayout,
+  layoutAusFenster,
   plattePfad,
   polarAusPunkt,
   punktU,
@@ -38,22 +40,6 @@ const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
 // Prototyp: Belichtung und Lichtmesser-Werte im Auge anzeigen (aus; zum Kamera-Testen auf true)
 const MESSWERTE_ZEIGEN = false;
 
-function layoutAusFenster() {
-  const breite = Math.min(window.innerWidth, 440);
-  const fenster = (window.innerHeight * 400) / breite; // Bildschirmhoehe in viewBox-Einheiten
-  const layout = faecherLayout(fenster - 78); // Platz fuer die Polbeschriftung
-  // Faecherplatte: Aussenradius fast bis zum unteren Bildschirmrand (mindestens knapp ueber den aeussersten
-  // Schlitz hinaus); sie darf ueber das SVG hinaus unter die Beschriftung reichen
-  const aussen = layout.radien[layout.radien.length - 1];
-  return {
-    ...layout,
-    platteAussen: Math.max(
-      aussen + layout.abstand * 0.62,
-      fenster - MITTE.y - 10,
-    ),
-  };
-}
-
 const easeAus = (t) => 1 - (1 - t) ** 3;
 function easeMechanisch(t) {
   // leichtes Ueberschwingen und Einrasten
@@ -71,6 +57,7 @@ const Unterbau = memo(function Unterbau({
   abstand,
   theta,
   schlitz,
+  platteInnen,
   platteAussen,
   rUser,
   userBreite,
@@ -80,18 +67,21 @@ const Unterbau = memo(function Unterbau({
   );
   return (
     <>
-      {/* Platte: derselbe Messington wie der Ring um das Glas */}
+      {/* Platte: derselbe Messington wie der Ring um das Glas; rechts bis 4:30, dort steht der Hebel */}
       <path
-        d={plattePfad(
-          radien[0] - abstand * 0.6,
-          platteAussen,
-          theta + 0.22,
-          Math.PI / 2, // rechts bis 3 Uhr: dort steht der Ausloesehebel auf der Platte
-        )}
+        d={plattePfad(platteInnen, platteAussen, theta + 0.22, FAECHER_RECHTS)}
         fill="url(#sp-platte)"
         filter="url(#sp-plattenschatten)"
         stroke="#2b2014"
         strokeWidth="2"
+      />
+      {/* daneben, ueber den Spalt, die Walzenplatte der Ortseingabe (1:30 bis 4:30); ihre Schlitze liegen
+          ausserhalb des Bildes */}
+      <Walzenplatte
+        innen={platteInnen}
+        aussen={platteAussen}
+        fuellung="url(#sp-platte)"
+        transform={`rotate(-90 ${MITTE.x} ${MITTE.y})`}
       />
 
       {/* Strahlen: Einkerbungen zwischen den Schlitzen = gemeinsame Skala */}
@@ -302,6 +292,7 @@ export default function Spielplatte({
   pole = ["trifft nicht zu", "trifft zu"],
   auftritt = false,
   abgang = false,
+  wartet = false, // Datumsseite: der Faecher liegt links auf der Drehscheibe bereit (Auge und Linse fehlen)
   zusatz = null, // statt Hinweis/Knopf unten (z. B. Messingplaettchen); solange gesetzt, ruht das Aufziehen
   sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
   ergebnis = null, // Auswertung (ranking, systemDetails.skillScore); kann nach dem Hebelzug noch fehlen
@@ -314,8 +305,16 @@ export default function Spielplatte({
   vonMitte = false, // Paarfragen: die Balken der Schlitze wachsen von der Mitte aus
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
-  const { radien, abstand, symbol, theta, schlitz, hoehe, platteAussen } =
-    layout;
+  const {
+    radien,
+    abstand,
+    symbol,
+    theta,
+    schlitz,
+    hoehe,
+    platteInnen,
+    platteAussen,
+  } = layout;
   // eigener Schieber: duenner Schlitz, etwas naeher am Auge, damit er sich von den Horoskop-Schiebern abhebt
   const rUser = radien[0] - abstand * 0.22;
   const userBreite = schlitz * 0.32;
@@ -421,6 +420,7 @@ export default function Spielplatte({
   useEffect(() => {
     const t = setTimeout(() => {
       if (
+        wartet ||
         drag.current ||
         aufgezogenRef.current.size ||
         indexRef.current !== -1 ||
@@ -787,6 +787,7 @@ export default function Spielplatte({
     theta,
     schlitz,
     symbol,
+    platteInnen,
     platteAussen,
     rUser,
     userBreite,
@@ -794,7 +795,7 @@ export default function Spielplatte({
 
   return (
     <main
-      className={`sp${auftritt ? " sp-auftritt" : ""}${abgang ? " sp-abgang" : ""}`}
+      className={`sp${auftritt ? " sp-auftritt" : ""}${abgang ? " sp-abgang" : ""}${wartet ? " sp-wartet" : ""}`}
     >
       <div className="sp-buehne">
         <svg
@@ -848,12 +849,7 @@ export default function Spielplatte({
               />
             </filter>
             {/* Platte: Messing, etwa so hell wie der Ring um das Glas; einfacher Verlauf ueber die Flaeche */}
-            <radialGradient id="sp-platte" cx="40%" cy="15%" r="95%">
-              <stop offset="0" stopColor="#f0d394" />
-              <stop offset="0.5" stopColor="#c9a462" />
-              <stop offset="0.85" stopColor="#a5824a" />
-              <stop offset="1" stopColor="#7d6035" />
-            </radialGradient>
+            <PlattenVerlauf id="sp-platte" aussen={platteAussen} />
             <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
               <stop offset="0" stopColor="#f3d79a" />
               <stop offset="0.55" stopColor="#b08d57" />

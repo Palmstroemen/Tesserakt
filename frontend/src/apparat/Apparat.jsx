@@ -755,8 +755,24 @@ export default function Apparat() {
           onSchliessen={() => setDruck({ ...druck, zurueck: true })}
         />
       ) : null}
+      {phase === "start" || phase === "laden" ? (
+        // der Faecher liegt schon auf der Drehscheibe bereit, links neben der Walzenplatte
+        <Spielplatte
+          key="wartet"
+          wartet
+          fragen={[]}
+          zielWert={() => 0}
+          onAntwort={() => {}}
+        />
+      ) : null}
       {zeigeRad ? (
-        <div className={phase === "uebergang" ? "sc-deckschicht" : undefined}>
+        <div
+          className={
+            phase === "uebergang"
+              ? "sc-deckschicht"
+              : "sc-deckschicht sc-bedienbar"
+          }
+        >
           <Datumsrad
             onSpiel={spielWahl}
             laedt={phase !== "start"}
