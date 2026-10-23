@@ -899,11 +899,35 @@ body {
   z-index: 5;
 }
 
-.dr-abgang .dr-scheibe,
-.dr-abgang .dr-walzen,
-.sp-auftritt .sp-auge {
-  transform-box: view-box;
-  transform-origin: 200px 200px;
+/* Die bewegten Teile sind eigene SVG-Ebenen (gleiche Groesse, uebereinander): beim Uebergang dreht der
+   Grafikchip sie als Ganzes, statt sie in jedem Bild neu zu zeichnen. Drehpunkt ist der Kreismittelpunkt
+   (transform-origin steht am Element). */
+.dr-ebene,
+.sp-augenteil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.dr-ebene {
+  will-change: transform;
+}
+
+/* nur was gezeichnet ist, nimmt Beruehrungen an; darunter liegen die Knoepfe */
+.dr-ebene > g {
+  pointer-events: auto;
+}
+
+.dr-abgang .dr-ebene > g {
+  pointer-events: none;
+}
+
+.sp-wartet .sp-drehteil,
+.sp-auftritt .sp-drehteil,
+.sp-wartet .sp-augenteil,
+.sp-auftritt .sp-augenteil {
+  will-change: transform;
 }
 
 /* Scheibe dreht sich auf die schmale Kante ... (wie der Flip nach Silber: 0,7 s je Haelfte, Verlauf einer
@@ -919,7 +943,7 @@ body {
 }
 
 /* ... und von der Kante dreht sich das magische Auge herein */
-.sp-auftritt .sp-auge,
+.sp-auftritt .sp-augenteil,
 .sp-auftritt .sp-linse {
   animation: sp-auge-auf 0.7s cubic-bezier(0.61, 1, 0.88, 1) 0.7s both;
 }
@@ -935,33 +959,28 @@ body {
 
 /* Ortswalzen und Faecher sitzen wie auf einer Scheibe, mit einem Spalt dazwischen: Sie dreht sich um den
    Kreismittelpunkt, die Walzen laufen rechts hinaus, von links dreht der Faecher (samt Hebel) herein.
-   Beide Bewegungen sind dieselbe Drehung, nur um DREHSCHEIBE versetzt. */
+   Beide Bewegungen sind dieselbe Drehung, nur um eine Vierteldrehung versetzt. */
 .dr-abgang .dr-walzen {
   animation: dr-walzen-ab 1.4s both;
 }
 
-.sp-auftritt .sp-faecher,
-.sp-auftritt .sp-hebeltraeger,
-.sp-wartet .sp-faecher,
-.sp-wartet .sp-hebeltraeger {
-  transform-box: view-box;
-  transform-origin: 200px 200px;
-}
-
-.sp-auftritt .sp-faecher,
-.sp-auftritt .sp-hebeltraeger {
+.sp-auftritt .sp-drehteil {
   animation: sp-faecher-ein 1.4s both;
 }
 
 /* Datumsseite: der Faecher liegt eine Vierteldrehung weiter links auf der Scheibe; Auge und Linse gibt es
    noch nicht (dort liegt die Datumsscheibe) */
-.sp-wartet .sp-faecher,
-.sp-wartet .sp-hebeltraeger {
+.sp-wartet .sp-drehteil {
   transform: rotate(90deg);
 }
 
-.sp-wartet .sp-auge,
+.sp-wartet .sp-augenteil,
 .sp-wartet .sp-linse {
+  visibility: hidden;
+}
+
+/* der eigene Schieber steht dort in der Mitte am Bildrand, nur die Spitze des Steins schaute hervor */
+.sp-wartet .sp-griff {
   visibility: hidden;
 }
 
@@ -998,9 +1017,25 @@ body {
   }
 }
 
-.dr-abgang .dr-knoepfe,
+/* A und B verblassen; C liegt unter der Walzenplatte, die darueberfaehrt. Sobald sie ihn ganz bedeckt,
+   verschwindet er (er laege sonst am Ende ueber dem Faecher, der unter der Datumsseite liegt). */
+.dr-abgang .dr-knopf-A,
+.dr-abgang .dr-knopf-B,
 .sc-deckschicht .dr-fuss {
   animation: sc-ausblenden 0.35s ease-out forwards;
+}
+
+.dr-abgang .dr-knopf-C {
+  animation: dr-verdeckt 1.4s step-end forwards;
+}
+
+@keyframes dr-verdeckt {
+  55% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes sc-ausblenden {

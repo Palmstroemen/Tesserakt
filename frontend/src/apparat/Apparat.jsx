@@ -141,7 +141,7 @@ function anzeigeWert(stat, system, dim, wert) {
 const auswahlSichtbar = (auswertung, phase) => auswertung && phase === "frage";
 
 export default function Apparat() {
-  // start | laden | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
+  // start | laden | bereit (Faecher aufgebaut, wartet links) | uebergang (Rad -> Fragen) | frage (Fragerunde und Ergebnis im Faecher)
   const [phase, setPhase] = useState("start");
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
   const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
@@ -228,8 +228,19 @@ export default function Apparat() {
       });
   }
 
-  function wechsel(zwischen, ziel) {
-    setPhase(zwischen);
+  // Erst baut sich der Faecher auf (er liegt noch links auf der Drehscheibe bereit), gedreht wird ab dem
+  // naechsten Bild: sonst faellt der Aufbau in die Drehung und sie ruckelt
+  useEffect(() => {
+    if (phase !== "bereit") return undefined;
+    let bild = requestAnimationFrame(() => {
+      bild = requestAnimationFrame(() => drehen("frage"));
+    });
+    return () => cancelAnimationFrame(bild);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
+  function drehen(ziel) {
+    setPhase("uebergang");
     // Rattern im Takt der Drehscheibe (Ortswalzen hinaus, Faecher herein): nach dem Ausholen anlaufen, abbremsen
     zahnrad(26, (DREHUNG_MS * 0.88) / 1000, 1700, {
       verz: (DREHUNG_MS * 0.12) / 1000,
@@ -355,11 +366,11 @@ export default function Apparat() {
           })),
         );
         // Abkuerzung: gleich in den Faecher mit der Auswertung
-        wechsel("uebergang", "frage");
+        setPhase("bereit");
       } else {
         setAntworten([]);
         // Uebergang: Datumsscheibe dreht sich zum magischen Auge, die Ortswalzen schwenken weg
-        wechsel("uebergang", "frage");
+        setPhase("bereit");
       }
       // Kontrollgruppe im Hintergrund (fuer Anzeige-Skalierung und Skill)
       postJson(kontrollPfad, body)
@@ -630,8 +641,8 @@ export default function Apparat() {
   // Datumsscheibe und Faecher liegen uebereinander: beim Uebergang spielt die Scheibe ihren Abgang als
   // Deckschicht ueber dem schon fertigen Faecher. Das Ergebnis bleibt im Faecher; daneben (rechts) liegen die
   // Textkarten, beim Wischen im Auge schiebt sich der Faecher nach links weg.
-  const zeigeRad = ["start", "laden", "uebergang"].includes(phase);
-  const zeigeSpiel = ["uebergang", "frage"].includes(phase);
+  const zeigeRad = ["start", "laden", "bereit", "uebergang"].includes(phase);
+  const zeigeSpiel = ["bereit", "uebergang", "frage"].includes(phase);
   const titel =
     spiel === "C"
       ? "Euer Ergebnis"
@@ -661,6 +672,7 @@ export default function Apparat() {
               onAntwort={antwort}
               kamera={kamera}
               kameraInfo={kameraInfo}
+              wartet={phase === "bereit"}
               auftritt={phase === "uebergang"}
               zusatz={zusatz}
               sonderDia={sonderDia}
@@ -768,7 +780,7 @@ export default function Apparat() {
       {zeigeRad ? (
         <div
           className={
-            phase === "uebergang"
+            phase === "bereit" || phase === "uebergang"
               ? "sc-deckschicht"
               : "sc-deckschicht sc-bedienbar"
           }

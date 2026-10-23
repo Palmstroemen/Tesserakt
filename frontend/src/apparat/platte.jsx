@@ -19,11 +19,20 @@ export function PlattenVerlauf({ id, aussen }) {
   );
 }
 
+// Knopf C der Datumsseite liegt rechts unten in der Ecke unter der Walzenplatte (Datumsrad.jsx: KNOEPFE); die
+// Platte laesst ihn mit einer runden Ausnehmung frei, bis sie beim Drehen darueberfaehrt. Im Faecher sitzt
+// die Ausnehmung dann rechts oben, um den Druckknopf.
+export const KNOPF_C = { x: 366, y: 366 };
+const KERBE = {
+  r: Math.hypot(KNOPF_C.x - MITTE.x, KNOPF_C.y - MITTE.y),
+  radius: 32,
+};
+
 // Walzenplatte (Ortseingabe), unten um 6 Uhr; gleiche Radien wie die Faecherplatte
 export function Walzenplatte({ innen, aussen, fuellung, ...rest }) {
   return (
     <path
-      d={plattePfad(innen, aussen, WALZENPLATTE)}
+      d={plattePfad(innen, aussen, WALZENPLATTE, WALZENPLATTE, KERBE)}
       fill={fuellung}
       stroke="#2b2014"
       strokeWidth="2"

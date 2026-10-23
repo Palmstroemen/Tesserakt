@@ -319,8 +319,10 @@ export default function Spielplatte({
   const rUser = radien[0] - abstand * 0.22;
   const userBreite = schlitz * 0.32;
 
+  // Auf der Datumsseite steht der eigene Schieber in der Mitte seines Bogens: dort liegt er unter der
+  // Datumsscheibe, man sieht ihn nicht
   const startPos = {
-    user: sofort ? 1 : 0,
+    user: sofort ? 1 : wartet ? 0.5 : 0,
     dia: 0,
     hebel: 0,
     ...Object.fromEntries(ALLE.map((s) => [s, sofort ? 1 : 0])),
@@ -416,11 +418,18 @@ export default function Spielplatte({
 
   const licht = useLichtmesser(videoRef, MESSWERTE_ZEIGEN && Boolean(kamera));
 
-  // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen"
+  // Beim Hereindrehen laeuft er unbemerkt nach links in die Ruhe
   useEffect(() => {
+    if (!wartet && posRef.current.user === 0.5)
+      animiere("user", 0, 350, { ease: easeMechanisch });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wartet]);
+
+  // Beim ersten Spiel ruckt ein Symbol von selbst an: "hier kann man ziehen" (erst wenn der Faecher da ist)
+  useEffect(() => {
+    if (wartet) return undefined;
     const t = setTimeout(() => {
       if (
-        wartet ||
         drag.current ||
         aufgezogenRef.current.size ||
         indexRef.current !== -1 ||
@@ -436,7 +445,7 @@ export default function Spielplatte({
     }, 1600);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [wartet]);
 
   // --- Zeiger ------------------------------------------------------------------
   function svgPunkt(e) {
@@ -798,10 +807,13 @@ export default function Spielplatte({
       className={`sp${auftritt ? " sp-auftritt" : ""}${abgang ? " sp-abgang" : ""}${wartet ? " sp-wartet" : ""}`}
     >
       <div className="sp-buehne">
+        {/* Faecher und Hebel als eigene Ebene: beim Drehen der Scheibe wird sie nur verschoben, nicht in jedem
+            Bild neu gezeichnet (sonst ruckelt es auf dem Handy) */}
         <svg
           ref={svgRef}
           viewBox={`0 0 400 ${hoehe}`}
-          className="sp-svg"
+          className="sp-svg sp-drehteil"
+          style={{ transformOrigin: `50% ${(MITTE.y / hoehe) * 100}%` }}
           onPointerDown={druecken}
           onPointerMove={bewegen}
           onPointerUp={loslassen}
@@ -809,7 +821,6 @@ export default function Spielplatte({
         >
           <defs>
             <SchlitzDefs />
-            <LuenetteDefs praefix="sp" />
             <linearGradient id="sp-stein-tafel" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stopColor="#b9dcff" />
               <stop offset="0.5" stopColor="#4a8ae6" />
@@ -850,16 +861,6 @@ export default function Spielplatte({
             </filter>
             {/* Platte: Messing, etwa so hell wie der Ring um das Glas; einfacher Verlauf ueber die Flaeche */}
             <PlattenVerlauf id="sp-platte" aussen={platteAussen} />
-            <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
-              <stop offset="0" stopColor="#f3d79a" />
-              <stop offset="0.55" stopColor="#b08d57" />
-              <stop offset="1" stopColor="#5a4325" />
-            </radialGradient>
-            <radialGradient id="sp-linse" cx="45%" cy="40%" r="70%">
-              <stop offset="0" stopColor="#f6efdc" />
-              <stop offset="0.7" stopColor="#d9ccaa" />
-              <stop offset="1" stopColor="#8f7a52" />
-            </radialGradient>
             {/* Lichtschein fuer die eigene Einschaetzung (SVG-Filter: CSS-Filter auf SVG-Elementen kann WebKit nicht) */}
             <filter
               id="sp-schein"
@@ -997,134 +998,148 @@ export default function Spielplatte({
 
             <Beschriftung {...geo} links={pole[0]} rechts={pole[1]} />
           </g>
-          <Auge />
           {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben). Er steht auf
-              der Platte und dreht beim Auftritt mit dem Faecher herein. */}
-          <g className="sp-hebeltraeger">
-            <g
-              className="sp-hebel"
-              onPointerDown={hebelDruecken}
-              transform={`translate(${HEBEL_ANKER.x} ${HEBEL_ANKER.y}) rotate(${HEBEL_DREHUNG})`}
-            >
+              der Platte und dreht beim Auftritt mit dem Faecher herein (gleiche Ebene). */}
+          <g
+            className="sp-hebel"
+            onPointerDown={hebelDruecken}
+            transform={`translate(${HEBEL_ANKER.x} ${HEBEL_ANKER.y}) rotate(${HEBEL_DREHUNG})`}
+          >
+            <rect
+              x={-7}
+              y={-10}
+              width="14"
+              height={HEBEL.weg + 20}
+              rx="7"
+              className="sp-hebelschlitz"
+            />
+            <rect
+              x={-26}
+              y={-26}
+              width="52"
+              height={HEBEL.weg + 52}
+              fill="transparent"
+            />
+            {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
+            <clipPath id="sp-hebelschlitz-form">
+              <rect x={-7} y={-10} width="14" height={HEBEL.weg + 20} rx="7" />
+            </clipPath>
+            <g clipPath="url(#sp-hebelschlitz-form)">
+              {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
+              <g
+                className={
+                  gesperrt && pos.hebel < 0.02 ? "sp-sperre zu" : "sp-sperre"
+                }
+              >
+                <rect
+                  x={-7}
+                  y={14}
+                  width="14"
+                  height={HEBEL.weg - 4}
+                  className="sp-sperre-plaettchen"
+                />
+              </g>
+              {/* Schatten der Plattenkante auf dem Plaettchen */}
               <rect
                 x={-7}
                 y={-10}
                 width="14"
-                height={HEBEL.weg + 20}
-                rx="7"
-                className="sp-hebelschlitz"
+                height="3"
+                fill="#000"
+                opacity="0.35"
               />
-              <rect
-                x={-26}
-                y={-26}
-                width="52"
-                height={HEBEL.weg + 52}
-                fill="transparent"
+            </g>
+            {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
+            <g
+              transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
+              className="sp-hebelgriff"
+            >
+              {/* goldene Fassung, wirft einen kleinen Schatten */}
+              <ellipse
+                cx="0"
+                cy="1"
+                rx="16.6"
+                ry="16.6"
+                fill="#2a1c08"
+                opacity="0.45"
               />
-              {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
-              <clipPath id="sp-hebelschlitz-form">
-                <rect
-                  x={-7}
-                  y={-10}
-                  width="14"
-                  height={HEBEL.weg + 20}
-                  rx="7"
-                />
-              </clipPath>
-              <g clipPath="url(#sp-hebelschlitz-form)">
-                {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
-                <g
-                  className={
-                    gesperrt && pos.hebel < 0.02 ? "sp-sperre zu" : "sp-sperre"
-                  }
-                >
-                  <rect
-                    x={-7}
-                    y={14}
-                    width="14"
-                    height={HEBEL.weg - 4}
-                    className="sp-sperre-plaettchen"
-                  />
-                </g>
-                {/* Schatten der Plattenkante auf dem Plaettchen */}
-                <rect
-                  x={-7}
-                  y={-10}
-                  width="14"
-                  height="3"
-                  fill="#000"
-                  opacity="0.35"
-                />
-              </g>
-              {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
-              <g
-                transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
-                className="sp-hebelgriff"
-              >
-                {/* goldene Fassung, wirft einen kleinen Schatten */}
-                <ellipse
-                  cx="0"
-                  cy="1"
-                  rx="16.6"
-                  ry="16.6"
-                  fill="#2a1c08"
-                  opacity="0.45"
-                />
-                <ellipse
-                  cx="0"
-                  cy="0"
-                  rx="16.4"
-                  ry="16.4"
-                  className="sp-rubin-fassung"
-                />
-                <ellipse
-                  cx="0"
-                  cy="0"
-                  rx="15"
-                  ry="15"
-                  fill="none"
-                  stroke="url(#sp-fase-aussen)"
-                  strokeWidth="2.2"
-                />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="16.4"
+                ry="16.4"
+                className="sp-rubin-fassung"
+              />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="15"
+                ry="15"
+                fill="none"
+                stroke="url(#sp-fase-aussen)"
+                strokeWidth="2.2"
+              />
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="14"
+                ry="14"
+                fill="url(#sp-rubin)"
+                className="sp-rubin"
+              />
+              <ellipse
+                cx="2.8"
+                cy="3.2"
+                rx="8"
+                ry="4.2"
+                fill="url(#sp-rubin-schimmer)"
+              />
+              <ellipse
+                cx="-5"
+                cy="-4"
+                rx="5.2"
+                ry="2.4"
+                transform="rotate(-18 -5 -4)"
+                fill="url(#sp-rubin-glanz)"
+              />
+              <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
+              {gesperrt ? (
                 <ellipse
                   cx="0"
                   cy="0"
                   rx="14"
                   ry="14"
-                  fill="url(#sp-rubin)"
-                  className="sp-rubin"
+                  fill="#000"
+                  opacity="0.25"
                 />
-                <ellipse
-                  cx="2.8"
-                  cy="3.2"
-                  rx="8"
-                  ry="4.2"
-                  fill="url(#sp-rubin-schimmer)"
-                />
-                <ellipse
-                  cx="-5"
-                  cy="-4"
-                  rx="5.2"
-                  ry="2.4"
-                  transform="rotate(-18 -5 -4)"
-                  fill="url(#sp-rubin-glanz)"
-                />
-                <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
-                {gesperrt ? (
-                  <ellipse
-                    cx="0"
-                    cy="0"
-                    rx="14"
-                    ry="14"
-                    fill="#000"
-                    opacity="0.25"
-                  />
-                ) : null}
-              </g>
+              ) : null}
             </g>
           </g>
 
           {/* Zaehler links unten im Quadrat */}
+        </svg>
+
+        {/* Auge darueber: steht still, waehrend sich der Faecher hereindreht */}
+        <svg
+          viewBox={`0 0 400 ${hoehe}`}
+          className="sp-svg sp-augenteil"
+          style={{ transformOrigin: `50% ${(MITTE.y / hoehe) * 100}%` }}
+          aria-hidden="true"
+        >
+          <defs>
+            <LuenetteDefs praefix="sp" />
+            <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
+              <stop offset="0" stopColor="#f3d79a" />
+              <stop offset="0.55" stopColor="#b08d57" />
+              <stop offset="1" stopColor="#5a4325" />
+            </radialGradient>
+            <radialGradient id="sp-linse" cx="45%" cy="40%" r="70%">
+              <stop offset="0" stopColor="#f6efdc" />
+              <stop offset="0.7" stopColor="#d9ccaa" />
+              <stop offset="1" stopColor="#8f7a52" />
+            </radialGradient>
+          </defs>
+          <Auge />
         </svg>
 
         {/* Fragedia in der Linse: folgt beim Aufziehen dem Finger */}

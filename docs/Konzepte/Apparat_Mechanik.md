@@ -131,6 +131,10 @@ Kreis oben oder höchstens 4 aktive Systeme.
 - Anfangs zeigt der Kreis die **Datumsauswahl**. A und B führen gleich zum Spiel; C führt zuerst zu einer
   zweiten Datumsauswahl. Erste Person **gold**, zweite **silber** (passt zu Sonne/Mond des Deckels).
 - Fragenzähler und Ton-Schalter brauchen dann einen neuen Platz (z. B. Zähler im Messingrand des Auges).
+- Umgesetzt: A links oben, B rechts oben, **C rechts unten**. C liegt unter der Walzenplatte, die ihn mit
+  einer runden Ausnehmung freilässt; beim Übergang dreht sie darüber und deckt ihn zu. Im Fächer sitzt die
+  Ausnehmung dann rechts oben (um den Druckknopf). Links liegt auf der Datumsseite schon der Fächer bereit;
+  sein eigener Schieber steht dort unsichtbar in der Mitte und läuft beim Hereindrehen nach links.
 
 ## Ortsauswahl und Name (offen)
 

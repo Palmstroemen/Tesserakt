@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { MITTE, layoutAusFenster } from "./geometrie";
-import { PlattenVerlauf } from "./platte";
+import { KNOPF_C, PlattenVerlauf } from "./platte";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 
@@ -85,7 +85,7 @@ export const RINGE = [
 const KNOEPFE = [
   { spiel: "A", x: 34, y: 34 },
   { spiel: "B", x: 366, y: 34 },
-  { spiel: "C", x: 34, y: 366, silber: true }, // Spiel C: zweite Person auf der silbernen Seite
+  { spiel: "C", ...KNOPF_C, silber: true }, // Spiel C: zweite Person auf der silbernen Seite; unter der Walzenplatte
 ];
 const HOEHE = MITTE.y + WALZEN.stadt + 44;
 export const METALL = {
@@ -360,69 +360,110 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
 
   return (
     <main className="sp">
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 400 ${HOEHE}`}
-        className={abgang ? "sp-svg dr-svg dr-abgang" : "sp-svg dr-svg"}
-        onPointerDown={druecken}
-        onPointerMove={bewegen}
-        onPointerUp={loslassen}
-        onPointerCancel={loslassen}
-        role="group"
-        aria-label="Geburtsdatum und Geburtsort einstellen"
-      >
-        <defs>
-          <radialGradient id="sp-messing" cx="35%" cy="30%" r="80%">
-            <stop offset="0" stopColor={hell} />
-            <stop offset="0.55" stopColor={mittel} />
-            <stop offset="1" stopColor={dunkel} />
-          </radialGradient>
-          <PlattenVerlauf id="ow-platte-gold" aussen={platte.platteAussen} />
-          {/* Rahmen (Knoepfe): bleibt immer Gold */}
-          <radialGradient id="dr-rahmen" cx="35%" cy="30%" r="80%">
-            <stop offset="0" stopColor={METALL.gold[0]} />
-            <stop offset="0.55" stopColor={METALL.gold[1]} />
-            <stop offset="1" stopColor={METALL.gold[2]} />
-          </radialGradient>
-          {/* Knopf C (zweite Person): Silber */}
-          <radialGradient id="dr-rahmen-silber" cx="35%" cy="30%" r="80%">
-            <stop offset="0" stopColor={METALL.silber[0]} />
-            <stop offset="0.55" stopColor={METALL.silber[1]} />
-            <stop offset="1" stopColor={METALL.silber[2]} />
-          </radialGradient>
-          {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
-              Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
-          <filter id="dr-gravur" x="-5%" y="-5%" width="110%" height="110%">
-            <feOffset in="SourceAlpha" dy="0.9" result="unten" />
-            <feFlood floodColor="#fff4d6" floodOpacity="0.75" />
-            <feComposite in2="unten" operator="in" result="licht" />
-            <feOffset in="SourceAlpha" dy="-0.6" result="oben" />
-            <feFlood floodColor="#000" floodOpacity="0.55" />
-            <feComposite in2="oben" operator="in" result="schatten" />
-            <feMerge>
-              <feMergeNode in="licht" />
-              <feMergeNode in="schatten" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
+      {/* Drei Ebenen uebereinander: Knoepfe, darueber die Walzenplatte, oben die Datumsscheibe. Beim Uebergang
+          bewegen sich die oberen beiden als Ganzes und muessen nicht in jedem Bild neu gezeichnet werden. */}
+      <div className={abgang ? "sp-buehne dr-abgang" : "sp-buehne"}>
+        <svg viewBox={`0 0 400 ${HOEHE}`} className="sp-svg dr-svg">
+          <defs>
+            <radialGradient id="dr-messing" cx="35%" cy="30%" r="80%">
+              <stop offset="0" stopColor={hell} />
+              <stop offset="0.55" stopColor={mittel} />
+              <stop offset="1" stopColor={dunkel} />
+            </radialGradient>
+            <PlattenVerlauf id="ow-platte-gold" aussen={platte.platteAussen} />
+            {/* Rahmen (Knoepfe): bleibt immer Gold */}
+            <radialGradient id="dr-rahmen" cx="35%" cy="30%" r="80%">
+              <stop offset="0" stopColor={METALL.gold[0]} />
+              <stop offset="0.55" stopColor={METALL.gold[1]} />
+              <stop offset="1" stopColor={METALL.gold[2]} />
+            </radialGradient>
+            {/* Knopf C (zweite Person): Silber */}
+            <radialGradient id="dr-rahmen-silber" cx="35%" cy="30%" r="80%">
+              <stop offset="0" stopColor={METALL.silber[0]} />
+              <stop offset="0.55" stopColor={METALL.silber[1]} />
+              <stop offset="1" stopColor={METALL.silber[2]} />
+            </radialGradient>
+            {/* Gravur: dunkle Kante oben, helle Lichtkante unten (Licht von oben). Liegt um die drehenden
+                Ringe herum, damit das Licht beim Drehen nicht mitwandert. */}
+            <filter id="dr-gravur" x="-5%" y="-5%" width="110%" height="110%">
+              <feOffset in="SourceAlpha" dy="0.9" result="unten" />
+              <feFlood floodColor="#fff4d6" floodOpacity="0.75" />
+              <feComposite in2="unten" operator="in" result="licht" />
+              <feOffset in="SourceAlpha" dy="-0.6" result="oben" />
+              <feFlood floodColor="#000" floodOpacity="0.55" />
+              <feComposite in2="oben" operator="in" result="schatten" />
+              <feMerge>
+                <feMergeNode in="licht" />
+                <feMergeNode in="schatten" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
 
-        {/* Ortswalzen unter dem Kreis */}
-        {/* beim Abgang schwenken die Walzen um den Kreismittelpunkt nach rechts weg */}
-        <g className="dr-walzen">
-          <OrtWalzen
-            svgPunkt={svgPunkt}
-            metall={seite}
-            onOrt={setOrt}
-            platteInnen={platte.platteInnen}
-            platteAussen={platte.platteAussen}
-          />
-        </g>
+          {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C); C liegt unter der Walzenplatte */}
+          <g className="dr-knoepfe">
+            {KNOEPFE.map((k) => (
+              <g
+                key={k.spiel}
+                className={`dr-knopf dr-knopf-${k.spiel}${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
+                onPointerDown={(e) => knopf(e, k.spiel)}
+                role="button"
+                aria-label={`Spiel ${k.spiel}`}
+              >
+                <circle
+                  cx={k.x}
+                  cy={k.y}
+                  r="26"
+                  fill={k.silber ? "url(#dr-rahmen-silber)" : "url(#dr-rahmen)"}
+                  className="dr-knopfrand"
+                />
+                <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
+                <text
+                  x={k.x}
+                  y={k.y}
+                  dy="0.36em"
+                  className={k.silber ? "dr-knopftext silber" : "dr-knopftext"}
+                  filter="url(#dr-gravur)"
+                >
+                  {k.spiel}
+                </text>
+              </g>
+            ))}
+          </g>
+        </svg>
+
+        {/* Ortswalzen unter dem Kreis: beim Abgang drehen sie um den Kreismittelpunkt rechts hinaus */}
+        <svg
+          viewBox={`0 0 400 ${HOEHE}`}
+          className="sp-svg dr-svg dr-ebene dr-walzen"
+          style={{ transformOrigin: `50% ${(MITTE.y / HOEHE) * 100}%` }}
+        >
+          <g>
+            <OrtWalzen
+              svgPunkt={svgPunkt}
+              metall={seite}
+              onOrt={setOrt}
+              platteInnen={platte.platteInnen}
+              platteAussen={platte.platteAussen}
+            />
+          </g>
+        </svg>
 
         {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze; beim Abgang zum magischen Auge */}
-        <g className="dr-scheibe">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 400 ${HOEHE}`}
+          className="sp-svg dr-svg dr-ebene dr-scheibe"
+          style={{ transformOrigin: `50% ${(MITTE.y / HOEHE) * 100}%` }}
+          onPointerDown={druecken}
+          onPointerMove={bewegen}
+          onPointerUp={loslassen}
+          onPointerCancel={loslassen}
+          role="group"
+          aria-label="Geburtsdatum und Geburtsort einstellen"
+        >
           <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
-            <circle cx={MITTE.x} cy={MITTE.y} r="196" fill="url(#sp-messing)" />
+            <circle cx={MITTE.x} cy={MITTE.y} r="196" fill="url(#dr-messing)" />
 
             {RINGE.map((r, i) => (
               <g
@@ -485,39 +526,8 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
               </text>
             ) : null}
           </g>
-        </g>
-
-        {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C) */}
-        <g className="dr-knoepfe">
-          {KNOEPFE.map((k) => (
-            <g
-              key={k.spiel}
-              className={`dr-knopf${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
-              onPointerDown={(e) => knopf(e, k.spiel)}
-              role="button"
-              aria-label={`Spiel ${k.spiel}`}
-            >
-              <circle
-                cx={k.x}
-                cy={k.y}
-                r="26"
-                fill={k.silber ? "url(#dr-rahmen-silber)" : "url(#dr-rahmen)"}
-                className="dr-knopfrand"
-              />
-              <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
-              <text
-                x={k.x}
-                y={k.y}
-                dy="0.36em"
-                className={k.silber ? "dr-knopftext silber" : "dr-knopftext"}
-                filter="url(#dr-gravur)"
-              >
-                {k.spiel}
-              </text>
-            </g>
-          ))}
-        </g>
-      </svg>
+        </svg>
+      </div>
 
       <div className="sp-fuss dr-fuss">
         {ort ? (

@@ -87,8 +87,15 @@ export function bogenPfad(r, theta, von = 0, bis = 1) {
   return `M ${a.x} ${a.y} A ${r} ${r} 0 0 0 ${b.x} ${b.y}`;
 }
 
-// Platte als Ringausschnitt; winkelRechts erlaubt eine asymmetrische Platte (rechts weiter herum)
-export function plattePfad(innen, aussen, winkel, winkelRechts = winkel) {
+// Platte als Ringausschnitt; winkelRechts erlaubt eine asymmetrische Platte (rechts weiter herum), kerbe
+// ({ r, radius }) eine runde Ausnehmung in der rechten Kante
+export function plattePfad(
+  innen,
+  aussen,
+  winkel,
+  winkelRechts = winkel,
+  kerbe = null,
+) {
   const p = (r, phi) => ({
     x: MITTE.x + r * Math.sin(phi),
     y: MITTE.y + r * Math.cos(phi),
@@ -98,5 +105,11 @@ export function plattePfad(innen, aussen, winkel, winkelRechts = winkel) {
   const ir = p(innen, winkelRechts);
   const il = p(innen, -winkel);
   const gross = winkel + winkelRechts > Math.PI ? 1 : 0;
-  return `M ${al.x} ${al.y} A ${aussen} ${aussen} 0 ${gross} 0 ${ar.x} ${ar.y} L ${ir.x} ${ir.y} A ${innen} ${innen} 0 ${gross} 1 ${il.x} ${il.y} Z`;
+  let kante = "";
+  if (kerbe) {
+    const ka = p(kerbe.r + kerbe.radius, winkelRechts);
+    const ki = p(kerbe.r - kerbe.radius, winkelRechts);
+    kante = `L ${ka.x} ${ka.y} A ${kerbe.radius} ${kerbe.radius} 0 0 1 ${ki.x} ${ki.y} `;
+  }
+  return `M ${al.x} ${al.y} A ${aussen} ${aussen} 0 ${gross} 0 ${ar.x} ${ar.y} ${kante}L ${ir.x} ${ir.y} A ${innen} ${innen} 0 ${gross} 1 ${il.x} ${il.y} Z`;
 }
