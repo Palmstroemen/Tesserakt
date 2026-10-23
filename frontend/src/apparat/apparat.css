@@ -933,17 +933,48 @@ body {
   }
 }
 
-/* Ortswalzen schwenken um den Kreismittelpunkt nach rechts weg und geben die Systembögen frei */
+/* Ortswalzen und Faecher sitzen wie auf einer Scheibe, mit einem Spalt dazwischen: Sie dreht sich um den
+   Kreismittelpunkt, die Walzen laufen rechts hinaus, von links dreht der Faecher (samt Hebel) herein.
+   Beide Bewegungen sind dieselbe Drehung, nur um DREHSCHEIBE versetzt. */
 .dr-abgang .dr-walzen {
-  animation: dr-walzen-ab 1.15s cubic-bezier(0.55, 0, 0.8, 0.2) forwards;
+  animation: dr-walzen-ab 1.4s both;
+}
+
+.sp-auftritt .sp-faecher,
+.sp-auftritt .sp-hebeltraeger {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+  /* der Faecher kommt aus dem Dunkel links: erst beim Hereindrehen sichtbar */
+  animation:
+    sp-faecher-ein 1.4s both,
+    sc-einblenden 0.6s ease-in 0.1s both;
+}
+
+@keyframes sp-faecher-ein {
+  0% {
+    transform: rotate(132deg);
+    animation-timing-function: ease-in-out;
+  }
+  12% {
+    transform: rotate(135deg); /* kurzes Ausholen */
+    animation-timing-function: cubic-bezier(0.5, 0, 0.25, 1);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes dr-walzen-ab {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-in-out;
+  }
   12% {
     transform: rotate(3deg); /* kurzes Ausholen */
+    animation-timing-function: cubic-bezier(0.5, 0, 0.25, 1);
   }
   to {
-    transform: rotate(-115deg);
+    transform: rotate(-132deg);
   }
 }
 
@@ -1147,7 +1178,7 @@ body {
 .sp-abgang .sp-faecher {
   transform-box: view-box;
   transform-origin: 200px 200px;
-  animation: dr-walzen-ab 1.15s cubic-bezier(0.55, 0, 0.8, 0.2) forwards;
+  animation: dr-walzen-ab 1.15s forwards;
 }
 
 .sp-abgang .sp-linse,

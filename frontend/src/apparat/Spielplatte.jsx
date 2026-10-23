@@ -1002,120 +1002,129 @@ export default function Spielplatte({
             <Beschriftung {...geo} links={pole[0]} rechts={pole[1]} />
           </g>
           <Auge />
-          {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben) */}
-          <g
-            className="sp-hebel"
-            onPointerDown={hebelDruecken}
-            transform={`translate(${HEBEL_ANKER.x} ${HEBEL_ANKER.y}) rotate(${HEBEL_DREHUNG})`}
-          >
-            <rect
-              x={-7}
-              y={-10}
-              width="14"
-              height={HEBEL.weg + 20}
-              rx="7"
-              className="sp-hebelschlitz"
-            />
-            <rect
-              x={-26}
-              y={-26}
-              width="52"
-              height={HEBEL.weg + 52}
-              fill="transparent"
-            />
-            {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
-            <clipPath id="sp-hebelschlitz-form">
-              <rect x={-7} y={-10} width="14" height={HEBEL.weg + 20} rx="7" />
-            </clipPath>
-            <g clipPath="url(#sp-hebelschlitz-form)">
-              {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
-              <g
-                className={
-                  gesperrt && pos.hebel < 0.02 ? "sp-sperre zu" : "sp-sperre"
-                }
-              >
-                <rect
-                  x={-7}
-                  y={14}
-                  width="14"
-                  height={HEBEL.weg - 4}
-                  className="sp-sperre-plaettchen"
-                />
-              </g>
-              {/* Schatten der Plattenkante auf dem Plaettchen */}
+          {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben). Er steht auf
+              der Platte und dreht beim Auftritt mit dem Faecher herein. */}
+          <g className="sp-hebeltraeger">
+            <g
+              className="sp-hebel"
+              onPointerDown={hebelDruecken}
+              transform={`translate(${HEBEL_ANKER.x} ${HEBEL_ANKER.y}) rotate(${HEBEL_DREHUNG})`}
+            >
               <rect
                 x={-7}
                 y={-10}
                 width="14"
-                height="3"
-                fill="#000"
-                opacity="0.35"
+                height={HEBEL.weg + 20}
+                rx="7"
+                className="sp-hebelschlitz"
               />
-            </g>
-            {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
-            <g
-              transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
-              className="sp-hebelgriff"
-            >
-              {/* goldene Fassung, wirft einen kleinen Schatten */}
-              <ellipse
-                cx="0"
-                cy="1"
-                rx="16.6"
-                ry="16.6"
-                fill="#2a1c08"
-                opacity="0.45"
+              <rect
+                x={-26}
+                y={-26}
+                width="52"
+                height={HEBEL.weg + 52}
+                fill="transparent"
               />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="16.4"
-                ry="16.4"
-                className="sp-rubin-fassung"
-              />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="15"
-                ry="15"
-                fill="none"
-                stroke="url(#sp-fase-aussen)"
-                strokeWidth="2.2"
-              />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="14"
-                ry="14"
-                fill="url(#sp-rubin)"
-                className="sp-rubin"
-              />
-              <ellipse
-                cx="2.8"
-                cy="3.2"
-                rx="8"
-                ry="4.2"
-                fill="url(#sp-rubin-schimmer)"
-              />
-              <ellipse
-                cx="-5"
-                cy="-4"
-                rx="5.2"
-                ry="2.4"
-                transform="rotate(-18 -5 -4)"
-                fill="url(#sp-rubin-glanz)"
-              />
-              <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
-              {gesperrt ? (
+              {/* Sperrplaettchen hinter dem Schlitz: nur durch die Oeffnung sichtbar */}
+              <clipPath id="sp-hebelschlitz-form">
+                <rect
+                  x={-7}
+                  y={-10}
+                  width="14"
+                  height={HEBEL.weg + 20}
+                  rx="7"
+                />
+              </clipPath>
+              <g clipPath="url(#sp-hebelschlitz-form)">
+                {/* verschliesst den ganzen Schlitz unter dem Griff; schnappt erst zurueck, wenn der Hebel oben ist */}
+                <g
+                  className={
+                    gesperrt && pos.hebel < 0.02 ? "sp-sperre zu" : "sp-sperre"
+                  }
+                >
+                  <rect
+                    x={-7}
+                    y={14}
+                    width="14"
+                    height={HEBEL.weg - 4}
+                    className="sp-sperre-plaettchen"
+                  />
+                </g>
+                {/* Schatten der Plattenkante auf dem Plaettchen */}
+                <rect
+                  x={-7}
+                  y={-10}
+                  width="14"
+                  height="3"
+                  fill="#000"
+                  opacity="0.35"
+                />
+              </g>
+              {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
+              <g
+                transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
+                className="sp-hebelgriff"
+              >
+                {/* goldene Fassung, wirft einen kleinen Schatten */}
+                <ellipse
+                  cx="0"
+                  cy="1"
+                  rx="16.6"
+                  ry="16.6"
+                  fill="#2a1c08"
+                  opacity="0.45"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="16.4"
+                  ry="16.4"
+                  className="sp-rubin-fassung"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="15"
+                  ry="15"
+                  fill="none"
+                  stroke="url(#sp-fase-aussen)"
+                  strokeWidth="2.2"
+                />
                 <ellipse
                   cx="0"
                   cy="0"
                   rx="14"
                   ry="14"
-                  fill="#000"
-                  opacity="0.25"
+                  fill="url(#sp-rubin)"
+                  className="sp-rubin"
                 />
-              ) : null}
+                <ellipse
+                  cx="2.8"
+                  cy="3.2"
+                  rx="8"
+                  ry="4.2"
+                  fill="url(#sp-rubin-schimmer)"
+                />
+                <ellipse
+                  cx="-5"
+                  cy="-4"
+                  rx="5.2"
+                  ry="2.4"
+                  transform="rotate(-18 -5 -4)"
+                  fill="url(#sp-rubin-glanz)"
+                />
+                <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
+                {gesperrt ? (
+                  <ellipse
+                    cx="0"
+                    cy="0"
+                    rx="14"
+                    ry="14"
+                    fill="#000"
+                    opacity="0.25"
+                  />
+                ) : null}
+              </g>
             </g>
           </g>
 

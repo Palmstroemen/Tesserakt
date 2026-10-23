@@ -101,6 +101,7 @@ function rueckblickFragen(katalog, rueckblick) {
   ]);
 }
 const UEBERGANG_MS = 1500; // Scheibe -> Auge: zwei Flip-Haelften zu 0,7 s
+const DREHUNG_MS = 1400; // Drehscheibe mit Ortswalzen und Faecher (apparat.css: dr-walzen-ab, sp-faecher-ein)
 
 function mischen(liste) {
   const kopie = [...liste];
@@ -229,7 +230,11 @@ export default function Apparat() {
 
   function wechsel(zwischen, ziel) {
     setPhase(zwischen);
-    zahnrad(26, UEBERGANG_MS / 1000, 1700);
+    // Rattern im Takt der Drehscheibe (Ortswalzen hinaus, Faecher herein): nach dem Ausholen anlaufen, abbremsen
+    zahnrad(26, (DREHUNG_MS * 0.88) / 1000, 1700, {
+      verz: (DREHUNG_MS * 0.12) / 1000,
+      ease: (t) => t * t * (3 - 2 * t),
+    });
     setTimeout(() => setPhase(ziel), UEBERGANG_MS);
   }
 
