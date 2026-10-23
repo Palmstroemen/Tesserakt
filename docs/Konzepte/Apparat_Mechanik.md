@@ -41,25 +41,19 @@ Kreis oben oder höchstens 4 aktive Systeme.
 - Mit einem breiten Finger oder einer schrägen Wischbewegung erwischt man **mehrere Schieber auf einmal**
   (Toleranz etwa ein halber Bogenabstand; Browser liefern nur einen Berührpunkt, keine Fingerbreite).
 - Lässt man vor der Hälfte los, federt der Schieber zurück; ab der Hälfte rastet er rechts ein.
-- **Es spielen immer mindestens 2 Systeme mit.**
+- Ein einziges System reicht.
 
 ### Regel für das Fragedia
 
-> Das Dia bewegt sich nur mit einem Schieber, der **aus der Ruheposition** aufgezogen wird, und nur, wenn
-> **schon ein anderer aufgezogen ist**.
+> Das Dia folgt dem ersten Schieber, der **aus der Ruheposition** aufgezogen wird – synchron mit dem Finger:
+> Die alte Frage gleitet hinaus, die neue herein.
 
-- **Nach einem Ergebnis:** Der erste Griff an einem Systemschieber lässt **alle anderen Schieber**, auch den
-  eigenen, nach links zurückspringen (Ratschgeräusch). Der gegriffene Schieber läuft von seiner
-  Ergebnisposition nach rechts; das Dia bleibt stehen. Erst der zweite Schieber startet ganz links, hat den
-  vollen Weg und führt das Dia: Die alte Frage gleitet hinaus, die neue herein – **synchron mit dem Finger**.
-- **Erste Frage:** Alle stehen in Ruhe; der erste Schieber bewegt das Dia noch nicht, erst der zweite.
-  Vor der ersten Frage liegt ein leeres Glas im Auge (keine Anleitung); das erste Aufziehen schiebt es weg.
-- **Zwei Schieber beim ersten Griff erwischt:** Beide starten von Ergebnispositionen, das Dia kommt erst mit
-  einem dritten aus der Ruheposition.
+- Weil nach jedem Ergebnis alle Schieber links stehen (siehe Auslösehebel), hat schon der erste den vollen
+  Weg von ganz links nach ganz rechts. (Früher brauchte es dafür einen zweiten Schieber, weil der erste noch
+  von seiner Ergebnisposition aus startete.)
+- Vor der ersten Frage liegt ein leeres Glas im Auge (keine Anleitung); das erste Aufziehen schiebt es weg.
 - Weitere Systeme kann man auch nach dem Erscheinen der Frage noch aufziehen.
-- Warum so: Der erste gegriffene Schieber kann schon fast rechts stehen und hätte kaum Weg, um das Dia zu
-  bewegen. Es soll spielerisch und magisch sein, nicht möglichst effizient – das finden die Leute heraus.
-  Ein kleiner Hinweis beim allerersten Spiel: Ein Symbol ruckt von selbst an.
+- Ein kleiner Hinweis beim allerersten Spiel: Ein Symbol ruckt von selbst an.
 
 ## Eigener Schieber und Sperrklinke
 
@@ -74,7 +68,10 @@ Kreis oben oder höchstens 4 aktive Systeme.
   über dem rechten Ende der Bögen.
 - Ein Hebel zum Herunterziehen, eher als ein Knopf.
 - Ecke links unten: Fragenzähler, Ton-Schalter. Für Linkshänder später ggf. spiegeln.
-- Nach dem Auslösen laufen die aufgezogenen Symbole geräuschvoll von rechts auf ihre Werte.
+- Nach dem Auslösen laufen die aufgezogenen Symbole geräuschvoll von rechts auf ihre Werte. Der Hebel
+  **bleibt unten** und hält alle Schieber fest (ein Griff an einen Schieber stößt dumpf an).
+- **Hebel wieder hochschieben** (oder antippen) entriegelt: Alle Schieber, auch der eigene, laufen nach links
+  in die Ruhe zurück, und alles beginnt von vorn mit dem Aufziehen.
 
 ## Wertung: Aufziehen wirkt nur auf die Anzeige
 
@@ -100,7 +97,7 @@ Kreis oben oder höchstens 4 aktive Systeme.
 
 ## Ergebnis im Fächer
 
-- Nach der letzten Frage gleiten alle Schieber in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:
+- Nach der letzten Frage schiebt man den Hebel ebenfalls hoch; alle Schieber gleiten in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:
   nur „Dein Ergebnis“ (Spiel C „Euer Ergebnis“, Spiel B „Dein Rückblick“). Bewusst ohne Anleitung: wie es
   weitergeht, sollen die Spieler selbst entdecken.
 - Der Hebel gibt erst frei, wenn alle sieben Systeme und der eigene Schieber ganz rechts stehen.

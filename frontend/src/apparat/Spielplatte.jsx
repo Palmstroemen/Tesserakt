@@ -287,6 +287,8 @@ const Auge = memo(function Auge() {
  * Fragerunde als Faecher: oben das Auge mit dem Fragedia, unten der eigene Schieber und die Systembögen.
  * Mechanik siehe docs/Konzepte/Apparat_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
  * onAntwort bekommt die Werte aller Systeme.
+ * Nach dem Ausloesen bleibt der Hebel unten; erst wenn man ihn wieder hochschiebt, laufen alle Schieber nach
+ * links zurueck und das naechste Aufziehen beginnt.
  * Nach der letzten Frage: Ergebnis-Dia (blaues Glas); erst wenn alle Systeme und der eigene Schieber ganz
  * rechts stehen, loest der Hebel die Auswertung aus. Dann zeigt das Dia die Rangliste und die Systemschieber
  * fahren auf ihren Skill (-100 links .. +100 rechts). Wischen oder Tippen im Auge: onWeiter (Textkarten).
@@ -443,42 +445,25 @@ export default function Spielplatte({
     return p.matrixTransform(svg.getScreenCTM().inverse());
   }
 
-  function zuruecksetzen(ausser) {
-    // nach einem Ergebnis: alle anderen Schieber und der eigene springen in die Ruheposition
-    setZustand("aufziehen");
-    aufgezogenRef.current.clear();
-    aufgezogenAktualisieren();
-    ratsche();
-    ALLE.filter((s) => !ausser.has(s)).forEach((s, i) =>
-      animiere(s, 0, 260, { verz: i * 25 }),
-    );
-    animiere("user", 0, 260);
-    // mit dem Zuruecklaufen der Schieber geht der Hebel wieder hoch und die Sperre schnappt ein
-    animiere("hebel", 0, 520, { ease: easeMechanisch });
-  }
-
   function greifen(r, u) {
     const d = drag.current;
     for (let k = 1; k < radien.length; k += 1) {
       if (Math.abs(r - radien[k]) > abstand * 0.8) continue;
       const s = ALLE[k - 1];
       if (d.gegriffen.has(s)) continue;
-      if (zustandRef.current !== "ergebnis" && aufgezogenRef.current.has(s))
+      if (!verriegelt(zustandRef.current) && aufgezogenRef.current.has(s))
         continue;
       const p = posRef.current[s];
       if (Math.abs(u - p) * 2 * theta * radien[k] > symbol * 1.7) continue;
-      if (zustandRef.current === "ergebnis")
-        zuruecksetzen(new Set([...d.gegriffen.keys(), s]));
       anim.current.delete(s);
       d.gegriffen.set(s, p);
     }
   }
 
   function diaTreiben() {
-    // Das Dia folgt einem Schieber aus der Ruheposition, wenn schon ein anderer aufgezogen ist (oder wird)
+    // Das Dia folgt einem Schieber aus der Ruheposition (schon dem ersten: er hat den vollen Weg)
     const d = drag.current;
     if (zustandRef.current !== "aufziehen") return;
-    if (aufgezogenRef.current.size + d.gegriffen.size - 1 < 1) return;
     let weg = 0;
     for (const [s, start] of d.gegriffen)
       if (start < RUHE) weg = Math.max(weg, posRef.current[s]);
@@ -533,6 +518,12 @@ export default function Spielplatte({
       drag.current = null;
       return;
     }
+    if (verriegelt(z)) {
+      // solange der Hebel unten steht, sind die Schieber blockiert
+      drag.current = null;
+      sperre();
+      return;
+    }
     e.currentTarget.setPointerCapture?.(e.pointerId);
     bewegen(e);
   }
@@ -581,7 +572,10 @@ export default function Spielplatte({
       return;
     }
     if (d.art === "hebel") {
-      if (posRef.current.hebel >= 0.6 || !d.gezogen) ausloesen();
+      if (d.hoch) {
+        if (posRef.current.hebel <= 0.4 || !d.gezogen) entriegeln();
+        else animiere("hebel", 1, 200);
+      } else if (posRef.current.hebel >= 0.6 || !d.gezogen) ausloesen();
       else animiere("hebel", 0, 250);
       return;
     }
@@ -615,11 +609,26 @@ export default function Spielplatte({
   const bereit = (z, user, anzahl) =>
     (z === "frage" && user >= RUHE) ||
     (z === "endaufzug" && anzahl === ALLE.length && user >= USER_RECHTS);
-  const gesperrt = !bereit(zustand, pos.user, aufgezogen.length);
+  // nach dem Ausloesen steht der Hebel unten und haelt die Schieber fest, bis man ihn hochschiebt
+  const verriegelt = (z) => z === "ergebnis" || z === "fertig";
+  const gesperrt =
+    !bereit(zustand, pos.user, aufgezogen.length) && !verriegelt(zustand);
 
   function hebelDruecken(e) {
     e.stopPropagation();
     if (drag.current || zustandRef.current === "laeuft") return;
+    if (verriegelt(zustandRef.current)) {
+      if (zusatzRef.current) return; // erst die Nachfrage beantworten
+      drag.current = {
+        art: "hebel",
+        hoch: true,
+        p0: svgPunkt(e),
+        h0: posRef.current.hebel,
+        gezogen: false,
+      };
+      svgRef.current.setPointerCapture?.(e.pointerId);
+      return;
+    }
     if (
       !bereit(
         zustandRef.current,
@@ -655,7 +664,7 @@ export default function Spielplatte({
     const frage = fragen[indexRef.current];
     setZustand("laeuft");
     hebel();
-    animiere("hebel", 1, 110); // bleibt unten, bis die Schieber zuruecklaufen
+    animiere("hebel", 1, 110); // bleibt unten, bis man ihn wieder hochschiebt
     const aktiv = ALLE.filter((s) => aufgezogenRef.current.has(s));
     onAntwort(frage, wertAusU(posRef.current.user), aktiv);
     const DAUER = 1100;
@@ -684,23 +693,22 @@ export default function Spielplatte({
     });
   }
 
+  function entriegeln() {
+    // Hebel hoch: alle Schieber, auch der eigene, laufen nach links zurueck. Nach der letzten Frage kommt
+    // das Ergebnis-Dia; wie es weitergeht, sollen die Spieler selbst entdecken (alles nach rechts, Hebel).
+    setZustand(zustandRef.current === "fertig" ? "endaufzug" : "aufziehen");
+    aufgezogenRef.current.clear();
+    aufgezogenAktualisieren();
+    einrasten();
+    ratsche();
+    animiere("hebel", 0, 160);
+    ALLE.forEach((s, i) =>
+      animiere(s, 0, 300, { verz: 60 + i * 30, ease: easeMechanisch }),
+    );
+    animiere("user", 0, 300, { verz: 60 });
+  }
+
   // --- Ergebnis ----------------------------------------------------------------
-  // Nach der letzten Frage (und ohne offene Nachfrage): Schieber in die Ruhe, Ergebnis-Dia nur mit dem Titel.
-  // Wie es weitergeht, sollen die Spieler selbst entdecken (alles nach rechts, Hebel; dann im Auge wischen).
-  useEffect(() => {
-    if (zustand !== "fertig" || zusatz) return undefined;
-    const t = setTimeout(() => {
-      setZustand("endaufzug");
-      aufgezogenRef.current.clear();
-      aufgezogenAktualisieren();
-      ratsche();
-      ALLE.forEach((s, i) => animiere(s, 0, 300, { verz: i * 30 }));
-      animiere("user", 0, 300);
-      animiere("hebel", 0, 520, { ease: easeMechanisch });
-    }, 900);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zustand, zusatz]);
 
   // Auswertung, sobald gerechnet ist: Rangliste ins Auge, Schieber auf den Skill
   useEffect(() => {
