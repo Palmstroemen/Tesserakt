@@ -158,7 +158,13 @@ const START = {
 };
 const FLIP_MS = 1400;
 
-export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
+export default function Datumsrad({
+  onSpiel,
+  laedt,
+  fehler,
+  abgang = false,
+  onMuenze, // Muenzdrehung nach Silber: true am Anfang, false am Ende
+}) {
   // Masse der Drehscheibe wie im Faecher (die Walzenplatte hat dieselben Radien wie die Faecherplatte)
   const platte = useMemo(() => layoutAusFenster(), []);
   const [drehung, setDrehung] = useState(START);
@@ -319,6 +325,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
     setSeite("silber");
     setEingestellt(false);
     setStundeBewegt(false);
+    onMuenze?.(true);
     const start = performance.now();
     let gewechselt = false;
     const tick = (jetzt) => {
@@ -333,6 +340,7 @@ export default function Datumsrad({ onSpiel, laedt, fehler, abgang = false }) {
         skala: t < 1 ? Math.max(0.02, Math.abs(Math.cos(Math.PI * t))) : 1,
       });
       if (t < 1) requestAnimationFrame(tick);
+      else onMuenze?.(false);
     };
     requestAnimationFrame(tick);
   }

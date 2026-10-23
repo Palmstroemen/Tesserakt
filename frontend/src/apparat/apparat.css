@@ -436,6 +436,40 @@ body {
   opacity: 0.7;
 }
 
+/* Loch in der Grundplatte unter dem Auge (Radius 190 von 400): darin das Uhrwerk. Licht von oben: die obere
+   Kante wirft Schatten hinein, die untere glaenzt. */
+.sp-uhrwerk {
+  position: absolute;
+  top: 0;
+  left: 2.5%;
+  margin-top: 2.5%; /* Prozent der Breite */
+  width: 95%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #050302;
+  box-shadow:
+    0 1.5px 0 rgba(255, 240, 200, 0.45),
+    0 -1px 0 rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.sp-uhrwerk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 10px 18px rgba(0, 0, 0, 0.9),
+    inset 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+.sp-uhrwerk canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .sp-linse {
   position: absolute;
   border-radius: 50%;
@@ -943,6 +977,7 @@ body {
    Grafikchip sie als Ganzes, statt sie in jedem Bild neu zu zeichnen. Drehpunkt ist der Kreismittelpunkt
    (transform-origin steht am Element). */
 .dr-ebene,
+.sp-griffteil,
 .sp-augenteil {
   position: absolute;
   top: 0;

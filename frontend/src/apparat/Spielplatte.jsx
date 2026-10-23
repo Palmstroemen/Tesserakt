@@ -4,6 +4,7 @@ import { SYSTEME } from "./systeme";
 import HoroskopIcon from "./HoroskopIcon";
 import Schlitz, { SchlitzDefs } from "./Schlitze";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
+import Uhrwerk from "./Uhrwerk";
 import { PlattenVerlauf, Walzenplatte } from "./platte";
 import {
   AUGE_RADIUS,
@@ -292,6 +293,7 @@ export default function Spielplatte({
   pole = ["trifft nicht zu", "trifft zu"],
   auftritt = false,
   abgang = false,
+  uhrwerk = false, // das Uhrwerk im Loch unter dem Auge laeuft (man sieht es, solange die Scheibe auf der Kante steht)
   wartet = false, // Datumsseite: der Faecher liegt links auf der Drehscheibe bereit (Auge und Linse fehlen)
   zusatz = null, // statt Hinweis/Knopf unten (z. B. Messingplaettchen); solange gesetzt, ruht das Aufziehen
   sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
@@ -807,6 +809,7 @@ export default function Spielplatte({
       className={`sp${auftritt ? " sp-auftritt" : ""}${abgang ? " sp-abgang" : ""}${wartet ? " sp-wartet" : ""}`}
     >
       <div className="sp-buehne">
+        <Uhrwerk laeuft={uhrwerk} />
         {/* Faecher und Hebel als eigene Ebene: beim Drehen der Scheibe wird sie nur verschoben, nicht in jedem
             Bild neu gezeichnet (sonst ruckelt es auf dem Handy) */}
         <svg
@@ -925,76 +928,6 @@ export default function Spielplatte({
                 </g>
               );
             })}
-
-            {/* eigener Schieber: breiter Messinggriff mit eingravierter Pfeilspitze nach unten, dreht sich mit dem
-                Bogen und reicht bis an die Luenette */}
-            {(() => {
-              const p = punktU(rUser, pos.user, theta);
-              const phi = -theta + 2 * theta * pos.user;
-              const e = symbol / 11.4; // Massstab wie die Knoepfe
-              return (
-                <g
-                  transform={`translate(${p.x} ${p.y}) rotate(${(-phi * 180) / Math.PI}) scale(${e})`}
-                  className={pos.user < RUHE ? "sp-griff ruhe" : "sp-griff"}
-                >
-                  <path
-                    d="M -27 -19 L 27 -19 Q 30 -19 29.6 -16.5 L 21.6 8 Q 20.2 11 15.2 11.6 L 0 13 L -15.2 11.6 Q -20.2 11 -21.6 8 L -29.6 -16.5 Q -30 -19 -27 -19 Z"
-                    className="sp-griff-koerper"
-                  />
-                  <path
-                    d="M -23.5 -16 L 23.5 -16 L 17.4 6.5 L 0 9.4 L -17.4 6.5 Z"
-                    className="sp-griff-flaeche"
-                  />
-                  {/* blauer, geschliffener Dreieck-Edelstein, Spitze nach unten zur Skala, in Goldfassung */}
-                  <path
-                    d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
-                    fill="#2a1c08"
-                    opacity="0.4"
-                    transform="translate(0 1)"
-                  />
-                  <path
-                    d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
-                    className="sp-stein-fassung"
-                  />
-                  <path
-                    d="M -9.4 -10.2 L 9.4 -10.2 L 4.4 -6.6 L -4.4 -6.6 Z"
-                    fill="#8cc2ff"
-                  />
-                  <path
-                    d="M -9.4 -10.2 L -4.4 -6.6 L 0 2.2 L 0 8 Z"
-                    fill="#2f6fd1"
-                  />
-                  <path
-                    d="M 9.4 -10.2 L 4.4 -6.6 L 0 2.2 L 0 8 Z"
-                    fill="#163a8a"
-                  />
-                  <path
-                    d="M -4.4 -6.6 L 4.4 -6.6 L 0 2.2 Z"
-                    fill="url(#sp-stein-tafel)"
-                  />
-                  <path
-                    d="M -9.4 -10.2 L 9.4 -10.2 L 0 8 Z"
-                    fill="none"
-                    stroke="#0c2154"
-                    strokeWidth="0.4"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M -2.6 -5.6 L -1.4 -5.6"
-                    stroke="#fff"
-                    strokeWidth="0.9"
-                    strokeLinecap="round"
-                    opacity="0.9"
-                  />
-                  <circle
-                    cx="-2"
-                    cy="-5.6"
-                    r="1.6"
-                    fill="url(#sp-stein-glanz)"
-                  />
-                </g>
-              );
-            })()}
 
             <Beschriftung {...geo} links={pole[0]} rechts={pole[1]} />
           </g>
@@ -1117,6 +1050,80 @@ export default function Spielplatte({
           </g>
 
           {/* Zaehler links unten im Quadrat */}
+        </svg>
+
+        {/* Der eigene Schieber als eigene Ebene ueber dem Faecher, dreht mit ihm: laeuft er beim Hereindrehen
+            nach links, muss nur er neu gezeichnet werden, nicht der ganze Faecher */}
+        <svg
+          viewBox={`0 0 400 ${hoehe}`}
+          className="sp-svg sp-drehteil sp-griffteil"
+          style={{ transformOrigin: `50% ${(MITTE.y / hoehe) * 100}%` }}
+          aria-hidden="true"
+        >
+          {/* eigener Schieber: breiter Messinggriff mit eingravierter Pfeilspitze nach unten, dreht sich mit dem
+              Bogen und reicht bis an die Luenette */}
+          {(() => {
+            const p = punktU(rUser, pos.user, theta);
+            const phi = -theta + 2 * theta * pos.user;
+            const e = symbol / 11.4; // Massstab wie die Knoepfe
+            return (
+              <g
+                transform={`translate(${p.x} ${p.y}) rotate(${(-phi * 180) / Math.PI}) scale(${e})`}
+                className={pos.user < RUHE ? "sp-griff ruhe" : "sp-griff"}
+              >
+                <path
+                  d="M -27 -19 L 27 -19 Q 30 -19 29.6 -16.5 L 21.6 8 Q 20.2 11 15.2 11.6 L 0 13 L -15.2 11.6 Q -20.2 11 -21.6 8 L -29.6 -16.5 Q -30 -19 -27 -19 Z"
+                  className="sp-griff-koerper"
+                />
+                <path
+                  d="M -23.5 -16 L 23.5 -16 L 17.4 6.5 L 0 9.4 L -17.4 6.5 Z"
+                  className="sp-griff-flaeche"
+                />
+                {/* blauer, geschliffener Dreieck-Edelstein, Spitze nach unten zur Skala, in Goldfassung */}
+                <path
+                  d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+                  fill="#2a1c08"
+                  opacity="0.4"
+                  transform="translate(0 1)"
+                />
+                <path
+                  d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+                  className="sp-stein-fassung"
+                />
+                <path
+                  d="M -9.4 -10.2 L 9.4 -10.2 L 4.4 -6.6 L -4.4 -6.6 Z"
+                  fill="#8cc2ff"
+                />
+                <path
+                  d="M -9.4 -10.2 L -4.4 -6.6 L 0 2.2 L 0 8 Z"
+                  fill="#2f6fd1"
+                />
+                <path
+                  d="M 9.4 -10.2 L 4.4 -6.6 L 0 2.2 L 0 8 Z"
+                  fill="#163a8a"
+                />
+                <path
+                  d="M -4.4 -6.6 L 4.4 -6.6 L 0 2.2 Z"
+                  fill="url(#sp-stein-tafel)"
+                />
+                <path
+                  d="M -9.4 -10.2 L 9.4 -10.2 L 0 8 Z"
+                  fill="none"
+                  stroke="#0c2154"
+                  strokeWidth="0.4"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M -2.6 -5.6 L -1.4 -5.6"
+                  stroke="#fff"
+                  strokeWidth="0.9"
+                  strokeLinecap="round"
+                  opacity="0.9"
+                />
+                <circle cx="-2" cy="-5.6" r="1.6" fill="url(#sp-stein-glanz)" />
+              </g>
+            );
+          })()}
         </svg>
 
         {/* Auge darueber: steht still, waehrend sich der Faecher hereindreht */}

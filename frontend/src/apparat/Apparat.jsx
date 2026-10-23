@@ -174,6 +174,7 @@ export default function Apparat() {
 
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
+  const [muenze, setMuenze] = useState(false); // Datumsscheibe dreht sich nach Silber
   const [kamera, setKamera] = useState(null);
   const [kameraInfo, setKameraInfo] = useState("");
 
@@ -675,6 +676,7 @@ export default function Apparat() {
               kameraInfo={kameraInfo}
               wartet={phase === "bereit"}
               auftritt={phase === "uebergang"}
+              uhrwerk={phase === "uebergang"}
               zusatz={zusatz}
               sonderDia={sonderDia}
               ergebnis={ergebnis}
@@ -768,6 +770,7 @@ export default function Apparat() {
         <Spielplatte
           key="wartet"
           wartet
+          uhrwerk={muenze}
           fragen={[]}
           zielWert={() => 0}
           onAntwort={() => {}}
@@ -786,6 +789,7 @@ export default function Apparat() {
             laedt={phase !== "start"}
             fehler={fehler}
             abgang={phase === "uebergang"}
+            onMuenze={setMuenze}
           />
         </div>
       ) : null}
