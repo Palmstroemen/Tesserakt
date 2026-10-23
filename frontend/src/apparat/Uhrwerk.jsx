@@ -1,17 +1,54 @@
 import { useEffect, useRef } from "react";
 
 // Uhrwerk in der Tiefe: ein Loch in der Grundplatte unter der Datumsscheibe und dem Auge. Man sieht hinein,
-// solange sich die Scheibe auf die Kante dreht (Muenzdrehung nach Silber, Uebergang zum Auge). Vier Ebenen
-// Zahnraeder, hinten viele kleine und dunkle, vorne wenige grosse; Nachbarn einer Ebene greifen ineinander
+// solange sich die Scheibe auf die Kante dreht (Muenzdrehung nach Silber, Uebergang zum Auge). Fuenf Ebenen
+// Zahnraeder, hinten viele und dunkle, vorne wenige helle; Nachbarn einer Ebene greifen ineinander
 // (gleiche Zahnteilung, Drehzahl umgekehrt zum Radius). Vorne schwingt die Unruh.
 // Gezeichnet auf einer Canvas, nur solange "laeuft" (sonst liegt das Loch verdeckt).
 
 const EBENEN = [
-  // Radien und Teilung in Einheiten des Lochradius; hell = Helligkeit des Messings (Tiefe)
-  { rMin: 0.025, rMax: 0.06, teilung: 0.018, hell: 0.22, anzahl: 170 },
-  { rMin: 0.045, rMax: 0.1, teilung: 0.027, hell: 0.38, anzahl: 80 },
-  { rMin: 0.07, rMax: 0.16, teilung: 0.04, hell: 0.6, anzahl: 34 },
-  { rMin: 0.13, rMax: 0.27, teilung: 0.058, hell: 0.95, anzahl: 12 },
+  // Radien und Teilung in Einheiten des Lochradius; hell = Helligkeit des Messings (Tiefe). Meist Raeder
+  // zwischen rMin und rMax, jedes fuenfte ein grosses bis rGross: auch in der Tiefe liegen grosse Raeder.
+  {
+    rMin: 0.035,
+    rMax: 0.08,
+    rGross: 0.24,
+    teilung: 0.02,
+    hell: 0.15,
+    anzahl: 70,
+  },
+  {
+    rMin: 0.04,
+    rMax: 0.1,
+    rGross: 0.27,
+    teilung: 0.026,
+    hell: 0.25,
+    anzahl: 55,
+  },
+  {
+    rMin: 0.05,
+    rMax: 0.12,
+    rGross: 0.3,
+    teilung: 0.034,
+    hell: 0.4,
+    anzahl: 40,
+  },
+  {
+    rMin: 0.07,
+    rMax: 0.15,
+    rGross: 0.3,
+    teilung: 0.044,
+    hell: 0.62,
+    anzahl: 22,
+  },
+  {
+    rMin: 0.13,
+    rMax: 0.27,
+    rGross: 0.27,
+    teilung: 0.058,
+    hell: 0.95,
+    anzahl: 10,
+  },
 ];
 const UNRUH = { x: 0.42, y: -0.38, r: 0.2 };
 const MAX_DREHZAHL = 5; // rad/s
@@ -39,7 +76,10 @@ function ebeneAnlegen(e, zufall, frei) {
   let versuche = 0;
   while (raeder.length < e.anzahl && versuche < e.anzahl * 40) {
     versuche += 1;
-    const r0 = e.rMin + zufall() * (e.rMax - e.rMin);
+    const r0 =
+      zufall() < 0.2
+        ? e.rMax + zufall() * (e.rGross - e.rMax)
+        : e.rMin + zufall() * (e.rMax - e.rMin);
     const kette = raeder.length && zufall() < 0.85;
     if (!kette) {
       const x = (zufall() * 2 - 1) * 1.05;
@@ -247,7 +287,7 @@ function werkAnlegen(R) {
             g.n,
             e.hell,
             teilungPx,
-            i >= 2,
+            i >= 1,
           ),
         );
       return { ...g, bild: bilder.get(g.n) };
@@ -303,7 +343,7 @@ export default function Uhrwerk({ laeuft }) {
       } else {
         // Dunst zwischen den Ebenen: je tiefer, desto dunkler
         g.setTransform(1, 0, 0, 1, 0, 0);
-        g.fillStyle = "rgba(8,5,2,0.28)";
+        g.fillStyle = "rgba(8,5,2,0.22)";
         g.fillRect(0, 0, c.width, c.height);
       }
     });
