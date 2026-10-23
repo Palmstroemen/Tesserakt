@@ -9,7 +9,8 @@ import { useEffect, useRef } from "react";
 const EBENEN = [
   // Radien und Teilung in Einheiten des Lochradius; hell = Helligkeit des Messings (Tiefe). Meist Raeder
   // zwischen rMin und rMax, jedes fuenfte ein grosses bis rGross: auch in der Tiefe liegen grosse Raeder.
-  // riesen: [von, bis, Anzahl] Raeder fast so gross wie das Loch, langsam; sie werden zuerst gesetzt.
+  // riesen: [von, bis, Anzahl, Abstand von, bis] Raeder fast so gross wie das Loch, langsam; sie werden zuerst
+  // gesetzt.
   {
     rMin: 0.035,
     rMax: 0.08,
@@ -52,6 +53,7 @@ const EBENEN = [
     rGross: 0.27,
     teilung: 0.058,
     hell: 0.95,
+    riesen: [0.5, 0.68, 2, 0.6, 0.95], // vorne zwei grosse, eher am Rand
     anzahl: 10,
   },
 ];
@@ -79,12 +81,12 @@ function ebeneAnlegen(e, zufall, frei) {
     raeder.every((g) => Math.hypot(g.x - x, g.y - y) > g.r + r + e.teilung);
   const neu = (r) => Math.max(6, Math.round((2 * Math.PI * r) / e.teilung));
   if (e.riesen) {
-    const [von, bis, anzahl] = e.riesen;
+    const [von, bis, anzahl, dVon = 0, dBis = 0.75] = e.riesen;
     for (let k = 0, v = 0; k < anzahl && v < 200; v += 1) {
       const n = neu(von + zufall() * (bis - von));
       const rr = (n * e.teilung) / (2 * Math.PI);
       const a = zufall() * Math.PI * 2;
-      const d = zufall() * 0.75;
+      const d = dVon + zufall() * (dBis - dVon);
       const x = Math.cos(a) * d;
       const y = Math.sin(a) * d;
       if (!passt(x, y, rr)) continue;
