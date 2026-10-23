@@ -13,6 +13,36 @@ export function titelVorgabe(n, paarSpiel) {
   return n === 1 ? "Mein Horoskop" : "Meine Horoskope";
 }
 
+// Vor dem Ergebnis zeigt der Buch-Knopf nur, was es am Ende gibt: das Buch mit allen Horoskopen
+export function BuchWerbung({ paarSpiel, geburt, onSchliessen }) {
+  return (
+    <div className="da-ebene" role="dialog" aria-label="Horoskopbuch">
+      <div className="da-blatt">
+        <Buch3D
+          titel={titelVorgabe(SYSTEME.length, paarSpiel)}
+          geburt={geburt}
+          auswahl={SYSTEME.map((s) => s.id)}
+        />
+        <h2>{paarSpiel ? "Euer Horoskopbuch" : "Dein Horoskopbuch"}</h2>
+        <p className="da-werbung">
+          {paarSpiel
+            ? "Wenn ihr fertig seid, könnt ihr alle eure Horoskope als Buch bestellen."
+            : "Wenn du fertig bist, kannst du alle deine Horoskope als Buch bestellen."}
+        </p>
+        <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
+        <button
+          type="button"
+          className="da-schliessen"
+          aria-label="Schließen"
+          onClick={onSchliessen}
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function DruckAuswahl({
   beste,
   paarSpiel,

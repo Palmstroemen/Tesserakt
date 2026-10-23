@@ -11,8 +11,9 @@ import { SYSTEME } from "./systeme";
 import Datumsrad from "./Datumsrad";
 import Spielplatte from "./Spielplatte";
 import Ergebnisplatte from "./Ergebnisplatte";
-import DruckAuswahl from "./DruckAuswahl";
+import DruckAuswahl, { BuchWerbung } from "./DruckAuswahl";
 import Buch from "./Buch";
+import Eckknoepfe from "./Eckknoepfe";
 import { rastKlick, zahnrad } from "./klang";
 import { belichtungFesthalten } from "./kamera";
 
@@ -146,7 +147,7 @@ export default function Apparat() {
   const [auswertung, setAuswertung] = useState(false); // Rangliste im Auge sichtbar ("<" links oben)
   const [textkarten, setTextkarten] = useState(false); // Faecher nach links weggeschoben, Textkarten sichtbar
   const [kartenOffen, setKartenOffen] = useState(false); // Textkarten einmal geoeffnet (bleiben dann geladen)
-  const [druck, setDruck] = useState(null); // null | "auswahl" | { auswahl, titel, reihe } fuer die Buchansicht
+  const [druck, setDruck] = useState(null); // null | "werbung" | "auswahl" | { auswahl, titel, reihe } fuer die Buchansicht
   const [geburt, setGeburt] = useState(null); // eingestellte Geburtsdaten (Titelseite des Buchs): { a, b? }
   const [spiel, setSpiel] = useState("A");
   const [fehler, setFehler] = useState(null);
@@ -720,28 +721,23 @@ export default function Apparat() {
           ) : null}
         </div>
       ) : null}
-      {auswertung && phase === "frage" ? (
-        <button
-          type="button"
-          className="sc-zurueck"
-          aria-label="Noch einmal"
-          onClick={nochmal}
-        >
-          ‹
-        </button>
+      {phase === "uebergang" || phase === "frage" ? (
+        // A und B der Datumsseite werden beim Uebergang zu "zurueck" und Buch (vor dem Ergebnis: was es am
+        // Ende gibt)
+        <Eckknoepfe
+          auftritt={phase === "uebergang"}
+          onZurueck={nochmal}
+          onBuch={() =>
+            setDruck(auswahlSichtbar(auswertung, phase) ? "auswahl" : "werbung")
+          }
+        />
       ) : null}
-      {auswahlSichtbar(auswertung, phase) ? (
-        <button
-          type="button"
-          className="sc-zurueck sc-drucken"
-          aria-label="Drucken"
-          onClick={() => setDruck("auswahl")}
-        >
-          <svg viewBox="-12 -12 24 24" aria-hidden="true">
-            {/* aufgeschlagenes Buch */}
-            <path d="M0 -5 C -3 -7 -7 -7 -9 -6 L -9 6 C -7 5 -3 5 0 7 C 3 5 7 5 9 6 L 9 -6 C 7 -7 3 -7 0 -5 Z M0 -5 L0 7" />
-          </svg>
-        </button>
+      {druck === "werbung" ? (
+        <BuchWerbung
+          paarSpiel={spiel === "C"}
+          geburt={geburt}
+          onSchliessen={() => setDruck(null)}
+        />
       ) : null}
       {druck === "auswahl" || druck?.zurueck ? (
         <DruckAuswahl
