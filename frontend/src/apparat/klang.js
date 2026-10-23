@@ -1,3 +1,5 @@
+import { melden } from "./werkstatt";
+
 // Mechanische Geraeusche, synthetisch per Web Audio (keine Tondateien noetig).
 // Der AudioContext darf erst nach einer Beruehrung starten (Browser-Regel), daher lazy.
 let ctx = null;
@@ -22,9 +24,10 @@ function audio() {
 
 // Freigabe bei der ersten Beruehrung, egal wo: Safari (iPhone) laesst Ton erst nach einem Antippen oder
 // Loslassen zu, nicht schon waehrend des Drehens an einer Scheibe. Ein stummer Ton schaltet ihn dort frei.
-function freigeben() {
+function freigeben(e) {
   const ac = audio();
   if (!ac) return;
+  melden("ton", { ereignis: e.type, zustand: ac.state });
   const quelle = ac.createBufferSource();
   quelle.buffer = ac.createBuffer(1, 1, ac.sampleRate);
   quelle.connect(ac.destination);
