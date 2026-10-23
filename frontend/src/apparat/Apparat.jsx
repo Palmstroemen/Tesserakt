@@ -542,7 +542,18 @@ export default function Apparat() {
         ).length,
       ]),
     );
-    const erwartung = erwarteterSkillBester(ALLE.length);
+    // Im Ergebnis stehen nur die Systeme, die mindestens einmal aufgezogen waren: einmal befragt, gehoert
+    // es dazu (weglassen kann man es danach, verstecken nicht). Gewertet wird trotzdem ueber alle Fragen.
+    // Abkuerzung (gewuerfelte Antworten, nichts aufgezogen): alle.
+    const befragt = ALLE.filter((s) =>
+      antworten.some((a) => a.angezeigt.includes(s)),
+    );
+    const gezeigt = befragt.length ? befragt : ALLE;
+    const nurGezeigt = (alle) => ({
+      ...alle,
+      ranking: alle.ranking.filter((s) => gezeigt.includes(s)),
+    });
+    const erwartung = erwarteterSkillBester(gezeigt.length);
     if (spiel !== "B") {
       const alle = calculateRating(
         Object.fromEntries(ALLE.map((s) => [s, vektoren[s]])),
@@ -550,7 +561,7 @@ export default function Apparat() {
         matrix,
         kontroll,
       );
-      return { alle, mitgespielt, erwartung };
+      return { alle: nurGezeigt(alle), gezeigt, mitgespielt, erwartung };
     }
     if (!kontrollB || !rueckblick) return null;
     const fenster = {};
@@ -592,7 +603,8 @@ export default function Apparat() {
       (a, b) => systemDetails[b].skillScore - systemDetails[a].skillScore,
     );
     return {
-      alle: { ranking, systemDetails },
+      alle: nurGezeigt({ ranking, systemDetails }),
+      gezeigt,
       fenster,
       mitgespielt,
       erwartung,
@@ -651,7 +663,7 @@ export default function Apparat() {
               titel={titel}
               erklaerung={
                 ergebnis
-                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ALLE.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
+                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ergebnis.gezeigt.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
                     (ergebnis.fenster
                       ? " Reihenfolge: Mittel aus dem letzten Monat und den letzten drei Monaten."
                       : "")

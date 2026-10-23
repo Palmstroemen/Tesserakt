@@ -289,8 +289,8 @@ const Auge = memo(function Auge() {
  * onAntwort bekommt die Werte aller Systeme.
  * Nach dem Ausloesen bleibt der Hebel unten; erst wenn man ihn wieder hochschiebt, laufen alle Schieber nach
  * links zurueck und das naechste Aufziehen beginnt.
- * Nach der letzten Frage: Ergebnis-Dia (blaues Glas); erst wenn alle Systeme und der eigene Schieber ganz
- * rechts stehen, loest der Hebel die Auswertung aus. Dann zeigt das Dia die Rangliste und die Systemschieber
+ * Nach der letzten Frage: Ergebnis-Dia (blaues Glas); erst wenn alle Systeme, die mitgespielt haben, und der
+ * eigene Schieber ganz rechts stehen, loest der Hebel die Auswertung aus; die anderen bleiben blockiert. Dann zeigt das Dia die Rangliste und die Systemschieber
  * fahren auf ihren Skill (-100 links .. +100 rechts). Wischen oder Tippen im Auge: onWeiter (Textkarten).
  */
 export default function Spielplatte({
@@ -338,6 +338,8 @@ export default function Spielplatte({
   const indexRef = useRef(-1);
   const [aufgezogen, setAufgezogenState] = useState([]);
   const aufgezogenRef = useRef(new Set());
+  // Systeme, die bei mindestens einer Frage aufgezogen waren: nur sie kommen ins Ergebnis
+  const gespieltRef = useRef(new Set(sofort ? ALLE : []));
 
   const svgRef = useRef(null);
   const zusatzRef = useRef(zusatz);
@@ -453,6 +455,12 @@ export default function Spielplatte({
       if (d.gegriffen.has(s)) continue;
       if (!verriegelt(zustandRef.current) && aufgezogenRef.current.has(s))
         continue;
+      if (zustandRef.current === "endaufzug" && !gespieltRef.current.has(s)) {
+        // nicht mitgespielt: bleibt im Schlussaufzug blockiert
+        if (!d.angestossen) sperre();
+        d.angestossen = true;
+        continue;
+      }
       const p = posRef.current[s];
       if (Math.abs(u - p) * 2 * theta * radien[k] > symbol * 1.7) continue;
       anim.current.delete(s);
@@ -608,7 +616,9 @@ export default function Spielplatte({
   const USER_RECHTS = uAusWert(1) - 1e-3;
   const bereit = (z, user, anzahl) =>
     (z === "frage" && user >= RUHE) ||
-    (z === "endaufzug" && anzahl === ALLE.length && user >= USER_RECHTS);
+    (z === "endaufzug" &&
+      anzahl === gespieltRef.current.size &&
+      user >= USER_RECHTS);
   // nach dem Ausloesen steht der Hebel unten und haelt die Schieber fest, bis man ihn hochschiebt
   const verriegelt = (z) => z === "ergebnis" || z === "fertig";
   const gesperrt =
@@ -666,6 +676,7 @@ export default function Spielplatte({
     hebel();
     animiere("hebel", 1, 110); // bleibt unten, bis man ihn wieder hochschiebt
     const aktiv = ALLE.filter((s) => aufgezogenRef.current.has(s));
+    aktiv.forEach((s) => gespieltRef.current.add(s));
     onAntwort(frage, wertAusU(posRef.current.user), aktiv);
     const DAUER = 1100;
     const VERZ = 140;
@@ -721,7 +732,7 @@ export default function Spielplatte({
     setZustand("auswertung");
     onAuswertung?.();
     const DAUER = 1300;
-    ALLE.forEach((s, i) => {
+    ALLE.filter((s) => gespieltRef.current.has(s)).forEach((s, i) => {
       const ziel = uAusWert((details[s]?.skillScore ?? 0) / 100);
       const verz = 300 + i * 140;
       zahnrad(

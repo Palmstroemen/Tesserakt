@@ -89,7 +89,12 @@ Kreis oben oder höchstens 4 aktive Systeme.
   („optionales Stoppen“). Das würde ein System ohne jede Aussagekraft besser aussehen lassen.
 - Die Wertung für das Experiment läuft daher immer über alle Systeme und alle Fragen. Gespeichert wird
   zusätzlich, welche Systeme bei welcher Frage angezeigt waren.
-- Persönliches Ergebnis: alle Systeme zeigen und markieren, bei wie vielen Fragen sie mitgespielt haben.
+- Persönliches Ergebnis: nur die Systeme, die **mindestens einmal aufgezogen** waren – einmal befragt, gehört
+  es dazu. Weglassen kann man ein System danach, verstecken nicht; sein Skill zählt trotzdem über alle Fragen,
+  Weglassen bringt also keinen Vorteil. (Die strengere Regel „nur Systeme, die bei jeder Frage dabei waren“
+  hätte genau das belohnt: Wer ein System nach ein paar Fehlgriffen weglässt, sähe nur noch die Glückstreffer.)
+  Auf den Textkarten steht, bei wie vielen Fragen ein System mitgespielt hat. Die Erklärung unter der
+  Rangliste rechnet mit der Zahl der gezeigten Systeme („das beste von n Horoskopen …“).
 
 ## Schlitze als runde Balkenanzeige
 
@@ -109,7 +114,8 @@ Kreis oben oder höchstens 4 aktive Systeme.
 - Nach der letzten Frage schiebt man den Hebel ebenfalls hoch; alle Schieber gleiten in die Ruhe, im Auge erscheint ein Dia auf blauem Glas:
   nur „Dein Ergebnis“ (Spiel C „Euer Ergebnis“, Spiel B „Dein Rückblick“). Bewusst ohne Anleitung: wie es
   weitergeht, sollen die Spieler selbst entdecken.
-- Der Hebel gibt erst frei, wenn alle sieben Systeme und der eigene Schieber ganz rechts stehen.
+- Der Hebel gibt erst frei, wenn alle Systeme, die mitgespielt haben, und der eigene Schieber ganz rechts
+  stehen. Die übrigen sind blockiert (dumpfes Anschlagen) und bleiben auch in der Auswertung in Ruhe.
 - Nach dem Hebelzug wechselt das Dia zur Rangliste; die Systemschieber fahren auf ihren Skill
   (−100 links … +100 rechts, gleiche Skala wie die Antworten). Der eigene Schieber bleibt rechts (+100).
 - Wischen oder Tippen im Auge schiebt den Fächer nach links weg, die Textkarten je System kommen herein.
