@@ -1,5 +1,5 @@
 // Werkstatt-Schalter fuer Tests auf dem Handy, ueber die Adresse (nicht fuer Spieler gedacht):
-//   ?neu            Einwilligung und Zettel vergessen: Vorblatt und Zettel kommen wieder
+//   ?neu            Einwilligung, Zettel und Film vergessen: Vorblatt, Film und Zettel kommen wieder
 //   ?messen         Anzeige oben links: Dauer der Bilder, solange ein Finger auf dem Bildschirm ist
 //   ?ohne=schatten  SVG-Schatten aus; ?ohne=masken Masken der Schlitze aus (beides kombinierbar,
 //                   z. B. ?messen&ohne=schatten,masken), um herauszufinden, was auf dem Geraet bremst
@@ -86,6 +86,7 @@ export function werkstattEinrichten() {
     try {
       localStorage.removeItem("tesserakt-einwilligung");
       localStorage.removeItem("tesserakt-zettel");
+      localStorage.removeItem("tesserakt-film");
     } catch {
       // ohne Speicher gibt es nichts zu vergessen
     }

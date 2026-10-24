@@ -2,6 +2,22 @@
 
 *Stand: 21. Oktober 2026. Ergebnis der Gespräche zum GUI-Design; ergänzt `Visuals.md` und `Spieldesign.md`.*
 
+## Vor dem Apparat: Film und Kästchen
+
+Ablauf beim Öffnen: Vorblatt (Einwilligungen) → beim allerersten Mal der Film (eine Frau reicht dem
+Kameramann das Kästchen und stirbt; endet auf dem Deckel) → bei **jedem** Besuch das verschlossene Kästchen →
+darin der Apparat mit der Datumsscheibe.
+
+- **Deckel:** dunkles, rötliches Holz mit Schnitzereien, oben die Sonne-Mond-Einlage (Messing/Silber), darunter
+  „TESSE | RAKT“ eingeschnitzt. Der Mittelpunkt der Einlage liegt über dem der Datumsscheibe (nicht gleich
+  groß). Zweiteilig: die Fuge läuft im Holz gerade und in der Einlage entlang der Gesichtsprofile.
+- **Dicke:** etwa 5 mm, die Einlage 2 mm tief. Beim Aufschwingen zeigt die Schnittkante Holz, oben das Metall
+  der Einlage und Kerben, wo die Schnitzerei die Fuge kreuzt.
+- **Öffnen:** Riegel unter dem Titel zur Seite schieben → der Deckel springt einen Spalt auf → eine Hälfte mit
+  dem Finger aufziehen, die andere folgt. Die Scharniere liegen außerhalb des Bildschirms: links und rechts
+  geht es weiter. Verschlossen ruckeln die Hälften nur; nach einer Weile ruckt der Riegel von selbst ein wenig.
+- **Umsetzung:** `Kaestchen.jsx` (three.js); Deckelbild und Fuge aus `tools/kaestchen.py`.
+
 ## Grundlayout (bleibt fast immer gleich)
 
 - **Obere Hälfte: Quadrat mit vollem Kreis.** Darin das magische Auge mit dem Fragedia (später auch Türchen,

@@ -1,7 +1,9 @@
-// Gefalteter Zettel im Apparat (nur auf dem Startbild und nur bis zum ersten Spiel): eine Legende, keine
-// Anleitung. Aufgefaltet zeigt er die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine
-// Bleistiftnotiz und eine Skizze. Weggewischt (oder angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
-import { useRef, useState } from "react";
+// Zettel im Apparat (nur auf dem Startbild und nur bis zum ersten Spiel): einmal quer gefaltet liegt er gross und
+// etwas schraeg ueber der Datumsscheibe, wenn das Kaestchen aufgeht. Oben steht die Grundfrage des Spiels, darunter
+// eine Legende, keine Anleitung: die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine
+// Bleistiftnotiz und eine Skizze. Antippen faltet ihn auf (er rueckt dabei etwas gerader), weggewischt (oder
+// aufgefaltet angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
+import { useLayoutEffect, useRef, useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { papier } from "./klang";
@@ -86,12 +88,70 @@ function Kritzelei() {
   );
 }
 
+function Blatt({ kopie = false }) {
+  return (
+    <div
+      className="zt-blatt"
+      role={kopie ? undefined : "dialog"}
+      aria-label={kopie ? undefined : "Zettel"}
+      aria-hidden={kopie || undefined}
+    >
+      <p className="zt-frage">
+        Du meinst, dein Horoskop beschreibt dich gut? Aber wie beschreiben dich
+        andere Horoskope der Welt? Finde es heraus!
+      </p>
+      <h2>Horoskopsysteme</h2>
+      {/* mit dem Bleistift unterstrichen */}
+      <svg className="zt-strich" viewBox="0 0 200 10" aria-hidden="true">
+        <path d="M4 6 C 40 3, 80 8, 120 5 S 180 3, 196 6" />
+        <path d="M30 8 C 70 6, 120 9, 170 6" />
+      </svg>
+      <ul>
+        {SYSTEME.map((s, i) => (
+          <li
+            key={s.id}
+            style={{
+              transform: `rotate(${ZEILE[i % ZEILE.length][0]}deg)`,
+              paddingLeft: ZEILE[i % ZEILE.length][1],
+            }}
+          >
+            <svg viewBox="-12 -12 24 24" aria-hidden="true">
+              <HoroskopIcon id={s.id} r={10} />
+            </svg>
+            <span>{anzeigeName(s.id)}</span>
+            {NOTIZ[s.id] ? (
+              <span className="zt-notiz">← {NOTIZ[s.id]}</span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+      <Kritzelei />
+    </div>
+  );
+}
+
+// Schraeglage: gefaltet etwas schief hingeworfen, aufgefaltet geradegerueckt
+const NEIGUNG = { gefaltet: -5, offen: -1.5 };
+
 export default function Zettel() {
   const [zustand, setZustand] = useState(() =>
     zettelDa() ? "gefaltet" : "weg",
   ); // gefaltet | offen | fliegt | weg
   const [dx, setDx] = useState(0); // Wischweg waehrend des Ziehens
+  const [halb, setHalb] = useState(0); // halbe Blatthoehe (Lage der Faltkante)
   const start = useRef(null);
+  const blattRef = useRef(null);
+
+  // die Faltkante liegt in der Mitte des Blatts; die untere Haelfte zeigt dasselbe Blatt, nach oben verschoben
+  useLayoutEffect(() => {
+    const el = blattRef.current;
+    if (!el) return undefined;
+    const messen = () => setHalb(el.offsetHeight / 2);
+    messen();
+    const beobachter = new ResizeObserver(messen);
+    beobachter.observe(el);
+    return () => beobachter.disconnect();
+  }, [zustand === "weg"]);
 
   function oeffnen() {
     papier(true);
@@ -104,7 +164,8 @@ export default function Zettel() {
     setZustand("fliegt");
   }
 
-  // Wischen: dem Finger folgen; loslassen nach rechts (oder antippen) wirft den Zettel hinaus
+  // Wischen: dem Finger folgen; loslassen nach rechts wirft den Zettel hinaus, Antippen faltet ihn auf
+  // (aufgefaltet: wirft ihn hinaus)
   function runter(e) {
     start.current = e.clientX;
   }
@@ -114,80 +175,47 @@ export default function Zettel() {
   function hoch() {
     if (start.current === null) return;
     start.current = null;
-    if (dx > 50 || dx < 6) wegwischen();
-    else setDx(0);
+    if (dx > 50) wegwischen();
+    else if (dx < 6) {
+      setDx(0);
+      if (zustand === "gefaltet") oeffnen();
+      else wegwischen();
+    } else setDx(0);
   }
 
   if (zustand === "weg") return null;
+  const neigung = zustand === "gefaltet" ? NEIGUNG.gefaltet : NEIGUNG.offen;
   return (
-    <>
-      <button
-        type="button"
-        className="zt-gefaltet"
-        hidden={zustand !== "gefaltet"}
-        aria-label="Zettel"
-        onClick={oeffnen}
-      />
-      {zustand === "offen" || zustand === "fliegt" ? (
-        <div
-          className={zustand === "fliegt" ? "zt-ebene weg" : "zt-ebene"}
-          onPointerDown={runter}
-          onPointerMove={ziehen}
-          onPointerUp={hoch}
-          onPointerCancel={hoch}
-          onAnimationEnd={(e) => {
-            if (e.animationName === "zt-wegfliegen") setZustand("weg");
-          }}
-        >
-          <div
-            className="zt-schatten"
-            style={
-              dx
-                ? {
-                    transform: `translateX(${dx}px) rotate(${-1.5 + dx / 25}deg)`,
-                  }
-                : undefined
-            }
-          >
-            <div
-              className="zt-blatt"
-              role="dialog"
-              aria-label="Horoskopsysteme"
-            >
-              <h2>Horoskopsysteme</h2>
-              {/* mit dem Bleistift unterstrichen */}
-              <svg
-                className="zt-strich"
-                viewBox="0 0 200 10"
-                aria-hidden="true"
-              >
-                <path d="M4 6 C 40 3, 80 8, 120 5 S 180 3, 196 6" />
-                <path d="M30 8 C 70 6, 120 9, 170 6" />
-              </svg>
-              <ul>
-                {SYSTEME.map((s, i) => (
-                  <li
-                    key={s.id}
-                    style={{
-                      transform: `rotate(${ZEILE[i % ZEILE.length][0]}deg)`,
-                      paddingLeft: ZEILE[i % ZEILE.length][1],
-                    }}
-                  >
-                    <svg viewBox="-12 -12 24 24" aria-hidden="true">
-                      <HoroskopIcon id={s.id} r={10} />
-                    </svg>
-                    <span>{anzeigeName(s.id)}</span>
-                    {NOTIZ[s.id] ? (
-                      <span className="zt-notiz">← {NOTIZ[s.id]}</span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-              <Kritzelei />
+    <div
+      className={`zt-ebene zt-${zustand}`}
+      onAnimationEnd={(e) => {
+        if (e.animationName === "zt-wegfliegen") setZustand("weg");
+      }}
+    >
+      <div
+        className={dx ? "zt-lage zt-zieht" : "zt-lage"}
+        style={{
+          transform: `translateX(${dx}px) rotate(${neigung + dx / 25}deg)`,
+          visibility: halb ? undefined : "hidden",
+        }}
+        onPointerDown={runter}
+        onPointerMove={ziehen}
+        onPointerUp={hoch}
+        onPointerCancel={hoch}
+      >
+        <div className="zt-falt" style={{ "--zt-halb": `${halb}px` }}>
+          <div className="zt-oben">
+            <div ref={blattRef}>
+              <Blatt />
+            </div>
+          </div>
+          <div className="zt-unten">
+            <div style={{ marginTop: -halb }}>
+              <Blatt kopie />
             </div>
           </div>
         </div>
-      ) : null}
-    </>
+      </div>
+    </div>
   );
 }
