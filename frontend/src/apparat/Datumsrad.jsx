@@ -170,7 +170,9 @@ export default function Datumsrad({
   const platte = useMemo(() => layoutAusFenster(), []);
   const [drehung, setDrehung] = useState(START);
   const [seite, setSeite] = useState("gold"); // gold = erste Person, silber = zweite Person (Spiel C)
-  // Muenzdrehung der Scheibe: kipp 0..90 Grad und zurueck, seite +1 (Gold rueckt nach rechts) / -1 (Silber nach links)
+  // Muenzdrehung der Scheibe um die waagrechte Achse, Oberkante nach hinten (wie ein Fallblatt): kipp 0..90 Grad
+  // und zurueck, seite +1 (Gold rueckt nach oben, man sieht die Unterkante) / -1 (Silber kommt von unten, man
+  // sieht die Oberkante)
   const [scheibe, setScheibe] = useState({
     metall: "gold",
     skala: 1,
@@ -327,7 +329,7 @@ export default function Datumsrad({
   }
 
   function seiteWechseln() {
-    // Scheibe dreht sich wie eine Muenze; in der Mitte (unsichtbar schmal) wechseln Metall und Ringe
+    // Scheibe kippt wie ein Fallblatt; in der Mitte (unsichtbar schmal) wechseln Metall und Ringe
     setErstePerson(eingabe());
     setSeite("silber");
     setEingestellt(false);
@@ -364,10 +366,10 @@ export default function Datumsrad({
   );
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
   const [hell, mittel, dunkel] = METALL[scheibe.metall];
-  // die sichtbare Seite rueckt um die halbe Dicke des Pucks zur Seite (Drehachse in seiner Mitte)
+  // die sichtbare Seite rueckt um die halbe Dicke des Pucks nach oben oder unten (Drehachse in seiner Mitte)
   const versatz =
     scheibe.seite * HALBDICKE * Math.sin((scheibe.kipp * Math.PI) / 180);
-  const scheibeTransform = `translate(${MITTE.x + versatz} ${MITTE.y}) scale(${scheibe.skala} 1) translate(${-MITTE.x} ${-MITTE.y})`;
+  const scheibeTransform = `translate(${MITTE.x} ${MITTE.y - versatz}) scale(1 ${scheibe.skala}) translate(${-MITTE.x} ${-MITTE.y})`;
   // Auf der goldenen Seite kein Hinweis (entdecken statt erklaeren); die silberne Seite fragt nach der zweiten
   // Person
   const hinweis =
@@ -475,9 +477,12 @@ export default function Datumsrad({
             praefix="dr"
             hoehe={HOEHE}
             radius={196}
+            liegend={wechselt}
+            licht={scheibe.seite === 1 ? "unten" : "oben"}
             style={
               wechselt
-                ? { "--kipp": `${scheibe.kipp}deg`, "--seite": scheibe.seite }
+                ? // liegend ist der Mantel um 90 Grad gedreht: dort zeigt +x nach unten
+                  { "--kipp": `${scheibe.kipp}deg`, "--seite": -scheibe.seite }
                 : undefined
             }
           />
