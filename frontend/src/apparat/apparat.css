@@ -1159,8 +1159,8 @@ body {
 }
 
 /* Datumsscheibe und Auge sind die zwei Seiten eines flachen Pucks (knapp 1 cm dick): Er dreht sich um die
-   senkrechte Achse in seiner Mitte, erst die Scheibe auf die Kante (0,7 s), dann das Auge von der Kante herein
-   (0,7 s). --kipp ist der Winkel der sichtbaren Seite (0 = schaut her); sie wird um cos gestaucht und rueckt um
+   senkrechte Achse in seiner Mitte, erst die Scheibe auf die Kante (1,05 s), dann das Auge von der Kante herein
+   (1,05 s). --kipp ist der Winkel der sichtbaren Seite (0 = schaut her); sie wird um cos gestaucht und rueckt um
    sin mal halbe Dicke zur Seite. Dazwischen sieht man den Mantel (Mantel.jsx). Drehung gleichmaessig wie bei
    der Muenzdrehung nach Silber. */
 @property --kipp {
@@ -1204,7 +1204,7 @@ body {
 }
 
 .dr-abgang {
-  animation: dr-kippen 0.7s linear forwards;
+  animation: dr-kippen 1.05s linear forwards;
 }
 
 @keyframes dr-kippen {
@@ -1223,7 +1223,7 @@ body {
 
 /* auf der Kante uebernimmt der Mantel unter dem Auge */
 .dr-abgang .mantel {
-  animation: mantel-bis-kante 0.7s step-end forwards;
+  animation: mantel-bis-kante 1.05s step-end forwards;
 }
 
 @keyframes mantel-bis-kante {
@@ -1234,7 +1234,7 @@ body {
 
 /* ... und von der Kante dreht sich das magische Auge herein */
 .sp-auftritt .sp-buehne {
-  animation: sp-kippen 0.7s linear 0.7s both;
+  animation: sp-kippen 1.05s linear 1.05s both;
 }
 
 @keyframes sp-kippen {
@@ -1277,7 +1277,7 @@ body {
 }
 
 .sp-auftritt .sp-tiefe::after {
-  animation: sp-dunkel 1.4s both;
+  animation: sp-dunkel 2.1s both;
 }
 
 @keyframes sp-dunkel {
@@ -1293,7 +1293,7 @@ body {
 
 .sp-auftritt .mantel {
   --seite: -1;
-  animation: mantel-ab-kante 0.7s step-end both;
+  animation: mantel-ab-kante 1.05s step-end both;
 }
 
 @keyframes mantel-ab-kante {
@@ -1309,11 +1309,11 @@ body {
    Kreismittelpunkt, die Walzen laufen rechts hinaus, von links dreht der Faecher (samt Hebel) herein.
    Beide Bewegungen sind dieselbe Drehung, nur um eine Vierteldrehung versetzt. */
 .dr-abgang .dr-walzen {
-  animation: dr-walzen-ab 1.4s both;
+  animation: dr-walzen-ab 2.1s both;
 }
 
 .sp-auftritt .sp-drehteil {
-  animation: sp-faecher-ein 1.4s both;
+  animation: sp-faecher-ein 2.1s both;
 }
 
 /* Datumsseite: der Faecher liegt eine Vierteldrehung weiter links auf der Scheibe; Auge und Linse gibt es
@@ -1373,7 +1373,7 @@ body {
 }
 
 .dr-abgang .dr-knopf-C {
-  animation: dr-verdeckt 1.4s step-end forwards;
+  animation: dr-verdeckt 2.1s step-end forwards;
 }
 
 @keyframes dr-verdeckt {

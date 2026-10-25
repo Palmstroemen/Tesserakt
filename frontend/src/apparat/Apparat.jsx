@@ -101,8 +101,8 @@ function rueckblickFragen(katalog, rueckblick) {
     ...auffaellig,
   ]);
 }
-const UEBERGANG_MS = 1500; // Scheibe -> Auge: zwei Flip-Haelften zu 0,7 s
-const DREHUNG_MS = 1400; // Drehscheibe mit Ortswalzen und Faecher (apparat.css: dr-walzen-ab, sp-faecher-ein)
+const UEBERGANG_MS = 2200; // Scheibe -> Auge: zwei Flip-Haelften zu 1,05 s
+const DREHUNG_MS = 2100; // Drehscheibe mit Ortswalzen und Faecher (apparat.css: dr-walzen-ab, sp-faecher-ein)
 
 function mischen(liste) {
   const kopie = [...liste];

@@ -157,7 +157,7 @@ const START = {
   tag: 0,
   stunde: -12 * schritt(RINGE[3]),
 };
-const FLIP_MS = 1400;
+const FLIP_MS = 2100;
 
 export default function Datumsrad({
   onSpiel,
