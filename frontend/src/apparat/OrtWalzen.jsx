@@ -10,6 +10,38 @@ import { rastKlick, zahnrad } from "./klang";
 // Ganz links auf der Ortswalze: "Ort unbekannt" (dann rechnet das Backend ohne Ort).
 // Wechselt die Seite (gold -> silber, Spiel C), drehen die Walzen eine Vierteldrehung weiter: Der alte
 // Inhalt laeuft rechts hinaus, von links dreht derselbe Inhalt im neuen Metall herein.
+// Eingravierte Marken in der Walzenplatte ueber, zwischen und unter den Schlitzen, mit kleinen Ranken und
+// Punzen (ziseliert); Gravur wie die Schrift der Datumsscheibe (Filter dr-gravur: Schatten oben, Licht unten).
+function Marken() {
+  const x = MITTE.x;
+  const oben = MITTE.y + WALZEN.land - WALZEN.schlitz / 2 - 5; // Spitze ueber der Landwalze (ausserhalb des Rands)
+  const unten = MITTE.y + WALZEN.stadt + WALZEN.schlitz / 2 + 5; // Spitze unter der Ortswalze
+  const zwischen = MITTE.y + (WALZEN.land + WALZEN.stadt) / 2;
+  const luecke = (WALZEN.stadt - WALZEN.land - WALZEN.schlitz) / 2 - 8; // halbe Hoehe der Raute, frei von den Schlitzen
+  // Spitze bei y, Grund 9 hoeher (r = 1, zeigt nach unten) oder tiefer (r = -1); Ranken links und rechts am
+  // Grund, drei Punzen dahinter
+  const marke = (y, r) => {
+    const g = y - 9 * r;
+    return (
+      <>
+        <path d={`M${x - 5} ${g}L${x} ${y}L${x + 5} ${g}Z`} />
+        <path d={`M${x - 6} ${g}c-4 ${-3 * r} -10 ${-2 * r} -12 ${2 * r}c2 ${1.5 * r} 4 ${0.5 * r} 4 ${-1.5 * r}M${x + 6} ${g}c4 ${-3 * r} 10 ${-2 * r} 12 ${2 * r}c-2 ${1.5 * r} -4 ${0.5 * r} -4 ${-1.5 * r}`} className="ow-ranke" />
+        {[-6, 0, 6].map((dx) => (
+          <circle key={dx} cx={x + dx} cy={g - (dx ? 4 : 5.5) * r} r="0.9" />
+        ))}
+      </>
+    );
+  };
+  return (
+    <g className="ow-marken" filter="url(#dr-gravur)">
+      {marke(oben, 1)}
+      {marke(unten, -1)}
+      <path d={`M${x} ${zwischen - luecke}L${x + 4} ${zwischen}L${x} ${zwischen + luecke}L${x - 4} ${zwischen}Z`} />
+      <path d={`M${x - 7} ${zwischen}h-8M${x + 7} ${zwischen}h8`} className="ow-ranke" />
+    </g>
+  );
+}
+
 export const WALZEN = { land: 290, stadt: 350, theta: 0.6, schlitz: 30 }; // Landwalze ausserhalb der Kerbe fuer Knopf C
 // Oeffnungswinkel je Walze: die aeussere (Ort) so schmal, dass ihre Enden senkrecht unter denen der Landwalze liegen
 const OEFFNUNG = {
@@ -169,6 +201,8 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
   // Schrift folgt dem Bogen (textPath); der Pfad laeuft von links durch den tiefsten Punkt nach rechts
   const BOGEN = 1.4; // halber Winkel des Schriftpfads (rad), groesser als der sichtbare Schlitz
   const pfadId = `ow-pfad-${r}`;
+  const innenRand = WALZEN.schlitz / 2; // Rand des Schlitzes
+  const rand = innenRand + 2; // aussen um die Fase
   const maskeId = `ow-maske-${r}`;
   const links = { x: MITTE.x - r * Math.sin(BOGEN), y: MITTE.y + r * Math.cos(BOGEN) };
   const rechts = { x: MITTE.x + r * Math.sin(BOGEN), y: links.y };
@@ -219,8 +253,22 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
             </clipPath>
           </>
         ) : null}
+        {/* Kante des Schlitzes: oben (innen) faellt die Fase vom Licht weg, unten (aussen) faengt sie es */}
+        <radialGradient id={`${maskeId}-kante`} cx={MITTE.x} cy={MITTE.y} r={r + rand} gradientUnits="userSpaceOnUse">
+          <stop offset={(r - rand) / (r + rand)} stopColor="#6e5129" />
+          <stop offset={(r - innenRand) / (r + rand)} stopColor="#8a6a38" />
+          <stop offset={(r + innenRand) / (r + rand)} stopColor="#e9cd8f" />
+          <stop offset="1" stopColor="#fbe7b4" />
+        </radialGradient>
+        {/* Walze im Schlitz: oben im Schatten der Plattenkante, rund nach unten wieder dunkler */}
+        <radialGradient id={`${maskeId}-tiefe`} cx={MITTE.x} cy={MITTE.y} r={r + innenRand} gradientUnits="userSpaceOnUse">
+          <stop offset={(r - innenRand) / (r + innenRand)} stopColor="#000" stopOpacity="0.55" />
+          <stop offset={(r - innenRand + 7) / (r + innenRand)} stopColor="#000" stopOpacity="0" />
+          <stop offset={(r + innenRand - 6) / (r + innenRand)} stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.22" />
+        </radialGradient>
       </defs>
-      <path d={bogenPfad(r, theta)} className="ow-rand" strokeWidth={WALZEN.schlitz + 3} />
+      <path d={bogenPfad(r, theta)} className="ow-rand" stroke={`url(#${maskeId}-kante)`} strokeWidth={WALZEN.schlitz + 2 * (rand - innenRand)} />
       <g mask={`url(#${maskeId})`}>
         {wechsel ? (
           <>
@@ -234,6 +282,7 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
         ) : (
           schicht("neu", eintraege, lagen, versatz, metall, 0)
         )}
+        <path d={bogenPfad(r, theta + 0.2)} stroke={`url(#${maskeId}-tiefe)`} strokeWidth={WALZEN.schlitz} fill="none" />
       </g>
       {/* breiter unsichtbarer Griffbereich */}
       <path d={bogenPfad(r, theta)} stroke="transparent" strokeWidth={WALZEN.schlitz + 18} fill="none" />
@@ -306,14 +355,8 @@ export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt, platteInne
         <Walze r={WALZEN.land} eintraege={laender} index={landIdx} onIndex={setLandIdx} svgPunkt={svgPunkt} metall={metall} />
       ) : null}
       <Walze r={WALZEN.stadt} eintraege={staedte} index={stadtIdx} onIndex={setStadtIdx} svgPunkt={svgPunkt} metall={metall} />
-      {/* fester Zeiger in der Mitte, wie die Nadel einer Radioskala */}
-      <line
-        x1={MITTE.x}
-        y1={MITTE.y + WALZEN.land - WALZEN.schlitz / 2 - 4}
-        x2={MITTE.x}
-        y2={MITTE.y + WALZEN.stadt + WALZEN.schlitz / 2 + 4}
-        className="ow-zeiger"
-      />
+      {/* gewaehlt ist, was in der Mitte steht: dort zeigen eingravierte, ziselierte Marken in der Platte hin */}
+      <Marken />
     </g>
   );
 }

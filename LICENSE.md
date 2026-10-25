@@ -30,6 +30,7 @@ Die App enthält keinen Code der Swiss Ephemeris und steht deshalb unter der fre
 | pyswisseph (Python-Anbindung der Swiss Ephemeris) | Stanislas Marquis | AGPL-3.0 |
 | Ortsdaten | GeoNames (geonames.org) | CC BY 4.0 |
 | Zeitzonen | IANA-Zeitzonendatenbank | gemeinfrei |
+| Gebrauchsspuren auf dem Messing (`frontend/src/apparat/oberflaeche/`) | ambientCG (ambientcg.com) | CC0 1.0 |
 | Schriften Amiri, Caveat, Cinzel, Ma Shan Zheng, Patrick Hand | siehe [OFL.txt](frontend/src/apparat/schriften/OFL.txt) | OFL-1.1 |
 | React, three.js, Capacitor, Vite | ihre Autorinnen und Autoren | MIT |
 | FastAPI und weitere Python-Bibliotheken | siehe `backend/requirements.txt` | jeweils eigene Lizenz |

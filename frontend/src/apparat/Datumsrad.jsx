@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { MITTE, layoutAusFenster } from "./geometrie";
-import { KNOPF_C, PlattenVerlauf } from "./platte";
+import { KNOPF_C, PlattenVerlauf, SpurenBild } from "./platte";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import Mantel, { HALBDICKE } from "./Mantel";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
@@ -103,16 +103,54 @@ export const schritt = (ring) => 360 / ring.anzahl;
 const indexAus = (ring, drehung) =>
   mod(Math.round(-drehung / schritt(ring)), ring.anzahl);
 
+// Kreisring als Pfad (aussen im, innen gegen den Uhrzeigersinn), fuer die Gebrauchsspuren
+function ringPfad(innen, aussen) {
+  const kreis = (r, richtung) =>
+    `M${MITTE.x - r} ${MITTE.y}a${r} ${r} 0 1 ${richtung} ${2 * r} 0a${r} ${r} 0 1 ${richtung} ${-2 * r} 0Z`;
+  return `${kreis(aussen, 1)} ${kreis(innen, 0)}`;
+}
+
+// Gebrauchsspuren je Ring: jeder aus einer anderen Stelle der Platte gestanzt; Fingerabdruecke an ein paar
+// Stellen rundum, denn gedreht wird an jeder Stelle (sie drehen sich mit dem Ring; als fertiges Bild, siehe
+// SpurenBild)
+const SPUREN = {
+  jahr: { versatz: [31, -77], drehung: 40, winkel: [20, 150, 255] },
+  monat: { versatz: [-112, 18], drehung: -65, winkel: [95, 310] },
+  tag: { versatz: [74, 133], drehung: 110, winkel: [200] },
+  stunde: { versatz: [-9, -151], drehung: 5, winkel: [60] },
+};
+
 export function Band({ ring }) {
   const mitte = (ring.innen + ring.aussen) / 2;
+  const spuren = SPUREN[ring.id];
   return (
-    <circle
-      cx={MITTE.x}
-      cy={MITTE.y}
-      r={mitte}
-      className={`dr-band dr-${ring.id}`}
-      strokeWidth={ring.aussen - ring.innen - 1}
-    />
+    <>
+      <circle
+        cx={MITTE.x}
+        cy={MITTE.y}
+        r={mitte}
+        className={`dr-band dr-${ring.id}`}
+        strokeWidth={ring.aussen - ring.innen - 1}
+      />
+      {spuren ? (
+        <SpurenBild
+          d={ringPfad(ring.innen + 0.5, ring.aussen - 0.5)}
+          box={{
+            x: MITTE.x - ring.aussen,
+            y: MITTE.y - ring.aussen,
+            width: 2 * ring.aussen,
+            height: 2 * ring.aussen,
+          }}
+          versatz={spuren.versatz}
+          drehung={spuren.drehung}
+          stellen={spuren.winkel.map((w) => [
+            MITTE.x + mitte * Math.sin((w * Math.PI) / 180),
+            MITTE.y - mitte * Math.cos((w * Math.PI) / 180),
+            (ring.aussen - ring.innen) * 1.1,
+          ])}
+        />
+      ) : null}
+    </>
   );
 }
 
@@ -392,6 +430,12 @@ export default function Datumsrad({
               <stop offset="0.55" stopColor={mittel} />
               <stop offset="1" stopColor={dunkel} />
             </radialGradient>
+            {/* Rand der Scheibe ohne Umrisslinie: Fase oben im Licht, unten im Schatten */}
+            <linearGradient id="dr-scheibenkante" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor={hell} />
+              <stop offset="0.5" stopColor={mittel} />
+              <stop offset="1" stopColor={dunkel} />
+            </linearGradient>
             <PlattenVerlauf id="ow-platte-gold" aussen={platte.platteAussen} />
             {/* Rahmen (Knoepfe): bleibt immer Gold */}
             <radialGradient id="dr-rahmen" cx="35%" cy="30%" r="80%">
@@ -502,7 +546,28 @@ export default function Datumsrad({
           aria-label="Geburtsdatum und Geburtsort einstellen"
         >
           <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
-            <circle cx={MITTE.x} cy={MITTE.y} r="196" fill="url(#dr-messing)" />
+            {/* Schatten der Scheibe auf die Platte darunter (versetzte Kopien statt Filter) */}
+            {[
+              [4, 0.12],
+              [2, 0.22],
+            ].map(([dy, deckung]) => (
+              <circle
+                key={dy}
+                cx={MITTE.x}
+                cy={MITTE.y + dy}
+                r="196"
+                fill="#1a1006"
+                opacity={deckung}
+              />
+            ))}
+            <circle
+              cx={MITTE.x}
+              cy={MITTE.y}
+              r="196"
+              fill="url(#dr-messing)"
+              stroke="url(#dr-scheibenkante)"
+              strokeWidth="1.6"
+            />
 
             {RINGE.map((r, i) => (
               <g
@@ -523,15 +588,18 @@ export default function Datumsrad({
                 </g>
               ))}
             </g>
-            {/* Trennfugen zwischen den Ringen */}
+            {/* Trennfugen zwischen den Ringen: schmale Rille, dunkel, darunter eine Lichtkante */}
             {[...RINGE.map((r) => r.aussen), 68].map((r) => (
-              <circle
-                key={r}
-                cx={MITTE.x}
-                cy={MITTE.y}
-                r={r}
-                className="dr-fuge"
-              />
+              <g key={r}>
+                <circle
+                  cx={MITTE.x}
+                  cy={MITTE.y + 0.8}
+                  r={r}
+                  className="dr-fuge-licht"
+                  stroke={hell}
+                />
+                <circle cx={MITTE.x} cy={MITTE.y} r={r} className="dr-fuge" />
+              </g>
             ))}
 
             {/* feste Marke oben: Fenster ueber alle Ringe */}

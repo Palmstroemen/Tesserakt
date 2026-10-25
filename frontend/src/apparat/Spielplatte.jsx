@@ -8,7 +8,7 @@ import Uhrwerk from "./Uhrwerk";
 import Diascheibe, { Rotglas, fensterLage } from "./Diascheibe";
 import Mantel from "./Mantel";
 import { LupenFilter } from "./lupe";
-import { PlattenVerlauf, Walzenplatte } from "./platte";
+import { Platte, PlattenVerlauf, Schlitzkante, Walzenplatte } from "./platte";
 import {
   AUGE_RADIUS,
   FAECHER_RECHTS,
@@ -17,7 +17,6 @@ import {
   RUHE_ANTEIL,
   bogenPfad,
   layoutAusFenster,
-  plattePfad,
   polarAusPunkt,
   punktU,
   uAusWert,
@@ -71,13 +70,23 @@ const Unterbau = memo(function Unterbau({
   );
   return (
     <>
-      {/* Platte: derselbe Messington wie der Ring um das Glas; rechts bis 4:30, dort steht der Hebel */}
-      <path
-        d={plattePfad(platteInnen, platteAussen, theta + 0.22, FAECHER_RECHTS)}
-        fill="url(#sp-platte)"
-        filter="url(#sp-plattenschatten)"
-        stroke="#2b2014"
-        strokeWidth="2"
+      {/* Platte: derselbe Messington wie der Ring um das Glas; rechts bis 4:30, dort steht der Hebel.
+          Fingerabdruecke dort, wo man den eigenen Schieber zieht und am Hebel */}
+      <Platte
+        innen={platteInnen}
+        aussen={platteAussen}
+        links={theta + 0.22}
+        rechts={FAECHER_RECHTS}
+        fuellung="url(#sp-platte)"
+        spuren={{
+          versatz: [-83, 41],
+          drehung: 23,
+          stellen: [
+            [MITTE.x, MITTE.y + rUser, 70],
+            [330, 470, 45],
+            [80, 430, 40],
+          ],
+        }}
       />
       {/* daneben, ueber den Spalt, die Walzenplatte der Ortseingabe (1:30 bis 4:30); ihre Schlitze liegen
           ausserhalb des Bildes */}
@@ -120,13 +129,13 @@ const Unterbau = memo(function Unterbau({
           );
         }),
       )}
-      {/* Grund der Schlitze (die Schieber selbst zeichnet Schlitz darueber) */}
+      {/* Kanten der Schlitze (die Schieber selbst zeichnet Schlitz darueber) */}
       {radien.map((rSys, k) => (
-        <path
+        <Schlitzkante
           key={rSys}
-          d={bogenPfad(k ? rSys : rUser, theta)}
-          className="sp-schlitz"
-          strokeWidth={k ? schlitz + 2.4 : userBreite}
+          r={k ? rSys : rUser}
+          theta={theta}
+          breite={k ? schlitz : userBreite - 2.4}
         />
       ))}
     </>
@@ -809,22 +818,6 @@ export default function Spielplatte({
               <stop offset="0" stopColor="#fff" stopOpacity="0.9" />
               <stop offset="1" stopColor="#fff" stopOpacity="0" />
             </radialGradient>
-            {/* Schatten der Faecherplatte auf die Grundplatte (Licht von oben) */}
-            <filter
-              id="sp-plattenschatten"
-              x="-10%"
-              y="-10%"
-              width="120%"
-              height="125%"
-            >
-              <feDropShadow
-                dx="0"
-                dy="4"
-                stdDeviation="4"
-                floodColor="#1a1006"
-                floodOpacity="0.5"
-              />
-            </filter>
             {/* Platte: Messing, etwa so hell wie der Ring um das Glas; einfacher Verlauf ueber die Flaeche */}
             <PlattenVerlauf id="sp-platte" aussen={platteAussen} />
             {/* Lichtschein fuer die eigene Einschaetzung (SVG-Filter: CSS-Filter auf SVG-Elementen kann WebKit nicht) */}

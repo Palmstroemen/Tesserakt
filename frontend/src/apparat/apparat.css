@@ -63,6 +63,45 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* den Hintergrund zeichnet nur html: sonst laege der des body ueber den Gebrauchsspuren darunter */
+body {
+  background: none;
+}
+
+/* Gebrauchsspuren auf der Grundplatte (oberflaeche/QUELLEN.md): Riefen hellen auf (screen), Fingerabdruecke
+   dunkeln ab (multiply, dafuer umgekehrt), nur an den Ecken bei den Knoepfen und unten, wo man das Geraet
+   haelt. Liegen hinter allem Inhalt, auf dem Hintergrund. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  background: url("./oberflaeche/kratzer.webp") 37px 81px / 250px;
+  filter: sepia(1);
+  mix-blend-mode: screen;
+  opacity: 0.22;
+}
+
+body::after {
+  background: url("./oberflaeche/abdruecke.webp") -60px 20px / 350px;
+  filter: invert(1) sepia(0.6);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+  -webkit-mask-image:
+    radial-gradient(circle at 8% 6%, #000 0, transparent 70px),
+    radial-gradient(circle at 92% 6%, #000 0, transparent 70px),
+    radial-gradient(ellipse 45% 12% at 50% 100%, #000 0, transparent 100%);
+  mask-image:
+    radial-gradient(circle at 8% 6%, #000 0, transparent 70px),
+    radial-gradient(circle at 92% 6%, #000 0, transparent 70px),
+    radial-gradient(ellipse 45% 12% at 50% 100%, #000 0, transparent 100%);
+}
+
 .sc {
   max-width: 440px;
   margin: 0 auto;
@@ -248,12 +287,6 @@ body {
   touch-action: none; /* Wischen bedient die Schieber, nicht die Seite */
   user-select: none;
   -webkit-user-select: none;
-}
-
-.sp-schlitz {
-  fill: none;
-  stroke: #0d0906;
-  stroke-linecap: round;
 }
 
 .sp-spur {
@@ -871,8 +904,14 @@ body {
 
 .dr-fuge {
   fill: none;
-  stroke: #5a4325;
-  stroke-width: 1.2;
+  stroke: #6e5329;
+  stroke-width: 1;
+}
+
+.dr-fuge-licht {
+  fill: none;
+  stroke-width: 0.8;
+  opacity: 0.6;
 }
 
 .dr-fenster {
@@ -1004,7 +1043,6 @@ body {
 
 .ow-rand {
   fill: none;
-  stroke: #3a2c1a;
   stroke-linecap: round;
 }
 
@@ -1038,11 +1076,17 @@ body {
   fill: #15181b;
 }
 
-.ow-zeiger {
-  stroke: #c0392b;
-  stroke-width: 1.6;
+/* eingravierte Marken in der Walzenplatte (OrtWalzen.jsx: Marken) */
+.ow-marken {
+  fill: #4a3418;
   pointer-events: none;
-  filter: drop-shadow(0 0 2px rgba(192, 57, 43, 0.7));
+}
+
+.ow-ranke {
+  fill: none;
+  stroke: #4a3418;
+  stroke-width: 1.1;
+  stroke-linecap: round;
 }
 
 /* --- Uebergang Datumsrad -> Fragerunde ------------------------------------------ */
