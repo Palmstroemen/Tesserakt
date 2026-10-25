@@ -64,6 +64,12 @@ Solange das Experiment läuft und die Auswertung nachprüfbar sein soll. Weil di
 erkennbar machen, können wir sie später auch nicht mehr dir zuordnen – und deshalb nicht einzeln löschen. Deine
 Entscheidung für künftige Spiele kannst du jederzeit ändern.
 
+## Nachprüfbar
+
+Der Quellcode des Apparats und unseres Servers ist offen: **github.com/Palmstroemen/Tesserakt**. Jeder kann
+dort nachlesen, was der Apparat mit der Kamera tut, was er an den Server schickt und was der Server speichert.
+Der Server steht unter der Lizenz AGPL-3.0, der Apparat unter MIT.
+
 ## Deine Rechte
 
 Du hast das Recht auf Auskunft, Berichtigung und Löschung, soweit wir deine Daten dir zuordnen können, und das

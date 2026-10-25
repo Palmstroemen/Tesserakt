@@ -159,4 +159,12 @@ export const QUELLEN = [
     k: "klein",
     t: "Astronomische Berechnungen: Swiss Ephemeris (Astrodienst Zürich). Zeitzonen: IANA-Zeitzonendatenbank. Geburtsorte: GeoNames. Die Übertragung der Regeln in Zahlen ist unsere eigene.",
   },
+  {
+    k: "klein",
+    t: "Der Quellcode von Tesserakt ist offen, jeder kann nachprüfen, wie diese Horoskope berechnet wurden (Server unter AGPL-3.0, App unter MIT):",
+  },
+  {
+    k: "klein",
+    t: "github.com/Palmstroemen/Tesserakt",
+  },
 ];
