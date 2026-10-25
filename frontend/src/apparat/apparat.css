@@ -950,6 +950,36 @@ body::after {
   fill: var(--sc-text-leise);
 }
 
+/* Zaehlwerk in der Mitte der Datumsscheibe (Zaehlwerk.jsx): Walzen und Stundenrad laufen mit leichtem
+   Nachschwingen auf ihren Wert, aber nicht, solange ein Ring gedreht wird (jeder Schritt startete sonst eine
+   neue Animation, das kostet beim schnellen Drehen viel Rechenzeit) */
+.zw-rollt .zw-streifen {
+  transition: transform 0.45s cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+
+.zw-rollt .zw-stundenrad {
+  transition: transform 0.6s cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+
+.zw-zeichen {
+  text-anchor: middle;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-size: 12.5px;
+  fill: #1a0e04;
+}
+
+.zw-name {
+  font-size: 10px;
+}
+
+.zw-stunde {
+  text-anchor: middle;
+  font-family: Georgia, serif;
+  font-size: 6.5px;
+  fill: #1a0e04;
+}
+
 .dr-fuss {
   padding-top: 12px;
 }

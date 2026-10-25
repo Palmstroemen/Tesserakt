@@ -3,6 +3,7 @@ import { MITTE, layoutAusFenster } from "./geometrie";
 import { KNOPF_C, PlattenVerlauf, SpurenBild } from "./platte";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import Mantel, { HALBDICKE } from "./Mantel";
+import Zaehlwerk from "./Zaehlwerk";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 
 // Geburtsdatum als vier drehbare Ringe im oberen Kreis (wie ein Astrolabium), von aussen nach innen:
@@ -226,6 +227,7 @@ export default function Datumsrad({
   const drehRef = useRef(drehung);
   const svgRef = useRef(null);
   const drag = useRef(null);
+  const [zieht, setZieht] = useState(false); // ein Ring wird gerade gedreht (Zaehlwerk springt mit)
   const anim = useRef(0);
 
   function setze(teil) {
@@ -304,6 +306,7 @@ export default function Datumsrad({
       winkel: winkelVon(p),
       index: indexAus(ring, drehRef.current[ring.id]),
     };
+    setZieht(true);
     e.currentTarget.setPointerCapture?.(e.pointerId);
   }
 
@@ -329,6 +332,7 @@ export default function Datumsrad({
   function loslassen() {
     const d = drag.current;
     drag.current = null;
+    setZieht(false);
     if (d) einrasten();
   }
 
@@ -616,22 +620,17 @@ export default function Datumsrad({
               className="dr-marke"
             />
 
-            {/* Mitte: Ergebnis lesbar (spaeter vielleicht ein magisches Auge) */}
-            <circle cx={MITTE.x} cy={MITTE.y} r="67" className="dr-mitte" />
-            <text x={MITTE.x} y={MITTE.y - 15} className="dr-anzeige">
-              {werte.tag}. {MONATE_LANG[werte.monat]}
-            </text>
-            <text x={MITTE.x} y={MITTE.y + 8} className="dr-anzeige">
-              {werte.jahr}
-            </text>
-            <text x={MITTE.x} y={MITTE.y + 36} className="dr-anzeige zeit">
-              {String(werte.stunde).padStart(2, "0")}:00
-            </text>
-            {!gueltig ? (
-              <text x={MITTE.x} y={MITTE.y - 38} className="dr-anzeige klein">
-                …
-              </text>
-            ) : null}
+            {/* Mitte: kleine Linse ueber einem Rollenzaehlwerk, das das eingestellte Datum zeigt */}
+            <Zaehlwerk
+              tag={werte.tag}
+              monat={werte.monat}
+              jahr={werte.jahr}
+              stunde={werte.stunde}
+              hell={hell}
+              mittel={mittel}
+              dunkel={dunkel}
+              rollt={!zieht}
+            />
           </g>
         </svg>
       </div>

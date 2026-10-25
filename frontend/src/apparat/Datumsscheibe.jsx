@@ -2,15 +2,8 @@
 // dieselben Ringe, Gravuren und Farben wie im Datumsrad, aber ohne Bedienung. Gold fuer die erste Person,
 // Silber fuer die zweite (Spiel C). praefix trennt die ids, wenn mehrere Scheiben im Dokument stehen.
 import { MITTE } from "./geometrie";
-import {
-  Band,
-  JAHR_VON,
-  METALL,
-  MONATE_LANG,
-  RINGE,
-  Ring,
-  schritt,
-} from "./Datumsrad";
+import Zaehlwerk from "./Zaehlwerk";
+import { Band, JAHR_VON, METALL, RINGE, Ring, schritt } from "./Datumsrad";
 
 // Drehung der Ringe fuer ein Datum (Gegenstueck zu indexAus im Datumsrad)
 function drehungFuer({ jahr, monat, tag, stunde }) {
@@ -111,16 +104,17 @@ export default function Datumsscheibe({
           d={`M ${MITTE.x - 7} ${MITTE.y - 199} L ${MITTE.x + 7} ${MITTE.y - 199} L ${MITTE.x} ${MITTE.y - 190} Z`}
           className="dr-marke"
         />
-        <circle cx={MITTE.x} cy={MITTE.y} r="67" className="dr-mitte" />
-        <text x={MITTE.x} y={MITTE.y - 15} className="dr-anzeige">
-          {datum.tag}. {MONATE_LANG[datum.monat]}
-        </text>
-        <text x={MITTE.x} y={MITTE.y + 8} className="dr-anzeige">
-          {datum.jahr}
-        </text>
-        <text x={MITTE.x} y={MITTE.y + 36} className="dr-anzeige zeit">
-          {String(datum.stunde).padStart(2, "0")}:00
-        </text>
+        <Zaehlwerk
+          tag={datum.tag}
+          monat={datum.monat}
+          jahr={datum.jahr}
+          stunde={datum.stunde}
+          hell={hell}
+          mittel={mittel}
+          dunkel={dunkel}
+          praefix={`${praefix}-zw`}
+          rollt={false}
+        />
       </g>
     </svg>
   );
