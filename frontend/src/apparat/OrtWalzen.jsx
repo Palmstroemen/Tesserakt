@@ -10,7 +10,7 @@ import { rastKlick, zahnrad } from "./klang";
 // Ganz links auf der Ortswalze: "Ort unbekannt" (dann rechnet das Backend ohne Ort).
 // Wechselt die Seite (gold -> silber, Spiel C), drehen die Walzen eine Vierteldrehung weiter: Der alte
 // Inhalt laeuft rechts hinaus, von links dreht derselbe Inhalt im neuen Metall herein.
-export const WALZEN = { land: 262, stadt: 322, theta: 0.6, schlitz: 30 };
+export const WALZEN = { land: 290, stadt: 350, theta: 0.6, schlitz: 30 }; // Landwalze ausserhalb der Kerbe fuer Knopf C
 // Oeffnungswinkel je Walze: die aeussere (Ort) so schmal, dass ihre Enden senkrecht unter denen der Landwalze liegen
 const OEFFNUNG = {
   [WALZEN.land]: WALZEN.theta,
