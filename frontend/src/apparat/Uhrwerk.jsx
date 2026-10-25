@@ -54,13 +54,16 @@ const EBENEN = [
     teilung: 0.058,
     hell: 0.95,
     riesen: [0.5, 0.68, 2, 0.6, 0.95], // vorne zwei grosse, eher am Rand
-    anzahl: 10,
+    anzahl: 3, // nur diese drehen sich (mit der Unruh)
   },
 ];
 const UNRUH = { x: 0.42, y: -0.38, r: 0.2 };
-// Die hinteren Ebenen (dunkel, im Dunst, viele kleine Raeder) stehen still: sie sind einmal mit Werkplatte und
-// Dunst in ein festes Bild gebacken. Gezeichnet wird pro Bild nur, was davor liegt (Rechenzeit auf dem Handy).
-const RUHENDE_EBENEN = 2;
+// Nur die vorderste Ebene (wenige grosse Raeder) und die Unruh drehen sich. Alles dahinter sind langsame
+// Jahresraeder: einmal mit Werkplatte, Dunst und Zwischenplatten in ein festes Bild gebacken (Rechenzeit auf
+// dem Handy).
+const RUHENDE_EBENEN = EBENEN.length - 1;
+// Lichtweg fuer das Dia: in der Mitte bleibt bis zu diesem Radius alles frei (Raeder, Platten, Bruecken)
+const LICHTWEG = 0.3;
 const MAX_DREHZAHL = 5; // rad/s
 
 function zufallVon(saat) {
@@ -80,6 +83,7 @@ function ebeneAnlegen(e, zufall, frei) {
   const raeder = [];
   const passt = (x, y, r) =>
     Math.hypot(x, y) < 1.08 + r &&
+    Math.hypot(x, y) - r > LICHTWEG + e.teilung &&
     frei(x, y, r) &&
     raeder.every((g) => Math.hypot(g.x - x, g.y - y) > g.r + r + e.teilung);
   const neu = (r) => Math.max(6, Math.round((2 * Math.PI * r) / e.teilung));
@@ -139,6 +143,7 @@ function ebeneAnlegen(e, zufall, frei) {
     const ohneA = raeder.filter((g) => g !== a);
     if (
       Math.hypot(x, y) > 1.08 + r ||
+      Math.hypot(x, y) - r < LICHTWEG + e.teilung ||
       !frei(x, y, r) ||
       !ohneA.every((g) => Math.hypot(g.x - x, g.y - y) > g.r + r + e.teilung)
     )
@@ -342,7 +347,12 @@ function werkAnlegen(R) {
   tiefe.height = 2 * R;
   const g = tiefe.getContext("2d");
   g.drawImage(grundBild(R), 0, 0);
-  ebenenZeichnen(g, werk, R, 0, 0, RUHENDE_EBENEN);
+  // das Rähmchen liegt vor den tiefsten Ebenen (die seine Mitte ohnehin frei lassen), aber hinter den
+  // vorderen Raedern und Bruecken; ueber ihm liegt noch eine Dunstschicht
+  const VOR_RAEHMCHEN = RUHENDE_EBENEN - 1;
+  ebenenZeichnen(g, werk, R, 0, 0, VOR_RAEHMCHEN);
+  raehmchen(g, R);
+  ebenenZeichnen(g, werk, R, 0, VOR_RAEHMCHEN, RUHENDE_EBENEN);
   // Rand des Lochs: in die Tiefe hinein dunkler (einmal gerechnet, pro Bild nur aufgelegt)
   const rand = document.createElement("canvas");
   rand.width = 2 * R;
@@ -422,7 +432,7 @@ function schichtBild(R, zufall, hell) {
   // Bruecken: Bogen zwischen zwei Punkten am Rand, mit runden Enden
   const bruecken = [];
   const anzahl = 1 + Math.floor(zufall() * 2);
-  for (let k = 0; k < anzahl; k += 1) {
+  for (let k = 0, v = 0; k < anzahl && v < 100; v += 1) {
     const w0 = zufall() * Math.PI * 2;
     const w1 = w0 + Math.PI * (0.45 + zufall() * 0.5);
     const p0 = [Math.cos(w0) * 1.1, Math.sin(w0) * 1.1];
@@ -431,7 +441,26 @@ function schichtBild(R, zufall, hell) {
       (p0[0] + p1[0]) * 0.25 + (zufall() - 0.5) * 0.4,
       (p0[1] + p1[1]) * 0.25 + (zufall() - 0.5) * 0.4,
     ];
-    bruecken.push({ p0, p1, m, breite: 0.07 + zufall() * 0.06 });
+    const breite = 0.07 + zufall() * 0.06;
+    // der Bogen bleibt ausserhalb des Lichtwegs
+    let naechste = Infinity;
+    let richtung = [0, 0];
+    for (let i = 0; i <= 40; i += 1) {
+      const t = i / 40;
+      const x = (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * m[0] + t * t * p1[0];
+      const y = (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * m[1] + t * t * p1[1];
+      const d = Math.hypot(x, y);
+      if (d < naechste) {
+        naechste = d;
+        richtung = [x / d, y / d];
+      }
+    }
+    if (naechste - breite / 2 < LICHTWEG + 0.04) continue;
+    // noch ein Stueck weiter nach aussen, weg vom Rähmchen in der Mitte
+    const [dx, dy] = richtung.map((v) => v * 0.09);
+    const weg = ([x, y]) => [x + dx, y + dy];
+    bruecken.push({ p0: weg(p0), p1: weg(p1), m: weg(m), breite });
+    k += 1;
   }
   const farbe = (rgb, f = 1) =>
     `rgb(${rgb.map((v) => Math.round(v * hell * f)).join(",")})`;
@@ -572,7 +601,7 @@ function grundBild(R) {
   }
   for (let k = 0; k < 9; k += 1) {
     const a = zufall() * Math.PI * 2;
-    const d = (0.2 + zufall() * 0.7) * R;
+    const d = (LICHTWEG + 0.06 + zufall() * 0.55) * R; // die Mitte gehoert dem Rähmchen
     const x = R + Math.cos(a) * d;
     const y = R + Math.sin(a) * d;
     const rs = R * 0.018;
@@ -586,6 +615,80 @@ function grundBild(R) {
     g.fill();
   }
   return c;
+}
+
+// Am Ende des Lichtwegs, mitten auf der Werkplatte: das Rähmchen mit der Mattscheibe fuer die Dias, klein und
+// kopfueber (wie das Bild hinter einer Linse), unverzerrt. Die Mattscheibe leuchtet schwach von hinten. Darueber
+// liegt noch eine Dunstschicht, die Farben sind dafuer heller. Masse wie das Fenster der Diascheibe.
+function raehmchen(g, R) {
+  const s = R * 0.225; // halbe Fensterbreite; die Ecken duerfen ueber den Lichtweg ragen
+  const rand = s * 0.32;
+  g.save();
+  g.translate(R, R);
+  g.rotate(Math.PI);
+  // Schein der Lampe um das Rähmchen
+  const schein = g.createRadialGradient(0, 0, s * 0.6, 0, 0, s * 2.3);
+  schein.addColorStop(0, "rgba(255,214,150,0.2)");
+  schein.addColorStop(1, "rgba(255,214,150,0)");
+  g.fillStyle = schein;
+  g.fillRect(-s * 2.4, -s * 2.4, s * 4.8, s * 4.8);
+  // Rahmen: dunkles Messing, Schatten auf die Platte
+  const aussenB = s + rand;
+  const oben = -s - rand * 2.6; // ueber dem Fenster (vor dem Drehen) die Lochreihe
+  g.shadowColor = "rgba(0,0,0,0.7)";
+  g.shadowBlur = s * 0.25;
+  g.shadowOffsetY = -s * 0.08; // Licht kommt von oben; das Rähmchen ist gedreht
+  const metall = g.createLinearGradient(0, oben, 0, s + rand);
+  metall.addColorStop(0, "#4a371c");
+  metall.addColorStop(1, "#76592e");
+  g.fillStyle = metall;
+  g.beginPath();
+  g.roundRect(-aussenB, oben, 2 * aussenB, s + rand - oben, s * 0.08);
+  g.fill();
+  g.shadowColor = "transparent";
+  // Mattscheibe: warmes Licht, zur Mitte heller, feines Korn
+  const glas = g.createRadialGradient(0, 0, 0, 0, 0, s * 1.4);
+  glas.addColorStop(0, "#ffe8c0");
+  glas.addColorStop(1, "#b08e57");
+  g.fillStyle = glas;
+  g.fillRect(-s, -s, 2 * s, 2 * s);
+  const zufall = zufallVon(31);
+  for (let k = 0; k < s * s * 0.6; k += 1) {
+    g.fillStyle =
+      zufall() < 0.5 ? "rgba(255,248,225,0.18)" : "rgba(70,50,20,0.14)";
+    g.fillRect(
+      (zufall() * 2 - 1) * s,
+      (zufall() * 2 - 1) * s,
+      R / 300,
+      R / 300,
+    );
+  }
+  // Fase am Fenster: oben und links im Schatten
+  g.lineWidth = Math.max(1, s * 0.05);
+  g.strokeStyle = "rgba(20,12,4,0.8)";
+  g.beginPath();
+  g.moveTo(-s, s);
+  g.lineTo(-s, -s);
+  g.lineTo(s, -s);
+  g.stroke();
+  g.strokeStyle = "rgba(230,200,140,0.35)";
+  g.beginPath();
+  g.moveTo(s, -s);
+  g.lineTo(s, s);
+  g.lineTo(-s, s);
+  g.stroke();
+  // Lochreihe: das Licht scheint durch
+  const n = 12;
+  const y = -s - rand * 1.35;
+  const r = s * 0.045;
+  for (let k = 0; k < n; k += 1) {
+    const x = (k / (n - 1) - 0.5) * s * 1.7;
+    g.beginPath();
+    g.arc(x, y, r, 0, 2 * Math.PI);
+    g.fillStyle = "#fff0c8";
+    g.fill();
+  }
+  g.restore();
 }
 
 // einmal angelegt fuer alle Faecher (wartend und im Spiel), solange die Groesse gleich bleibt
