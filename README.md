@@ -72,3 +72,8 @@ Die verbindliche Aufgabenliste für die Umsetzung wird in `ToDo.md` gepflegt.
 ## Entwicklung
 
 Lokal starten und testen: `docs/dev_workflow.md`.
+
+## Lizenz
+
+Server (`backend/`) unter AGPL-3.0, App (`frontend/`) unter MIT, Medien und Dokumentation unter CC BY-NC 4.0,
+Schriften unter OFL 1.1. Einzelheiten, fremde Bestandteile und der Name „Tesserakt“: `LICENSE.md`.
