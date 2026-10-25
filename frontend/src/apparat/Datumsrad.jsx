@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { MITTE, layoutAusFenster } from "./geometrie";
 import { KNOPF_C, PlattenVerlauf } from "./platte";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
+import Mantel, { HALBDICKE } from "./Mantel";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 
 // Geburtsdatum als vier drehbare Ringe im oberen Kreis (wie ein Astrolabium), von aussen nach innen:
@@ -169,7 +170,13 @@ export default function Datumsrad({
   const platte = useMemo(() => layoutAusFenster(), []);
   const [drehung, setDrehung] = useState(START);
   const [seite, setSeite] = useState("gold"); // gold = erste Person, silber = zweite Person (Spiel C)
-  const [scheibe, setScheibe] = useState({ metall: "gold", skala: 1 }); // Muenzdrehung der Scheibe
+  // Muenzdrehung der Scheibe: kipp 0..90 Grad und zurueck, seite +1 (Gold rueckt nach rechts) / -1 (Silber nach links)
+  const [scheibe, setScheibe] = useState({
+    metall: "gold",
+    skala: 1,
+    kipp: 0,
+    seite: 1,
+  });
   const [eingestellt, setEingestellt] = useState(false); // Datum dieser Seite bewegt?
   const [stundeBewegt, setStundeBewegt] = useState(false);
   const [ort, setOrt] = useState(null);
@@ -338,6 +345,8 @@ export default function Datumsrad({
       setScheibe({
         metall: t < 0.5 ? "gold" : "silber",
         skala: t < 1 ? Math.max(0.02, Math.abs(Math.cos(Math.PI * t))) : 1,
+        kipp: t < 1 ? 180 * Math.min(t, 1 - t) : 0,
+        seite: t < 0.5 ? 1 : -1,
       });
       if (t < 1) requestAnimationFrame(tick);
       else onMuenze?.(false);
@@ -355,7 +364,10 @@ export default function Datumsrad({
   );
   const gueltig = werte.tag <= tageImMonat(werte.jahr, werte.monat);
   const [hell, mittel, dunkel] = METALL[scheibe.metall];
-  const scheibeTransform = `translate(${MITTE.x} ${MITTE.y}) scale(${scheibe.skala} 1) translate(${-MITTE.x} ${-MITTE.y})`;
+  // die sichtbare Seite rueckt um die halbe Dicke des Pucks zur Seite (Drehachse in seiner Mitte)
+  const versatz =
+    scheibe.seite * HALBDICKE * Math.sin((scheibe.kipp * Math.PI) / 180);
+  const scheibeTransform = `translate(${MITTE.x + versatz} ${MITTE.y}) scale(${scheibe.skala} 1) translate(${-MITTE.x} ${-MITTE.y})`;
   // Auf der goldenen Seite kein Hinweis (entdecken statt erklaeren); die silberne Seite fragt nach der zweiten
   // Person
   const hinweis =
@@ -456,6 +468,20 @@ export default function Datumsrad({
             />
           </g>
         </svg>
+
+        {/* Mantel des Pucks unter der Scheibe, nur waehrend sie sich dreht */}
+        {abgang || wechselt ? (
+          <Mantel
+            praefix="dr"
+            hoehe={HOEHE}
+            radius={196}
+            style={
+              wechselt
+                ? { "--kipp": `${scheibe.kipp}deg`, "--seite": scheibe.seite }
+                : undefined
+            }
+          />
+        ) : null}
 
         {/* runde Scheibe: dreht sich beim Seitenwechsel wie eine Muenze; beim Abgang zum magischen Auge */}
         <svg

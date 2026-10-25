@@ -235,6 +235,9 @@ body {
 .sp-buehne {
   position: relative;
   width: 100%;
+  container-type: inline-size; /* 100cqw = 400 Einheiten der Zeichnung */
+  --halbdicke: 25; /* halbe Dicke des Pucks in Einheiten, wie HALBDICKE in Mantel.jsx */
+  --tiefe: 75; /* Grund der Bohrung unter dem Auge, etwas hinter der Rueckseite der Datumsscheibe */
 }
 
 .sp-svg {
@@ -498,7 +501,75 @@ body {
   opacity: 0;
 }
 
+/* Tiefe im Puck: alles hinter der Linse liegt am Grund der Bohrung (--tiefe Einheiten unter der Oberflaeche) */
+.sp-tiefe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: circle(50% at 50% 50%);
+  /* Grundlicht hinter dem Dia (wie das Pergament der Linse im Auge); das Kamerabild liegt darueber */
+  background: radial-gradient(
+    circle at 45% 40%,
+    #f6efdc,
+    #d9ccaa 50%,
+    #8f7a52 72%
+  );
+}
+
+/* Linse an der Oberflaeche des Pucks: gewoelbtes Glas, das ein helles Fenster und den Raum spiegelt. Wie echtes
+   Glas spiegelt sie im flachen Blick fast ganz und laesst von vorne mehr durch; nach dem Hereindrehen klart sie
+   langsam auf. Die Lichtreflexe (sp-glanz) bleiben, etwas schwaecher, auf dem Glas. */
+.sp-spiegel,
+.sp-glanz {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 3s ease-in-out 0.2s;
+}
+
+.sp-spiegel {
+  background: radial-gradient(
+    circle at 48% 40%,
+    rgba(118, 96, 68, 0.94),
+    rgba(48, 36, 22, 0.97) 60%,
+    rgba(14, 9, 4, 0.98) 100%
+  );
+}
+
+.sp-glanz {
+  background:
+    radial-gradient(
+      ellipse 36% 20% at 34% 24%,
+      rgba(255, 251, 240, 0.85),
+      rgba(255, 246, 225, 0.25) 55%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 22% 7% at 64% 81%,
+      rgba(255, 240, 210, 0.35),
+      transparent 70%
+    );
+  opacity: 0.8;
+}
+
+.sp-wartet .sp-spiegel,
+.sp-wartet .sp-glanz,
+.sp-auftritt .sp-glanz {
+  opacity: 1;
+  transition: none;
+}
+
+.sp-auftritt .sp-spiegel {
+  opacity: calc(0.5 + 0.5 * sin(var(--kipp)));
+  transition: none;
+}
+
 .sp-linse {
+  /* Wand der Bohrung: sichtbar, solange der Grund gegen die Oeffnung verschoben ist */
+  background: radial-gradient(circle at 50% 30%, #4a3720, #1a1108 72%);
   /* WebKit beachtet overflow + border-radius bei gefilterten/transformierten Kindern nicht zuverlaessig */
   clip-path: circle(50% at 50% 50%);
   -webkit-mask-image: radial-gradient(circle, #000 70%, #000 71%);
@@ -1087,30 +1158,150 @@ body {
   will-change: transform;
 }
 
-/* Scheibe dreht sich auf die schmale Kante ... (wie der Flip nach Silber: 0,7 s je Haelfte, Verlauf einer
-   drehenden Muenze, cos/sin) */
-.dr-abgang .dr-scheibe {
-  animation: dr-scheibe-ab 0.7s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+/* Datumsscheibe und Auge sind die zwei Seiten eines flachen Pucks (knapp 1 cm dick): Er dreht sich um die
+   senkrechte Achse in seiner Mitte, erst die Scheibe auf die Kante (0,7 s), dann das Auge von der Kante herein
+   (0,7 s). --kipp ist der Winkel der sichtbaren Seite (0 = schaut her); sie wird um cos gestaucht und rueckt um
+   sin mal halbe Dicke zur Seite. Dazwischen sieht man den Mantel (Mantel.jsx). Drehung gleichmaessig wie bei
+   der Muenzdrehung nach Silber. */
+@property --kipp {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
 }
 
-@keyframes dr-scheibe-ab {
+.mantel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  --seite: 1;
+}
+
+.mantel-band,
+.mantel-ende,
+.mantel-rille {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+}
+
+.mantel-band {
+  transform: scaleX(sin(var(--kipp)));
+}
+
+.mantel-ende {
+  transform: translateX(
+      calc(var(--seite) * var(--halbdicke) * -1px * sin(var(--kipp)))
+    )
+    scaleX(cos(var(--kipp)));
+}
+
+/* Rille: so lang wie das Band breit ist, am Rand der sichtbaren Seite (Mantel.jsx) */
+.mantel-rille {
+  transform: translateX(
+      calc(var(--seite) * var(--ausladung) * -1px * cos(var(--kipp)))
+    )
+    scaleX(sin(var(--kipp)));
+}
+
+.dr-abgang {
+  animation: dr-kippen 0.7s linear forwards;
+}
+
+@keyframes dr-kippen {
+  from {
+    --kipp: 0deg;
+  }
   to {
-    transform: scaleX(0);
+    --kipp: 90deg;
+  }
+}
+
+.dr-abgang .dr-scheibe {
+  transform: translateX(calc(var(--halbdicke) * 0.25cqw * sin(var(--kipp))))
+    scaleX(cos(var(--kipp)));
+}
+
+/* auf der Kante uebernimmt der Mantel unter dem Auge */
+.dr-abgang .mantel {
+  animation: mantel-bis-kante 0.7s step-end forwards;
+}
+
+@keyframes mantel-bis-kante {
+  to {
+    visibility: hidden;
   }
 }
 
 /* ... und von der Kante dreht sich das magische Auge herein */
-.sp-auftritt .sp-augenteil,
-.sp-auftritt .sp-linse {
-  animation: sp-auge-auf 0.7s cubic-bezier(0.61, 1, 0.88, 1) 0.7s both;
+.sp-auftritt .sp-buehne {
+  animation: sp-kippen 0.7s linear 0.7s both;
 }
 
-@keyframes sp-auge-auf {
+@keyframes sp-kippen {
   from {
-    transform: scaleX(0);
+    --kipp: 90deg;
   }
   to {
-    transform: scaleX(1);
+    --kipp: 0deg;
+  }
+}
+
+.sp-auftritt .sp-augenteil,
+.sp-auftritt .sp-linse {
+  transform: translateX(calc(var(--halbdicke) * -0.25cqw * sin(var(--kipp))))
+    scaleX(cos(var(--kipp)));
+}
+
+/* Der Grund der Bohrung rueckt gegen die Oeffnung um tiefe * sin(kipp); in der gestauchten Linse ist das
+   tiefe * tan(kipp). Steht der Puck steil, liegt das Dia ganz hinter der Wand. Schraeg durch die Linse gesehen
+   vergroessert sie staerker: der Grund wird waagrecht gedehnt (statt die Polsterverzerrung in jedem Bild neu
+   zu rechnen). */
+.sp-auftritt .sp-tiefe {
+  transform: translateX(
+      calc(var(--tiefe) * 0.25cqw * min(tan(var(--kipp)), 40))
+    )
+    scaleX(calc(1 + 0.4 * sin(var(--kipp))));
+}
+
+/* Am Grund der Bohrung ist es zuerst dunkel; das Dia wird erst gegen Ende des Hereindrehens beleuchtet */
+.sp-tiefe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* warmer Schatten: multipliziert, so bleibt das Dia als dunkles Braun erkennbar statt grau */
+  background: #3a1a04;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sp-auftritt .sp-tiefe::after {
+  animation: sp-dunkel 1.4s both;
+}
+
+@keyframes sp-dunkel {
+  0%,
+  50% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.sp-auftritt .mantel {
+  --seite: -1;
+  animation: mantel-ab-kante 0.7s step-end both;
+}
+
+@keyframes mantel-ab-kante {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
   }
 }
 

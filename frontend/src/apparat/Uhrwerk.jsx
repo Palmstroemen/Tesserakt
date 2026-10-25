@@ -58,6 +58,9 @@ const EBENEN = [
   },
 ];
 const UNRUH = { x: 0.42, y: -0.38, r: 0.2 };
+// Die hinteren Ebenen (dunkel, im Dunst, viele kleine Raeder) stehen still: sie sind einmal mit Werkplatte und
+// Dunst in ein festes Bild gebacken. Gezeichnet wird pro Bild nur, was davor liegt (Rechenzeit auf dem Handy).
+const RUHENDE_EBENEN = 2;
 const MAX_DREHZAHL = 5; // rad/s
 
 function zufallVon(saat) {
@@ -328,12 +331,62 @@ function werkAnlegen(R) {
       ? schichtBild(R, schichtZufall, (e.hell + EBENEN[i + 1].hell) / 2)
       : null,
   );
-  return {
-    grund: grundBild(R),
+  const werk = {
     ebenen,
     schichten,
     unruh: { ...unruh, bild: unruhBild(unruh.r * R) },
   };
+  // halbfertiges Bild: Werkplatte und die ruhenden Ebenen
+  const tiefe = document.createElement("canvas");
+  tiefe.width = 2 * R;
+  tiefe.height = 2 * R;
+  const g = tiefe.getContext("2d");
+  g.drawImage(grundBild(R), 0, 0);
+  ebenenZeichnen(g, werk, R, 0, 0, RUHENDE_EBENEN);
+  // Rand des Lochs: in die Tiefe hinein dunkler (einmal gerechnet, pro Bild nur aufgelegt)
+  const rand = document.createElement("canvas");
+  rand.width = 2 * R;
+  rand.height = 2 * R;
+  const gr = rand.getContext("2d");
+  const verlauf = gr.createRadialGradient(R, R, R * 0.7, R, R, R);
+  verlauf.addColorStop(0, "rgba(0,0,0,0)");
+  verlauf.addColorStop(1, "rgba(0,0,0,0.9)");
+  gr.fillStyle = verlauf;
+  gr.fillRect(0, 0, 2 * R, 2 * R);
+  return { ...werk, tiefe, rand };
+}
+
+// Ebenen von .. bis-1 zur Zeit t; nach jeder Ebene ausser der vordersten Dunst und die feste Schicht
+function ebenenZeichnen(g, w, R, t, von, bis) {
+  for (let i = von; i < bis; i += 1) {
+    for (const rad of w.ebenen[i]) {
+      const a = rad.phase + rad.w * t;
+      const cos = Math.cos(a);
+      const sin = Math.sin(a);
+      g.setTransform(cos, sin, -sin, cos, R + rad.x * R, R + rad.y * R);
+      g.drawImage(rad.bild, -rad.bild.width / 2, -rad.bild.height / 2);
+    }
+    if (i === EBENEN.length - 1) {
+      const u = w.unruh;
+      const a = 2.2 * Math.sin(t * Math.PI * 2 * 2.5);
+      g.setTransform(
+        Math.cos(a),
+        Math.sin(a),
+        -Math.sin(a),
+        Math.cos(a),
+        R + u.x * R,
+        R + u.y * R,
+      );
+      g.drawImage(u.bild, -u.bild.width / 2, -u.bild.height / 2);
+    } else {
+      // Dunst zwischen den Ebenen: je tiefer, desto dunkler
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.fillStyle = "rgba(8,5,2,0.22)";
+      g.fillRect(0, 0, 2 * R, 2 * R);
+      if (w.schichten[i]) g.drawImage(w.schichten[i], 0, 0);
+    }
+  }
+  g.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 // Feste Schicht zwischen zwei Raederebenen: eine Platte vom Rand her mit runden Ausschnitten (dort sieht man
@@ -554,47 +607,14 @@ export default function Uhrwerk({ laeuft }) {
     const g = c.getContext("2d");
     const R = c.width / 2;
     g.setTransform(1, 0, 0, 1, 0, 0);
-    g.drawImage(w.grund, 0, 0);
-    w.ebenen.forEach((raeder, i) => {
-      for (const rad of raeder) {
-        const a = rad.phase + rad.w * t;
-        const cos = Math.cos(a);
-        const sin = Math.sin(a);
-        g.setTransform(cos, sin, -sin, cos, R + rad.x * R, R + rad.y * R);
-        g.drawImage(rad.bild, -rad.bild.width / 2, -rad.bild.height / 2);
-      }
-      if (i === EBENEN.length - 1) {
-        const u = w.unruh;
-        const a = 2.2 * Math.sin(t * Math.PI * 2 * 2.5);
-        g.setTransform(
-          Math.cos(a),
-          Math.sin(a),
-          -Math.sin(a),
-          Math.cos(a),
-          R + u.x * R,
-          R + u.y * R,
-        );
-        g.drawImage(u.bild, -u.bild.width / 2, -u.bild.height / 2);
-      } else {
-        // Dunst zwischen den Ebenen: je tiefer, desto dunkler
-        g.setTransform(1, 0, 0, 1, 0, 0);
-        g.fillStyle = "rgba(8,5,2,0.22)";
-        g.fillRect(0, 0, c.width, c.height);
-        if (w.schichten[i]) g.drawImage(w.schichten[i], 0, 0);
-      }
-    });
-    // Rand des Lochs: in die Tiefe hinein dunkler
-    g.setTransform(1, 0, 0, 1, 0, 0);
-    const rand = g.createRadialGradient(R, R, R * 0.7, R, R, R);
-    rand.addColorStop(0, "rgba(0,0,0,0)");
-    rand.addColorStop(1, "rgba(0,0,0,0.9)");
-    g.fillStyle = rand;
-    g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(w.tiefe, 0, 0);
+    ebenenZeichnen(g, w, R, t, RUHENDE_EBENEN, EBENEN.length);
+    g.drawImage(w.rand, 0, 0);
   }
 
   useEffect(() => {
     const c = canvasRef.current;
-    const dichte = Math.min(2, window.devicePixelRatio || 1);
+    const dichte = Math.min(1.5, window.devicePixelRatio || 1);
     const R = Math.round((c.getBoundingClientRect().width * dichte) / 2);
     if (!R) return;
     c.width = 2 * R;
