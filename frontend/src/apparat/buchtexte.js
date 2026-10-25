@@ -1,5 +1,6 @@
-// Feste Texte des Horoskopbuchs: Leitsatz (Seite 3) und Einleitung (ab Seite 4). Die Einleitung streift die
-// Kulturen nur, damit sie auch fuer ein Buch mit einem einzigen Horoskop gilt. Bausteine wie in Buch.jsx.
+// Feste Texte des Horoskopbuchs: Leitsatz (Seite 3), Einleitung (ab Seite 4) und Quellen (am Ende). Die
+// Einleitung streift die Kulturen nur, damit sie auch fuer ein Buch mit einem einzigen Horoskop gilt.
+// Bausteine wie in Buch.jsx.
 
 export const LEITSATZ = [
   "Sie wussten es nicht.",
@@ -54,5 +55,108 @@ export const EINLEITUNG = [
   {
     k: "schluss",
     t: "Auf jeder Doppelseite steht links die Grafik, rechts der Text dazu. Am Ende des Buchs finden sich die Hintergründe zum Experiment.",
+  },
+];
+
+// Quellen: dieselben Buecher wie in docs/Berechnungsgrundlagen/quellen.md (dort mit Anmerkungen)
+const BUECHER = [
+  [
+    "Westliche Astrologie",
+    [
+      "Sepharial (Walter Gorn Old): Astrology. How to Make and Read Your Own Horoscope, 1920",
+      "Raphael (Robert Cross Smith): A Manual of Astrology, 1828",
+      "Nicholas DeVore: Encyclopedia of Astrology, 1947",
+      "Claudius Ptolemäus: Tetrabiblos, 2. Jh. (Übersetzung J. M. Ashmand, 1822)",
+    ],
+  ],
+  [
+    "Hellenistische Astrologie",
+    [
+      "Vettius Valens: Anthologiae, um 160 (Übersetzung Mark Riley)",
+      "Claudius Ptolemäus: Tetrabiblos (s. o.)",
+      "Dorotheus von Sidon: Carmen Astrologicum, um 75 (Übersetzung David Pingree, 1976)",
+      "Paulus Alexandrinus: Introductory Matters, um 378",
+      "Julius Firmicus Maternus: Mathesis, um 335",
+      "Porphyrios: Einführung in den Tetrabiblos, um 270",
+      "Marcus Manilius: Astronomica, um 10",
+    ],
+  ],
+  [
+    "Arabische Astrologie",
+    [
+      "Abu Ma'shar: Introductorium maius, um 850",
+      "Al-Biruni: Book of Instruction in the Elements of the Art of Astrology, 1029 (Übersetzung R. Ramsay Wright, 1934)",
+      "Sahl ibn Bishr: Introduction to the Science of the Judgments of the Stars, um 820",
+      "Guido Bonatti: Liber Astronomiae, um 1277",
+      "Masha'allah: On Reception, um 800",
+      "Al-Qabisi: Introduction to the Art of Astrology, um 950",
+    ],
+  ],
+  [
+    "Vedische Astrologie (Jyotish)",
+    [
+      "Parashara: Brihat Parashara Hora Shastra (Übersetzung R. Santhanam, 1984)",
+      "Mantreswara: Phaladeepika, 13. Jh.",
+      "Varahamihira: Brihat Jataka, um 550 (Übersetzung B. Suryanarain Rao, 1905)",
+      "Varahamihira: Brihat Samhita, um 550",
+      "Kalyana Varma: Saravali, um 800",
+      "Vaidyanatha Dikshita: Jataka Parijata, 16. Jh.",
+      "Calendar Reform Committee der indischen Regierung: Lahiri-Ayanamsha, 1955",
+    ],
+  ],
+  [
+    "Bazi",
+    [
+      "Joey Yap: Bazi – The Destiny Code",
+      "Tong Shu (chinesischer Almanach) und Wan Nian Li (Ewiger Kalender)",
+    ],
+  ],
+  [
+    "Numerologie",
+    [
+      "Cheiro (Louis Hamon): Cheiro's Book of Numbers, 1926",
+      "L. Dow Balliett: The Philosophy of Numbers, 1908",
+      "W. Wynn Westcott: Numbers. Their Occult Power and Mystic Virtues, 1890",
+      "Sepharial: Kabalistic Astrology, 1901",
+      "Iamblichos: Über das pythagoreische Leben, um 300",
+    ],
+  ],
+  [
+    "Kabbalah",
+    [
+      "Sefer Jezira (Übersetzung W. Wynn Westcott, 1887)",
+      "S. L. MacGregor Mathers: The Kabbalah Unveiled, 1887",
+      "Aleister Crowley: 777, 1909",
+      "W. Wynn Westcott: Numbers (s. o.)",
+      "Papus: The Tarot of the Bohemians, 1892",
+      "William Stirling: The Canon, 1897",
+      "Sepharial: Kabalistic Astrology (s. o.)",
+    ],
+  ],
+  [
+    "Temperamentenlehre",
+    [
+      "Hippokrates: Über die Natur des Menschen, um 400 v. Chr.",
+      "Galen: De temperamentis, 2. Jh.",
+      "Avicenna: Canon medicinae, 1025",
+      "Ibn Ezra: The Beginning of Wisdom, 1148",
+      "Paracelsus: Astronomia magna, 1537",
+    ],
+  ],
+];
+
+export const QUELLEN = [
+  { k: "h2", t: "Quellen" },
+  {
+    k: "p",
+    t: "Diese Horoskope wurden sorgfältig und automatisch mit der Software Tesserakt erstellt. Dafür wurden genaue astronomische Berechnungen durchgeführt und die Regeln aus folgenden Büchern akribisch angewandt:",
+  },
+  ...BUECHER.flatMap(([system, buecher]) => [
+    { k: "h3", t: system },
+    ...buecher.map((b) => ({ k: "li", t: b })),
+  ]),
+  {
+    k: "klein",
+    t: "Astronomische Berechnungen: Swiss Ephemeris (Astrodienst Zürich). Zeitzonen: IANA-Zeitzonendatenbank. Geburtsorte: GeoNames. Die Übertragung der Regeln in Zahlen ist unsere eigene.",
   },
 ];

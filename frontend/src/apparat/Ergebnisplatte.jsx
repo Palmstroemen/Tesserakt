@@ -8,7 +8,7 @@ import ProfectionChart from "../components/ProfectionChart";
 import FirdariaChart from "../components/FirdariaChart";
 import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
-import { SYSTEME, anzeigeName } from "./systeme";
+import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import { spiegelglasStarten } from "./spiegelglas";
@@ -454,7 +454,12 @@ export default function Ergebnisplatte({
                         <Paragraphs text={t.horoskop_ausfuehrlich} />
                       </>
                     ) : null}
-                    <Paragraphs text={t.intro} />
+                    <Paragraphs
+                      text={introMitBild(
+                        t.intro,
+                        visualPayloads?.[id]?.bildtext,
+                      )}
+                    />
                     <Dimensionen daten={t} />
                     <Paragraphs text={t.paracelsus_outro} />
                   </>

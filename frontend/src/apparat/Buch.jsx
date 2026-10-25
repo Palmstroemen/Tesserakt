@@ -1,7 +1,7 @@
 // Das Horoskopbuch, 21 x 21 cm: Titelseite, Impressum, Leitsatz, Einleitung, je gewaehltem Horoskop (in der
 // gewaehlten Reihenfolge) links die Grafik und rechts zweispaltige Textseiten, am Ende die Hintergrundseiten
-// zum Experiment. Das Spielergebnis kommt nicht ins Buch. Am Bildschirm als Vorschau (Seiten
-// untereinander), beim Drucken eine Seite je Blatt (@page 210 x 210 mm). Die Grafiken sind dieselben
+// zum Experiment, die Quellen und als Rueckseite das Kaestchen. Das Spielergebnis kommt nicht ins Buch. Am
+// Bildschirm als Vorschau (Seiten untereinander), beim Drucken eine Seite je Blatt (@page 210 x 210 mm). Die Grafiken sind dieselben
 // Vektorgrafiken wie im Auge.
 // Seitenumbruch: Die Texte bestehen aus Bausteinen (Ueberschrift, Absatz, ...). Ein Seitensetzer misst sie in
 // einer unsichtbaren Musterseite und fuellt jede Seite, bis beide Spalten voll sind; ein zu langer Absatz wird
@@ -14,8 +14,9 @@ import { API_BASE } from "../logic/api";
 import HoroskopIcon from "./HoroskopIcon";
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
-import { SYSTEME, anzeigeName } from "./systeme";
-import { EINLEITUNG, LEITSATZ } from "./buchtexte";
+import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
+import { EINLEITUNG, LEITSATZ, QUELLEN } from "./buchtexte";
+import deckelBild from "./kaestchen/deckel.webp";
 
 const DIMENSIONEN = [
   "liebe",
@@ -263,6 +264,7 @@ function abschnitte({
   ausblick,
   heute,
   erklaerungen,
+  visualPayloads,
 }) {
   const paarSpiel = spiel === "C";
   const liste = [{ art: "titel" }];
@@ -301,7 +303,7 @@ function abschnitte({
           [
             ...kopf,
             { k: "h3", t: "So denkt dieses Horoskop" },
-            ...absaetze(t?.intro),
+            ...absaetze(introMitBild(t?.intro, visualPayloads?.[id]?.bildtext)),
           ],
           t?.horoskop_ausfuehrlich
             ? [
@@ -358,6 +360,7 @@ function abschnitte({
       ],
     });
   });
+  liste.push({ art: "text", bloecke: QUELLEN });
   return liste;
 }
 
@@ -393,6 +396,7 @@ export default function Buch({
     ausblick,
     heute,
     erklaerungen,
+    visualPayloads,
   });
   const schluessel = JSON.stringify(liste);
 
@@ -544,7 +548,19 @@ export default function Buch({
       imHoroskop = 0;
     }
   });
-  if (seiten.length % 2) seiten.push(<Seite key="leer" art="leer" />);
+  // Rueckseite: das Kaestchen des Apparats; sie ist die letzte Seite, die Seitenzahl bleibt gerade
+  if (seiten.length % 2 === 0) seiten.push(<Seite key="leer" art="leer" />);
+  seiten.push(
+    <Seite key="rueckseite" art="rueckseite">
+      <div className="buch-kaestchen">
+        <img src={deckelBild} alt="Das Kästchen des Tesserakt-Apparats" />
+      </div>
+      <p className="buch-rueckseite-text">
+        <span>TESSERAKT</span>
+        ein wissenschaftliches Projekt von DI Oliver Rafelsberger
+      </p>
+    </Seite>,
+  );
 
   return createPortal(
     <div className={dunkel ? "buch-ebene dunkel" : "buch-ebene"}>

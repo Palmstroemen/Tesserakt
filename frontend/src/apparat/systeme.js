@@ -26,3 +26,12 @@ export const SYSTEME = [
 export function anzeigeName(id) {
   return SYSTEME.find((s) => s.id === id)?.name ?? id;
 }
+
+// Einfuehrung eines Systems mit dem Absatz zur Grafik (bildtext aus den visualPayloads) als zweitem Absatz:
+// vor dem Teil "[TAG] INTRO_<SYSTEM>_SPECIAL" eingeschoben, sonst angehaengt
+export function introMitBild(intro, bildtext) {
+  if (!intro || !bildtext) return intro;
+  const k = intro.search(/\[TAG\]\s*INTRO_\w+_SPECIAL/);
+  if (k < 0) return `${intro}\n\n${bildtext}`;
+  return `${intro.slice(0, k)}${bildtext}\n\n${intro.slice(k)}`;
+}

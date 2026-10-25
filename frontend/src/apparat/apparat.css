@@ -513,31 +513,113 @@ body {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    transparent 55%,
-    rgba(20, 12, 5, 0.55) 100%
+    transparent 50%,
+    rgba(8, 5, 2, 0.75) 100%
   );
   pointer-events: none;
   z-index: 2;
 }
 
-.sp-dia {
+/* Lampe hinter dem Dia: warmes Licht, am hellsten mitten im Fenster und hinter den Bohrungen */
+.sp-leuchten {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(
+      ellipse 34% 30% at 50% 56%,
+      rgba(255, 226, 168, 0.55),
+      rgba(255, 210, 140, 0.25) 60%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 32% 8% at 50% 21%,
+      rgba(255, 226, 168, 0.5),
+      transparent 100%
+    );
+}
+
+/* rotes Glas hinter den Bohrungen; schiebt sich mit jeder Frage weiter */
+.sp-rotglas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* sonst folgt das Glas dem Dia; nur zum Ergebnis gleitet es von selbst ans Ende */
+.ds-glas-gleitet {
+  transition: transform 0.9s cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+/* Lupe vor Scheibe und Dia (Filter #sp-lupe aus lupe.jsx): beide Ebenen gleich gross, gleich verzerrt */
+.sp-lupe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Tinte auf Glas: multipliziert mit dem Licht dahinter */
+.sp-lupe-dia {
+  mix-blend-mode: multiply;
+}
+
+/* Ergebnis-Dia: farbiges Glas, leuchtet selbst */
+.sp-lupe-glas {
+  mix-blend-mode: normal;
+}
+
+.sp-diascheibe {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sp-lupe-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Fenster der Scheibe; das Dia ist etwas groesser, seine Kante sieht man nur beim Wechsel */
+.sp-fenster {
+  position: absolute;
+  overflow: hidden;
+}
+
+.sp-dia {
+  position: absolute;
+  inset: -4%;
   margin: 0;
-  padding: 0 17%;
+  padding: 0 14%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* Tinte auf Glas: leicht durchscheinend und verlaufen; multipliziert mit dem Licht dahinter */
+  box-shadow: inset 0 0 0 1.5px rgba(38, 24, 12, 0.45);
+  /* leicht durchscheinend und verlaufen */
   color: rgba(38, 24, 12, 0.82);
   text-shadow:
     0 0 1.5px rgba(38, 24, 12, 0.55),
     0 0 6px rgba(38, 24, 12, 0.25);
-  filter: blur(0.3px);
-  mix-blend-mode: multiply;
-  font-size: clamp(0.95rem, 4.4vw, 1.12rem);
-  line-height: 1.3;
+  font-size: clamp(0.88rem, 4vw, 1.02rem);
+  line-height: 1.28;
+}
+
+/* Pole des Schiebers, nahe am unteren Rand des Dias */
+.sp-dia-pole {
+  position: absolute;
+  left: 13%;
+  right: 13%;
+  bottom: 12%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6em;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* Ergebnis-Dia: blaues Glas, Messingschrift; danach die Rangliste wie ein neues Dia */
@@ -550,9 +632,7 @@ body {
   );
   color: #f0d59c;
   text-shadow: 0 0 6px rgba(240, 213, 156, 0.35);
-  mix-blend-mode: normal;
-  filter: none;
-  gap: 18px;
+  gap: 14px;
   animation: sp-dia-ein 0.5s ease-out both;
 }
 
@@ -569,8 +649,8 @@ body {
 }
 
 .sp-dia.sp-dia-rang {
-  gap: 8px;
-  padding: 0 13%;
+  gap: 4px;
+  padding: 0 9%;
   animation: sp-dia-ein 0.5s ease-out both;
 }
 
@@ -627,26 +707,28 @@ body {
   gap: 14px;
 }
 
-.sp-perlen {
-  display: flex;
-  gap: 4px;
+/* Rangliste im Fenster: enger gesetzt als auf der Ergebnisplatte */
+.sp-fenster .sp-ergebnistitel {
+  font-size: 1.15em;
 }
 
-.sp-perlen i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 1px solid rgba(38, 24, 12, 0.7);
-  box-sizing: border-box;
+.sp-fenster .eg-rangliste {
+  width: 100%;
+  font-size: 0.66rem;
 }
 
-.sp-perlen i.fertig {
-  background: rgba(38, 24, 12, 0.75);
+.sp-fenster .eg-rangtitel {
+  font-size: 0.62rem;
+  margin-bottom: 2px;
 }
 
-.sp-perlen i.jetzt {
-  background: rgba(38, 24, 12, 0.35);
-  transform: scale(1.35);
+.sp-fenster .eg-rang {
+  line-height: 1.25;
+}
+
+.sp-fenster .sp-ergebnisklein {
+  font-size: 0.52em;
+  line-height: 1.25;
 }
 
 /* --- Ergebnis ------------------------------------------------------------------ */
@@ -2629,6 +2711,46 @@ body {
 
 .buch-seite.leer {
   background: #fbf7ee;
+}
+
+/* Rueckseite: das Kaestchen des Apparats (oberer Teil des Deckels, ohne das angesetzte Holz) */
+.buch-seite.rueckseite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4cqw;
+  background: radial-gradient(circle at 50% 40%, #2a2117, #14110d 70%, #0b0907);
+}
+
+.buch-kaestchen {
+  height: 68cqw;
+  aspect-ratio: 1152 / 1930;
+  overflow: hidden;
+  box-shadow: 0 1.2cqw 3cqw rgba(0, 0, 0, 0.7);
+}
+
+.buch-kaestchen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.buch-rueckseite-text {
+  margin: 0;
+  text-align: center !important;
+  font-size: 2cqw;
+  letter-spacing: 0.08em;
+  color: #c9a66b;
+}
+
+.buch-rueckseite-text span {
+  display: block;
+  margin-bottom: 1cqw;
+  font-family: "Tesserakt Cinzel", Georgia, serif;
+  font-size: 3cqw;
+  letter-spacing: 0.5em;
+  color: #f0d59c;
 }
 
 @media print {

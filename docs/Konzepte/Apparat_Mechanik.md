@@ -78,6 +78,14 @@ Kreis oben oder höchstens 4 aktive Systeme.
   von seiner Ergebnisposition aus startete.)
 - Vor der ersten Frage liegt ein leeres Glas im Auge (keine Anleitung); das erste Aufziehen schiebt es weg.
 - Weitere Systeme kann man auch nach dem Erscheinen der Frage noch aufziehen.
+- Man sieht das Dia wie durch eine Lupe: Polsterverzerrung, zum Rand hin unschärfer (SVG-Filter, `lupe.jsx`).
+  Im Auge liegt eine dunkle Messingscheibe mit quadratischem Fenster, dahinter das Dia (`Diascheibe.jsx`).
+- Die Scheibe ist dick: Man sieht die Wände des Fensters, das Dia liegt tief dahinter und leuchtet.
+- Über dem Fenster zählen Bohrungen in der Scheibe die Fragen. Die Löcher sind immer da; dahinter schiebt sich
+  mit jeder Frage ein rotes Glas weiter. Offene Fragen leuchten hell, beantwortete bis zur aktuellen rot.
+  Das Durchlicht der Kamera wirkt auch auf die Löcher.
+- Die Pole des eigenen Schiebers („trifft nicht zu“ / „trifft zu“, in Spiel C „eher ich“ / „eher Partner:in“)
+  stehen klein am unteren Rand des Dias, nicht mehr auf der Fächerplatte.
 - Ein kleiner Hinweis beim allerersten Spiel: Ein Symbol ruckt von selbst an.
 
 ## Eigener Schieber und Sperrklinke

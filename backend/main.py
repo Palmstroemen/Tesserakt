@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 
 from arabic_chart import build_firdaria_chart, compute_lot_houses
 from bazi_chart import build_four_pillars
+from bildtexte import bildtext
 from chart import build_radix_wheel
 from hellenistisch_chart import build_profection_chart
 from kabbalah_chart import SEPHIROTH_NAMES, _life_path_to_sephira_index, build_kabbalah_chart
@@ -473,6 +474,11 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             nakshatra_index=nakshatra_index if nakshatra_index is not None else None,
             nakshatra_anteil=nakshatra_anteil if nakshatra_anteil is not None else None,
         )
+    # Absatz zur Grafik (erklaert sie und nennt ein persoenliches Merkmal)
+    for system, bild in visual_payloads.items():
+        text = bildtext(system, bild)
+        if text:
+            bild["bildtext"] = text
     response_inputs["visualPayloads"] = visual_payloads
 
     return VektorResponse(vektoren=vektoren, inputs=response_inputs)

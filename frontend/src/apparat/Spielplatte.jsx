@@ -5,6 +5,8 @@ import HoroskopIcon from "./HoroskopIcon";
 import Schlitz, { SchlitzDefs } from "./Schlitze";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import Uhrwerk from "./Uhrwerk";
+import Diascheibe, { Rotglas, fensterLage } from "./Diascheibe";
+import { LupenFilter } from "./lupe";
 import { PlattenVerlauf, Walzenplatte } from "./platte";
 import {
   AUGE_RADIUS,
@@ -156,16 +158,8 @@ const Sperrzaehne = memo(function Sperrzaehne({
   });
 });
 
-// eingravierte Kuerzel der Horoskope und Polbeschriftung
-const Beschriftung = memo(function Beschriftung({
-  radien,
-  abstand,
-  theta,
-  schlitz,
-  symbol,
-  links,
-  rechts,
-}) {
+// eingravierte Kuerzel der Horoskope (die Pole stehen unten auf dem Dia)
+const Beschriftung = memo(function Beschriftung({ radien, theta, symbol }) {
   return (
     <>
       {/* Kuerzel der Horoskope: links neben jedem Schlitz, auf der Verlaengerung des Bogens eingraviert */}
@@ -204,48 +198,6 @@ const Beschriftung = memo(function Beschriftung({
           </g>
         ))}
       </g>
-
-      {/* Polbeschriftung: dem Bogen unter dem aeussersten Schlitz folgend in die Platte gepraegt */}
-      {(() => {
-        const rText = radien[radien.length - 1] + schlitz / 2 + abstand * 0.62;
-        return (
-          <g className="sp-pole">
-            <path
-              id="sp-polbogen"
-              d={bogenPfad(rText, theta + 0.08, 0, 1)}
-              fill="none"
-            />
-            {[
-              ["schatten", "translate(0 -0.6)"],
-              ["licht", "translate(0 0.8)"],
-              ["", undefined],
-            ].map(([art, verschiebung]) => (
-              <g key={art || "mitte"} transform={verschiebung} className={art}>
-                <text>
-                  <textPath
-                    href="#sp-polbogen"
-                    xlinkHref="#sp-polbogen"
-                    startOffset="22%"
-                    textAnchor="middle"
-                  >
-                    ◂ {links}
-                  </textPath>
-                </text>
-                <text>
-                  <textPath
-                    href="#sp-polbogen"
-                    xlinkHref="#sp-polbogen"
-                    startOffset="78%"
-                    textAnchor="middle"
-                  >
-                    {rechts} ▸
-                  </textPath>
-                </text>
-              </g>
-            ))}
-          </g>
-        );
-      })()}
     </>
   );
 });
@@ -349,6 +301,8 @@ export default function Spielplatte({
   zusatzRef.current = zusatz;
   const videoRef = useRef(null);
   const lichtRef = useRef(null);
+  const linseRef = useRef(null);
+  const [linseD, setLinseD] = useState(0); // Durchmesser der Linse in CSS-Pixeln (fuer den Lupenfilter)
   const drag = useRef(null);
   const anim = useRef(new Map());
   const raf = useRef(0);
@@ -368,6 +322,16 @@ export default function Spielplatte({
   function aufgezogenAktualisieren() {
     setAufgezogenState([...aufgezogenRef.current]);
   }
+
+  useEffect(() => {
+    const el = linseRef.current;
+    if (!el) return undefined;
+    const beobachter = new ResizeObserver(() =>
+      setLinseD(Math.round(el.offsetWidth)),
+    );
+    beobachter.observe(el);
+    return () => beobachter.disconnect();
+  }, []);
 
   useEffect(() => {
     const f = () => setLayout(layoutAusFenster());
@@ -768,21 +732,19 @@ export default function Spielplatte({
     return (
       <>
         <span>{fragen[i].text}</span>
-        {/* Fortschritt als Perlenreihe auf dem Dia: beantwortet, aktuell, offen */}
-        <span
-          className="sp-perlen"
-          aria-label={`Frage ${i + 1} von ${fragen.length}`}
-        >
-          {fragen.map((f, k) => (
-            <i
-              key={f.id}
-              className={k < i ? "fertig" : k === i ? "jetzt" : ""}
-            />
-          ))}
+        {/* die Pole des Schiebers, klein am unteren Rand des Dias */}
+        <span className="sp-dia-pole" aria-hidden="true">
+          <span>◂ {pole[0]}</span>
+          <span>{pole[1]} ▸</span>
         </span>
       </>
     );
   };
+  // Zaehler auf der Scheibe: aktuelle Frage (nach der letzten: alle durch)
+  const zaehlerStand = ["endaufzug", "rechnet", "auswertung"].includes(zustand)
+    ? fragen.length
+    : index;
+  const lupe = linseD ? { filter: "url(#sp-lupe)" } : undefined;
 
   const linse = {
     left: `${((MITTE.x - LINSE_RADIUS) / 400) * 100}%`,
@@ -929,7 +891,7 @@ export default function Spielplatte({
               );
             })}
 
-            <Beschriftung {...geo} links={pole[0]} rechts={pole[1]} />
+            <Beschriftung {...geo} />
           </g>
           {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben). Er steht auf
               der Platte und dreht beim Auftritt mit dem Faecher herein (gleiche Ebene). */}
@@ -1150,7 +1112,12 @@ export default function Spielplatte({
         </svg>
 
         {/* Fragedia in der Linse: folgt beim Aufziehen dem Finger */}
-        <div className="sp-linse" style={linse} aria-live="polite">
+        <div
+          ref={linseRef}
+          className="sp-linse"
+          style={linse}
+          aria-live="polite"
+        >
           {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
           {kamera ? (
             <>
@@ -1180,68 +1147,95 @@ export default function Spielplatte({
               ) : null}
             </div>
           ) : null}
-          {zustand === "endaufzug" || zustand === "rechnet" ? (
-            // Ergebnis-Dia auf blauem Glas: nur der Titel, bewusst ohne Anleitung
-            <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
-              <span className="sp-ergebnistitel">{titel}</span>
-              {zustand === "rechnet" ? (
-                <span className="sp-ergebnisanleitung">
-                  Das Räderwerk rechnet …
-                </span>
-              ) : null}
-            </div>
-          ) : zustand === "auswertung" ? (
-            <div key="rangliste" className="sp-dia sp-dia-rang">
-              <div className="eg-rangliste">
-                <div className="eg-rangtitel">{titel}</div>
-                {(ergebnis?.alle?.ranking ?? []).map((s) => (
-                  <div
-                    key={s}
-                    className="eg-rang"
-                    style={{
-                      "--farbe": SYSTEME.find((x) => x.id === s)?.farbe,
-                    }}
-                  >
-                    <i />
-                    <span>{SYSTEME.find((x) => x.id === s)?.name ?? s}</span>
-                    <b>
-                      {(() => {
-                        const v = Math.round(
-                          ergebnis.alle.systemDetails[s].skillScore,
-                        );
-                        return v > 0 ? `+${v}` : `${v}`;
-                      })()}
-                    </b>
+          {/* Leuchten hinter dem Dia und den Bohrungen: hellt das Durchlicht auf, die Scheibe bleibt dunkel */}
+          <div className="sp-leuchten" />
+          {/* hinter der Lupe: das Dia im Fenster der Scheibe; die Tinte mischt sich mit dem Durchlicht */}
+          <div
+            className={
+              zustand === "endaufzug" || zustand === "rechnet"
+                ? "sp-lupe sp-lupe-dia sp-lupe-glas"
+                : "sp-lupe sp-lupe-dia"
+            }
+            style={lupe}
+          >
+            <Rotglas
+              anzahl={fragen.length}
+              stand={zaehlerStand + (zustand === "aufziehen" ? pos.dia : 0)}
+              gleitet={zaehlerStand >= fragen.length}
+            />
+            <div className="sp-fenster" style={fensterLage}>
+              {zustand === "endaufzug" || zustand === "rechnet" ? (
+                // Ergebnis-Dia auf blauem Glas: nur der Titel, bewusst ohne Anleitung
+                <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
+                  <span className="sp-ergebnistitel">{titel}</span>
+                  {zustand === "rechnet" ? (
+                    <span className="sp-ergebnisanleitung">
+                      Das Räderwerk rechnet …
+                    </span>
+                  ) : null}
+                </div>
+              ) : zustand === "auswertung" ? (
+                <div key="rangliste" className="sp-dia sp-dia-rang">
+                  <div className="eg-rangliste">
+                    <div className="eg-rangtitel">{titel}</div>
+                    {(ergebnis?.alle?.ranking ?? []).map((s) => (
+                      <div
+                        key={s}
+                        className="eg-rang"
+                        style={{
+                          "--farbe": SYSTEME.find((x) => x.id === s)?.farbe,
+                        }}
+                      >
+                        <i />
+                        <span>
+                          {SYSTEME.find((x) => x.id === s)?.name ?? s}
+                        </span>
+                        <b>
+                          {(() => {
+                            const v = Math.round(
+                              ergebnis.alle.systemDetails[s].skillScore,
+                            );
+                            return v > 0 ? `+${v}` : `${v}`;
+                          })()}
+                        </b>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              {erklaerung ? (
-                <span className="sp-ergebnisklein">{erklaerung}</span>
+                  {erklaerung ? (
+                    <span className="sp-ergebnisklein">{erklaerung}</span>
+                  ) : null}
+                  {hinweis ? (
+                    <span className="sp-ergebnisklein">{hinweis}</span>
+                  ) : null}
+                </div>
+              ) : sonderDia ? (
+                <div key={sonderDia} className="sp-dia sp-sonderdia">
+                  {sonderDia}
+                </div>
+              ) : (
+                <div
+                  className={index < 0 ? "sp-dia bild" : "sp-dia"}
+                  style={{ transform: `translateX(${-pos.dia * 115}%)` }}
+                >
+                  {diaText(index)}
+                </div>
+              )}
+              {pos.dia > 0 ? (
+                <div
+                  className="sp-dia"
+                  style={{ transform: `translateX(${(1 - pos.dia) * 115}%)` }}
+                >
+                  {diaText(index + 1)}
+                </div>
               ) : null}
-              {hinweis ? (
-                <span className="sp-ergebnisklein">{hinweis}</span>
-              ) : null}
             </div>
-          ) : sonderDia ? (
-            <div key={sonderDia} className="sp-dia sp-sonderdia">
-              {sonderDia}
-            </div>
-          ) : (
-            <div
-              className={index < 0 ? "sp-dia bild" : "sp-dia"}
-              style={{ transform: `translateX(${-pos.dia * 115}%)` }}
-            >
-              {diaText(index)}
-            </div>
-          )}
-          {pos.dia > 0 ? (
-            <div
-              className="sp-dia"
-              style={{ transform: `translateX(${(1 - pos.dia) * 115}%)` }}
-            >
-              {diaText(index + 1)}
-            </div>
-          ) : null}
+          </div>
+          <Diascheibe
+            anzahl={fragen.length}
+            aktuell={zaehlerStand}
+            style={lupe}
+          />
+          <LupenFilter id="sp-lupe" d={linseD} />
         </div>
       </div>
 
