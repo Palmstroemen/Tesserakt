@@ -25,6 +25,7 @@ import {
 import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
 import { neigungAbonnieren } from "./neigung";
+import { t } from "../sprache";
 
 const ALLE = SYSTEME.map((s) => s.id);
 // eingravierte Kuerzel links der Schlitze
@@ -253,7 +254,7 @@ export default function Spielplatte({
   onAntwort,
   kamera,
   kameraInfo,
-  pole = ["trifft nicht zu", "trifft zu"],
+  pole = t("spiele.A.pole"),
   auftritt = false,
   abgang = false,
   uhrwerk = false, // das Uhrwerk im Loch unter dem Auge laeuft (man sieht es, solange die Scheibe auf der Kante steht)
@@ -261,7 +262,7 @@ export default function Spielplatte({
   zusatz = null, // statt Hinweis/Knopf unten (z. B. Messingplaettchen); solange gesetzt, ruht das Aufziehen
   sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
   ergebnis = null, // Auswertung (ranking, systemDetails.skillScore); kann nach dem Hebelzug noch fehlen
-  titel = "Dein Ergebnis",
+  titel = t("ergebnis.titel.A"),
   erklaerung = null, // Satz zur Skala unter der Rangliste
   hinweis = null, // z. B. "Antworten gewuerfelt" (Abkuerzung)
   sofort = false, // Abkuerzung: gleich mit der Auswertung beginnen
@@ -1240,7 +1241,7 @@ export default function Spielplatte({
                     <span className="sp-ergebnistitel">{titel}</span>
                     {zustand === "rechnet" ? (
                       <span className="sp-ergebnisanleitung">
-                        Das Räderwerk rechnet …
+                        {t("spielplatte.rechnet")}
                       </span>
                     ) : null}
                   </div>

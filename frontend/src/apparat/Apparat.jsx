@@ -17,11 +17,12 @@ import Eckknoepfe from "./Eckknoepfe";
 import { rastKlick, zahnrad } from "./klang";
 import { belichtungFesthalten } from "./kamera";
 
-import { API_BASE } from "../logic/api";
+import { holen } from "../logic/api";
+import { t } from "../sprache";
 const ALLE = SYSTEME.map((s) => s.id);
 
 async function postJson(path, body) {
-  const r = await fetch(`${API_BASE}${path}`, {
+  const r = await holen(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -47,27 +48,18 @@ function personFelder(x, { geburtsdatum, uhrzeit, ort }) {
 }
 
 // Was die Spiele unterscheidet; die Fragerunde selbst ist dieselbe
-const SPIELE = {
-  A: {
-    pole: ["trifft nicht zu", "trifft zu"],
-    vergleich: "anderen Geburtsdaten",
-  },
-  B: {
-    pole: ["trifft nicht zu", "trifft zu"],
-    vergleich: "anderen Geburtsdaten",
-  },
-  C: { pole: ["eher ich", "eher Partner:in"], vergleich: "zufälligen Paaren" },
-};
+const SPIELE = Object.fromEntries(
+  ["A", "B", "C"].map((s) => [
+    s,
+    { pole: t(`spiele.${s}.pole`), vergleich: t(`spiele.${s}.vergleich`) },
+  ]),
+);
 
 // Spiel B: Antworten auf "Wann war das ungefaehr?" (Tage vor heute; null = weiss nicht mehr)
-const ZEITPUNKTE = [
-  { label: "vor 1 Woche", tage: 7 },
-  { label: "vor 2 Wochen", tage: 14 },
-  { label: "vor 1 Monat", tage: 30 },
-  { label: "vor 2 Monaten", tage: 60 },
-  { label: "vor 3 Monaten", tage: 90 },
-  { label: "weiß nicht mehr", tage: null },
-];
+const ZEITPUNKTE = [7, 14, 30, 60, 90, null].map((tage) => ({
+  label: t(`rueckblick.zeitpunkte.${tage ?? "weiss_nicht"}`),
+  tage,
+}));
 const ERINNERUNG_AB = 0.2; // ab dieser Zustimmung zu einem auffaelligen Moment wird nach dem Zeitpunkt gefragt
 
 // Spiel B: Fragenreihe aus dem Katalog; Sehen mehrere Systeme denselben Moment, wird einmal gefragt
@@ -219,11 +211,11 @@ export default function Apparat() {
   }, []);
 
   useEffect(() => {
-    fetch(`${API_BASE}/horoscope/texts?locale=de`)
+    holen("/horoscope/texts")
       .then((r) => r.json())
       .then(setTexte)
       .catch(() => {});
-    fetch(`${API_BASE}/matrix`)
+    holen("/matrix")
       .then((r) => r.json())
       .then(setMatrix)
       .catch(() => {});
@@ -319,7 +311,7 @@ export default function Apparat() {
           systeme: ALLE,
         };
         const [katalog, v] = await Promise.all([
-          fetch(`${API_BASE}/fragen/beziehung`).then((r) => r.json()),
+          holen("/fragen/beziehung").then((r) => r.json()),
           postJson("/partner", body),
         ]);
         katalogFragen = mischen(katalog.fragen ?? []);
@@ -342,8 +334,8 @@ export default function Apparat() {
           ...ortFelder(eingabe.ort),
         };
         const [katalog, v, rb] = await Promise.all([
-          fetch(`${API_BASE}/fragen${wahl === "B" ? "/rueckblick" : ""}`).then(
-            (r) => r.json(),
+          holen(`/fragen${wahl === "B" ? "/rueckblick" : ""}`).then((r) =>
+            r.json(),
           ),
           postJson("/vektor", body),
           wahl === "B" ? postJson("/rueckblick", body) : Promise.resolve(null),
@@ -520,7 +512,7 @@ export default function Apparat() {
   let sonderDia = null;
   if (spiel === "B" && phase === "frage") {
     if (nachfrage) {
-      sonderDia = "Weißt du noch ungefähr, wann das war?";
+      sonderDia = t("rueckblick.wann_noch");
       zusatz = (
         <div className="sp-plaettchen">
           {ZEITPUNKTE.map((z) => (
@@ -536,11 +528,14 @@ export default function Apparat() {
       );
     } else if (zeitModus) {
       const frage = zeitFragen[zIndex];
-      sonderDia = zJa ? "Wann war das ungefähr?" : frage.text;
+      sonderDia = zJa ? t("rueckblick.wann") : frage.text;
       zusatz = (
         <>
           <p className="sp-frage-klein">
-            Zum Schluss: Erinnerung {zIndex + 1} von {zeitFragen.length}
+            {t("rueckblick.erinnerung", {
+              nr: zIndex + 1,
+              anzahl: zeitFragen.length,
+            })}
           </p>
           <div className="sp-plaettchen">
             {zJa ? (
@@ -561,16 +556,16 @@ export default function Apparat() {
             ) : (
               <>
                 <button type="button" onClick={() => setZJa(true)}>
-                  Ja
+                  {t("rueckblick.ja")}
                 </button>
                 <button type="button" onClick={() => zeitpunktAntwort("nein")}>
-                  Nein
+                  {t("rueckblick.nein")}
                 </button>
                 <button
                   type="button"
                   onClick={() => zeitpunktAntwort("weiss_nicht")}
                 >
-                  Weiß ich nicht
+                  {t("rueckblick.weiss_nicht")}
                 </button>
               </>
             )}
@@ -676,12 +671,7 @@ export default function Apparat() {
   // Textkarten, beim Wischen im Auge schiebt sich der Faecher nach links weg.
   const zeigeRad = ["start", "laden", "bereit", "uebergang"].includes(phase);
   const zeigeSpiel = ["bereit", "uebergang", "frage"].includes(phase);
-  const titel =
-    spiel === "C"
-      ? "Euer Ergebnis"
-      : spiel === "B"
-        ? "Dein Rückblick"
-        : "Dein Ergebnis";
+  const titel = t(`ergebnis.titel.${spiel}`);
   function nochmal() {
     setDruck(null);
     setPhase("start");
@@ -714,17 +704,17 @@ export default function Apparat() {
               titel={titel}
               erklaerung={
                 ergebnis
-                  ? `Skill 0 = Zufall, +100 = besser als alle ${SPIELE[spiel].vergleich}. Ohne jede Aussagekraft erreicht das beste von ${ergebnis.gezeigt.length} Horoskopen im Mittel etwa +${ergebnis.erwartung.toFixed(0)}.` +
+                  ? t("ergebnis.erklaerung", {
+                      vergleich: SPIELE[spiel].vergleich,
+                      anzahl: ergebnis.gezeigt.length,
+                      erwartung: ergebnis.erwartung.toFixed(0),
+                    }) +
                     (ergebnis.fenster
-                      ? " Reihenfolge: Mittel aus dem letzten Monat und den letzten drei Monaten."
+                      ? ` ${t("ergebnis.erklaerung_reihenfolge")}`
                       : "")
                   : null
               }
-              hinweis={
-                abkuerzung
-                  ? "Abkürzung über das Datum (Entwicklung): Die Antworten wurden gewürfelt."
-                  : null
-              }
+              hinweis={abkuerzung ? t("ergebnis.abkuerzung") : null}
               sofort={abkuerzung}
               vonMitte={spiel === "C"}
               onAuswertung={() => setAuswertung(true)}

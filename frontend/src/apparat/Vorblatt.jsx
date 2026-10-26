@@ -1,15 +1,14 @@
 // Vorblatt beim ersten Start: zwei Blaetter auf dem Apparat. Erst die Kamera (Freigabe gleich hier, damit die
 // Abfragen des Systems nicht mitten im Spiel kommen), dann die Datenverwendung mit der Bitte um ernsthafte
-// Antworten und der ausfuehrlichen Erklaerung. Die Texte stehen in src/texte/einwilligung.md und
-// datenverwendung.md.
+// Antworten und der ausfuehrlichen Erklaerung. Die Texte stehen je Sprache in src/sprache/<sprache>/
+// einwilligung.md und datenverwendung.md.
 import { useState } from "react";
-import EINWILLIGUNG from "../texte/einwilligung.md?raw";
-import DATENVERWENDUNG from "../texte/datenverwendung.md?raw";
+import { datei, t } from "../sprache";
 import { Markdown, abschnitte, lesen } from "./markdown";
 import { einwilligungSpeichern } from "./einwilligung";
 
-const [KAMERA, DATEN] = abschnitte(lesen(EINWILLIGUNG).rumpf);
-const ERKLAERUNG = lesen(DATENVERWENDUNG).rumpf;
+const [KAMERA, DATEN] = abschnitte(lesen(datei("einwilligung")).rumpf);
+const ERKLAERUNG = lesen(datei("datenverwendung")).rumpf;
 
 export default function Vorblatt({ onFertig }) {
   const [blatt, setBlatt] = useState("kamera"); // kamera | daten | erklaerung
@@ -53,7 +52,7 @@ export default function Vorblatt({ onFertig }) {
               disabled={fragt}
               onClick={kameraFreigeben}
             >
-              Kamera freigeben
+              {t("vorblatt.kamera_freigeben")}
             </button>
             <button
               type="button"
@@ -61,7 +60,7 @@ export default function Vorblatt({ onFertig }) {
               disabled={fragt}
               onClick={() => setBlatt("daten")}
             >
-              Ohne Kamera spielen
+              {t("vorblatt.ohne_kamera")}
             </button>
           </div>
         </div>
@@ -75,7 +74,7 @@ export default function Vorblatt({ onFertig }) {
             className="vb-link"
             onClick={() => setBlatt("erklaerung")}
           >
-            Ausführlich erklärt: was mit deinen Daten geschieht
+            {t("vorblatt.ausfuehrlich")}
           </button>
           <div className="vb-knoepfe">
             <button
@@ -83,14 +82,14 @@ export default function Vorblatt({ onFertig }) {
               className="sc-start"
               onClick={() => fertig(true)}
             >
-              Ich willige ein
+              {t("vorblatt.einwilligen")}
             </button>
             <button
               type="button"
               className="vb-leise"
               onClick={() => fertig(false)}
             >
-              Ohne Speicherung spielen
+              {t("vorblatt.ohne_speicherung")}
             </button>
           </div>
         </div>
@@ -104,7 +103,7 @@ export default function Vorblatt({ onFertig }) {
               className="sc-start"
               onClick={() => setBlatt("daten")}
             >
-              Zurück
+              {t("vorblatt.zurueck")}
             </button>
           </div>
         </div>

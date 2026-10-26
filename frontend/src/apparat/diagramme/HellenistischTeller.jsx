@@ -2,6 +2,8 @@
 // gegen den Uhrzeigersinn, Haus 1 unten (so entsteht keine Uhr); das Profektionshaus mit Kreide umkringelt.
 // Darin ein Maeanderband und in der Mitte, schwarzfigurig mit eingeritzten Linien, das Attribut des
 // Jahresherrschers mit seinem Namen als Beischrift (wie auf Vasen). Fachlich: Visuals.md 2.2 (Profektion).
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 const R_RAND = 150;
@@ -132,7 +134,11 @@ export default function HellenistischTeller({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="ht"
       role="img"
-      aria-label={`Profektion: Haus ${haus}${herr ? `, Jahresherrscher ${herr.name}` : ""}`}
+      aria-label={
+        herr
+          ? t("diagramme.hellenistisch.bild_herr", { haus, herr: herr.name })
+          : t("diagramme.hellenistisch.bild", { haus })
+      }
     >
       <defs>
         <radialGradient id="ht-ton" cx="42%" cy="38%" r="70%">

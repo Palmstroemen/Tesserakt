@@ -7,7 +7,7 @@ import ProfectionChart from "./ProfectionChart";
 import FirdariaChart from "./FirdariaChart";
 import DashaChart from "./DashaChart";
 
-import { API_BASE } from "../logic/api";
+import { holen } from "../logic/api";
 
 /** Entfernt [TAG] Zeilen aus dem Text fuer die Anzeige. */
 function stripTagLines(text) {
@@ -163,7 +163,7 @@ export function useSystemTexts(ranking, isFinished) {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetch(`${API_BASE}/horoscope/texts?locale=de`)
+    holen("/horoscope/texts")
       .then((r) => {
         if (!r.ok) throw new Error(r.statusText);
         return r.json();

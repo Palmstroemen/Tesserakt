@@ -15,6 +15,7 @@ import {
   schraffur,
   zickzack,
 } from "./KabbalahBuch";
+import { t } from "../../sprache";
 
 const GOLD = "#b88a12";
 const GRAPHIT = "#555c66";
@@ -32,8 +33,20 @@ function strecke(a, b) {
 function notizen(baumA, baumB, sa, sb) {
   const ZEILE = 11;
   const liste = [
-    { wer: "a", seph: sa, baum: baumA, farbe: GOLD, name: "(du)" },
-    { wer: "b", seph: sb, baum: baumB, farbe: GRAPHIT, name: "(Gegenüber)" },
+    {
+      wer: "a",
+      seph: sa,
+      baum: baumA,
+      farbe: GOLD,
+      name: t("diagramme.du_klammer"),
+    },
+    {
+      wer: "b",
+      seph: sb,
+      baum: baumB,
+      farbe: GRAPHIT,
+      name: t("diagramme.gegenueber_klammer"),
+    },
   ].map((n) => {
     const k = KNOTEN[n.seph];
     // Mittelsaeule: du rechts, dein Gegenueber links; dieselbe Sephira: beide Seiten
@@ -108,7 +121,10 @@ export default function KabbalahPaar({ daten }) {
       viewBox="0 0 300 300"
       className="kb"
       role="img"
-      aria-label={`Baum des Lebens für zwei: ${namen[sa] ?? ""} und ${namen[sb] ?? ""}`}
+      aria-label={t("diagramme.kabbalah.paar", {
+        a: namen[sa] ?? "",
+        b: namen[sb] ?? "",
+      })}
     >
       <Seite pfade={pfade} namen={namen} />
 

@@ -5,6 +5,8 @@
 // Navagraha-Farbe. Vergangene Perioden verblasst, die aktive mit Punkten umrandet. Innen ein Kolam-Ring aus
 // 27 Reismehlpunkten (Nakshatras); ein goldener Armreif liegt um das Geburts-Nakshatra, eine gedrehte
 // Schnur fuehrt von der Mitte zum heutigen Lebensalter. Reines SVG.
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 const R_RUND = 124; // Rand des Rundes: hier liegen die Mittelpunkte der Pulverbogen
@@ -76,7 +78,7 @@ export default function VedischRangoli({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="vr"
       role="img"
-      aria-label={`Vimshottari-Dasha: aktiv ${aktiv?.label ?? ""}`}
+      aria-label={t("diagramme.vedisch.bild", { name: aktiv?.label ?? "" })}
     >
       <defs>
         <radialGradient id="vr-boden" cx="45%" cy="40%" r="70%">

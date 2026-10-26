@@ -1,4 +1,4 @@
-// Kleiner Markdown-Leser fuer die Texte in src/texte/*.md: Kopf (--- version: 1 ---), Kommentare (<!-- -->),
+// Kleiner Markdown-Leser fuer die Texte in src/sprache/<sprache>/*.md: Kopf (--- version: 1 ---), Kommentare (<!-- -->),
 // Ueberschriften (#, ##, ###), Absaetze, Listen (- ), **fett** und \\ am Zeilenende als Umbruch. Mehr brauchen die Texte nicht.
 
 // md -> { kopf: { schluessel: wert }, rumpf } ohne Kopf und Kommentare

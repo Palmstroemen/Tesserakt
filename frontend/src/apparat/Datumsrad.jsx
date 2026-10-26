@@ -6,6 +6,7 @@ import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import Mantel, { HALBDICKE } from "./Mantel";
 import Zaehlwerk from "./Zaehlwerk";
 import { hebel, rastKlick, sperre, zahnrad } from "./klang";
+import { t } from "../sprache";
 
 // Geburtsdatum als vier drehbare Ringe im oberen Kreis (wie ein Astrolabium), von aussen nach innen:
 // Jahr, Monat, Tag, Stunde. Die Marke oben zeigt die gewaehlten Werte; die Mitte zeigt sie lesbar.
@@ -17,34 +18,7 @@ import { hebel, rastKlick, sperre, zahnrad } from "./klang";
 // Spiel C. Auf der silbernen Seite haben A und B keine Funktion. Darunter die Ortswalzen.
 const JAHR_BIS = new Date().getFullYear();
 export const JAHR_VON = 1920;
-const MONATE = [
-  "Jan",
-  "Feb",
-  "Mär",
-  "Apr",
-  "Mai",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Okt",
-  "Nov",
-  "Dez",
-];
-export const MONATE_LANG = [
-  "Jänner",
-  "Februar",
-  "März",
-  "April",
-  "Mai",
-  "Juni",
-  "Juli",
-  "August",
-  "September",
-  "Oktober",
-  "November",
-  "Dezember",
-];
+const MONATE = t("monate.ring");
 
 // Ringe: Band zwischen innen und aussen (viewBox-Einheiten), Anzahl Rasten, Beschriftung je Rast
 export const RINGE = [
@@ -357,7 +331,7 @@ export default function Datumsrad({
     if (!aktiv(spiel)) {
       sperre();
       if (!eingestellt && !(seite === "silber" && spiel !== "C"))
-        setGesperrtMeldung("Erst das Geburtsdatum einstellen.");
+        setGesperrtMeldung(t("datum.erst_datum"));
       return;
     }
     hebel();
@@ -415,13 +389,8 @@ export default function Datumsrad({
   const scheibeTransform = `translate(${MITTE.x} ${MITTE.y - versatz}) scale(1 ${scheibe.skala}) translate(${-MITTE.x} ${-MITTE.y})`;
   // Auf der goldenen Seite kein Hinweis (entdecken statt erklaeren); die silberne Seite fragt nach der zweiten
   // Person
-  const hinweis =
-    seite === "gold"
-      ? null
-      : "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann C.";
-  const meldung = laedt
-    ? "Der Apparat öffnet sich …"
-    : (gesperrtMeldung ?? hinweis);
+  const hinweis = seite === "gold" ? null : t("datum.partner");
+  const meldung = laedt ? t("datum.oeffnet") : (gesperrtMeldung ?? hinweis);
 
   return (
     <main className="sp">
@@ -480,7 +449,7 @@ export default function Datumsrad({
                 className={`dr-knopf dr-knopf-${k.spiel}${gedrueckt === k.spiel ? " gedrueckt" : ""}${aktiv(k.spiel) ? "" : " gesperrt"}`}
                 onPointerDown={(e) => knopf(e, k.spiel)}
                 role="button"
-                aria-label={`Spiel ${k.spiel}`}
+                aria-label={t("datum.spiel", { spiel: k.spiel })}
               >
                 <circle
                   cx={k.x}
@@ -551,7 +520,7 @@ export default function Datumsrad({
           onPointerUp={loslassen}
           onPointerCancel={loslassen}
           role="group"
-          aria-label="Geburtsdatum und Geburtsort einstellen"
+          aria-label={t("datum.scheibe")}
         >
           <g transform={scheibeTransform} className={`dr-${scheibe.metall}`}>
             {/* Schatten der Scheibe auf die Platte darunter (versetzte Kopien statt Filter) */}

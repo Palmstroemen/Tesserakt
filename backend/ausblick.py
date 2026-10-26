@@ -32,7 +32,7 @@ from datetime import datetime, timedelta
 from typing import Callable, Dict, List, Optional, Tuple
 
 from rule_engine import current_pinnacle_number, life_path, personal_month, personal_year
-from vedisch_chart import PLANET_LABELS, _load_dasha_data
+from vedisch_chart import _load_dasha_data
 
 ASPEKTE = {"konjunktion": 0.0, "sextil": 60.0, "quadrat": 90.0, "trine": 120.0, "opposition": 180.0}
 # Orbis je laufendem Planeten (Grad): schnelle Planeten nur eng, sonst waere fast immer etwas aktiv
@@ -46,8 +46,28 @@ GEWICHT_ASPEKT = {"konjunktion": 3, "opposition": 2, "quadrat": 2, "trine": 2, "
 ZUSAMMENFASSEN_TAGE = {"pluto": 120, "neptun": 120, "uranus": 120, "saturn": 120, "jupiter": 120, "mars": 30,
                        "venus": 20}
 
-MONATE = ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober",
-          "November", "Dezember"]
+Texte = Dict[str, Dict[str, str]]
+
+
+def _f(vorlage: str, **werte: object) -> str:
+    """Platzhalter {name} in einer Vorlage aus den Textbausteinen ersetzen."""
+    for k, v in werte.items():
+        vorlage = vorlage.replace("{" + k + "}", str(v))
+    return vorlage
+
+
+def _monat(t: Texte, nr: int) -> str:
+    return t["zeit"][f"monat_{nr}"]
+
+
+def _datum(tag: datetime, t: Texte) -> str:
+    """'12. April'."""
+    return _f(t["zeit"]["datum"], tag=tag.day, monat=_monat(t, tag.month))
+
+
+def _um(tag: datetime, t: Texte) -> str:
+    """'Um den 12. April'."""
+    return _f(t["zeit"]["um_den"], tag=tag.day, monat=_monat(t, tag.month))
 
 
 def _abweichung(laufend: float, natal: float, winkel: float) -> float:
@@ -55,34 +75,33 @@ def _abweichung(laufend: float, natal: float, winkel: float) -> float:
     return abs(abstand - winkel)
 
 
-def monatsteil(tag: datetime) -> str:
+def monatsteil(tag: datetime, t: Texte) -> str:
     """'Anfang April', 'Mitte April', 'Ende April'."""
-    teil = "Anfang" if tag.day <= 10 else "Mitte" if tag.day <= 20 else "Ende"
-    return f"{teil} {MONATE[tag.month - 1]}"
+    teil = "anfang" if tag.day <= 10 else "mitte" if tag.day <= 20 else "ende"
+    return _f(t["zeit"][teil], monat=_monat(t, tag.month))
 
 
-def zeitraum_text(von: datetime, bis: datetime, exakt: List[datetime]) -> str:
+def zeitraum_text(von: datetime, bis: datetime, exakt: List[datetime], t: Texte) -> str:
     """Lesbarer Zeitraum: kurze Ereignisse 'um den 14. April', laengere 'Mitte März bis Ende April'."""
     if (bis - von).days <= 12:
-        mitte = exakt[0]
-        return f"Um den {mitte.day}. {MONATE[mitte.month - 1]}"
-    a, b = monatsteil(von), monatsteil(bis)
+        return _um(exakt[0], t)
+    a, b = monatsteil(von, t), monatsteil(bis, t)
     if a == b:
         return a
-    return f"{a} bis {b}"
+    return _f(t["zeit"]["von_bis"], von=a, bis=b)
 
 
-def zeitraum_offen(von: datetime, bis: datetime, start: datetime, ende: datetime) -> str:
+def zeitraum_offen(von: datetime, bis: datetime, start: datetime, ende: datetime, t: Texte) -> str:
     """Zeitraum innerhalb des Jahres; was schon vorher begann oder darueber hinaus reicht, bleibt offen
     ('Bis Mitte März', 'Ab Ende August', 'Das ganze Jahr')."""
     offen_vorne, offen_hinten = von <= start, bis >= ende
     if offen_vorne and offen_hinten:
-        return "Das ganze Jahr"
+        return t["zeit"]["das_ganze_jahr"]
     if offen_vorne:
-        return f"Bis {monatsteil(bis)}"
+        return _f(t["zeit"]["bis"], zeit=monatsteil(bis, t))
     if offen_hinten:
-        return f"Ab {monatsteil(von)}"
-    return zeitraum_text(von, bis, [von + (bis - von) / 2])
+        return _f(t["zeit"]["ab"], zeit=monatsteil(von, t))
+    return zeitraum_text(von, bis, [von + (bis - von) / 2], t)
 
 
 def _abschnitte(werte: List[object], tage_liste: List[datetime]) -> List[Tuple[object, datetime, datetime]]:
@@ -115,11 +134,12 @@ def _wanderung(haeuser: List[int], tage_liste: List[datetime], min_tage: int) ->
     return erg
 
 
-def _rueck_text(vorlage: str, planet: str, e: Dict[str, object], ende: datetime) -> str:
+def _rueck_text(vorlage: str, planet: str, e: Dict[str, object], ende: datetime, t: Texte) -> str:
     """Nachsatz zur ruecklaeufigen Rueckkehr ins vorige Haus (leer, wenn es keine gab)."""
     teile = []
     for haus, von, bis in e["rueck"]:
-        zeitraum = f"ab {monatsteil(von)}" if bis >= ende else f"von {monatsteil(von)} bis {monatsteil(bis)}"
+        zeitraum = (_f(t["zeit"]["rueck_ab"], zeit=monatsteil(von, t)) if bis >= ende
+                    else _f(t["zeit"]["rueck_von_bis"], von=monatsteil(von, t), bis=monatsteil(bis, t)))
         teile.append(vorlage.replace("{Planet}", planet).replace("{zeitraum}", zeitraum).replace("{haus}", str(haus)))
     return " ".join(teile)
 
@@ -204,7 +224,7 @@ def westlich_text(e: Dict[str, object], t: Dict[str, Dict[str, str]]) -> str:
             .replace("{Planet}", t["planetennamen"][e["planet"]])
             .replace("{thema}", t["westlich_planet"][e["planet"]])
             .replace("{ziel}", t["transit_ziele"][e["ziel"]]))
-    return f"{zeitraum_text(e['von'], e['bis'], e['exakt'])}: {satz}"
+    return f"{zeitraum_text(e['von'], e['bis'], e['exakt'], t)}: {satz}"
 
 
 def als_json(e: Dict[str, object], text: str) -> Dict[str, object]:
@@ -270,17 +290,17 @@ def vedisch(
 
     def neu(von: datetime, bis: datetime, art: str, text: str, **mehr: object) -> None:
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": art,
-                    "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}", **mehr})
+                    "text": f"{zeitraum_offen(von, bis, start, ende, t)}: {text}", **mehr})
 
     # Dasha: Unterperioden im Jahr, neue Mahadasha als eigenes Ereignis
     dasha = [_dasha_bei(pos_geburt + (tag - geburt).total_seconds() / jahr, order, dauern) for tag in tage_liste]
     for i, ((md, ad), von, bis) in enumerate(_abschnitte(dasha, tage_liste)):
         if i > 0 and md != dasha[0][0] and ad == md:
             erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "mahadasha",
-                        "md": md, "text": f"Um den {von.day}. {MONATE[von.month - 1]}: "
+                        "md": md, "text": f"{_um(von, t)}: "
                         + tv["mahadasha_beginn"].replace("{md}", namen[md]).replace("{jahre}", str(dauern[md]))})
         beschreibung = matrix.get(f"{md}_antardasha", {}).get(f"{md}_{ad}", {}).get("beschreibung", "")
-        neu(von, bis, "antardasha", tv["antardasha"].replace("{ad}", PLANET_LABELS[ad])
+        neu(von, bis, "antardasha", tv["antardasha"].replace("{ad}", t["planeten_kurz"][ad])
             .replace("{md}", namen[md]).replace("{beschreibung}", beschreibung), md=md, ad=ad)
 
     # Gochara: Haeuser von Jupiter und Saturn vom Mondzeichen, Weg durch die Haeuser wie in _wanderung
@@ -302,7 +322,7 @@ def vedisch(
                     art = f"{pl}_{'guenstig' if guenstig else 'unguenstig'}"
                     # laufender Zustand im Praesens (Bausteine von heute), Wechsel in Zukunftsform
                     text = (t["vedisch_gochara"][art] if laufend else tv[art]).replace("{haus}", str(haus))
-                nachsatz = _rueck_text(tv["rueckkehr"], PLANET_LABELS[pl], e, ende)
+                nachsatz = _rueck_text(tv["rueckkehr"], t["planeten_kurz"][pl], e, ende, t)
                 neu(e["von"], e["bis"], "gochara", f"{text} {nachsatz}".strip(), planet=pl, haus=haus)
     return sorted(erg, key=lambda e: e["von"])
 
@@ -350,11 +370,11 @@ def bazi(
 
     def neu(von: datetime, bis: datetime, art: str, text: str, **mehr: object) -> None:
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": art,
-                    "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}", **mehr})
+                    "text": f"{zeitraum_offen(von, bis, start, ende, t)}: {text}", **mehr})
 
     def um(tag: datetime, art: str, text: str, **mehr: object) -> None:
         erg.append({"von": tag.date().isoformat(), "bis": tag.date().isoformat(), "art": art,
-                    "text": f"Um den {tag.day}. {MONATE[tag.month - 1]}: {text}", **mehr})
+                    "text": f"{_um(tag, t)}: {text}", **mehr})
 
     # Monate: Stamm-Element wechselt alle zwei Monate (Yang- und Yin-Stamm desselben Elements)
     for monat_el, von, bis in _abschnitte([element(s[2]) for s in saeulen], tage_liste):
@@ -375,7 +395,7 @@ def bazi(
             stamm, zweig = saeulen[i][0], saeulen[i][1]
             jahr_el = element(stamm)
             rel = beziehung(tagesmeister, jahr_el)
-            name = f"{el[jahr_el]}-{tiere_k[zweig]}"
+            name = _f(tb["jahr_name"], element=el[jahr_el], tier=tiere_k[zweig])
             um(tage_liste[i], "jahr", tb[f"jahr_{rel}"].replace("{jahr}", name).replace("{dm}", dm),
                stamm=stamm, zweig=zweig, beziehung=rel)
             if CHONG.get(zweig) == jahr_zweig:
@@ -389,7 +409,8 @@ def bazi(
         stamm_text = lp["stem_luck_pillars"].get(stamm, {}).get("text_de", "")
         zweig_text = lp["branch_luck_pillars"].get("wu_branch" if zweig == "wu" else zweig, {}).get("text_de", "")
         um(tag, "glueckssaeule", tb["glueckssaeule"]
-           .replace("{saeule}", f"{el[element(stamm)]}-{tiere_k[zweig]}-Säule ({stamm.capitalize()} {zweig.capitalize()})")
+           .replace("{saeule}", _f(tb["saeule_name"], element=el[element(stamm)], tier=tiere_k[zweig],
+                                   stamm=stamm.capitalize(), zweig=zweig.capitalize()))
            .replace("{stamm}", stamm_text).replace("{zweig}", zweig_text), stamm=stamm, zweig=zweig)
     return sorted(erg, key=lambda e: e["von"])
 
@@ -426,12 +447,12 @@ def hellenistisch(
     ende = start + timedelta(days=tage)
     geb = _naechster_geburtstag(geburt, start)
     alter = geb.year - geburt.year - 1  # vollendete Jahre bis zum naechsten Geburtstag
-    datum = f"{geb.day}. {MONATE[geb.month - 1]}"
+    datum = _datum(geb, t)
     asc = asc_zeichen or 0
     erg: List[Dict[str, object]] = []
     herrscher_von: Dict[datetime, str] = {}
-    for a, von, bis, vorsatz in ((alter, start, geb - timedelta(days=1), f"Bis zu deinem Geburtstag am {datum}"),
-                                 (alter + 1, geb, ende, f"Ab deinem Geburtstag am {datum}")):
+    for a, von, bis, vorsatz in ((alter, start, geb - timedelta(days=1), _f(t["zeit"]["bis_geburtstag"], zeit=datum)),
+                                 (alter + 1, geb, ende, _f(t["zeit"]["ab_geburtstag"], zeit=datum))):
         haus = a % 12 + 1
         herrscher = hauslord[(asc + haus - 1) % 12]
         herrscher_von[von] = herrscher
@@ -452,10 +473,10 @@ def hellenistisch(
         for e in _wanderung(haeuser, block, MIN_TAGE):
             text = (th["wanderung"].replace("{Planet}", name).replace("{haus}", str(e["haus"]))
                     .replace("{thema}", t["hellenistisch_haus_kurz"][str(e["haus"])]))
-            text = f"{text} {_rueck_text(th['pendeln'], name, e, ende)}".strip()
+            text = f"{text} {_rueck_text(th['pendeln'], name, e, ende, t)}".strip()
             erg.append({"von": e["von"].date().isoformat(), "bis": e["bis"].date().isoformat(), "art": "wanderung",
                         "planet": herrscher, "haus": e["haus"],
-                        "text": f"{zeitraum_offen(e['von'], e['bis'], start, ende)}: {text}"})
+                        "text": f"{zeitraum_offen(e['von'], e['bis'], start, ende, t)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])
 
 
@@ -504,14 +525,14 @@ def arabisch(
     for i, ((haupt, unter), von, bis) in enumerate(_abschnitte(perioden, tage_liste)):
         if i > 0 and haupt != perioden[0][0] and (unter is None or unter == haupt):
             erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "firdaria",
-                        "haupt": haupt, "text": f"Um den {von.day}. {MONATE[von.month - 1]}: {ta[haupt]}"})
+                        "haupt": haupt, "text": f"{_um(von, t)}: {ta[haupt]}"})
         if unter is None:
             text = ta["knoten"].replace("{haupt}", gen[haupt])
         else:
             beschreibung = kombis.get(f"{haupt}_hauptperiode", {}).get(f"{haupt}_{unter}", {}).get("beschreibung", "")
             text = ta["unter"].replace("{unter}", gen[unter]).replace("{haupt}", gen[haupt]).replace("{beschreibung}", beschreibung)
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "unter",
-                    "haupt": haupt, "unter": unter, "text": f"{zeitraum_offen(von, bis, start, ende)}: {text}"})
+                    "haupt": haupt, "unter": unter, "text": f"{zeitraum_offen(von, bis, start, ende, t)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])
 
 
@@ -540,8 +561,9 @@ def numerologie(geburt: datetime, start: datetime, t: Dict[str, Dict[str, str]],
         profil = jahre.get(f"PJ{pj}", {})
         text = (tn["jahr"].replace("{zahl}", str(pj)).replace("{thema}", profil.get("schluesselthema", ""))
                 .replace("{beschreibung}", profil.get("beschreibung", "")))
-        vorsatz = "Bis Ende Dezember" if von == start and bis < ende else (
-            f"Ab {MONATE[von.month - 1]}" if bis >= ende else zeitraum_offen(von, bis, start, ende))
+        vorsatz = (_f(t["zeit"]["bis"], zeit=_f(t["zeit"]["ende"], monat=_monat(t, 12))) if von == start and bis < ende
+                   else _f(t["zeit"]["ab"], zeit=_monat(t, von.month)) if bis >= ende
+                   else zeitraum_offen(von, bis, start, ende, t))
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "jahr", "zahl": pj,
                     "text": f"{vorsatz}: {text}"})
 
@@ -553,8 +575,9 @@ def numerologie(geburt: datetime, start: datetime, t: Dict[str, Dict[str, str]],
         feld = matrix.get(f"PJ{_einstellig(pj)}", {}).get(f"PM{_einstellig(pm)}", "")
         von = max(tag, start)
         naechster = datetime(tag.year + tag.month // 12, tag.month % 12 + 1, 1, 12)
-        name = MONATE[tag.month - 1]
-        vorsatz = f"Bis Ende {name}" if tag < start else f"Im {name}"
+        name = _monat(t, tag.month)
+        vorsatz = (_f(t["zeit"]["bis"], zeit=_f(t["zeit"]["ende"], monat=name)) if tag < start
+                   else _f(t["zeit"]["im_monat"], monat=name))
         erg.append({"von": von.date().isoformat(), "bis": (min(naechster, ende) - timedelta(days=1)).date().isoformat(),
                     "art": "monat", "zahl": pm,
                     "text": f"{vorsatz}: {tn['monat'].replace('{zahl}', str(pm)).replace('{text}', feld)}"})
@@ -567,7 +590,7 @@ def numerologie(geburt: datetime, start: datetime, t: Dict[str, Dict[str, str]],
         neu = current_pinnacle_number(geburt, geb, lpn)
         profil = regeln["pinnacle_profile"].get(f"PIN{neu}", {})
         erg.append({"von": geb.date().isoformat(), "bis": geb.date().isoformat(), "art": "pinnacle", "zahl": neu,
-                    "text": f"Ab deinem Geburtstag am {geb.day}. {MONATE[geb.month - 1]}: "
+                    "text": f"{_f(t['zeit']['ab_geburtstag'], zeit=_datum(geb, t))}: "
                     + tn["pinnacle"].replace("{zahl}", str(neu)).replace("{thema}", profil.get("thema", ""))
                     .replace("{beschreibung}", profil.get("beschreibung", ""))})
     return sorted(erg, key=lambda e: (e["von"], e["art"] != "jahr"))

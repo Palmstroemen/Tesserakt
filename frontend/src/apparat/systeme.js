@@ -3,24 +3,25 @@
 // und die Himmelsastrologien bis zum hellenistischen Ursprung am Rand.
 // Farben aus "Visuals Fantasien" (Farbsystem-Vorschlag). Auf den Schiebern stehen Icons (HoroskopIcon.jsx);
 // die Kuerzel bleiben als Ersatz, wo kein Icon gezeichnet wird.
-// id = interner Schluessel (Datenbank, Regeldateien, Wertung) - nie aendern. name = Anzeigename,
-// unter = optionale Unterzeile mit dem Fachbegriff, gravur = eingraviertes Kuerzel links am Schlitz.
-export const SYSTEME = [
-  { id: "Numerologie", gravur: "Num", kurz: "N", farbe: "#3d8bfd" },
-  { id: "Kabbalah", gravur: "Kaba", kurz: "K", farbe: "#b9bcc2" },
-  {
-    id: "Bazi",
-    gravur: "Chin",
-    name: "Chinesisch",
-    unter: "Vier Säulen (Bazi)",
-    kurz: "Ch",
-    farbe: "#f2c14e",
-  },
-  { id: "Vedisch", gravur: "Ved", kurz: "J", farbe: "#f28c28" },
-  { id: "Arabisch", gravur: "Arab", kurz: "Ar", farbe: "#2bb3a8" },
-  { id: "Westlich", gravur: "Wes", kurz: "W", farbe: "#7d63e6" },
-  { id: "Hellenistisch", gravur: "Hel", kurz: "H", farbe: "#d0674a" },
-];
+// id = interner Schluessel (Datenbank, Regeldateien, Wertung) - nie aendern. Aus der Sprachdatei
+// (systeme.<id>): name = Anzeigename, unter = optionale Unterzeile mit dem Fachbegriff, gravur =
+// eingraviertes Kuerzel links am Schlitz, kurz = Ersatz, wo kein Icon gezeichnet wird.
+import { t } from "../sprache";
+
+const FARBEN = {
+  Numerologie: "#3d8bfd",
+  Kabbalah: "#b9bcc2",
+  Bazi: "#f2c14e",
+  Vedisch: "#f28c28",
+  Arabisch: "#2bb3a8",
+  Westlich: "#7d63e6",
+  Hellenistisch: "#d0674a",
+};
+export const SYSTEME = Object.entries(FARBEN).map(([id, farbe]) => ({
+  id,
+  farbe,
+  ...t(`systeme.${id}`),
+}));
 
 // Anzeigename eines Systems (faellt auf die id zurueck)
 export function anzeigeName(id) {

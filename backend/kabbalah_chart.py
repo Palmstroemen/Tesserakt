@@ -6,7 +6,7 @@ Uses same reduction as rule_engine (11->2, 22->4, 33->6; else reduce to 1-10).
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from rule_engine import PFAD_ORDER, life_path, load_rules
 
@@ -29,16 +29,18 @@ def _life_path_to_sephira_index(lpn: int) -> int:
     return n
 
 
-def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
+def build_kabbalah_chart(birth_dt: datetime, regeln: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Build kabbalahTree payload: lifePathNumber, activeSephira (number + name), sephirothList,
     activePath (einer der 22 Pfade, gleiche Zuordnung wie in der Wertung: Tag des Jahres) und die
-    hebraeischen Buchstaben aller Pfade."""
+    hebraeischen Buchstaben aller Pfade. `regeln`: Kabbalah-Regeln in der Sprache der Notizen
+    (sprache.regeln), sonst die deutschen."""
+    regeln = regeln or load_rules("Kabbalah")
     lpn = life_path(birth_dt)
     idx = _life_path_to_sephira_index(lpn)
     name = SEPHIROTH_NAMES[idx - 1] if 1 <= idx <= 10 else "Malkuth"
     # Pfad: wie rule_engine (pfad_index aus dem Tag des Jahres, Pfade 11..32 aus kabbalah_pfade.json)
     pfad_index = int((birth_dt.timetuple().tm_yday - 1) * 22 / 365) % 22
-    alle = load_rules("Kabbalah").get("pfade", {})
+    alle = regeln.get("pfade", {})
     pfade = [
         {
             "number": int(k),
@@ -63,7 +65,7 @@ def build_kabbalah_chart(birth_dt: datetime) -> Dict[str, Any]:
             "schwach": [d for d, v in vektor.items() if v == tief and tief < hoch],
         }
 
-    seph_daten = load_rules("Kabbalah").get("sephiroth", {})
+    seph_daten = regeln.get("sephiroth", {})
     seph = next((v for v in seph_daten.values() if v.get("nummer") == idx), {}) if isinstance(seph_daten, dict) else {}
     notizen = {
         "sephira": {

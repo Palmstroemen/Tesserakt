@@ -3,6 +3,7 @@
 // ueblich: Aszendent links, Tierkreis gegen den Uhrzeigersinn. Reines SVG (Vektor, auch fuer den Druck).
 // Ebenen nach Visuals.md 6: base (Ringe, Haeuser), relation (Aspekte), data (Planeten), label, fx (Sterne).
 import { useMemo } from "react";
+import { t } from "../../sprache";
 
 const G = 300; // viewBox; der Kreis fuellt die Linse
 const M = G / 2;
@@ -141,7 +142,7 @@ export default function WestlichNacht({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="wn"
       role="img"
-      aria-label="Radix: Planeten und Aspekte"
+      aria-label={t("diagramme.westlich.bild")}
     >
       <defs>
         <radialGradient id="wn-himmel" cx="50%" cy="45%" r="60%">
@@ -264,21 +265,21 @@ export default function WestlichNacht({ payload }) {
       <g className="wn-label">
         {!mitOrt ? (
           <text x={M} y={M + R_NABE + 14} className="wn-achse">
-            ohne Geburtsort keine Häuser
+            {t("diagramme.westlich.ohne_ort")}
           </text>
         ) : null}
         {[
-          ["AC", mitOrt ? asc : null],
-          ["MC", mc],
-        ].map(([t, l]) =>
+          [t("diagramme.westlich.ac"), mitOrt ? asc : null],
+          [t("diagramme.westlich.mc"), mc],
+        ].map(([achse, l]) =>
           l == null ? null : (
             <text
-              key={t}
+              key={achse}
               {...punkt(l, asc, R_NABE + 10)}
               dy="0.35em"
               className="wn-achse"
             >
-              {t}
+              {achse}
             </text>
           ),
         )}

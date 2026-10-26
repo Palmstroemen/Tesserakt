@@ -1,10 +1,11 @@
 // Einwilligungen aus dem Vorblatt (Kamera, Datenverwendung), lokal auf dem Geraet gespeichert. Aendert sich die
-// version im Kopf von src/texte/einwilligung.md, fragt das Vorblatt neu.
-import EINWILLIGUNG from "../texte/einwilligung.md?raw";
+// version im Kopf von src/sprache/de/einwilligung.md, fragt das Vorblatt neu. Die Version gilt fuer alle
+// Sprachen: wer den Text aendert, aendert ihn ueberall und zaehlt sie im deutschen Text hoch.
+import { grunddatei } from "../sprache";
 import { lesen } from "./markdown";
 
 const SCHLUESSEL = "tesserakt-einwilligung";
-export const VERSION = lesen(EINWILLIGUNG).kopf.version ?? "1";
+export const VERSION = lesen(grunddatei("einwilligung")).kopf.version ?? "1";
 
 let aktuell = null;
 

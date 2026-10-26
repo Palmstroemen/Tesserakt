@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { API_BASE } from "../logic/api";
+import { holen } from "../logic/api";
 import { MITTE, bogenPfad } from "./geometrie";
 import { Walzenplatte } from "./platte";
 import { rastKlick, zahnrad } from "./klang";
+import { sprache, t } from "../sprache";
 
 // Geburtsort als zwei Walzen unter dem Kreis, wie die Skala eines alten MW-Radios: Die Namen stehen
 // entlang des Schlitzes und gleiten beim Wischen durch; gewaehlt ist, was am roten Zeiger (Mitte) steht.
@@ -54,7 +55,7 @@ const WECHSEL_MS = 1500;
 let regionNamen = null;
 function landName(code, fallback) {
   try {
-    regionNamen ??= new Intl.DisplayNames(["de"], { type: "region" });
+    regionNamen ??= new Intl.DisplayNames([sprache], { type: "region" });
     return regionNamen.of(code) ?? fallback;
   } catch {
     return fallback;
@@ -292,8 +293,8 @@ function Walze({ r, eintraege, index, onIndex, svgPunkt, metall, schrift = 13 })
 
 // Anfang der Ortswalze: "Ort unbekannt" und ein Pfeil "oder doch?"; dahinter folgen die Orte des Landes.
 const ANFANG_ORTE = [
-  { key: "?", label: "Ort unbekannt", ort: null },
-  { key: "pfeil", label: "—— oder doch? ——→", waehlbar: false },
+  { key: "?", label: t("orte.unbekannt"), ort: null },
+  { key: "pfeil", label: t("orte.oder_doch"), waehlbar: false },
 ];
 
 export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt, platteInnen, platteAussen }) {
@@ -303,12 +304,12 @@ export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt, platteInne
   const [stadtIdx, setStadtIdx] = useState(0);
 
   useEffect(() => {
-    fetch(`${API_BASE}/orte/laender?zeitzone=${encodeURIComponent(ZEITZONE)}`)
+    holen(`/orte/laender?zeitzone=${encodeURIComponent(ZEITZONE)}`)
       .then((r) => r.json())
       .then((d) => {
         const liste = d.laender
           .map((l) => ({ key: l.code, code: l.code, label: landName(l.code, l.name) }))
-          .sort((a, b) => a.label.localeCompare(b.label, "de"));
+          .sort((a, b) => a.label.localeCompare(b.label, sprache));
         setLaender(liste);
         const ziel = d.vorschlag ?? "AT";
         setLandIdx(Math.max(0, liste.findIndex((l) => l.code === ziel)));
@@ -330,7 +331,7 @@ export default function OrtWalzen({ svgPunkt, metall = "gold", onOrt, platteInne
   useEffect(() => {
     if (!land) return undefined;
     const ab = new AbortController();
-    fetch(`${API_BASE}/orte/staedte?land=${land.code}&limit=60`, { signal: ab.signal })
+    holen(`/orte/staedte?land=${land.code}&limit=60`, { signal: ab.signal })
       .then((r) => r.json())
       .then((d) => {
         setStaedte([...ANFANG_ORTE, ...d.staedte.map((s) => ({ key: `${s.name}-${s.lat}`, label: s.name, ort: s }))]);

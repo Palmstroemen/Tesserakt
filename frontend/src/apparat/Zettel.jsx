@@ -7,6 +7,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { papier } from "./klang";
+import { t } from "../sprache";
 
 const SCHLUESSEL = "tesserakt-zettel";
 
@@ -28,7 +29,7 @@ export function zettelWeglegen() {
 }
 
 // Bleistiftnotizen neben einzelnen Horoskopen
-const NOTIZ = { Vedisch: "indisch" };
+const NOTIZ = t("zettel.notiz");
 // Handschrift: jede Zeile etwas anders geneigt und eingerueckt
 const ZEILE = [
   [-0.8, 0],
@@ -82,7 +83,7 @@ function Kritzelei() {
         />
       </g>
       <text x="120" y="98" transform="rotate(-3 120 98)">
-        Aktivieren
+        {t("zettel.aktivieren")}
       </text>
     </svg>
   );
@@ -93,14 +94,11 @@ function Blatt({ kopie = false }) {
     <div
       className="zt-blatt"
       role={kopie ? undefined : "dialog"}
-      aria-label={kopie ? undefined : "Zettel"}
+      aria-label={kopie ? undefined : t("zettel.zettel")}
       aria-hidden={kopie || undefined}
     >
-      <p className="zt-frage">
-        Du meinst, dein Horoskop beschreibt dich gut? Aber wie beschreiben dich
-        andere Horoskope der Welt? Finde es heraus!
-      </p>
-      <h2>Horoskopsysteme</h2>
+      <p className="zt-frage">{t("zettel.frage")}</p>
+      <h2>{t("zettel.ueberschrift")}</h2>
       {/* mit dem Bleistift unterstrichen */}
       <svg className="zt-strich" viewBox="0 0 200 10" aria-hidden="true">
         <path d="M4 6 C 40 3, 80 8, 120 5 S 180 3, 196 6" />

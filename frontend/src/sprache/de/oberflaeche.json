@@ -1,0 +1,279 @@
+{
+  "spiele": {
+    "A": {
+      "pole": [
+        "trifft nicht zu",
+        "trifft zu"
+      ],
+      "vergleich": "anderen Geburtsdaten"
+    },
+    "B": {
+      "pole": [
+        "trifft nicht zu",
+        "trifft zu"
+      ],
+      "vergleich": "anderen Geburtsdaten"
+    },
+    "C": {
+      "pole": [
+        "eher ich",
+        "eher Partner:in"
+      ],
+      "vergleich": "zufälligen Paaren"
+    }
+  },
+  "rueckblick": {
+    "zeitpunkte": {
+      "7": "vor 1 Woche",
+      "14": "vor 2 Wochen",
+      "30": "vor 1 Monat",
+      "60": "vor 2 Monaten",
+      "90": "vor 3 Monaten",
+      "weiss_nicht": "weiß nicht mehr"
+    },
+    "wann_noch": "Weißt du noch ungefähr, wann das war?",
+    "wann": "Wann war das ungefähr?",
+    "erinnerung": "Zum Schluss: Erinnerung {nr} von {anzahl}",
+    "ja": "Ja",
+    "nein": "Nein",
+    "weiss_nicht": "Weiß ich nicht"
+  },
+  "ergebnis": {
+    "titel": {
+      "A": "Dein Ergebnis",
+      "B": "Dein Rückblick",
+      "C": "Euer Ergebnis"
+    },
+    "erklaerung": "Skill 0 = Zufall, +100 = besser als alle {vergleich}. Ohne jede Aussagekraft erreicht das beste von {anzahl} Horoskopen im Mittel etwa +{erwartung}.",
+    "erklaerung_reihenfolge": "Reihenfolge: Mittel aus dem letzten Monat und den letzten drei Monaten.",
+    "abkuerzung": "Abkürzung über das Datum (Entwicklung): Die Antworten wurden gewürfelt.",
+    "letzter_monat": "Letzter Monat",
+    "letzte_drei_monate": "Letzte drei Monate",
+    "zeitpunkte": "Zeitpunkte",
+    "besser_als": "besser als {perzentil} von 100 {vergleich} · mitgespielt bei {mit} von {fragen} Fragen",
+    "besser_als_mittel": "im Mittel besser als {perzentil} von 100 {vergleich} · mitgespielt bei {mit} von {fragen} Fragen",
+    "heute": "Heute",
+    "dein_jahr": "Dein Jahr",
+    "dein_horoskop": "Dein Horoskop",
+    "euer_paar": "Euer Paar",
+    "systeme": "Horoskope",
+    "rangliste": "Rangliste"
+  },
+  "spielplatte": {
+    "rechnet": "Das Räderwerk rechnet …"
+  },
+  "monate": {
+    "ring": [
+      "Jan",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
+    ],
+    "zaehlwerk": [
+      "Jän",
+      "Feb",
+      "Mär",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
+    ]
+  },
+  "datum": {
+    "erst_datum": "Erst das Geburtsdatum einstellen.",
+    "partner": "Jetzt das Geburtsdatum deines Partners oder deiner Partnerin – dann C.",
+    "oeffnet": "Der Apparat öffnet sich …",
+    "spiel": "Spiel {spiel}",
+    "scheibe": "Geburtsdatum und Geburtsort einstellen",
+    "datumsscheibe": "Datumsscheibe"
+  },
+  "intl": {
+    "gebiet": "de-AT"
+  },
+  "buch": {
+    "euer_paar": "Euer Paar",
+    "so_denkt": "So denkt dieses Horoskop",
+    "dein_horoskop": "Dein Horoskop",
+    "heute": "Dein Horoskop für heute",
+    "dein_jahr": "Dein Jahr",
+    "lebensbereiche": "Deine Lebensbereiche",
+    "titelzeichen": "TESSERAKT",
+    "geboren_am": "Geboren am {datum}",
+    "geboren_um": "Geboren am {datum} um {uhrzeit} Uhr",
+    "berechnet": "Berechnet und gesetzt mit dem Tesserakt-Apparat am {datum}.",
+    "enthaelt_eins": "Enthält das Horoskop: {liste}.",
+    "enthaelt_mehrere": "Enthält die Horoskope: {liste}.",
+    "hinweis": "Die Horoskope folgen den überlieferten Regeln ihrer Traditionen. Sie dienen der Unterhaltung und einem wissenschaftlichen Experiment und ersetzen keine Beratung.",
+    "rechte": "© {jahr} Tesserakt. Alle Rechte vorbehalten.",
+    "notizen": "Notizen",
+    "kaestchen_bild": "Das Kästchen des Tesserakt-Apparats",
+    "projekt": "ein wissenschaftliches Projekt von DI Oliver Rafelsberger",
+    "zurueck": "Zurück",
+    "seiten": "{anzahl} Seiten · 21 × 21 cm",
+    "hell": "Hell",
+    "dunkel": "Dunkel",
+    "drucken": "Drucken / PDF"
+  },
+  "systeme": {
+    "Numerologie": {
+      "name": "Numerologie",
+      "gravur": "Num",
+      "kurz": "N"
+    },
+    "Kabbalah": {
+      "name": "Kabbalah",
+      "gravur": "Kaba",
+      "kurz": "K"
+    },
+    "Bazi": {
+      "name": "Chinesisch",
+      "unter": "Vier Säulen (Bazi)",
+      "gravur": "Chin",
+      "kurz": "Ch"
+    },
+    "Vedisch": {
+      "name": "Vedisch",
+      "gravur": "Ved",
+      "kurz": "J"
+    },
+    "Arabisch": {
+      "name": "Arabisch",
+      "gravur": "Arab",
+      "kurz": "Ar"
+    },
+    "Westlich": {
+      "name": "Westlich",
+      "gravur": "Wes",
+      "kurz": "W"
+    },
+    "Hellenistisch": {
+      "name": "Hellenistisch",
+      "gravur": "Hel",
+      "kurz": "H"
+    }
+  },
+  "buchauswahl": {
+    "vorgabe": {
+      "eins": "Mein Horoskop",
+      "mehrere": "Meine Horoskope",
+      "paar_eins": "Unser Horoskop",
+      "paar_mehrere": "Unsere Horoskope"
+    },
+    "horoskopbuch": "Horoskopbuch",
+    "dein_buch": "Dein Horoskopbuch",
+    "euer_buch": "Euer Horoskopbuch",
+    "werbung": "Wenn du fertig bist, kannst du alle deine Horoskope als Buch bestellen.",
+    "werbung_paar": "Wenn ihr fertig seid, könnt ihr alle eure Horoskope als Buch bestellen.",
+    "format": "21 × 21 cm · je Horoskop vier Seiten",
+    "geschenk": "Ein schönes Geschenk, wenn du's für jemanden anderen machst.",
+    "geschenk_paar": "Ein schönes Geschenk, wenn ihr's für jemanden anderen macht.",
+    "schliessen": "Schließen",
+    "titel": "Titel",
+    "nach_oben": "nach oben",
+    "nach_unten": "nach unten",
+    "mindestens_eins": "Wähle mindestens ein Horoskop.",
+    "anzahl_eins": "1 Horoskop: ",
+    "anzahl": "{anzahl} Horoskope: ",
+    "preis": "{preis} €",
+    "ansehen": "Buch ansehen",
+    "bestellen": "Bestellen",
+    "folgt": "folgt"
+  },
+  "ecken": {
+    "zurueck": "Eine Frage zurück",
+    "buch": "Buch"
+  },
+  "vorblatt": {
+    "kamera_freigeben": "Kamera freigeben",
+    "ohne_kamera": "Ohne Kamera spielen",
+    "ausfuehrlich": "Ausführlich erklärt: was mit deinen Daten geschieht",
+    "einwilligen": "Ich willige ein",
+    "ohne_speicherung": "Ohne Speicherung spielen",
+    "zurueck": "Zurück"
+  },
+  "zettel": {
+    "aktivieren": "Aktivieren",
+    "zettel": "Zettel",
+    "frage": "Du meinst, dein Horoskop beschreibt dich gut? Aber wie beschreiben dich andere Horoskope der Welt? Finde es heraus!",
+    "ueberschrift": "Horoskopsysteme",
+    "notiz": {
+      "Vedisch": "indisch"
+    }
+  },
+  "orte": {
+    "unbekannt": "Ort unbekannt",
+    "oder_doch": "—— oder doch? ——→"
+  },
+  "bereiche": {
+    "liebe": "Liebe",
+    "beruf": "Beruf",
+    "finanzen": "Finanzen",
+    "gesundheit": "Gesundheit",
+    "soziales": "Soziales",
+    "kreativitaet": "Kreativität",
+    "veraenderung": "Veränderung",
+    "spiritualitaet": "Spiritualität"
+  },
+  "diagramme": {
+    "hellenistisch": {
+      "bild": "Profektion: Haus {haus}",
+      "bild_herr": "Profektion: Haus {haus}, Jahresherrscher {herr}",
+      "paar": "Teller für zwei: Sonne, Mond und Aszendent beider Personen in den zwölf Zeichen"
+    },
+    "kabbalah": {
+      "und_andere": "{bereich} u.a.",
+      "stark": "stark: {liste}",
+      "schwach": "schwach: {liste}",
+      "tarot": "Tarot: {karte}",
+      "bild": "Baum des Lebens, aktive Sephira {name}",
+      "paar": "Baum des Lebens für zwei: {a} und {b}"
+    },
+    "numerologie": {
+      "quersumme_tag": "Quersumme Tag:",
+      "quersumme_monat": "Quersumme Monat:",
+      "quersumme_jahr": "Quersumme Jahr:",
+      "quersumme": "Quersumme: {wert}",
+      "bild": "Numerologie: Lebenszahl {zahl}",
+      "meisterzahl": "Meisterzahl!",
+      "lebenszahl": "Lebenszahl",
+      "paar": "Numerologie für zwei: Lebenszahlen {a} und {b}",
+      "mit_meisterzahl": "(mit Meisterzahl)"
+    },
+    "du": "du",
+    "gegenueber": "Gegenüber",
+    "du_klammer": "(du)",
+    "gegenueber_klammer": "(Gegenüber)",
+    "westlich": {
+      "bild": "Radix: Planeten und Aspekte",
+      "ohne_ort": "ohne Geburtsort keine Häuser",
+      "ac": "AC",
+      "mc": "MC",
+      "paar": "Doppelrad: deine Planeten innen, die deines Gegenübers außen, Aspekte als Lichtfäden"
+    },
+    "bazi": {
+      "bild": "Bazi: die vier Säulen",
+      "paar": "Bazi für zwei: die Tagessäulen, verbunden durch einen roten Faden"
+    },
+    "arabisch": {
+      "bild": "Firdaria: aktiv {name}",
+      "paar": "Firdaria für zwei: dein Ring außen, der deines Gegenübers innen"
+    },
+    "vedisch": {
+      "bild": "Vimshottari-Dasha: aktiv {name}",
+      "paar": "Kutas: {punkte} von {max} Punkten"
+    }
+  }
+}

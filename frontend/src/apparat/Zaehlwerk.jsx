@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef } from "react";
 import { MITTE } from "./geometrie";
 import { neigungAbonnieren } from "./neigung";
+import { t } from "../sprache";
 
 // Mitte der Datumsscheibe: eine kleine Linse, durch die man auf ein Rollenzaehlwerk sieht (wie bei alten
 // Kilometerzaehlern), ganz im Dunkeln und von hinten durchleuchtet von derselben Mattscheibe wie die Dias:
@@ -10,20 +11,7 @@ import { neigungAbonnieren } from "./neigung";
 // dreht. Walzen und Rad laufen mit leichtem Nachschwingen auf ihren Wert (CSS: .zw-streifen, .zw-stundenrad).
 // Keine Verzerrung als Filter: die Scheibe wird beim Drehen neu gezeichnet.
 
-const MONATE_KURZ = [
-  "Jän",
-  "Feb",
-  "Mär",
-  "Apr",
-  "Mai",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Okt",
-  "Nov",
-  "Dez",
-];
+const MONATE_KURZ = t("monate.zaehlwerk");
 const H = 17; // Hoehe eines Walzenfensters
 const B = 11; // Breite einer Ziffernwalze
 const LUFT = 1; // zwischen zwei Walzen

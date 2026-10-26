@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "de",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/beschriftungen/beschriftungen_v1.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_heute.py"
+  },
+  "gruppen": {
+    "planeten": {
+      "sonne": "Sonne",
+      "mond": "Mond",
+      "merkur": "Merkur",
+      "venus": "Venus",
+      "mars": "Mars",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn",
+      "uranus": "Uranus",
+      "neptun": "Neptun",
+      "pluto": "Pluto",
+      "nordknoten": "Nordknoten",
+      "suedknoten": "Südknoten",
+      "rahu": "Rahu",
+      "ketu": "Ketu"
+    },
+    "tierkreis": {
+      "aries": "Widder",
+      "taurus": "Stier",
+      "gemini": "Zwillinge",
+      "cancer": "Krebs",
+      "leo": "Löwe",
+      "virgo": "Jungfrau",
+      "libra": "Waage",
+      "scorpio": "Skorpion",
+      "sagittarius": "Schütze",
+      "capricorn": "Steinbock",
+      "aquarius": "Wassermann",
+      "pisces": "Fische"
+    },
+    "numerologie_schritte": {
+      "tag": "Tag",
+      "monat": "Monat",
+      "jahr": "Jahr",
+      "quersumme_tag": "Quersumme Tag",
+      "quersumme_monat": "Quersumme Monat",
+      "quersumme_jahr": "Quersumme Jahr",
+      "summe": "Summe",
+      "lebenspfad": "Lebenspfad"
+    },
+    "hellenistisch": {
+      "haus": "Haus {nr}"
+    }
+  }
+}

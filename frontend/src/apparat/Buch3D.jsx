@@ -3,6 +3,7 @@
 // Die Dicke waechst mit der Zahl der Horoskope.
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import HoroskopIcon from "./HoroskopIcon";
+import { t } from "../sprache";
 
 export default function Buch3D({ titel, geburt, auswahl }) {
   const dicke = 10 + Math.max(auswahl.length, 1) * 3;
@@ -16,7 +17,7 @@ export default function Buch3D({ titel, geburt, auswahl }) {
           <span className="b3-ruecken-marke">T</span>
         </div>
         <div className="b3-deckel">
-          <div className="b3-zeichen">TESSERAKT</div>
+          <div className="b3-zeichen">{t("buch.titelzeichen")}</div>
           <div className="b3-titel">{titel}</div>
           {geburt?.a ? (
             <div className={geburt.b ? "b3-scheiben paar" : "b3-scheiben"}>
@@ -41,7 +42,7 @@ export default function Buch3D({ titel, geburt, auswahl }) {
             ))}
           </div>
           <div className="b3-datum">
-            {new Date().toLocaleDateString("de-AT", {
+            {new Date().toLocaleDateString(t("intl.gebiet"), {
               day: "numeric",
               month: "long",
               year: "numeric",

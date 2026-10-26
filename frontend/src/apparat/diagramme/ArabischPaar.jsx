@@ -14,6 +14,7 @@ import {
   ton,
   zufallVon,
 } from "./ArabischZellij";
+import { t } from "../../sprache";
 
 const G = 300;
 const M = G / 2;
@@ -133,7 +134,7 @@ export default function ArabischPaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="az ap"
       role="img"
-      aria-label="Firdaria für zwei: dein Ring außen, der deines Gegenübers innen"
+      aria-label={t("diagramme.arabisch.paar")}
     >
       <defs>
         <linearGradient id="ap-gold" x1="0" y1="0" x2="1" y2="1">

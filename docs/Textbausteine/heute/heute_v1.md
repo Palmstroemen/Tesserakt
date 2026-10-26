@@ -170,6 +170,18 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - saturn: Saturn
 - merkur: Merkur
 
+## Vedisch: Planetennamen {#planeten_kurz}
+
+- ketu: Ketu
+- venus: Venus
+- sonne: Sonne
+- mond: Mond
+- mars: Mars
+- rahu: Rahu
+- jupiter: Jupiter
+- saturn: Saturn
+- merkur: Merkur
+
 ## Jahreshoroskop Chinesisch {#ausblick_bazi}
 
 - monat_gleich: Die Monate tragen das Element {monat}, wie dein Tagesmeister. Das Selbstvertrauen wird wachsen; Menschen mit ähnlichen Zielen treten auf – als Kameraden oder als Konkurrenz.
@@ -185,6 +197,8 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - chong_monat: Der {tier}-Monat prallt auf den Zweig deiner Tagessäule ({natal}) – ein Zusammenstoß (Chong), der Veränderung erzwingt. {text}
 - chong_jahr: Das neue Jahr prallt auf den Zweig deines Geburtsjahres ({natal}) – ein Zusammenstoß (Chong) mit dem Jahresherrscher. {text}
 - glueckssaeule: Eine neue Glückssäule beginnt und prägt die nächsten zehn Jahre: {saeule}. {stamm} {zweig}
+- jahr_name: {element}-{tier}
+- saeule_name: {element}-{tier}-Säule ({stamm} {zweig})
 
 ## Chinesisch: Tierkreiszweige {#bazi_tiere}
 
@@ -300,3 +314,34 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 ## Ausgeglichen {#ausgeglichen}
 
 - text: Heute halten sich die Kräfte in diesem System die Waage – kein Bereich sticht besonders hervor.
+
+## Zeitangaben im Jahreshoroskop {#zeit}
+
+Platzhalter: {monat} Monatsname, {tag} Tag im Monat, {zeit} eine Zeitangabe, {von}/{bis} zwei Zeitangaben.
+
+- monat_1: Jänner
+- monat_2: Februar
+- monat_3: März
+- monat_4: April
+- monat_5: Mai
+- monat_6: Juni
+- monat_7: Juli
+- monat_8: August
+- monat_9: September
+- monat_10: Oktober
+- monat_11: November
+- monat_12: Dezember
+- anfang: Anfang {monat}
+- mitte: Mitte {monat}
+- ende: Ende {monat}
+- datum: {tag}. {monat}
+- um_den: Um den {tag}. {monat}
+- von_bis: {von} bis {bis}
+- das_ganze_jahr: Das ganze Jahr
+- bis: Bis {zeit}
+- ab: Ab {zeit}
+- im_monat: Im {monat}
+- rueck_ab: ab {zeit}
+- rueck_von_bis: von {von} bis {bis}
+- bis_geburtstag: Bis zu deinem Geburtstag am {zeit}
+- ab_geburtstag: Ab deinem Geburtstag am {zeit}

@@ -3,6 +3,8 @@
 // Fachlich wie Visuals.md 2.3: vier Saeulen, je Himmelsstamm ueber Erdzweig, senkrecht und von rechts nach
 // links gelesen (Jahr, Monat, Tag, Stunde); Tagesmeister hervorgehoben; fuenf Elemente.
 // Hervorhebung: goldenes Rautenblatt (斗方) hinter dem Tagesmeister. Reines SVG.
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 
@@ -82,7 +84,7 @@ export default function BaziKarte({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="bk"
       role="img"
-      aria-label="Bazi: die vier Säulen"
+      aria-label={t("diagramme.bazi.bild")}
     >
       <defs>
         <radialGradient id="bk-papier" cx="45%" cy="40%" r="70%">

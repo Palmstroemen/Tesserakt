@@ -3,6 +3,8 @@
 // Kanaele mit ihren hebraeischen Buchstaben (kabbalah_pfade.json), Sephiroth als doppelt umrandete Kreise
 // mit Nummer und Namen. Jemand hat mit Farbstift darin gearbeitet: die aktive Sephira schraffiert und
 // umkringelt, den aktiven Pfad ausgemalt. Papier: vergilbtes Pergament. Fachlich: Visuals.md 2.5.
+import { t } from "../../sprache";
+
 const G = 300;
 export const M = G / 2;
 const R = 57; // Abstand benachbarter Sephiroth
@@ -136,18 +138,13 @@ const FLECKEN = (() => {
 })();
 
 // Randnotizen: kurze Zeilen in Handschrift am Seitenrand, mit gekritzeltem Bezugsstrich zum Element
-const BEREICH = {
-  liebe: "Liebe",
-  beruf: "Beruf",
-  finanzen: "Finanzen",
-  gesundheit: "Gesundheit",
-  soziales: "Soziales",
-  kreativitaet: "Kreativität",
-  veraenderung: "Veränderung",
-  spiritualitaet: "Spiritualität",
-};
+const BEREICH = t("bereiche");
 const liste = (dims) =>
-  dims.length ? BEREICH[dims[0]] + (dims.length > 1 ? " u.a." : "") : null;
+  dims.length
+    ? dims.length > 1
+      ? t("diagramme.kabbalah.und_andere", { bereich: BEREICH[dims[0]] })
+      : BEREICH[dims[0]]
+    : null;
 
 export function Notiz({
   zeilen,
@@ -203,8 +200,10 @@ function randnotizen(payload, aktiv, pfad, stift, stiftPfad) {
   if (k && n.sephira) {
     const zeilen = [
       n.sephira.deutsch,
-      liste(n.sephira.stark) && `stark: ${liste(n.sephira.stark)}`,
-      liste(n.sephira.schwach) && `schwach: ${liste(n.sephira.schwach)}`,
+      liste(n.sephira.stark) &&
+        t("diagramme.kabbalah.stark", { liste: liste(n.sephira.stark) }),
+      liste(n.sephira.schwach) &&
+        t("diagramme.kabbalah.schwach", { liste: liste(n.sephira.schwach) }),
     ].filter(Boolean);
     const seite = k.x < M - 1 ? "links" : "rechts";
     notizen.push({
@@ -220,8 +219,9 @@ function randnotizen(payload, aktiv, pfad, stift, stiftPfad) {
     const b = buchstabenOrt(pfad);
     const zeilen = [
       `${pfad.letter} = ${n.pfad.bedeutung}`,
-      n.pfad.tarot && `Tarot: ${n.pfad.tarot}`,
-      liste(n.pfad.stark) && `stark: ${liste(n.pfad.stark)}`,
+      n.pfad.tarot && t("diagramme.kabbalah.tarot", { karte: n.pfad.tarot }),
+      liste(n.pfad.stark) &&
+        t("diagramme.kabbalah.stark", { liste: liste(n.pfad.stark) }),
     ].filter(Boolean);
     const seite = b.x < M - 1 ? "links" : "rechts";
     notizen.push({
@@ -454,7 +454,7 @@ export default function KabbalahBuch({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="kb"
       role="img"
-      aria-label={`Baum des Lebens, aktive Sephira ${namen[aktiv] ?? ""}`}
+      aria-label={t("diagramme.kabbalah.bild", { name: namen[aktiv] ?? "" })}
     >
       <Seite pfade={pfade} namen={namen} />
 

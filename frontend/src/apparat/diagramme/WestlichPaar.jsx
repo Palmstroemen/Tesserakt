@@ -5,6 +5,7 @@
 // Opposition flackern. Ausrichtung: dein Aszendent links, ohne Geburtsort der Widderpunkt.
 import { useMemo } from "react";
 import { T, ZEICHEN, sterne, verteilen } from "./WestlichNacht";
+import { t } from "../../sprache";
 
 const G = 300;
 const M = G / 2;
@@ -73,19 +74,19 @@ function Ring({ punkte, asc, r, rEcht, fuell, klasse }) {
       })}
       {punkte.aszendent != null
         ? (() => {
-            const t = punkt(punkte.aszendent, asc, r);
+            const lage = punkt(punkte.aszendent, asc, r);
             const e = punkt(punkte.aszendent, asc, rEcht);
             return (
               <g>
                 <circle cx={e.x} cy={e.y} r="1.5" fill={fuell} />
                 <text
-                  x={t.x}
-                  y={t.y}
+                  x={lage.x}
+                  y={lage.y}
                   dy="0.35em"
                   className="wp-ac"
                   fill={fuell}
                 >
-                  AC
+                  {t("diagramme.westlich.ac")}
                 </text>
               </g>
             );
@@ -107,7 +108,7 @@ export default function WestlichPaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="wn wp"
       role="img"
-      aria-label="Doppelrad: deine Planeten innen, die deines Gegenübers außen, Aspekte als Lichtfäden"
+      aria-label={t("diagramme.westlich.paar")}
     >
       <defs>
         <radialGradient id="wp-himmel" cx="50%" cy="45%" r="60%">

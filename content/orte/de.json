@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "beschreibung": "Namen grosser Staedte in dieser Sprache, wo GeoNames nur den englischen fuehrt (Prototyp, erweiterbar). Schluessel: englischer GeoNames-Name."
+  },
+  "namen": {
+    "Vienna": "Wien",
+    "Munich": "München",
+    "Cologne": "Köln",
+    "Nuremberg": "Nürnberg",
+    "Hanover": "Hannover",
+    "Brunswick": "Braunschweig",
+    "Zurich": "Zürich",
+    "Geneva": "Genf",
+    "Lucerne": "Luzern",
+    "Rome": "Rom",
+    "Milan": "Mailand",
+    "Venice": "Venedig",
+    "Naples": "Neapel",
+    "Florence": "Florenz",
+    "Prague": "Prag",
+    "Warsaw": "Warschau",
+    "Krakow": "Krakau",
+    "Moscow": "Moskau",
+    "Lisbon": "Lissabon",
+    "Brussels": "Brüssel",
+    "Copenhagen": "Kopenhagen",
+    "Athens": "Athen",
+    "Belgrade": "Belgrad",
+    "Bucharest": "Bukarest",
+    "Kyiv": "Kiew",
+    "Saint Petersburg": "Sankt Petersburg",
+    "Beijing": "Peking",
+    "Tokyo": "Tokio",
+    "Mexico City": "Mexiko-Stadt",
+    "New Delhi": "Neu-Delhi",
+    "Cairo": "Kairo",
+    "The Hague": "Den Haag",
+    "Antwerp": "Antwerpen",
+    "Strasbourg": "Straßburg",
+    "Seville": "Sevilla"
+  }
+}

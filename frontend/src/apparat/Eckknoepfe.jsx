@@ -2,13 +2,14 @@ import { useState } from "react";
 import { METALL } from "./Datumsrad";
 import { KNOPF } from "./platte";
 import { hebel } from "./klang";
+import { t } from "../sprache";
 
 // Knoepfe in den oberen Ecken des Faechers: dieselben Messingknoepfe wie A und B der Datumsseite, an
 // derselben Stelle (Datumsrad.jsx: KNOEPFE). Beim Uebergang legen sie sich unbemerkt ueber A und B, nur die
 // Gravur wechselt: links "‹" (eine Frage zurueck, vor der ersten zur Datumsscheibe), rechts das Buch.
 const ECKEN = [
-  { id: "zurueck", x: KNOPF.ecke, y: KNOPF.ecke, name: "Eine Frage zurück" },
-  { id: "buch", x: 400 - KNOPF.ecke, y: KNOPF.ecke, name: "Buch" },
+  { id: "zurueck", x: KNOPF.ecke, y: KNOPF.ecke, name: t("ecken.zurueck") },
+  { id: "buch", x: 400 - KNOPF.ecke, y: KNOPF.ecke, name: t("ecken.buch") },
 ];
 
 function Gravur({ id }) {

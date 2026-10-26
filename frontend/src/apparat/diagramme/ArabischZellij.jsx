@@ -4,6 +4,8 @@
 // Dauer, 0 Jahre oben, im Uhrzeigersinn), die aktive in Blattgold; ein Messingzeiger (Alhidade) zeigt die
 // heutige Stelle im Zyklus auf einer Randskala (alle 5 Jahre eine ostarabische Ziffer). Mitte: zwoelfzackiger Kachelstern mit Windrose; die Nabe golden bei Tag-,
 // silbern bei Nachtgeburt. Bewusst kein achtzackiger Stern mit Kreis (Rub el Hizb, Zeichen im Koran).
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 const R_SKALA = 140; // Randskala 0..75 Jahre (Ziffern und kleine Kacheln)
@@ -79,7 +81,7 @@ export default function ArabischZellij({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="az"
       role="img"
-      aria-label={`Firdaria: aktiv ${aktiv?.label ?? ""}`}
+      aria-label={t("diagramme.arabisch.bild", { name: aktiv?.label ?? "" })}
     >
       <defs>
         <linearGradient id="az-gold" x1="0" y1="0" x2="1" y2="1">

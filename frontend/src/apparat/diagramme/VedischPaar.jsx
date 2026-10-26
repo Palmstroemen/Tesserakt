@@ -3,6 +3,8 @@
 // mit Farbpulver gefuellt, wie Punkte erreicht sind. Aussen der Kolam-Ring der 27 Nakshatras mit zwei
 // Armreifen: Gold um dein Geburts-Nakshatra, Silber um das deines Gegenuebers. Von beiden fuehrt eine Schnur
 // zur Mitte; ab der Haelfte der Punkte sind sie dort verknotet, sonst liegen die Enden lose nebeneinander.
+import { t, zahl } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 const R_KOLAM = 116;
@@ -128,7 +130,10 @@ export default function VedischPaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="vr vp"
       role="img"
-      aria-label={`Kutas: ${daten.punkte} von ${daten.max} Punkten`}
+      aria-label={t("diagramme.vedisch.paar", {
+        punkte: daten.punkte,
+        max: daten.max,
+      })}
     >
       <defs>
         <radialGradient id="vp-boden" cx="45%" cy="40%" r="70%">
@@ -251,7 +256,7 @@ export default function VedischPaar({ daten }) {
               ))}
             </g>
             <text x={schild.x} y={schild.y} dy="0.35em" className="vp-schild">
-              {k.name} {String(daten.kutas[k.id]).replace(".", ",")}/{k.max}
+              {k.name} {zahl(daten.kutas[k.id])}/{k.max}
             </text>
           </g>
         );

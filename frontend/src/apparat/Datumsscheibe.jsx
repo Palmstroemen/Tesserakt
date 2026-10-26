@@ -4,6 +4,7 @@
 import { MITTE } from "./geometrie";
 import Zaehlwerk from "./Zaehlwerk";
 import { Band, JAHR_VON, METALL, RINGE, Ring, schritt } from "./Datumsrad";
+import { t } from "../sprache";
 
 // Drehung der Ringe fuer ein Datum (Gegenstueck zu indexAus im Datumsrad)
 function drehungFuer({ jahr, monat, tag, stunde }) {
@@ -36,7 +37,7 @@ export default function Datumsscheibe({
       viewBox="0 0 400 400"
       className="dr-svg"
       role="img"
-      aria-label="Datumsscheibe"
+      aria-label={t("datum.datumsscheibe")}
     >
       <defs>
         <radialGradient id={`${praefix}-messing`} cx="35%" cy="30%" r="80%">

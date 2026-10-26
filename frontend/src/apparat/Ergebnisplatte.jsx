@@ -26,6 +26,7 @@ import HellenistischTeller from "./diagramme/HellenistischTeller";
 import VedischRangoli from "./diagramme/VedischRangoli";
 import ArabischZellij from "./diagramme/ArabischZellij";
 import NumerologieHeft from "./diagramme/NumerologieHeft";
+import { t } from "../sprache";
 
 // Ergebnis im Apparat: oben im magischen Auge die Horoskopgrafik des Systems, unten ein Textfeld,
 // dessen Oberkante dem Kreis folgt. Seitlich wischen fuehrt zum naechsten System; die Grafik im Auge gleitet
@@ -253,8 +254,9 @@ export default function Ergebnisplatte({
     const w = wisch.current;
     wisch.current = null;
     if (!w?.links) return;
-    const t = e.changedTouches[0];
-    if (t.clientX - w.x > 50 && Math.abs(t.clientY - w.y) < 60) onZurueck?.();
+    const finger = e.changedTouches[0];
+    if (finger.clientX - w.x > 50 && Math.abs(finger.clientY - w.y) < 60)
+      onZurueck?.();
   }
 
   function scrollen() {
@@ -374,7 +376,7 @@ export default function Ergebnisplatte({
             const h = heute?.systeme?.[id];
             const jahr = ausblick?.systeme?.[id];
             const euer = paar?.systeme?.[id];
-            const t = texte?.systems?.[id];
+            const st = texte?.systems?.[id];
             return (
               <article
                 key={id}
@@ -391,16 +393,16 @@ export default function Ergebnisplatte({
                     <tbody>
                       {[
                         [
-                          "Letzter Monat",
+                          t("ergebnis.letzter_monat"),
                           ergebnis.fenster.monat.systemDetails[id]?.skillScore,
                         ],
                         [
-                          "Letzte drei Monate",
+                          t("ergebnis.letzte_drei_monate"),
                           ergebnis.fenster.quartal.systemDetails[id]
                             ?.skillScore,
                         ],
                         [
-                          "Zeitpunkte",
+                          t("ergebnis.zeitpunkte"),
                           ergebnis.fenster.timing.ohneAussage?.includes(id)
                             ? null
                             : ergebnis.fenster.timing.systemDetails[id]
@@ -417,14 +419,22 @@ export default function Ergebnisplatte({
                 ) : null}
                 {d ? (
                   <p className="eg-leise">
-                    {ergebnis.fenster ? "im Mittel " : ""}besser als{" "}
-                    {d.perzentil.toFixed(0)} von 100 {vergleich} · mitgespielt
-                    bei {ergebnis.mitgespielt[id]} von {antwortZahl} Fragen
+                    {t(
+                      ergebnis.fenster
+                        ? "ergebnis.besser_als_mittel"
+                        : "ergebnis.besser_als",
+                      {
+                        perzentil: d.perzentil.toFixed(0),
+                        vergleich,
+                        mit: ergebnis.mitgespielt[id],
+                        fragen: antwortZahl,
+                      },
+                    )}
                   </p>
                 ) : null}
                 {h ? (
                   <>
-                    <h4>Heute</h4>
+                    <h4>{t("ergebnis.heute")}</h4>
                     {[...h.faktoren, ...h.tendenzen]
                       .filter(Boolean)
                       .map((p, i) => (
@@ -434,7 +444,7 @@ export default function Ergebnisplatte({
                 ) : null}
                 {jahr?.length ? (
                   <>
-                    <h4>Dein Jahr</h4>
+                    <h4>{t("ergebnis.dein_jahr")}</h4>
                     {jahr.map((e, i) => {
                       // "Zeitraum: Satz" -> Zeitraum hervorgehoben
                       const k = e.text.indexOf(": ");
@@ -446,27 +456,27 @@ export default function Ergebnisplatte({
                     })}
                   </>
                 ) : null}
-                {t ? (
+                {st ? (
                   <>
-                    {t.horoskop_ausfuehrlich ? (
+                    {st.horoskop_ausfuehrlich ? (
                       <>
-                        <h4>Dein Horoskop</h4>
-                        <Paragraphs text={t.horoskop_ausfuehrlich} />
+                        <h4>{t("ergebnis.dein_horoskop")}</h4>
+                        <Paragraphs text={st.horoskop_ausfuehrlich} />
                       </>
                     ) : null}
                     <Paragraphs
                       text={introMitBild(
-                        t.intro,
+                        st.intro,
                         visualPayloads?.[id]?.bildtext,
                       )}
                     />
-                    <Dimensionen daten={t} />
-                    <Paragraphs text={t.paracelsus_outro} />
+                    <Dimensionen daten={st} />
+                    <Paragraphs text={st.paracelsus_outro} />
                   </>
                 ) : null}
                 {euer?.aussagen?.length ? (
                   <>
-                    <h4>Euer Paar</h4>
+                    <h4>{t("ergebnis.euer_paar")}</h4>
                     {euer.aussagen.map((a, i) => (
                       <p key={i}>{a}</p>
                     ))}
@@ -476,11 +486,11 @@ export default function Ergebnisplatte({
             );
           })}
         </div>
-        <nav className="eg-punkte" aria-label="Systeme">
+        <nav className="eg-punkte" aria-label={t("ergebnis.systeme")}>
           {/* erster Punkt: zurueck zum Faecher mit der Rangliste */}
           <button
             type="button"
-            aria-label="Rangliste"
+            aria-label={t("ergebnis.rangliste")}
             className="faecher"
             onClick={() => onZurueck?.()}
           />

@@ -4,6 +4,8 @@
 // eingekringelt, schraeg darunter in anderer Handschrift "Meisterzahl!" (bei 11, 22, 33) oder "Lebenszahl".
 // Fachlich wie das Backend (numerology_chart.py): Quersummen bis 1-9, Meisterzahlen 11, 22, 33 bleiben.
 // Schriften: Patrick Hand (Schueler), Caveat (Lehrerin), beide SIL OFL, zugeschnitten.
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 export const MEISTER = [11, 22, 33];
@@ -91,16 +93,36 @@ export default function NumerologieHeft({ payload }) {
   const LINKS = 40;
   const WERT = 146; // Beginn der Rechnung
   const zeilen = [
-    { label: "Quersumme Tag:", q: qTag, farbe: STIFT.tag, y: 106 },
-    { label: "Quersumme Monat:", q: qMonat, farbe: STIFT.monat, y: 128 },
-    { label: "Quersumme Jahr:", q: qJahr, farbe: STIFT.jahr, y: 150 },
+    {
+      label: t("diagramme.numerologie.quersumme_tag"),
+      q: qTag,
+      farbe: STIFT.tag,
+      y: 106,
+    },
+    {
+      label: t("diagramme.numerologie.quersumme_monat"),
+      q: qMonat,
+      farbe: STIFT.monat,
+      y: 128,
+    },
+    {
+      label: t("diagramme.numerologie.quersumme_jahr"),
+      q: qJahr,
+      farbe: STIFT.jahr,
+      y: 150,
+    },
   ];
 
   const summenZeile = `${qTag.wert} + ${qMonat.wert} + ${qJahr.wert} = `;
   const ySumme = 184;
   const yQuer = 208;
   const ergebnisX = qSumme.weg
-    ? WERT + breite(`Quersumme: ${qSumme.weg} `, GR) - 52
+    ? WERT +
+      breite(
+        `${t("diagramme.numerologie.quersumme", { wert: qSumme.weg })} `,
+        GR,
+      ) -
+      52
     : WERT + breite(summenZeile, GR);
   const ergebnisY = qSumme.weg ? yQuer : ySumme;
 
@@ -109,7 +131,7 @@ export default function NumerologieHeft({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="nh"
       role="img"
-      aria-label={`Numerologie: Lebenszahl ${ergebnis}`}
+      aria-label={t("diagramme.numerologie.bild", { zahl: ergebnis })}
     >
       <defs>
         <pattern
@@ -271,7 +293,7 @@ export default function NumerologieHeft({ payload }) {
             fontSize={GR}
             fill={TINTE}
           >
-            {`Quersumme: ${qSumme.weg}`}
+            {t("diagramme.numerologie.quersumme", { wert: qSumme.weg })}
           </text>
         ) : null}
         <text
@@ -314,7 +336,9 @@ export default function NumerologieHeft({ payload }) {
                 className="nh-lehrerin"
                 transform={`rotate(-10 ${cx - 6} ${cy + 32})`}
               >
-                {meister ? "Meisterzahl!" : "Lebenszahl"}
+                {meister
+                  ? t("diagramme.numerologie.meisterzahl")
+                  : t("diagramme.numerologie.lebenszahl")}
               </text>
             </g>
           );

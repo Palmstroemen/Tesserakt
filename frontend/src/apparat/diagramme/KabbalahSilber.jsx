@@ -7,6 +7,8 @@
 //
 // Technik: Das Relief wird als Hoehenkarte gezeichnet (Rot = Vertiefung, Gruen = Erhebung) und von einem
 // SVG-Lichtfilter (feDiffuseLighting/feSpecularLighting) in Metall mit Licht und Schatten umgerechnet.
+import { t } from "../../sprache";
+
 const G = 300;
 const M = G / 2;
 const R = 55; // Sechseckradius = Abstand benachbarter Sephiroth
@@ -202,7 +204,7 @@ export default function KabbalahSilber({ payload }) {
       viewBox={`0 0 ${G} ${G}`}
       className="ks"
       role="img"
-      aria-label={`Baum des Lebens, aktive Sephira ${namen[aktiv] ?? ""}`}
+      aria-label={t("diagramme.kabbalah.bild", { name: namen[aktiv] ?? "" })}
     >
       <defs>
         <radialGradient id="ks-woelbung" cx="42%" cy="38%" r="70%">

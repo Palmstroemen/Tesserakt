@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from uuid import uuid4
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -46,9 +46,16 @@ from rule_engine import (
 import ausblick
 import paar
 import orte
+import sprache
+from beschriftung import beschriften
 from store import compare_group, init_db, persist_session
 
 app = FastAPI(title="Tesserakt API", version="0.1.0")
+
+
+def _sprache(accept_language: Optional[str] = Header(default=None)) -> str:
+    """Sprache der Texte aus Accept-Language (die App schickt die ihre mit), sonst Deutsch (sprache.py)."""
+    return sprache.waehle(accept_language)
 app.add_middleware(
     CORSMiddleware,
     # Entwicklung: localhost und Geraete im privaten Heimnetz (Handy-Test im WLAN, start-dev.sh --handy).
@@ -440,7 +447,7 @@ def _validate_systeme(requested: List[str]) -> None:
 
 
 @app.post("/vektor", response_model=VektorResponse)
-def post_vektor(payload: VektorRequest) -> VektorResponse:
+def post_vektor(payload: VektorRequest, sp: str = Depends(_sprache)) -> VektorResponse:
     birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
 
@@ -465,7 +472,7 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
     if "Numerologie" in payload.systeme:
         visual_payloads["Numerologie"] = build_numerology_chart(birth_dt)
     if "Kabbalah" in payload.systeme:
-        visual_payloads["Kabbalah"] = build_kabbalah_chart(birth_dt)
+        visual_payloads["Kabbalah"] = build_kabbalah_chart(birth_dt, sprache.regeln("Kabbalah", sp))
     if "Hellenistisch" in payload.systeme:
         visual_payloads["Hellenistisch"] = build_profection_chart(birth_dt, inputs.get("tag_geburt"), inputs.get("asc_zeichen"))
     if "Arabisch" in payload.systeme:
@@ -478,9 +485,10 @@ def post_vektor(payload: VektorRequest) -> VektorResponse:
             nakshatra_index=nakshatra_index if nakshatra_index is not None else None,
             nakshatra_anteil=nakshatra_anteil if nakshatra_anteil is not None else None,
         )
+    beschriften(visual_payloads, sp)
     # Absatz zur Grafik (erklaert sie und nennt ein persoenliches Merkmal)
     for system, bild in visual_payloads.items():
-        text = bildtext(system, bild)
+        text = bildtext(system, bild, sp)
         if text:
             bild["bildtext"] = text
     response_inputs["visualPayloads"] = visual_payloads
@@ -603,8 +611,8 @@ def post_partner_kontrolle(payload: PartnerKontrollRequest) -> Dict[str, Any]:
 
 
 @app.get("/fragen/beziehung")
-def get_fragen_beziehung() -> Dict[str, Any]:
-    return FRAGEN_BEZIEHUNG
+def get_fragen_beziehung(sp: str = Depends(_sprache)) -> Dict[str, Any]:
+    return sprache.fragen("fragen_beziehung.json", sp)
 
 
 @app.get("/systeme")
@@ -620,27 +628,15 @@ def _content_root() -> Path:
 
 
 @app.get("/horoscope/texts")
-def get_horoscope_texts(locale: str = "de") -> Dict[str, object]:
+def get_horoscope_texts(sp: str = Depends(_sprache)) -> Dict[str, object]:
     """Liefert Systemtexte fuer die Deutungs-Tabs (intro, dimensions, paracelsus_outro)."""
-    if locale != "de":
-        raise HTTPException(status_code=404, detail="Nur locale=de verfügbar")
-    path = _content_root() / "content" / "horoscope" / "de" / "system_texts_v1.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="system_texts_v1.json nicht gefunden")
-    import json
-    data = json.loads(path.read_text(encoding="utf-8"))
-    return data
+    return sprache.inhalt("system_texts", sp)
 
 
 @app.get("/horoscope/erklaerungen")
-def get_erklaerungen(locale: str = "de") -> Dict[str, object]:
+def get_erklaerungen(sp: str = Depends(_sprache)) -> Dict[str, object]:
     """Erklaertexte (Skill, Methodik, Experiment), erzeugt aus docs/Textbausteine/erklaerungen/*.md."""
-    if locale != "de":
-        raise HTTPException(status_code=404, detail="Nur locale=de verfügbar")
-    path = _content_root() / "content" / "horoscope" / "de" / "erklaerungen_v1.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="erklaerungen_v1.json nicht gefunden")
-    return json.loads(path.read_text(encoding="utf-8"))
+    return sprache.inhalt("erklaerungen", sp)
 
 
 # Bazi: Fuenf-Elemente-Zyklen (Erzeugung und Kontrolle)
@@ -677,13 +673,10 @@ def _tendenzen(vektor: Dict[str, float], t: Dict[str, Dict[str, str]]) -> List[s
 
 
 @app.post("/horoscope/heute")
-def post_horoskop_heute(payload: VektorRequest) -> Dict[str, Any]:
-    """Horoskop fuer heute (Belohnung in Spiel B): Bausteine aus content/horoscope/de/heute_v1.json,
+def post_horoskop_heute(payload: VektorRequest, sp: str = Depends(_sprache)) -> Dict[str, Any]:
+    """Horoskop fuer heute (Belohnung in Spiel B): Bausteine aus content/horoscope/<sprache>/heute_v1.json,
     ausgewaehlt nach der heutigen Konstellation der zeitabhaengigen Systeme."""
-    path = _content_root() / "content" / "horoscope" / "de" / "heute_v1.json"
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="heute_v1.json nicht gefunden")
-    t = json.loads(path.read_text(encoding="utf-8"))["gruppen"]
+    t = sprache.inhalt("heute", sp)["gruppen"]
 
     birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
@@ -758,10 +751,9 @@ def _naechste_glueckssaeule(
 
 
 @app.post("/horoscope/ausblick")
-def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
+def post_horoskop_ausblick(payload: VektorRequest, sp: str = Depends(_sprache)) -> Dict[str, Any]:
     """Jahreshoroskop: datierte Ereignisse der naechsten 12 Monate je System (bisher Westlich)."""
-    path = _content_root() / "content" / "horoscope" / "de" / "heute_v1.json"
-    t = json.loads(path.read_text(encoding="utf-8"))["gruppen"]
+    t = sprache.inhalt("heute", sp)["gruppen"]
     birth_dt = parse_birth_datetime(payload.geburtsdatum, payload.uhrzeit)
     natal = ephemeris_compute(_zu_weltzeit(birth_dt, payload.zeitzone), latitude_deg=payload.latitude, longitude_deg=payload.longitude)
     start = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
@@ -776,7 +768,7 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
         moon = next(p for p in natal.planets if p.id == "moon")
         idx, anteil = moon_nakshatra(natal.jd, moon.longitude_deg)
         mond_zeichen = int(((moon.longitude_deg - ayanamsha_lahiri(natal.jd)) % 360.0) // 30)
-        dasha = json.loads((Path(__file__).resolve().parent / "Vedisch" / "jyotish_dasha.json").read_text(encoding="utf-8"))
+        dasha = sprache.regeldatei("Vedisch/jyotish_dasha.json", sp)
         systeme["Vedisch"] = ausblick.vedisch(
             vimshottari_position_now(idx, anteil, 0.0), birth_dt, mond_zeichen, _laufende_zeichen_siderisch, start, t,
             dasha["antardasha_matrix"], load_rules("Vedisch").get("gochara", {}),
@@ -786,21 +778,26 @@ def post_horoskop_ausblick(payload: VektorRequest) -> Dict[str, Any]:
         systeme["Hellenistisch"] = ausblick.hellenistisch(birth_dt, asc_zeichen, _HOUSE_LORD, _laufende_positionen, start, t)
     if "Arabisch" in payload.systeme:
         quelle = next(q for q in load_struktur("Arabisch")["vektor_quellen"] if q.get("typ") == "firdaria")
-        systeme["Arabisch"] = ausblick.arabisch(birth_dt, sonne_ueber_horizont(natal), quelle, load_rules("Arabisch"), start, t)
+        systeme["Arabisch"] = ausblick.arabisch(birth_dt, sonne_ueber_horizont(natal), quelle, sprache.regeln("Arabisch", sp), start, t)
     if "Numerologie" in payload.systeme:
-        systeme["Numerologie"] = ausblick.numerologie(birth_dt, start, t, load_rules("Numerologie"))
+        systeme["Numerologie"] = ausblick.numerologie(birth_dt, start, t, sprache.regeln("Numerologie", sp))
     if "Bazi" in payload.systeme:
         birth_ut = _zu_weltzeit(birth_dt, payload.zeitzone)
         saeulen = build_four_pillars(birth_dt, birth_ut, payload.longitude)["pillars"]
         systeme["Bazi"] = ausblick.bazi(
             stem_to_element(saeulen["day"]["stem"]), saeulen["day"]["branch"], saeulen["year"]["branch"],
-            bazi_jahr_monat, stem_to_element, _bazi_beziehung, start, t, load_rules("Bazi"),
+            bazi_jahr_monat, stem_to_element, _bazi_beziehung, start, t, sprache.regeln("Bazi", sp),
             _naechste_glueckssaeule(birth_dt, birth_ut, payload.geschlecht, start),
         )
     return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
 
 
-def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str, Any]:
+def _beschriftet(system: str, bild: Dict[str, Any], sp: str) -> Dict[str, Any]:
+    beschriften({system: bild}, sp)
+    return bild
+
+
+def _paar_person(req: VektorRequest, now: datetime, session_id: str, sp: str) -> Dict[str, Any]:
     """Was die Partnerregeln je Person brauchen (Spiel C)."""
     geburt = parse_birth_datetime(req.geburtsdatum, req.uhrzeit)
     inputs, _, _, _ = _berechne_vektoren(req, geburt, now, session_id)
@@ -822,10 +819,10 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
                  "tag_stamm": saeulen["day"]["stem"]},
         "saeulen": saeulen,
         "firdaria": firdaria[0] if firdaria else None,
-        "firdaria_zyklus": build_firdaria_chart(geburt, tag),
+        "firdaria_zyklus": _beschriftet("Arabisch", build_firdaria_chart(geburt, tag), sp),
         "glueckslos": paar.glueckslos(natal.asc_deg, punkte["sonne"], punkte["mond"], tag) if natal.has_location else None,
         "sephira": _life_path_to_sephira_index(lebenszahl),
-        "baum": build_kabbalah_chart(geburt),
+        "baum": build_kabbalah_chart(geburt, sprache.regeln("Kabbalah", sp)),
         "lebenszahl": lebenszahl,
         "datum": {"day": geburt.day, "month": geburt.month, "year": geburt.year},
         "pers_jahr": personal_year(geburt, now),
@@ -833,15 +830,15 @@ def _paar_person(req: VektorRequest, now: datetime, session_id: str) -> Dict[str
 
 
 @app.post("/horoscope/paar")
-def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
+def post_horoskop_paar(payload: PartnerRequest, sp: str = Depends(_sprache)) -> Dict[str, Any]:
     """Partnerschaftshoroskop (Ergebnis von Spiel C): je System Aussagen aus echten Partnerregeln
-    (backend/paar.py, Texte content/horoscope/de/paar_v1.json)."""
+    (backend/paar.py, Texte content/horoscope/<sprache>/paar_v1.json)."""
     _validate_systeme(payload.systeme)
-    t = json.loads((_content_root() / "content" / "horoscope" / "de" / "paar_v1.json").read_text(encoding="utf-8"))["gruppen"]
-    th = json.loads((_content_root() / "content" / "horoscope" / "de" / "heute_v1.json").read_text(encoding="utf-8"))["gruppen"]
+    t = sprache.inhalt("paar", sp)["gruppen"]
+    th = sprache.inhalt("heute", sp)["gruppen"]
     now = datetime.now().replace(hour=12, minute=0, second=0, microsecond=0)
     sid = payload.session_id or str(uuid4())
-    a, b = (_paar_person(_person(payload, x), now, sid) for x in ("a", "b"))
+    a, b = (_paar_person(_person(payload, x), now, sid, sp) for x in ("a", "b"))
     systeme: Dict[str, Any] = {}
     if "Westlich" in payload.systeme:
         systeme["Westlich"] = paar.westlich(a["punkte"], b["punkte"], t)
@@ -857,7 +854,7 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
                                           ganas, gana_matrix, t)
         systeme["Vedisch"]["nakshatra"] = {"a": a["nakshatra"], "b": b["nakshatra"]}  # fuer das Rangoli
     if "Bazi" in payload.systeme:
-        systeme["Bazi"] = paar.bazi(a["bazi"], b["bazi"], _bazi_beziehung, stem_to_element, load_rules("Bazi"), t,
+        systeme["Bazi"] = paar.bazi(a["bazi"], b["bazi"], _bazi_beziehung, stem_to_element, sprache.regeln("Bazi", sp), t,
                                     th["bazi_tiere"], th["elemente"])
         systeme["Bazi"]["saeulen"] = {"a": a["saeulen"], "b": b["saeulen"]}
     if "Arabisch" in payload.systeme and a["firdaria"] and b["firdaria"]:
@@ -866,10 +863,10 @@ def post_horoskop_paar(payload: PartnerRequest) -> Dict[str, Any]:
                                             a["punkte"], b["punkte"], t, th["arabisch_genitiv"])
         systeme["Arabisch"]["zyklus"] = {"a": a["firdaria_zyklus"], "b": b["firdaria_zyklus"]}  # fuer das Zellij
     if "Kabbalah" in payload.systeme:
-        systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, load_rules("Kabbalah")["pfade"], t)
+        systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, sprache.regeln("Kabbalah", sp)["pfade"], t)
         systeme["Kabbalah"]["baum"] = {"a": a["baum"], "b": b["baum"]}  # fuer die Buchseite mit zwei Stiften
     if "Numerologie" in payload.systeme:
-        matrix = load_rules("Numerologie")["lebenspfad_kompatibilitaet"]["matrix"]
+        matrix = sprache.regeln("Numerologie", sp)["lebenspfad_kompatibilitaet"]["matrix"]
         systeme["Numerologie"] = paar.numerologie(a["lebenszahl"], b["lebenszahl"], a["pers_jahr"], b["pers_jahr"], matrix, t)
         systeme["Numerologie"].update({"datum": {"a": a["datum"], "b": b["datum"]},  # fuer die Heftseite
                                        "lebenszahl": {"a": a["lebenszahl"], "b": b["lebenszahl"]},
@@ -1039,9 +1036,9 @@ def get_laender(zeitzone: str = "") -> Dict[str, Any]:
 
 
 @app.get("/orte/staedte")
-def get_staedte(land: str, limit: int = 60) -> Dict[str, Any]:
+def get_staedte(land: str, limit: int = 60, sp: str = Depends(_sprache)) -> Dict[str, Any]:
     """Groessere Orte eines Landes (ISO-Code), alphabetisch, fuer die Ortswalze."""
-    return {"staedte": orte.staedte(land, max(1, min(limit, 200)))}
+    return {"staedte": orte.staedte(land, max(1, min(limit, 200)), sp)}
 
 
 @app.get("/orte")
@@ -1051,13 +1048,13 @@ def get_orte(q: str = "", limit: int = 8) -> Dict[str, Any]:
 
 
 @app.get("/fragen/rueckblick")
-def get_fragen_rueckblick() -> Dict[str, Any]:
-    return FRAGEN_RUECKBLICK
+def get_fragen_rueckblick(sp: str = Depends(_sprache)) -> Dict[str, Any]:
+    return sprache.fragen("fragen_rueckblick.json", sp)
 
 
 @app.get("/fragen")
-def get_fragen() -> Dict[str, object]:
-    return {"fragen": FRAGEN}
+def get_fragen(sp: str = Depends(_sprache)) -> Dict[str, object]:
+    return {"fragen": sprache.fragen("fragen.json", sp)["fragen"]}
 
 
 @app.get("/matrix")

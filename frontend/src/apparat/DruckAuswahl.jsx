@@ -6,39 +6,43 @@ import HoroskopIcon from "./HoroskopIcon";
 import Buch3D from "./Buch3D";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { buchPreis } from "./buchpreise";
+import { t } from "../sprache";
 
 // Vorgabe fuer den Titel: Mein Horoskop / Meine Horoskope, bei Paaren Unser Horoskop / Unsere Horoskope
 export function titelVorgabe(n, paarSpiel) {
-  if (paarSpiel) return n === 1 ? "Unser Horoskop" : "Unsere Horoskope";
-  return n === 1 ? "Mein Horoskop" : "Meine Horoskope";
+  return t(
+    `buchauswahl.vorgabe.${paarSpiel ? "paar_" : ""}${n === 1 ? "eins" : "mehrere"}`,
+  );
 }
 
 // Vor dem Ergebnis zeigt der Buch-Knopf nur, was es am Ende gibt: das Buch mit allen Horoskopen
 export function BuchWerbung({ paarSpiel, geburt, onSchliessen }) {
   return (
-    <div className="da-ebene" role="dialog" aria-label="Horoskopbuch">
+    <div
+      className="da-ebene"
+      role="dialog"
+      aria-label={t("buchauswahl.horoskopbuch")}
+    >
       <div className="da-blatt">
         <Buch3D
           titel={titelVorgabe(SYSTEME.length, paarSpiel)}
           geburt={geburt}
           auswahl={SYSTEME.map((s) => s.id)}
         />
-        <h2>{paarSpiel ? "Euer Horoskopbuch" : "Dein Horoskopbuch"}</h2>
+        <h2>
+          {t(paarSpiel ? "buchauswahl.euer_buch" : "buchauswahl.dein_buch")}
+        </h2>
         <p className="da-werbung">
-          {paarSpiel
-            ? "Wenn ihr fertig seid, könnt ihr alle eure Horoskope als Buch bestellen."
-            : "Wenn du fertig bist, kannst du alle deine Horoskope als Buch bestellen."}
+          {t(paarSpiel ? "buchauswahl.werbung_paar" : "buchauswahl.werbung")}
         </p>
-        <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
+        <p className="da-format">{t("buchauswahl.format")}</p>
         <p className="da-werbung">
-          {paarSpiel
-            ? "Ein schönes Geschenk, wenn ihr's für jemanden anderen macht."
-            : "Ein schönes Geschenk, wenn du's für jemanden anderen machst."}
+          {t(paarSpiel ? "buchauswahl.geschenk_paar" : "buchauswahl.geschenk")}
         </p>
         <button
           type="button"
           className="da-schliessen"
-          aria-label="Schließen"
+          aria-label={t("buchauswahl.schliessen")}
           onClick={onSchliessen}
         >
           ×
@@ -94,17 +98,21 @@ export default function DruckAuswahl({
 
   const gewaehlt = reihe.filter((id) => auswahl.has(id));
   return (
-    <div className="da-ebene" role="dialog" aria-label="Horoskopbuch">
+    <div
+      className="da-ebene"
+      role="dialog"
+      aria-label={t("buchauswahl.horoskopbuch")}
+    >
       <div className="da-blatt">
         <Buch3D
           titel={titel.trim() || vorgabe}
           geburt={geburt}
           auswahl={gewaehlt}
         />
-        <h2>Dein Horoskopbuch</h2>
-        <p className="da-format">21 × 21 cm · je Horoskop vier Seiten</p>
+        <h2>{t("buchauswahl.dein_buch")}</h2>
+        <p className="da-format">{t("buchauswahl.format")}</p>
         <label className="da-titel">
-          <span>Titel</span>
+          <span>{t("buchauswahl.titel")}</span>
           <input
             type="text"
             value={titel}
@@ -134,7 +142,7 @@ export default function DruckAuswahl({
               <span className="da-pfeile">
                 <button
                   type="button"
-                  aria-label="nach oben"
+                  aria-label={t("buchauswahl.nach_oben")}
                   disabled={i === 0}
                   onClick={() => verschieben(i, -1)}
                 >
@@ -142,7 +150,7 @@ export default function DruckAuswahl({
                 </button>
                 <button
                   type="button"
-                  aria-label="nach unten"
+                  aria-label={t("buchauswahl.nach_unten")}
                   disabled={i === reihe.length - 1}
                   onClick={() => verschieben(i, 1)}
                 >
@@ -154,11 +162,16 @@ export default function DruckAuswahl({
         </ul>
         <p className="da-preis">
           {n === 0
-            ? "Wähle mindestens ein Horoskop."
-            : `${n} ${n === 1 ? "Horoskop" : "Horoskope"}: `}
+            ? t("buchauswahl.mindestens_eins")
+            : n === 1
+              ? t("buchauswahl.anzahl_eins")
+              : t("buchauswahl.anzahl", { anzahl: n })}
           {n ? (
             <>
-              {aktion ? <s>{grund} €</s> : null} <b>{preis} €</b>
+              {aktion ? (
+                <s>{t("buchauswahl.preis", { preis: grund })}</s>
+              ) : null}{" "}
+              <b>{t("buchauswahl.preis", { preis })}</b>
               {aktion ? (
                 <span className="da-aktion"> {aktion.name}</span>
               ) : null}
@@ -178,16 +191,21 @@ export default function DruckAuswahl({
               })
             }
           >
-            Buch ansehen
+            {t("buchauswahl.ansehen")}
           </button>
-          <button type="button" className="sc-start" disabled title="folgt">
-            Bestellen
+          <button
+            type="button"
+            className="sc-start"
+            disabled
+            title={t("buchauswahl.folgt")}
+          >
+            {t("buchauswahl.bestellen")}
           </button>
         </div>
         <button
           type="button"
           className="da-schliessen"
-          aria-label="Schließen"
+          aria-label={t("buchauswahl.schliessen")}
           onClick={onSchliessen}
         >
           ×

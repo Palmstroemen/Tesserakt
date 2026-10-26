@@ -66,11 +66,14 @@ nachgereicht werden (jeweils vermerkt).
 
 ## 2. Parallel erarbeiten
 
-- [ ] **i18n vorbereiten** (muss zum Release): alle Oberflächentexte aus dem Code in Sprachdateien ziehen,
+- [x] **i18n vorbereiten** (muss zum Release): alle Oberflächentexte aus dem Code in Sprachdateien ziehen,
   Sprache als Parameter an das Backend geben (`/vektor`, Texte, Bildtexte), Datums- und Zahlenformate über die
-  Sprache. Ziel: eine neue Sprache ist danach nur noch Übersetzungsarbeit.
-- [ ] **Übersetzungen** (kann per Update kommen): Oberfläche, Deutungstexte der Regel-JSONs, Bildtexte und Buch.
-  Festlegen, welche Sprachen zuerst kommen.
+  Sprache. Ziel: eine neue Sprache ist danach nur noch Übersetzungsarbeit. Erledigt: Sprache vom Gerät, kein
+  Schalter; Ablage und Vorgehen in `docs/Konzepte/Sprachen.md`, Prüfung mit `tools/sprachpruefung.py`.
+- [ ] **Übersetzungen** (kann per Update kommen): Oberfläche, sichtbare Deutungstexte der Regel-JSONs (rund
+  15.000 Wörter), eigene Texte (rund 9.000), Fragen, Bildtexte (eigenes Modul je Sprache) und Buch. Zuerst
+  Englisch, Gegenlesen durch Muttersprachler; die Erkennungsmerkmale bekommen eigene Entsprechungen.
+  Festlegen, welche Sprachen danach kommen.
 - [ ] **Texte feintunen:** Systemerklärungen, Bildtexte (zweiter Absatz) und Buchtexte gegenlesen; Ton
   vereinheitlichen; ehrliche Formulierungen beibehalten; „Horoskope“ statt „System“ in sichtbaren Texten.
 - [ ] **Buch-Druckpartner finden und testen:** Anbieter für Print-on-Demand vergleichen (Qualität, Format,

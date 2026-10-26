@@ -11,13 +11,26 @@ import {
   breite,
   quersumme,
 } from "./NumerologieHeft";
+import { t } from "../../sprache";
 
 const G = 300;
 const M = G / 2;
 const BLEI = "#4a4f57";
 const SPALTEN = {
-  a: { x: 40, mitte: 94, tinte: TINTE, name: "du", strich: "#c9a227" },
-  b: { x: 160, mitte: 212, tinte: BLEI, name: "Gegenüber", strich: "#9aa3ae" },
+  a: {
+    x: 40,
+    mitte: 94,
+    tinte: TINTE,
+    name: t("diagramme.du"),
+    strich: "#c9a227",
+  },
+  b: {
+    x: 160,
+    mitte: 212,
+    tinte: BLEI,
+    name: t("diagramme.gegenueber"),
+    strich: "#9aa3ae",
+  },
 };
 const GR = 11;
 const zwei = (n) => String(n).padStart(2, "0");
@@ -127,7 +140,7 @@ export default function NumerologiePaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="nh np"
       role="img"
-      aria-label={`Numerologie für zwei: Lebenszahlen ${za} und ${zb}`}
+      aria-label={t("diagramme.numerologie.paar", { a: za, b: zb })}
     >
       <defs>
         <pattern
@@ -209,7 +222,7 @@ export default function NumerologiePaar({ daten }) {
             className="nh-lehrerin np-klein"
             transform={`rotate(-5 ${M} ${ya + 76})`}
           >
-            (mit Meisterzahl)
+            {t("diagramme.numerologie.mit_meisterzahl")}
           </text>
         ) : null}
       </g>

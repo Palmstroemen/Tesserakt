@@ -21,8 +21,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC_DIR = ROOT / "docs" / "Textbausteine" / "erklaerungen"
-OUT_FILE = ROOT / "content" / "horoscope" / "de" / "erklaerungen_v1.json"
+# Sprache: --sprache en liest die Uebersetzung aus docs/Textbausteine/en/... und schreibt content/horoscope/en/
+SPRACHE = sys.argv[sys.argv.index("--sprache") + 1] if "--sprache" in sys.argv else "de"
+QUELLE = ROOT / "docs" / "Textbausteine" / ("" if SPRACHE == "de" else SPRACHE)
+SRC_DIR = QUELLE / "erklaerungen"
+OUT_FILE = ROOT / "content" / "horoscope" / SPRACHE / "erklaerungen_v1.json"
 
 HEADING = re.compile(r"^(#{1,2})\s+(.+?)\s*\{#([a-z0-9_]+)\}\s*$")
 
@@ -108,7 +111,7 @@ def main() -> None:
 
     out = {
         "schemaVersion": "1.0",
-        "locale": "de",
+        "locale": SPRACHE,
         "textVersion": "v1",
         "_meta": {
             "quelle": "docs/Textbausteine/erklaerungen/*.md (nicht dieses JSON bearbeiten)",

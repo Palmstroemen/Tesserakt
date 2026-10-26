@@ -10,12 +10,12 @@
 // Zwei Ausfuehrungen: hell (Papier) und dunkel (fast schwarz, helle Schrift, goldene Ueberschriften).
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { API_BASE } from "../logic/api";
+import { holen } from "../logic/api";
 import HoroskopIcon from "./HoroskopIcon";
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
-import { EINLEITUNG, LEITSATZ, QUELLEN } from "./buchtexte";
+import { buchtexte, t } from "../sprache";
 import deckelBild from "./kaestchen/deckel.webp";
 
 const DIMENSIONEN = [
@@ -241,9 +241,9 @@ function Grafik({ id, spiel, visualPayloads, paar }) {
   return null;
 }
 
-function bereichBloecke(t, dims) {
+function bereichBloecke(st, dims) {
   return dims.flatMap((d) => {
-    const zeilen = (t?.dimensions?.[d] ?? "")
+    const zeilen = (st?.dimensions?.[d] ?? "")
       .replace(/\[TAG\][^\n]*/g, "")
       .split("\n")
       .map((z) => z.trim())
@@ -269,13 +269,13 @@ function abschnitte({
   const paarSpiel = spiel === "C";
   const liste = [{ art: "titel" }];
   liste.push({ art: "impressum" }, { art: "leitsatz" });
-  liste.push({ art: "text", bloecke: EINLEITUNG });
+  liste.push({ art: "text", bloecke: buchtexte().EINLEITUNG });
   auswahl.forEach((id) => {
     const sys = SYSTEME.find((x) => x.id === id);
-    const t = texte?.systems?.[id];
+    const st = texte?.systems?.[id];
     const jahr = ausblick?.systeme?.[id];
     const h = heute?.systeme?.[id];
-    const bereiche = DIMENSIONEN.filter((dim) => t?.dimensions?.[dim]);
+    const bereiche = DIMENSIONEN.filter((dim) => st?.dimensions?.[dim]);
     liste.push({ art: "grafik", id });
     const kopf = [
       { k: "h2", t: anzeigeName(id) },
@@ -285,34 +285,36 @@ function abschnitte({
       ? [
           [
             ...kopf,
-            { k: "h3", t: "Euer Paar" },
+            { k: "h3", t: t("buch.euer_paar") },
             ...(paar?.systeme?.[id]?.aussagen ?? []).map((a) => ({
               k: "p",
               t: a,
             })),
           ],
-          t?.intro
+          st?.intro
             ? [
-                { k: "h3", t: "So denkt dieses Horoskop" },
-                ...absaetze(t.intro),
-                ...absaetze(t?.paracelsus_outro, "schluss"),
+                { k: "h3", t: t("buch.so_denkt") },
+                ...absaetze(st.intro),
+                ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,
         ]
       : [
           [
             ...kopf,
-            { k: "h3", t: "So denkt dieses Horoskop" },
-            ...absaetze(introMitBild(t?.intro, visualPayloads?.[id]?.bildtext)),
+            { k: "h3", t: t("buch.so_denkt") },
+            ...absaetze(
+              introMitBild(st?.intro, visualPayloads?.[id]?.bildtext),
+            ),
           ],
-          t?.horoskop_ausfuehrlich
+          st?.horoskop_ausfuehrlich
             ? [
-                { k: "h3", t: "Dein Horoskop" },
-                ...absaetze(t.horoskop_ausfuehrlich),
+                { k: "h3", t: t("buch.dein_horoskop") },
+                ...absaetze(st.horoskop_ausfuehrlich),
               ]
             : h
               ? [
-                  { k: "h3", t: "Dein Horoskop für heute" },
+                  { k: "h3", t: t("buch.heute") },
                   ...[...h.faktoren, ...h.tendenzen]
                     .filter(Boolean)
                     .map((x) => ({ k: "p", t: x })),
@@ -320,7 +322,7 @@ function abschnitte({
               : null,
           jahr?.length
             ? [
-                { k: "h3", t: "Dein Jahr" },
+                { k: "h3", t: t("buch.dein_jahr") },
                 ...jahr.map((e) => {
                   const k = e.text.indexOf(": ");
                   return {
@@ -333,9 +335,9 @@ function abschnitte({
             : null,
           bereiche.length
             ? [
-                { k: "h3", t: "Deine Lebensbereiche" },
-                ...bereichBloecke(t, bereiche),
-                ...absaetze(t?.paracelsus_outro, "schluss"),
+                { k: "h3", t: t("buch.lebensbereiche") },
+                ...bereichBloecke(st, bereiche),
+                ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,
         ];
@@ -360,7 +362,7 @@ function abschnitte({
       ],
     });
   });
-  liste.push({ art: "text", bloecke: QUELLEN });
+  liste.push({ art: "text", bloecke: buchtexte().QUELLEN });
   return liste;
 }
 
@@ -382,7 +384,7 @@ export default function Buch({
   const muster = useRef(null);
 
   useEffect(() => {
-    fetch(`${API_BASE}/horoscope/erklaerungen?locale=de`)
+    holen("/horoscope/erklaerungen")
       .then((r) => r.json())
       .then((d) => setErklaerungen(d.themen ?? []))
       .catch(() => {});
@@ -423,7 +425,7 @@ export default function Buch({
   }, [schluessel]);
 
   const paarSpiel = spiel === "C";
-  const datum = new Date().toLocaleDateString("de-AT", {
+  const datum = new Date().toLocaleDateString(t("intl.gebiet"), {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -435,7 +437,7 @@ export default function Buch({
     if (a.art === "titel") {
       seiten.push(
         <Seite key="titel" art="titel">
-          <div className="buch-titelzeichen">TESSERAKT</div>
+          <div className="buch-titelzeichen">{t("buch.titelzeichen")}</div>
           <h1>{titel}</h1>
           {/* die Datumsscheibe des Apparats mit dem Geburtsdatum (bei Paaren Gold und Silber) */}
           {geburt?.a ? (
@@ -470,30 +472,27 @@ export default function Buch({
           <p className="buch-impressum-titel">{titel}</p>
           {[geburt?.a, geburt?.b].filter(Boolean).map((g, k) => (
             <p key={k}>
-              Geboren am{" "}
-              {new Date(`${g.geburtsdatum}T12:00`).toLocaleDateString("de-AT", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
+              {t(g.uhrzeit ? "buch.geboren_um" : "buch.geboren_am", {
+                datum: new Date(`${g.geburtsdatum}T12:00`).toLocaleDateString(
+                  t("intl.gebiet"),
+                  { day: "numeric", month: "long", year: "numeric" },
+                ),
+                uhrzeit: g.uhrzeit,
               })}
-              {g.uhrzeit ? ` um ${g.uhrzeit} Uhr` : ""}
             </p>
           ))}
           <p>
-            Berechnet und gesetzt mit dem Tesserakt-Apparat am {datum}.
+            {t("buch.berechnet", { datum })}
             <br />
-            Enthält {auswahl.length === 1
-              ? "das Horoskop"
-              : "die Horoskope"}: {auswahl.map(anzeigeName).join(", ")}.
+            {t(
+              auswahl.length === 1
+                ? "buch.enthaelt_eins"
+                : "buch.enthaelt_mehrere",
+              { liste: auswahl.map(anzeigeName).join(", ") },
+            )}
           </p>
-          <p>
-            Die Horoskope folgen den überlieferten Regeln ihrer Traditionen. Sie
-            dienen der Unterhaltung und einem wissenschaftlichen Experiment und
-            ersetzen keine Beratung.
-          </p>
-          <p>
-            © {new Date().getFullYear()} Tesserakt. Alle Rechte vorbehalten.
-          </p>
+          <p>{t("buch.hinweis")}</p>
+          <p>{t("buch.rechte", { jahr: new Date().getFullYear() })}</p>
         </Seite>,
       );
       nummer += 1;
@@ -501,7 +500,7 @@ export default function Buch({
       seiten.push(
         <Seite key="leitsatz" art="leitsatz">
           <blockquote>
-            {LEITSATZ.map((z) => (
+            {buchtexte().LEITSATZ.map((z) => (
               <span key={z}>{z}</span>
             ))}
           </blockquote>
@@ -542,7 +541,7 @@ export default function Buch({
       if (imHoroskop % 2)
         seiten.push(
           <Seite key={`n-${i}`} art="notiz" nummer={nummer++}>
-            <h3>Notizen</h3>
+            <h3>{t("buch.notizen")}</h3>
           </Seite>,
         );
       imHoroskop = 0;
@@ -553,11 +552,11 @@ export default function Buch({
   seiten.push(
     <Seite key="rueckseite" art="rueckseite">
       <div className="buch-kaestchen">
-        <img src={deckelBild} alt="Das Kästchen des Tesserakt-Apparats" />
+        <img src={deckelBild} alt={t("buch.kaestchen_bild")} />
       </div>
       <p className="buch-rueckseite-text">
-        <span>TESSERAKT</span>
-        ein wissenschaftliches Projekt von DI Oliver Rafelsberger
+        <span>{t("buch.titelzeichen")}</span>
+        {t("buch.projekt")}
       </p>
     </Seite>,
   );
@@ -568,25 +567,25 @@ export default function Buch({
         <button
           type="button"
           className="sc-zurueck buch-zurueck"
-          aria-label="Zurück"
+          aria-label={t("buch.zurueck")}
           onClick={onSchliessen}
         >
           ‹
         </button>
-        <span>{seiten.length} Seiten · 21 × 21 cm</span>
+        <span>{t("buch.seiten", { anzahl: seiten.length })}</span>
         <button
           type="button"
           className="buch-wahl"
           onClick={() => setDunkel((x) => !x)}
         >
-          {dunkel ? "Hell" : "Dunkel"}
+          {dunkel ? t("buch.hell") : t("buch.dunkel")}
         </button>
         <button
           type="button"
           className="sc-start"
           onClick={() => window.print()}
         >
-          Drucken / PDF
+          {t("buch.drucken")}
         </button>
       </div>
       {/* unsichtbare Musterseite fuer den Seitensetzer */}

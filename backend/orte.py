@@ -5,10 +5,15 @@ mit Koordinaten und IANA-Zeitzone. Daten: GeoNames, CC BY 4.0 (https://www.geona
 
 from __future__ import annotations
 
+import json
 import math
 import unicodedata
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Dict, List
+
+
+INHALT = Path(__file__).resolve().parent.parent / "content"
 
 
 def _umschrift(text: str) -> str:
@@ -96,22 +101,16 @@ def laender(zeitzone: str = "") -> Dict[str, Any]:
     return {"laender": _laender(), "vorschlag": vorschlag}
 
 
-# Deutsche Namen grosser Staedte, die GeoNames nur englisch fuehrt (Prototyp, erweiterbar)
-EXONYME = {
-    "Vienna": "Wien", "Munich": "München", "Cologne": "Köln", "Nuremberg": "Nürnberg", "Hanover": "Hannover",
-    "Brunswick": "Braunschweig", "Zurich": "Zürich", "Geneva": "Genf", "Lucerne": "Luzern", "Rome": "Rom",
-    "Milan": "Mailand", "Venice": "Venedig", "Naples": "Neapel", "Florence": "Florenz", "Prague": "Prag",
-    "Warsaw": "Warschau", "Krakow": "Krakau", "Moscow": "Moskau", "Lisbon": "Lissabon", "Brussels": "Brüssel",
-    "Copenhagen": "Kopenhagen", "Athens": "Athen", "Belgrade": "Belgrad", "Bucharest": "Bukarest",
-    "Kyiv": "Kiew", "Saint Petersburg": "Sankt Petersburg", "Beijing": "Peking", "Tokyo": "Tokio",
-    "Mexico City": "Mexiko-Stadt", "New Delhi": "Neu-Delhi", "Cairo": "Kairo", "The Hague": "Den Haag",
-    "Antwerp": "Antwerpen", "Strasbourg": "Straßburg", "Seville": "Sevilla",
-}
+def exonyme(sprache: str) -> Dict[str, str]:
+    """Namen grosser Staedte in der Sprache, die GeoNames nur englisch fuehrt (content/orte/<sprache>.json)."""
+    pfad = INHALT / "orte" / f"{sprache}.json"
+    return json.loads(pfad.read_text(encoding="utf-8"))["namen"] if pfad.exists() else {}
 
 
-def _deutscher_name(ort: Dict[str, Any]) -> str:
-    if ort["name"] in EXONYME:
-        return EXONYME[ort["name"]]
+def _name(ort: Dict[str, Any], namen: Dict[str, str]) -> str:
+    """Name in der Sprache (`namen` aus exonyme), sonst der GeoNames-Name, mit Umlaut, wo es ihn gibt."""
+    if ort["name"] in namen:
+        return namen[ort["name"]]
     # gleiche Schreibweise mit Umlaut/ß bevorzugen (Zurich -> Zürich)
     for alt in ort["namen"]:
         if alt != ort["name"] and _norm(alt) == _norm(ort["name"]) and any(c in alt for c in "äöüÄÖÜß"):
@@ -136,16 +135,17 @@ def _ist_stadtteil(ort: Dict[str, Any], groessere: List[Dict[str, Any]]) -> bool
     return False
 
 
-def staedte(code: str, limit: int = 60) -> List[Dict[str, Any]]:
+def staedte(code: str, limit: int = 60, sprache: str = "de") -> List[Dict[str, Any]]:
     """Die groessten Orte eines Landes (nach Einwohnern ausgewaehlt), alphabetisch sortiert."""
+    namen = exonyme(sprache)
     orte = [o for o in _index() if o["code"] == code.upper()]
     orte.sort(key=lambda o: -(o["einwohner"] or 0))
     auswahl: List[Dict[str, Any]] = []
     for i, o in enumerate(orte):
         if len(auswahl) >= limit:
             break
-        if not _ist_stadtteil(o, orte[:i]) and _deutscher_name(o) not in {_deutscher_name(a) for a in auswahl}:
+        if not _ist_stadtteil(o, orte[:i]) and _name(o, namen) not in {_name(a, namen) for a in auswahl}:
             auswahl.append(o)
-    auswahl.sort(key=lambda o: _norm(_deutscher_name(o)))
-    return [{"name": _deutscher_name(o), "land": o["land"], "lat": o["lat"], "lon": o["lon"], "zeitzone": o["zeitzone"],
+    auswahl.sort(key=lambda o: _norm(_name(o, namen)))
+    return [{"name": _name(o, namen), "land": o["land"], "lat": o["lat"], "lon": o["lon"], "zeitzone": o["zeitzone"],
              "einwohner": o["einwohner"]} for o in auswahl]

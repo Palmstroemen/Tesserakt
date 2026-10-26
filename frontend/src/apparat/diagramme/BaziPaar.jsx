@@ -5,14 +5,21 @@
 //   he (Sechser-Kombination) gespannt mit Knoten, sanhe (Dreieck) gespannt, chong (Zusammenstoss) gerissen,
 //   hai (Schaden) verheddert, gleich doppelt geschlungen, neutral locker durchhaengend.
 import { STAMM, ZWEIG } from "./BaziKarte";
+import { t } from "../../sprache";
 
 const G = 300;
 const M = G / 2;
 const KARTE = { b: 112, h: 164 };
 // Karten: du rechts, dein Gegenueber links; Drehung in Grad
 const KARTEN = {
-  a: { x: 206, y: 148, w: 7, tinte: "url(#bp-gold)", name: "du" },
-  b: { x: 94, y: 152, w: -7, tinte: "url(#bp-silber)", name: "Gegenüber" },
+  a: { x: 206, y: 148, w: 7, tinte: "url(#bp-gold)", name: t("diagramme.du") },
+  b: {
+    x: 94,
+    y: 152,
+    w: -7,
+    tinte: "url(#bp-silber)",
+    name: t("diagramme.gegenueber"),
+  },
 };
 // Saeulen auf der Karte von rechts nach links (lokale Koordinaten, Kartenmitte = 0)
 const SAEULEN = [
@@ -153,7 +160,7 @@ export default function BaziPaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="bp"
       role="img"
-      aria-label="Bazi für zwei: die Tagessäulen, verbunden durch einen roten Faden"
+      aria-label={t("diagramme.bazi.paar")}
     >
       <defs>
         <radialGradient id="bp-lack" cx="40%" cy="32%" r="75%">

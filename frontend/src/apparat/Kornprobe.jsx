@@ -3,7 +3,7 @@
 // zum Ausdrucken; tools/kornprobe.py rechnet daraus ein PDF mit 300 dpi. Beispieldatum ?datum=1985-04-12.
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { API_BASE } from "../logic/api";
+import { holen } from "../logic/api";
 import { VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName } from "./systeme";
 import "../components/diagramme.css";
@@ -121,7 +121,7 @@ function Probe() {
   const [payloads, setPayloads] = useState(null);
   const [fehler, setFehler] = useState(null);
   useEffect(() => {
-    fetch(`${API_BASE}/vektor`, {
+    holen("/vektor", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

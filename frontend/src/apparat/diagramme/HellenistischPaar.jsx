@@ -4,6 +4,7 @@
 // Kreidestriche verbinden die Punkte, die der Paar-Text vergleicht (backend/paar.py): sehen sich die Zeichen,
 // ein durchgehender Strich; in Aversion (sie sehen sich nicht) bleibt die Mitte des Strichs leer.
 import { MAEANDER, hausWinkel } from "./HellenistischTeller";
+import { t } from "../../sprache";
 
 const G = 300;
 const M = G / 2;
@@ -74,7 +75,7 @@ export default function HellenistischPaar({ daten }) {
       viewBox={`0 0 ${G} ${G}`}
       className="ht hp"
       role="img"
-      aria-label="Teller für zwei: Sonne, Mond und Aszendent beider Personen in den zwölf Zeichen"
+      aria-label={t("diagramme.hellenistisch.paar")}
     >
       <defs>
         <radialGradient id="hp-ton" cx="42%" cy="38%" r="70%">
