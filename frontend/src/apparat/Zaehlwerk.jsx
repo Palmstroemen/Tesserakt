@@ -7,8 +7,8 @@ import { t } from "../sprache";
 // Kilometerzaehlern), ganz im Dunkeln und von hinten durchleuchtet von derselben Mattscheibe wie die Dias:
 // die Walzen sind durchscheinend und gluehen bernsteinfarben, die Ziffern stehen dunkel davor; Bruecken und
 // Raedchen sind nur Silhouetten mit schwachem Lichtsaum. praefix trennt die ids mehrerer Scheiben. In einer Zeile das ganze Datum (Tag,
-// Monat als Namenswalze, Jahr), darunter ein Stundenrad mit 0..23 am Rand, das sich unter eine feste Marke
-// dreht. Walzen und Rad laufen mit leichtem Nachschwingen auf ihren Wert (CSS: .zw-streifen, .zw-stundenrad).
+// Monat als Namenswalze, Jahr), darunter ein grosses Stundenrad mit 0..23 am Rand hinter einer Deckplatte: man
+// sieht die eingestellte Stunde nur durch ein Fenster, wie das Datum einer Uhr. Walzen und Rad laufen mit leichtem Nachschwingen auf ihren Wert (CSS: .zw-streifen, .zw-stundenrad).
 // Keine Verzerrung als Filter: die Scheibe wird beim Drehen neu gezeichnet.
 
 const MONATE_KURZ = t("monate.zaehlwerk");
@@ -166,9 +166,10 @@ const Zaehlwerk = memo(function Zaehlwerk({
     2 * B + LUFT + ABSTAND + nameBreite + ABSTAND + 4 * B + 3 * LUFT;
   const x = cx - zeile / 2;
   const y = cy - 17;
-  // Stundenrad darunter: man sieht nur seinen oberen Rand
-  const rad = { x: cx, y: cy + 52, r: 34 };
-  const marke = rad.y - rad.r - 1;
+  // Stundenrad darunter, hinter einer Deckplatte mit Fenster: man sieht nur die Stunde oben am Rand
+  const rad = { x: cx, y: cy + 88, r: 70 };
+  const fenster = { x: cx - 13, y: rad.y - rad.r + 1, b: 26, h: 16 };
+  const platte = { x: cx - 34, y: cy + 10, b: 68, h: 32 };
   return (
     <g className={rollt ? "zw zw-rollt" : "zw"} pointerEvents="none">
       <defs>
@@ -211,6 +212,22 @@ const Zaehlwerk = memo(function Zaehlwerk({
           <stop offset="0.82" stopColor="#ffcf80" />
           <stop offset="1" stopColor="#8a4f14" />
         </radialGradient>
+        {/* Fenster: links und rechts dreht das Rad aus dem Licht */}
+        <linearGradient id={`${p}-fensterrund`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#050200" stopOpacity="0.85" />
+          <stop offset="0.28" stopColor="#050200" stopOpacity="0" />
+          <stop offset="0.72" stopColor="#050200" stopOpacity="0" />
+          <stop offset="1" stopColor="#050200" stopOpacity="0.85" />
+        </linearGradient>
+        <clipPath id={`${p}-fenster`}>
+          <rect
+            x={fenster.x}
+            y={fenster.y}
+            width={fenster.b}
+            height={fenster.h}
+            rx="1.5"
+          />
+        </clipPath>
         <radialGradient id={`${p}-vignette`} cx="50%" cy="50%" r="50%">
           <stop offset="0.62" stopColor="#000" stopOpacity="0" />
           <stop offset="1" stopColor="#000" stopOpacity="0.75" />
@@ -253,45 +270,77 @@ const Zaehlwerk = memo(function Zaehlwerk({
           />
           <Bruecke p={p} y={y - 6} breite={zeile + 8} />
           <Bruecke p={p} y={y + H + 2} breite={zeile + 8} signet />
-          {/* Stundenrad: Elfenbeinscheibe mit den Stunden am Rand, dreht die eingestellte nach oben */}
-          <g
-            className="zw-stundenrad"
-            style={{
-              transform: `rotate(${-stunde * 15}deg)`,
-              transformOrigin: `${rad.x}px ${rad.y}px`,
-            }}
-          >
-            <circle
-              cx={rad.x}
-              cy={rad.y}
-              r={rad.r}
-              fill={`url(#${p}-radflaeche)`}
-            />
-            {Array.from({ length: 24 }, (_, h) => (
-              <g key={h} transform={`rotate(${h * 15} ${rad.x} ${rad.y})`}>
-                <line
-                  x1={rad.x}
-                  y1={rad.y - rad.r}
-                  x2={rad.x}
-                  y2={rad.y - rad.r + 2}
-                  stroke="#1a0e04"
-                  strokeWidth="0.5"
-                />
-                <text x={rad.x} y={rad.y - rad.r + 7.5} className="zw-stunde">
+          {/* Stundenrad: Elfenbeinscheibe mit den Stunden am Rand, dreht die eingestellte nach oben ins Fenster */}
+          <g clipPath={`url(#${p}-fenster)`}>
+            <g
+              className="zw-stundenrad"
+              style={{
+                transform: `rotate(${-stunde * 15}deg)`,
+                transformOrigin: `${rad.x}px ${rad.y}px`,
+              }}
+            >
+              <circle
+                cx={rad.x}
+                cy={rad.y}
+                r={rad.r}
+                fill={`url(#${p}-radflaeche)`}
+              />
+              {Array.from({ length: 24 }, (_, h) => (
+                <text
+                  key={h}
+                  x={rad.x}
+                  y={rad.y - rad.r + 9}
+                  dy="0.36em"
+                  transform={`rotate(${h * 15} ${rad.x} ${rad.y})`}
+                  className="zw-zeichen zw-stunde"
+                >
                   {h}
                 </text>
-              </g>
-            ))}
-            <circle cx={rad.x} cy={rad.y} r="5" fill="#0d0804" />
+              ))}
+            </g>
+            <rect
+              x={fenster.x}
+              y={fenster.y}
+              width={fenster.b}
+              height={fenster.h}
+              fill={`url(#${p}-fensterrund)`}
+            />
           </g>
-          {/* feste Marke ueber dem Rad */}
+          {/* Deckplatte mit dem Fenster, verschraubt wie die Bruecken */}
           <path
-            d={`M${cx - 3} ${marke - 4}L${cx + 3} ${marke - 4}L${cx} ${marke + 1}Z`}
-            fill="#1a110a"
-            stroke="#ffb85c"
-            strokeOpacity="0.6"
-            strokeWidth="0.4"
+            fillRule="evenodd"
+            d={`M${platte.x + 3} ${platte.y}h${platte.b - 6}a3 3 0 0 1 3 3v${platte.h - 6}a3 3 0 0 1 -3 3h${-(platte.b - 6)}a3 3 0 0 1 -3 -3v${-(platte.h - 6)}a3 3 0 0 1 3 -3Z M${fenster.x} ${fenster.y}v${fenster.h}h${fenster.b}v${-fenster.h}Z`}
+            fill={`url(#${p}-bruecke)`}
           />
+          <rect
+            x={fenster.x - 0.6}
+            y={fenster.y - 0.6}
+            width={fenster.b + 1.2}
+            height={fenster.h + 1.2}
+            rx="1.8"
+            fill="none"
+            stroke="#a8743a"
+            strokeOpacity="0.5"
+            strokeWidth="0.6"
+          />
+          {[platte.x + 5, platte.x + platte.b - 5].map((sx) => (
+            <g key={sx}>
+              <circle
+                cx={sx}
+                cy={fenster.y + fenster.h / 2}
+                r="1.8"
+                fill="#2a1d0e"
+              />
+              <line
+                x1={sx - 1.2}
+                y1={fenster.y + fenster.h / 2}
+                x2={sx + 1.2}
+                y2={fenster.y + fenster.h / 2}
+                stroke="#8a6a38"
+                strokeWidth="0.4"
+              />
+            </g>
+          ))}
         </g>
         {/* Linse: dunkler Rand, Glanzlicht oben links */}
         <circle cx={cx} cy={cy} r={LINSE} fill={`url(#${p}-vignette)`} />

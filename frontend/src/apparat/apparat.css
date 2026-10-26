@@ -974,10 +974,7 @@ body::after {
 }
 
 .zw-stunde {
-  text-anchor: middle;
-  font-family: Georgia, serif;
-  font-size: 6.5px;
-  fill: #1a0e04;
+  font-size: 11.5px;
 }
 
 .dr-fuss {
