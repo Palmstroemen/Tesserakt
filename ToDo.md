@@ -65,19 +65,19 @@
 ## Quellen und Lizenzen (`docs/Berechnungsgrundlagen/quellen.md`)
 
 - [ ] Angaben "public domain" in den Regeldateien korrigieren (neuere Übersetzungen, DeVore, Joey Yap)
-- [ ] Lizenz Swiss Ephemeris (AGPL oder kommerziell) vor öffentlichem Betrieb klären
+- [x] Lizenz Swiss Ephemeris: AGPL, Server unter AGPL-3.0 und Repo öffentlich (`LICENSE.md`)
 
 ## Mehrsprachigkeit (i18n)
 
 - [x] Sprache je Sitzung speichern: `sprache` (Sprache der Fragen, derzeit `de`) und `geraet_sprache`
   (Spracheinstellung des Geräts, z. B. `de-AT`); Spalten in `sessions`, alte Datenbanken werden nachgerüstet
-- [ ] Oberflächentexte (Apparat zuerst, dann altes Spiel) in eine Sprachdatei auslagern
-- [ ] Fragenkataloge (`fragen*.json`): Text je Sprache, gleiche `id`
-- [ ] Monatsnamen des Datumsrads über `Intl` statt fest (dabei `de-AT` "Jänner" vs. `de-DE` "Januar")
-- [ ] Länder- und Städtenamen: `Intl.DisplayNames` mit der gewählten Sprache; Exonym-Liste nur für Deutsch
-- [ ] Lesetexte (Erklärtexte, Beipackzettel, Deutungen): übersetzen und fachlich prüfen; Backend hat schon `locale`
+- [x] Oberflächentexte in Sprachdateien ausgelagert (`frontend/src/sprache/<sp>/`, Prüfung `tools/sprachpruefung.py`)
+- [x] Fragenkataloge: Text je Sprache, gleiche `id` (`content/fragen/<sp>/`)
+- [x] Monatsnamen des Datumsrads aus der Sprachdatei (`monate.ring`, `monate.zaehlwerk`; Deutsch mit "Jän")
+- [x] Länder- und Städtenamen: GeoNames-Namen, Exonym-Liste nur für Deutsch (`content/orte/de.json`)
+- [ ] Lesetexte (Erklärtexte, Deutungen, Buch): Englisch übersetzt; Gegenlesen durch Muttersprachler und fachlich prüfen steht aus
 - [ ] Rechts-nach-links-Sprachen (Arabisch, Hebräisch): Apparat teilweise spiegeln (bewusst später)
-- [ ] Reihenfolge: erst Struktur ohne neue Sprache, dann Englisch, Lesetexte zuletzt
+- [x] Reihenfolge: erst Struktur ohne neue Sprache, dann Englisch, Lesetexte zuletzt
 
 ## Auswertung: Kultur und Erwartung (Idee)
 

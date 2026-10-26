@@ -25,7 +25,7 @@ nachgereicht werden (jeweils vermerkt).
 - [ ] **Apple-Prüfung vorbereiten:** Richtlinie 4.3 lehnt Horoskop-Apps als „gesättigte Kategorie“ ab, außer
   sie bieten etwas Eigenes. Store-Beschreibung und Hinweise an die Prüfer so schreiben, dass klar wird:
   Tesserakt ist ein wissenschaftliches Experiment *über* Horoskope, kein Horoskop-Dienst.
-- [ ] **Quellcode öffentlich machen (GitHub) und Lizenzen klar regeln:** Damit gilt für die Swiss Ephemeris
+- [x] **Quellcode öffentlich machen (GitHub) und Lizenzen klar regeln:** Damit gilt für die Swiss Ephemeris
   die freie AGPL, eine kommerzielle Lizenz ist nicht nötig. Zugleich kann jeder nachprüfen, was die App tut,
   etwa dass das Kamerabild das Gerät nie verlässt und nur als Licht dient.
   - LICENSE-Dateien anlegen: Backend unter AGPL (Pflicht, es nutzt die Swiss Ephemeris), Frontend/App unter
@@ -35,10 +35,11 @@ nachgereicht werden (jeweils vermerkt).
     Namensnennungen, in der App, im Buch und im Repo.
   - AGPL-Pflicht erfüllen: Link auf den Quellcode in der App (und im Buch); das Repo muss immer dem Stand
     entsprechen, der auf dem Server läuft.
-  - Vor dem Veröffentlichen: Repo und Git-Geschichte noch einmal gründlich auf Zugangsdaten und persönliche
-    Daten prüfen; Deutungstexte auf längere Passagen aus noch geschützten Büchern prüfen.
   - Regel für Beiträge von außen festlegen (z. B. Zustimmung, dass Beiträge unter den Lizenzen des Repos
     stehen), sonst kann man die App später nicht mehr frei in die Stores stellen oder umlizenzieren.
+- [ ] **Repo prüfen** (offen geblieben, obwohl das Repo schon öffentlich ist): Git-Geschichte auf
+  Zugangsdaten und persönliche Daten durchsehen; Deutungstexte auf längere Passagen aus noch geschützten Büchern
+  prüfen; Angaben „public domain“ in den Regeldateien korrigieren (neuere Übersetzungen, DeVore, Joey Yap).
 - [ ] **Schutz gegen Nachahmer** (vor der Veröffentlichung; Punkte a und b kurz mit einer Kanzlei für Marken-
   und Urheberrecht besprechen). Eine Idee ist nicht geschützt, nur ihre Ausführung: Name, Aussehen, Texte, Daten.
   - [ ] a) **EU-Marke „Tesserakt“** beim EUIPO anmelden, *vor* dem Start (der Anmeldetag zählt). Klassen 9 (App),
