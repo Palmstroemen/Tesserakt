@@ -24,6 +24,7 @@ import {
 } from "./geometrie";
 import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
+import { neigungAbonnieren } from "./neigung";
 
 const ALLE = SYSTEME.map((s) => s.id);
 // eingravierte Kuerzel links der Schlitze
@@ -313,6 +314,18 @@ export default function Spielplatte({
   const lichtRef = useRef(null);
   const linseRef = useRef(null);
   const [linseD, setLinseD] = useState(0); // Durchmesser der Linse in CSS-Pixeln (fuer den Lupenfilter)
+  const tiefeRef = useRef(null);
+  // Parallaxe: kippt man das Geraet, rueckt der Grund der Bohrung (Licht, Dia, Scheibe) zur Seite des Blicks;
+  // CSS translate, unabhaengig vom transform beim Hereindrehen. Bei voller Neigung (neigung.js: SPANNE) ist
+  // er um einen Linsendurchmesser verschoben, das Dia ganz hinter der Wand (Tiefe und Vergroesserung der Linse).
+  useEffect(() => {
+    if (!linseD) return undefined;
+    const weit = linseD;
+    return neigungAbonnieren(({ x, y }) => {
+      if (tiefeRef.current)
+        tiefeRef.current.style.translate = `${x * weit}px ${y * weit}px`;
+    });
+  }, [linseD]);
   const drag = useRef(null);
   const anim = useRef(new Map());
   const raf = useRef(0);
@@ -1119,7 +1132,7 @@ export default function Spielplatte({
         >
           {/* Tief im Puck, hinter der Rueckseite der Datumsscheibe: Licht, Dia und Scheibe. Beim Hereindrehen
               verschiebt sich das gegen die Oeffnung (Parallaxe); dazwischen sieht man die Wand der Bohrung. */}
-          <div className="sp-tiefe">
+          <div className="sp-tiefe" ref={tiefeRef}>
             {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
             {kamera ? (
               <>

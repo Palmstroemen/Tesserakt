@@ -1,5 +1,6 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { MITTE } from "./geometrie";
+import { neigungAbonnieren } from "./neigung";
 
 // Mitte der Datumsscheibe: eine kleine Linse, durch die man auf ein Rollenzaehlwerk sieht (wie bei alten
 // Kilometerzaehlern), ganz im Dunkeln und von hinten durchleuchtet von derselben Mattscheibe wie die Dias:
@@ -27,6 +28,7 @@ const H = 17; // Hoehe eines Walzenfensters
 const B = 11; // Breite einer Ziffernwalze
 const LUFT = 1; // zwischen zwei Walzen
 const LINSE = 63;
+const TIEFE = 125; // Versatz bei voller Neigung: das Gewerk ist dann ganz aus der Linse (Tiefe und Vergroesserung)
 
 // Walze: Fenster bei (x, y) (linke obere Ecke); die Zeichen stehen untereinander auf einem Streifen, der um
 // den Wert verschoben wird
@@ -140,7 +142,16 @@ const Zaehlwerk = memo(function Zaehlwerk({
   dunkel,
   praefix = "zw",
   rollt = true, // Walzen rollen sichtbar; beim Drehen eines Rings springen sie nur mit (Rechenzeit)
+  parallaxe = false, // Gewerk rueckt mit der Neigung des Geraets (neigung.js), der Grund bleibt als Wand
 }) {
+  const werk = useRef(null);
+  useEffect(() => {
+    if (!parallaxe) return undefined;
+    return neigungAbonnieren(({ x, y }) => {
+      if (werk.current)
+        werk.current.style.transform = `translate(${x * TIEFE}px, ${y * TIEFE}px)`;
+    });
+  }, [parallaxe]);
   const p = praefix;
   const cx = MITTE.x;
   const cy = MITTE.y;
@@ -213,69 +224,71 @@ const Zaehlwerk = memo(function Zaehlwerk({
 
       <g clipPath={`url(#${p}-linse)`}>
         <circle cx={cx} cy={cy} r={LINSE} fill={`url(#${p}-grund)`} />
-        <circle cx={cx} cy={cy} r={LINSE * 0.8} fill={`url(#${p}-licht)`} />
-        <Raedchen x={cx - 44} y={cy - 40} r={11} zaehne={14} />
-        <Raedchen x={cx + 30} y={cy - 46} r={14} zaehne={18} />
-        <Raedchen x={cx - 50} y={cy + 22} r={9} zaehne={12} />
-        <Raedchen x={cx + 52} y={cy + 18} r={10} zaehne={12} />
-        {/* Datum in einer Zeile */}
-        <Zahl p={p} x={x} y={y} zahl={tag} stellen={2} />
-        <Walze
-          p={p}
-          x={x + 2 * B + LUFT + ABSTAND}
-          y={y}
-          breite={nameBreite}
-          zeichen={MONATE_KURZ}
-          wert={monat}
-        />
-        <Zahl
-          p={p}
-          x={x + 2 * B + LUFT + 2 * ABSTAND + nameBreite}
-          y={y}
-          zahl={jahr}
-          stellen={4}
-        />
-        <Bruecke p={p} y={y - 6} breite={zeile + 8} />
-        <Bruecke p={p} y={y + H + 2} breite={zeile + 8} />
-        {/* Stundenrad: Elfenbeinscheibe mit den Stunden am Rand, dreht die eingestellte nach oben */}
-        <g
-          className="zw-stundenrad"
-          style={{
-            transform: `rotate(${-stunde * 15}deg)`,
-            transformOrigin: `${rad.x}px ${rad.y}px`,
-          }}
-        >
-          <circle
-            cx={rad.x}
-            cy={rad.y}
-            r={rad.r}
-            fill={`url(#${p}-radflaeche)`}
+        <g ref={werk}>
+          <circle cx={cx} cy={cy} r={LINSE * 0.8} fill={`url(#${p}-licht)`} />
+          <Raedchen x={cx - 44} y={cy - 40} r={11} zaehne={14} />
+          <Raedchen x={cx + 30} y={cy - 46} r={14} zaehne={18} />
+          <Raedchen x={cx - 50} y={cy + 22} r={9} zaehne={12} />
+          <Raedchen x={cx + 52} y={cy + 18} r={10} zaehne={12} />
+          {/* Datum in einer Zeile */}
+          <Zahl p={p} x={x} y={y} zahl={tag} stellen={2} />
+          <Walze
+            p={p}
+            x={x + 2 * B + LUFT + ABSTAND}
+            y={y}
+            breite={nameBreite}
+            zeichen={MONATE_KURZ}
+            wert={monat}
           />
-          {Array.from({ length: 24 }, (_, h) => (
-            <g key={h} transform={`rotate(${h * 15} ${rad.x} ${rad.y})`}>
-              <line
-                x1={rad.x}
-                y1={rad.y - rad.r}
-                x2={rad.x}
-                y2={rad.y - rad.r + 2}
-                stroke="#1a0e04"
-                strokeWidth="0.5"
-              />
-              <text x={rad.x} y={rad.y - rad.r + 7.5} className="zw-stunde">
-                {h}
-              </text>
-            </g>
-          ))}
-          <circle cx={rad.x} cy={rad.y} r="5" fill="#0d0804" />
+          <Zahl
+            p={p}
+            x={x + 2 * B + LUFT + 2 * ABSTAND + nameBreite}
+            y={y}
+            zahl={jahr}
+            stellen={4}
+          />
+          <Bruecke p={p} y={y - 6} breite={zeile + 8} />
+          <Bruecke p={p} y={y + H + 2} breite={zeile + 8} />
+          {/* Stundenrad: Elfenbeinscheibe mit den Stunden am Rand, dreht die eingestellte nach oben */}
+          <g
+            className="zw-stundenrad"
+            style={{
+              transform: `rotate(${-stunde * 15}deg)`,
+              transformOrigin: `${rad.x}px ${rad.y}px`,
+            }}
+          >
+            <circle
+              cx={rad.x}
+              cy={rad.y}
+              r={rad.r}
+              fill={`url(#${p}-radflaeche)`}
+            />
+            {Array.from({ length: 24 }, (_, h) => (
+              <g key={h} transform={`rotate(${h * 15} ${rad.x} ${rad.y})`}>
+                <line
+                  x1={rad.x}
+                  y1={rad.y - rad.r}
+                  x2={rad.x}
+                  y2={rad.y - rad.r + 2}
+                  stroke="#1a0e04"
+                  strokeWidth="0.5"
+                />
+                <text x={rad.x} y={rad.y - rad.r + 7.5} className="zw-stunde">
+                  {h}
+                </text>
+              </g>
+            ))}
+            <circle cx={rad.x} cy={rad.y} r="5" fill="#0d0804" />
+          </g>
+          {/* feste Marke ueber dem Rad */}
+          <path
+            d={`M${cx - 3} ${marke - 4}L${cx + 3} ${marke - 4}L${cx} ${marke + 1}Z`}
+            fill="#1a110a"
+            stroke="#ffb85c"
+            strokeOpacity="0.6"
+            strokeWidth="0.4"
+          />
         </g>
-        {/* feste Marke ueber dem Rad */}
-        <path
-          d={`M${cx - 3} ${marke - 4}L${cx + 3} ${marke - 4}L${cx} ${marke + 1}Z`}
-          fill="#1a110a"
-          stroke="#ffb85c"
-          strokeOpacity="0.6"
-          strokeWidth="0.4"
-        />
         {/* Linse: dunkler Rand, Glanzlicht oben links */}
         <circle cx={cx} cy={cy} r={LINSE} fill={`url(#${p}-vignette)`} />
         <ellipse

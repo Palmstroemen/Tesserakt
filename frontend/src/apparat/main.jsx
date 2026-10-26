@@ -4,11 +4,14 @@ import Apparat from "./Apparat";
 import Kaestchen, { FILM_GESEHEN } from "./Kaestchen";
 import Vorblatt from "./Vorblatt";
 import { einwilligungLaden } from "./einwilligung";
+import { neigungErlauben } from "./neigung";
 import { werkstattEinrichten } from "./werkstatt";
 import "../components/diagramme.css";
 import "./apparat.css";
 
 werkstattEinrichten(); // Testschalter ueber die Adresse (?neu, ?messen, ?ohne=...)
+// Lagesensor fuer die Parallaxe: iOS fragt einmal, beim ersten Tippen (meist auf das Kaestchen)
+document.addEventListener("click", neigungErlauben, { capture: true });
 
 function filmGesehen() {
   try {

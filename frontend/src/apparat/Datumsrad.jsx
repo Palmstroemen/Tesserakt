@@ -619,7 +619,18 @@ export default function Datumsrad({
               d={`M ${MITTE.x - 7} ${MITTE.y - 199} L ${MITTE.x + 7} ${MITTE.y - 199} L ${MITTE.x} ${MITTE.y - 190} Z`}
               className="dr-marke"
             />
+          </g>
+        </svg>
 
+        {/* Mitte als eigene Ebene ueber der Scheibe: das Zaehlwerk bewegt sich mit der Neigung des Geraets,
+            ohne dass die Ringe neu gezeichnet werden muessen; folgt der Scheibe bei Muenzdrehung und Abgang */}
+        <svg
+          viewBox={`0 0 400 ${HOEHE}`}
+          className="sp-svg dr-svg dr-ebene dr-scheibe-mitte"
+          style={{ transformOrigin: `50% ${(MITTE.y / HOEHE) * 100}%` }}
+          aria-hidden="true"
+        >
+          <g transform={scheibeTransform}>
             {/* Mitte: kleine Linse ueber einem Rollenzaehlwerk, das das eingestellte Datum zeigt */}
             <Zaehlwerk
               tag={werte.tag}
@@ -630,6 +641,7 @@ export default function Datumsrad({
               mittel={mittel}
               dunkel={dunkel}
               rollt={!zieht}
+              parallaxe
             />
           </g>
         </svg>

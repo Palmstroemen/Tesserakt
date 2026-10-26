@@ -1221,6 +1221,7 @@ body::after {
   pointer-events: auto;
 }
 
+.dr-scheibe-mitte > g,
 .dr-abgang .dr-ebene > g {
   pointer-events: none;
 }
@@ -1290,7 +1291,8 @@ body::after {
   }
 }
 
-.dr-abgang .dr-scheibe {
+.dr-abgang .dr-scheibe,
+.dr-abgang .dr-scheibe-mitte {
   transform: translateX(calc(var(--halbdicke) * 0.25cqw * sin(var(--kipp))))
     scaleX(cos(var(--kipp)));
 }
