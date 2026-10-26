@@ -456,7 +456,22 @@ export default function Ergebnisplatte({
                     })}
                   </>
                 ) : null}
-                {st ? (
+                {euer?.aussagen?.length ? (
+                  <>
+                    <h4>{t("ergebnis.euer_paar")}</h4>
+                    {euer.aussagen.map((a, i) => (
+                      <p key={i}>{a}</p>
+                    ))}
+                  </>
+                ) : null}
+                {st && spiel === "C" ? (
+                  // Spiel C wie im Buch: wie das Horoskop denkt, mit dem Absatz zur Grafik fuer zwei
+                  <>
+                    <h4>{t("buch.so_denkt")}</h4>
+                    <Paragraphs text={introMitBild(st.intro, euer?.bildtext)} />
+                    <Paragraphs text={st.paracelsus_outro} />
+                  </>
+                ) : st ? (
                   <>
                     {st.horoskop_ausfuehrlich ? (
                       <>
@@ -472,14 +487,6 @@ export default function Ergebnisplatte({
                     />
                     <Dimensionen daten={st} />
                     <Paragraphs text={st.paracelsus_outro} />
-                  </>
-                ) : null}
-                {euer?.aussagen?.length ? (
-                  <>
-                    <h4>{t("ergebnis.euer_paar")}</h4>
-                    {euer.aussagen.map((a, i) => (
-                      <p key={i}>{a}</p>
-                    ))}
                   </>
                 ) : null}
               </article>

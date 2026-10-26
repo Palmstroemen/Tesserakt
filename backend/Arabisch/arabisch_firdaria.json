@@ -533,13 +533,12 @@
           "sonne",
           "merkur"
         ],
-        "mond_feinde": [
-          "saturn"
-        ],
+        "mond_feinde": [],
         "mond_neutral": [
           "venus",
           "mars",
-          "jupiter"
+          "jupiter",
+          "saturn"
         ],
         "saturn_freunde": [
           "merkur",
@@ -559,25 +558,25 @@
           "mars"
         ],
         "jupiter_feinde": [
-          "merkur"
+          "merkur",
+          "venus"
         ],
         "jupiter_neutral": [
-          "saturn",
-          "venus"
+          "saturn"
         ],
         "mars_freunde": [
           "sonne",
-          "jupiter"
+          "jupiter",
+          "mond"
         ],
         "mars_feinde": [
-          "saturn"
-        ],
-        "mars_neutral": [
-          "mond",
-          "venus",
           "merkur"
         ],
-        "quelle": "Abu Ma'shar VII.5; Al-Biruni Kap. 502"
+        "mars_neutral": [
+          "venus",
+          "saturn"
+        ],
+        "quelle": "Al-Biruni, Book of Instruction §447 (Wright 1934), Tabelle der Inder; die Freundschaft ist einseitig: jeder Planet hat seine eigene Sicht auf den anderen"
       },
       "kombinationen_tag_horoskop": {
         "sonne_hauptperiode": {
@@ -611,7 +610,7 @@
           },
           "sonne_merkur": {
             "qualitaet": "neutral",
-            "beschreibung": "Merkur ist zur Sonne neutral. Intellektuelle und kommunikative Aktivitäten unter Sonnen-Regie. Günstig für Vertragsabschlüsse in Karrierekontexten.",
+            "beschreibung": "Die Sonne ist Merkur gegenüber gleichgültig, Merkur dagegen sieht in ihr eine Freundin. Intellektuelle und kommunikative Aktivitäten unter Sonnen-Regie. Günstig für Vertragsabschlüsse in Karrierekontexten.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 1.0,
@@ -711,7 +710,7 @@
           },
           "venus_mond": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Venus und Mond sind Feinde in dieser Tradition (beide weiblich, konkurrieren). Emotionale Unruhe in Liebesbeziehungen. Stimmungsschwankungen beeinflussen Genussfähigkeit.",
+            "beschreibung": "Venus sieht im Mond einen Feind (beide weiblich, sie konkurrieren), der Mond bleibt ihr gegenüber gleichgültig. Emotionale Unruhe in Liebesbeziehungen. Stimmungsschwankungen beeinflussen Genussfähigkeit.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,
@@ -739,7 +738,7 @@
           },
           "venus_jupiter": {
             "qualitaet": "neutral_bis_guenstig",
-            "beschreibung": "Venus und Jupiter sind neutral zueinander. Freude und Expansion können sich verbinden — günstig, wenn beide gut stehen. Mögliche Überschwänglichkeit und Übermaß.",
+            "beschreibung": "Venus ist Jupiter gegenüber gleichgültig, Jupiter aber sieht in Venus einen Feind. Freude und Expansion können sich verbinden — günstig, wenn beide gut stehen. Mögliche Überschwänglichkeit und Übermaß.",
             "dimensionen_vektor": {
               "liebe": 0.75,
               "beruf": 0.75,
@@ -811,7 +810,7 @@
           },
           "saturn_mars": {
             "qualitaet": "sehr_schwierig_gefaehrlich",
-            "beschreibung": "Die gefährlichste Kombination: beide Malefiker, Saturn-Mars sind Feinde. Sahl: 'Hüte dich in dieser Zeit — Unfälle, Krankheiten und Konflikte häufen sich.' Vorsicht bei körperlichen Risiken.",
+            "beschreibung": "Die gefährlichste Kombination: beide Malefiker, und Saturn sieht in Mars einen Feind. Sahl: 'Hüte dich in dieser Zeit — Unfälle, Krankheiten und Konflikte häufen sich.' Vorsicht bei körperlichen Risiken.",
             "dimensionen_vektor": {
               "liebe": 0.0,
               "beruf": 0.25,
@@ -853,7 +852,7 @@
           },
           "saturn_merkur": {
             "qualitaet": "neutral_guenstig",
-            "beschreibung": "Saturn und Merkur sind Freunde — strukturiertes Denken und Kommunikation. Günstig für seriöse intellektuelle Arbeit, Verträge mit langer Laufzeit, Buchführung.",
+            "beschreibung": "Saturn sieht in Merkur einen Freund, Merkur bleibt gleichgültig — strukturiertes Denken und Kommunikation. Günstig für seriöse intellektuelle Arbeit, Verträge mit langer Laufzeit, Buchführung.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 0.75,
@@ -867,7 +866,7 @@
           },
           "saturn_mond": {
             "qualitaet": "sehr_schwierig",
-            "beschreibung": "Saturn und Mond sind Feinde — emotionale Einschränkung und Isolation. Al-Biruni: 'Der Mond leidet unter Saturn — Melancholie, Verlust der Mutter oder familiäre Schwierigkeiten.' Emotionale Kälte.",
+            "beschreibung": "Saturn sieht im Mond einen Feind, der Mond bleibt gleichgültig — emotionale Einschränkung und Isolation. Al-Biruni: 'Der Mond leidet unter Saturn — Melancholie, Verlust der Mutter oder familiäre Schwierigkeiten.' Emotionale Kälte.",
             "dimensionen_vektor": {
               "liebe": 0.0,
               "beruf": 0.25,
@@ -925,7 +924,7 @@
           },
           "jupiter_venus": {
             "qualitaet": "neutral_angenehm",
-            "beschreibung": "Jupiter und Venus sind neutral. Angenehme Kombination — Freude und Expansion. Mögliche Überindulgenz. Günstig für geselliges Leben und kreative Projekte.",
+            "beschreibung": "Jupiter sieht in Venus einen Feind, Venus bleibt ihm gegenüber gleichgültig. Dennoch eine angenehme Kombination — Freude und Expansion. Mögliche Überindulgenz. Günstig für geselliges Leben und kreative Projekte.",
             "dimensionen_vektor": {
               "liebe": 1.0,
               "beruf": 0.5,
@@ -939,7 +938,7 @@
           },
           "jupiter_merkur": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Jupiter und Merkur sind Feinde — Überzeugung und Detail im Konflikt. Jupiter will Großes sehen; Merkur prüft jedes Detail. Intellektuelle Spannung, Meinungsverschiedenheiten.",
+            "beschreibung": "Jupiter sieht in Merkur einen Feind, Merkur bleibt gleichgültig — Überzeugung und Detail im Konflikt. Jupiter will Großes sehen; Merkur prüft jedes Detail. Intellektuelle Spannung, Meinungsverschiedenheiten.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,
@@ -953,7 +952,7 @@
           },
           "jupiter_mond": {
             "qualitaet": "sehr_guenstig",
-            "beschreibung": "Jupiter und Mond sind Freunde. Öffentliche Beliebtheit und familiäres Glück. Günstig für Familiengründung, öffentliche Auftritte und emotionale Erfüllung.",
+            "beschreibung": "Jupiter sieht im Mond einen Freund, der Mond bleibt gleichgültig. Öffentliche Beliebtheit und familiäres Glück. Günstig für Familiengründung, öffentliche Auftritte und emotionale Erfüllung.",
             "dimensionen_vektor": {
               "liebe": 0.75,
               "beruf": 0.75,
@@ -1025,7 +1024,7 @@
           },
           "mars_merkur": {
             "qualitaet": "neutral",
-            "beschreibung": "Mars und Merkur sind neutral. Scharfe Kommunikation und intellektuelle Schlagfertigkeit. Günstig für Debatten, Verhandlungen und schnelle Entscheidungen.",
+            "beschreibung": "Mars sieht in Merkur einen Feind, Merkur bleibt gleichgültig. Scharfe Kommunikation und intellektuelle Schlagfertigkeit. Günstig für Debatten, Verhandlungen und schnelle Entscheidungen.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 0.75,
@@ -1039,7 +1038,7 @@
           },
           "mars_mond": {
             "qualitaet": "emotional_aufgewuehlt",
-            "beschreibung": "Mars und Mond sind neutral, aber schwierig in der Praxis — Impulsivität trifft Emotionalität. Emotionale Ausbrüche, Konflikte in der Familie. Frauen-Themen können konfliktreich sein.",
+            "beschreibung": "Mars sieht im Mond einen Freund, der Mond bleibt gleichgültig; in der Praxis schwierig — Impulsivität trifft Emotionalität. Emotionale Ausbrüche, Konflikte in der Familie. Frauen-Themen können konfliktreich sein.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,
@@ -1053,7 +1052,7 @@
           },
           "mars_saturn": {
             "qualitaet": "sehr_schwierig",
-            "beschreibung": "Die gefährlichste Kombination auch in der Mars-Hauptperiode: beide Malefiker als Feinde. Al-Biruni: 'Vermeide in dieser Zeit alle riskanten Unternehmungen.' Unfälle, Krankheiten, Konflikte mit Autoritäten.",
+            "beschreibung": "Die gefährlichste Kombination auch in der Mars-Hauptperiode: beide Malefiker; Mars bleibt Saturn gegenüber gleichgültig, Saturn aber sieht in Mars einen Feind. Al-Biruni: 'Vermeide in dieser Zeit alle riskanten Unternehmungen.' Unfälle, Krankheiten, Konflikte mit Autoritäten.",
             "dimensionen_vektor": {
               "liebe": 0.0,
               "beruf": 0.0,
@@ -1097,7 +1096,7 @@
           },
           "merkur_mond": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Merkur und Mond sind Feinde — Logik und Emotion im Konflikt. Kommunikationsprobleme durch emotionale Überladung. Intuition und Verstand arbeiten gegeneinander.",
+            "beschreibung": "Merkur sieht im Mond einen Feind, der Mond aber in Merkur einen Freund — Logik und Emotion im Konflikt. Kommunikationsprobleme durch emotionale Überladung. Intuition und Verstand arbeiten gegeneinander.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,
@@ -1111,7 +1110,7 @@
           },
           "merkur_saturn": {
             "qualitaet": "guenstig_strukturiert",
-            "beschreibung": "Merkur und Saturn sind Freunde — analytisches Denken trifft auf Geduld. Günstig für wissenschaftliche Forschung, Buchführung, langfristige Planungen.",
+            "beschreibung": "Merkur bleibt Saturn gegenüber gleichgültig, Saturn sieht in ihm einen Freund — analytisches Denken trifft auf Geduld. Günstig für wissenschaftliche Forschung, Buchführung, langfristige Planungen.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 1.0,
@@ -1125,7 +1124,7 @@
           },
           "merkur_jupiter": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Feinde: Merkur (Detail) und Jupiter (Überblick). Meinungsverschiedenheiten in Glaubens- und Bildungsfragen. Rechtliche Auseinandersetzungen. Übermäßige Prinzipientreue.",
+            "beschreibung": "Merkur (Detail) bleibt Jupiter (Überblick) gegenüber gleichgültig, Jupiter aber sieht in ihm einen Feind. Meinungsverschiedenheiten in Glaubens- und Bildungsfragen. Rechtliche Auseinandersetzungen. Übermäßige Prinzipientreue.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 0.5,
@@ -1139,7 +1138,7 @@
           },
           "merkur_mars": {
             "qualitaet": "neutral_scharf",
-            "beschreibung": "Mars und Merkur sind neutral. Scharfzüngigkeit und schnelles Denken. Gut für Debatten und Verhandlungen. Vorsicht: vorschnelle Urteile.",
+            "beschreibung": "Merkur bleibt Mars gegenüber gleichgültig, Mars aber sieht in ihm einen Feind. Scharfzüngigkeit und schnelles Denken. Gut für Debatten und Verhandlungen. Vorsicht: vorschnelle Urteile.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 0.75,
@@ -1153,7 +1152,7 @@
           },
           "merkur_sonne": {
             "qualitaet": "guenstig",
-            "beschreibung": "Sonne und Merkur sind Freunde. Intellektuelle Autorität, eloquente Führung. Günstig für Redner, Schriftsteller und Berater von Mächtigen.",
+            "beschreibung": "Merkur sieht in der Sonne eine Freundin, die Sonne bleibt ihm gegenüber gleichgültig. Intellektuelle Autorität, eloquente Führung. Günstig für Redner, Schriftsteller und Berater von Mächtigen.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 1.0,
@@ -1197,7 +1196,7 @@
           },
           "mond_saturn": {
             "qualitaet": "sehr_schwierig",
-            "beschreibung": "Mond und Saturn sind Feinde. Emotionale Unterdrückung, familiäre Verluste, Melancholie. Al-Biruni: 'Diese Kombination bringt Traurigkeit, besonders in Bezug auf die Mutter oder das häusliche Leben.'",
+            "beschreibung": "Der Mond bleibt Saturn gegenüber gleichgültig, Saturn aber sieht in ihm einen Feind. Emotionale Unterdrückung, familiäre Verluste, Melancholie. Al-Biruni: 'Diese Kombination bringt Traurigkeit, besonders in Bezug auf die Mutter oder das häusliche Leben.'",
             "dimensionen_vektor": {
               "liebe": 0.0,
               "beruf": 0.25,
@@ -1211,7 +1210,7 @@
           },
           "mond_jupiter": {
             "qualitaet": "sehr_guenstig",
-            "beschreibung": "Mond und Jupiter sind Freunde. Öffentliche Beliebtheit und expansive Familienereignisse. Günstig für Mütter, Familiengründung, öffentliches Wirken.",
+            "beschreibung": "Der Mond bleibt Jupiter gegenüber gleichgültig, Jupiter sieht in ihm einen Freund. Öffentliche Beliebtheit und expansive Familienereignisse. Günstig für Mütter, Familiengründung, öffentliches Wirken.",
             "dimensionen_vektor": {
               "liebe": 0.75,
               "beruf": 0.75,
@@ -1225,7 +1224,7 @@
           },
           "mond_mars": {
             "qualitaet": "emotional_aufgewuehlt",
-            "beschreibung": "Mond und Mars sind neutral, aber schwierig in der Praxis. Emotionale Konflikte, Impulsivität, familiäre Auseinandersetzungen. Gut für physische Aktivitäten, schwierig für Beziehungen.",
+            "beschreibung": "Der Mond bleibt Mars gegenüber gleichgültig, Mars sieht in ihm einen Freund; in der Praxis dennoch schwierig. Emotionale Konflikte, Impulsivität, familiäre Auseinandersetzungen. Gut für physische Aktivitäten, schwierig für Beziehungen.",
             "dimensionen_vektor": {
               "liebe": 0.25,
               "beruf": 0.5,
@@ -1253,7 +1252,7 @@
           },
           "mond_venus": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Mond und Venus sind Feinde. Emotionale Ansprüche und Liebesbedürfnisse geraten in Konflikt. Unzufriedenheit in Beziehungen, Stimmungsschwankungen.",
+            "beschreibung": "Der Mond bleibt Venus gegenüber gleichgültig, Venus aber sieht in ihm einen Feind. Emotionale Ansprüche und Liebesbedürfnisse geraten in Konflikt. Unzufriedenheit in Beziehungen, Stimmungsschwankungen.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,
@@ -1267,7 +1266,7 @@
           },
           "mond_merkur": {
             "qualitaet": "spannungsreich",
-            "beschreibung": "Mond und Merkur sind Feinde. Logik und Gefühl arbeiten gegeneinander. Kommunikationsmissverständnisse im familiären Umfeld.",
+            "beschreibung": "Der Mond sieht in Merkur einen Freund, Merkur aber im Mond einen Feind. Logik und Gefühl arbeiten gegeneinander. Kommunikationsmissverständnisse im familiären Umfeld.",
             "dimensionen_vektor": {
               "liebe": 0.5,
               "beruf": 0.5,

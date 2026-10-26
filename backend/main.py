@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 
 from arabic_chart import build_firdaria_chart, compute_lot_houses
 from bazi_chart import build_four_pillars
-from bildtexte import bildtext
+from bildtexte import bildtext, paarbildtext
 from chart import build_radix_wheel
 from hellenistisch_chart import build_profection_chart
 from kabbalah_chart import SEPHIROTH_NAMES, _life_path_to_sephira_index, build_kabbalah_chart
@@ -864,7 +864,8 @@ def post_horoskop_paar(payload: PartnerRequest, sp: str = Depends(_sprache)) -> 
                                             a["punkte"], b["punkte"], t, th["arabisch_genitiv"])
         systeme["Arabisch"]["zyklus"] = {"a": a["firdaria_zyklus"], "b": b["firdaria_zyklus"]}  # fuer das Zellij
     if "Kabbalah" in payload.systeme:
-        systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, sprache.regeln("Kabbalah", sp)["pfade"], t)
+        systeme["Kabbalah"] = paar.kabbalah(a["sephira"], b["sephira"], SEPHIROTH_NAMES, sprache.regeln("Kabbalah", sp)["pfade"],
+                                            sprache.regeln("Kabbalah", sp)["sephiroth"], t)
         systeme["Kabbalah"]["baum"] = {"a": a["baum"], "b": b["baum"]}  # fuer die Buchseite mit zwei Stiften
     if "Numerologie" in payload.systeme:
         matrix = sprache.regeln("Numerologie", sp)["lebenspfad_kompatibilitaet"]["matrix"]
@@ -872,6 +873,10 @@ def post_horoskop_paar(payload: PartnerRequest, sp: str = Depends(_sprache)) -> 
         systeme["Numerologie"].update({"datum": {"a": a["datum"], "b": b["datum"]},  # fuer die Heftseite
                                        "lebenszahl": {"a": a["lebenszahl"], "b": b["lebenszahl"]},
                                        "bewertung": t["numerologie_bewertung"].get(str(int(systeme["Numerologie"]["partnerschaft"] or 0)))})
+    for system, daten in systeme.items():
+        text = paarbildtext(system, daten, sp)  # Absatz zur Grafik fuer zwei
+        if text:
+            daten["bildtext"] = text
     return {"stichtag": now.date().isoformat(), "systeme": systeme}
 
 

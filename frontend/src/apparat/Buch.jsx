@@ -294,7 +294,9 @@ function abschnitte({
           st?.intro
             ? [
                 { k: "h3", t: t("buch.so_denkt") },
-                ...absaetze(st.intro),
+                ...absaetze(
+                  introMitBild(st.intro, paar?.systeme?.[id]?.bildtext),
+                ),
                 ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,

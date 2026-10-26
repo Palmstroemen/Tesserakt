@@ -44,6 +44,7 @@
    - [x] Einwilligung der Partnerperson (Pflicht-Häkchen), Ort nur grob gespeichert, kein Name
    - [x] DoD C: E2E-Durchlauf (21.10.2026) inkl. Speicherung
    - [x] Frage 413 (Veränderung) ersetzt: "Wer von euch bringt öfter Veränderungen in euer gemeinsames Leben ...?"
+   - [x] Texte Spiel C: Bildtexte zu den Paargrafiken (de/en), "So denkt dieses Horoskop" auch in C, eigene Paarsätze für Bazi-Zweige, Sephiroth mit Bedeutung und Tugend, Firdaria-Freundschaft mit Richtung
    - [ ] Beziehungsfragen insgesamt redaktionell prüfen
    - [ ] Später: Synastrie / systemeigene Interaktionsregeln, optionale Verknüpfung mit A-Sessions
 

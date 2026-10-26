@@ -112,9 +112,36 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 - he: {wer}, {a} und {b}, bilden eine Sechser-Kombination (Liu He) und verbinden sich harmonisch. {text}
 - sanhe: {wer}, {a} und {b}, gehören zum selben Dreieck ({element}) – ihr zieht am selben Strang.
 - chong: {wer}, {a} und {b}, stoßen zusammen (Chong). {text}
-- hai: {wer}, {a} und {b}, schaden einander (Liu Hai) – kleine Kränkungen summieren sich leicht. {text}
+- hai: {wer}, {a} und {b}, schaden einander (Liu Hai). {text}
 - gleich: {wer} sind gleich, beide {a} – ihr seid euch darin sehr ähnlich, manchmal zu ähnlich.
 - neutral: {wer}, {a} und {b}, stehen in keiner besonderen Beziehung – hier ist Raum, den ihr selbst gestaltet.
+
+## Chinesisch: Sechser-Kombinationen {#bazi_he}
+
+- chou_zi: Diese Verbindung gilt als die beständigste der sechs: verlässlich, auf lange Sicht angelegt, gut für alles, was ihr gemeinsam aufbaut.
+- hai_yin: Eine schöpferische, idealistische Verbindung mit romantischem Schwung – manchmal ein wenig blauäugig.
+- mao_xu: Sie gilt als besonders günstig für Liebe und Ehe: Leidenschaft und gegenseitige Treue.
+- chen_you: Eine starke Verbindung für gemeinsame Ziele: Umsicht und Planung tragen euch weit, auch im Materiellen.
+- shen_si: Eine kluge, planvolle Verbindung – ihr ergänzt euch im Durchdenken und Umsetzen, wetteifert aber auch gern.
+- wei_wu: Leidenschaft und Einfühlung kommen zusammen: eine lebhafte, fröhliche Liebe mit Lust auf Abenteuer.
+
+## Chinesisch: Zusammenstöße {#bazi_chong}
+
+- wu_zi: Wasser trifft auf Feuer: Gefühle schlagen leicht um, Pläne wechseln die Richtung – die Beziehung steht oft unter Druck, bleibt aber in Bewegung.
+- chou_wei: Erde stößt auf Erde: Streit um Grundsätzliches, auch ums Geld; manches muss neu geordnet werden.
+- shen_yin: Holz trifft auf Metall: viel Energie, aber auch viel Reibung – Auseinandersetzungen liegen nahe.
+- mao_you: Holz trifft auf Metall: Sanftheit und Strenge geraten aneinander; dieser Zusammenstoß gilt als einer, der Beziehungen gefährden kann.
+- chen_xu: Erde stößt auf Erde: Unruhe rund um Zuhause und Familie, aber auch eine Kraft, die verwandelt.
+- hai_si: Feuer trifft auf Wasser: anhaltende Anspannung, die an den Kräften zehrt – und manchmal zu einem Durchbruch führt.
+
+## Chinesisch: Schaden {#bazi_hai}
+
+- wei_zi: Fürsorge wird leicht übersehen, und Missverständnisse entstehen, wo keiner sie will.
+- chou_wu: Ungeduld untergräbt leicht, was ihr gemeinsam aufbaut, auch beim Geld.
+- si_yin: Hier kann verdeckter Groll wachsen; offene Worte schützen davor.
+- chen_mao: Der Wunsch, frei zu gestalten, stößt sich an festen Strukturen.
+- hai_shen: Kluge Pläne und hohe Ideale finden schwer zueinander; Erwartungen werden leicht enttäuscht.
+- xu_you: Anspruch trifft auf Treue – trotz guter Absichten zermürbt ihr euch leicht gegenseitig.
 
 ## Chinesisch: Tagesmeister zueinander {#bazi_dm}
 
@@ -131,8 +158,34 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 - freunde: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. Die beiden Herrscher sind Freunde – eure Lebensphasen stützen einander.
 - feinde: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. Die beiden Herrscher sind Feinde – eure Lebensphasen ziehen in verschiedene Richtungen; Verständnis für die Zeit des anderen hilft.
 - neutral: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. Die beiden Herrscher sind einander neutral – eure Phasen lassen einander Raum.
-- gemischt: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. Der eine Herrscher sieht im anderen einen Freund, umgekehrt nicht – einer trägt in dieser Zeit mehr als der andere.
+- gemischt: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. {sicht_a}, {sicht_b} – die beiden sehen einander nicht gleich; einer trägt in dieser Zeit mehr als der andere.
 - knoten: Du stehst in der Firdaria {a}, dein Gegenüber in der Firdaria {b}. Die Mondknoten kennen keine Freundschaften; diese Jahre stehen für sich.
+
+## Arabisch: wie ein Herrscher den anderen sieht {#arabisch_sicht}
+
+- freunde: {x} ist {y} freundlich gesinnt
+- feinde: {x} ist {y} feindlich gesinnt
+- neutral: {x} steht {y} gleichgültig gegenüber
+
+## Arabisch: Herrscher (wer) {#arabisch_wer}
+
+- sonne: die Sonne
+- venus: Venus
+- merkur: Merkur
+- mond: der Mond
+- saturn: Saturn
+- jupiter: Jupiter
+- mars: Mars
+
+## Arabisch: Herrscher (wem) {#arabisch_wem}
+
+- sonne: der Sonne
+- venus: Venus
+- merkur: Merkur
+- mond: dem Mond
+- saturn: Saturn
+- jupiter: Jupiter
+- mars: Mars
 
 ## Arabisch: Lose auf den Punkten des anderen {#arabisch_los}
 
@@ -155,6 +208,8 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 - pfad: Deine Sephira {a} und die deines Gegenübers, {b}, sind durch den {nr}. Pfad direkt verbunden: den Buchstaben {buchstabe} ({name} – {bedeutung}). Im Tarot gehört dazu {tarot}.
 - saeule: {a} und {b} sind nicht direkt verbunden, stehen aber auf derselben Säule, der {saeule} – ihr strebt in dieselbe Richtung.
 - getrennt: {a} und {b} sind nicht direkt verbunden und stehen auf verschiedenen Säulen ({sa} und {sb}) – der Weg zueinander führt über die Mitte des Baums.
+- wofuer: Deine Sephira {a}, „{bed_a}“, steht nach der Überlieferung für {tug_a}; die deines Gegenübers, {b}, „{bed_b}“, für {tug_b}.
+- wofuer_gleich: {a} heißt „{bed_a}“ und steht nach der Überlieferung für {tug_a}.
 
 ## Kabbalah: Säulen {#saeule}
 
@@ -180,3 +235,4 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 
 - und: und
 - dezimal: ,
+- tugend_klein: nein

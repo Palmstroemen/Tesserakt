@@ -17,7 +17,7 @@ from __future__ import annotations
 import re
 from typing import Callable, Dict, List, Optional, Tuple
 
-from ausblick import CHONG, _chong_text
+from ausblick import CHONG
 
 Texte = Dict[str, Dict[str, str]]
 
@@ -166,11 +166,6 @@ def _zweig_paar(daten: Dict[str, Dict], a: str, b: str) -> Optional[Dict]:
     return None
 
 
-def _nach_kopf(text: str) -> str:
-    """'Ratte-Bueffel (Zi-Chou): ...' ohne die Kopfzeile."""
-    return text.split("): ", 1)[1] if "): " in text else text
-
-
 def bazi(a: Dict[str, str], b: Dict[str, str], beziehung: Callable[[str, str], str], element: Callable[[str], str],
          regeln: Dict[str, object], t: Texte, tiere: Dict[str, str], elemente: Dict[str, str]) -> Dict[str, object]:
     """`a`, `b`: tag_zweig, jahr_zweig, tag_stamm. Tageszweig = Ehepalast."""
@@ -184,12 +179,15 @@ def bazi(a: Dict[str, str], b: Dict[str, str], beziehung: Callable[[str, str], s
                         if isinstance(v, dict) and za in v.get("branches", []) and zb in v.get("branches", [])), None)
         if za == zb:
             art = "gleich"
-        elif (he := _zweig_paar(tabellen["liu_he_kombinationen"], za, zb)):
-            art, text = "he", _nach_kopf(he.get("text_de", ""))
+        elif _zweig_paar(tabellen["liu_he_kombinationen"], za, zb):
+            art = "he"
         elif CHONG.get(za) == zb:
-            art, text = "chong", _chong_text(tabellen["sechs_clashes"], za, zb)
-        elif (hai := _zweig_paar(tabellen["liu_hai_harms"], za, zb)):
-            art, text = "hai", _nach_kopf(hai.get("text_de", ""))
+            art = "chong"
+        elif _zweig_paar(tabellen["liu_hai_harms"], za, zb):
+            art = "hai"
+        if art in ("he", "chong", "hai"):
+            # eigener Satz fuer Paare je Zweigpaar (die Regeltexte sind Stichworte fuer eine Person)
+            text = t[f"bazi_{art}"].get("_".join(sorted((za, zb))), "")
         elif dreieck:
             art = "sanhe"
         satz = (t["bazi_zweig"][art].replace("{wer}", t["bazi_wer"][ebene]).replace("{a}", tiere[za])
@@ -224,7 +222,15 @@ def arabisch(fird_a: str, fird_b: str, freundschaft: Dict[str, List[str]], los_a
             return next((r for r in ("freunde", "feinde", "neutral") if y in freundschaft.get(f"{x}_{r}", [])), "neutral")
         ra, rb = rolle(fird_a, fird_b), rolle(fird_b, fird_a)
         art = ra if ra == rb else "gemischt"
-    aussagen = [tf[art].replace("{a}", genitiv[fird_a]).replace("{b}", genitiv[fird_b])]
+    satz = tf[art].replace("{a}", genitiv[fird_a]).replace("{b}", genitiv[fird_b])
+    if art == "gemischt":
+        # einseitige Freundschaft: wie jeder der beiden Herrscher den anderen sieht ("Saturn ist dem Mond feindlich
+        # gesinnt, der Mond steht Saturn gleichgueltig gegenueber")
+        def sicht(rolle_xy: str, x: str, y: str) -> str:
+            return t["arabisch_sicht"][rolle_xy].replace("{x}", t["arabisch_wer"][x]).replace("{y}", t["arabisch_wem"][y])
+        sa = sicht(ra, fird_a, fird_b)
+        satz = satz.replace("{sicht_a}", sa[:1].upper() + sa[1:]).replace("{sicht_b}", sicht(rb, fird_b, fird_a))
+    aussagen = [satz]
 
     tl, tp = t["arabisch_los"], t["arabisch_punkt"]
     lose = []
@@ -254,9 +260,22 @@ SAEULE = {1: "mitte", 6: "mitte", 9: "mitte", 10: "mitte", 2: "gnade", 4: "gnade
           3: "strenge", 5: "strenge", 8: "strenge"}
 
 
-def kabbalah(seph_a: int, seph_b: int, namen: List[str], pfade: Dict[str, Dict], t: Texte) -> Dict[str, object]:
-    """Lage der beiden Sephiroth im Lebensbaum: dieselbe, durch einen der 22 Pfade direkt verbunden, auf
-    derselben Saeule oder getrennt."""
+def _sephira(sephiroth: Dict[str, Dict], nr: int, t: Texte) -> Tuple[str, str]:
+    """Bedeutung ("die Kraft") und Tugend ("Energie, Mut, Stärke") einer Sephira aus den Regeln."""
+    daten = next((v for v in sephiroth.values() if isinstance(v, dict) and v.get("nummer") == nr), {})
+    # alle Bedeutungen ("die Kraft, die Stärke, das Gericht"), Artikel klein mitten im Satz
+    bedeutung = re.sub(r"(^|, )(Die|Der|Das|The) ", lambda m: m.group(1) + m.group(2).lower() + " ",
+                       (daten.get("name_deutsch") or "").replace(" / ", ", "))
+    teile = [x.strip() for x in (daten.get("tugend") or "").split(" / ")]
+    if t["woerter"].get("tugend_klein") == "ja":  # englisch: "energy, courage, strength"
+        teile = [x[:1].lower() + x[1:] for x in teile]
+    return bedeutung, ", ".join(x for x in teile if x)
+
+
+def kabbalah(seph_a: int, seph_b: int, namen: List[str], pfade: Dict[str, Dict], sephiroth: Dict[str, Dict],
+             t: Texte) -> Dict[str, object]:
+    """Wofuer die beiden Sephiroth stehen und wie sie im Lebensbaum liegen: dieselbe, durch einen der 22 Pfade
+    direkt verbunden, auf derselben Saeule oder getrennt."""
     tk, ts = t["kabbalah"], t["saeule"]
     na, nb = namen[seph_a - 1], namen[seph_b - 1]
     pfad = next((p for p in pfade.values() if isinstance(p, dict)
@@ -277,7 +296,12 @@ def kabbalah(seph_a: int, seph_b: int, namen: List[str], pfade: Dict[str, Dict],
         satz = (tk["getrennt"].replace("{a}", na).replace("{b}", nb)
                 .replace("{sa}", ts[SAEULE[seph_a]].replace("mittleren", "mittlere"))
                 .replace("{sb}", ts[SAEULE[seph_b]].replace("mittleren", "mittlere")))
-    return {"aussagen": [satz], "sephiroth": [seph_a, seph_b], "pfad": pfad["pfad_nummer"] if pfad else None,
+    (bed_a, tug_a), (bed_b, tug_b) = _sephira(sephiroth, seph_a, t), _sephira(sephiroth, seph_b, t)
+    wofuer = (tk["wofuer_gleich"] if seph_a == seph_b else tk["wofuer"])
+    wofuer = (wofuer.replace("{a}", na).replace("{b}", nb).replace("{bed_a}", bed_a).replace("{bed_b}", bed_b)
+              .replace("{tug_a}", tug_a).replace("{tug_b}", tug_b))
+    aussagen = [satz, wofuer] if tug_a and tug_b else [satz]
+    return {"aussagen": aussagen, "sephiroth": [seph_a, seph_b], "pfad": pfad["pfad_nummer"] if pfad else None,
             "art": art}
 
 

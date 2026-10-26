@@ -7,6 +7,9 @@ Sprache ein eigenes Modul daneben (de.py, ...): Artikel, Faelle und Satzstellung
 sich eine Vorlage fuer alle Sprachen lohnte. Ein neues Sprachmodul braucht dieselben Funktionen wie de.py.
 
 Jede Funktion beschreibt nur, was die Grafik in frontend/src/apparat/diagramme/ wirklich zeigt.
+
+Spiel C: paarbildtext() erklaert die Grafik fuer zwei (*Paar.jsx). Die Fakten sind dort schon die Daten aus
+backend/paar.py (Art der Verbindung, Kutas, Aspekte), die Saetze stehen je Sprache in PAAR.
 """
 
 import importlib
@@ -187,4 +190,15 @@ def bildtext(system: str, payload: Optional[Dict[str, Any]], sprache: str = sp.G
     try:
         return formulierung.ABSATZ[system](fakten(payload, sprache))
     except (KeyError, TypeError, ValueError):
+        return None  # lieber kein Absatz als ein falscher
+
+
+def paarbildtext(system: str, daten: Optional[Dict[str, Any]], sprache: str = sp.GRUND) -> Optional[str]:
+    """Absatz zur Grafik fuer zwei (Spiel C); None, wenn es keine Daten oder keinen Text dafuer gibt."""
+    if not daten:
+        return None
+    try:
+        formulierung = importlib.import_module(f"bildtexte.{sprache}")
+        return formulierung.PAAR[system](daten)
+    except (ModuleNotFoundError, AttributeError, KeyError, TypeError, ValueError):
         return None  # lieber kein Absatz als ein falscher

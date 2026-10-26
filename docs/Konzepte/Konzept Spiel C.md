@@ -163,7 +163,7 @@ Vorher (Prototyp bis Oktober 2026): alte Baseline-Metrik (1/6), Bazi doppelt als
 
 ## 9. Was gilt jetzt
 
-- Spiel C ist konzeptionell vorbereitet, aber nicht live.
+- Spiel C ist spielbar (E2E 21.10.2026): Beziehungsfragen, Skill gegen 100 zufällige Paare, je Horoskop eine Grafik für zwei mit Bildtext und Paaraussagen (`backend/paar.py`, Texte `docs/Textbausteine/paar/paar_v1.md`).
 - Begriffe und Metriken sind identisch zu A/B gemäß `Vorlage zur Harmonisierung der Texte.md`.
 - Dieses Dokument trennt verbindliche Must-haves (3a) von späteren Erweiterungen (3b/4).
 

@@ -43,8 +43,12 @@ Ereignis. Die Knoten-Perioden haben bei uns keine Unterperioden (siehe oben).
 
 ## Partnerschaft (Ergebnis von Spiel C)
 
-`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Freundschaft der laufenden Haupt-Firdaria-Herrscher beider Personen (Tabelle nach Abu Ma'shar und
-Al-Biruni in `arabisch_firdaria.json`); ist sie nicht gegenseitig, gilt sie als gemischt. Dazu das Los
+`backend/paar.py`, Endpunkt `POST /horoscope/paar`. Freundschaft der laufenden Haupt-Firdaria-Herrscher beider Personen (Tabelle der Inder, wie sie
+Al-Biruni im Book of Instruction §447 wiedergibt, in `arabisch_firdaria.json`; geprüft am Scan der
+Übersetzung von Wright 1934). Die Freundschaft ist einseitig: Jeder Planet hat seine eigene Sicht (die Sonne
+ist Merkur gegenüber gleichgültig, Merkur sieht in ihr eine Freundin). Ist sie nicht gegenseitig, gilt sie
+als gemischt. Al-Biruni bringt daneben eine abweichende Tabelle des Abu 'l-Qasim und merkt an, die
+Astrologen seiner Zeit legten auf diese Freundschaften wenig Gewicht. Dazu das Los
 des Glücks jeder Person, wenn es in das Zeichen von Sonne, Mond oder Aszendent des anderen fällt (nur
 mit Geburtsort). Das Los der Ehe fehlt, weil es das Geschlecht braucht.
 

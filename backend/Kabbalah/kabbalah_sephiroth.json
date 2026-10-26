@@ -142,7 +142,7 @@
       "erzengel_bedeutung": "Der nächste am Thron, Angesicht Gottes, Hüter der Akasha-Chroniken",
       "engelschor": "Chajoth ha-Qadesh (חַיּוֹת הַקֹּדֶשׁ)",
       "engelschor_deutsch": "Die Heiligen Lebewesen (entsprechen den vier Wesen der Merkabah/Ezechiel-Vision)",
-      "tugend": "Vollendung des Großen Werkes (Attainment)",
+      "tugend": "Vollendung des Großen Werkes",
       "laster": "Keines — Kether ist jenseits von Lastern",
       "spirituelle_erfahrung": "Union mit Gott — Samadhi, Devekut, mystische Einheit",
       "koerper_entsprechung": "Scheitel des Schädels, der höchste Punkt",
@@ -210,7 +210,7 @@
       "erzengel_bedeutung": "Hüter der göttlichen Geheimnisse, Offenbarer der kosmischen Weisheit",
       "engelschor": "Auphanim (אוֹפַנִּים)",
       "engelschor_deutsch": "Die Räder (Ophanim) — die Engel der Sphären aus Ezechiels Vision",
-      "tugend": "Hingebungsvolle Andacht / Devotionsstärke",
+      "tugend": "hingebungsvolle Andacht / Devotionsstärke",
       "laster": "Nichts (jenseits der persönlichen Laster)",
       "spirituelle_erfahrung": "Die Vision Gottes von Angesicht zu Angesicht",
       "koerper_entsprechung": "Linke Seite des Gesichts / Linkes Auge (im Adam Kadmon)",
@@ -353,7 +353,7 @@
       "erzengel_bedeutung": "Gerechtigkeit Gottes — Engel der Gnade, Barmherzigkeit und des Wachstums",
       "engelschor": "Chasmalim (חַשְׁמַלִּים)",
       "engelschor_deutsch": "Die Glänzenden / Funkelnden — entsprechen den Dominationen",
-      "tugend": "Demut / Gehorsam / Obedienz",
+      "tugend": "Demut / Gehorsam",
       "laster": "Bigotterie / Heuchelei / Glaubensfanatismus",
       "spirituelle_erfahrung": "Die Vision der Liebe",
       "koerper_entsprechung": "Linker Arm und linke Schulter (im Adam Kadmon)",
@@ -495,7 +495,7 @@
       "erzengel_bedeutung": "Heilung Gottes — Erzengl der Heilung, Luft, Reisen und des Sonnenbewusstseins",
       "engelschor": "Malachim (מַלְאָכִים)",
       "engelschor_deutsch": "Die Könige / Die Boten — entsprechen den Tugenden in der christlichen Hierarchie",
-      "tugend": "Hingebung an das Große Werk / Devotion to the Great Work",
+      "tugend": "Hingebung an das Große Werk",
       "laster": "Hochmut / Stolz",
       "spirituelle_erfahrung": "Die Vision der Harmonie — Begegnung mit dem Heiligen Schutzengel (HGA)",
       "koerper_entsprechung": "Brust / Herz (im Adam Kadmon) — Zentrum des Körpers wie Tiphereth Zentrum des Baumes",
@@ -566,7 +566,7 @@
       "erzengel_bedeutung": "Gnade Gottes — Erzengel der Venus, der Liebe, Schönheit und astralischen Visionen",
       "engelschor": "Elohim (אֱלֹהִים)",
       "engelschor_deutsch": "Die Götter — Engelgruppe der Naturgötter und elementaren Kräfte",
-      "tugend": "Unselfish Love — Selbstlose Liebe / Uneigennützigkeit",
+      "tugend": "selbstlose Liebe / Uneigennützigkeit",
       "laster": "Unkeuschheit / Lust",
       "spirituelle_erfahrung": "Die Vision der triumphierenden Schönheit",
       "koerper_entsprechung": "Lenden / Hüften (im Adam Kadmon)",
@@ -972,7 +972,7 @@
         "laster": "Hochmut"
       },
       "7_Netzach": {
-        "tugend": "Unselfish Love",
+        "tugend": "Selbstlose Liebe",
         "laster": "Unkeuschheit / Lust"
       },
       "8_Hod": {

@@ -112,9 +112,36 @@ Placeholder {themen}: "feeling and affection" or "your emotional worlds" (always
 - he: {wer}, {a} and {b}, form a Six Harmony combination (Liu He) and join harmoniously. {text}
 - sanhe: {wer}, {a} and {b}, belong to the same triangle ({element}) – you pull together.
 - chong: {wer}, {a} and {b}, clash (Chong). {text}
-- hai: {wer}, {a} and {b}, harm each other (Liu Hai) – small slights add up easily. {text}
+- hai: {wer}, {a} and {b}, harm each other (Liu Hai). {text}
 - gleich: {wer} are the same, both {a} – in this you are very alike, sometimes too alike.
-- neutral: {wer}, {a} and {b}, have no special relationship – here is room for you two to shape yourselves.
+- neutral: {wer}, {a} and {b}, have no special relationship – this is room for the two of you to shape as you like.
+
+## Chinese: Six Combinations {#bazi_he}
+
+- chou_zi: This bond is considered the most steadfast of the six: reliable, built for the long term, good for everything you build together.
+- hai_yin: A creative, idealistic bond with romantic momentum – at times a little naive.
+- mao_xu: It is considered especially favorable for love and marriage: passion and mutual loyalty.
+- chen_you: A strong bond for shared goals: care and planning take you far, in material things too.
+- shen_si: A clever, deliberate bond – you complement each other in thinking things through and carrying them out, but you also like to compete.
+- wei_wu: Passion and empathy come together: a lively, joyful love with a taste for adventure.
+
+## Chinese: Clashes {#bazi_chong}
+
+- wu_zi: Water meets Fire: feelings shift easily and plans change direction – the relationship is often under pressure, but it stays in motion.
+- chou_wei: Earth clashes with Earth: disputes over fundamentals, money included; some things have to be put in a new order.
+- shen_yin: Wood meets Metal: plenty of energy, but plenty of friction too – arguments are never far away.
+- mao_you: Wood meets Metal: gentleness and severity run into each other; this clash is considered one that can endanger relationships.
+- chen_xu: Earth clashes with Earth: unrest around home and family, but also a force that transforms.
+- hai_si: Fire meets Water: lasting tension that wears down your strength – and sometimes leads to a breakthrough.
+
+## Chinese: Harms {#bazi_hai}
+
+- wei_zi: Care easily goes unnoticed, and misunderstandings arise where neither of you wants them.
+- chou_wu: Impatience can easily undermine what you build together, money included.
+- si_yin: Hidden resentment can grow here; open words protect against it.
+- chen_mao: The wish to shape things freely runs up against fixed structures.
+- hai_shen: Clever plans and high ideals have a hard time meeting; expectations are easily disappointed.
+- xu_you: High standards meet loyalty – despite good intentions, you easily wear each other down.
 
 ## Chinese: Day Masters to Each Other {#bazi_dm}
 
@@ -131,8 +158,34 @@ Placeholder {themen}: "feeling and affection" or "your emotional worlds" (always
 - freunde: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are friends – your phases of life support each other.
 - feinde: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are enemies – your phases of life pull in different directions; understanding for the other's time helps.
 - neutral: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are neutral toward each other – your phases leave each other room.
-- gemischt: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. One ruler sees a friend in the other, but not the other way around – one of you carries more than the other during this time.
+- gemischt: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. {sicht_a}, while {sicht_b} – the two do not see each other alike; one of you carries more than the other during this time.
 - knoten: You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The lunar nodes know no friendships; these years stand on their own.
+
+## Arabic: How One Ruler Sees the Other {#arabisch_sicht}
+
+- freunde: {x} is friendly toward {y}
+- feinde: {x} is hostile toward {y}
+- neutral: {x} is indifferent toward {y}
+
+## Arabic: Rulers (Subject) {#arabisch_wer}
+
+- sonne: the Sun
+- venus: Venus
+- merkur: Mercury
+- mond: the Moon
+- saturn: Saturn
+- jupiter: Jupiter
+- mars: Mars
+
+## Arabic: Rulers (Object) {#arabisch_wem}
+
+- sonne: the Sun
+- venus: Venus
+- merkur: Mercury
+- mond: the Moon
+- saturn: Saturn
+- jupiter: Jupiter
+- mars: Mars
 
 ## Arabic: Lots on the Other's Points {#arabisch_los}
 
@@ -155,6 +208,8 @@ Placeholder {themen}: "feeling and affection" or "your emotional worlds" (always
 - pfad: Your Sephira {a} and your partner's, {b}, are directly connected by path {nr}: the letter {buchstabe} ({name} – {bedeutung}). Its tarot card is {tarot}.
 - saeule: {a} and {b} are not directly connected, but they stand on the same pillar, the {saeule} – you strive in the same direction.
 - getrennt: {a} and {b} are not directly connected and stand on different pillars ({sa} and {sb}) – the way to each other leads through the middle of the tree.
+- wofuer: According to tradition, your Sephira {a}, “{bed_a},” stands for {tug_a}; your partner's, {b}, “{bed_b},” for {tug_b}.
+- wofuer_gleich: {a} means “{bed_a}” and, according to tradition, stands for {tug_a}.
 
 ## Kabbalah: Pillars {#saeule}
 
@@ -180,3 +235,4 @@ Placeholder {themen}: "feeling and affection" or "your emotional worlds" (always
 
 - und: and
 - dezimal: .
+- tugend_klein: ja

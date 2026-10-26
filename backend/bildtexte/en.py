@@ -1,6 +1,6 @@
 """Picture texts in English: builds one paragraph per system from the facts (bildtexte/__init__.py)."""
 
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, List
 
 from bildtexte import satz as _satz
 
@@ -239,4 +239,190 @@ ABSATZ: Dict[str, Callable[[Dict[str, Any]], str]] = {
     "Arabisch": arabisch,
     "Numerologie": numerologie,
     "Kabbalah": kabbalah,
+}
+
+
+# --- Game C: the charts for two -----------------------------------------------------------------------------
+
+ZAHLWORT = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
+
+
+def _zahl(n: int) -> str:
+    return ZAHLWORT[n] if n < len(ZAHLWORT) else str(n)
+
+
+def westlich_paar(d: Dict[str, Any]) -> str:
+    asz = "aszendent" in d["punkte"]["a"] and "aszendent" in d["punkte"]["b"]
+    teile = [
+        "The double wheel lays the skies of your two birth hours on top of each other, as Western astrology does "
+        "for couples (synastry). The zodiac lies on the outside, beneath it your partner's silver ring, and "
+        "inside it your golden one, each with the Sun, Moon, Venus and Mars"
+        + (" and the Ascendant." if asz else "."),
+        "Wherever one of your points forms one of the old angles with one of your partner's, a thread of light "
+        "runs between the rings: blue for a trine and light blue for a sextile, which are considered "
+        "harmonious; red for a square and orange for an opposition, which are considered tense and therefore "
+        "flicker. Where two points coincide (conjunction), the thread glows bright.",
+    ]
+    arten = [x["aspekt"] for x in d.get("aspekte", [])]
+    if not arten:
+        teile.append("No thread runs between you: none of your points stands at a close angle to the other's.")
+    else:
+        spannung = sum(a in ("quadrat", "opposition") for a in arten)
+        teile.append(
+            ("One thread runs between you" if len(arten) == 1 else f"{_gross(_zahl(len(arten)))} threads run between you")
+            + (", and none of them flickers." if not spannung
+               else (", and it flickers." if len(arten) == 1 else ", and all of them flicker.") if spannung == len(arten)
+               else f"; {_zahl(spannung)} of them flicker." if spannung > 1 else "; one of them flickers.")
+        )
+    return " ".join(teile)
+
+
+def hellenistisch_paar(d: Dict[str, Any]) -> str:
+    asz = "aszendent" in d["punkte"]["a"] and "aszendent" in d["punkte"]["b"]
+    teile = [
+        "Around the rim of the plate stand the twelve signs of the zodiac with their Greek names. Drawn in chalk "
+        f"are {'the Sun, Moon and Ascendant' if asz else 'the Sun and Moon'} of both of you, yours in yellow "
+        "chalk, your partner's in white.",
+        "Hellenistic astrology asks of two signs whether they see each other: in the same sign, opposite, in a "
+        "triangle, a square or a hexagon. Where they see each other, an unbroken chalk line connects them. If "
+        "they are in aversion, that is, they do not see each other, the middle of the line stays empty.",
+    ]
+    bezuege = [x["bezug"] for x in d.get("bezuege", [])]
+    if bezuege:
+        blind = bezuege.count("aversion")
+        teile.append(
+            "For you, all the compared points see each other." if not blind
+            else "For you, none of the compared pairs see each other." if blind == len(bezuege)
+            else f"For you, {_zahl(blind)} of {_zahl(len(bezuege))} lines stay open in the middle." if blind > 1
+            else f"For you, one of {_zahl(len(bezuege))} lines stays open in the middle."
+        )
+    return " ".join(teile)
+
+
+KUTA_NAME = {"tara": "Tara", "yoni": "Yoni", "gana": "Gana", "bhakoot": "Bhakoot", "nadi": "Nadi"}
+KUTA_VOLL = {"tara": 3, "yoni": 4, "gana": 6, "bhakoot": 7, "nadi": 8}
+
+
+def _liste(namen: List[str]) -> str:
+    return namen[0] if len(namen) == 1 else ", ".join(namen[:-1]) + " and " + namen[-1]
+
+
+def vedisch_paar(d: Dict[str, Any]) -> str:
+    teile = [
+        "This rangoli is strewn for two. In the center blooms a flower with five petals, one for each Kuta by "
+        "which Vedic astrology examines a couple: Tara, Yoni, Gana, Bhakoot and Nadi. Each petal is outlined "
+        "with dots of rice flour and filled with colored powder from the inside, as far as you reach points in "
+        "it. On the outside lies the ring of the 27 Nakshatras, the lunar mansions; a golden bangle lies around "
+        "your birth Nakshatra, a silver one around your partner's. A cord runs from each bangle to the center.",
+    ]
+    kutas = d.get("kutas") or {}
+    voll = [KUTA_NAME[k] for k, v in kutas.items() if k in KUTA_VOLL and v >= KUTA_VOLL[k]]
+    leer = [KUTA_NAME[k] for k, v in kutas.items() if k in KUTA_NAME and not v]
+    if voll:
+        teile.append(f"{_liste(voll)} {'is' if len(voll) == 1 else 'are'} completely filled"
+                     + (f", while {_liste(leer)} {'stays' if len(leer) == 1 else 'stay'} empty." if leer else "."))
+    elif leer:
+        teile.append(f"{_liste(leer)} {'stays' if len(leer) == 1 else 'stay'} empty.")
+    punkte, hoechst = float(d["punkte"]), float(d["max"])
+    teile.append(
+        f"With {punkte:g} of {hoechst:g} points, at least half, the two cords are knotted together in the center."
+        if punkte >= hoechst / 2
+        else f"With {punkte:g} of {hoechst:g} points, less than half, the ends of the cords lie loosely side by side."
+    )
+    return " ".join(teile)
+
+
+BAZI_FADEN = {
+    "he": "For you it is pulled tight and knotted: your branches form one of the Six Harmonies (Liu He), the "
+          "closest bond between two branches.",
+    "sanhe": "For you it is taut: your branches belong to the same triangle (San He) and pull in the same "
+             "direction.",
+    "chong": "For you it is torn: your branches stand opposite each other and clash (Chong).",
+    "hai": "For you it is tangled: your branches harm each other (Liu Hai).",
+    "gleich": "For you it is looped twice: you both have the same branch.",
+    "neutral": "For you it hangs loosely: your branches have no particular relationship to each other.",
+}
+
+
+def bazi_paar(d: Dict[str, Any]) -> str:
+    teile = [
+        "Your two Bazi cards lie on the lacquer tray, yours with gold writing on the right, your partner's with "
+        "silver writing on the left. A red thread connects the Earthly Branches of your day pillars. Chinese "
+        "tradition calls this branch the Spouse Palace; the thread recalls the old belief that an invisible red "
+        "thread connects people who are destined for each other. The way it lies shows how the two branches "
+        "relate to each other."
+    ]
+    if d.get("ehepalast") in BAZI_FADEN:
+        teile.append(BAZI_FADEN[d["ehepalast"]])
+    return " ".join(teile)
+
+
+ARABISCH_FELD = {
+    "freunde": "For you it shines golden: the two rulers are friends.",
+    "gleich": "For you it shines golden: you are both under the same ruler.",
+    "gemischt": "For you it shines only faintly: the two rulers do not see each other alike.",
+    "feinde": "For you it stays dull and unglazed: the two rulers are enemies.",
+    "neutral": "For you it stays plain: the two rulers are indifferent to each other.",
+    "knoten": "For you it stays plain: the lunar nodes know no friendships.",
+}
+
+
+def arabisch_paar(d: Dict[str, Any]) -> str:
+    teile = [
+        "The zellij disc carries two Firdaria rings, because for each person the order of the periods of life "
+        "depends on whether they were born by day or by night. Your ring is on the outside, your partner's on "
+        "the inside. Two pointers stand where you are today: the long golden one at yours, the shorter silver "
+        "one at your partner's; your current tiles are laid with gold leaf and silver. The field between the "
+        "pointers shows how the rulers of your two periods stand toward each other."
+    ]
+    if d.get("art") in ARABISCH_FELD:
+        teile.append(ARABISCH_FELD[d["art"]])
+    return " ".join(teile)
+
+
+KABBALAH_LAGE = {
+    "pfad": "Your Sephiroth are connected directly by a path. Each of you has colored it in from your own side "
+            "up to the middle and circled the Hebrew letter on it.",
+    "gleich": "You share the same Sephira; your two hatchings lie on top of each other, with the notes to the "
+              "left and right of it.",
+    "saeule": "Your Sephiroth are not directly connected, but they stand on the same pillar. The pillar between "
+              "them has been traced over with dashes in both colors.",
+    "getrennt": "Your Sephiroth are not directly connected and stand on different pillars. From each, a dashed "
+                "line leads to the middle, to Tiphereth, the heart of the tree.",
+}
+
+
+def kabbalah_paar(d: Dict[str, Any]) -> str:
+    teile = [
+        "Two people have worked on this book page with the Tree of Life: you with a gold pencil, your partner "
+        "with a graphite pencil. Each of you has hatched and circled your Sephira and left a note in the margin "
+        "in your own handwriting."
+    ]
+    if d.get("art") in KABBALAH_LAGE:
+        teile.append(KABBALAH_LAGE[d["art"]])
+    return " ".join(teile)
+
+
+def numerologie_paar(d: Dict[str, Any]) -> str:
+    teile = [
+        "Two calculations stand side by side on the notebook page, yours on the left in fountain-pen ink, your "
+        "partner's on the right in pencil. From each date of birth, the digit sums of the day, month and year "
+        "are formed and added up to the Life Path number."
+    ]
+    if d.get("bewertung"):
+        teile.append(
+            "The teacher has circled both Life Path numbers in red, joined them with an arc and written "
+            f"underneath how numerology rates this match: “{d['bewertung']}!”"
+        )
+    return " ".join(teile)
+
+
+PAAR: Dict[str, Callable[[Dict[str, Any]], str]] = {
+    "Westlich": westlich_paar,
+    "Bazi": bazi_paar,
+    "Hellenistisch": hellenistisch_paar,
+    "Vedisch": vedisch_paar,
+    "Arabisch": arabisch_paar,
+    "Numerologie": numerologie_paar,
+    "Kabbalah": kabbalah_paar,
 }

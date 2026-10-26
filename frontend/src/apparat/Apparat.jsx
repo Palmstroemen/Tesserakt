@@ -739,7 +739,7 @@ export default function Apparat() {
                 heute={heute}
                 ausblick={ausblick}
                 paar={paar}
-                texte={spiel !== "C" ? texte : null}
+                texte={texte}
                 onZurueck={() => setTextkarten(false)}
               />
             </div>
