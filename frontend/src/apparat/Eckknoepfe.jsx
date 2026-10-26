@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { METALL } from "./Datumsrad";
+import { KNOPF } from "./platte";
 import { hebel } from "./klang";
 
 // Knoepfe in den oberen Ecken des Faechers: dieselben Messingknoepfe wie A und B der Datumsseite, an
 // derselben Stelle (Datumsrad.jsx: KNOEPFE). Beim Uebergang legen sie sich unbemerkt ueber A und B, nur die
-// Gravur wechselt: links "‹" (zurueck zur Datumsscheibe), rechts das Buch.
+// Gravur wechselt: links "‹" (eine Frage zurueck, vor der ersten zur Datumsscheibe), rechts das Buch.
 const ECKEN = [
-  { id: "zurueck", x: 34, y: 34, name: "Noch einmal" },
-  { id: "buch", x: 366, y: 34, name: "Buch" },
+  { id: "zurueck", x: KNOPF.ecke, y: KNOPF.ecke, name: "Eine Frage zurück" },
+  { id: "buch", x: 400 - KNOPF.ecke, y: KNOPF.ecke, name: "Buch" },
 ];
 
 function Gravur({ id }) {
@@ -67,11 +68,11 @@ export default function Eckknoepfe({ auftritt, onZurueck, onBuch }) {
           <circle
             cx={k.x}
             cy={k.y}
-            r="26"
+            r={KNOPF.rand}
             fill="url(#ek-rahmen)"
             className="dr-knopfrand"
           />
-          <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
+          <circle cx={k.x} cy={k.y} r={KNOPF.mitte} className="dr-knopfmitte" />
           {k.id === "zurueck" ? (
             <text
               x={k.x - 1}
@@ -84,7 +85,7 @@ export default function Eckknoepfe({ auftritt, onZurueck, onBuch }) {
             </text>
           ) : (
             // aufgeschlagenes Buch
-            <g transform={`translate(${k.x} ${k.y + 0.5}) scale(1.15)`}>
+            <g transform={`translate(${k.x} ${k.y + 0.5}) scale(1.5)`}>
               <path
                 d="M0 -5 C -3 -7 -7 -7 -9 -6 L -9 6 C -7 5 -3 5 0 7 C 3 5 7 5 9 6 L 9 -6 C 7 -7 3 -7 0 -5 Z M0 -5 L0 7"
                 className="ek-buch"

@@ -25,10 +25,13 @@ export function PlattenVerlauf({ id, aussen }) {
 // Knopf C der Datumsseite liegt rechts unten in der Ecke unter der Walzenplatte (Datumsrad.jsx: KNOEPFE); die
 // Platte laesst ihn mit einer runden Ausnehmung frei, bis sie beim Drehen darueberfaehrt. Im Faecher sitzt
 // die Ausnehmung dann rechts oben, um den Druckknopf.
-export const KNOPF_C = { x: 366, y: 366 };
+// Messingknoepfe in den Ecken (Datumsseite A, B, C; im Faecher "‹" und Buch): so gross, wie es neben der
+// Datumsscheibe geht (Rand 4 vom Bildrand, 3 Luft zur Scheibe)
+export const KNOPF = { rand: 32, mitte: 24, ecke: 36 };
+export const KNOPF_C = { x: 400 - KNOPF.ecke, y: 400 - KNOPF.ecke };
 const KERBE = {
   r: Math.hypot(KNOPF_C.x - MITTE.x, KNOPF_C.y - MITTE.y),
-  radius: 32,
+  radius: KNOPF.rand + 6,
 };
 
 // Gebrauchsspuren auf Messing: eine grosse Platte mit Riefen und Kratzern (hell) und eine mit

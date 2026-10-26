@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { MITTE, layoutAusFenster } from "./geometrie";
-import { KNOPF_C, PlattenVerlauf, SpurenBild } from "./platte";
+import { KNOPF, KNOPF_C, PlattenVerlauf, SpurenBild } from "./platte";
+import Knopfsymbol from "./Knopfsymbole";
 import OrtWalzen, { WALZEN } from "./OrtWalzen";
 import Mantel, { HALBDICKE } from "./Mantel";
 import Zaehlwerk from "./Zaehlwerk";
@@ -85,8 +86,8 @@ export const RINGE = [
   },
 ];
 const KNOEPFE = [
-  { spiel: "A", x: 34, y: 34 },
-  { spiel: "B", x: 366, y: 34 },
+  { spiel: "A", x: KNOPF.ecke, y: KNOPF.ecke },
+  { spiel: "B", x: 400 - KNOPF.ecke, y: KNOPF.ecke },
   { spiel: "C", ...KNOPF_C, silber: true }, // Spiel C: zweite Person auf der silbernen Seite; unter der Walzenplatte
 ];
 const HOEHE = MITTE.y + WALZEN.stadt + 44;
@@ -470,7 +471,8 @@ export default function Datumsrad({
             </filter>
           </defs>
 
-          {/* Spielknoepfe in den Ecken (Platzhalter-Beschriftung A, B, C); C liegt unter der Walzenplatte */}
+          {/* Spielknoepfe in den Ecken mit gravierten Symbolen (A Sonne, B Sanduhr, C Sonne und Mond); C liegt
+              unter der Walzenplatte */}
           <g className="dr-knoepfe">
             {KNOEPFE.map((k) => (
               <g
@@ -483,20 +485,22 @@ export default function Datumsrad({
                 <circle
                   cx={k.x}
                   cy={k.y}
-                  r="26"
+                  r={KNOPF.rand}
                   fill={k.silber ? "url(#dr-rahmen-silber)" : "url(#dr-rahmen)"}
                   className="dr-knopfrand"
                 />
-                <circle cx={k.x} cy={k.y} r="19" className="dr-knopfmitte" />
-                <text
+                <circle
+                  cx={k.x}
+                  cy={k.y}
+                  r={KNOPF.mitte}
+                  className="dr-knopfmitte"
+                />
+                <Knopfsymbol
+                  spiel={k.spiel}
                   x={k.x}
                   y={k.y}
-                  dy="0.36em"
-                  className={k.silber ? "dr-knopftext silber" : "dr-knopftext"}
                   filter="url(#dr-gravur)"
-                >
-                  {k.spiel}
-                </text>
+                />
               </g>
             ))}
           </g>

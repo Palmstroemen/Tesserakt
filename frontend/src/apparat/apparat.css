@@ -1026,7 +1026,8 @@ body::after {
 
 .dr-knopf circle,
 .dr-knopf text,
-.dr-knopf .ek-buch {
+.dr-knopf .ek-buch,
+.dr-knopf .dr-symbol {
   transform-box: fill-box;
   transform-origin: center;
   transition: transform 0.12s;
@@ -1034,7 +1035,8 @@ body::after {
 
 .dr-knopf.gedrueckt circle,
 .dr-knopf.gedrueckt text,
-.dr-knopf.gedrueckt .ek-buch {
+.dr-knopf.gedrueckt .ek-buch,
+.dr-knopf.gedrueckt .dr-symbol {
   transform: scale(0.9);
 }
 
@@ -1043,7 +1045,7 @@ body::after {
 }
 
 .dr-knopfrand {
-  stroke: #2b2014;
+  stroke: #5a4325;
   stroke-width: 1.5;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
 }
@@ -1183,7 +1185,7 @@ body::after {
 }
 
 .dr-knopftext.ek-pfeil {
-  font-size: 32px;
+  font-size: 42px;
 }
 
 .ek-buch {
