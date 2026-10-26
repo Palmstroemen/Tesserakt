@@ -175,3 +175,8 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 - 3: ausgeglichen
 - 4: harmonisch
 - 5: sehr harmonisch
+
+## Kleine Wörter {#woerter}
+
+- und: und
+- dezimal: ,

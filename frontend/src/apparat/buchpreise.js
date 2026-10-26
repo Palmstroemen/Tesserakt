@@ -1,21 +1,43 @@
-// Preisstaffel fuer das gedruckte Horoskopbuch (Euro, inkl. USt., ohne Versand). Index = Anzahl Horoskope.
-// Platzhalter: Preise und Aktionen werden vor dem Verkauf festgelegt.
-export const PREISE = [0, 15, 20, 23, 25, 27, 29, 30];
+// Preise des gedruckten Horoskopbuchs: Waehrung, Staffel und laufende Aktion kommen vom Server (GET /buch/preise,
+// Markt nach dem Land der Zeitzone des Geraets; backend/buchpreise.py). Hier nur die Rechnung und die
+// Darstellung des Betrags in der Sprache des Apparats.
+import { useEffect, useState } from "react";
+import { holen } from "../logic/api";
+import { t } from "../sprache";
 
-// Aktionen mit Zeitraum, z. B. ein Weihnachtsrabatt (Anteil 0..1)
-export const AKTIONEN = [
-  // { name: "Weihnachten", von: "2026-12-01", bis: "2026-12-24", rabatt: 0.2 },
-];
+const ZEITZONE = Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
+let geladen = null; // einmal je Start
 
-function aktionHeute(heute = new Date()) {
-  const tag = heute.toISOString().slice(0, 10);
-  return AKTIONEN.find((a) => a.von <= tag && tag <= a.bis) ?? null;
+// Markt des Geraets { waehrung, staffel, aktion } oder null, solange er laedt (oder der Server fehlt)
+export function useMarkt() {
+  const [markt, setMarkt] = useState(null);
+  useEffect(() => {
+    geladen ??= holen(`/buch/preise?zeitzone=${encodeURIComponent(ZEITZONE)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+    let aktiv = true;
+    geladen.then((m) => aktiv && setMarkt(m));
+    return () => {
+      aktiv = false;
+    };
+  }, []);
+  return markt;
 }
 
-// Preis fuer n Horoskope, mit einer laufenden Aktion
-export function buchPreis(n, heute = new Date()) {
-  const grund = PREISE[Math.min(n, PREISE.length - 1)] ?? 0;
-  const aktion = aktionHeute(heute);
+// Preis fuer n Horoskope im Markt, mit einer laufenden Aktion
+export function buchPreis(n, markt) {
+  const staffel = markt?.staffel ?? [];
+  const grund = staffel[Math.min(n, staffel.length - 1)] ?? 0;
+  const aktion = markt?.aktion ?? null;
   const preis = aktion ? Math.round(grund * (1 - aktion.rabatt)) : grund;
   return { grund, preis, aktion };
+}
+
+// Betrag in der Waehrung des Markts, geschrieben wie in der Sprache ueblich ("23 €", "$25")
+export function geld(betrag, waehrung) {
+  return new Intl.NumberFormat(t("intl.gebiet"), {
+    style: "currency",
+    currency: waehrung,
+    minimumFractionDigits: Number.isInteger(betrag) ? 0 : 2,
+  }).format(betrag);
 }

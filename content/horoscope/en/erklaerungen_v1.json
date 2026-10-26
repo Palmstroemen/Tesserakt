@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "en",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/erklaerungen/*.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_erklaerungen.py",
+    "inline": "**fett** in Texten erlaubt"
+  },
+  "themen": [
+    {
+      "id": "skill",
+      "titel": "How to read your result",
+      "kurz": "The skill shows whether a horoscope needs your date of birth to describe you – or whether any other date would fit just as well. 0 means chance, +100 means better than all the others.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "was_misst_skill",
+          "titel": "What the skill measures",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Every horoscope claims: your date of birth says something about you. That is exactly what we test."
+            },
+            {
+              "typ": "absatz",
+              "text": "To do this, we calculate each horoscope not only for **your** date of birth, but also for **100 other, randomly chosen birthdays**. Then we look at which of these horoscopes fit your answers best."
+            },
+            {
+              "typ": "liste",
+              "punkte": [
+                "If your own horoscope fits better than all 100 others, the horoscope gets **+100**.",
+                "If it fits only as well as any other one, it gets **0**.",
+                "If it fits worse than all the others, it gets **-100**."
+              ]
+            },
+            {
+              "typ": "absatz",
+              "text": "So a skill of **+60** means: your own horoscope fit you better than 80 of 100 strangers' horoscopes of the same tradition."
+            }
+          ]
+        },
+        {
+          "id": "gewinner_effekt",
+          "titel": "Why one horoscope almost always shines",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Imagine you roll seven dice. Almost always at least one of them shows a five or a six – not because that die is special, but because there are seven of them."
+            },
+            {
+              "typ": "absatz",
+              "text": "It is much the same with the seven horoscopes. Even if not a single one of them knew anything about you, the best would reach a skill of about **+75** on average. A high score for the winner is therefore perfectly normal and no proof yet."
+            }
+          ]
+        },
+        {
+          "id": "verteilung_der_siege",
+          "titel": "For other people, a different horoscope wins",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Your winner is your personal result – for your friend Bazi might win, for your coworker the Kabbalah. If no horoscope really knows anything, the wins spread out evenly over many games: each horoscope then wins for roughly one in seven people."
+            },
+            {
+              "typ": "absatz",
+              "text": "By the way: if you play again yourself, the same horoscope often wins again. That is because your date of birth and your answers stay the same – it says nothing yet about how accurate the horoscope is."
+            }
+          ]
+        },
+        {
+          "id": "viele_spiele",
+          "titel": "Where it shows whether a horoscope really hits the mark",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "A single game cannot answer this question. Many games together can:"
+            },
+            {
+              "typ": "liste",
+              "punkte": [
+                "If a horoscope knew nothing about people, its **average** across all games would be **0**, and it would not win more often than the others.",
+                "If a horoscope knew something, its average would be **clearly above 0**, and it would win strikingly often."
+              ]
+            },
+            {
+              "typ": "absatz",
+              "text": "That is exactly why your game counts: every round is a small building block in a large experiment."
+            }
+          ]
+        },
+        {
+          "id": "fit",
+          "titel": "And the fit?",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "The **fit** shows how close a horoscope's statements come to your answers – regardless of whether your date of birth was needed for that. It is easy to grasp, but for the question \"Does the horoscope really hit the mark?\" the **skill** is the value that counts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methodik",
+      "titel": "How the horoscopes calculate",
+      "kurz": "From your date of birth we calculate the classical horoscope of each tradition. Handed-down rules of interpretation translate it into tendencies for eight areas of life – and those are exactly what we compare with your answers.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "vom_datum_zum_horoskop",
+          "titel": "From date of birth to horoscope",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Each horoscope looks at something different. Western astrology calculates where the Sun, Moon and planets stood at the moment of your birth. Bazi forms the four pillars of the Chinese calendar from the year, month, day and hour. Numerology works with the digits of your date of birth and – if you give it – with the letters of your name."
+            },
+            {
+              "typ": "absatz",
+              "text": "Time and place of birth matter mainly for the astrological horoscopes: they determine, for example, the Ascendant and the houses. If you do not know them exactly, these parts become less precise."
+            }
+          ]
+        },
+        {
+          "id": "die_systeme",
+          "titel": "The seven horoscopes",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "**Western:** zodiac signs, planets in signs and houses, aspects between the planets and current transits.",
+                "**Bazi (Chinese):** the four pillars, your Day Master, the interplay of the five elements and the current Luck Pillar.",
+                "**Numerology:** Life Path number, name numbers and personal cycles.",
+                "**Kabbalah:** the Sephiroth and paths of the Tree of Life that are assigned to your date of birth.",
+                "**Arabic:** the Arabic lots, such as the Lot of Fortune, and the Firdaria – stretches of life ruled by changing planets.",
+                "**Hellenistic:** the astrology of antiquity, with the birth sign, annual profections and the Lord of the Year, day or night birth (sect) and the lots.",
+                "**Vedic (Jyotish):** your Moon Nakshatra, the planetary periods (Dasha) and special configurations (Yogas)."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "regeln_zu_zahlen",
+          "titel": "Rules become numbers",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "We did not invent the interpretations. They come from the handed-down textbooks of each tradition – from Ptolemy and Vettius Valens through Abu Ma'shar to Parashara and more recent standard works."
+            },
+            {
+              "typ": "absatz",
+              "text": "Each rule says something like: \"This placement favors relationships\" or \"This phase brings unrest in your career\". We translated such statements into numbers for eight areas of life: love, career, finances, health, social life, creativity, change and spirituality. For each area this yields a tendency between \"rather does not apply\" and \"rather applies\"."
+            }
+          ]
+        },
+        {
+          "id": "vergleich",
+          "titel": "The comparison with you",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Your 16 answers are spread across the same eight areas of life. For each question we compare how close a horoscope's tendency comes to your own assessment. Some questions count more for one horoscope than for another – depending on how much the tradition has to say on that topic."
+            }
+          ]
+        },
+        {
+          "id": "grenzen",
+          "titel": "Limits",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Every translation simplifies. The traditions are richer than eight numbers can capture, and astrologers would weigh some things differently. Our result therefore shows how well **our translation** of a horoscope tradition fits you – not the last word on the tradition itself."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "experiment",
+      "titel": "The experiment behind the game",
+      "kurz": "Tesserakt is a game and an open experiment at the same time. From many anonymous games we want to find out whether horoscopes describe people better than chance.",
+      "einleitung": [],
+      "abschnitte": [
+        {
+          "id": "die_frage",
+          "titel": "The question",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "For thousands of years people have read meaning into the stars, numbers and calendars. We want to know: does a horoscope describe people better when it knows their **real** date of birth than when it is given a random one?"
+            },
+            {
+              "typ": "absatz",
+              "text": "We go into this experiment without a ready-made answer. The result may turn out differently for each horoscope."
+            }
+          ]
+        },
+        {
+          "id": "ein_spiel_reicht_nicht",
+          "titel": "Why a single game is not enough",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "A single result depends heavily on chance – on how you answer today, and on which of the seven horoscopes happens to fit. Only when many people play does this chance average out. Then it shows whether a horoscope does better on average than chance would lead us to expect."
+            }
+          ]
+        },
+        {
+          "id": "was_wir_vergleichen",
+          "titel": "What we compare",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "**Your self-assessment:** 16 statements that you rate for yourself.",
+                "**The horoscopes:** seven traditions, each calculated for your date of birth.",
+                "**The control group:** the same horoscopes for 100 other, random birthdays. It shows how well a horoscope would fit \"by chance\"."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "daten",
+          "titel": "What happens to your data",
+          "bloecke": [
+            {
+              "typ": "liste",
+              "punkte": [
+                "You do not need an account.",
+                "We store your date of birth, the time, your answers and the result – without your name.",
+                "Of your place of birth we store only the time zone and a rough region (about 100 km).",
+                "If you give your name, only numerology uses it, for its name numbers. These three numbers are stored, not the name.",
+                "Only aggregated, anonymous analyses across many games are published."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "selbsteinschaetzung",
+          "titel": "How honest is the self-assessment?",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Nobody sees themselves entirely objectively. That is not a flaw but part of the experiment: we compare the horoscopes with the picture people have of themselves. Because all horoscopes are measured against the same answers, the comparison is fair all the same."
+            }
+          ]
+        },
+        {
+          "id": "mitmachen",
+          "titel": "Join in",
+          "bloecke": [
+            {
+              "typ": "absatz",
+              "text": "Every round is a small building block. If you share the game, the experiment gains in power – and perhaps you will discover along the way how differently the horoscopes see one and the same person."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

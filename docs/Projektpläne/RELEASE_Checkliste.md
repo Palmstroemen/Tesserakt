@@ -73,7 +73,8 @@ nachgereicht werden (jeweils vermerkt).
 - [ ] **Übersetzungen** (kann per Update kommen): Oberfläche, sichtbare Deutungstexte der Regel-JSONs (rund
   15.000 Wörter), eigene Texte (rund 9.000), Fragen, Bildtexte (eigenes Modul je Sprache) und Buch. Zuerst
   Englisch, Gegenlesen durch Muttersprachler; die Erkennungsmerkmale bekommen eigene Entsprechungen.
-  Festlegen, welche Sprachen danach kommen.
+  Festlegen, welche Sprachen danach kommen. Stand: Englisch vollständig übersetzt (Glossar
+  `docs/Textbausteine/en/GLOSSAR.md`), Gegenlesen durch Muttersprachler steht noch aus.
 - [ ] **Texte feintunen:** Systemerklärungen, Bildtexte (zweiter Absatz) und Buchtexte gegenlesen; Ton
   vereinheitlichen; ehrliche Formulierungen beibehalten; „Horoskope“ statt „System“ in sichtbaren Texten.
 - [ ] **Buch-Druckpartner finden und testen:** Anbieter für Print-on-Demand vergleichen (Qualität, Format,
@@ -87,7 +88,10 @@ nachgereicht werden (jeweils vermerkt).
 - [ ] **Bezahlung des Buchs festlegen:** Das gedruckte Buch ist eine physische Ware und darf über eine eigene
   Zahlung laufen (z. B. Stripe), ohne die Abgabe an Apple oder Google. Ein digitales Buch (PDF) in der App
   müsste über In-App-Kauf laufen (15–30 % Abzug). Entscheiden, ob es überhaupt eine digitale Ausgabe gibt.
-- [ ] **Buchpreise festlegen:** nach Druck- und Versandkosten des gewählten Partners und der Zahlungsart.
+- [ ] **Buchpreise festlegen:** nach Druck- und Versandkosten des gewählten Partners und der Zahlungsart, je
+  Markt und Währung. Die App holt Preis, Währung und Aktionen vom Server (`GET /buch/preise`, Markt aus der
+  Zeitzone des Geräts); bis zur Anbindung des Druckpartners stehen sie in `content/buch/preise.json` (USD
+  sind Platzhalter). Danach liefert sie der Shop des Partners, geändert wird nur `backend/buchpreise.py`.
 - [ ] **Forschungsdatenbank als OpenData bereitstellen:** Datum, Uhrzeit und Ort zusammen identifizieren einen
   Menschen fast eindeutig, daher vor der Veröffentlichung vergröbern (z. B. nur Jahr oder Monat, Region statt
   Ort, keine Minuten) und auf Wiedererkennbarkeit prüfen. Lizenz wählen (z. B. CC BY), Datensätze versionieren,

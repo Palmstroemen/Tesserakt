@@ -210,7 +210,7 @@
       "erzengel_bedeutung": "Hüter der göttlichen Geheimnisse, Offenbarer der kosmischen Weisheit",
       "engelschor": "Auphanim (אוֹפַנִּים)",
       "engelschor_deutsch": "Die Räder (Ophanim) — die Engel der Sphären aus Ezechiels Vision",
-      "tugend": "Hingebungsvolle Andacht / Devotionstärke",
+      "tugend": "Hingebungsvolle Andacht / Devotionsstärke",
       "laster": "Nichts (jenseits der persönlichen Laster)",
       "spirituelle_erfahrung": "Die Vision Gottes von Angesicht zu Angesicht",
       "koerper_entsprechung": "Linke Seite des Gesichts / Linkes Auge (im Adam Kadmon)",
@@ -769,7 +769,7 @@
       "erzengel_bedeutung": "Zwillingsbruder von Metatron — Hüter der physischen Welt, verbindet Gebete der Erde mit dem Himmel",
       "engelschor": "Ashim (אִשִּׁים)",
       "engelschor_deutsch": "Die Feurigen Seelen / Brennende Wesen — niedere Engel der physischen Sphäre",
-      "tugend": "Diskriminierung / Unterscheidungsvermögen",
+      "tugend": "Unterscheidungsvermögen",
       "laster": "Habgier / Trägheit / Materialismus",
       "spirituelle_erfahrung": "Die Vision des Heiligen Wächters / Vision des Heiligen Engels in der Materie",
       "koerper_entsprechung": "Füße / Anus (im Adam Kadmon) — der tiefste Punkt des Körpers",
@@ -984,7 +984,7 @@
         "laster": "Faulheit"
       },
       "10_Malkuth": {
-        "tugend": "Diskriminierung",
+        "tugend": "Unterscheidungsvermögen",
         "laster": "Habgier / Trägheit"
       }
     }

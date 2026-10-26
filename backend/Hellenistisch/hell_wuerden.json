@@ -24,7 +24,7 @@
       "spiritualitaet"
     ],
     "scale": "0-1 (0=ungünstig, 0.5=neutral, 1=günstig)",
-    "beschreibung": "Hellenistische Astrologie — Essentielle Würden, Sektprinzip und planetare Bonität. Das vollständige System der Planetenstärke nach Ptolemy, Valens, Firmicus Maternus und Paulus Alexandrinus. Enthält: Domizil, Exaltation, Trigon/Triplizität, Term/Grenzen, Dekane/Faces, Gegenwürden (Detriment/Fall), Sekt (Tag/Nacht), Bonität (Wohltäter/Unglücksbringer) und Akzidentelle Würden.",
+    "beschreibung": "Hellenistische Astrologie — Essentielle Würden, Sektprinzip und planetare Bonität. Das vollständige System der Planetenstärke nach Ptolemy, Valens, Firmicus Maternus und Paulus Alexandrinus. Enthält: Domizil, Exaltation, Trigon/Triplizität, Term/Grenzen, Dekane/Faces, Gegenwürden (Detriment/Fall), Sekte (Tag/Nacht), Bonität (Wohltäter/Unglücksbringer) und Akzidentelle Würden.",
     "extraction_method": "Quellenextraktion aus public-domain-Werken + strukturierte Kodierung analog kabbalah_sephiroth.json"
   },
   "system_uebersicht": {

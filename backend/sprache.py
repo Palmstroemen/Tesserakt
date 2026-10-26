@@ -26,7 +26,7 @@ from typing import Any, Dict, Optional
 
 from rule_engine import load_rules
 
-SPRACHEN = ("de",)
+SPRACHEN = ("de", "en")
 GRUND = "de"
 
 BACKEND = Path(__file__).resolve().parent

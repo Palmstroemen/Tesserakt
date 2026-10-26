@@ -1,0 +1,112 @@
+{
+  "nakshatras": {
+    "ashwini": {
+      "name_deutsch": "The Mare / The Divine Horsemen",
+      "hauptqualitaeten": "Swiftness, healing power, strength of initiative, love of adventure, pioneering spirit. Ashwini is the Nakshatra of new beginnings and swift healing. Parashara: 'Ashwini natives are intelligent, handsome in appearance, well dressed and esteemed.'"
+    },
+    "bharani": {
+      "name_deutsch": "The Bearer / The Vat",
+      "hauptqualitaeten": "Bharani stands for transformation, death and rebirth, sexuality, creativity and the carrying of burdens. It is the Nakshatra of creative destruction. Varahamihira: 'Bharani natives are resolute, true to their promises and happy in the conduct of their lives.'"
+    },
+    "krittika": {
+      "name_deutsch": "The Shears / The Knife",
+      "hauptqualitaeten": "Krittika is the Nakshatra of fire and purification. It cuts away what no longer serves and purifies through heat. Parashara: 'Krittika natives are great trenchermen, diligent in their deeds and famous.' The strongest Nakshatra for focus and reaching goals."
+    },
+    "rohini": {
+      "name_deutsch": "The Red One / The Rising One",
+      "hauptqualitaeten": "Rohini is considered the Moon's favorite Nakshatra — the Moon is exalted here. It stands for beauty, growth, fertility and material abundance. Parashara: 'Rohini natives are truthful, pure, steadfast, capable and free of envy.' Very favorable for all creative and material undertakings."
+    },
+    "mrigashira": {
+      "name_deutsch": "The Deer's Head / The Searching Doe",
+      "hauptqualitaeten": "Mrigashira is the Nakshatra of the search — for knowledge, beauty, lovers and truth. The doe searches forever and sometimes finds. Varahamihira: 'Mrigashira natives are learned, timid, intelligent, diligent and wealthy.' Eternal curiosity and movement are the underlying principle."
+    },
+    "ardra": {
+      "name_deutsch": "The Moist Star / The Storm",
+      "hauptqualitaeten": "Ardra is the Nakshatra of the storm, the teardrop and transformation through pain. Rahu as its ruler gives intensity and the breaking of boundaries. Parashara: 'Ardra natives are ungrateful, proud, violent, but also cruel and sinful' — this harsh wording shows the extreme nature of this Nakshatra. Modern view: deep intellectual brilliance and transformative power."
+    },
+    "punarvasu": {
+      "name_deutsch": "The Return of the Light / Rebirth of the Good",
+      "hauptqualitaeten": "Punarvasu means 'the return of the light after the darkness'. It is the Nakshatra of renewal, peace and homecoming. After the storm of Ardra come calm and return. Varahamihira: 'Punarvasu natives are content, God-fearing, intelligent, rich and in good health.' Ram Chandra (Rama) was born in this Nakshatra."
+    },
+    "pushya": {
+      "name_deutsch": "The Nourisher / The Blossom",
+      "hauptqualitaeten": "Pushya is considered one of the most favorable of all Nakshatras — it nourishes, protects and fosters. Its ruler Saturn gives steadiness; Brihaspati as its devata gives wisdom. Parashara: 'Pushya natives are rich, learned, virtuous, peaceful and wealthy.' Very favorable for spiritual practice and healing."
+    },
+    "ashlesha": {
+      "name_deutsch": "The Entwiner / The Serpent",
+      "hauptqualitaeten": "Ashlesha is the Nakshatra of the serpent — kundalini energy, hypnosis, hidden power and awakening from the unconscious. Mantreswara: 'Ashlesha natives are ungrateful, deceitful and selfish' — a one-sided classical view. Modern view: extraordinary psychological depth, the art of healing and transformative power."
+    },
+    "magha": {
+      "name_deutsch": "The Mighty One / The Great Gift",
+      "hauptqualitaeten": "Magha is the most regal of all Nakshatras — throne, ancestral connection, dignity and worldly power. Ketu as its ruler links the regal surface with spiritual depth. Parashara: 'Magha natives are rich, happy, wealthy, diligent and loyal to their forefathers.'"
+    },
+    "purva_phalguni": {
+      "name_deutsch": "The Former Reddish Star / The Front Fig",
+      "hauptqualitaeten": "Purva Phalguni is the Nakshatra of rest, enjoyment and creative joy. Venus as its ruler and Bhaga as its devata give beauty, sensuality and artistic expression. Parashara: 'Purva Phalguni natives are generous, cheerful, attractive and good-natured.'"
+    },
+    "uttara_phalguni": {
+      "name_deutsch": "The Latter Reddish Star / The Back Fig",
+      "hauptqualitaeten": "Uttara Phalguni is the Nakshatra of union, patronage and social responsibility. After rest (Purva Phalguni) comes union with others. Parashara: 'Uttara Phalguni natives are happy, generous, clever, honorable and loved by many.'"
+    },
+    "hasta": {
+      "name_deutsch": "The Hand",
+      "hauptqualitaeten": "Hasta is the Nakshatra of the hand, of craftsmanship, of healing through touch and of practical intelligence. Varahamihira: 'Hasta natives are disrespectful, thievish, drunken and cruel' — exaggeratedly negative. Modern view: extraordinary manual talent, healing hands, practical wisdom."
+    },
+    "chitra": {
+      "name_deutsch": "The Brilliant One / The Many-Colored",
+      "hauptqualitaeten": "Chitra is the Nakshatra of brilliance, beauty and creative design. The pearl as its symbol shows that something wonderful arises from the depths. Parashara: 'Chitra natives have beautiful eyes and bodies, are attractively dressed and pleasant to look at.'"
+    },
+    "swati": {
+      "name_deutsch": "The Sword / The Self-Going One",
+      "hauptqualitaeten": "Swati is the Nakshatra of independence, mobility and trade. The young sapling in the wind — it bends but does not break. Varahamihira: 'Swati natives are compassionate, modest, religious, in the service of others and engaged in trade.'"
+    },
+    "vishakha": {
+      "name_deutsch": "The Forked One / The Radiant Star",
+      "hauptqualitaeten": "Vishakha is the Nakshatra of the goal and of perseverance. The triumphal arch — you have to pass through the gate to triumph. Parashara: 'Vishakha natives are envious, greedy, intelligent, good speakers and quarrelsome.' Modern view: an extraordinary focus on goals and staying power."
+    },
+    "anuradha": {
+      "name_deutsch": "The One Named after Radha / The Follower",
+      "hauptqualitaeten": "Anuradha is the Nakshatra of friendship, devotion and teamwork. Mitra as its devata gives friendliness and cooperation. Parashara: 'Anuradha natives are rich, live in foreign lands and are given to travel.' Known for loyalty and team spirit."
+    },
+    "jyeshtha": {
+      "name_deutsch": "The Eldest / The Most Excellent",
+      "hauptqualitaeten": "Jyeshtha is the Nakshatra of the elders, of dignity, of the protective role and of responsibility. Indra as its devata gives the power to lead. Parashara: 'Jyeshtha natives have few friends, are content, virtuous and deep.' Protecting the weak is a central theme."
+    },
+    "mula": {
+      "name_deutsch": "The Root",
+      "hauptqualitaeten": "Mula is the Nakshatra of the root — in a double sense: uprooting and the deep search for roots. It lies at the Galactic Center. Mantreswara: 'Mula natives are proud, rich, happy, but can hurt others.' Far-reaching transformations through the dissolution of structures."
+    },
+    "purva_ashadha": {
+      "name_deutsch": "The Former Invincible One",
+      "hauptqualitaeten": "Purva Ashadha is the Nakshatra of persuasive power and of never giving up. Water purifies and conquers through endurance. Parashara: 'Purva Ashadha natives are proud, clever, and have many friends and wives.' Modern view: extraordinary powers of persuasion and the will to win."
+    },
+    "uttara_ashadha": {
+      "name_deutsch": "The Latter Invincible One",
+      "hauptqualitaeten": "Uttara Ashadha is the Nakshatra of lasting victory and universal service. While Purva Ashadha fights, Uttara Ashadha rests in victory. Parashara: 'Uttara Ashadha natives are grateful, wise and loved by all.' Known for integrity and service to the whole."
+    },
+    "shravana": {
+      "name_deutsch": "The Hearing / The Learner",
+      "hauptqualitaeten": "Shravana is the Nakshatra of hearing, learning and wisdom through listening. Vishnu as its devata gives the power to preserve and justice. Parashara: 'Shravana natives are rich, learned, have a famous wife and are widely known.' Known for preserving and passing on knowledge."
+    },
+    "dhanishtha": {
+      "name_deutsch": "The Wealthy One / The Drum",
+      "hauptqualitaeten": "Dhanishtha is the Nakshatra of wealth, music and group energy. The drum unites — rhythm as a cosmic principle. Parashara: 'Dhanishtha natives are liberal, brave, rich and fond of music.' Mars as its ruler gives energy; the Vasus give elemental power."
+    },
+    "shatabhisha": {
+      "name_deutsch": "The Hundred Healers / The Hundred Physicians",
+      "hauptqualitaeten": "Shatabhisha is the Nakshatra of the hundred healers and the hidden healing arts. Rahu as its ruler gives unconventional brilliance; Varuna gives cosmic law and purification. Parashara: 'Shatabhisha natives are sincere, sharp, vanquish their enemies, are stubborn and suffer many vexations.' Modern view: brilliant healers and researchers."
+    },
+    "purva_bhadrapada": {
+      "name_deutsch": "The Former Auspicious Foot",
+      "hauptqualitaeten": "Purva Bhadrapada is the Nakshatra of the double-edged sword — it destroys in order to liberate. Jupiter as its ruler gives wisdom; the fire principle of its devata transforms. Parashara: 'Purva Bhadrapada natives are eloquent, clever, able to overcome their enemies and masters over their wives.' Intense and transformative."
+    },
+    "uttara_bhadrapada": {
+      "name_deutsch": "The Latter Auspicious Foot",
+      "hauptqualitaeten": "Uttara Bhadrapada is the Nakshatra of resting depth and cosmic wisdom. After the transformation of Purva Bhadrapada comes the still depth of the cosmic serpent. Parashara: 'Uttara Bhadrapada natives are happy, eloquent, have children and defeat their enemies.' Known for wisdom and compassion."
+    },
+    "revati": {
+      "name_deutsch": "The Rich One / The Prosperous One",
+      "hauptqualitaeten": "Revati is the last Nakshatra — the completion of the cycle. It stands for fulfillment, wealth, care for all living beings and the abundance of blessings at the end of a journey. Parashara: 'Revati natives are whole in every limb, rich, not greedy for riches, truthful.' The bridge between the end and the new beginning (Ashwini)."
+    }
+  }
+}

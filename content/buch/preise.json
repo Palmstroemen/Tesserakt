@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "beschreibung": "Preise des gedruckten Horoskopbuchs je Markt (inkl. Steuern, ohne Versand). staffel[n] = Preis fuer n Horoskope. Ein Markt gilt fuer die Laender in 'laender' (ISO-Codes); alle anderen bekommen den Markt 'grund'. Aktionen: Zeitraum (von/bis inklusive), Rabatt 0..1, Name je Sprache.",
+    "stand": "Platzhalter bis zur Anbindung des Druckpartners: Die Werte sollen dann aus dessen Shop kommen (backend/buchpreise.py, Funktion preise).",
+    "grund": "EUR"
+  },
+  "maerkte": {
+    "EUR": {
+      "waehrung": "EUR",
+      "laender": [],
+      "staffel": [0, 15, 20, 23, 25, 27, 29, 30]
+    },
+    "USD": {
+      "waehrung": "USD",
+      "laender": ["US"],
+      "staffel": [0, 17, 22, 25, 28, 30, 32, 33],
+      "platzhalter": true
+    }
+  },
+  "aktionen": []
+}

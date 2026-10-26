@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "en",
+  "textVersion": "v1",
+  "systems": {
+    "Westlich": {
+      "horoskop_ausfuehrlich": "Your birth chart shows a combination of structure and flexibility: in areas such as career and creativity you can be especially convincing when clear goals and room for ideas come together. In relationships and in social life your profile comes across as more about quality than quantity – deep connections and open communication could give you more than simply being present in groups. Your health and energy tend to move in waves rather than in a straight line; a rhythm between activity and rest makes the difference here. When it comes to change, you tend to shape it actively instead of merely reacting – deliberately set stages could give you a sense of security. Spirituality and intuition appear as a quiet compass in key moments, without having to turn into a fixed belief system. All in all, your Western horoscope reads as an invitation to use familiar patterns as a navigational aid – not as a label, but as orientation for situations in which themes repeat themselves.",
+      "intro": "[TAG] INTRO_WESTLICH_CORE\n\nWestern astrology works with the zodiac, the houses and planetary patterns to make the axes of a personality visible. This horoscope does not hand down fixed verdicts of fate, but rather describes recurring tendencies that could show up more or less strongly depending on the phase of life.\n\nCompared with other horoscopes, Western astrology is particularly well suited, because many users already know its symbolism and therefore find it easier to get started.\n\n[TAG] INTRO_WESTLICH_SPECIAL\n\nAn interesting peculiarity is the combination of structure and dynamics: the birth chart stays stable as the basic map, while transits, aspects and shifts of emphasis could keep setting new accents.\n\nBy that logic, you ought to read Western statements less as a label and more as a navigational aid for situations in which familiar patterns show up again.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nThis horoscope describes a tendency toward intense learning moments in relationships, especially when closeness and independence become important at the same time.  \nBy that logic, in relationship matters you ought to become clearer often at the point when tensions are already visible.  \nThis need not mean that you are fundamentally prone to conflict, but you could be the one more likely to take on the role of raising things openly.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_HIGH  \nThe Western reading would suggest that your impact at work could be closely tied to structure, responsibility and clear prioritizing.  \nBy that logic, you ought to blossom at work especially when goals are neatly defined.  \nThis does not have to mean that you only function in rigid systems, but you could experience clear guardrails as a productivity booster.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_MEDIUM  \nIn the financial sphere, this horoscope describes more of a balancing act between the need for security and seizing opportunities.  \nBy that logic, you ought to make better decisions when you break big steps down into smaller stages.  \nThis need not mean that you \"are\" cautious or a risk-taker, but rather that timing and pacing could make the difference.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nThe Western perspective would hint that energy and resilience could run in waves rather than in a straight line.  \nBy that logic, you ought to benefit more when activity and recovery are given a deliberate rhythm.  \nThis need not point to weakness, but to the need to dose strain and balance finely.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_MEDIUM  \nThis horoscope describes social competence as a matter of quality rather than quantity: deep connections could give you more than constant presence in groups.  \nBy that logic, you ought to become more selective in large settings at times, without losing touch.  \nThis need not mean that you would be unsociable, but you could distinguish more consciously between genuine resonance and mere availability.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_HIGH  \nWestern astrology would describe a potential for breaking patterns in creative fields.  \nBy that logic, you ought to work especially originally when standard solutions no longer hold up.  \nThis does not have to mean that everything must be new, but you could be unusually good at recombining existing ideas.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nThis horoscope describes change as active shaping rather than merely reacting to circumstances.  \nBy that logic, you ought to experience transitions as more stable when you give them a clear inner structure.  \nThis need not mean that change is easy, but you could gain more security with deliberately set stages.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_MEDIUM  \nThe Western reading would see spirituality in you as a quiet guiding factor, not necessarily as a loud worldview.  \nBy that logic, you ought to perceive intuition as a useful compass above all in key moments.  \nThis need not amount to a fixed belief system, but to a recurring inner feedback loop."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_BALANCE  \nWithin the Paracelsian framework, your profile could show itself as a mixture of a structuring and a flexible signature: enough Fire for initiative, enough grounding for follow-through.  \nBy that logic, you ought to benefit in the long run if you use temperament not as a label but as a regular calibration tool.  \nThis need not mean that one signature is \"right\" and another \"wrong\"; rather, you could deliberately bring different forces into balance depending on the area of life.",
+      "tags": [
+        "INTRO_WESTLICH_CORE",
+        "INTRO_WESTLICH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_MEDIUM",
+        "OUTRO_PARACELSUS_BALANCE"
+      ]
+    },
+    "Bazi": {
+      "intro": "[TAG] INTRO_BAZI_CORE\n\nBazi (Chinese astrology) describes personality patterns through the four pillars of year, month, day and hour and through the dynamics of the five elements. This horoscope looks less at static traits than at energetic relationships, which could express themselves differently in different cycles and contexts.\n\nCompared with Western astrology, the focus lies more on the interactions of the elements and on the rhythms of life than on the geometry of aspects in the wheel.\n\n[TAG] INTRO_BAZI_SPECIAL\n\nA peculiarity is how the elements relate to one another: nourishing, controlling, weakening and resonance can be read as patterns that are mirrored in everyday life, relationships and decisions.\n\nBy that logic, you ought to read Bazi more as a process model: not \"who you are\", but how your forces could stand in relation to one another under certain circumstances.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nThis horoscope describes a tendency toward dynamism in relationships when different needs for stability and movement meet.  \nBy that logic, you ought to learn the most in partnerships where leading and yielding are needed by turns.  \nThis need not mean that things often escalate, but you could recognize early on when balance should be actively restored.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_HIGH  \nIn matters of career, Bazi would suggest that your strength in performance could become visible above all in clear roles with traceable responsibility.  \nBy that logic, you ought to perform especially reliably with a clear logic of tasks and a development you can plan.  \nThis does not have to mean that you only need linear career paths, but that structured development usually suits you better than chaotic pressure.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_MEDIUM  \nThis horoscope describes financial matters as a question of balance among the elements between gathering, holding and circulating.  \nBy that logic, you ought to reach stable results more readily when decisions are made not on impulse but in steps that are attuned to one another.  \nThis need not mean that risk is wrong, but that unfiltered swings could tend to be unfavorable.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nBazi would read health as an expression of rhythm and balance: too much of one element could have a one-sided effect in the long run.  \nBy that logic, you ought to benefit more from regular small trims than from short phases of extremes.  \nThis need not point to a deficit, but to the importance of continuity.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_LOW  \nThis horoscope describes social effectiveness as rather situational: in fitting constellations connection could arise easily, in unfitting ones it could feel sluggish.  \nBy that logic, you need not serve every group with the same intensity, but ought to give priority to the spaces where you find resonance.  \nThis need not mean that you withdraw, but that selectiveness could be a strengthening factor.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_MEDIUM  \nBazi would interpret creative energy as a product of the tension and harmony of the elements.  \nBy that logic, you ought to develop new ideas especially when you deliberately combine pairs of opposites instead of smoothing them out.  \nThis does not have to mean that every idea is viable right away, but that windows for experimenting could be valuable for you.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nThis horoscope describes change as a cyclical process with phases of building up, consolidating and rearranging.  \nBy that logic, you ought to shape change more successfully when you take timing and sequence seriously.  \nThis need not mean that everything can be planned, but that good transitions rarely happen by chance.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_MEDIUM  \nBazi would read spiritual orientation less as dogma than as a harmonizing perspective.  \nBy that logic, you ought to often find meaning where inner and outer order come back into harmony.  \nThis need not amount to esoteric practice, but to a fine sense of being rightly aligned."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_CYCLIC  \nSeen through Paracelsus's eyes, your profile could appear as an interplay of warming impulse, structuring force and adaptive flexibility.  \nBy that logic, in demanding phases you ought to work less \"against\" a temperament than consciously balance out its shadow side.  \nThis need not mean that one element dominates; rather, you could deliberately activate different signatures depending on the task.",
+      "tags": [
+        "INTRO_BAZI_CORE",
+        "INTRO_BAZI_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_LOW",
+        "DIM_KREATIVITAET_MEDIUM",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_MEDIUM",
+        "OUTRO_PARACELSUS_CYCLIC"
+      ]
+    },
+    "Numerologie": {
+      "intro": "[TAG] INTRO_NUMEROLOGIE_CORE\n\nNumerology describes personality patterns through number signatures drawn from the date of birth (and, optionally, parts of the name). It works less with astronomical positions and more with symbolic fields of numbers that could be interpreted as recurring thematic axes.\n\nCompared with Western astrology, the approach is more abstract, but often immediately understandable, because numbers are experienced as a clear structure.\n\n[TAG] INTRO_NUMEROLOGIE_SPECIAL\n\nAn interesting peculiarity is the combination of a core number and secondary axes: the same number can work differently in different contexts.\n\nBy that logic, you ought to read numerological statements more as a map of patterns, not as a linear verdict.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nIn matters of relationships, this horoscope often describes a learning axis between closeness, room of your own and clarity of expectations.  \nBy that logic, you ought to find stability in partnerships above all where roles and needs are openly named.  \nThis need not mean that relationships would be difficult, but that unspoken assumptions could tend to lead to friction.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_MEDIUM  \nNumerologically, it would be suggested that success at work could be closely coupled with a sense of meaning and inner consistency.  \nBy that logic, you ought to be at your best in the long run where task, values and responsibility fit together.  \nThis does not have to mean that every job must be a \"calling\", but that a purely purpose-driven logic on its own tends to leave you underchallenged.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_MEDIUM  \nThis horoscope describes finances as a mirror of your decision-making style and self-direction.  \nBy that logic, you ought to achieve solid results more readily when spending, security and development goals are consciously balanced.  \nThis need not amount to strictness, but to transparent prioritizing.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_LOW  \nNumerologically, health is often read indirectly through the rhythm of life, the way you handle strain and your discipline about rest.  \nBy that logic, you ought to benefit from clear routines especially when your everyday life varies a lot.  \nThis need not mean that your resilience is low, but that irregularity could lead to a loss of energy more quickly.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_MEDIUM  \nThis horoscope describes your social impact as an alternation between visibility and selective depth.  \nBy that logic, you ought to be effective in groups more easily when you do not merely react but consciously take a position.  \nThis need not aim at dominance, but at placing yourself more clearly.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_HIGH  \nNumerologically, creativity could appear as a strong core resource, especially in the combination of intuition and structure.  \nBy that logic, you ought to put ideas into practice best when you give them a clear format.  \nThis need not mean that every idea must be new, but that your combination of pattern recognition and reinterpretation could be especially productive.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nThis horoscope describes change less as a break and more as a sequence of steps toward maturity.  \nBy that logic, you ought to integrate transitions better when you consciously bring old roles to a close instead of merely leaving them.  \nThis does not have to mean that change must be slow, but that inner order makes the difference.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nNumerologically, spirituality is often understood as depth of meaning and orientation, not necessarily as institutional faith.  \nBy that logic, in decisive moments you ought to respond more strongly to inner plausibility than to standards set from outside.  \nThis need not mean that rationality is missing, but that intuition stays on duty as a second court of review."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_PATTERN  \nWithin the Paracelsian framework, your mixture of signatures could point to a productive interplay of Air (interpretation), Fire (impulse) and Earth (giving form).  \nBy that logic, you ought to stay clear-headed especially when you put a connecting intermediate stage between idea and execution.  \nThis need not aim at perfection; rather, consistent calibration could be your strongest lever.",
+      "tags": [
+        "INTRO_NUMEROLOGIE_CORE",
+        "INTRO_NUMEROLOGIE_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_MEDIUM",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_PATTERN"
+      ]
+    },
+    "Kabbalah": {
+      "intro": "[TAG] INTRO_KABBALAH_CORE\n\nThe Kabbalistic reading arranges personality patterns along the Tree of Life and its spheres, that is, as a relationship between inner forces and how they take shape in the world. This horoscope describes behavior in the narrower sense less than axes of development between insight, action and responsibility.\n\nCompared with Western astrology, the emphasis lies more on inner structure and spiritual maturing than on interpreting concrete events.\n\n[TAG] INTRO_KABBALAH_SPECIAL\n\nA peculiarity is its view of polarities: mildness and severity, expansion and limitation, devotion and clarity could be read as pairs that ask to be balanced.\n\nBy that logic, you ought to understand Kabbalistic statements as an invitation to fine-tune your alignment, not as a rigid verdict.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nFor relationships, this horoscope describes a tendency for a bond to become sustainable when an open heart and an awareness of boundaries work together.  \nBy that logic, in close relationships you ought to benefit from clear agreements without losing warmth.  \nThis need not mean that you would be controlling, but that structure could serve as a sheltering space for connection.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_LOW  \nThe Kabbalistic perspective describes career less as a question of status and more as a path of responsibility.  \nBy that logic, you ought to experience satisfaction at work more when your activity and your values fit together in their order of rank.  \nThis need not mean that career is unimportant, but that outward impact alone is not enough in the long run.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_LOW  \nThis horoscope describes financial matters only indirectly, usually as a mirror of your attitude toward security, trust and measure.  \nBy that logic, you ought to gain especially in money matters when inner priorities have been settled before short-term impulses take the wheel.  \nThis need not amount to doing without, but to weighing things more consciously.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_LOW  \nIn Kabbalistic terms, health is understood rather as a consequence of balance between inner and outer order.  \nBy that logic, you ought to respond especially well to stabilizing rituals when strain increases.  \nThis need not mean that physical factors are secondary, but that a sense of meaning and stress regulation could often play a part.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_MEDIUM  \nThis horoscope describes social roles as an expression of degrees of maturity: when do you lead, when do you receive, when do you mediate.  \nBy that logic, you ought to become more effective in groups when you can switch these roles consciously.  \nThis does not have to mean that you should pretend to be someone else, but that flexible changes of perspective could be a resource.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_HIGH  \nThe Kabbalistic reading would interpret creativity as a channel between idea and form.  \nBy that logic, you ought to produce strong results especially when inspiration is translated into concrete practice.  \nThis need not mean that everything has to take the form of art, but that for you, creating is often a way of gaining insight.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_MEDIUM  \nThis horoscope describes change as a gradual transition rather than an abrupt switch of identity.  \nBy that logic, you ought to pass through phases of transformation more steadily when you make the intermediate steps visible.  \nThis does not have to mean that change must be slow, but that integration needs windows of time.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nKabbalah would interpret spirituality as a core axis: orientation through meaning, responsibility and inner coherence.  \nBy that logic, in the long run you ought to judge decisions more by whether they feel inwardly right.  \nThis need not amount to dogmatism, but to a consistent testing of meaning."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_AXIS  \nIn the Paracelsian picture, your pattern could appear as an interplay of the force of Fire (initiative), the force of Water (resonance) and grounding (follow-through).  \nBy that logic, you ought to benefit most when inner insight is translated into small, repeatable actions.  \nThis need not mean that balance always prevails; rather, conscious readjustment could itself be part of the way you ripen.",
+      "tags": [
+        "INTRO_KABBALAH_CORE",
+        "INTRO_KABBALAH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_LOW",
+        "DIM_FINANZEN_LOW",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_HIGH",
+        "DIM_VERAENDERUNG_MEDIUM",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_AXIS"
+      ]
+    },
+    "Arabisch": {
+      "intro": "[TAG] INTRO_ARABISCH_CORE\n\nArabic astrology combines handed-down techniques such as the Firdaria periods and the lots into a model of time and emphasis. This horoscope often describes which themes could move to the foreground in certain stretches of life.\n\nCompared with Western astrology, its strength lies less in a broad character profile and more in setting accents period by period.\n\n[TAG] INTRO_ARABISCH_SPECIAL\n\nA peculiarity is its work with period rulers: not everything is equally strong at all times; some things become more plausible in certain windows of time.\n\nBy that logic, you ought to read statements of this school as \"when and where does something become more likely\", not as a permanent basic trait.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nThis horoscope often describes relationship matters as modulated by time: in some phases closeness could dominate, in others rather clarifying things and working with distance.  \nBy that logic, you ought to understand relationship dynamics better when you look at them in the context of a stretch of life rather than as a permanent state.  \nThis need not mean that there is instability, but that rhythm and timing could play a larger role.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_HIGH  \nIn matters of career, the Arabic reading would suggest that certain periods could be especially well suited for building up, becoming visible or consolidating.  \nBy that logic, you ought to benefit above all when strategic steps are synchronized with the \"right window\".  \nThis does not have to mean that nothing is possible outside these windows, but that effort and return could turn out differently.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_HIGH  \nThis horoscope often describes financial matters in clearly defined periods: expansion, stabilization and caution could be plausible by turns.  \nBy that logic, you ought to gain more in money matters when decisions are made with an eye to context rather than uniformly.  \nThis need not mean that everything has to be tactical, but that rigid one-size-fits-all strategies could tend to be a disadvantage.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_LOW  \nArabic techniques describe health rather indirectly and not as a central core axis.  \nBy that logic, you ought to read statements about health here as accompanying information, not as a main indicator.  \nThis need not point to a lack of relevance, but to the limited range of statements in this particular model.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_MEDIUM  \nThis horoscope often describes social impact through your role and position in a phase: mediating, leading or withdrawing could change from one stretch to the next.  \nBy that logic, you ought to be more effective in group settings when you consciously take on the function at hand.  \nThis does not have to mean that you should bend yourself out of shape, but that clarity about your role in the situation could bring advantages.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_LOW  \nThe Arabic reading does not always make creativity in the narrower sense its main focus, treating it rather as a side effect of strong qualities of time.  \nBy that logic, you ought to expect creative surges above all when other axes (e.g. career/change) are activated at the same time.  \nThis need not mean that creativity is lacking, but that it is modeled less independently here.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nThis horoscope describes change as a sequential course with clearly distinguishable stretches.  \nBy that logic, you ought to manage big changes more steadily when you accept \"transition phases\" as a mode of their own.  \nThis need not mean that change is always planned, but that an awareness of phases could provide orientation.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_LOW  \nIn Arabic astrology, spirituality is represented rather indirectly and not consistently as a core vector.  \nBy that logic, you ought to cross-check spiritual statements here against other horoscopes if this field is central for you.  \nThis need not point to a lack of depth, but to a different emphasis of the method."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_TIMING  \nWithin the Paracelsian framework, your pattern could appear as a time-modulated mixture of disciplining grounding and impulsive force of Fire.  \nBy that logic, in strong phases you ought not just to do \"more\" but to dose more fittingly, so as to avoid overdriving.  \nThis need not mean that you should limit yourself; rather, wise timing could help your signatures take better effect.",
+      "tags": [
+        "INTRO_ARABISCH_CORE",
+        "INTRO_ARABISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_HIGH",
+        "DIM_GESUNDHEIT_LOW",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_LOW",
+        "OUTRO_PARACELSUS_TIMING"
+      ]
+    },
+    "Hellenistisch": {
+      "intro": "[TAG] INTRO_HELLENISTISCH_CORE\n\nHellenistic astrology works with early traditional techniques such as whole-sign houses, sect (day/night) and profections. This horoscope often describes not only \"what\" but also \"which axis is active right now\".\n\nCompared with modern Western astrology, the approach is often more technical and focused on the logic of time and on the relationships between rulers.\n\n[TAG] INTRO_HELLENISTISCH_SPECIAL\n\nA peculiarity lies in the interplay of house activation and time-lordship: the same basic disposition can come into play differently in different years.\n\nBy that logic, you ought to read Hellenistic statements as a structured reading of context, not as a blanket permanent label.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nThis horoscope often describes relationship matters through houses and their rulers: commitment, contracts and negotiation could shift depending on what is activated.  \nBy that logic, you ought to become clearer in partnerships when expectations and boundaries are named explicitly.  \nThis need not mean that relationships are matter-of-fact rather than lively, but that clarity could cushion conflicts early on.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_HIGH  \nIn matters of career, the Hellenistic reading would suggest that responsibility, the dynamics of status and timing could be closely coupled.  \nBy that logic, you ought to be especially effective when role, authority and the picture of your goal are neatly aligned.  \nThis need not amount to rigidity, but to the effectiveness of clear order.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_MEDIUM  \nThis horoscope describes financial questions more through the houses of resources and their activations than through spontaneous individual impulses.  \nBy that logic, you ought to reach stable results more through continuity than through quick changes of course.  \nThis need not mean that dynamism should be avoided, but that the costs of structure could often be underestimated.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_MEDIUM  \nThe Hellenistic reading would describe health as a field in which rhythms, windows of strain and recovery should be considered with timing in mind.  \nBy that logic, you ought to benefit from steering with foresight instead of only reacting once you are overloaded.  \nThis need not point to fragility, but to the importance of prevention at the right stage.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_MEDIUM  \nThis horoscope often describes social impact along the lines of belonging, loyalty and position in networks.  \nBy that logic, you ought to be more successful in group settings when role and expectations do not remain implicit.  \nThis need not mean that you have to be formal, but that clear markers of belonging could reduce friction.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_LOW  \nHellenistic techniques model creativity less directly than other areas.  \nBy that logic, you ought to read creative impulses more as a by-product of strong career or change axes.  \nThis need not mean that creativity is low, but that this method resolves it less finely here.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nThis horoscope describes change as a structured sequence of activations, not as a random curve.  \nBy that logic, you ought to navigate upheavals better when you divide them into lead-in, core shift and settling-out.  \nThis does not have to mean that everything is predictable, but that patterns often become clearer in hindsight.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_LOW  \nIn this model, spirituality is often carried along indirectly and does not always stand in the foreground as a main dimension.  \nBy that logic, you ought to deepen spiritual interpretation rather in interplay with other horoscopes if this field is central.  \nThis need not point to an emptiness of content, but to a methodological emphasis that lies elsewhere."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_STRUCTURE  \nWithin the Paracelsian framework, your pattern could point to a strong interplay of Earth and Fire elements: formative power plus the impulse to act.  \nBy that logic, you ought to benefit especially when you combine inner determination with a realistic pace.  \nThis need not mean that you should always be in high gear; rather, measured intensity could be your most stable path.",
+      "tags": [
+        "INTRO_HELLENISTISCH_CORE",
+        "INTRO_HELLENISTISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_MEDIUM",
+        "DIM_SOZIALES_MEDIUM",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_LOW",
+        "OUTRO_PARACELSUS_STRUCTURE"
+      ]
+    },
+    "Vedisch": {
+      "intro": "[TAG] INTRO_VEDISCH_CORE\n\nVedic astrology (Jyotish) works with qualities of time, planetary forces and references to the Nakshatras in order to make patterns of development and priority visible. This horoscope often describes a logic of phases: not every theme is equally active at all times.\n\nCompared with Western astrology, it works less with the graphics of aspects and more with periodic activation and depth of interpretation.\n\n[TAG] INTRO_VEDISCH_SPECIAL\n\nA peculiarity is the logic of the Dashas: certain planetary forces could set the tone period by period and thereby highlight individual areas of life.\n\nBy that logic, you ought to read Vedic statements as \"Which focus is plausible now?\", not as an unchangeable trait.",
+      "dimensions": {
+        "liebe": "Love\n\n[TAG] DIM_LIEBE_MEDIUM  \nThis horoscope describes relationship matters as an interplay of the wish for commitment, responsibility and emotional leadership.  \nBy that logic, in questions of closeness you ought to often gain clarity where roles and expectations are actively negotiated.  \nThis need not mean that you want to dominate, but you could more often feel the impulse to give direction.",
+        "beruf": "Career\n\n[TAG] DIM_BERUF_HIGH  \nIn matters of career, the Vedic reading would suggest that work could move to the foreground to different degrees in different phases.  \nBy that logic, you ought to see progress especially when strategic steps are coupled to active qualities of time.  \nThis does not have to mean that success comes \"automatically\", but that timing could influence how much effect you achieve.",
+        "finanzen": "Finances\n\n[TAG] DIM_FINANZEN_MEDIUM  \nThis horoscope often describes financial development as a result of discipline, foresight and fitting windows for decisions.  \nBy that logic, you ought to reach stable results more readily when planning and flexibility are combined.  \nThis need not amount to caution alone, but to deliberate calibration instead of impulsive swings.",
+        "gesundheit": "Health\n\n[TAG] DIM_GESUNDHEIT_HIGH  \nThe Vedic reading would see health as a sensitive area of resonance in which rhythm, strain and recovery could act directly upon one another.  \nBy that logic, you ought to benefit more when recovery is thought of not as leftover time but as an active part of performance.  \nThis need not mean that you would be fragile, but that managing balance could be especially effective here.",
+        "soziales": "Social Life\n\n[TAG] DIM_SOZIALES_LOW  \nSocial life is not always modeled as the strongest primary axis in the Vedic reading.  \nBy that logic, you ought to read this horoscope's social statements more as context information than as a main driver.  \nThis need not mean that social competence is lacking, but that other dimensions could be more prominent in this reading.",
+        "kreativitaet": "Creativity\n\n[TAG] DIM_KREATIVITAET_LOW  \nThis horoscope often describes creativity indirectly through other activations and less as an independent guiding vector.  \nBy that logic, you ought to expect creative peaks rather in combination with phases of change or spirituality.  \nThis need not mean that creativity is small, but that the method scales it separately less finely here.",
+        "veraenderung": "Change\n\n[TAG] DIM_VERAENDERUNG_HIGH  \nThe Vedic reading would see change as a transition structured in periods: changes of phase could act as a real pacemaker.  \nBy that logic, you ought to shape big steps more steadily when you plan them along clear sequences.  \nThis does not have to mean that everything is calculable, but that thinking in stages could provide orientation.",
+        "spiritualitaet": "Spirituality\n\n[TAG] DIM_SPIRITUALITAET_HIGH  \nThis horoscope often describes spirituality as a supporting axis of meaning and not merely as a side motif.  \nBy that logic, in important decisions you ought to respond more strongly to an inner sense of rightness than to short-term outside impulses.  \nThis need not amount to religiosity in the narrow sense, but to a stable inner line of reference."
+      },
+      "paracelsus_outro": "Paracelsus Signatures\n\n[TAG] OUTRO_PARACELSUS_PHASED  \nWithin the Paracelsian framework, your profile could be understood as a phase-by-phase shift between the impulse of Fire, the resonance of Water and the order of Earth.  \nBy that logic, you ought to benefit in the long run if you do not define temperament as fixed but dose it consciously in each stage.  \nThis need not mean that every phase has to be interpreted \"correctly\"; rather, repeated self-calibration could be your strongest lever.",
+      "tags": [
+        "INTRO_VEDISCH_CORE",
+        "INTRO_VEDISCH_SPECIAL",
+        "DIM_LIEBE_MEDIUM",
+        "DIM_BERUF_HIGH",
+        "DIM_FINANZEN_MEDIUM",
+        "DIM_GESUNDHEIT_HIGH",
+        "DIM_SOZIALES_LOW",
+        "DIM_KREATIVITAET_LOW",
+        "DIM_VERAENDERUNG_HIGH",
+        "DIM_SPIRITUALITAET_HIGH",
+        "OUTRO_PARACELSUS_PHASED"
+      ]
+    }
+  }
+}

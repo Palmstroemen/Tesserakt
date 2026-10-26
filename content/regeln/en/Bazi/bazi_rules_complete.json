@@ -1,0 +1,136 @@
+{
+  "clash_und_combination_vollstaendig": {
+    "sechs_clashes": {
+      "zi_wu": {
+        "text_de": "Rat-Horse (Zi-Wu): Water clashes with Fire. Emotional instability, impulsiveness, changes of direction. Relationships come under pressure. High potential for change."
+      },
+      "chou_wei": {
+        "text_de": "Ox-Goat (Chou-Wei): Earth clashes with Earth. Financial losses, conflicts in partnerships. Foundations are shaken. A new orientation is needed."
+      },
+      "yin_shen": {
+        "text_de": "Tiger-Monkey (Yin-Shen): Wood clashes with Metal. Travel problems, legal disputes, personal conflicts. High energy, but at odds with itself."
+      },
+      "mao_you": {
+        "text_de": "Rabbit-Rooster (Mao-You): Wood clashes with Metal. Broken relationships, separation. Creativity and strictness in conflict. Emotional losses are possible."
+      },
+      "chen_xu": {
+        "text_de": "Dragon-Dog (Chen-Xu): Earth clashes with Earth. Turbulence at home and in the family. Real estate matters get complicated. A transformative force."
+      },
+      "si_hai": {
+        "text_de": "Snake-Pig (Si-Hai): Fire clashes with Water. Health problems (especially heart/kidneys), chronic stress. Spiritual crises and breakthroughs."
+      }
+    },
+    "liu_he_kombinationen": {
+      "zi_chou": {
+        "text_de": "Rat-Ox (Zi-Chou): The strongest stabilizing combination. Building finances, reliable partnerships, teamwork. Geared to the long term."
+      },
+      "yin_hai": {
+        "text_de": "Tiger-Pig (Yin-Hai): A creative and idealistic bond. Artistic projects, altruistic goals, romantic energy. Can be naive."
+      },
+      "mao_xu": {
+        "text_de": "Rabbit-Dog (Mao-Xu): A romantic Fire combination. Deep bonds of love, passion, mutual loyalty. Very favorable for marriage and partnership."
+      },
+      "chen_you": {
+        "text_de": "Dragon-Rooster (Chen-You): A powerful financial combination. Wealth through precision and strategic thinking. Career high points. Analytical strength."
+      },
+      "si_shen": {
+        "text_de": "Snake-Monkey (Si-Shen): Intelligence and strategy. Planning and execution. Good for technology, research, medicine. Competitive."
+      },
+      "wu_wei": {
+        "text_de": "Horse-Goat (Wu-Wei): Passion and empathy united. Social activities, adventure, lively love. Expansive, joyful energy."
+      }
+    },
+    "liu_hai_harms": {
+      "zi_wei": {
+        "text_de": "Rat-Goat (Zi-Wei): Emotional misunderstandings in relationships. Care goes unacknowledged. Communication problems."
+      },
+      "chou_wu_harm": {
+        "text_de": "Ox-Horse (Chou-Wu): Financial setbacks through impulsiveness. Instability in career plans. Impatience sabotages what is being built."
+      },
+      "yin_si": {
+        "text_de": "Tiger-Snake (Yin-Si): Hidden hostility, intrigue. False friends. Caution with new partnerships and contracts."
+      },
+      "mao_chen": {
+        "text_de": "Rabbit-Dragon (Mao-Chen): Creative energy is hampered by structure. Artistic frustrations, bureaucratic obstacles."
+      },
+      "shen_hai": {
+        "text_de": "Monkey-Pig (Shen-Hai): Intellect and idealism in conflict. Strategies founder on reality. Financial disappointments."
+      },
+      "you_xu": {
+        "text_de": "Rooster-Dog (You-Xu): Perfectionism meets loyalty, and each undermines the other. Quality problems despite good intentions."
+      }
+    }
+  },
+  "luck_pillars": {
+    "stem_luck_pillars": {
+      "jia": {
+        "text_de": "Jia period: growth, new beginnings, expansion. Favorable for starting a career and for long-term projects. Direct energy, no detours."
+      },
+      "yi": {
+        "text_de": "Yi period: a diplomatic approach, social networking, artistic development. Indirect paths to success."
+      },
+      "bing": {
+        "text_de": "Bing period: visibility, fame, public recognition. A passionate phase, the fire of ambition. Risk of overdoing it."
+      },
+      "ding": {
+        "text_de": "Ding period: precision, inner fire, spiritual depth. Less spectacular but lasting. Good for quality work."
+      },
+      "wu": {
+        "text_de": "Wu period: stabilization, consolidation, grounding. Building financial security. Little room for spontaneity."
+      },
+      "ji": {
+        "text_de": "Ji period: care, detailed work, administration. Favorable for family matters. Risk of getting overinvested in details."
+      },
+      "geng": {
+        "text_de": "Geng period: strength, assertiveness, forcing decisions. Career opportunities through courage. Conflicts possible."
+      },
+      "xin": {
+        "text_de": "Xin period: aesthetics, perfection, refinement. A good phase for creative professions, finances through quality. Emotional sensitivity runs high."
+      },
+      "ren": {
+        "text_de": "Ren period: freedom, expansion, intellectual curiosity. Travel, international connections. The difficulty: staying focused."
+      },
+      "gui": {
+        "text_de": "Gui period: intuition, withdrawal, inner transformation. Strong spiritual development. Outward success takes a back seat."
+      }
+    },
+    "branch_luck_pillars": {
+      "zi": {
+        "text_de": "Zi Luck Pillar (Water): intelligence and intuition in focus. A good phase for study, research, strategic thinking. Emotional depth."
+      },
+      "chou": {
+        "text_de": "Chou Luck Pillar (Earth): endurance, patience, slow but sure building. Favorable for real estate and long-term investments."
+      },
+      "yin": {
+        "text_de": "Yin Luck Pillar (Wood): bold expansion, willingness to take risks, travel. Opening up new territory, taking on leadership roles."
+      },
+      "mao": {
+        "text_de": "Mao Luck Pillar (Wood): gentle diplomacy, artistic flowering, social harmony. Relationships deepen. A quiet but fruitful phase."
+      },
+      "chen": {
+        "text_de": "Chen Luck Pillar (Earth): transforming Earth, Dragon energy. Major turning points in life, leaps in career possible. A visionary phase."
+      },
+      "si": {
+        "text_de": "Si Luck Pillar (Fire): strategic thinking, deep work, activating hidden powers. An often underestimated but powerful period."
+      },
+      "wu_branch": {
+        "text_de": "Wu Luck Pillar (Fire): energy, travel, freedom. An eventful phase, many changes. Love matters are active but fickle."
+      },
+      "wei": {
+        "text_de": "Wei Luck Pillar (Earth): creativity, care, artistic sensitivity. A family-oriented phase, with emotional fulfillment in the foreground."
+      },
+      "shen": {
+        "text_de": "Shen Luck Pillar (Metal): cleverness, opportunism, quicksilver flashes of insight. Good for trade, technology, quick gains. Caution: rash action."
+      },
+      "you": {
+        "text_de": "You Luck Pillar (Metal): precision, perfectionism, quality work. Financially very strong. Risk: social isolation through high standards."
+      },
+      "xu": {
+        "text_de": "Xu Luck Pillar (Earth): spiritual maturity, loyalty put to the test, justice in focus. A phase of karmic balancing. Good for inner work."
+      },
+      "hai": {
+        "text_de": "Hai Luck Pillar (Water): generosity, spiritual openness, endings and new beginnings. Deep inner cleansing. Favorable for creative and spiritual pursuits."
+      }
+    }
+  }
+}

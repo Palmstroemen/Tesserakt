@@ -1,0 +1,138 @@
+{
+  "_meta": {
+    "fenster_einleitung": {
+      "monat": "In the last 30 days,",
+      "quartal": "In the last three months,"
+    }
+  },
+  "gewertet": [
+    {
+      "text": "In the last 30 days, I was rather lucky in love and in my relationships."
+    },
+    {
+      "text": "In the last 30 days, things went rather well for me at work."
+    },
+    {
+      "text": "In the last 30 days, my finances were in rather good shape."
+    },
+    {
+      "text": "In the last 30 days, I felt rather healthy and full of energy."
+    },
+    {
+      "text": "In the last 30 days, I had a rather fulfilling social life."
+    },
+    {
+      "text": "In the last 30 days, I was rather creative and had good ideas."
+    },
+    {
+      "text": "In the last 30 days, quite a lot moved and changed in my life."
+    },
+    {
+      "text": "In the last 30 days, I was rather occupied with questions of meaning, spirituality or my intuition."
+    },
+    {
+      "text": "In the last three months, I was rather lucky in love and in my relationships."
+    },
+    {
+      "text": "In the last three months, things went rather well for me at work."
+    },
+    {
+      "text": "In the last three months, my finances were in rather good shape."
+    },
+    {
+      "text": "In the last three months, I felt rather healthy and full of energy."
+    },
+    {
+      "text": "In the last three months, I had a rather fulfilling social life."
+    },
+    {
+      "text": "In the last three months, I was rather creative and had good ideas."
+    },
+    {
+      "text": "In the last three months, quite a lot moved and changed in my life."
+    },
+    {
+      "text": "In the last three months, I was rather occupied with questions of meaning, spirituality or my intuition."
+    }
+  ],
+  "auffaellig": {
+    "liebe": {
+      "positiv": {
+        "text": "there was a particularly beautiful moment in love or in a relationship."
+      },
+      "negativ": {
+        "text": "there was a difficult phase in love or in a relationship."
+      }
+    },
+    "beruf": {
+      "positiv": {
+        "text": "I had a professional success or breakthrough."
+      },
+      "negativ": {
+        "text": "there was a particularly stressful situation at work."
+      }
+    },
+    "finanzen": {
+      "positiv": {
+        "text": "I had a financial stroke of luck or unexpected income."
+      },
+      "negativ": {
+        "text": "there was a financial setback or unexpected expenses."
+      }
+    },
+    "gesundheit": {
+      "positiv": {
+        "text": "I felt particularly fit and vital for a while."
+      },
+      "negativ": {
+        "text": "I was ill or exhausted for a while."
+      }
+    },
+    "soziales": {
+      "positiv": {
+        "text": "I had a particularly good time with friends or new acquaintances."
+      },
+      "negativ": {
+        "text": "there were arguments or tensions with people around me."
+      }
+    },
+    "kreativitaet": {
+      "positiv": {
+        "text": "I had a creative surge or a particularly good idea."
+      },
+      "negativ": {
+        "text": "I felt uninspired or blocked for a while."
+      }
+    },
+    "veraenderung": {
+      "positiv": {
+        "text": "there was a significant change or a new beginning."
+      },
+      "negativ": {
+        "text": "I felt stuck for a while, even though I wanted to change something."
+      }
+    },
+    "spiritualitaet": {
+      "positiv": {
+        "text": "I had a special experience of inner clarity or connectedness."
+      },
+      "negativ": {
+        "text": "I felt empty inside or without direction for a while."
+      }
+    }
+  },
+  "zeitpunkt": [
+    {
+      "text": "In the last three months, was there a particularly beautiful moment in love or in a relationship?"
+    },
+    {
+      "text": "In the last three months, did you have a professional success or breakthrough?"
+    },
+    {
+      "text": "In the last three months, were you ill or exhausted for a while?"
+    },
+    {
+      "text": "In the last three months, was there a financial setback or unexpected expenses?"
+    }
+  ]
+}

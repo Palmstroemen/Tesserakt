@@ -38,7 +38,7 @@ def _abweichung(x: float, y: float, winkel: float) -> float:
 
 def _themen(pa: str, pb: str, t: Texte) -> str:
     """'Gefuehl und Zuneigung' oder, wenn beide denselben Punkt meinen, 'eure Gefuehlswelten'."""
-    return t["thema_gemeinsam"][pa] if pa == pb else f"{t['thema'][pa]} und {t['thema'][pb]}"
+    return t["thema_gemeinsam"][pa] if pa == pb else f"{t['thema'][pa]} {t['woerter']['und']} {t['thema'][pb]}"
 
 
 def _satz(vorlage: str, pa: str, pb: str, t: Texte) -> str:
@@ -115,7 +115,7 @@ def vedisch(nak_a: int, nak_b: int, mz_a: int, mz_b: int, ganas: List[str], gana
 
     guenstig = tara(nak_a, nak_b) + tara(nak_b, nak_a)
     p_tara = 1.5 * guenstig
-    aussagen.append(tk[["tara_schlecht", "tara_teil", "tara_gut"][guenstig]].replace("{punkte}", _zahl(p_tara)))
+    aussagen.append(tk[["tara_schlecht", "tara_teil", "tara_gut"][guenstig]].replace("{punkte}", _zahl(p_tara, t)))
 
     ya, yb = YONI[nak_a], YONI[nak_b]
     if ya == yb:
@@ -143,13 +143,13 @@ def vedisch(nak_a: int, nak_b: int, mz_a: int, mz_b: int, ganas: List[str], gana
 
     punkte = p_tara + p_yoni + p_gana + p_bhakoot + p_nadi
     gesamt = "gesamt_sehr_gut" if punkte >= 0.75 * KUTA_MAX else "gesamt_gut" if punkte >= KUTA_MAX / 2 else "gesamt_schwierig"
-    aussagen.append(tk[gesamt].replace("{punkte}", _zahl(punkte)).replace("{max}", str(KUTA_MAX)))
+    aussagen.append(tk[gesamt].replace("{punkte}", _zahl(punkte, t)).replace("{max}", str(KUTA_MAX)))
     return {"aussagen": aussagen, "punkte": punkte, "max": KUTA_MAX,
             "kutas": {"tara": p_tara, "yoni": p_yoni, "gana": p_gana, "bhakoot": p_bhakoot, "nadi": p_nadi}}
 
 
-def _zahl(x: float) -> str:
-    return str(int(x)) if x == int(x) else str(x).replace(".", ",")
+def _zahl(x: float, t: Texte) -> str:
+    return str(int(x)) if x == int(x) else str(x).replace(".", t["woerter"]["dezimal"])
 
 
 # ---------------------------------------------------------------------------------------------------------

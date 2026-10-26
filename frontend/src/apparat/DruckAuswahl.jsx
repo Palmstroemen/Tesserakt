@@ -5,7 +5,7 @@ import { useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
 import Buch3D from "./Buch3D";
 import { SYSTEME, anzeigeName } from "./systeme";
-import { buchPreis } from "./buchpreise";
+import { buchPreis, geld, useMarkt } from "./buchpreise";
 import { t } from "../sprache";
 
 // Vorgabe fuer den Titel: Mein Horoskop / Meine Horoskope, bei Paaren Unser Horoskop / Unsere Horoskope
@@ -77,7 +77,8 @@ export default function DruckAuswahl({
       : "",
   );
   const vorgabe = titelVorgabe(n, paarSpiel);
-  const { grund, preis, aktion } = buchPreis(n);
+  const markt = useMarkt();
+  const { grund, preis, aktion } = buchPreis(n, markt);
 
   function umschalten(id) {
     setAuswahl((alt) => {
@@ -166,12 +167,10 @@ export default function DruckAuswahl({
             : n === 1
               ? t("buchauswahl.anzahl_eins")
               : t("buchauswahl.anzahl", { anzahl: n })}
-          {n ? (
+          {n && markt ? (
             <>
-              {aktion ? (
-                <s>{t("buchauswahl.preis", { preis: grund })}</s>
-              ) : null}{" "}
-              <b>{t("buchauswahl.preis", { preis })}</b>
+              {aktion ? <s>{geld(grund, markt.waehrung)}</s> : null}{" "}
+              <b>{geld(preis, markt.waehrung)}</b>
               {aktion ? (
                 <span className="da-aktion"> {aktion.name}</span>
               ) : null}

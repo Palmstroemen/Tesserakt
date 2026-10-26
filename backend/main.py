@@ -45,6 +45,7 @@ from rule_engine import (
 )
 import ausblick
 import paar
+import buchpreise
 import orte
 import sprache
 from beschriftung import beschriften
@@ -1045,6 +1046,12 @@ def get_staedte(land: str, limit: int = 60, sp: str = Depends(_sprache)) -> Dict
 def get_orte(q: str = "", limit: int = 8) -> Dict[str, Any]:
     """Geburtsort-Suche (offline, GeoNames via geonamescache): Name, Land, Koordinaten, Zeitzone."""
     return {"orte": orte.suche(q, max(1, min(limit, 20)))}
+
+
+@app.get("/buch/preise")
+def get_buch_preise(zeitzone: str = "", sp: str = Depends(_sprache)) -> Dict[str, Any]:
+    """Preise des Horoskopbuchs fuer den Markt des Geraets (Land aus der Zeitzone), siehe buchpreise.py."""
+    return buchpreise.preise(zeitzone, sp)
 
 
 @app.get("/fragen/rueckblick")

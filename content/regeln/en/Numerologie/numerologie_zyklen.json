@@ -1,0 +1,197 @@
+{
+  "persoenliches_jahr_profile": {
+    "PJ1": {
+      "schluesselthema": "new beginnings, independence, personal initiative, self-discovery",
+      "beschreibung": "Personal Year 1 marks the start of a new nine-year cycle. New projects, ideas and paths emerge. It is the time to sow seeds that will sprout in the years that follow. The courage to stand on your own is called for — whoever hesitates now misses favorable conditions for a start."
+    },
+    "PJ2": {
+      "schluesselthema": "patience, partnership, cooperation, diplomacy, waiting",
+      "beschreibung": "After the departure comes the year of stillness and waiting. What was begun in Year 1 needs time to grow. Relationships, cooperation and details move into the foreground. Impatience is counterproductive — forcing things leads to setbacks."
+    },
+    "PJ3": {
+      "schluesselthema": "expression, creativity, sociability, joy, communication",
+      "beschreibung": "Year 3 brings blossoming, joy and creative unfolding. Social contacts multiply, artistic projects thrive, communication flows easily. It is a year to enjoy the fruits of what was begun and to celebrate life."
+    },
+    "PJ4": {
+      "schluesselthema": "building, discipline, hard work, foundations, structure",
+      "beschreibung": "Year 4 is a year of travail and persistent building. Firm foundations are laid. Health, order, finances and structures demand attention. Not a glamorous year — but a year that creates lasting value."
+    },
+    "PJ5": {
+      "schluesselthema": "freedom, change, adventure, unexpected events, expansion",
+      "beschreibung": "Year 5 breaks with the old. Unexpected turns, travel, new people and exciting possibilities characterize this year. Changes should be actively used — resistance is futile. The old makes room for the new."
+    },
+    "PJ6": {
+      "schluesselthema": "family, home, care, harmony, responsibility, healing",
+      "beschreibung": "Year 6 revolves around relationships, family, home and responsibility. Caring for others moves into the foreground. Marriages, moves, additions to the family or caring for relatives are typical themes. Harmony and balance are the goals."
+    },
+    "PJ7": {
+      "schluesselthema": "reflection, spirituality, inner growth, retreat, analysis",
+      "beschreibung": "Year 7 is an inward year. The outer world recedes — study, spirituality, reflection and deep thought move into the foreground. Being alone is valuable. What is sought outside will not be found — what comes from within is fruitful now."
+    },
+    "PJ8": {
+      "schluesselthema": "power, finances, career, harvest, authority, material success",
+      "beschreibung": "Year 8 is the year of the material harvest. What was sown in the previous seven years now bears fruit — for better or worse. Career leaps and financial gains, but also conflicts over power and control, are typical. Saturn energy: justice through karma."
+    },
+    "PJ9": {
+      "schluesselthema": "completion, letting go, closure, transformation, universal love",
+      "beschreibung": "Year 9 marks the end of the cycle. The old dissolves — relationships, jobs, homes, convictions. What no longer serves goes. This is painful, but necessary in order to truly begin anew in the following Year 1. Humanitarian energy is strong."
+    },
+    "PJ11": {
+      "schluesselthema": "higher intuition, inspiration, spiritual mission, nervousness, visionary power",
+      "beschreibung": "Personal Year 11 (it occurs when birth month + birth day + year reduce to 11) is of extreme intensity. Intuition and spiritual sensitivity are at their peak. It is a year of inspiration, but also of nervousness and inner pressure. Many people experience it as a Year 2 when the master number energy is too overwhelming."
+    },
+    "PJ22": {
+      "schluesselthema": "manifestation, large-scale projects, material and spiritual synthesis, changing the world",
+      "beschreibung": "Personal Year 22 is one of the rarest and most powerful years. Visions can be carried over into material reality — to a degree that would not normally be possible. Many experience it on the level of Year 4 when the energy is too overwhelming."
+    }
+  },
+  "persoenlicher_monat_matrix_81": {
+    "matrix": {
+      "PJ1": {
+        "PM1": "Double starting energy: powerful new beginnings, independence at its peak. Ideal for job applications, launching a business.",
+        "PM2": "Initiative slows down — patience is required. Background work for the year's projects. Networking.",
+        "PM3": "Fresh starts gain creative expressiveness. Communicate ideas, present a project.",
+        "PM4": "Structuring the year's plans. Drawing up business plans, putting finances in order.",
+        "PM5": "Unexpected chances for the start of the year. New contacts; make use of surprising opportunities.",
+        "PM6": "Taking responsibility for the new. Family support in the fresh start.",
+        "PM7": "Pause: think through the strategy for the year's undertaking before acting.",
+        "PM8": "Financial strength for new projects. Investments in the new beginning — favorable for material starts.",
+        "PM9": "Letting go of the old to begin a new cycle. Last clearing up before Personal Year 1 takes full hold."
+      },
+      "PJ2": {
+        "PM1": "A spark of initiative in the year of patience. Small starts are possible, but do not overdo it.",
+        "PM2": "Double waiting energy: patience, details, background work. No big steps.",
+        "PM3": "Partnerships in a creative light. Expressing shared ideas.",
+        "PM4": "Order and structure in cooperation. Administrative work with partners.",
+        "PM5": "Surprises in relationships. Unexpected encounters. Stay flexible.",
+        "PM6": "Deep tending of relationships. Family dynamics in focus. Restoring harmony.",
+        "PM7": "Analytical reflection on relationships. Inner clarity about what you really want.",
+        "PM8": "Financial matters in partnerships. Reviewing joint investments.",
+        "PM9": "Endings in partnerships. Clarification, forgiveness, realignment in relationships."
+      },
+      "PJ3": {
+        "PM1": "A creative fresh start in the year of unfolding: initiating new artistic projects.",
+        "PM2": "Letting creative ideas ripen. Background work on projects.",
+        "PM3": "Double creative energy: the strongest month for art, performances, self-expression.",
+        "PM4": "Structuring creativity. Disciplined execution of ideas. Work on creative projects.",
+        "PM5": "Spontaneous creativity. Making use of unexpected inspiration. New creative directions.",
+        "PM6": "Creativity in the service of others. Family projects, shared artistic work.",
+        "PM7": "Creative contemplation. Exploring inner sources. A writing workshop or study.",
+        "PM8": "Monetizing creativity. Closing contracts for artistic projects.",
+        "PM9": "Completing, publishing and delivering creative projects."
+      },
+      "PJ4": {
+        "PM1": "A fresh impulse in the year of work: introducing new structure. Starting projects methodically.",
+        "PM2": "Patient detail work. Administrative tasks, documentation.",
+        "PM3": "Loosening up the work routine. Communication within the team. Creative problem-solving.",
+        "PM4": "Double work energy: the most intensive stretch of work in the year. Building the fundamentals.",
+        "PM5": "Unexpected changes in structures. Building flexibility into plans.",
+        "PM6": "Improving structures at home. Including the family in building plans.",
+        "PM7": "Strategic planning and analysis. Thinking through long-term projects.",
+        "PM8": "Strengthening finances and career. Salary negotiations in the year of work.",
+        "PM9": "Completing projects. Wrapping up and archiving old work material."
+      },
+      "PJ5": {
+        "PM1": "Double impulse for change: drastic changes begin. Boldness is called for.",
+        "PM2": "Slow the pace. Plan changes instead of forcing them. Strategic waiting.",
+        "PM3": "Creative expression amid change. Communicating new ideas. Social networks in motion.",
+        "PM4": "Building new structures in changed circumstances. Organization amid chaos.",
+        "PM5": "An explosive month of change: the greatest momentum of the year. Anything is possible.",
+        "PM6": "Changes affect home and family. Moves, a new direction for the family.",
+        "PM7": "An inner journey in the year of change: what do I really need? Reflecting on the processes of change.",
+        "PM8": "Financial changes. New investment strategies. A career change with consequences.",
+        "PM9": "Closing a chapter of change. Completing the transformation."
+      },
+      "PJ6": {
+        "PM1": "Taking on new responsibility. Initiating family projects.",
+        "PM2": "Patient care. Details in household and family plans.",
+        "PM3": "Joy in the family. Creative family activities. Creating beautiful moments.",
+        "PM4": "Structuring household tasks. Renovating the house, creating order.",
+        "PM5": "Unexpected turns in family life. Flexibility in caregiving roles.",
+        "PM6": "Double family energy: the strongest month for marriage, starting a family, domestic life.",
+        "PM7": "Reflection on roles in relationships. Inner clarity about family dynamics.",
+        "PM8": "Settling financial family matters. Inheritance questions, real estate, shared finances.",
+        "PM9": "Resolving family conflicts. Forgiveness in relationships. Healing old wounds."
+      },
+      "PJ7": {
+        "PM1": "A rare month of activity in the year of contemplation. Small, targeted steps outward.",
+        "PM2": "Deep stillness: maximum introversion. Meditation retreat, spiritual practices.",
+        "PM3": "A creative form of expression for inner insights. Writing, art from the depths.",
+        "PM4": "Structured study. Systematic research and analysis.",
+        "PM5": "Unexpected spiritual experiences or outer disturbances of the contemplation.",
+        "PM6": "Bringing spirituality into family and community. Healing work.",
+        "PM7": "Double contemplative energy: the highest spiritual intensity. Deep insights are possible.",
+        "PM8": "Putting insights to material use. Turning intellectual knowledge into professional value.",
+        "PM9": "Closing spiritual cycles. Letting go of old convictions, transformation."
+      },
+      "PJ8": {
+        "PM1": "New career steps in the year of harvest. A fresh impulse for material goals.",
+        "PM2": "Negotiations behind the scenes. Checking the details of financial contracts.",
+        "PM3": "Advancing your career through communication. Self-promotion, networking.",
+        "PM4": "The most intensive work phase in the year of harvest. Consolidating structures for success.",
+        "PM5": "Unexpected turns in career or finances. Responding flexibly to opportunities.",
+        "PM6": "Balance between career and family is required. Settling family finances.",
+        "PM7": "Strategic reflection: reconsidering long-term career planning.",
+        "PM8": "Double material energy: the strongest month for finances, contracts, power.",
+        "PM9": "Financial closings. Completing projects. Freeing up energy for the next cycle."
+      },
+      "PJ9": {
+        "PM1": "A small new beginning in the year of endings. Starting preparations for the next cycle.",
+        "PM2": "Patient letting go. Settling the details of endings.",
+        "PM3": "Farewell celebrations. Creative completions. Last performances and exhibitions.",
+        "PM4": "Creating order in the year of endings. Archiving the old, packing boxes.",
+        "PM5": "Surprising turns in the ending. Loose threads resolve surprisingly.",
+        "PM6": "Family endings and reconciliation. Last handovers of responsibility.",
+        "PM7": "Deep spiritual reflection on endings. What has this cycle taught?",
+        "PM8": "Financial closings and inheritances. Taking stock materially.",
+        "PM9": "Double energy of endings: the most complete letting go. Transformation on all levels."
+      }
+    }
+  },
+  "pinnacle_profile": {
+    "PIN1": {
+      "thema": "independence, leadership, pioneering work",
+      "beschreibung": "A phase of life of self-discovery and strong leadership. Independence is built up. You learn to stand on your own two feet and go your own way."
+    },
+    "PIN2": {
+      "thema": "partnership, cooperation, diplomacy",
+      "beschreibung": "A phase of life shaped by relationships and collaboration. Developing patience, empathy and diplomatic skill."
+    },
+    "PIN3": {
+      "thema": "creative expression, communication, sociability",
+      "beschreibung": "A time of artistic blossoming and social flourishing. Talent unfolds, joy is lived, creativity finds its way."
+    },
+    "PIN4": {
+      "thema": "building, discipline, stability",
+      "beschreibung": "A phase of life of hard, purposeful work. Foundations are laid. No glamour, but a steady building of security and structure."
+    },
+    "PIN5": {
+      "thema": "change, freedom, adventure",
+      "beschreibung": "A dynamic phase of life full of changes, travel and unexpected turns. Freedom is the value that counts."
+    },
+    "PIN6": {
+      "thema": "family, responsibility, home",
+      "beschreibung": "A family phase of life. Marriage, parenthood, domestic duties and responsibility to the community are at the center."
+    },
+    "PIN7": {
+      "thema": "spirituality, reflection, knowledge",
+      "beschreibung": "An inward phase of life. Study, research, spirituality, solitude and depth shape this cycle. Wisdom grows."
+    },
+    "PIN8": {
+      "thema": "power, material success, career",
+      "beschreibung": "A phase of life of material rise. Career, finances, leadership and influence are in focus. Karma becomes clearly visible."
+    },
+    "PIN9": {
+      "thema": "humanitarian service, completion, universal love",
+      "beschreibung": "A phase of life of wisdom and a life of service. Humanitarian goals, artistic fulfillment, endings and letting go."
+    },
+    "PIN11": {
+      "thema": "spiritual leadership, inspiration, a master number phase",
+      "beschreibung": "A rare and intense master number phase. Heightened intuition, a spiritual mission, public influence as a visionary. Very demanding."
+    },
+    "PIN22": {
+      "thema": "master building, manifestation at the highest level",
+      "beschreibung": "The rarest Pinnacle. Potential for historically significant achievements. Visions take material form. The highest demands on discipline and grounding."
+    }
+  }
+}

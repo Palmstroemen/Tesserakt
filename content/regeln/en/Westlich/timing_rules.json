@@ -1,0 +1,375 @@
+{
+  "planet_planet_aspekte": {
+    "kombinationen": {
+      "sonne_mond": {
+        "konjunktion": {
+          "text_de": "New Moon nature: will and feeling act as one. A strong personality, but difficulty in taking in other perspectives. The relationship with mother and father leaves a deep mark. Great vitality, a clear sense of purpose."
+        },
+        "sextil": {
+          "text_de": "Will and feelings complement each other well. Emotional balance helps goals to be carried out. Good relations with mother and father. Adaptability and charm."
+        },
+        "quadrat": {
+          "text_de": "Inner conflict between will and feeling. Relations with the parents often fraught with tension. Drive born of inner friction. A tendency to contradictory behavior. Growth through self-reflection."
+        },
+        "trigon": {
+          "text_de": "Harmony akin to the Full Moon: will and feeling flow together. Natural radiance and popularity. Relations with the parents are helpful. Ease in expressing one's own identity."
+        },
+        "opposition": {
+          "text_de": "Polarity between the self and the world of relationships. Wavering between the will and emotional needs. Partnership as a mirror of inner conflicts. Maturing through bringing both principles into balance."
+        }
+      },
+      "sonne_merkur": {
+        "konjunktion": {
+          "text_de": "Combust Mercury (cazimi if within 1°, combustion if 1–8°): will and intellect are closely bound together. Firm opinions, a lively mind, self-centeredness in communication. If cazimi: exceptional clarity of mind and a gift for language."
+        }
+      },
+      "sonne_venus": {
+        "konjunktion": {
+          "text_de": "Charismatic, art-loving, socially charming, delighting in beauty and in life. Pleasure-loving, attractive, often creatively gifted. A tendency to self-love or self-indulgence."
+        },
+        "sextil": {
+          "text_de": "An amiable, sociable personality. Art and beauty play a supporting role in daily life. Good diplomatic skills and a pleasant disposition."
+        }
+      },
+      "sonne_mars": {
+        "konjunktion": {
+          "text_de": "Strong willpower, drive and assertiveness. Courage and a love of risk. A tendency to aggression, impulsiveness and accidents. Pioneering spirit and athletic energy."
+        },
+        "sextil": {
+          "text_de": "Energy and will well channeled. Assertive without excessive aggression. An athletic, active character. Favorable for positions of leadership."
+        },
+        "quadrat": {
+          "text_de": "Inner tension between ego and driving force. Conflicts with authorities or with men. Great energy, but hard to control. Danger of accidents. Growth through discipline and channeling."
+        },
+        "trigon": {
+          "text_de": "Energy and vitality flow harmoniously. A natural style of leadership, courage without recklessness. Athletic talent, delight in competition."
+        },
+        "opposition": {
+          "text_de": "Outward resistance rouses the fighting spirit. Conflicts with others flare up over questions of power. Partnership often burdened by rivalry or aggression."
+        }
+      },
+      "sonne_jupiter": {
+        "konjunktion": {
+          "text_de": "Optimism, generosity, good fortune and expansion. A tendency to exaggeration and overestimating oneself. Favorable for travel, education and advancement in one's career. Natural authority and breadth of vision."
+        },
+        "sextil": {
+          "text_de": "Good fortune and optimism support one's unfolding. A good capacity for learning and foresight. Social generosity. Favorable for study and career."
+        },
+        "quadrat": {
+          "text_de": "Overweening ambition or hubris. Promises that are not kept. Legal or religious conflicts. Growth through self-restraint and realism."
+        },
+        "trigon": {
+          "text_de": "Exceptional good fortune and natural optimism. Advancement through influential men and mentors. Career opportunities come of their own accord. Moral breadth of vision."
+        },
+        "opposition": {
+          "text_de": "Tension between self-interest and the greater whole. Partners or society hold back the expression of the ego. Lesson to learn: modesty and collective responsibility."
+        }
+      },
+      "sonne_saturn": {
+        "konjunktion": {
+          "text_de": "Seriousness, discipline and endurance shape the personality. Relationship with the father often cool or demanding. A slow rise, but lasting results. A tendency to melancholy or to excessive demands on oneself."
+        },
+        "sextil": {
+          "text_de": "Discipline and a sense of responsibility help in reaching goals. A practical, reliable character. Favorable for a career built on perseverance."
+        },
+        "quadrat": {
+          "text_de": "Inner blockages, lack of self-confidence or excessive self-criticism. Relationship with the father a burden. Obstacles in one's career as a lesson. Growth through perseverance despite resistance."
+        },
+        "trigon": {
+          "text_de": "Discipline and ambition harmoniously joined. Long-term building comes naturally. A mature presence, reliability and the respect of others."
+        },
+        "opposition": {
+          "text_de": "Outward restrictions and conflicts with authority. Society or partners limit self-development. Lesson to learn: balance between self-assertion and duty."
+        }
+      },
+      "sonne_uranus": {
+        "konjunktion": {
+          "text_de": "Rebellion, originality and an urge for independence. An innovative mind, a gift for technology or science. Unpredictability and difficulty with authorities and conventions."
+        },
+        "quadrat": {
+          "text_de": "A revolutionary urge meets inner or outer rigidity. Ruptures and sudden changes. Lesson to learn: dealing constructively with the urge for freedom."
+        },
+        "trigon": {
+          "text_de": "Creative originality flows harmoniously. Pioneering spirit without destruction. Favorable for innovation, technology and unconventional careers."
+        },
+        "opposition": {
+          "text_de": "The urge for freedom meets the expectations of one's surroundings. Tensions within groups. Revolutionary behavior in relationships. The role of the outsider."
+        }
+      },
+      "sonne_neptun": {
+        "konjunktion": {
+          "text_de": "A sensitive, spiritually gifted personality. Artistic and mediumistic abilities. Difficulty in clearly setting the boundaries of the self; a tendency to idealism or self-deception."
+        },
+        "quadrat": {
+          "text_de": "Ideals collide with reality. Danger of disappointment, self-deception or confusion about one's own identity. Growth through spiritual maturity."
+        },
+        "trigon": {
+          "text_de": "Spiritual gifts and artistic intuition flow harmoniously. Favorable for art, spirituality and the healing professions."
+        },
+        "opposition": {
+          "text_de": "Reality and ideals at odds. Partners or surroundings project illusions. A tendency to disappointments in relationships."
+        }
+      },
+      "sonne_pluto": {
+        "konjunktion": {
+          "text_de": "Intense willpower and an urge for transformation. A magnetic personality with a leaning toward control or questions of power. A deep capacity for regeneration. Crises as catalysts."
+        },
+        "quadrat": {
+          "text_de": "Power struggles, compulsive control or self-destruction as the challenge. Deep psychological rebuilding is needed. Growth through letting go."
+        },
+        "trigon": {
+          "text_de": "The power of transformation harmoniously unfolded. Strong inner resources, a capacity for regeneration, natural strength in leadership."
+        },
+        "opposition": {
+          "text_de": "Power struggles in relationships. Others reflect one's dark sides back. Lesson to learn: sharing power and resources."
+        }
+      },
+      "mond_merkur": {
+        "konjunktion": {
+          "text_de": "Feeling and intellect closely joined. A lively, communicative mind with an emotional coloring. A good memory, a feel for language. A tendency to overanalyze feelings."
+        },
+        "quadrat": {
+          "text_de": "Tension between feeling and reason. Nervous irritability. Communication emotionally overcharged. Lesson to learn: rational distance from emotions."
+        },
+        "trigon": {
+          "text_de": "Intuition and intelligence in accord. An eloquent, empathetic way of communicating. Favorable for writing, teaching and counseling."
+        },
+        "opposition": {
+          "text_de": "Emotions and rational analysis at odds. Difficulty in putting feelings clearly into words. Disagreements with people close to one."
+        }
+      },
+      "mond_venus": {
+        "konjunktion": {
+          "text_de": "Emotional warmth, attractiveness and the need for love are strongly marked. A sense for art, love of pleasure, domesticity. A very pleasant social nature. A tendency to self-indulgence."
+        },
+        "quadrat": {
+          "text_de": "Emotional needs and wishes in love at odds. Dependence in love relationships. Jealousy or oversensitivity. Growth through self-love."
+        },
+        "trigon": {
+          "text_de": "A loving, harmonious nature. Natural attractiveness and social popularity. Favorable for love relationships and creative pursuits."
+        },
+        "opposition": {
+          "text_de": "Emotional needs and romantic ideals collide. Love relationships emotionally intense. A conflict between mother and wife is possible."
+        }
+      },
+      "mond_mars": {
+        "konjunktion": {
+          "text_de": "Explosive emotionality and drive. Impulsive, passionate, quick to anger. Great energy, but hard to steer. Favorable for sports and physical activity."
+        },
+        "quadrat": {
+          "text_de": "Inner restlessness and emotional aggressiveness. Conflicts in the home. A tendency to accidents. Growth through impulse control."
+        },
+        "trigon": {
+          "text_de": "Emotional energy well channeled. A protective, courageous character. Favorable for leadership at home and in social life."
+        },
+        "opposition": {
+          "text_de": "Emotional needs collide with the urge to assert oneself. Conflicts in partnership or family. Aggression as a defense against emotional vulnerability."
+        }
+      },
+      "mond_jupiter": {
+        "konjunktion": {
+          "text_de": "Emotional generosity, optimism and care for others. Favorable for family, home life and social engagement. Popularity and goodwill from those around one."
+        },
+        "quadrat": {
+          "text_de": "Emotional excess and a sense of entitlement. Exhaustion through excessive caring. Weight problems from emotional eating are possible."
+        },
+        "trigon": {
+          "text_de": "Emotional abundance and joy of living. Happiness through family and community life. Favorable for social professions and education."
+        },
+        "opposition": {
+          "text_de": "Emotional ideals collide with reality. Exaggerated expectations in relationships. Tension between home and the wide world."
+        }
+      },
+      "mond_saturn": {
+        "konjunktion": {
+          "text_de": "Emotional coldness or reserve. The mother theme is marked by distance or a sense of duty. Melancholy and inner loneliness as a formative imprint. Maturity and reliability as strengths."
+        },
+        "quadrat": {
+          "text_de": "Suppressed emotions and emotional blockages. Relationship with the mother burdened. A tendency to depression. Lesson to learn: allowing and showing feelings."
+        },
+        "trigon": {
+          "text_de": "Emotional maturity and reliability. Disciplined care for others. Favorable for responsibility in family and career."
+        },
+        "opposition": {
+          "text_de": "Emotional needs are suppressed by outward duties or by partners. Coldness in relationships. Lesson to learn: balance between caring for oneself and responsibility."
+        }
+      },
+      "mond_uranus": {
+        "konjunktion": {
+          "text_de": "Unusual emotionality, inner restlessness and originality. Relationship with the mother unconventional. Strong intuition and sensitivity to collective currents."
+        },
+        "quadrat": {
+          "text_de": "Inner restlessness and swings of mood. Sudden emotional ruptures. Instability in relationships."
+        },
+        "trigon": {
+          "text_de": "Emotional freedom and originality in harmony. Favorable for creativity and alternative ways of life."
+        },
+        "opposition": {
+          "text_de": "Emotional unpredictability meets the expectations of one's surroundings. Relationships suddenly broken off."
+        }
+      },
+      "mond_neptun": {
+        "konjunktion": {
+          "text_de": "Great empathy and sensitivity. A dreamlike, mythical inner life. The boundary between self and others blurred. Gifted in art or as a medium."
+        },
+        "quadrat": {
+          "text_de": "Illusions and disappointments in matters of feeling. A tendency to escapism. Relationship with the mother idealized or vague."
+        },
+        "trigon": {
+          "text_de": "Spiritual empathy and creative imagination flow harmoniously. Favorable for art, healing and spiritual work."
+        },
+        "opposition": {
+          "text_de": "Emotional boundaries unclear. Partners project illusions. Self-sacrifice in relationships."
+        }
+      },
+      "mond_pluto": {
+        "konjunktion": {
+          "text_de": "Intense emotional depth and power of transformation. Relationship with the mother marked by power dynamics or depth. Strong unconscious forces. A capacity for regeneration after emotional crises."
+        },
+        "quadrat": {
+          "text_de": "Emotional power struggles and compulsive control. Deep fears and traumas in the background. Growth through psychological work."
+        },
+        "trigon": {
+          "text_de": "Emotional depth as a strength. A capacity for transformation and psychological insight. Favorable for the healing professions and crisis work."
+        },
+        "opposition": {
+          "text_de": "Power struggles in close relationships. Others set off intense emotional reactions. Lesson to learn: emotional autonomy."
+        }
+      },
+      "merkur_venus": {
+        "konjunktion": {
+          "text_de": "A talent for language and an aesthetic sense united. Diplomatic communication, charm in speech. A leaning toward art, poetry and pleasant conversation."
+        },
+        "sextil": {
+          "text_de": "Communication and social charm well joined. Favorable for diplomacy, negotiation and creative exchange."
+        }
+      },
+      "merkur_mars": {
+        "konjunktion": {
+          "text_de": "A sharp, direct mind. Rhetorical punch and assertiveness in debate. A tendency to quarrels and sarcasm. Favorable for lawyers and journalists."
+        },
+        "quadrat": {
+          "text_de": "Conflicts in communication, reproaches and quarrelsomeness. Hasty decisions. Lesson to learn: thinking before speaking."
+        },
+        "trigon": {
+          "text_de": "Intellectual energy and the will to prevail in accord. Favorable for technical professions, debate and negotiation."
+        },
+        "opposition": {
+          "text_de": "Intellectual disputes with others. Disagreements escalate easily. Mental challenge through an adversary."
+        }
+      },
+      "merkur_jupiter": {
+        "konjunktion": {
+          "text_de": "A far-sighted, optimistic mind. A philosophical way of thinking, delight in learning. A tendency to overblown plans or overestimating oneself."
+        },
+        "quadrat": {
+          "text_de": "Grandiloquent schemes never carried through. Exaggeration in communication. Philosophically or religiously dogmatic."
+        },
+        "trigon": {
+          "text_de": "Breadth of mind and optimism in harmony. Favorable for teaching, writing, law and philosophy."
+        },
+        "opposition": {
+          "text_de": "One's own ideas meet other worldviews. Lesson to learn: intellectual modesty and integrating different points of view."
+        }
+      },
+      "merkur_saturn": {
+        "konjunktion": {
+          "text_de": "A concentrated, structured mind. Thoroughness and care. A tendency to pessimism or reticence in communication. Favorable for science and research."
+        },
+        "quadrat": {
+          "text_de": "Mental blockages, brooding and gloomy foreboding. Inhibitions in communication. Lesson to learn: trust in one's own mind."
+        },
+        "trigon": {
+          "text_de": "Systematic, reliable thinking. Favorable for mathematics, structural work and analytical professions."
+        },
+        "opposition": {
+          "text_de": "One's own ideas are called into question by others. Communication with authorities is difficult."
+        }
+      },
+      "venus_mars": {
+        "konjunktion": {
+          "text_de": "Strong attraction and passion. A union of beauty and desire. Great sexual energy and expressiveness. A tendency to impulsiveness in affairs of the heart."
+        },
+        "quadrat": {
+          "text_de": "Conflicts in love from the gap between affection and desire. Jealousy, rivalry in love relationships. Creative tension."
+        },
+        "trigon": {
+          "text_de": "Love and passion flow harmoniously. Attractive and charismatic. Favorable for creative and romantic undertakings."
+        },
+        "opposition": {
+          "text_de": "Tension between the need for harmony and the need for passion. The partner as counterpole in affairs of the heart."
+        }
+      },
+      "venus_jupiter": {
+        "konjunktion": {
+          "text_de": "Good fortune in love and finances. Generous, art-loving, sociable. Favorable for artistic success and social relations. A tendency to extravagance."
+        },
+        "quadrat": {
+          "text_de": "Excessive love of pleasure or overspending in love and finances. Favorable, but only with moderation."
+        },
+        "trigon": {
+          "text_de": "Natural good fortune and popularity. A sense for art and social generosity. One of the most favorable combinations of planets."
+        },
+        "opposition": {
+          "text_de": "Idealized expectations in love. Generosity to the point of naivety. A favorable undercurrent, but with blind spots."
+        }
+      },
+      "venus_saturn": {
+        "konjunktion": {
+          "text_de": "Love and responsibility joined. Relationships rather serious and lasting. A tendency to privation in affairs of the heart or to love experienced late. Favorable for long-term commitments."
+        },
+        "quadrat": {
+          "text_de": "Love withheld or rejection as an imprint from childhood. Fear of rejection. Relationships with a difference in age or a character of duty. Growth through self-love."
+        },
+        "trigon": {
+          "text_de": "Faithful, reliable love relationships. Reward for patience and constancy. Favorable for lasting marriages."
+        },
+        "opposition": {
+          "text_de": "The partner experienced as restricting. Love relationships with a difference in age or a character of duty. Tension between pleasure and duty."
+        }
+      },
+      "mars_jupiter": {
+        "konjunktion": {
+          "text_de": "High-energy, optimistic and active. Pioneering spirit and a love of adventure. Favorable for sports, enterprise and travel. A tendency to take risks, even to the point of recklessness."
+        },
+        "quadrat": {
+          "text_de": "Excessive readiness to take risks. Accidents through recklessness. Conflicts through presumption or arrogance. Energy as a lesson in moderation."
+        },
+        "trigon": {
+          "text_de": "Energy and optimism in accord. Favorable for sports, achievement and success in business. A natural engine of good fortune."
+        },
+        "opposition": {
+          "text_de": "Others hold back one's drive. Legal or moral conflicts through overzealousness."
+        }
+      },
+      "mars_saturn": {
+        "konjunktion": {
+          "text_de": "Disciplined energy, purposeful endurance. Energy is channeled through structure. Inner tension between drive and control. Favorable for crafts, the military and hard physical work."
+        },
+        "quadrat": {
+          "text_de": "Inner blocking of energy. Frustration and suppressed aggression. A tendency to accidents through pent-up pressure. Lesson to learn: healthy outlets."
+        },
+        "trigon": {
+          "text_de": "Endurance and energy perfectly joined. Long-term performance without wearing down. Favorable for long-term physical and professional goals."
+        },
+        "opposition": {
+          "text_de": "Outward resistance hinders one's drive. Conflicts with authority and power games. Lesson to learn: patience and strategic waiting."
+        }
+      },
+      "jupiter_saturn": {
+        "konjunktion": {
+          "text_de": "A quality of the times for society (the Great Conjunction every 20 years). Personally: balance between expansion and restriction. An important phase of building, with realistic optimism. It marks a generation."
+        },
+        "quadrat": {
+          "text_de": "Tension between the wish to grow and the reality principle. Opportunities blocked or delayed. Lesson to learn: realistic planning."
+        },
+        "trigon": {
+          "text_de": "Expansion and consolidation in balance. Favorable for sustainable career and financial planning. Integration into society."
+        },
+        "opposition": {
+          "text_de": "Social forces in tension: optimism vs. realism in one's social surroundings. Wavering between risk and caution."
+        }
+      }
+    }
+  }
+}

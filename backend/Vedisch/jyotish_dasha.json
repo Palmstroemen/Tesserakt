@@ -498,7 +498,7 @@
       },
       "ketu_mars": {
         "qualitaet": "guenstig",
-        "beschreibung": "Beide Mars-Natur (Ketu wie Mars). Energie für spirituelle Disziplin. Technik und Chirurgie, Kampf um innere Wahrheit. Unfallrisiko.",
+        "beschreibung": "Beide von Mars-Natur (Ketu wie Mars). Energie für spirituelle Disziplin. Technik und Chirurgie, Kampf um innere Wahrheit. Unfallrisiko.",
         "dimensionen": {
           "liebe": 0.25,
           "beruf": 0.5,
@@ -1486,7 +1486,7 @@
       },
       "saturn_jupiter": {
         "qualitaet": "guenstig",
-        "beschreibung": "Dharma durch Disziplin. Religiöse Pflicht erfüllt. Spirituelle Reifung durch Prüfungen. Filosofische Tiefe. Karma-Ausgleich durch Weisheit.",
+        "beschreibung": "Dharma durch Disziplin. Religiöse Pflicht erfüllt. Spirituelle Reifung durch Prüfungen. Philosophische Tiefe. Karma-Ausgleich durch Weisheit.",
         "dimensionen": {
           "liebe": 0.5,
           "beruf": 0.75,

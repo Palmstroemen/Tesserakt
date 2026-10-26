@@ -1,0 +1,92 @@
+{
+  "pfade": {
+    "11": {
+      "buchstabe_bedeutung": "Ox / Bull — the first animal, strength, breath",
+      "tarot": "0 — The Fool"
+    },
+    "12": {
+      "buchstabe_bedeutung": "House — the first house, the shell, the vessel",
+      "tarot": "I — The Magician"
+    },
+    "13": {
+      "buchstabe_bedeutung": "Camel — the animal that carries across the desert, the connector of worlds",
+      "tarot": "II — The High Priestess"
+    },
+    "14": {
+      "buchstabe_bedeutung": "Door — the opening, the passage, the gate",
+      "tarot": "III — The Empress"
+    },
+    "15": {
+      "buchstabe_bedeutung": "Window — the opening, the view outward, revelation",
+      "tarot": "IV — The Emperor"
+    },
+    "16": {
+      "buchstabe_bedeutung": "Nail / Hook — what joins, the anchor",
+      "tarot": "V — The Hierophant"
+    },
+    "17": {
+      "buchstabe_bedeutung": "Sword / Weapon — what separates, what distinguishes",
+      "tarot": "VI — The Lovers"
+    },
+    "18": {
+      "buchstabe_bedeutung": "Fence / Enclosure — what protects, the guardian",
+      "tarot": "VII — The Chariot"
+    },
+    "19": {
+      "buchstabe_bedeutung": "Serpent — the hidden power, Kundalini, potential",
+      "tarot": "VIII — Strength (XI in older decks)"
+    },
+    "20": {
+      "buchstabe_bedeutung": "Hand / Open hand — the first letter of the Tetragrammaton, the divine will",
+      "tarot": "IX — The Hermit"
+    },
+    "21": {
+      "buchstabe_bedeutung": "Palm / Bowl — what receives, the bowl of good fortune",
+      "tarot": "X — Wheel of Fortune"
+    },
+    "22": {
+      "buchstabe_bedeutung": "Ox goad / Teaching rod — what drives on, what teaches through consequences",
+      "tarot": "XI — Justice (VIII in older decks)"
+    },
+    "23": {
+      "buchstabe_bedeutung": "Water — what flows, what is deep, the mother of purification",
+      "tarot": "XII — The Hanged Man"
+    },
+    "24": {
+      "buchstabe_bedeutung": "Fish — the creature of the deep, death and rebirth",
+      "tarot": "XIII — Death"
+    },
+    "25": {
+      "buchstabe_bedeutung": "Prop / Support — what holds, the arch that bears",
+      "tarot": "XIV — Temperance"
+    },
+    "26": {
+      "buchstabe_bedeutung": "Eye — what sees, perception, the inner eye",
+      "tarot": "XV — The Devil"
+    },
+    "27": {
+      "buchstabe_bedeutung": "Mouth — what speaks, expression, the opening",
+      "tarot": "XVI — The Tower"
+    },
+    "28": {
+      "buchstabe_bedeutung": "Fishhook / Angle — what draws, what hauls up from the depths",
+      "tarot": "XVII — The Star"
+    },
+    "29": {
+      "buchstabe_bedeutung": "Back of the head / Eye of a needle — what is hidden behind the visible",
+      "tarot": "XVIII — The Moon"
+    },
+    "30": {
+      "buchstabe_bedeutung": "Head / Chief — what leads, what comes first",
+      "tarot": "XIX — The Sun"
+    },
+    "31": {
+      "buchstabe_bedeutung": "Tooth / Fire — what consumes, what purifies, the divine flame",
+      "tarot": "XX — Judgement (also The Aeon)"
+    },
+    "32": {
+      "buchstabe_bedeutung": "Cross / Mark — what concludes, completion, the seal",
+      "tarot": "XXI — The World (also The Universe)"
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "lebenspfad_profile": {
+    "1": {
+      "name": "Life Path 1 – The Pioneer",
+      "kernthema": "self-realization, independence, leadership, creating the new."
+    },
+    "2": {
+      "name": "Life Path 2 – The Diplomat",
+      "kernthema": "partnership, harmony, compassion, cooperation, the joining of opposites."
+    },
+    "3": {
+      "name": "Life Path 3 – The Expresser",
+      "kernthema": "self-expression, creativity, joy, communication, bringing the beauty in the world to life."
+    },
+    "4": {
+      "name": "Life Path 4 – The Builder",
+      "kernthema": "stability, order, diligence, practical building, laying a solid foundation."
+    },
+    "5": {
+      "name": "Life Path 5 – The Free Spirit",
+      "kernthema": "freedom, adventure, change, gathering experience, mediation between worlds."
+    },
+    "6": {
+      "name": "Life Path 6 – The Nurturer",
+      "kernthema": "responsibility, family, care, beauty, service to the community, creating harmony."
+    },
+    "7": {
+      "name": "Life Path 7 – The Seeker",
+      "kernthema": "inwardness, wisdom, analysis, spirituality, revealing the hidden, the search for truth."
+    },
+    "8": {
+      "name": "Life Path 8 – The Mighty One",
+      "kernthema": "power, material achievement, karma, success through perseverance, justice, mastery."
+    },
+    "9": {
+      "name": "Life Path 9 – The Completer",
+      "kernthema": "completion, universal love, altruism, the wisdom of experience, letting go, serving."
+    }
+  },
+  "meisterzahlen": {
+    "11": {
+      "name": "The Eleven – The Visionary",
+      "kernthema": "intuition, enlightenment, inspiration, connection to the higher, a spiritual message to the world."
+    },
+    "22": {
+      "name": "The Twenty-Two – The Master Builder",
+      "kernthema": "manifestation at the highest level, creating great works in the world, turning visions into reality."
+    },
+    "33": {
+      "name": "The Thirty-Three – The Master Teacher",
+      "kernthema": "unconditional love, mastery of teaching, selflessness at the highest level, Christ consciousness."
+    }
+  },
+  "lebenspfad_kompatibilitaet": {
+    "matrix": {
+      "1x1": {
+        "erklaerung": "Two strong leaders – respect and admiration, but a power struggle is possible. Good at work if roles are clearly separated."
+      },
+      "1x2": {
+        "erklaerung": "A classic complement: leadership + care. 1 decides, 2 supports. Works as long as 2 does not lose its own strength."
+      },
+      "1x3": {
+        "erklaerung": "1 admires the creativity of 3, 3 loves the pioneering spirit of 1. At work both can be too self-centered."
+      },
+      "1x4": {
+        "erklaerung": "An excellent business combination: vision (1) + structure (4). In private life the stubbornness of 4 can frustrate 1."
+      },
+      "1x5": {
+        "erklaerung": "Both dynamic and eager for change. An exciting pair. Innovative at work. The danger: neither builds long-term stability."
+      },
+      "1x6": {
+        "erklaerung": "1 benefits from the warm, caring nature of 6. 6 admires the strength of 1. At work, different priorities."
+      },
+      "1x7": {
+        "erklaerung": "An intellectual complement: the doer (1) and the thinker (7). 7 gives 1 depth, 1 gives 7 the impulse to act. In private life both are distant."
+      },
+      "1x8": {
+        "erklaerung": "Two power-driven natures – an outstanding team at work. In private life a hard struggle for dominance."
+      },
+      "1x9": {
+        "erklaerung": "1 (beginning) + 9 (end) – universal complementarity. 9 gives 1 humanitarian wisdom, 1 gives 9 drive."
+      },
+      "2x2": {
+        "erklaerung": "Deep emotional understanding. Very harmonious and caring. At work both can be too indecisive."
+      },
+      "2x3": {
+        "erklaerung": "2 loves the creativity and warmth of 3. 3 values the support of 2. A lovely, warm relationship."
+      },
+      "2x4": {
+        "erklaerung": "2 brings warmth into the sober world of 4. 4 gives 2 security. But it can become too static."
+      },
+      "2x5": {
+        "erklaerung": "The restlessness of 5 can hurt 2, who needs commitment. If both grow, complementary; otherwise difficult."
+      },
+      "2x6": {
+        "erklaerung": "Exceptionally harmonious. Both caring, loving and oriented toward harmony. One of the best love compatibilities."
+      },
+      "2x7": {
+        "erklaerung": "A deep spiritual connection. 2 opens the heart of 7, 7 gives 2 intellectual depth. A very special bond."
+      },
+      "2x8": {
+        "erklaerung": "A difficult combination. 8 is too hard and powerful for sensitive 2. Emotional hurt is likely."
+      },
+      "2x9": {
+        "erklaerung": "Deep compassion connects both. 9 gives universal love, 2 gives personal warmth. Harmonious."
+      },
+      "3x3": {
+        "erklaerung": "Creative, playful and lively. Much mutual joy and inspiration. In everyday life, though, a lack of grounding."
+      },
+      "3x4": {
+        "erklaerung": "Opposites: 3 is creative and playful, 4 is serious and structured. Complementary at work. Often frustrating in private life."
+      },
+      "3x5": {
+        "erklaerung": "Dynamic, communicative, adventurous. Both love freedom and expression. A lively relationship."
+      },
+      "3x6": {
+        "erklaerung": "Excellent. Both creative, warm and sociable. 6 grounds 3, 3 brings lightness to the responsibilities of 6."
+      },
+      "3x7": {
+        "erklaerung": "Interesting but difficult: 3 is extroverted, 7 is introverted. Intellectual stimulation, emotional gaps."
+      },
+      "3x8": {
+        "erklaerung": "3 brings creativity, 8 brings resources. A good business combination. Different priorities in private life."
+      },
+      "3x9": {
+        "erklaerung": "Outstanding. Both belong to the Jupiter triad. Shared joy, ideals and creative power."
+      },
+      "4x4": {
+        "erklaerung": "Stable, reliable, practical – but little fire. A good basis, but routine and stagnation are the danger."
+      },
+      "4x5": {
+        "erklaerung": "Difficult: 4 needs stability, 5 runs from routine. A fundamental conflict of values."
+      },
+      "4x6": {
+        "erklaerung": "Very harmonious. Both grounded, dutiful and family-oriented. A stable, reliable bond."
+      },
+      "4x7": {
+        "erklaerung": "4 creates, 7 understands. Outstanding at work (practical building + analytical depth). In private life both are distant."
+      },
+      "4x8": {
+        "erklaerung": "A powerful combination for material success. Both practical and goal-oriented. Good for business."
+      },
+      "4x9": {
+        "erklaerung": "Difficult: 4 thinks in concrete, practical terms, 9 in universal, idealistic ones. Fundamentally different worldviews."
+      },
+      "5x5": {
+        "erklaerung": "Adventurous, exciting, never boring. Innovative at work. In private life: who builds the home? A lack of stability."
+      },
+      "5x6": {
+        "erklaerung": "5 loves freedom, 6 loves commitment and home. Can work if 5 values roots and 6 allows freedom."
+      },
+      "5x7": {
+        "erklaerung": "Both value intellectual freedom and independence. A respectful bond with enough space."
+      },
+      "5x8": {
+        "erklaerung": "8 wants control, 5 runs from it. At work 5 can supply ideas and 8 structures them. Charged with tension in private life."
+      },
+      "5x9": {
+        "erklaerung": "Both free, broad-minded and idealistic. 9 gives 5 deeper meaning, 5 gives 9 agility."
+      },
+      "6x6": {
+        "erklaerung": "Very harmonious and caring. A deep partnership of shared responsibility. The danger: each taking too much responsibility for the other."
+      },
+      "6x7": {
+        "erklaerung": "7 needs retreat, 6 needs connection. Can grow if both respect space and closeness."
+      },
+      "6x8": {
+        "erklaerung": "6 gives warmth and a home, 8 gives security and resources. Works if 8 appreciates care."
+      },
+      "6x9": {
+        "erklaerung": "Outstanding. Both deeply loving, humanitarian and creative. Shared values and direction in life."
+      },
+      "7x7": {
+        "erklaerung": "Deep intellectual and spiritual understanding. In everyday life, though, each lives in their own world. Can seem isolated."
+      },
+      "7x8": {
+        "erklaerung": "Fundamentally different: 7 seeks truth, 8 seeks power. Complementary at work. Hardly a common language in private life."
+      },
+      "7x9": {
+        "erklaerung": "A spiritual kinship. Both seek deeper meaning. 9 gives warmth, 7 gives analysis. Harmonious."
+      },
+      "8x8": {
+        "erklaerung": "Enormously powerful at work. In private life: power struggle, emotional coldness, little room for vulnerability."
+      },
+      "8x9": {
+        "erklaerung": "Difficult: 8 wants material power, 9 wants universal goodness. A conflict of values. Respect is possible, a deep bond rare."
+      },
+      "9x9": {
+        "erklaerung": "Deep mutual understanding. Both universal and idealistic. The danger: both too selfless, neglecting the housekeeping of everyday life."
+      }
+    }
+  }
+}

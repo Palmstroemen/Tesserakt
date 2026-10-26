@@ -1,0 +1,51 @@
+{
+  "heavenly_stems": {
+    "jia": {
+      "qualitaet": "growth, pioneering spirit, sincerity"
+    },
+    "yi": {
+      "qualitaet": "adaptation, flexibility, diplomacy"
+    },
+    "bing": {
+      "qualitaet": "warmth, charisma, generosity"
+    },
+    "ding": {
+      "qualitaet": "precision, intuition, perseverance"
+    },
+    "wu": {
+      "qualitaet": "stability, reliability, boundaries"
+    },
+    "ji": {
+      "qualitaet": "care, attention to detail, caution"
+    },
+    "geng": {
+      "qualitaet": "determination, justice, strength"
+    },
+    "xin": {
+      "qualitaet": "aesthetics, perfection, sensitivity"
+    },
+    "ren": {
+      "qualitaet": "intelligence, freedom, adaptation"
+    },
+    "gui": {
+      "qualitaet": "intuition, stillness, depth"
+    }
+  },
+  "day_master_profiles": {
+    "holz": {
+      "staerken": "growth, creativity, compassion, teamwork"
+    },
+    "feuer": {
+      "staerken": "charisma, passion, leadership, inspiration"
+    },
+    "erde": {
+      "staerken": "reliability, endurance, practical thinking, care"
+    },
+    "metall": {
+      "staerken": "precision, determination, justice, integrity"
+    },
+    "wasser": {
+      "staerken": "intelligence, intuition, adaptability, depth"
+    }
+  }
+}

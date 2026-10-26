@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "en",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/en/paar/paar_v1.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_heute.py"
+  },
+  "gruppen": {
+    "westlich_a": {
+      "sonne": "Your Sun",
+      "mond": "Your Moon",
+      "venus": "Your Venus",
+      "mars": "Your Mars",
+      "aszendent": "Your Ascendant"
+    },
+    "westlich_b": {
+      "sonne": "your partner's Sun",
+      "mond": "your partner's Moon",
+      "venus": "your partner's Venus",
+      "mars": "your partner's Mars",
+      "aszendent": "your partner's Ascendant"
+    },
+    "thema": {
+      "sonne": "essence",
+      "mond": "feeling",
+      "venus": "affection",
+      "mars": "desire",
+      "aszendent": "demeanor"
+    },
+    "thema_gemeinsam": {
+      "sonne": "your two natures",
+      "mond": "your emotional worlds",
+      "venus": "your ways of loving",
+      "mars": "your drives",
+      "aszendent": "your ways of presenting yourselves"
+    },
+    "westlich_aspekt": {
+      "konjunktion": "{a} and {b} are conjunct – {themen} merge; in this you recognize each other at once.",
+      "trine": "{a} and {b} are trine – {themen} flow into each other effortlessly.",
+      "sextil": "{a} and {b} are sextile – {themen} find each other easily if you two accept the invitation.",
+      "quadrat": "{a} and {b} are square – {themen} rub against each other; that keeps things alive, but it can also wear you down.",
+      "opposition": "{a} and {b} are in opposition – {themen} attract each other like opposite poles; balance is your task."
+    },
+    "westlich_ruhig": {
+      "text": "There are no close aspects between your Suns, Moons, Venuses, and Marses. Your bond shows itself not in single sparks but in your shared everyday life, in the banked embers, as it were."
+    },
+    "hellenistisch_bezug": {
+      "gleich": "{a} and {b} are in the same sign – {themen} share one place; in this you are very close.",
+      "trigon": "{a} and {b} are in signs of the same element (trine) – {themen} understand each other without many words.",
+      "sextil": "{a} and {b} are sextile – the signs look upon each other kindly; {themen} easily fall into conversation.",
+      "quadrat": "{a} and {b} are square – the signs see each other, but in conflict; {themen} challenge each other.",
+      "opposition": "{a} and {b} face each other – {themen} mirror each other; attraction and tension lie close together.",
+      "aversion": "{a} and {b} are in aversion – the signs do not see each other. {Themen} run side by side and do not meet on their own; that takes deliberate attention."
+    },
+    "vedisch_kuta": {
+      "tara_gut": "Tara (destiny), {punkte} of 3: Counting from Moon Nakshatra to Moon Nakshatra, you land on favorable stars in both directions – a sign of well-being and permanence.",
+      "tara_teil": "Tara (destiny), {punkte} of 3: Only when counting in one direction do you land on a favorable star – the luck of the bond is unevenly shared.",
+      "tara_schlecht": "Tara (destiny), {punkte} of 3: In both directions you land on stars of danger (Vipat, Pratyari, or Naidhana) – the well-being of the relationship needs to be tended deliberately.",
+      "yoni_gleich": "Yoni (instinct), 4 of 4: Your Nakshatras carry the same animal, the {tier_a} – you understand each other instinctively.",
+      "yoni_neutral": "Yoni (instinct), 2 of 4: The {tier_a} and the {tier_b} are neither friends nor enemies – closeness grows with time.",
+      "yoni_feind": "Yoni (instinct), 0 of 4: The {tier_a} and the {tier_b} are considered archenemies – in instinctive matters, physical ones included, consideration is needed.",
+      "gana_gleich": "Gana (temperament), {punkte} of 6: You are both {gana_a} – you tick alike.",
+      "gana_nah": "Gana (temperament), {punkte} of 6: {gana_a} and {gana_b} – related temperaments, well compatible.",
+      "gana_fern": "Gana (temperament), 0 of 6: {gana_a} and {gana_b} – Parashara sees the greatest obstacle to marriage here; the temperaments collide.",
+      "bhakoot_gut": "Bhakoot (Moon signs), 7 of 7: Your Moon signs are at a favorable distance – good for the prosperity and health of the relationship.",
+      "bhakoot_schlecht": "Bhakoot (Moon signs), 0 of 7: Your Moon signs are at a distance of {abstand} – this is considered Bhakoot Dosha; money and health want to be guarded together.",
+      "nadi_gut": "Nadi (constitution), 8 of 8: {nadi_a} and {nadi_b} – different constitutions complement each other.",
+      "nadi_schlecht": "Nadi (constitution), 0 of 8: You share the same Nadi ({nadi_a}) – this is considered Nadi Dosha, according to the tradition the most serious obstacle; it advises care with health and offspring.",
+      "gesamt_sehr_gut": "In total, {punkte} of {max} points in these five Kutas – according to the tradition a very favorable union.",
+      "gesamt_gut": "In total, {punkte} of {max} points in these five Kutas – more than half; according to the tradition a union that can hold.",
+      "gesamt_schwierig": "In total, {punkte} of {max} points in these five Kutas – less than half. The tradition then advises looking closely at the other factors of both horoscopes."
+    },
+    "yoni_tier": {
+      "pferd": "horse",
+      "elefant": "elephant",
+      "schaf": "sheep",
+      "schlange": "serpent",
+      "hund": "dog",
+      "katze": "cat",
+      "ratte": "rat",
+      "kuh": "cow",
+      "bueffel": "buffalo",
+      "tiger": "tiger",
+      "hirsch": "deer",
+      "affe": "monkey",
+      "mungo": "mongoose",
+      "loewe": "lion"
+    },
+    "gana": {
+      "deva": "Deva (divine)",
+      "manushya": "Manushya (human)",
+      "rakshasa": "Rakshasa (untamed)"
+    },
+    "bazi_wer": {
+      "tag": "Your day branches (the Spouse Palace)",
+      "jahr": "Your year animals"
+    },
+    "bazi_zweig": {
+      "he": "{wer}, {a} and {b}, form a Six Harmony combination (Liu He) and join harmoniously. {text}",
+      "sanhe": "{wer}, {a} and {b}, belong to the same triangle ({element}) – you pull together.",
+      "chong": "{wer}, {a} and {b}, clash (Chong). {text}",
+      "hai": "{wer}, {a} and {b}, harm each other (Liu Hai) – small slights add up easily. {text}",
+      "gleich": "{wer} are the same, both {a} – in this you are very alike, sometimes too alike.",
+      "neutral": "{wer}, {a} and {b}, have no special relationship – here is room for you two to shape yourselves."
+    },
+    "bazi_dm": {
+      "gleich": "Your Day Masters carry the same element ({a}) – you are companions, at times also rivals.",
+      "naehrt": "Your partner's Day Master ({b}) nourishes yours ({a}) – you are strengthened and supported.",
+      "erschoepft": "Your Day Master ({a}) nourishes your partner's ({b}) – you give strength that should also come back to you.",
+      "kontrolliert": "Your partner's Day Master ({b}) controls yours ({a}) – that gives you stability or puts pressure on you, depending on the degree.",
+      "beherrscht": "Your Day Master ({a}) controls your partner's ({b}) – you give direction; take care not to dictate.",
+      "stamm_he": "Your day stems ({sa} and {sb}) form a stem combination (He) – classically a strong sign of mutual attraction."
+    },
+    "arabisch_firdaria": {
+      "gleich": "You are both in the Firdaria of {a} – the same themes, the same era; you live through these years in unison.",
+      "freunde": "You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are friends – your phases of life support each other.",
+      "feinde": "You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are enemies – your phases of life pull in different directions; understanding for the other's time helps.",
+      "neutral": "You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The two rulers are neutral toward each other – your phases leave each other room.",
+      "gemischt": "You are in the Firdaria of {a}, your partner in the Firdaria of {b}. One ruler sees a friend in the other, but not the other way around – one of you carries more than the other during this time.",
+      "knoten": "You are in the Firdaria of {a}, your partner in the Firdaria of {b}. The lunar nodes know no friendships; these years stand on their own."
+    },
+    "arabisch_los": {
+      "glueck_a": "Your Lot of Fortune falls in the sign of {punkt_b} – what brings you luck touches your partner directly.",
+      "glueck_b": "Your partner's Lot of Fortune falls in the sign of {punkt_a_gen} – what brings your partner luck touches you directly.",
+      "keine": "Your Lots of Fortune fall on none of the other's main points – your fortunes grow in separate fields."
+    },
+    "arabisch_punkt": {
+      "sonne_b": "your partner's Sun",
+      "mond_b": "your partner's Moon",
+      "aszendent_b": "your partner's Ascendant",
+      "sonne_a": "your Sun",
+      "mond_a": "your Moon",
+      "aszendent_a": "your Ascendant"
+    },
+    "kabbalah": {
+      "gleich": "You share the same Sephira, {a} – you stand at the same place on the Tree of Life and look out from the same direction.",
+      "pfad": "Your Sephira {a} and your partner's, {b}, are directly connected by path {nr}: the letter {buchstabe} ({name} – {bedeutung}). Its tarot card is {tarot}.",
+      "saeule": "{a} and {b} are not directly connected, but they stand on the same pillar, the {saeule} – you strive in the same direction.",
+      "getrennt": "{a} and {b} are not directly connected and stand on different pillars ({sa} and {sb}) – the way to each other leads through the middle of the tree."
+    },
+    "saeule": {
+      "gnade": "Pillar of Mercy",
+      "strenge": "Pillar of Severity",
+      "mitte": "Middle Pillar"
+    },
+    "numerologie": {
+      "lebenszahl": "Your Life Path numbers {a} and {b}: {erklaerung}",
+      "bewertung": "As a life partnership, this union is considered {bewertung}.",
+      "gleiches_jahr": "You are both in Personal Year {a} – you experience this year in the same rhythm."
+    },
+    "numerologie_bewertung": {
+      "1": "very difficult",
+      "2": "difficult",
+      "3": "balanced",
+      "4": "harmonious",
+      "5": "very harmonious"
+    },
+    "woerter": {
+      "und": "and",
+      "dezimal": "."
+    }
+  }
+}

@@ -82,13 +82,13 @@ def monatsteil(tag: datetime, t: Texte) -> str:
 
 
 def zeitraum_text(von: datetime, bis: datetime, exakt: List[datetime], t: Texte) -> str:
-    """Lesbarer Zeitraum: kurze Ereignisse 'um den 14. April', laengere 'Mitte März bis Ende April'."""
+    """Lesbarer Zeitraum am Anfang einer Zeile: kurze Ereignisse 'Um den 14. April', laengere 'Mitte März bis
+    Ende April' (gross begonnen, auch wo die Sprache Monatsteile klein schreibt: 'Mid-April')."""
     if (bis - von).days <= 12:
         return _um(exakt[0], t)
     a, b = monatsteil(von, t), monatsteil(bis, t)
-    if a == b:
-        return a
-    return _f(t["zeit"]["von_bis"], von=a, bis=b)
+    zeitraum = a if a == b else _f(t["zeit"]["von_bis"], von=a, bis=b)
+    return zeitraum[:1].upper() + zeitraum[1:]
 
 
 def zeitraum_offen(von: datetime, bis: datetime, start: datetime, ende: datetime, t: Texte) -> str:

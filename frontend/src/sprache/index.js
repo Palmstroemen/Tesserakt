@@ -9,7 +9,7 @@
 // - buchtexte.js: Leitsatz, Einleitung und Quellen des Buchs
 // Was in einer Sprache fehlt, kommt aus dem Deutschen.
 
-export const SPRACHEN = ["de"];
+export const SPRACHEN = ["de", "en"];
 const GRUND = "de";
 
 const OBERFLAECHE = import.meta.glob("./*/oberflaeche.json", {

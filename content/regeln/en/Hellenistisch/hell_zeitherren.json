@@ -1,0 +1,65 @@
+{
+  "jaehrliche_profektionen": {
+    "profektionshaus_themen": {
+      "haus_1": {
+        "thema": "identity, the body, a personal fresh start"
+      },
+      "haus_2": {
+        "thema": "resources, money, material security"
+      },
+      "haus_3": {
+        "thema": "communication, siblings, short journeys, learning"
+      },
+      "haus_4": {
+        "thema": "family, origins, home, foundations"
+      },
+      "haus_5": {
+        "thema": "children, creativity, joy, love affairs"
+      },
+      "haus_6": {
+        "thema": "health, service, work, subordination"
+      },
+      "haus_7": {
+        "thema": "partnership, marriage, contracts, open enemies"
+      },
+      "haus_8": {
+        "thema": "death, crisis, other people's resources, transformation"
+      },
+      "haus_9": {
+        "thema": "long journeys, higher education, spirituality, foreign lands"
+      },
+      "haus_10": {
+        "thema": "career, reputation, public standing, authority"
+      },
+      "haus_11": {
+        "thema": "friends, networks, hopes, supporters"
+      },
+      "haus_12": {
+        "thema": "what is hidden, enemies, retreat, captivity"
+      }
+    },
+    "jahresherrscher": {
+      "wirkung_jupiter_als_jahresherrscher": {
+        "wirkung": "The year stands under the sign of growth, expansion, good fortune and success. Favorable for all great undertakings."
+      },
+      "wirkung_saturn_als_jahresherrscher": {
+        "wirkung": "The year calls for patience, structure and responsibility. Slowing down, delays, but also lasting results with discipline. Valens: 'Saturn as chronocrator makes the year heavy, but when he is well placed, he builds what endures'."
+      },
+      "wirkung_mars_als_jahresherrscher": {
+        "wirkung": "The year brings energy, conflicts, struggles to assert yourself and turning points. Illness, accidents or quarrels are possible; at the same time: great drive and the chance to overcome obstacles."
+      },
+      "wirkung_venus_als_jahresherrscher": {
+        "wirkung": "The year brings joy, pleasure, relationships and beauty. Favorable for matters of love, art, social harmony and material comforts."
+      },
+      "wirkung_merkur_als_jahresherrscher": {
+        "wirkung": "The year stands under the sign of communication, learning, trade, contracts and intellectual work. An eventful year with many contacts, much information and many decisions."
+      },
+      "wirkung_sonne_als_jahresherrscher": {
+        "wirkung": "A year of visibility, authority and work on your identity. The person steps into the foreground: leadership roles, public recognition, but also a confrontation with their own ego and will."
+      },
+      "wirkung_mond_als_jahresherrscher": {
+        "wirkung": "A year of change, emotional ups and downs, family events and inner processes. Whatever changes does so quickly. Favorable for everything domestic, motherly and intuitive."
+      }
+    }
+  }
+}

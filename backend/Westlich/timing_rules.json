@@ -336,7 +336,7 @@
       "sonne_merkur": {
         "_hinweis": "Merkur kann maximal 28° von der Sonne entfernt sein, daher nur Konjunktion und (selten) Sextil möglich.",
         "konjunktion": {
-          "text_de": "Verbrannte Merkur (Cazimi wenn <1°, Verbrennung wenn 1–8°): Wille und Intellekt sind eng verknüpft. Starke Meinungsbildung, lebhafter Verstand, Ich-Fixierung in Kommunikation. Bei Cazimi: außergewöhnliche geistige Klarheit und Sprachtalent.",
+          "text_de": "Verbrannter Merkur (Cazimi wenn <1°, Verbrennung wenn 1–8°): Wille und Intellekt sind eng verknüpft. Starke Meinungsbildung, lebhafter Verstand, Ich-Fixierung in Kommunikation. Bei Cazimi: außergewöhnliche geistige Klarheit und Sprachtalent.",
           "vektor": {
             "liebe": 0.25,
             "beruf": 0.75,

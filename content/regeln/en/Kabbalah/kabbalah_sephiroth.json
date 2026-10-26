@@ -1,0 +1,44 @@
+{
+  "sephiroth": {
+    "1_kether": {
+      "name_deutsch": "The Crown",
+      "tugend": "Consummation of the Great Work"
+    },
+    "2_chokmah": {
+      "name_deutsch": "The Wisdom",
+      "tugend": "Prayerful devotion / Strength of devotion"
+    },
+    "3_binah": {
+      "name_deutsch": "The Understanding / The Insight",
+      "tugend": "Stillness / Silence / Contemplation"
+    },
+    "4_chesed": {
+      "name_deutsch": "The Grace / The Mercy / The Loving-Kindness",
+      "tugend": "Humility / Obedience / Dutifulness"
+    },
+    "5_geburah": {
+      "name_deutsch": "The Power / The Strength / The Judgment",
+      "tugend": "Energy / Courage / Strength"
+    },
+    "6_tiphereth": {
+      "name_deutsch": "The Beauty / The Radiance",
+      "tugend": "Devotion to the Great Work"
+    },
+    "7_netzach": {
+      "name_deutsch": "The Victory / The Eternity / The Triumph",
+      "tugend": "Unselfish love / Selflessness"
+    },
+    "8_hod": {
+      "name_deutsch": "The Renown / The Glory / The Splendor",
+      "tugend": "Truthfulness / Honesty"
+    },
+    "9_yesod": {
+      "name_deutsch": "The Foundation / The Groundwork",
+      "tugend": "Independence / Resilience"
+    },
+    "10_malkuth": {
+      "name_deutsch": "The Kingdom / The Dominion",
+      "tugend": "Discernment"
+    }
+  }
+}

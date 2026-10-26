@@ -1,0 +1,323 @@
+{
+  "schemaVersion": "1.0",
+  "locale": "en",
+  "textVersion": "v1",
+  "_meta": {
+    "quelle": "docs/Textbausteine/en/heute/heute_v1.md (nicht dieses JSON bearbeiten)",
+    "erzeugt_mit": "tools/md_to_heute.py"
+  },
+  "gruppen": {
+    "numerologie_monat": {
+      "1": "Your Personal Month is a One – a month of beginnings. Whatever you set in motion now has a tailwind; hesitating is more likely to cost you strength than to protect you.",
+      "2": "Your Personal Month is a Two – a time for patience and cooperation. Not everything has to be decided right away; sensitivity will take you further than speed.",
+      "3": "Your Personal Month is a Three – expression, exchange, and lightness are emphasized. A good moment to share ideas and tend your connections.",
+      "4": "Your Personal Month is a Four – work on the foundation. Order, routines, and reliability pay off more now than big leaps.",
+      "5": "Your Personal Month is a Five – movement and change are in the air. Stay flexible: the unexpected may turn out to be an opportunity.",
+      "6": "Your Personal Month is a Six – responsibility, family, and care come to the fore. Relationships want tending, including the one with yourself.",
+      "7": "Your Personal Month is a Seven – a reflective time. Retreat, learning, and inner clarity are more fruitful now than outward bustle.",
+      "8": "Your Personal Month is an Eight – achievement, money, and influence are the theme. You can move a lot if you focus your strength.",
+      "9": "Your Personal Month is a Nine – a month of completion. What has run its course may go; that makes room for the next cycle.",
+      "11": "Your Personal Month carries the master number Eleven – intuition and inspiration are heightened, and so is sensitivity. Pay attention to quiet hunches.",
+      "22": "Your Personal Month carries the master number Twenty-Two – big plans can take shape now when vision and practice come together.",
+      "33": "Your Personal Month carries the master number Thirty-Three – devotion and care for others are at the center, though you should not forget yourself."
+    },
+    "ausblick_numerologie": {
+      "jahr": "Your Personal Year is number {zahl} – {thema}. {beschreibung}",
+      "monat": "Personal Month {zahl}: {text}",
+      "pinnacle": "A new chapter of life begins; from now on your Pinnacle is number {zahl} – {thema}. {beschreibung}"
+    },
+    "hellenistisch_haus": {
+      "1": "Your profection year activates the first house – you yourself, the way you come across, and your body are at the center of this year of your life.",
+      "2": "Your profection year activates the second house – possessions, income, and whatever gives you security are the themes of this year of your life.",
+      "3": "Your profection year activates the third house – communication, short trips, siblings, and neighbors are emphasized.",
+      "4": "Your profection year activates the fourth house – home, origins, and family come to the fore in this year of your life.",
+      "5": "Your profection year activates the fifth house – joy, creativity, children, and love affairs are among the themes of this year.",
+      "6": "Your profection year activates the sixth house – daily work, health, and duties call for attention in this year of your life.",
+      "7": "Your profection year activates the seventh house – partnerships, contracts, and the people facing you are at the center.",
+      "8": "Your profection year activates the eighth house – shared resources, transformation, and farewells are themes of this year of your life.",
+      "9": "Your profection year activates the ninth house – travel, education, worldview, and the search for meaning are emphasized.",
+      "10": "Your profection year activates the tenth house – career, reputation, and your public role are in the spotlight in this year of your life.",
+      "11": "Your profection year activates the eleventh house – friendships, networks, and hopes for the future are emphasized.",
+      "12": "Your profection year activates the twelfth house – a year of stillness and recollection, in which hidden things may come to light."
+    },
+    "hellenistisch_herrscher": {
+      "sonne": "The Lord of the Year is the Sun – visibility and self-confidence are called for; today it pays to take a stand.",
+      "mond": "The Lord of the Year is the Moon – feelings, needs, and moods set the pace; take them seriously today.",
+      "merkur": "The Lord of the Year is Mercury – conversations, negotiations, and learning carry your year; today the right word counts.",
+      "venus": "The Lord of the Year is Venus – relationships, beauty, and balance shape your year; today things may also be pleasant.",
+      "mars": "The Lord of the Year is Mars – drive and assertiveness are called for, but so is friction; today, better determined than heated.",
+      "jupiter": "The Lord of the Year is Jupiter – growth, trust, and generosity accompany your year; today a wide view pays off.",
+      "saturn": "The Lord of the Year is Saturn – endurance and responsibility shape your year; today steadiness gets you further than haste."
+    },
+    "ausblick_hellenistisch": {
+      "sonne": "The Lord of the Year is the Sun – visibility and self-confidence will be called for.",
+      "mond": "The Lord of the Year is the Moon – feelings, needs, and moods set the pace.",
+      "merkur": "The Lord of the Year is Mercury – conversations, negotiations, and learning carry the year.",
+      "venus": "The Lord of the Year is Venus – relationships, beauty, and balance shape the year.",
+      "mars": "The Lord of the Year is Mars – drive and assertiveness will be called for, but so will friction.",
+      "jupiter": "The Lord of the Year is Jupiter – growth, trust, and generosity accompany the year.",
+      "saturn": "The Lord of the Year is Saturn – endurance and responsibility shape the year.",
+      "wanderung": "{Planet}, your Lord of the Year, moves through house {haus} ({thema}) – that is where the year will show itself most clearly.",
+      "pendeln": "Turning retrograde, {Planet} returns once more to house {haus} {zeitraum}."
+    },
+    "hellenistisch_haus_kurz": {
+      "1": "you yourself, the way you come across",
+      "2": "possessions and income",
+      "3": "communication, siblings, short trips",
+      "4": "home and family",
+      "5": "joy, creativity, children",
+      "6": "daily work and health",
+      "7": "partnership and contracts",
+      "8": "shared resources and transformation",
+      "9": "travel, education, worldview",
+      "10": "career and reputation",
+      "11": "friendships and hopes",
+      "12": "retreat and hidden things"
+    },
+    "bazi_beziehung": {
+      "gleich": "The current month carries the same element as your Day Master ({dm}). That strengthens your self-confidence – and brings in people who want similar things to you. Rivalry and camaraderie lie close together.",
+      "naehrt": "The current month ({monat}) nourishes your Day Master ({dm}). Support, learning, and backing are easier to find – a good moment to accept help.",
+      "erschoepft": "Your Day Master ({dm}) nourishes the current month ({monat}). Your strength flows into expression, ideas, and projects – creative, but also demanding. Plan for breaks.",
+      "kontrolliert": "The current month ({monat}) puts pressure on your Day Master ({dm}). Duties and expectations from outside are palpable; discipline and clear priorities help.",
+      "beherrscht": "Your Day Master ({dm}) dominates the current month ({monat}). You can take hold and shape things – chances for gain and success, as long as you don't overstretch your strength."
+    },
+    "arabisch_firdaria": {
+      "sonne": "You are in the Firdaria of the Sun – years in which rank, recognition, and your public role carry weight. Today what counts is what you visibly stand for.",
+      "venus": "You are in the Firdaria of Venus – years of relationships, joy, and balance. Today beautiful things may be given room.",
+      "merkur": "You are in the Firdaria of Mercury – years of learning, trading, and negotiating. Today a clarifying conversation is worthwhile.",
+      "mond": "You are in the Firdaria of the Moon – years of feelings, family, and change. Today your needs deserve attention.",
+      "saturn": "You are in the Firdaria of Saturn – years of responsibility, trials, and slow returns. Today patience achieves more than haste.",
+      "jupiter": "You are in the Firdaria of Jupiter – years of growth, support, and trust. Today a generous view pays off.",
+      "mars": "You are in the Firdaria of Mars – years of drive, competition, and some conflicts. Today determination is called for, not harshness.",
+      "nordknoten": "You are in the Firdaria of the North Node – a short phase that favors new things and advancement. Today, stay open to opportunities.",
+      "suedknoten": "You are in the Firdaria of the South Node – a short phase of letting go. Today it is easier to leave outdated things behind you."
+    },
+    "ausblick_arabisch": {
+      "unter": "Sub-period of {unter} in the Firdaria of {haupt} – {beschreibung}",
+      "knoten": "You are in the Firdaria of {haupt}; it has no sub-periods.",
+      "sonne": "The Firdaria of the Sun begins – ten years in which rank, recognition, and your public role gain weight.",
+      "venus": "The Firdaria of Venus begins – eight years of relationships, joy, and balance.",
+      "merkur": "The Firdaria of Mercury begins – thirteen years of learning, trading, and negotiating.",
+      "mond": "The Firdaria of the Moon begins – nine years of feelings, family, and change.",
+      "saturn": "The Firdaria of Saturn begins – eleven years of responsibility, trials, and slow returns.",
+      "jupiter": "The Firdaria of Jupiter begins – twelve years of growth, support, and trust.",
+      "mars": "The Firdaria of Mars begins – seven years of drive, competition, and some conflicts.",
+      "nordknoten": "The Firdaria of the North Node begins – a short phase of three years that favors new things and advancement.",
+      "suedknoten": "The Firdaria of the South Node begins – a short phase of two years in which letting go comes more easily."
+    },
+    "arabisch_genitiv": {
+      "sonne": "the Sun",
+      "venus": "Venus",
+      "merkur": "Mercury",
+      "mond": "the Moon",
+      "saturn": "Saturn",
+      "jupiter": "Jupiter",
+      "mars": "Mars",
+      "nordknoten": "the North Node",
+      "suedknoten": "the South Node"
+    },
+    "vedisch_dasha": {
+      "ketu": "Your Mahadasha is the Ketu period – a time of detachment and inner searching. Today withdrawal brings more clarity than busyness.",
+      "venus": "Your Mahadasha is the Venus period – years of relationships, pleasure, and prosperity. Today harmony may take priority.",
+      "sonne": "Your Mahadasha is the Sun period – years of self-assertion and authority. Today is a day to take on responsibility visibly.",
+      "mond": "Your Mahadasha is the Moon period – years of feelings, home, and care. Today the familiar does you good.",
+      "mars": "Your Mahadasha is the Mars period – years of energy, courage, and asserting yourself. Today vigorous action pays off.",
+      "rahu": "Your Mahadasha is the Rahu period – years of ambition and unusual paths. Today unconventional ideas can lead you further.",
+      "jupiter": "Your Mahadasha is the Jupiter period – years of wisdom, growth, and good teachers. Today it is worth seeking or giving advice.",
+      "saturn": "Your Mahadasha is the Saturn period – years of discipline and hard but lasting work. Today steadiness gets you further.",
+      "merkur": "Your Mahadasha is the Mercury period – years of learning, communication, and trade. Today is a good day for exchange."
+    },
+    "vedisch_gochara": {
+      "jupiter_guenstig": "Counted from the sign of your natal Moon, Jupiter is transiting favorably (house {haus}) – a time when support, growth, and good advice find their way to you more easily.",
+      "jupiter_unguenstig": "Counted from the sign of your natal Moon, Jupiter is in house {haus}, which is considered less helpful – growth now takes more effort of your own.",
+      "saturn_guenstig": "Counted from the sign of your natal Moon, Saturn is transiting favorably (house {haus}) – perseverance pays off, obstacles can be overcome.",
+      "saturn_unguenstig": "Counted from the sign of your natal Moon, Saturn is in house {haus} – duties and delays call for patience.",
+      "sade_sati": "You are in Sade Sati: Saturn is passing over your natal Moon and its neighboring signs. These seven and a half years are considered a time of testing and maturing – don't take on too much at once today."
+    },
+    "ausblick_vedisch": {
+      "antardasha": "{ad} sub-period (Antardasha) in your {md} Mahadasha – {beschreibung}",
+      "mahadasha_beginn": "Your {md} Mahadasha begins – a new major chapter of life lasting {jahre} years.",
+      "jupiter_guenstig": "Jupiter moves into house {haus} counted from your natal Moon – this is considered favorable: support, growth, and good advice will find their way to you more easily.",
+      "jupiter_unguenstig": "Jupiter moves into house {haus} counted from your natal Moon, which is considered less helpful – growth will take more effort of your own.",
+      "saturn_guenstig": "Saturn moves into house {haus} counted from your natal Moon – this is considered favorable: perseverance will pay off, obstacles can be overcome.",
+      "saturn_unguenstig": "Saturn moves into house {haus} counted from your natal Moon – duties and delays will call for patience.",
+      "rueckkehr": "Turning retrograde, {Planet} returns once more to house {haus} {zeitraum}.",
+      "sade_sati_beginn": "Sade Sati begins: Saturn enters the sign before your natal Moon. Seven and a half years of testing and maturing lie ahead – build up reserves in good time.",
+      "sade_sati_laufend": "You are in Sade Sati: Saturn is in the sign before your natal Moon. Seven and a half years of testing and maturing have begun – build up reserves before it passes over the Moon.",
+      "sade_sati_hoehe": "Saturn is in the sign of your natal Moon – the heart of Sade Sati. Feelings and strength are put to the test; what holds now will last a long time.",
+      "sade_sati_ausklang": "Saturn is in the sign after your natal Moon – Sade Sati is winding down. The burden grows lighter; money and family are still being tested.",
+      "sade_sati_ende": "Sade Sati ends: Saturn leaves the neighborhood of your natal Moon and moves into house 3, which is considered favorable. A breath of relief after long years."
+    },
+    "vedisch_namen": {
+      "ketu": "Ketu",
+      "venus": "Venus",
+      "sonne": "Sun",
+      "mond": "Moon",
+      "mars": "Mars",
+      "rahu": "Rahu",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn",
+      "merkur": "Mercury"
+    },
+    "planeten_kurz": {
+      "ketu": "Ketu",
+      "venus": "Venus",
+      "sonne": "Sun",
+      "mond": "Moon",
+      "mars": "Mars",
+      "rahu": "Rahu",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn",
+      "merkur": "Mercury"
+    },
+    "ausblick_bazi": {
+      "monat_gleich": "These months carry the element {monat}, like your Day Master. Self-confidence will grow; people with similar goals will appear – as companions or as competition.",
+      "monat_naehrt": "{monat} nourishes your Day Master ({dm}). Support, learning, and backing will be easier to find – a time to accept help.",
+      "monat_erschoepft": "Your Day Master ({dm}) nourishes {monat}. Your strength will flow into expression, ideas, and projects – creative, but demanding. Plan for breaks.",
+      "monat_kontrolliert": "{monat} puts pressure on your Day Master ({dm}). Duties and expectations from outside will be palpable; clear priorities help.",
+      "monat_beherrscht": "Your Day Master ({dm}) dominates {monat}. You will be able to take hold and shape things – chances for gain, as long as you don't overstretch yourself.",
+      "jahr_gleich": "With Lichun, the start of spring, the year of the {jahr} begins. It carries the same element as your Day Master ({dm}) – a year in which you rely on your own strength.",
+      "jahr_naehrt": "With Lichun, the start of spring, the year of the {jahr} begins. Its element nourishes your Day Master ({dm}) – a year with a tailwind and backing.",
+      "jahr_erschoepft": "With Lichun, the start of spring, the year of the {jahr} begins. Your Day Master ({dm}) nourishes its element – a productive year that demands a lot of strength.",
+      "jahr_kontrolliert": "With Lichun, the start of spring, the year of the {jahr} begins. Its element puts pressure on your Day Master ({dm}) – a year of proving yourself and of duties.",
+      "jahr_beherrscht": "With Lichun, the start of spring, the year of the {jahr} begins. Your Day Master ({dm}) dominates its element – a year in which you can bring in the harvest.",
+      "chong_monat": "The {tier} month clashes with the branch of your day pillar ({natal}) – a clash (Chong) that forces change. {text}",
+      "chong_jahr": "The new year clashes with the branch of your birth year ({natal}) – a clash (Chong) with the ruler of the year. {text}",
+      "glueckssaeule": "A new Luck Pillar begins and will shape the next ten years: {saeule}. {stamm} {zweig}",
+      "jahr_name": "{element} {tier}",
+      "saeule_name": "the {element} {tier} pillar ({stamm} {zweig})"
+    },
+    "bazi_tiere": {
+      "zi": "Rat",
+      "chou": "Ox",
+      "yin": "Tiger",
+      "mao": "Rabbit",
+      "chen": "Dragon",
+      "si": "Snake",
+      "wu": "Horse",
+      "wei": "Goat",
+      "shen": "Monkey",
+      "you": "Rooster",
+      "xu": "Dog",
+      "hai": "Pig"
+    },
+    "bazi_tiere_monat": {
+      "zi": "Rat",
+      "chou": "Ox",
+      "yin": "Tiger",
+      "mao": "Rabbit",
+      "chen": "Dragon",
+      "si": "Snake",
+      "wu": "Horse",
+      "wei": "Goat",
+      "shen": "Monkey",
+      "you": "Rooster",
+      "xu": "Dog",
+      "hai": "Pig"
+    },
+    "elemente": {
+      "holz": "Wood",
+      "feuer": "Fire",
+      "erde": "Earth",
+      "metall": "Metal",
+      "wasser": "Water"
+    },
+    "westlich_planet": {
+      "sonne": "self-expression, vitality, and recognition",
+      "merkur": "conversations, plans, and decisions",
+      "venus": "relationships, pleasure, and money",
+      "mars": "drive, ambition, and conflicts",
+      "jupiter": "growth, opportunities, and confidence",
+      "saturn": "duties, limits, and long-term goals",
+      "uranus": "surprises, freedom, and sudden turns",
+      "neptun": "dreams, intuition, and blurred boundaries",
+      "pluto": "deep transformation and questions of power"
+    },
+    "westlich_aspekt": {
+      "konjunktion": "{Planet} is conjunct {ziel} – in matters of {thema}, forces gather. What begins now carries weight.",
+      "sextil": "{Planet} is sextile {ziel} – in matters of {thema}, small doors open. Whoever uses them moves forward more easily.",
+      "quadrat": "{Planet} is square {ziel} – in matters of {thema}, friction arises. Whatever doesn't fit is now pressing for a solution.",
+      "trine": "{Planet} is trine {ziel} – in matters of {thema}, things flow. A good day to trust what has proven itself.",
+      "opposition": "{Planet} is in opposition to {ziel} – in matters of {thema}, forces pull in different directions. Balance is called for, not an either-or."
+    },
+    "ausblick_aspekt": {
+      "konjunktion": "{Planet} comes into conjunction with {ziel} – in matters of {thema}, forces gather. What begins during this time carries weight.",
+      "sextil": "{Planet} forms a sextile to {ziel} – in matters of {thema}, small doors open. Whoever uses them moves forward more easily.",
+      "quadrat": "{Planet} moves into a square with {ziel} – in matters of {thema}, friction arises. Whatever doesn't fit will press for a solution.",
+      "trine": "{Planet} forms a trine to {ziel} – in matters of {thema}, things will flow. A good time to trust what has proven itself.",
+      "opposition": "{Planet} moves into opposition to {ziel} – in matters of {thema}, forces pull in different directions. Balance will be called for, not an either-or."
+    },
+    "planetennamen": {
+      "sonne": "The Sun",
+      "mond": "The Moon",
+      "merkur": "Mercury",
+      "venus": "Venus",
+      "mars": "Mars",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn",
+      "uranus": "Uranus",
+      "neptun": "Neptune",
+      "pluto": "Pluto"
+    },
+    "transit_ziele": {
+      "sonne": "your natal Sun",
+      "mond": "your natal Moon",
+      "aszendent": "your Ascendant",
+      "mc": "your Midheaven (MC)"
+    },
+    "westlich_ruhig": {
+      "text": "Today no transiting planet is in close aspect to your natal Sun or your natal Moon – a day without big impulses from outside, well suited to working at your own pace."
+    },
+    "tendenz_positiv": {
+      "liebe": "In love, a lot is possible today – show someone what they mean to you.",
+      "beruf": "At work you have a tailwind today; plans can be moved forward well.",
+      "finanzen": "In money matters you have a good instinct today – a sensible decision comes more easily.",
+      "gesundheit": "Your energy is good today; use it for exercise or for something that does you good.",
+      "soziales": "Encounters are under a friendly star today – get in touch with someone.",
+      "kreativitaet": "Your creativity is stirred today – write ideas down, even if they are unfinished.",
+      "veraenderung": "Changes come more easily to you today than usual – a good day for a first step.",
+      "spiritualitaet": "Today your inner sense is clear – a quiet moment for yourself can clarify a lot."
+    },
+    "tendenz_negativ": {
+      "liebe": "In love, sensitivity is called for today – not every word has to be said right away.",
+      "beruf": "At work things may be sluggish today; small finished steps are worth more than big plans.",
+      "finanzen": "In money matters, caution is wise today – larger expenses can wait.",
+      "gesundheit": "Your strength is limited today; allow yourself breaks instead of pushing past your limits.",
+      "soziales": "In your dealings with others, the gears may grind today – composure spares you needless arguments.",
+      "kreativitaet": "Ideas don't flow on their own today – routine work is the better plan.",
+      "veraenderung": "Today is not a day for upheavals; tending what already exists achieves more.",
+      "spiritualitaet": "Inner restlessness may be louder than usual today – a little structure gives you something to hold on to."
+    },
+    "ausgeglichen": {
+      "text": "Today the forces in this horoscope are in balance – no area stands out in particular."
+    },
+    "zeit": {
+      "monat_1": "January",
+      "monat_2": "February",
+      "monat_3": "March",
+      "monat_4": "April",
+      "monat_5": "May",
+      "monat_6": "June",
+      "monat_7": "July",
+      "monat_8": "August",
+      "monat_9": "September",
+      "monat_10": "October",
+      "monat_11": "November",
+      "monat_12": "December",
+      "anfang": "early {monat}",
+      "mitte": "mid-{monat}",
+      "ende": "late {monat}",
+      "datum": "{monat} {tag}",
+      "um_den": "Around {monat} {tag}",
+      "von_bis": "{von} to {bis}",
+      "das_ganze_jahr": "All year",
+      "bis": "Until {zeit}",
+      "ab": "From {zeit}",
+      "im_monat": "In {monat}",
+      "rueck_ab": "from {zeit}",
+      "rueck_von_bis": "from {von} to {bis}",
+      "bis_geburtstag": "Until your birthday on {zeit}",
+      "ab_geburtstag": "From your birthday on {zeit}"
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "haupt_firdaria": {
+    "sonne": {
+      "beschreibung": "The Sun Firdaria is the period of identity, authority and public life. Abu Ma'shar: 'The Sun rules the king, the father, leadership and the principle of life.' In this period, themes of rank, reputation, the relationship with the father and personal power come to the fore. The Sun illuminates — whatever lies within its period becomes visible, whether favorable or unfavorable."
+    },
+    "venus": {
+      "beschreibung": "The Venus Firdaria is the period of joy, love, beauty and material prosperity. Abu Ma'shar: 'Venus rules women, jewelry, music, pleasure and the pleasant things of life.' This period brings ease, social favor and often romantic encounters. Al-Biruni: 'The Venus Firdaria is the most pleasant of the periods.'"
+    },
+    "merkur": {
+      "beschreibung": "The Mercury Firdaria is the longest period and stands for intellectual development, communication, trade and education. Abu Ma'shar: 'Mercury rules scribes, scholars, merchants, physicians and everything connected with knowledge and exchange.' Because of its length (13 years), this period leaves a lasting mark on an entire stage of life — often the period in which education is completed and the foundations of a career are laid."
+    },
+    "mond": {
+      "beschreibung": "The Moon Firdaria is the period of feeling, family, transformation and public resonance. Abu Ma'shar: 'The Moon rules mothers, women in general, the populace, journeys over water and everything that changes quickly.' The Moon brings flow and change — this period is rarely static. Al-Biruni: 'The Moon period is rich in events, for the Moon itself is the swiftest planet.'"
+    },
+    "saturn": {
+      "beschreibung": "The Saturn Firdaria is the period of trial, maturing, restriction and deep responsibility. Abu Ma'shar: 'Saturn rules ancient knowledge, sadness, solitude, hard labor, fathers of older generations and everything that is lasting and heavy.' This period is rarely easy — but it builds character and substance. Al-Biruni: 'The Saturn Firdaria is the hardest of all periods — and the one that shapes most deeply.'"
+    },
+    "jupiter": {
+      "beschreibung": "The Jupiter Firdaria is the period of expansion, blessing and growth. Abu Ma'shar: 'Jupiter rules religion, law, wealth, children, dignity and the best in life.' In the day sequence, this period follows Saturn — a classic shift from trial to reward. Al-Biruni: 'The Jupiter Firdaria is the most blessed of the periods — whoever uses it well makes clear progress.'"
+    },
+    "mars": {
+      "beschreibung": "The Mars Firdaria is the shortest of the planetary periods and stands for energy, conflict, courage and assertiveness. Abu Ma'shar: 'Mars rules warriors, surgeons, smiths, fire, strife, blood and everything sharp and swift.' This period brings intensity — often conflicts, but also a strong drive and the ability to overcome obstacles. Sahl: 'Mars acts swiftly and does not tarry long.'"
+    },
+    "nordknoten": {
+      "beschreibung": "The North Node Firdaria is the period of karmic expansion and of growing into new, unknown realms of experience. In the Arabic tradition, the North Node (Ra's al-Jauzahar — 'Head of the Dragon') shows the direction of growth and longing. Abu Ma'shar: 'The North Node acts like Jupiter — it brings growth and expansion, but often by overtaxing.' This period can be destabilizing because it pushes into unknown territory."
+    },
+    "suedknoten": {
+      "beschreibung": "The South Node Firdaria is the shortest and final period of the 75-year cycle. In the Arabic tradition, the South Node (Dhanab al-Jauzahar — 'Tail of the Dragon') shows letting go, karmic release and working through the past. Abu Ma'shar: 'The South Node acts like Saturn — it takes, withholds, withdraws.' This period is often marked by themes of farewell and dissolution."
+    }
+  },
+  "unter_firdaria": {
+    "qualitaets_matrix": {
+      "kombinationen_tag_horoskop": {
+        "sonne_hauptperiode": {
+          "sonne_sonne": {
+            "beschreibung": "Pure Sun energy — identity and authority are in focus, without modification by other principles. Clarifying your own nature."
+          },
+          "sonne_venus": {
+            "beschreibung": "The Sun and Venus are planetary enemies (Sun = authority/duty vs. Venus = pleasure/ease). This combination brings tension between career obligations and the needs of love. Sahl: 'The Sun does not like Venus — they compete.'"
+          },
+          "sonne_merkur": {
+            "beschreibung": "Mercury is neutral toward the Sun. Intellectual and communicative activities under the Sun's direction. Favorable for closing contracts in a career context."
+          },
+          "sonne_mond": {
+            "beschreibung": "The Sun and Moon are friends — the light and its reflector. Public visibility meets emotional resonance. Favorable for anyone who wants to make an impact in public."
+          },
+          "sonne_saturn": {
+            "beschreibung": "The hardest sub-combination within the Sun period. The Sun and Saturn are archenemies — light against darkness, authority against restriction. Al-Biruni: 'When Saturn rules in the Sun period, there come trials, losses or conflicts with fathers and authorities.' Caution with important decisions."
+          },
+          "sonne_jupiter": {
+            "beschreibung": "The Sun and Jupiter are friends. An excellent combination for expanding authority and status. Abu Ma'shar: 'Jupiter in the Sun period — this is the king who receives blessing.' Favorable for career, honors and religious matters."
+          },
+          "sonne_mars": {
+            "beschreibung": "The Sun and Mars are friends — both fire, both active. Plenty of energy and assertiveness. Favorable for bold steps and career offensives. Risk: impulsiveness and conflicts with superiors."
+          }
+        },
+        "venus_hauptperiode": {
+          "venus_venus": {
+            "beschreibung": "Pure Venus energy — themes of love and prosperity in fullest bloom. Sahl: 'Venus in Venus — this is the sweetest of all houses.' The most favorable moment of the main Venus period."
+          },
+          "venus_merkur": {
+            "beschreibung": "Venus and Mercury are friends — beauty meets mind. Favorable for artistic and commercial projects. Creativity and trade flourish together."
+          },
+          "venus_mond": {
+            "beschreibung": "Venus and the Moon are enemies in this tradition (both feminine, they compete). Emotional unrest in love relationships. Mood swings affect the capacity for enjoyment."
+          },
+          "venus_saturn": {
+            "beschreibung": "Venus and Saturn are friends — pleasure meets constancy. Favorable for long-term love relationships and solid financial structures. Less joy, more reliability."
+          },
+          "venus_jupiter": {
+            "beschreibung": "Venus and Jupiter are neutral toward each other. Joy and expansion can combine — favorable when both are well placed. Possible exuberance and excess."
+          },
+          "venus_mars": {
+            "beschreibung": "Venus and Mars are neutral, but opposites — love and battle. Intense passions, erotic tension, possible conflicts in relationships. Creative-destructive energy."
+          },
+          "venus_sonne": {
+            "beschreibung": "The Sun and Venus are enemies — duty and pleasure in conflict. Career demands disturb happiness in love. Abu Ma'shar: 'The Sun scorches Venus.'"
+          }
+        },
+        "saturn_hauptperiode": {
+          "saturn_saturn": {
+            "beschreibung": "Pure Saturn energy — maximum heaviness and trial. Al-Biruni: 'Saturn in Saturn is the hardest of all periods — everything is put to the test.' But the deepest maturing is also possible."
+          },
+          "saturn_jupiter": {
+            "beschreibung": "Saturn and Jupiter are neutral toward each other — a tolerable interlude within the Saturn period. Jupiter tempers Saturn somewhat, without changing his basic nature. Small reliefs, hope."
+          },
+          "saturn_mars": {
+            "beschreibung": "The most dangerous combination: both malefics, and Saturn and Mars are enemies. Sahl: 'Beware in this time — accidents, illnesses and conflicts pile up.' Caution with physical risks."
+          },
+          "saturn_sonne": {
+            "beschreibung": "Enemies: authority and restriction in conflict. Conflicts with superiors, father figures or your own self-image. Strain on health is possible."
+          },
+          "saturn_venus": {
+            "beschreibung": "Saturn and Venus are friends — the most favorable sub-period within the main Saturn period. Stable, serious love relationships or material consolidation."
+          },
+          "saturn_merkur": {
+            "beschreibung": "Saturn and Mercury are friends — structured thinking and communication. Favorable for serious intellectual work, long-term contracts, bookkeeping."
+          },
+          "saturn_mond": {
+            "beschreibung": "Saturn and the Moon are enemies — emotional restriction and isolation. Al-Biruni: 'The Moon suffers under Saturn — melancholy, loss of the mother or family difficulties.' Emotional coldness."
+          }
+        },
+        "jupiter_hauptperiode": {
+          "jupiter_jupiter": {
+            "beschreibung": "Pure Jupiter energy — maximum expansion. Abu Ma'shar: 'Jupiter in Jupiter — a person experiences the favor of heaven in full measure.' The best time for all projects of expansion."
+          },
+          "jupiter_mars": {
+            "beschreibung": "Jupiter and Mars are friends — expansion meets drive. Favorable for bold ventures. Sahl: 'Jupiter gives goodwill, Mars gives energy — together they make for powerful success.'"
+          },
+          "jupiter_sonne": {
+            "beschreibung": "Jupiter and the Sun are friends. The most favorable moment for career and public recognition. Al-Biruni: 'This combination brings honors and titles.'"
+          },
+          "jupiter_venus": {
+            "beschreibung": "Jupiter and Venus are neutral. A pleasant combination — joy and expansion. Possible overindulgence. Favorable for social life and creative projects."
+          },
+          "jupiter_merkur": {
+            "beschreibung": "Jupiter and Mercury are enemies — conviction and detail in conflict. Jupiter wants to see the big picture; Mercury checks every detail. Intellectual tension, differences of opinion."
+          },
+          "jupiter_mond": {
+            "beschreibung": "Jupiter and the Moon are friends. Public popularity and happiness in the family. Favorable for starting a family, public appearances and emotional fulfillment."
+          },
+          "jupiter_saturn": {
+            "beschreibung": "Jupiter and Saturn are neutral. Expansion is tempered by realism — sustainable growth instead of exuberant leaps. Favorable for long-term investments."
+          }
+        },
+        "mars_hauptperiode": {
+          "mars_mars": {
+            "beschreibung": "Pure Mars energy — maximum intensity, conflict and drive. Sahl: 'Mars in Mars is the most dangerous of all sub-periods — but also the boldest.' A risk of accidents, but also extraordinary assertiveness."
+          },
+          "mars_sonne": {
+            "beschreibung": "Mars and the Sun are friends. Energy and authority combine. Favorable for bold career moves and public confrontations."
+          },
+          "mars_venus": {
+            "beschreibung": "Mars and Venus are neutral — passion and desire. Intense erotic and creative energy. Conflicts in relationships are possible, but so is deep passion."
+          },
+          "mars_merkur": {
+            "beschreibung": "Mars and Mercury are neutral. Sharp communication and intellectual quick-wittedness. Favorable for debates, negotiations and quick decisions."
+          },
+          "mars_mond": {
+            "beschreibung": "Mars and the Moon are neutral, but difficult in practice — impulsiveness meets emotionality. Emotional outbursts, conflicts in the family. Matters concerning women can be full of conflict."
+          },
+          "mars_saturn": {
+            "beschreibung": "The most dangerous combination in the main Mars period as well: both malefics, as enemies. Al-Biruni: 'In this time, avoid all risky undertakings.' Accidents, illnesses, conflicts with authorities."
+          },
+          "mars_jupiter": {
+            "beschreibung": "Mars and Jupiter are friends — drive and expansion together. Favorable for bold ventures with growth potential. Sahl: 'Jupiter tempers Mars — courage grows wise.'"
+          }
+        },
+        "merkur_hauptperiode": {
+          "merkur_merkur": {
+            "beschreibung": "Pure Mercury energy — intellectual peak performance and communicative brilliance. The most favorable moment of the main Mercury period for mental work and trade."
+          },
+          "merkur_mond": {
+            "beschreibung": "Mercury and the Moon are enemies — logic and emotion in conflict. Communication problems through emotional overload. Intuition and reason work against each other."
+          },
+          "merkur_saturn": {
+            "beschreibung": "Mercury and Saturn are friends — analytical thinking meets patience. Favorable for scientific research, bookkeeping, long-term planning."
+          },
+          "merkur_jupiter": {
+            "beschreibung": "Enemies: Mercury (detail) and Jupiter (overview). Differences of opinion on questions of faith and education. Legal disputes. Excessive adherence to principle."
+          },
+          "merkur_mars": {
+            "beschreibung": "Mars and Mercury are neutral. A sharp tongue and quick thinking. Good for debates and negotiations. Caution: hasty judgments."
+          },
+          "merkur_sonne": {
+            "beschreibung": "The Sun and Mercury are friends. Intellectual authority, eloquent leadership. Favorable for speakers, writers and advisors to the powerful."
+          },
+          "merkur_venus": {
+            "beschreibung": "Mercury and Venus are friends — mind and beauty. Favorable for art, music, writing about love and aesthetic projects. Pleasant social exchange."
+          }
+        },
+        "mond_hauptperiode": {
+          "mond_mond": {
+            "beschreibung": "Pure Moon energy — maximum emotional depth and change. The most intense phase of the main Moon period. Public visibility and family matters dominate."
+          },
+          "mond_saturn": {
+            "beschreibung": "The Moon and Saturn are enemies. Emotional suppression, losses in the family, melancholy. Al-Biruni: 'This combination brings sadness, especially in connection with the mother or domestic life.'"
+          },
+          "mond_jupiter": {
+            "beschreibung": "The Moon and Jupiter are friends. Public popularity and expansive family events. Favorable for mothers, starting a family, public work."
+          },
+          "mond_mars": {
+            "beschreibung": "The Moon and Mars are neutral, but difficult in practice. Emotional conflicts, impulsiveness, family disputes. Good for physical activities, difficult for relationships."
+          },
+          "mond_sonne": {
+            "beschreibung": "The Moon and the Sun are friends — the full moon principle. Maximum public visibility and resonance. Abu Ma'shar: 'Light upon light — the person shines for all.'"
+          },
+          "mond_venus": {
+            "beschreibung": "The Moon and Venus are enemies. Emotional demands and the needs of love come into conflict. Dissatisfaction in relationships, mood swings."
+          },
+          "mond_merkur": {
+            "beschreibung": "The Moon and Mercury are enemies. Logic and feeling work against each other. Misunderstandings in communication within the family."
+          }
+        }
+      }
+    }
+  }
+}

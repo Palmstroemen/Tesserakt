@@ -1,0 +1,278 @@
+{
+  "spiele": {
+    "A": {
+      "pole": [
+        "not true",
+        "true"
+      ],
+      "vergleich": "other birth dates"
+    },
+    "B": {
+      "pole": [
+        "not true",
+        "true"
+      ],
+      "vergleich": "other birth dates"
+    },
+    "C": {
+      "pole": [
+        "more me",
+        "more my partner"
+      ],
+      "vergleich": "random couples"
+    }
+  },
+  "rueckblick": {
+    "zeitpunkte": {
+      "7": "1 week ago",
+      "14": "2 weeks ago",
+      "30": "1 month ago",
+      "60": "2 months ago",
+      "90": "3 months ago",
+      "weiss_nicht": "can't remember"
+    },
+    "wann_noch": "Do you remember roughly when that was?",
+    "wann": "Roughly when was that?",
+    "erinnerung": "Finally: memory {nr} of {anzahl}",
+    "ja": "Yes",
+    "nein": "No",
+    "weiss_nicht": "I don't know"
+  },
+  "ergebnis": {
+    "titel": {
+      "A": "Your Result",
+      "B": "Looking Back",
+      "C": "Your Result"
+    },
+    "erklaerung": "Skill 0 = chance, +100 = better than all {vergleich}. Even with no predictive power at all, the best of {anzahl} horoscopes reaches about +{erwartung} on average.",
+    "erklaerung_reihenfolge": "Order: average of the last month and the last three months.",
+    "abkuerzung": "Shortcut via the date (development): the answers were randomized.",
+    "letzter_monat": "Last month",
+    "letzte_drei_monate": "Last three months",
+    "zeitpunkte": "Moments",
+    "besser_als": "better than {perzentil} of 100 {vergleich} · played in {mit} of {fragen} questions",
+    "besser_als_mittel": "on average better than {perzentil} of 100 {vergleich} · played in {mit} of {fragen} questions",
+    "heute": "Today",
+    "dein_jahr": "Your Year",
+    "dein_horoskop": "Your Horoscope",
+    "euer_paar": "You Two",
+    "systeme": "Horoscopes",
+    "rangliste": "Ranking"
+  },
+  "spielplatte": {
+    "rechnet": "The gears are turning …"
+  },
+  "monate": {
+    "ring": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "zaehlwerk": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+  },
+  "datum": {
+    "erst_datum": "Set the date of birth first.",
+    "partner": "Now your partner's date of birth – then C.",
+    "oeffnet": "The Apparatus opens …",
+    "spiel": "Game {spiel}",
+    "scheibe": "Set date and place of birth",
+    "datumsscheibe": "Date dial"
+  },
+  "intl": {
+    "gebiet": "en-US"
+  },
+  "buch": {
+    "euer_paar": "You Two",
+    "so_denkt": "How This Horoscope Thinks",
+    "dein_horoskop": "Your Horoscope",
+    "heute": "Your Horoscope for Today",
+    "dein_jahr": "Your Year",
+    "lebensbereiche": "Your Areas of Life",
+    "titelzeichen": "TESSERAKT",
+    "geboren_am": "Born on {datum}",
+    "geboren_um": "Born on {datum} at {uhrzeit}",
+    "berechnet": "Calculated and typeset by the Tesserakt Apparatus on {datum}.",
+    "enthaelt_eins": "Contains the horoscope: {liste}.",
+    "enthaelt_mehrere": "Contains the horoscopes: {liste}.",
+    "hinweis": "The horoscopes follow the traditional rules of their traditions. They serve entertainment and a scientific experiment and are no substitute for advice.",
+    "rechte": "© {jahr} Tesserakt. All rights reserved.",
+    "notizen": "Notes",
+    "kaestchen_bild": "The case of the Tesserakt Apparatus",
+    "projekt": "a scientific project by DI Oliver Rafelsberger",
+    "zurueck": "Back",
+    "seiten": "{anzahl} pages · 21 × 21 cm",
+    "hell": "Light",
+    "dunkel": "Dark",
+    "drucken": "Print / PDF"
+  },
+  "systeme": {
+    "Numerologie": {
+      "name": "Numerology",
+      "gravur": "Num",
+      "kurz": "N"
+    },
+    "Kabbalah": {
+      "name": "Kabbalah",
+      "gravur": "Kab",
+      "kurz": "K"
+    },
+    "Bazi": {
+      "name": "Chinese",
+      "unter": "Four Pillars (Bazi)",
+      "gravur": "Chin",
+      "kurz": "Ch"
+    },
+    "Vedisch": {
+      "name": "Vedic",
+      "gravur": "Ved",
+      "kurz": "J"
+    },
+    "Arabisch": {
+      "name": "Arabic",
+      "gravur": "Arab",
+      "kurz": "Ar"
+    },
+    "Westlich": {
+      "name": "Western",
+      "gravur": "West",
+      "kurz": "W"
+    },
+    "Hellenistisch": {
+      "name": "Hellenistic",
+      "gravur": "Hel",
+      "kurz": "H"
+    }
+  },
+  "buchauswahl": {
+    "vorgabe": {
+      "eins": "My Horoscope",
+      "mehrere": "My Horoscopes",
+      "paar_eins": "Our Horoscope",
+      "paar_mehrere": "Our Horoscopes"
+    },
+    "horoskopbuch": "Horoscope book",
+    "dein_buch": "Your Horoscope Book",
+    "euer_buch": "Your Horoscope Book",
+    "werbung": "When you're done, you can order all your horoscopes as a book.",
+    "werbung_paar": "When you two are done, you can order all your horoscopes as a book.",
+    "format": "21 × 21 cm · four pages per horoscope",
+    "geschenk": "A lovely gift if you make it for someone else.",
+    "geschenk_paar": "A lovely gift if you two make it for someone else.",
+    "schliessen": "Close",
+    "titel": "Title",
+    "nach_oben": "move up",
+    "nach_unten": "move down",
+    "mindestens_eins": "Choose at least one horoscope.",
+    "anzahl_eins": "1 horoscope: ",
+    "anzahl": "{anzahl} horoscopes: ",
+    "ansehen": "View book",
+    "bestellen": "Order",
+    "folgt": "coming soon"
+  },
+  "ecken": {
+    "zurueck": "Back one question",
+    "buch": "Book"
+  },
+  "vorblatt": {
+    "kamera_freigeben": "Allow camera",
+    "ohne_kamera": "Play without camera",
+    "ausfuehrlich": "Explained in detail: what happens to your data",
+    "einwilligen": "I agree",
+    "ohne_speicherung": "Play without saving",
+    "zurueck": "Back"
+  },
+  "zettel": {
+    "aktivieren": "Activate",
+    "zettel": "Note",
+    "frage": "You think your horoscope describes you well? But how do the other horoscopes of the world describe you? Find out!",
+    "ueberschrift": "Horoscope traditions",
+    "notiz": {
+      "Vedisch": "Indian"
+    }
+  },
+  "orte": {
+    "unbekannt": "Place unknown",
+    "oder_doch": "—— or after all? ——→"
+  },
+  "bereiche": {
+    "liebe": "Love",
+    "beruf": "Career",
+    "finanzen": "Finances",
+    "gesundheit": "Health",
+    "soziales": "Social life",
+    "kreativitaet": "Creativity",
+    "veraenderung": "Change",
+    "spiritualitaet": "Spirituality"
+  },
+  "diagramme": {
+    "hellenistisch": {
+      "bild": "Profection: house {haus}",
+      "bild_herr": "Profection: house {haus}, Lord of the Year {herr}",
+      "paar": "Plate for two: Sun, Moon and Ascendant of both people in the twelve signs"
+    },
+    "kabbalah": {
+      "und_andere": "{bereich} etc.",
+      "stark": "strong: {liste}",
+      "schwach": "weak: {liste}",
+      "tarot": "Tarot: {karte}",
+      "bild": "Tree of Life, active Sephira {name}",
+      "paar": "Tree of Life for two: {a} and {b}"
+    },
+    "numerologie": {
+      "quersumme_tag": "Day digit sum:",
+      "quersumme_monat": "Month digit sum:",
+      "quersumme_jahr": "Year digit sum:",
+      "quersumme": "Digit sum: {wert}",
+      "bild": "Numerology: Life Path number {zahl}",
+      "meisterzahl": "Master number!",
+      "lebenszahl": "Life Path",
+      "paar": "Numerology for two: Life Path numbers {a} and {b}",
+      "mit_meisterzahl": "(with master number)"
+    },
+    "du": "you",
+    "gegenueber": "partner",
+    "du_klammer": "(you)",
+    "gegenueber_klammer": "(partner)",
+    "westlich": {
+      "bild": "Birth chart: planets and aspects",
+      "ohne_ort": "no houses without a place of birth",
+      "ac": "ASC",
+      "mc": "MC",
+      "paar": "Double wheel: your planets inside, your partner's outside, aspects as threads of light"
+    },
+    "bazi": {
+      "bild": "Bazi: the four pillars",
+      "paar": "Bazi for two: the day pillars, joined by a red thread"
+    },
+    "arabisch": {
+      "bild": "Firdaria: active {name}",
+      "paar": "Firdaria for two: your ring outside, your partner's inside"
+    },
+    "vedisch": {
+      "bild": "Vimshottari Dasha: active {name}",
+      "paar": "Kutas: {punkte} of {max} points"
+    }
+  }
+}

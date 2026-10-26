@@ -108,7 +108,7 @@
         "quelle": "Five Element Theorie"
       },
       "ji": {
-        "text_de": "Ji-Periode: Fürsorge, Detailarbeit, Verwaltung. Günstig für Familienangelegenheiten. Risiko von Überenagagement in Details.",
+        "text_de": "Ji-Periode: Fürsorge, Detailarbeit, Verwaltung. Günstig für Familienangelegenheiten. Risiko von Überengagement in Details.",
         "vektor": {
           "liebe": 0.75,
           "soziales": 0.75,
@@ -313,7 +313,7 @@
         "clash_warnung": "Clashed von Mao — wenn Mao im Natal, Beziehungsprobleme"
       },
       "xu": {
-        "text_de": "Xu-Luckpillar (Erde): Spirituelle Reife, Loyalität geprüft, Gerechtigkeit im Fokus. Karmaische Ausgleichsphase. Gut für innere Arbeit.",
+        "text_de": "Xu-Luckpillar (Erde): Spirituelle Reife, Loyalität geprüft, Gerechtigkeit im Fokus. Karmische Ausgleichsphase. Gut für innere Arbeit.",
         "hidden_stems": [
           "wu",
           "xin",
@@ -703,7 +703,7 @@
         }
       },
       "chou_wu_harm": {
-        "text_de": "Büffel-Pferd (Chou-Wu): Finanzielle Unterleibungen durch Impulsivität. Instabilität bei Karriereplänen. Ungeduld sabotiert Aufbau.",
+        "text_de": "Büffel-Pferd (Chou-Wu): Finanzielle Einbußen durch Impulsivität. Instabilität bei Karriereplänen. Ungeduld sabotiert Aufbau.",
         "vektor": {
           "finanzen": 0.25,
           "beruf": 0.25,

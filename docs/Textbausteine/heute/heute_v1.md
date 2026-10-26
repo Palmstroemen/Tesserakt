@@ -94,7 +94,7 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - saturn: Du stehst in der Firdaria des Saturn – Jahre der Verantwortung, Prüfungen und langsamen Erträge. Heute bringt Geduld mehr als Eile.
 - jupiter: Du stehst in der Firdaria des Jupiter – Jahre des Wachstums, der Förderung und des Vertrauens. Heute lohnt sich ein großzügiger Blick.
 - mars: Du stehst in der Firdaria des Mars – Jahre des Antriebs, des Wettbewerbs und mancher Konflikte. Heute ist Entschlossenheit gefragt, nicht Härte.
-- nordknoten: Du stehst in der Firdaria des Nordknotens – eine kurze Phase, die Neues und Aufstieg begünstigt. Heute ist offen für Gelegenheiten.
+- nordknoten: Du stehst in der Firdaria des Nordknotens – eine kurze Phase, die Neues und Aufstieg begünstigt. Sei heute offen für Gelegenheiten.
 - suedknoten: Du stehst in der Firdaria des Südknotens – eine kurze Phase des Loslassens. Heute fällt es leichter, Überholtes hinter dir zu lassen.
 
 ## Jahreshoroskop Arabisch {#ausblick_arabisch}
@@ -313,7 +313,7 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 
 ## Ausgeglichen {#ausgeglichen}
 
-- text: Heute halten sich die Kräfte in diesem System die Waage – kein Bereich sticht besonders hervor.
+- text: Heute halten sich die Kräfte in diesem Horoskop die Waage – kein Bereich sticht besonders hervor.
 
 ## Zeitangaben im Jahreshoroskop {#zeit}
 

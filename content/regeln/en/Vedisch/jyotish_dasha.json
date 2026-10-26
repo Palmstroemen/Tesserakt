@@ -1,0 +1,294 @@
+{
+  "mahadasha_profile": {
+    "ketu_mahadasha": {
+      "hauptthemen": "Detachment, spiritual awakening, hidden abilities from past lives, isolation, unexpected changes, health shaped by psychosomatic factors, mystical experiences."
+    },
+    "venus_mahadasha": {
+      "hauptthemen": "Pleasure, luxury, love and partnership, art and creativity, material prosperity, beauty, social status, balance and harmony. The longest Mahadasha (20 years) — a time of maturity and abundance."
+    },
+    "sonne_mahadasha": {
+      "hauptthemen": "Authority, identity, self-expression, a career in public service, relationships with the father, health and vitality, honor and reputation, government and public authorities."
+    },
+    "mond_mahadasha": {
+      "hauptthemen": "Emotional life, relationships with the mother, the soul of the people/the public, travel, water and fluids, psychological well-being, home and nourishment, intuition, change and adaptation."
+    },
+    "mars_mahadasha": {
+      "hauptthemen": "Energy, fighting spirit, real estate and landed property, relationships with siblings, engineering and surgery, conflict and assertiveness, sexuality and passion, military/athletic activities."
+    },
+    "rahu_mahadasha": {
+      "hauptthemen": "Ambition and advancement by unconventional routes, ties to foreign lands, technology and modernity, deception and illusion, obsessions, sudden leaps and falls, collective influences, karmic themes."
+    },
+    "jupiter_mahadasha": {
+      "hauptthemen": "Wisdom and growth, children and descendants, education and teaching, spirituality and dharma, prosperity and good fortune, journeys to holy places, philosophy of life, social recognition through integrity."
+    },
+    "saturn_mahadasha": {
+      "hauptthemen": "Fulfillment of karma, hard work and perseverance, limitations and lessons, longevity and health through discipline, low status/advancement through effort, the elderly and ancestors, isolation and trials."
+    },
+    "merkur_mahadasha": {
+      "hauptthemen": "Intellect and communication, trade and business, writing and language, education and logic, relatives (siblings, cousins), travel and transport, analytical thinking, medicine and mathematics."
+    }
+  },
+  "antardasha_matrix": {
+    "ketu_antardasha": {
+      "ketu_ketu": {
+        "beschreibung": "Isolation and the spiritual search dominate. Withdrawal, inner wandering, unclear direction. Transformation through detachment."
+      },
+      "ketu_venus": {
+        "beschreibung": "Ketu-Venus: letting go of pleasure and relationships. Mystical love vs. worldly attachment. Artistic inspiration, but conflict in relationships."
+      },
+      "ketu_sonne": {
+        "beschreibung": "Dissolution of the ego. Conflicts with authorities and the father. An identity crisis with potential for spiritual maturing. Health needs attention."
+      },
+      "ketu_mond": {
+        "beschreibung": "Psychic sensitivity is extremely heightened. Emotional confusion, issues with the mother. Spiritual dreams and visions. Nervous exhaustion possible."
+      },
+      "ketu_mars": {
+        "beschreibung": "Both of a Martian nature (Ketu acts like Mars). Energy for spiritual discipline. Engineering and surgery, a struggle for inner truth. Risk of accidents."
+      },
+      "ketu_rahu": {
+        "beschreibung": "The nodal axis is activated — maximum karmic confrontation. Chaotic turns, loss of identity, deceptions. Rare moments of enlightenment possible."
+      },
+      "ketu_jupiter": {
+        "beschreibung": "The best Antardasha in the Ketu period. Spiritual wisdom through a guru. Religious practice deepens. Protection by higher powers. Enlightenment in dharma."
+      },
+      "ketu_saturn": {
+        "beschreibung": "Deep dissolution of karma through privation. Isolation and discipline. Spiritual work through limitation. Chronic health matters should be checked."
+      },
+      "ketu_merkur": {
+        "beschreibung": "Intuition meets intellect. Hidden knowledge, occult sciences. Communication becomes deeper, but also less clear. Interesting for research."
+      }
+    },
+    "venus_antardasha": {
+      "venus_venus": {
+        "beschreibung": "Double Venus energy — maximum pleasure and prosperity. Marriage, luxury, art. A social high point. Beware of arrogance."
+      },
+      "venus_sonne": {
+        "beschreibung": "Luxury meets authority. A career in the creative field. Official recognition for art. Tension between personal pleasure and public role."
+      },
+      "venus_mond": {
+        "beschreibung": "Romance and emotions at their peak. Motherly care and sensual love. Artistic fertility. Popularity with the public."
+      },
+      "venus_mars": {
+        "beschreibung": "Passion and conflict in relationships. Intense sexuality. Acquisition of real estate possible. Scenes of jealousy and power in love."
+      },
+      "venus_rahu": {
+        "beschreibung": "Unconventional relationships and exotic luxury. Foreign ties in love/art. Alluring but unstable connections. Deception in finances."
+      },
+      "venus_jupiter": {
+        "beschreibung": "Guru-Shukra: an ideal combination for prosperity. Dharma and pleasure. Marriage based on values. Financial expansion through ethical conduct."
+      },
+      "venus_saturn": {
+        "beschreibung": "Slow but steady building of prosperity. Relationships through duty and maturity. Venus-Saturn: artistic discipline. Late ripening in relationships."
+      },
+      "venus_merkur": {
+        "beschreibung": "Art and intellect combine. Creative writing, music and communication flourish. A talent for trade. Beautiful language and aesthetic thinking."
+      },
+      "venus_ketu": {
+        "beschreibung": "Spiritual detachment from pleasure. Creativity meets asceticism. Romantic illusions dissolve. A guardian angel in moments of separation."
+      }
+    },
+    "sonne_antardasha": {
+      "sonne_sonne": {
+        "beschreibung": "Double solar power: authority and recognition come to the fore, but so do pride, conflicts with superiors and strain on the eyes, heart and the body's heat balance."
+      },
+      "sonne_mond": {
+        "beschreibung": "Sun and Moon as natural friends: honor, growth in possessions, support from the family and good relationships; favorable for marriage and public presence."
+      },
+      "sonne_mars": {
+        "beschreibung": "Friendly forces: drive, courage and success in your career, gains from landed property; a tendency toward quarrels, fevers and minor injuries."
+      },
+      "sonne_rahu": {
+        "beschreibung": "Rahu darkens the Sun: tension with authorities, deception, uncertainty in your career and weakened health; unusual paths, including abroad."
+      },
+      "sonne_jupiter": {
+        "beschreibung": "Friendship of Sun and Jupiter: honor, prosperity, support from teachers and superiors, happiness with children, religious and spiritual maturity."
+      },
+      "sonne_saturn": {
+        "beschreibung": "The strongest natural enmity: conflicts with the father and with authorities, losses, obstacles in your career and lingering illnesses."
+      },
+      "sonne_merkur": {
+        "beschreibung": "Sun and Mercury work together: learning, trade, skillful communication and recognition for intellectual work; nervousness and skin problems possible."
+      },
+      "sonne_ketu": {
+        "beschreibung": "Ketu separates: withdrawal, loss of position or possessions, strain on the head and eyes; at the same time a spiritual search and pilgrimage."
+      },
+      "sonne_venus": {
+        "beschreibung": "Opposing forces: comfort, art and relationships bring joy, but also friction in the partnership and spending on luxury."
+      }
+    },
+    "mond_antardasha": {
+      "mond_mond": {
+        "beschreibung": "Full lunar power: emotional depth, a sense of security, closeness to the mother and popularity; mood swings and changing plans."
+      },
+      "mond_mars": {
+        "beschreibung": "Moon and Mars: drive and gains from property, but irritability, quarrels in the family and strain from heat and blood."
+      },
+      "mond_rahu": {
+        "beschreibung": "Rahu clouds the Moon: restlessness, anxieties, confusion and misunderstandings; unfamiliar encounters and journeys."
+      },
+      "mond_jupiter": {
+        "beschreibung": "Moon and Jupiter: wisdom, prosperity, standing and joy through children and teachers; inner calm and generosity."
+      },
+      "mond_saturn": {
+        "beschreibung": "Saturn weighs on the Moon: dejection, loneliness, worries about the mother and slow progress; maturity through hardship."
+      },
+      "mond_merkur": {
+        "beschreibung": "Moon and Mercury: learning, communication and trade go well; new contacts and pleasure in intellectual work, at times nervous restlessness."
+      },
+      "mond_ketu": {
+        "beschreibung": "Ketu loosens emotional bonds: losses, withdrawal and uncertainty in the family; a turn toward spirituality."
+      },
+      "mond_venus": {
+        "beschreibung": "Moon and Venus: coziness, love, art, beautiful things and pleasant company; spending on comfort."
+      },
+      "mond_sonne": {
+        "beschreibung": "Moon and Sun as friends: support from superiors and the father, recognition and a clear will; go easy on your eyes."
+      }
+    },
+    "mars_antardasha": {
+      "mars_mars": {
+        "beschreibung": "Double Martian power: assertiveness, landed property and athletic ambition, but quarrels, accidents and risk of injury."
+      },
+      "mars_rahu": {
+        "beschreibung": "Mars and Rahu: sudden events, aggression, lawsuits and risk of accidents; courage in risky ventures."
+      },
+      "mars_jupiter": {
+        "beschreibung": "Mars and Jupiter as friends: righteous action, success, landed property and prosperity, happiness with children and teachers."
+      },
+      "mars_saturn": {
+        "beschreibung": "Mars and Saturn as adversaries: hard trials, accidents, operations, conflicts and losses; endurance pays off late."
+      },
+      "mars_merkur": {
+        "beschreibung": "Mars is hostile to Mercury: disputes over words and contracts, nervous tension and skin problems; skill in trade under pressure."
+      },
+      "mars_ketu": {
+        "beschreibung": "Ketu acts like Mars: intense, sudden energy, operations possible, separations; courage and spiritual discipline."
+      },
+      "mars_venus": {
+        "beschreibung": "Mars and Venus: passion, relationships, art and pleasure, but impulsiveness, jealousy and spending."
+      },
+      "mars_sonne": {
+        "beschreibung": "Mars and Sun as friends: courage, recognition, leadership roles and success with authorities; watch out for heat and headaches."
+      },
+      "mars_mond": {
+        "beschreibung": "Mars and Moon: gains, possessions and support from the family; changing moods and an urge to act."
+      }
+    },
+    "rahu_antardasha": {
+      "rahu_rahu": {
+        "beschreibung": "Double Rahu: ambition, confusion, deception and sudden ups and downs; foreign countries and unusual surroundings."
+      },
+      "rahu_jupiter": {
+        "beschreibung": "Jupiter in the Rahu period: growth along unconventional paths, patrons and teachers, gains and spiritual direction."
+      },
+      "rahu_saturn": {
+        "beschreibung": "Rahu acts like Saturn: hard work, delays, work abroad or with foreigners; success through perseverance."
+      },
+      "rahu_merkur": {
+        "beschreibung": "Rahu and Mercury: sharp wits, technology, trade and communication go well; learning new things, caution with deception."
+      },
+      "rahu_ketu": {
+        "beschreibung": "The axis of the lunar nodes under tension: confusion, losses, separation and uncertain health."
+      },
+      "rahu_venus": {
+        "beschreibung": "Rahu and Venus: luxury, relationships, art and sudden gains; temptations and excess possible."
+      },
+      "rahu_sonne": {
+        "beschreibung": "Rahu eclipses the Sun: conflicts with authorities and the father, uncertainty about your own position, weaker health."
+      },
+      "rahu_mond": {
+        "beschreibung": "Rahu and Moon: emotional restlessness, anxieties and sleep problems; worries about the mother, much movement."
+      },
+      "rahu_mars": {
+        "beschreibung": "Rahu and Mars: aggression, quarrels, accidents and legal matters; risky ventures with sudden outcomes."
+      }
+    },
+    "jupiter_antardasha": {
+      "jupiter_jupiter": {
+        "beschreibung": "The guru's blessing twice over. A spiritual high, expanding wisdom, children, education. The greatest period of growth in the Jupiter Dasha."
+      },
+      "jupiter_saturn": {
+        "beschreibung": "Growth through discipline. Dharma meets karma. Philosophical trials. Religious duty. Long-term spiritual maturing."
+      },
+      "jupiter_merkur": {
+        "beschreibung": "A high point for education. Teaching and learning. Philosophical and intellectual unfolding. Writing. Guru-disciple relationships."
+      },
+      "jupiter_ketu": {
+        "beschreibung": "Spiritual wisdom through the principle of moksha. Intuitive enlightenment. Withdrawal and philosophical deepening. Pilgrimages."
+      },
+      "jupiter_venus": {
+        "beschreibung": "Guru-Shukra: an ideal combination of wisdom and beauty. Marriage, children, prosperity and spiritual joy combined."
+      },
+      "jupiter_sonne": {
+        "beschreibung": "Guru-Surya: dharma and leadership. Religious authority. Success in government through integrity. A career peak through virtue."
+      },
+      "jupiter_mond": {
+        "beschreibung": "Gajakesari potential activated. Emotional and intellectual balance. Public recognition through wisdom. Healing with regard to the mother."
+      },
+      "jupiter_mars": {
+        "beschreibung": "Guru-Mangala: strength through dharma. Religious courage. Acquisition of real estate for religious reasons. Athletic and spiritual discipline combined."
+      },
+      "jupiter_rahu": {
+        "beschreibung": "Guru-Rahu: risk of Chandala Yoga (the guru disturbed by Rahu). Unconventional wisdom. Foreign ties in religion. Deception by a guru possible."
+      }
+    },
+    "saturn_antardasha": {
+      "saturn_saturn": {
+        "beschreibung": "The deepest karmic period. Maximum limitation, but also maximum building for the future. Chronic trials. Monastic energy."
+      },
+      "saturn_merkur": {
+        "beschreibung": "Analytical mastery. Disciplined thinking. Structured communication. A career in science, law, architecture."
+      },
+      "saturn_ketu": {
+        "beschreibung": "Double force of separation. Extreme isolation, trials of health, spiritual depth through hardship. Dissolution of karma through suffering."
+      },
+      "saturn_venus": {
+        "beschreibung": "Late blooming in relationships. Material discipline with a sense of beauty. Art through perseverance. Stable finances through diligence."
+      },
+      "saturn_sonne": {
+        "beschreibung": "The strongest natural enmity. Conflicts with authorities, problems with the father, career obstacles, heart health should be checked. A karmic harvest."
+      },
+      "saturn_mond": {
+        "beschreibung": "Depression and emotional exhaustion. Loss of or separation from the mother. Psychological strain. Maturing through grief. Isolation."
+      },
+      "saturn_mars": {
+        "beschreibung": "Two malefics — severe trials. Accidents, operations, conflicts, legal problems. Enormous endurance once overcome."
+      },
+      "saturn_rahu": {
+        "beschreibung": "Chaos and restriction. Problems connected with foreign lands. Deception through patience. Yet it can set off deep changes in your career."
+      },
+      "saturn_jupiter": {
+        "beschreibung": "Dharma through discipline. Religious duty fulfilled. Spiritual maturing through trials. Philosophical depth. Karmic balance through wisdom."
+      }
+    },
+    "merkur_antardasha": {
+      "merkur_merkur": {
+        "beschreibung": "Full Mercurial power: intellect, learning, trade, writing and communication thrive; friendships and a good income."
+      },
+      "merkur_ketu": {
+        "beschreibung": "Ketu in the Mercury period: a turning away from the purely rational, research and depth; nervous tension and misunderstandings."
+      },
+      "merkur_venus": {
+        "beschreibung": "Mercury and Venus as friends: art, love, prosperity and pleasant company; creative success."
+      },
+      "merkur_sonne": {
+        "beschreibung": "Mercury and Sun as friends: recognition for knowledge and skill, support from superiors and authorities."
+      },
+      "merkur_mond": {
+        "beschreibung": "Mercury and Moon: feeling and reason pull in different directions; popularity and contacts, but restlessness and nervousness."
+      },
+      "merkur_mars": {
+        "beschreibung": "Mercury and Mars: quarrels, sharp words, lawsuits and risk of accidents; getting your way in technical and manual work."
+      },
+      "merkur_rahu": {
+        "beschreibung": "Mercury and Rahu: cleverness, technology and unusual ideas, but deception, restlessness and misunderstandings."
+      },
+      "merkur_jupiter": {
+        "beschreibung": "Mercury and Jupiter: learning and teaching, wisdom, counsel and prosperity; standing through knowledge."
+      },
+      "merkur_saturn": {
+        "beschreibung": "Mercury and Saturn as friends: disciplined work, consolidation in your career, careful planning and lasting results."
+      }
+    }
+  }
+}

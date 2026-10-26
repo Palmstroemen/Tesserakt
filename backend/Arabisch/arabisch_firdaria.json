@@ -370,7 +370,7 @@
       "dauer_jahre": 7,
       "symbol": "♂",
       "arabisch": "Firdār al-Mirrikh",
-      "beschreibung": "Die Mars-Firdaria ist die kürzeste der Planeten-Perioden und steht für Energie, Konflikt, Mut und Durchsetzung. Abu Ma'shar: 'Mars regiert Krieger, Chirurgen, Schmiede, Feuer, Streit, Blut und alles Scharfe und Schnelle.' Diese Periode bringt Intensität — oft Konflikte, aber auch starken Antrieb und die Fähigkeit, Hindernisse zu überwinden. Sahl: 'Mars handelt schnell und verlässt sich nicht lang auf.'",
+      "beschreibung": "Die Mars-Firdaria ist die kürzeste der Planeten-Perioden und steht für Energie, Konflikt, Mut und Durchsetzung. Abu Ma'shar: 'Mars regiert Krieger, Chirurgen, Schmiede, Feuer, Streit, Blut und alles Scharfe und Schnelle.' Diese Periode bringt Intensität — oft Konflikte, aber auch starken Antrieb und die Fähigkeit, Hindernisse zu überwinden. Sahl: 'Mars handelt schnell und verweilt nicht lang.'",
       "position_im_tag_zyklus": "7. Periode (~63.–70. Lebensjahr bei Tag-Horoskop)",
       "position_im_nacht_zyklus": "4. Periode (~32.–39. Lebensjahr bei Nacht-Horoskop)",
       "quelle": "Abu Ma'shar VII.3; Al-Biruni Kap. 500; Sahl IV.3",
@@ -683,7 +683,7 @@
         "venus_hauptperiode": {
           "venus_venus": {
             "qualitaet": "sehr_guenstig",
-            "beschreibung": "Reine Venus-Energie — Liebes- und Wohlstandsthemen in vollster Entfaltung. Sahl: 'Venus in Venus — dies ist das süßeste aller Haus.' Günstigster Moment der Venus-Hauptperiode.",
+            "beschreibung": "Reine Venus-Energie — Liebes- und Wohlstandsthemen in vollster Entfaltung. Sahl: 'Venus in Venus — dies ist das süßeste aller Häuser.' Günstigster Moment der Venus-Hauptperiode.",
             "dimensionen_vektor": {
               "liebe": 1.0,
               "beruf": 0.5,
