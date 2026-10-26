@@ -231,7 +231,7 @@ def kabbalah(f: Dict[str, Any]) -> str:
     if p:
         teile.append(
             f"Dein Pfad trägt den Buchstaben {p['buchstabe']}, „{p['bedeutung']}“; "
-            f"im Tarot entspricht ihm {_klein(p['tarot'])}."
+            f"im Tarot gehört dazu die Karte „{p['tarot']}“."
         )
     return " ".join(teile)
 
