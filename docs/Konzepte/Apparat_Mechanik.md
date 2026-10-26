@@ -66,6 +66,8 @@ Kreis oben oder höchstens 4 aktive Systeme.
 - Mit einem breiten Finger oder einer schrägen Wischbewegung erwischt man **mehrere Schieber auf einmal**
   (Toleranz etwa ein halber Bogenabstand; Browser liefern nur einen Berührpunkt, keine Fingerbreite).
 - Lässt man vor der Hälfte los, federt der Schieber zurück; ab der Hälfte rastet er rechts ein.
+- **Mitnehmer:** Der unterste Schieber (Hellenistisch) nimmt, aus der Ruhe aufgezogen, alle anderen mit. Man
+  muss also nicht siebenmal aufziehen. Einzeln aufziehen geht weiter.
 - Ein einziges System reicht.
 
 ### Regel für das Fragedia
@@ -113,6 +115,11 @@ Kreis oben oder höchstens 4 aktive Systeme.
   („optionales Stoppen“). Das würde ein System ohne jede Aussagekraft besser aussehen lassen.
 - Die Wertung für das Experiment läuft daher immer über alle Systeme und alle Fragen. Gespeichert wird
   zusätzlich, welche Systeme bei welcher Frage angezeigt waren.
+- **Zurückgehen:** Wer eine Frage noch einmal spielt, hat die Systeme schon gesehen und könnte seine Antwort
+  nach einem Wunschhoroskop richten. Für die Forschung zählt deshalb immer die **erste** Antwort auf eine Frage
+  (`erster_wert`); gespeichert werden auch die letzte (`selbst_wert`) und wie oft die Frage wiederholt wurde
+  (`wiederholt`). Daraus lässt sich untersuchen, ob und wohin Antworten nach dem Ansehen wandern. Das
+  persönliche Ergebnis rechnet mit der letzten Antwort.
 - Persönliches Ergebnis: nur die Systeme, die **mindestens einmal aufgezogen** waren – einmal befragt, gehört
   es dazu. Weglassen kann man ein System danach, verstecken nicht; sein Skill zählt trotzdem über alle Fragen,
   Weglassen bringt also keinen Vorteil. (Die strengere Regel „nur Systeme, die bei jeder Frage dabei waren“
@@ -144,7 +151,10 @@ Kreis oben oder höchstens 4 aktive Systeme.
   (−100 links … +100 rechts, gleiche Skala wie die Antworten). Der eigene Schieber bleibt rechts (+100).
 - Wischen oder Tippen im Auge schiebt den Fächer nach links weg, die Textkarten je System kommen herein.
   Zurück: auf der ersten Karte nach rechts wischen oder der erste (eckige) Punkt.
-- „‹“ links oben führt zurück zur Datumsscheibe (früher „Noch einmal“).
+- „‹“ links oben geht **eine Frage zurück**: Steht ein Ergebnis da (nach dem Hebel, auch die Rangliste),
+  laufen alle Schieber nach links, das rote Glas gleitet eine Frage zurück, und das nächste Aufziehen bringt
+  dieselbe Frage wieder. In der Ruhe am Anfang einer Frage geht es so immer weiter zurück; vor der ersten
+  Frage zur Datumsscheibe. Sind die Textkarten offen, führt „‹“ zuerst zurück zur Rangliste.
 - Abkürzung (Tipp auf das Datum): landet direkt in diesem Fächer mit gewürfelten Antworten.
 
 ## Ecken des Quadrats: Spielwahl (Idee, noch nicht umgesetzt)

@@ -174,6 +174,35 @@ export default function Apparat() {
 
   const [antworten, setAntworten] = useState([]);
   const [runde, setRunde] = useState(0);
+  // Zurueckgehen ("‹"): fuer die Forschung zaehlt die erste Antwort auf eine Frage, gegeben bevor man die
+  // Systeme gesehen hat; das persoenliche Ergebnis rechnet mit der letzten. Gemerkt je Frage, je Runde neu.
+  const ersteRef = useRef(new Map());
+  const wiederholtRef = useRef(new Map());
+  const steuerung = useRef(null); // Faecher: steuerung.current.zurueck()
+  useEffect(() => {
+    ersteRef.current = new Map();
+    wiederholtRef.current = new Map();
+  }, [runde]);
+  const frageSchluessel = (f) => `${f.frage_id ?? f.id}|${f.fenster ?? ""}`;
+  // erste Antwort und Zahl der Wiederholungen fuer die Speicherung
+  function verlauf(frage, wert) {
+    const k = frageSchluessel(frage);
+    if (!ersteRef.current.has(k)) ersteRef.current.set(k, wert);
+    return {
+      erster_wert: ersteRef.current.get(k),
+      wiederholt: wiederholtRef.current.get(k) ?? 0,
+    };
+  }
+  // "‹" im Faecher: die letzte Antwort zuruecknehmen, die Frage wird noch einmal gespielt
+  function rueckgaengig() {
+    const letzte = antworten[antworten.length - 1];
+    if (!letzte) return;
+    const k = frageSchluessel(letzte);
+    wiederholtRef.current.set(k, (wiederholtRef.current.get(k) ?? 0) + 1);
+    setAntworten((prev) => prev.slice(0, -1));
+    setAuswertung(false);
+    setNachfrage(false);
+  }
   const [muenze, setMuenze] = useState(false); // Datumsscheibe dreht sich nach Silber
   const [kamera, setKamera] = useState(null);
   const [kameraInfo, setKameraInfo] = useState("");
@@ -416,6 +445,7 @@ export default function Apparat() {
           dimension: frage.dimension,
           text: frage.text,
           selbst_wert: wert,
+          ...verlauf(frage, wert),
           angezeigt,
           system_werte: gewertet
             ? Object.fromEntries(
@@ -437,6 +467,7 @@ export default function Apparat() {
         frage_id: frage.id,
         dimension: frage.dimension,
         selbst_wert: wert,
+        ...verlauf(frage, wert),
         angezeigt,
         system_werte: Object.fromEntries(
           ALLE.map((s) => [s, Number(vektoren[s][frage.dimension])]),
@@ -697,6 +728,8 @@ export default function Apparat() {
               sofort={abkuerzung}
               vonMitte={spiel === "C"}
               onAuswertung={() => setAuswertung(true)}
+              onRueckgaengig={rueckgaengig}
+              steuerung={steuerung}
               onWeiter={() => {
                 setKartenOffen(true);
                 setTextkarten(true);
@@ -728,7 +761,11 @@ export default function Apparat() {
         // Ende gibt)
         <Eckknoepfe
           auftritt={phase === "uebergang"}
-          onZurueck={nochmal}
+          onZurueck={() => {
+            // Textkarten offen: zurueck zur Rangliste; sonst eine Frage zurueck, vor der ersten zur Datumsscheibe
+            if (textkarten) setTextkarten(false);
+            else if (!steuerung.current?.zurueck()) nochmal();
+          }}
           onBuch={() =>
             setDruck(auswahlSichtbar(auswertung, phase) ? "auswahl" : "werbung")
           }

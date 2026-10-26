@@ -268,6 +268,8 @@ export default function Spielplatte({
   onAuswertung, // die Rangliste ist sichtbar
   onWeiter, // Wischen/Tippen im Auge waehrend der Auswertung: weiter zu den Textkarten
   vonMitte = false, // Paarfragen: die Balken der Schlitze wachsen von der Mitte aus
+  onRueckgaengig, // "‹": die letzte Antwort wird zurueckgenommen (Apparat.jsx)
+  steuerung = null, // Ref: Apparat ruft steuerung.current.zurueck() fuer "‹" links oben
 }) {
   const [layout, setLayout] = useState(layoutAusFenster);
   const {
@@ -464,6 +466,24 @@ export default function Spielplatte({
       anim.current.delete(s);
       d.gegriffen.set(s, p);
     }
+    // Mitnehmer: der unterste Schieber nimmt, aus der Ruhe aufgezogen, alle anderen in der Ruhe mit
+    const unten = ALLE[ALLE.length - 1];
+    if (
+      !d.mitnehmer &&
+      d.gegriffen.has(unten) &&
+      d.gegriffen.get(unten) < RUHE
+    ) {
+      d.mitnehmer = true;
+      for (const s of ALLE) {
+        if (d.gegriffen.has(s) || posRef.current[s] >= RUHE) continue;
+        if (!verriegelt(zustandRef.current) && aufgezogenRef.current.has(s))
+          continue;
+        if (zustandRef.current === "endaufzug" && !gespieltRef.current.has(s))
+          continue;
+        anim.current.delete(s);
+        d.gegriffen.set(s, posRef.current[s]);
+      }
+    }
   }
 
   function diaTreiben() {
@@ -558,11 +578,15 @@ export default function Spielplatte({
     }
     greifen(r, u);
     const neu = {};
+    let geklickt = false; // mitgenommene Schieber rasten gemeinsam: ein Klick
     for (const s of d.gegriffen.keys()) {
       const wert = Math.max(0, Math.min(1, u));
       neu[s] = wert;
       const stufe = Math.floor(wert * 10);
-      if (d.stufe[s] !== undefined && stufe !== d.stufe[s]) rastKlick();
+      if (d.stufe[s] !== undefined && stufe !== d.stufe[s] && !geklickt) {
+        rastKlick();
+        geklickt = true;
+      }
       d.stufe[s] = stufe;
     }
     setzePos(neu);
@@ -716,6 +740,37 @@ export default function Spielplatte({
     );
     animiere("user", 0, 300, { verz: 60 });
   }
+
+  // "‹" links oben: eine Frage zurueck. Steht ein Ergebnis da (auch die Rangliste), wird die Frage noch einmal
+  // gespielt; in der Ruhe am Anfang einer Frage geht es immer weiter zurueck. Die Antwort der zurueckgenommenen
+  // Frage verwirft der Apparat (fuer die Forschung bleibt die erste). Liefert false, wenn es nichts mehr
+  // zurueckzunehmen gibt: dann geht es zur Datumsscheibe.
+  const [rueckwaerts, setRueckwaerts] = useState(false); // das rote Glas gleitet zurueck
+  function zurueck() {
+    const z = zustandRef.current;
+    if (sofort) return false; // Abkuerzung: gewuerfelte Antworten, nichts zurueckzunehmen
+    if (z === "laeuft" || drag.current || zusatzRef.current) return true;
+    const i = indexRef.current;
+    if (z === "aufziehen" && i < 0) return false;
+    // in der Frage ist die aktuelle noch nicht beantwortet; sonst wird sie zurueckgenommen
+    if (z !== "frage") onRueckgaengig?.();
+    anim.current.clear();
+    setIndex(i - 1);
+    setzePos({ dia: 0 });
+    setZustand("aufziehen");
+    aufgezogenRef.current.clear();
+    aufgezogenAktualisieren();
+    setRueckwaerts(true);
+    setTimeout(() => setRueckwaerts(false), 1000);
+    ratsche();
+    animiere("hebel", 0, 200);
+    ALLE.forEach((s, k) =>
+      animiere(s, 0, 320, { verz: 40 + k * 30, ease: easeMechanisch }),
+    );
+    animiere("user", 0, 320, { verz: 40 });
+    return true;
+  }
+  if (steuerung) steuerung.current = { zurueck };
 
   // --- Ergebnis ----------------------------------------------------------------
 
@@ -1176,7 +1231,7 @@ export default function Spielplatte({
               <Rotglas
                 anzahl={fragen.length}
                 stand={zaehlerStand + (zustand === "aufziehen" ? pos.dia : 0)}
-                gleitet={zaehlerStand >= fragen.length}
+                gleitet={zaehlerStand >= fragen.length || rueckwaerts}
               />
               <div className="sp-fenster" style={fensterLage}>
                 {zustand === "endaufzug" || zustand === "rechnet" ? (

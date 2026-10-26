@@ -44,6 +44,8 @@ def init_db() -> None:
                 dimension TEXT NOT NULL,
                 selbst_wert REAL NOT NULL,
                 system_werte_json TEXT,
+                erster_wert REAL,
+                wiederholt INTEGER NOT NULL DEFAULT 0,
                 FOREIGN KEY(session_id) REFERENCES sessions(session_id)
             );
 
@@ -57,6 +59,12 @@ def init_db() -> None:
         for spalte in ("sprache", "geraet_sprache"):
             if spalte not in vorhanden:
                 conn.execute(f"ALTER TABLE sessions ADD COLUMN {spalte} TEXT")
+        # Zurueckgehen: erste Antwort (zaehlt fuer die Forschung) und Zahl der Wiederholungen
+        vorhanden = {r["name"] for r in conn.execute("PRAGMA table_info(antworten)")}
+        if "erster_wert" not in vorhanden:
+            conn.execute("ALTER TABLE antworten ADD COLUMN erster_wert REAL")
+        if "wiederholt" not in vorhanden:
+            conn.execute("ALTER TABLE antworten ADD COLUMN wiederholt INTEGER NOT NULL DEFAULT 0")
         conn.commit()
     finally:
         conn.close()
@@ -106,8 +114,9 @@ def persist_session(payload: Dict[str, Any]) -> str:
         for antwort in antworten:
             conn.execute(
                 """
-                INSERT INTO antworten (session_id, frage_id, dimension, selbst_wert, system_werte_json)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO antworten
+                    (session_id, frage_id, dimension, selbst_wert, system_werte_json, erster_wert, wiederholt)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     session_id,
@@ -115,6 +124,12 @@ def persist_session(payload: Dict[str, Any]) -> str:
                     antwort["dimension"],
                     float(antwort["selbst_wert"]),
                     json.dumps(antwort.get("system_werte") or {}, ensure_ascii=False),
+                    float(
+                        antwort["erster_wert"]
+                        if antwort.get("erster_wert") is not None
+                        else antwort["selbst_wert"]
+                    ),
+                    int(antwort.get("wiederholt") or 0),
                 ),
             )
         conn.commit()
@@ -140,7 +155,8 @@ def compare_group(doy: int, stunde: int, frage_id: int) -> Dict[str, Any]:
     try:
         rows = conn.execute(
             """
-            SELECT s.doy, s.stunde, a.frage_id, a.dimension, a.selbst_wert
+            SELECT s.doy, s.stunde, a.frage_id, a.dimension,
+                   COALESCE(a.erster_wert, a.selbst_wert) AS selbst_wert
             FROM antworten a
             JOIN sessions s ON s.session_id = a.session_id
             WHERE a.frage_id = ? AND s.abgeschlossen = 1 AND s.veroeffentlichen = 1

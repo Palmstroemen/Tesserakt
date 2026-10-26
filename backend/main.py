@@ -154,6 +154,10 @@ class AntwortPayload(BaseModel):
     dimension: str
     selbst_wert: float = Field(ge=-1.0, le=1.0, description="User rating -1 (disagree) to +1 (agree)")
     system_werte: Dict[str, float] = Field(default_factory=dict)
+    # Zurueckgehen im Apparat: die erste Antwort (gegeben, bevor die Systeme zu sehen waren) zaehlt fuer die
+    # Forschung; selbst_wert ist die letzte, mit der das persoenliche Ergebnis gerechnet wurde
+    erster_wert: Optional[float] = Field(default=None, ge=-1.0, le=1.0, description="Erste Antwort auf die Frage")
+    wiederholt: int = Field(default=0, ge=0, description="Wie oft die Frage zurueckgenommen und neu beantwortet wurde")
 
 
 class SessionPayload(BaseModel):
