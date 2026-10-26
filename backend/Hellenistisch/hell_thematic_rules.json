@@ -49,7 +49,7 @@
     "merkur": { "text_de": "Kluge Kinder, geistige Spiele, schriftstellerische Freuden. Quelle: Ptolemy.", "vektor": { "kreativitaet": 0.85, "liebe": 0.5, "beruf": 0.5 }, "quelle": "Tetrabiblos III" },
     "venus": { "text_de": "Angenehme Kinder, Liebe, Kunst, Vergnügen. Quelle: Valens.", "vektor": { "liebe": 0.9, "kreativitaet": 0.8, "soziales": 0.65 }, "quelle": "Valens Anthologies" },
     "mars": { "text_de": "Leidenschaftliche aber konfliktreiche Kinder oder Spiele. Quelle: Ptolemy.", "vektor": { "liebe": 0.4, "veraenderung": 0.7, "gesundheit": 0.35 }, "quelle": "Tetrabiblos III" },
-    "jupiter": { "text_de": "Sehr günstiges 5. Haus; viele oder gesegnete Kinder, Freude. Quelle: Ptolemy, Valens.", "vektor": { "liebe": 0.85, "finanzen": 0.6, "spiritualitaet": 0.5 }, "quelle": "Tetrabiblos III" },
+    "jupiter": { "text_de": "Sehr günstiges 5. Haus; viele oder gesegnete Kinder, Freude. Quelle: Ptolemy, Valens.", "vektor": { "liebe": 0.85, "finanzen": 0.6, "spiritualitaet": 0.499 }, "quelle": "Tetrabiblos III" },
     "saturn": { "text_de": "Wenige Kinder oder Verzögerung; ernste Freuden. Quelle: Valens.", "vektor": { "liebe": 0.25, "kreativitaet": 0.3, "veraenderung": 0.2 }, "quelle": "Valens Anthologies" }
   },
   "planeten_im_6_haus": {
@@ -92,7 +92,7 @@
     "sonne": { "text_de": "Höchste Berufsstellung; Ruhm, Herrschaft, öffentliche Ehre. Quelle: Ptolemy III.", "vektor": { "beruf": 1.0, "soziales": 0.9, "finanzen": 0.65 }, "quelle": "Tetrabiblos III" },
     "mond": { "text_de": "Wechselhafte Stellung; Erfolg durch Volk, Handel, Frauen. Quelle: Valens.", "vektor": { "beruf": 0.55, "soziales": 0.65, "veraenderung": 0.6 }, "quelle": "Valens Anthologies" },
     "merkur": { "text_de": "Beruf durch Rede, Schrift, Wissenschaft, Handel. Quelle: Ptolemy.", "vektor": { "beruf": 0.8, "kreativitaet": 0.85, "soziales": 0.5 }, "quelle": "Tetrabiblos III" },
-    "venus": { "text_de": "Karriere in Kunst, Musik, angenehmen Berufen. Quelle: Valens.", "vektor": { "beruf": 0.75, "kreativitaet": 0.8, "liebe": 0.6 }, "quelle": "Valens Anthologies" },
+    "venus": { "text_de": "Karriere in Kunst, Musik, angenehmen Berufen. Quelle: Valens.", "vektor": { "beruf": 0.75, "kreativitaet": 0.8, "liebe": 0.599 }, "quelle": "Valens Anthologies" },
     "mars": { "text_de": "Karriere durch Tatkraft, Militär, Chirurgie; Konflikte möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.7, "veraenderung": 0.7, "soziales": 0.35 }, "quelle": "Tetrabiblos III" },
     "jupiter": { "text_de": "Sehr günstiges 10. Haus; Ehre, Recht, Kirche, Reichtum. Quelle: Ptolemy, Valens.", "vektor": { "beruf": 0.95, "finanzen": 0.8, "soziales": 0.9 }, "quelle": "Tetrabiblos III" },
     "saturn": { "text_de": "Schwere Karriere, späte Anerkennung, Autorität durch Mühe. Quelle: Valens.", "vektor": { "beruf": 0.45, "veraenderung": 0.25, "soziales": 0.35 }, "quelle": "Valens Anthologies" }

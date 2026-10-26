@@ -688,6 +688,15 @@ function raehmchen(g, R) {
     g.fillStyle = "#fff0c8";
     g.fill();
   }
+  // Signatur des Machers, zwischen Lochreihe und Fenster eingraviert (Licht von unten im gedrehten Bild)
+  g.font = `600 ${rand * 0.5}px 'Tesserakt Cinzel', serif`;
+  g.textAlign = "center";
+  g.textBaseline = "middle";
+  const ys = -s - rand * 0.6;
+  g.fillStyle = "rgba(230,200,140,0.3)";
+  g.fillText("O·R·FECIT·MMXXVI", 0, ys - rand * 0.04);
+  g.fillStyle = "rgba(20,12,4,0.85)";
+  g.fillText("O·R·FECIT·MMXXVI", 0, ys);
   g.restore();
 }
 

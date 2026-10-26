@@ -71,6 +71,10 @@ Der Quellcode des Apparats und unseres Servers ist offen: **github.com/Palmstroe
 dort nachlesen, was der Apparat mit der Kamera tut, was er an den Server schickt und was der Server speichert.
 Der Server steht unter der Lizenz AGPL-3.0, der Apparat unter MIT.
 
+Nachgebaute Apparate mit eigenem Server sammeln ihre Antworten getrennt von unseren. Jede Kopie spaltet so die
+Stichprobe, und keiner der kleinen Datensätze reicht dann für eine Antwort. Das Experiment gelingt nur, wenn
+möglichst viele Menschen am selben Apparat spielen.
+
 ## Deine Rechte
 
 Du hast das Recht auf Auskunft, Berichtigung und Löschung, soweit wir deine Daten dir zuordnen können, und das

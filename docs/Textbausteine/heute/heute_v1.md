@@ -38,7 +38,7 @@ Platzhalter in geschweiften Klammern werden ersetzt. Erzeugen: `python3 tools/md
 - 9: Dein Profektionsjahr aktiviert das neunte Haus – Reisen, Bildung, Weltanschauung und Sinnsuche sind betont.
 - 10: Dein Profektionsjahr aktiviert das zehnte Haus – Beruf, Ansehen und öffentliche Rolle stehen in diesem Lebensjahr im Rampenlicht.
 - 11: Dein Profektionsjahr aktiviert das elfte Haus – Freundschaften, Netzwerke und Hoffnungen für die Zukunft sind betont.
-- 12: Dein Profektionsjahr aktiviert das zwölfte Haus – ein Jahr der Stille und des Rückzugs, in dem Verborgenes ans Licht kommen kann.
+- 12: Dein Profektionsjahr aktiviert das zwölfte Haus – ein Jahr der Stille und der Einkehr, in dem Verborgenes ans Licht kommen kann.
 
 ## Hellenistisch: Jahresherrscher {#hellenistisch_herrscher}
 

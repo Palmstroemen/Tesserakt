@@ -73,6 +73,13 @@ Die verbindliche Aufgabenliste für die Umsetzung wird in `ToDo.md` gepflegt.
 
 Lokal starten und testen: `docs/dev_workflow.md`.
 
+## Kopien und das Experiment
+
+Der Code ist offen, damit jeder nachprüfen kann, was Apparat und Server tun. Eine Kopie mit eigenem Server
+schadet aber dem Experiment: Jede spaltet die Stichprobe in viele kleine, getrennte Datensätze, von denen
+keiner groß genug ist, um zu zeigen, ob Horoskope mehr treffen als der Zufall. Wer den Apparat weiterentwickeln
+will, melde sich bitte: Wir finden einen Weg, die Antworten in den gemeinsamen Datenbestand zu bringen.
+
 ## Lizenz
 
 Server (`backend/`) unter AGPL-3.0, App (`frontend/`) unter MIT, Medien und Dokumentation unter CC BY-NC 4.0,

@@ -352,7 +352,7 @@
         "quelle": "Parashara - BPHS Kap. 41; Mantreswara - Phaladeepika VIII.9",
         "dimensionen_vektor": {
           "liebe": 0.75,
-          "beruf": 1.0,
+          "beruf": 0.997,
           "finanzen": 1.0,
           "gesundheit": 0.75,
           "soziales": 1.0,
@@ -434,7 +434,7 @@
         "gesundheit": 0.75,
         "soziales": 0.75,
         "kreativitaet": 1.0,
-        "veraenderung": 0.5,
+        "veraenderung": 0.503,
         "spiritualitaet": 0.5
       }
     },

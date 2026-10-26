@@ -209,7 +209,7 @@
       "monat": 5,
       "symbol": "午",
       "liebe": 0.5,
-      "beruf": 0.75,
+      "beruf": 0.753,
       "finanzen": 0.5,
       "text": "Energetisch, freiheitsliebend, unbeständig"
     },
@@ -319,7 +319,7 @@
       },
       "wasser_feuer": {
         "vektor": {
-          "liebe": 0.25,
+          "liebe": 0.254,
           "kreativitaet": 0.25
         },
         "text": "Wasser löscht Feuer: Begeisterung gedämpft"

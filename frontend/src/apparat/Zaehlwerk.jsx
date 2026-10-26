@@ -103,7 +103,8 @@ function Raedchen({ x, y, r, zaehne }) {
   );
 }
 
-function Bruecke({ p, y, breite }) {
+// Bruecke ueber den Walzen; die untere traegt, wie bei Uhrwerken ueblich, die Signatur des Machers
+function Bruecke({ p, y, breite, signet = false }) {
   const x = MITTE.x - breite / 2;
   return (
     <g>
@@ -128,6 +129,21 @@ function Bruecke({ p, y, breite }) {
           />
         </g>
       ))}
+      {signet ? (
+        <g
+          fontFamily="'Tesserakt Cinzel', serif"
+          fontSize="2.6"
+          letterSpacing="0.5"
+          textAnchor="middle"
+        >
+          <text x={MITTE.x} y={y + 3.25} fill="rgba(255,230,170,0.35)">
+            O·R·MMXXVI
+          </text>
+          <text x={MITTE.x} y={y + 3} fill="#3a2a12">
+            O·R·MMXXVI
+          </text>
+        </g>
+      ) : null}
     </g>
   );
 }
@@ -248,7 +264,7 @@ const Zaehlwerk = memo(function Zaehlwerk({
             stellen={4}
           />
           <Bruecke p={p} y={y - 6} breite={zeile + 8} />
-          <Bruecke p={p} y={y + H + 2} breite={zeile + 8} />
+          <Bruecke p={p} y={y + H + 2} breite={zeile + 8} signet />
           {/* Stundenrad: Elfenbeinscheibe mit den Stunden am Rand, dreht die eingestellte nach oben */}
           <g
             className="zw-stundenrad"

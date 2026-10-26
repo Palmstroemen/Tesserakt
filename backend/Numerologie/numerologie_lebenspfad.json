@@ -398,7 +398,7 @@
         "soziales": 1.0,
         "kreativitaet": 0.75,
         "veraenderung": 0.75,
-        "spiritualitaet": 1.0
+        "spiritualitaet": 0.997
       },
       "quelle_vektor": "Westcott S.75-82; Cheiro Kap.9; Balliett S.61-68; Sepharial S.45"
     }
@@ -876,7 +876,7 @@
         "lebenspfad_a": 6,
         "lebenspfad_b": 9,
         "liebe": 1.0,
-        "beruf": 1.0,
+        "beruf": 0.998,
         "partnerschaft": 5,
         "erklaerung": "Hervorragend. Beide tief liebend, humanitär und kreativ. Gemeinsame Werte und Lebensausrichtung.",
         "quelle": "Cheiro Kap.6,9; Balliett S.47"

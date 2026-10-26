@@ -49,7 +49,7 @@ Platzhalter {themen}: „Gefühl und Zuneigung“ oder „eure Gefühlswelten“
 
 ## Westlich: ohne enge Aspekte {#westlich_ruhig}
 
-- text: Zwischen euren Sonnen, Monden, Venus und Mars gibt es keine engen Aspekte. Eure Verbindung zeigt sich nicht in einzelnen Funken, sondern im gemeinsamen Alltag.
+- text: Zwischen euren Sonnen, Monden, Venus und Mars gibt es keine engen Aspekte. Eure Verbindung zeigt sich nicht in einzelnen Funken, sondern im gemeinsamen Alltag, gleichsam im Glutbett.
 
 ## Hellenistisch: Zeichen zueinander {#hellenistisch_bezug}
 

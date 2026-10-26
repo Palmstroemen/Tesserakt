@@ -269,7 +269,7 @@
       "vektor": {
         "finanzen": 0.25,
         "veraenderung": 0.5,
-        "soziales": 0.25,
+        "soziales": 0.251,
         "liebe": 0.25
       },
       "quelle": "Raphael S.100"
@@ -287,7 +287,7 @@
     "neptun": {
       "text_de": "Unklare Erbschaftssituation, Betrug oder Verwirrung bei Testamenten möglich. Erbschaft durch spirituelle oder künstlerische Tätigkeiten des Erblassers.",
       "vektor": {
-        "finanzen": 0.25,
+        "finanzen": 0.249,
         "veraenderung": 0.5,
         "spiritualitaet": 0.75,
         "kreativitaet": 0.5

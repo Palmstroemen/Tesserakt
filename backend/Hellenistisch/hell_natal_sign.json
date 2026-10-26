@@ -30,7 +30,7 @@
       "text_de": "Stier: fixes Erde. Beständigkeit, Sinnlichkeit, Besitz; Sturheit, Trägheit. Ptolemy: fruchtbar, materiell, genussorientiert.",
       "dimensionen_vektor": {
         "liebe": 0.75,
-        "beruf": 0.75,
+        "beruf": 0.749,
         "finanzen": 1.0,
         "gesundheit": 0.5,
         "soziales": 0.5,
@@ -169,7 +169,7 @@
     "fische": {
       "text_de": "Fische: mutables Wasser. Auflösung, Mitgefühl, Imagination; Flucht, Opferrolle. Ptolemy: empfänglich, verschwommen, spirituell.",
       "dimensionen_vektor": {
-        "liebe": 0.75,
+        "liebe": 0.747,
         "beruf": 0.25,
         "finanzen": 0.25,
         "gesundheit": 0.5,

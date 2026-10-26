@@ -250,7 +250,7 @@
       "beruf_hinweis": "Wechsel möglich und sinnvoll. Neue Branchen, neue Rollen. Flexibilität ist Trumpf.",
       "finanzen_hinweis": "Schwankungen. Keine langfristigen Festlegungen. Liquidität erhalten.",
       "dimensionen_vektor": {
-        "liebe": 0.5,
+        "liebe": 0.497,
         "beruf": 0.75,
         "finanzen": 0.5,
         "gesundheit": 0.75,
@@ -320,7 +320,7 @@
       "finanzen_hinweis": "Günstigstes Finanzjahr. Investitionen, Vermögensaufbau, große Transaktionen möglich.",
       "dimensionen_vektor": {
         "liebe": 0.25,
-        "beruf": 1.0,
+        "beruf": 0.998,
         "finanzen": 1.0,
         "gesundheit": 0.5,
         "soziales": 0.5,

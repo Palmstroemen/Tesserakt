@@ -541,7 +541,7 @@
         "beruf": 0.62,
         "spiritualitaet": 0.57,
         "gesundheit": 0.6,
-        "finanzen": 0.5
+        "finanzen": 0.499
       },
       "bekannte_typen": "Mozart, Robin Williams, Gemini-Archetyp",
       "paracelsus_signatur": "Blondes oder rotes Haar, helle Haut, lebhafte Augen — Zeichen des Jupiter"
@@ -568,7 +568,7 @@
         "liebe": 0.85,
         "soziales": 0.75,
         "gesundheit": 0.7,
-        "spiritualitaet": 0.72,
+        "spiritualitaet": 0.718,
         "finanzen": 0.62,
         "beruf": 0.55,
         "kreativitaet": 0.57,

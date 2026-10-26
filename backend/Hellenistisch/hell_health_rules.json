@@ -12,7 +12,7 @@
     "_intro": "Körper und Konstitution nach Sonnenzeichen. Ptolemy Tetrabiblos III.12; Valens.",
     "widder": { "text_de": "Kopf, Gehirn, Gesicht. Kräftige Konstitution; Anfälligkeit für Kopfschmerzen, Fieber, Verletzungen.", "dimensionen_vektor": { "gesundheit": 0.65, "veraenderung": 0.55 }, "quelle": "Tetrabiblos III.12" },
     "stier": { "text_de": "Hals, Nacken, Kehle. Solide Konstitution; Neigung zu Halsleiden, Trägheit.", "dimensionen_vektor": { "gesundheit": 0.55, "veraenderung": 0.35 }, "quelle": "Tetrabiblos III.12" },
-    "zwillinge": { "text_de": "Schultern, Arme, Lungen, Nerven. Beweglich, nervöse Konstitution.", "dimensionen_vektor": { "gesundheit": 0.5, "veraenderung": 0.7, "kreativitaet": 0.55 }, "quelle": "Tetrabiblos III.12" },
+    "zwillinge": { "text_de": "Schultern, Arme, Lungen, Nerven. Beweglich, nervöse Konstitution.", "dimensionen_vektor": { "gesundheit": 0.499, "veraenderung": 0.703, "kreativitaet": 0.55 }, "quelle": "Tetrabiblos III.12" },
     "krebs": { "text_de": "Brust, Magen, Verdauung. Emotionen beeinflussen Gesundheit stark.", "dimensionen_vektor": { "gesundheit": 0.5, "liebe": 0.5, "veraenderung": 0.5 }, "quelle": "Tetrabiblos III.12" },
     "loewe": { "text_de": "Herz, Rücken, Oberkörper. Starke Vitalität; Überanstrengung meiden.", "dimensionen_vektor": { "gesundheit": 0.75, "beruf": 0.5, "veraenderung": 0.45 }, "quelle": "Tetrabiblos III.12" },
     "jungfrau": { "text_de": "Darm, Verdauung, Nerven. Empfindliche Konstitution; Hygiene wichtig.", "dimensionen_vektor": { "gesundheit": 0.5, "veraenderung": 0.4 }, "quelle": "Tetrabiblos III.12" },

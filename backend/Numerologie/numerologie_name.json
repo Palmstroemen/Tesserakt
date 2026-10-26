@@ -210,7 +210,7 @@
       "sehnsucht": "Unabhängigkeit, Originalität, der Erste zu sein, Anerkennung der eigenen Einzigartigkeit. Die Seele sehnt sich nach Führung und Autonomie.",
       "schattenseite": "Kann egozentrisch werden, wenn das Bedürfnis nach Anerkennung nicht erfüllt wird.",
       "dimensionen_vektor": {
-        "liebe": 0.25,
+        "liebe": 0.249,
         "beruf": 1.0,
         "finanzen": 0.75,
         "gesundheit": 0.5,
@@ -424,7 +424,7 @@
         "Mut"
       ],
       "dimensionen_vektor": {
-        "liebe": 0.25,
+        "liebe": 0.248,
         "beruf": 1.0,
         "finanzen": 0.75,
         "gesundheit": 0.5,

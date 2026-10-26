@@ -48,7 +48,7 @@
         "vektor": {
           "finanzen": 0.5,
           "beruf": 0.5,
-          "veraenderung": 0.75,
+          "veraenderung": 0.752,
           "soziales": 0.5
         },
         "quelle": "Sepharial S.65, Raphael S.98"
@@ -58,7 +58,7 @@
         "vektor": {
           "finanzen": 0.5,
           "beruf": 0.75,
-          "kreativitaet": 0.75,
+          "kreativitaet": 0.747,
           "soziales": 0.5
         },
         "quelle": "Sepharial S.65"

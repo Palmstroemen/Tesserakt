@@ -67,7 +67,7 @@
           "soziales": 1.0,
           "liebe": 0.75,
           "kreativitaet": 0.75,
-          "beruf": 0.5
+          "beruf": 0.501
         },
         "ten_god_effekt": "Aktiviert Pianyin (Indirekte Ressource) oder Piancai (Indirekter Reichtum)",
         "quelle": "Joey Yap / klassische Bazi-Tradition"
@@ -864,7 +864,7 @@
         "vektor": {
           "beruf": 0.25,
           "finanzen": 0.25,
-          "soziales": 0.25,
+          "soziales": 0.248,
           "veraenderung": 0.75
         }
       },
@@ -1394,7 +1394,7 @@
     "35_wu_xu": {
       "stem": "wu",
       "branch": "xu",
-      "text_de": "Erde-Yang auf Erde-Hund: Bergkette. Unverrückbare Stabilität, Loyalität, Schutz.",
+      "text_de": "Erde-Yang auf Erde-Hund: Bergkette. Unverrückbare, felsenfeste Stabilität, Loyalität, Schutz.",
       "vektor": {
         "gesundheit": 1.0,
         "soziales": 0.75,

@@ -976,7 +976,7 @@
     },
     "jupiter": {
       "1": {
-        "text_de": "Glückliches, gutmütiges Wesen. Körperfülle möglich. Optimismus und Großzügigkeit. Gute Gesundheit.",
+        "text_de": "Frohgemutes, gutmütiges Wesen. Körperfülle möglich. Optimismus und Großzügigkeit. Gute Gesundheit.",
         "vektor": {
           "gesundheit": 0.75,
           "soziales": 0.75,
@@ -1466,7 +1466,7 @@
         "text_de": "Spannungen zwischen Wille und äußeren Umständen. Autoritätskonflikte. Anstrengung nötig, aber Wachstum möglich. Gesundheitliche Belastungen.",
         "vektor": {
           "liebe": 0.25,
-          "beruf": 0.25,
+          "beruf": 0.246,
           "finanzen": 0.5,
           "gesundheit": 0.25,
           "soziales": 0.25,
@@ -1839,7 +1839,7 @@
         "quelle": "Raphael S.166"
       },
       "quadrat": {
-        "text_de": "Übertreibung, Selbstüberschätzung und Verschwendung. Juristische Probleme möglich. Überexpansion führt zu Rückschlägen. Maß halten.",
+        "text_de": "Übertreibung, Selbstüberschätzung und Verschwendung. Juristische Probleme möglich. Überexpansion führt zu Rückschlägen. Maßhalten tut not.",
         "vektor": {
           "liebe": 0.5,
           "beruf": 0.25,
@@ -2756,7 +2756,7 @@
         "liebe": 1.0,
         "beruf": 0.5,
         "finanzen": 0.25,
-        "gesundheit": 0.5,
+        "gesundheit": 0.496,
         "soziales": 0.75,
         "kreativitaet": 1.0,
         "veraenderung": 0.5,

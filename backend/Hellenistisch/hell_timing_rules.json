@@ -39,7 +39,7 @@
       "opposition": { "text_de": "Partnerschaftsspannungen; Kompromisse nötig. Quelle: Valens.", "vektor": { "liebe": 0.35, "soziales": 0.4, "veraenderung": 0.5 }, "quelle": "Valens" }
     },
     "mars": {
-      "konjunktion": { "text_de": "Energie und Durchsetzung; Konflikte oder Unfälle möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.6, "veraenderung": 0.8, "gesundheit": 0.4 }, "quelle": "Tetrabiblos" },
+      "konjunktion": { "text_de": "Energie und Durchsetzung; Konflikte oder Unfälle möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.6, "veraenderung": 0.8, "gesundheit": 0.398 }, "quelle": "Tetrabiblos" },
       "sextil": { "text_de": "Tatkraft ohne Überreibung; günstig für Sport, Wettbewerb. Quelle: Valens.", "vektor": { "beruf": 0.7, "veraenderung": 0.6, "gesundheit": 0.55 }, "quelle": "Valens" },
       "quadrat": { "text_de": "Streit, Verletzungsgefahr, Impulsivität. Quelle: Ptolemy.", "vektor": { "beruf": 0.35, "gesundheit": 0.25, "soziales": 0.25, "veraenderung": 0.75 }, "quelle": "Tetrabiblos" },
       "trine": { "text_de": "Mut und Erfolg; Energie kanalisiert. Quelle: Valens.", "vektor": { "beruf": 0.8, "veraenderung": 0.65, "gesundheit": 0.6 }, "quelle": "Valens" },
@@ -56,7 +56,7 @@
       "konjunktion": { "text_de": "Prüfung, Verzögerung, Verantwortung; Reifung möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.5, "finanzen": 0.35, "gesundheit": 0.35, "spiritualitaet": 0.6 }, "quelle": "Tetrabiblos" },
       "sextil": { "text_de": "Struktur und Disziplin ohne Härte; geduldiger Fortschritt. Quelle: Valens.", "vektor": { "beruf": 0.6, "finanzen": 0.5, "veraenderung": 0.4 }, "quelle": "Valens" },
       "quadrat": { "text_de": "Einschränkung, Verlust, Trauer; Geduld nötig. Quelle: Ptolemy.", "vektor": { "beruf": 0.25, "finanzen": 0.2, "gesundheit": 0.25, "soziales": 0.2 }, "quelle": "Tetrabiblos" },
-      "trine": { "text_de": "Saturnische Stärke; Autorität, Dauerhaftigkeit. Quelle: Valens.", "vektor": { "beruf": 0.7, "finanzen": 0.6, "spiritualitaet": 0.7 }, "quelle": "Valens" },
+      "trine": { "text_de": "Saturnische Stärke; Autorität, Dauerhaftigkeit. Quelle: Valens.", "vektor": { "beruf": 0.704, "finanzen": 0.6, "spiritualitaet": 0.7 }, "quelle": "Valens" },
       "opposition": { "text_de": "Konflikte mit Älteren oder Autorität; Isolation möglich. Quelle: Ptolemy.", "vektor": { "beruf": 0.3, "soziales": 0.2, "veraenderung": 0.4 }, "quelle": "Tetrabiblos" }
     }
   }
