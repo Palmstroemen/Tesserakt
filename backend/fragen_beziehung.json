@@ -6,7 +6,7 @@
   "fragen": [
     {
       "id": 401,
-      "text": "Seid ihr in eurer Beziehung in etwa gleich verliebt, oder spürt einer von euch die Liebe stärker?",
+      "text": "Wer von euch spürt die Liebe in eurer Beziehung stärker?",
       "dimension": "liebe"
     },
     {
@@ -16,17 +16,17 @@
     },
     {
       "id": 403,
-      "text": "Ist einer von euch beiden stärker in seinen Beruf investiert?",
+      "text": "Wer von euch ist stärker in seinen Beruf investiert?",
       "dimension": "beruf"
     },
     {
       "id": 404,
-      "text": "Wer von euch bringt berufliche Themen oder Stress öfter in die Beziehung ein?",
+      "text": "Wer von euch wird für seine Arbeit mehr anerkannt?",
       "dimension": "beruf"
     },
     {
       "id": 405,
-      "text": "Regelt ihr eure Finanzen gemeinsam, oder übernimmt einer dabei eher die Führung?",
+      "text": "Wer von euch hat in Geldfragen das geschicktere Händchen?",
       "dimension": "finanzen"
     },
     {
@@ -36,22 +36,22 @@
     },
     {
       "id": 407,
-      "text": "Wer von euch hat in der Beziehung öfter mit gesundheitlichen Einschränkungen oder niedriger Energie zu kämpfen?",
+      "text": "Wer von euch hat im Alltag mehr Energie und Ausdauer?",
       "dimension": "gesundheit"
     },
     {
       "id": 408,
-      "text": "Wer erholt sich nach Belastungen oder Krankheit langsamer?",
+      "text": "Wer von euch erholt sich nach Belastungen oder Krankheit schneller?",
       "dimension": "gesundheit"
     },
     {
       "id": 409,
-      "text": "Habt ihr einen gemeinsamen Freundeskreis, oder hat einer von euch deutlich mehr eigene Freund:innen?",
+      "text": "Wer von euch hat mehr eigene Freundinnen und Freunde?",
       "dimension": "soziales"
     },
     {
       "id": 410,
-      "text": "Wer von euch initiiert gemeinsame Unternehmungen mit anderen eher?",
+      "text": "Wer von euch ergreift eher die Initiative, wenn ihr etwas mit anderen unternehmt?",
       "dimension": "soziales"
     },
     {
@@ -76,7 +76,7 @@
     },
     {
       "id": 415,
-      "text": "Wie steht es bei euch um Spiritualität, Religion oder das Übersinnliche – seid ihr da ausgewogen, oder ist einer rationaler/nüchterner?",
+      "text": "Wem von euch sind Spiritualität, Religion oder das Übersinnliche wichtiger?",
       "dimension": "spiritualitaet"
     },
     {
