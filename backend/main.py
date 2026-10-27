@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Literal, Optional, Tuple
 from uuid import uuid4
 
 from fastapi import Depends, FastAPI, Header, HTTPException
@@ -49,7 +49,8 @@ import buchpreise
 import orte
 import sprache
 from beschriftung import beschriften
-from store import compare_group, init_db, persist_session
+import forschung
+from store import init_db, runde_speichern
 
 app = FastAPI(title="Tesserakt API", version="0.1.0")
 
@@ -76,7 +77,9 @@ DEFAULT_SYSTEMS = list(SUBFOLDERS)
 
 # Fragen fuer Spiel A inkl. Gewichte je System (einzige Quelle; das Frontend laedt sie ueber /fragen)
 with (Path(__file__).resolve().parent / "fragen.json").open(encoding="utf-8") as _f:
-    FRAGEN: List[Dict[str, Any]] = json.load(_f)["fragen"]
+    _katalog = json.load(_f)
+    FRAGEN: List[Dict[str, Any]] = _katalog["fragen"]
+    FRAGEN_META: Dict[str, Any] = _katalog["_meta"]
 # Fragen fuer Spiel C (vergleichend), ausgeliefert ueber /fragen/beziehung
 with (Path(__file__).resolve().parent / "fragen_beziehung.json").open(encoding="utf-8") as _f:
     FRAGEN_BEZIEHUNG: Dict[str, Any] = json.load(_f)
@@ -157,30 +160,50 @@ class PartnerKontrollRequest(PartnerRequest):
     kontroll_anzahl: int = Field(default=KONTROLL_ANZAHL_DEFAULT, ge=1, le=500)
 
 
-class AntwortPayload(BaseModel):
+class RundenAntwort(BaseModel):
     frage_id: int
     dimension: str
-    selbst_wert: float = Field(ge=-1.0, le=1.0, description="User rating -1 (disagree) to +1 (agree)")
-    system_werte: Dict[str, float] = Field(default_factory=dict)
+    typ: Optional[Literal["gewertet", "auffaellig"]] = None  # Spiel B
+    fenster: Optional[Literal["monat", "quartal"]] = None  # Spiel B
     # Zurueckgehen im Apparat: die erste Antwort (gegeben, bevor die Systeme zu sehen waren) zaehlt fuer die
-    # Forschung; selbst_wert ist die letzte, mit der das persoenliche Ergebnis gerechnet wurde
-    erster_wert: Optional[float] = Field(default=None, ge=-1.0, le=1.0, description="Erste Antwort auf die Frage")
-    wiederholt: int = Field(default=0, ge=0, description="Wie oft die Frage zurueckgenommen und neu beantwortet wurde")
+    # Forschung; wert ist die letzte, mit der das persoenliche Ergebnis gerechnet wurde
+    wert: float = Field(ge=-1.0, le=1.0)
+    erster_wert: float = Field(ge=-1.0, le=1.0)
+    wiederholt: int = Field(default=0, ge=0, le=100)
+    tage_zurueck: Optional[int] = Field(default=None, ge=0, le=400)  # Spiel B: "Wann war das?"
 
 
-class SessionPayload(BaseModel):
-    session_id: str
-    geburtsdatum: str
-    geburtszeit: Optional[str] = "12:00"
-    antworten: List[AntwortPayload]
-    metadaten: Dict[str, Any] = Field(default_factory=dict)
-    inputs: Dict[str, Any] = Field(default_factory=dict)
-    rating: Dict[str, Any] = Field(default_factory=dict)
-    temperament: Dict[str, Any] = Field(default_factory=dict)
-    abgeschlossen: bool = True
-    veroeffentlichen: bool = True
-    sprache: Optional[str] = Field(default=None, max_length=16, description="Sprache der Fragen, z. B. de")
-    geraet_sprache: Optional[str] = Field(default=None, max_length=35, description="Spracheinstellung des Geräts, z. B. de-AT")
+class RundenZeitpunkt(BaseModel):
+    frage_id: int
+    dimension: str
+    antwort: Literal["ja", "nein", "weiss_nicht"]
+    tage_zurueck: Optional[int] = Field(default=None, ge=0, le=400)
+
+
+class RundenErgebnis(BaseModel):
+    """Ergebnis eines Horoskops in einer Runde, gerundet wie in der Anzeige."""
+    skill: Optional[float] = Field(default=None, ge=-100, le=100)
+    perzentil: Optional[float] = Field(default=None, ge=0, le=100)
+    fit: Optional[float] = Field(default=None, ge=0, le=100)
+    mitgespielt: Optional[int] = Field(default=None, ge=0, le=100)  # bei wie vielen Fragen aufgezogen
+
+
+class RundePayload(BaseModel):
+    """Eine gespielte Runde fuer die Forschung (nur mit Einwilligung). Bewusst ohne Geburtsdatum, Uhrzeit und
+    Ort: nur das Jahr, und das Land allein fuer den Kulturraum (forschung.py)."""
+    runde_id: str = Field(pattern=r"^[0-9a-f-]{16,40}$", description="zufaellig im Apparat erzeugt")
+    spiel: Literal["A", "B", "C"]
+    geburtsjahr: int = Field(ge=1900, le=2100)
+    land: Optional[str] = Field(default=None, pattern=r"^[A-Za-z]{2}$", description="nur fuer den Kulturraum")
+    geraet_zeitzone: Optional[str] = Field(default=None, max_length=64, description="ohne Ort: Land des Geraets")
+    uhrzeit_bekannt: bool = False
+    ort_bekannt: bool = False
+    sprache: Optional[str] = Field(default=None, max_length=16)
+    geraet_sprache: Optional[str] = Field(default=None, max_length=35)
+    ergebnisse: Dict[str, RundenErgebnis]  # je Horoskop
+    fenster: Optional[Dict[Literal["monat", "quartal", "timing"], Dict[str, RundenErgebnis]]] = None  # Spiel B
+    antworten: List[RundenAntwort] = Field(max_length=100)
+    zeitpunkte: List[RundenZeitpunkt] = Field(default_factory=list, max_length=20)
 
 
 def parse_birth_datetime(geburtsdatum: str, uhrzeit: Optional[str]) -> datetime:
@@ -1079,12 +1102,22 @@ def get_matrix() -> Dict[str, object]:
     return json.loads(matrix_path.read_text(encoding="utf-8"))
 
 
-@app.post("/session")
-def post_session(payload: SessionPayload) -> Dict[str, str]:
-    session_id = persist_session(payload.model_dump())
-    return {"session_id": session_id}
-
-
-@app.get("/vergleich")
-def get_vergleich(doy: int, stunde: int, frage_id: int) -> Dict[str, object]:
-    return compare_group(doy=doy, stunde=stunde, frage_id=frage_id)
+@app.post("/runde")
+def post_runde(payload: RundePayload, sp: str = Depends(_sprache)) -> Dict[str, str]:
+    """Speichert eine Runde fuer die Forschung; der Apparat schickt sie nur mit Einwilligung (forschung.py)."""
+    katalog = {"A": FRAGEN_META, "B": FRAGEN_RUECKBLICK["_meta"], "C": FRAGEN_BEZIEHUNG["_meta"]}[payload.spiel]
+    d = payload.model_dump(exclude_none=False)
+    for teil in [d["ergebnisse"], *(d["fenster"] or {}).values()]:
+        if not set(teil) <= set(SUBFOLDERS):
+            raise HTTPException(status_code=422, detail="unbekanntes Horoskop in den Ergebnissen")
+    # Land nur fuer den Kulturraum (ohne Ort das Land des Geraets); gespeichert wird es nicht
+    land = d.pop("land") or (orte.laender(z)["vorschlag"] if (z := d.pop("geraet_zeitzone")) else None)
+    runde = {**d, "ergebnisse": {"gesamt": d.pop("ergebnisse"), **({"fenster": f} if (f := d.pop("fenster")) else {})},
+             "sprache": d["sprache"] or sp, "kulturraum": forschung.kulturraum(land),
+             "regelversion": forschung.regelversion(), "katalog_version": katalog.get("katalog_version")}
+    runde_speichern(
+        runde,
+        forschung.antworten_aufbereiten(d["antworten"]),
+        [z for z in d["zeitpunkte"] if z["dimension"] != "gesundheit"],  # Gesundheit steckt nur im Timing-Skill
+    )
+    return {"runde_id": payload.runde_id}

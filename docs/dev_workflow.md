@@ -32,8 +32,7 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 - `POST /kontrolle` -> Kontrollvektoren je System für Perzentil/Skill (mit `session_id` + `stichtag` aus `/vektor`; Frontend lädt sie während der Fragephase)
 - `GET /fragen` -> liefert die 16 Fragen
 - `GET /matrix` -> liefert die Gewichtungsmatrix
-- `POST /session` -> speichert Session + Antworten
-- `GET /vergleich?doy=<n>&stunde=<n>&frage_id=<n>` -> Vergleichsgruppendaten
+- `POST /runde` -> speichert eine Runde für die Forschung (nur mit Einwilligung; ohne Geburtsdatum, Uhrzeit und Ort, siehe `backend/forschung.py`)
 
 ## Happy-Path Smoke Tests (durchgeführt)
 
@@ -44,8 +43,7 @@ Optional kann `VITE_API_BASE` gesetzt werden.
 3. Backend Endpoint Smoke:
    - `GET /health` -> `200`
    - `POST /vektor` -> `200`
-   - `POST /session` -> `200`
-   - `GET /vergleich` -> `200`
+   - `POST /runde` -> `200`
 
 ## QA / Diagnose-Checks
 

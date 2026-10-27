@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 ---
 <!--
 Vorblatt des Apparats (erscheint beim ersten Start und wieder, wenn sich "version" oben aendert).

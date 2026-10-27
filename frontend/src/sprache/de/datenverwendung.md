@@ -32,14 +32,17 @@ Rechnen an unseren Server. Er rechnet damit und vergisst sie wieder – egal, ob
 - deine Antworten auf die Fragen und welches Spiel du gespielt hast; gehst du eine Frage zurück, auch deine
   erste Antwort und wie oft du sie geändert hast (für die Auswertung zählt immer die erste)
 - die Ergebnisse der Horoskope (wie gut jedes zu deinen Antworten gepasst hat)
-- dein Geburtsjahr, eventuell nur als Zeitraum (z. B. 1980–1984)
+- dein Geburtsjahr
+- ob du die Uhrzeit und den Ort eingestellt hast (nur ja oder nein)
 - deinen Kulturraum, z. B. Europa, Indien oder China
 - die Sprache des Spiels und das Datum des Spiels
 
 ## Was wir nie speichern
 
 - deinen Namen oder sonst etwas, das dich direkt erkennbar macht
-- deinen Geburtsort und dein genaues Geburtsdatum
+- deinen Geburtsort, dein genaues Geburtsdatum und deine Geburtszeit
+- die Rechenwerte der Horoskope selbst (aus ihnen ließe sich dein Geburtsdatum zurückrechnen)
+- von deinem Gegenüber in Spiel C keine Geburtsdaten, auch nicht das Jahr
 - Kamerabilder
 - deine E-Mail-Adresse, Telefonnummer oder Gerätekennung
 

@@ -1,10 +1,18 @@
+"""
+Forschungsdatenbank (SQLite): eine Zeile je gespielter Runde, die Antworten in einer eigenen Tabelle, verbunden
+nur ueber eine zufaellige Kennung der Runde. Was gespeichert wird und was nie, steht in forschung.py.
+
+Die frueheren Tabellen sessions/antworten (mit genauem Geburtsdatum) werden nicht mehr angelegt oder
+beschrieben; eine alte Datenbank behaelt sie, bis sie geloescht wird.
+"""
+
 from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime
+from datetime import date
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 DB_PATH = Path(__file__).resolve().parent / "assessment.db"
 
@@ -20,219 +28,104 @@ def init_db() -> None:
     try:
         conn.executescript(
             """
-            CREATE TABLE IF NOT EXISTS sessions (
-                session_id TEXT PRIMARY KEY,
-                created_at TEXT NOT NULL,
-                geburtsdatum TEXT NOT NULL,
-                geburtszeit TEXT,
-                doy INTEGER NOT NULL,
-                stunde INTEGER NOT NULL,
-                inputs_json TEXT,
-                metadaten_json TEXT,
-                rating_json TEXT,
-                temperament_json TEXT,
-                abgeschlossen INTEGER NOT NULL DEFAULT 1,
-                veroeffentlichen INTEGER NOT NULL DEFAULT 1,
+            CREATE TABLE IF NOT EXISTS runden (
+                runde_id TEXT PRIMARY KEY,
+                gespielt_am TEXT NOT NULL,
+                spiel TEXT NOT NULL,
                 sprache TEXT,
-                geraet_sprache TEXT
+                geraet_sprache TEXT,
+                kulturraum TEXT NOT NULL,
+                geburtsjahr INTEGER,
+                uhrzeit_bekannt INTEGER NOT NULL,
+                ort_bekannt INTEGER NOT NULL,
+                regelversion TEXT NOT NULL,
+                katalog_version TEXT,
+                ergebnisse_json TEXT NOT NULL
             );
 
-            CREATE TABLE IF NOT EXISTS antworten (
+            -- Antworten getrennt von der Runde; Gesundheit nur zusammengefasst (frage_id leer, anzahl > 1)
+            CREATE TABLE IF NOT EXISTS runden_antworten (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                session_id TEXT NOT NULL,
+                runde_id TEXT NOT NULL,
+                frage_id INTEGER,
+                dimension TEXT NOT NULL,
+                typ TEXT,
+                fenster TEXT,
+                wert REAL NOT NULL,
+                erster_wert REAL NOT NULL,
+                wiederholt INTEGER NOT NULL DEFAULT 0,
+                tage_zurueck INTEGER,
+                anzahl INTEGER NOT NULL DEFAULT 1
+            );
+
+            -- Spiel B: "Wann war das?" zu den festen Ereignisfragen (ohne Gesundheit)
+            CREATE TABLE IF NOT EXISTS runden_zeitpunkte (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                runde_id TEXT NOT NULL,
                 frage_id INTEGER NOT NULL,
                 dimension TEXT NOT NULL,
-                selbst_wert REAL NOT NULL,
-                system_werte_json TEXT,
-                erster_wert REAL,
-                wiederholt INTEGER NOT NULL DEFAULT 0,
-                FOREIGN KEY(session_id) REFERENCES sessions(session_id)
+                antwort TEXT NOT NULL,
+                tage_zurueck INTEGER
             );
 
-            CREATE INDEX IF NOT EXISTS idx_antworten_frage ON antworten(frage_id);
-            CREATE INDEX IF NOT EXISTS idx_sessions_doy_stunde ON sessions(doy, stunde);
+            CREATE INDEX IF NOT EXISTS idx_runden_antworten_runde ON runden_antworten(runde_id);
+            CREATE INDEX IF NOT EXISTS idx_runden_zeitpunkte_runde ON runden_zeitpunkte(runde_id);
             """
         )
-        # bestehende Datenbanken: Sprachspalten nachruesten
-        # sprache = Sprache der Fragen; geraet_sprache = Spracheinstellung des Geraets (z. B. de-AT)
-        vorhanden = {r["name"] for r in conn.execute("PRAGMA table_info(sessions)")}
-        for spalte in ("sprache", "geraet_sprache"):
-            if spalte not in vorhanden:
-                conn.execute(f"ALTER TABLE sessions ADD COLUMN {spalte} TEXT")
-        # Zurueckgehen: erste Antwort (zaehlt fuer die Forschung) und Zahl der Wiederholungen
-        vorhanden = {r["name"] for r in conn.execute("PRAGMA table_info(antworten)")}
-        if "erster_wert" not in vorhanden:
-            conn.execute("ALTER TABLE antworten ADD COLUMN erster_wert REAL")
-        if "wiederholt" not in vorhanden:
-            conn.execute("ALTER TABLE antworten ADD COLUMN wiederholt INTEGER NOT NULL DEFAULT 0")
         conn.commit()
     finally:
         conn.close()
 
 
-def persist_session(payload: Dict[str, Any]) -> str:
-    session_id = payload["session_id"]
-    geburtsdatum = payload["geburtsdatum"]
-    geburtszeit = payload.get("geburtszeit") or "12:00"
-    dt = datetime.strptime(f"{geburtsdatum} {geburtszeit}", "%Y-%m-%d %H:%M")
-    doy = int(dt.strftime("%j"))
-    stunde = dt.hour
-
-    metadaten = payload.get("metadaten") or {}
-    rating = payload.get("rating") or {}
-    temperament = payload.get("temperament") or {}
-    inputs = payload.get("inputs") or {}
-    antworten = payload.get("antworten") or []
-
+def runde_speichern(runde: Dict[str, Any], antworten: List[Dict[str, Any]], zeitpunkte: List[Dict[str, Any]]) -> None:
+    """Eine Runde mit ihren Antworten; dieselbe runde_id noch einmal (Antwort zurueckgenommen und neu
+    beantwortet) ersetzt die alte."""
     conn = _conn()
     try:
+        rid = runde["runde_id"]
         conn.execute(
             """
-            INSERT OR REPLACE INTO sessions (
-                session_id, created_at, geburtsdatum, geburtszeit, doy, stunde,
-                inputs_json, metadaten_json, rating_json, temperament_json,
-                abgeschlossen, veroeffentlichen, sprache, geraet_sprache
-            ) VALUES (?, datetime('now'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT OR REPLACE INTO runden (
+                runde_id, gespielt_am, spiel, sprache, geraet_sprache, kulturraum, geburtsjahr,
+                uhrzeit_bekannt, ort_bekannt, regelversion, katalog_version, ergebnisse_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                session_id,
-                geburtsdatum,
-                geburtszeit,
-                doy,
-                stunde,
-                json.dumps(inputs, ensure_ascii=False),
-                json.dumps(metadaten, ensure_ascii=False),
-                json.dumps(rating, ensure_ascii=False),
-                json.dumps(temperament, ensure_ascii=False),
-                int(bool(payload.get("abgeschlossen", True))),
-                int(bool(payload.get("veroeffentlichen", True))),
-                payload.get("sprache"),
-                payload.get("geraet_sprache"),
+                rid,
+                date.today().isoformat(),
+                runde["spiel"],
+                runde.get("sprache"),
+                runde.get("geraet_sprache"),
+                runde["kulturraum"],
+                runde.get("geburtsjahr"),
+                int(bool(runde.get("uhrzeit_bekannt"))),
+                int(bool(runde.get("ort_bekannt"))),
+                runde["regelversion"],
+                runde.get("katalog_version"),
+                json.dumps(runde.get("ergebnisse") or {}, ensure_ascii=False),
             ),
         )
-        conn.execute("DELETE FROM antworten WHERE session_id = ?", (session_id,))
-        for antwort in antworten:
-            conn.execute(
-                """
-                INSERT INTO antworten
-                    (session_id, frage_id, dimension, selbst_wert, system_werte_json, erster_wert, wiederholt)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    session_id,
-                    int(antwort["frage_id"]),
-                    antwort["dimension"],
-                    float(antwort["selbst_wert"]),
-                    json.dumps(antwort.get("system_werte") or {}, ensure_ascii=False),
-                    float(
-                        antwort["erster_wert"]
-                        if antwort.get("erster_wert") is not None
-                        else antwort["selbst_wert"]
-                    ),
-                    int(antwort.get("wiederholt") or 0),
-                ),
-            )
+        conn.execute("DELETE FROM runden_antworten WHERE runde_id = ?", (rid,))
+        conn.execute("DELETE FROM runden_zeitpunkte WHERE runde_id = ?", (rid,))
+        conn.executemany(
+            """
+            INSERT INTO runden_antworten
+                (runde_id, frage_id, dimension, typ, fenster, wert, erster_wert, wiederholt, tage_zurueck, anzahl)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            [
+                (rid, a.get("frage_id"), a["dimension"], a.get("typ"), a.get("fenster"), float(a["wert"]),
+                 float(a["erster_wert"]), int(a.get("wiederholt") or 0), a.get("tage_zurueck"), int(a["anzahl"]))
+                for a in antworten
+            ],
+        )
+        conn.executemany(
+            """
+            INSERT INTO runden_zeitpunkte (runde_id, frage_id, dimension, antwort, tage_zurueck)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            [(rid, z["frage_id"], z["dimension"], z["antwort"], z.get("tage_zurueck")) for z in zeitpunkte],
+        )
         conn.commit()
     finally:
         conn.close()
-    return session_id
-
-
-def _percentile(sorted_values: List[float], p: float) -> Optional[float]:
-    if not sorted_values:
-        return None
-    if len(sorted_values) == 1:
-        return sorted_values[0]
-    idx = (len(sorted_values) - 1) * p
-    low = int(idx)
-    high = min(low + 1, len(sorted_values) - 1)
-    frac = idx - low
-    return sorted_values[low] * (1 - frac) + sorted_values[high] * frac
-
-
-def compare_group(doy: int, stunde: int, frage_id: int) -> Dict[str, Any]:
-    conn = _conn()
-    try:
-        rows = conn.execute(
-            """
-            SELECT s.doy, s.stunde, a.frage_id, a.dimension,
-                   COALESCE(a.erster_wert, a.selbst_wert) AS selbst_wert
-            FROM antworten a
-            JOIN sessions s ON s.session_id = a.session_id
-            WHERE a.frage_id = ? AND s.abgeschlossen = 1 AND s.veroeffentlichen = 1
-            """,
-            (frage_id,),
-        ).fetchall()
-    finally:
-        conn.close()
-
-    values_all = [float(r["selbst_wert"]) for r in rows]
-    if not values_all:
-        return {
-            "granularitaet": 1,
-            "rohwerte": [],
-            "mittelwert": None,
-            "p25": None,
-            "median": None,
-            "p75": None,
-            "stddev": None,
-            "bin_1": 0,
-            "bin_2": 0,
-            "bin_3": 0,
-            "bin_4": 0,
-            "bin_5": 0,
-            "n_gesamt": 0,
-            "n_monat": 0,
-            "n_tag": 0,
-            "n_stunde": 0,
-            "dimension": None,
-        }
-
-    rows_tag = [r for r in rows if int(r["doy"]) == doy]
-    rows_stunde = [r for r in rows if int(r["doy"]) == doy and int(r["stunde"]) == stunde]
-
-    n_gesamt = len(rows)
-    n_monat = len(rows)  # no month in query scope, fallback to available sample
-    n_tag = len(rows_tag)
-    n_stunde = len(rows_stunde)
-
-    if n_stunde > 100:
-        gran = 5
-        selected_values = [float(r["selbst_wert"]) for r in rows_stunde]
-    elif n_stunde >= 20:
-        gran = 4
-        selected_values = [float(r["selbst_wert"]) for r in rows_stunde]
-    elif n_tag >= 20:
-        gran = 3
-        selected_values = [float(r["selbst_wert"]) for r in rows_tag]
-    elif n_monat >= 20:
-        gran = 2
-        selected_values = values_all
-    else:
-        gran = 1
-        selected_values = values_all
-
-    selected_values = sorted(selected_values)
-    mean = sum(selected_values) / len(selected_values)
-    variance = sum((v - mean) ** 2 for v in selected_values) / len(selected_values)
-    stddev = variance**0.5
-
-    return {
-        "granularitaet": gran,
-        "rohwerte": selected_values if len(selected_values) <= 100 else None,
-        "mittelwert": round(mean, 4),
-        "p25": round(_percentile(selected_values, 0.25) or 0, 4),
-        "median": round(_percentile(selected_values, 0.50) or 0, 4),
-        "p75": round(_percentile(selected_values, 0.75) or 0, 4),
-        "stddev": round(stddev, 4),
-        "bin_1": sum(1 for v in selected_values if v < 1.5),
-        "bin_2": sum(1 for v in selected_values if 1.5 <= v < 2.5),
-        "bin_3": sum(1 for v in selected_values if 2.5 <= v < 3.5),
-        "bin_4": sum(1 for v in selected_values if 3.5 <= v < 4.5),
-        "bin_5": sum(1 for v in selected_values if v >= 4.5),
-        "n_gesamt": n_gesamt,
-        "n_monat": n_monat,
-        "n_tag": n_tag,
-        "n_stunde": n_stunde,
-        "dimension": rows[0]["dimension"],
-    }

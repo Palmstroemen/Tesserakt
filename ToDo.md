@@ -97,13 +97,17 @@
 Grundsatz: Die genauen Geburtsdaten (Datum, Uhrzeit, Ort) braucht nur die Berechnung, im Moment des Spiels und
 im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnisse, nie der Ort.
 
-- [ ] Stand heute: Der Apparat speichert noch nichts. Die alten Spiele B/C speichern über `/session` das genaue
-  Datum und die Uhrzeit, den Ort auf 1° gerundet (rund 100 km) und die Zeitzone. Beim Anschluss des Apparats
-  gleich nach diesem Konzept speichern.
-- [ ] **Speichern:** Ergebnisse (Vektoren je Horoskop, Antworten, Skill, Perzentil), die Regelversion, mit der
-  gerechnet wurde, und den Kulturraum (Europa, China, Indien, Nordamerika, …; auch für die Auswertung „Kultur und
-  Erwartung“ oben).
-- [ ] **Ortsfreie Zwischenergebnisse statt Ort:** Damit lässt sich fast alles später neu rechnen, ohne dass ein
+- [x] **Umgesetzt (26.10.2026):** Der Apparat schickt am Ende jeder Runde (nur mit Einwilligung, nicht bei der
+  Abkürzung) `POST /runde` (`frontend/src/apparat/forschung.js`, `backend/forschung.py`, `backend/store.py`).
+  Gespeichert: Spiel, Antworten (erste Antwort, Wiederholungen; Spiel B mit Fenster und „Wann war das?“),
+  Skill/Perzentil/Fit je Horoskop, Geburtsjahr, Kulturraum, ob Uhrzeit und Ort eingestellt waren, Sprache, Datum,
+  Regelversion (Prüfsumme der Regel- und Fragendateien), Katalogversion. Nicht gespeichert: Datum, Uhrzeit, Ort,
+  Land, Vektoren, Daten des Gegenübers in Spiel C. Gesundheit nur als Mittel je Runde. Die alte Speicherung über
+  `/session` (genaues Datum und Uhrzeit) und `/vergleich` ist entfernt; Einwilligung auf Version 2.
+- [x] **Speichern:** Ergebnisse (Skill, Perzentil, Fit; Vektoren bewusst nicht, aus ihnen ließe sich bei offenem
+  Code das Geburtsdatum mit Stunde zurückrechnen), Antworten, die Regelversion, mit der gerechnet wurde, und den
+  Kulturraum (Europa, China, Indien, Nordamerika, …; auch für die Auswertung „Kultur und Erwartung“ oben).
+- [x] **Entfällt (keine Neuberechnung, siehe „Alternative“ unten):** ~~Ortsfreie Zwischenergebnisse statt Ort~~: Damit lässt sich fast alles später neu rechnen, ohne dass ein
   Ort gespeichert ist:
   - Zeichen des Aszendenten (nicht in Grad): reicht für die Ganzzeichen-Häuser (Hellenistisch, Vedisch-Lagna,
     Arabisch). Dazu Tag- oder Nachtgeburt.
@@ -111,25 +115,25 @@ im Arbeitsspeicher. Gespeichert werden Ergebnisse und ortsfreie Zwischenergebnis
   - Numerologie, Kabbalah: nur das Datum.
   - Westlich: Planeten in Zeichen und Aspekte brauchen nur Datum und Uhrzeit. Placidus-Häuser brauchen den
     Breitengrad: entweder auf Ganzzeichen-Häuser umstellen oder die Hausstellungen als Ergebnis speichern.
-- [ ] **Nicht speichern:** den Aszendenten in Grad (grenzt bei bekanntem Datum und bekannter Uhrzeit auf eine
+- [x] **Nicht speichern:** den Aszendenten in Grad (grenzt bei bekanntem Datum und bekannter Uhrzeit auf eine
   Nord-Süd-Linie ein, etwa wie der Längengrad), den MC (zusammen mit dem Aszendenten lässt sich der Ort wieder
   zurückrechnen) und die Planetenstände in Grad (der Mond wandert etwa ½° pro Stunde, ein Horoskop in Grad ist ein
   Fingerabdruck des Geburtszeitpunkts).
-- [ ] Ein verrauschter Ort (z. B. ±200 km Ost-West, ±100 km Nord-Süd) wäre nur **nach** der Berechnung zulässig.
+- [x] Ein verrauschter Ort (z. B. ±200 km Ost-West, ±100 km Nord-Süd) wäre nur **nach** der Berechnung zulässig.
   Davor verfälscht er das Ergebnis: 200 km Ost-West sind auf 48° Nord etwa 11 Minuten Sternzeit, der Aszendent
   verschiebt sich um rund 3°, bei grob jedem achten Menschen in ein anderes Zeichen.
-- [ ] **Der eigentliche Fingerabdruck ist Datum und Uhrzeit**, nicht der Ort. Grobe Schätzung der Menge möglicher
+- [x] **Der eigentliche Fingerabdruck ist Datum und Uhrzeit**, nicht der Ort. Grobe Schätzung der Menge möglicher
   Personen: genaues Datum + Stunde + Europa ≈ 800; mit dem Aszendenten in Grad noch 50–100; mit nur dem Zeichen des
   Aszendenten weiterhin ≈ 800.
-- [ ] **Zwei Stufen:**
+- [x] **Zwei Stufen** (entschieden: nur die zweite; ein genaues Datum wird gar nicht gespeichert):
   - Intern: genaues Datum und Uhrzeit für die Neuberechnung, nur mit ausdrücklicher Einwilligung. Rechtlich
     pseudonymisiert, also weiter personenbezogen (Auskunft, Löschung). Eventuell verschlüsselt, getrennt und mit
     Ablaufdatum.
   - Veröffentlichter Datensatz: Datum vergröbern (Geburtsjahr oder Monat), Kulturraum, Ergebnisse. Voraussichtlich
     anonym und dann außerhalb der DSGVO frei veröffentlichbar.
-- [ ] Alternative zur Neuberechnung: Jede Runde mit ihrer Regelversion festschreiben und neue Regeln nur an neuen
+- [x] **Gewählt:** Alternative zur Neuberechnung: Jede Runde mit ihrer Regelversion festschreiben und neue Regeln nur an neuen
   Spielen prüfen. Methodisch sogar sauberer, weil es nachträgliches Anpassen an die Daten verhindert.
-- [ ] **Die Antworten selbst sind das Heikelste.** Selbsteinschätzungen wie „Ich kann mit Geld überhaupt nicht
+- [x] **Die Antworten selbst sind das Heikelste.** Selbsteinschätzungen wie „Ich kann mit Geld überhaupt nicht
   umgehen“ sind sehr persönlich. Antworten zum Lebensbereich Gesundheit können nach der DSGVO Gesundheitsdaten
   sein (besondere Kategorie, Art. 9): nur mit ausdrücklicher Einwilligung und besonders geschützt.
   - Antworten nie zusammen mit dem genauen Geburtsdatum speichern (getrennte Tabellen, kein gemeinsamer Schlüssel

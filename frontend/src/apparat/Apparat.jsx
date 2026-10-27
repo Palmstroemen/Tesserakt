@@ -1,5 +1,6 @@
 import Zettel, { zettelWeglegen } from "./Zettel";
 import { kameraErlaubt } from "./einwilligung";
+import { neueRundeId, rundeSenden } from "./forschung";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   calculateRating,
@@ -165,6 +166,7 @@ export default function Apparat() {
   const [zAntworten, setZAntworten] = useState([]);
 
   const [antworten, setAntworten] = useState([]);
+  const rundeId = useRef(null); // Kennung der Runde fuer die Forschung (forschung.js), neu je Spiel
   const [runde, setRunde] = useState(0);
   // Zurueckgehen ("‹"): fuer die Forschung zaehlt die erste Antwort auf eine Frage, gegeben bevor man die
   // Systeme gesehen hat; das persoenliche Ergebnis rechnet mit der letzten. Gemerkt je Frage, je Runde neu.
@@ -283,6 +285,7 @@ export default function Apparat() {
     setFehler(null);
     setSpiel(wahl === "X" ? "A" : paarSpiel ? "C" : wahl);
     setAbkuerzung(schnell);
+    rundeId.current = neueRundeId();
     setAuswertung(false);
     setTextkarten(false);
     setKartenOffen(false);
@@ -717,7 +720,19 @@ export default function Apparat() {
               hinweis={abkuerzung ? t("ergebnis.abkuerzung") : null}
               sofort={abkuerzung}
               vonMitte={spiel === "C"}
-              onAuswertung={() => setAuswertung(true)}
+              onAuswertung={() => {
+                setAuswertung(true);
+                // gewuerfelte Antworten (Abkuerzung) gehoeren nicht in die Forschung
+                if (!abkuerzung)
+                  rundeSenden({
+                    rundeId: rundeId.current,
+                    spiel,
+                    person: geburt?.a,
+                    ergebnis,
+                    antworten,
+                    zeitpunkte: zAntworten,
+                  });
+              }}
               onRueckgaengig={rueckgaengig}
               steuerung={steuerung}
               onWeiter={() => {

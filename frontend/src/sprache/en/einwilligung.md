@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 ---
 <!--
 Front sheet of the Apparatus (English translation of de/einwilligung.md). The version is taken from the

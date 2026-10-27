@@ -31,14 +31,17 @@ our server for the calculation. The server calculates with it and then forgets i
 - your answers to the questions and which game you played; if you go back a question, also your first answer
   and how often you changed it (the first answer always counts for the analysis)
 - the results of the horoscopes (how well each one matched your answers)
-- your year of birth, possibly only as a range (e.g. 1980–1984)
+- your year of birth
+- whether you set the time and the place of birth (only yes or no)
 - your cultural region, e.g. Europe, India or China
 - the language of the game and the date of the game
 
 ## What We Never Store
 
 - your name or anything else that directly identifies you
-- your place of birth and your exact date of birth
+- your place of birth, your exact date of birth and your time of birth
+- the calculated values of the horoscopes themselves (your date of birth could be worked out from them)
+- in Game C, no birth data of your partner, not even the year
 - camera images
 - your email address, phone number or device ID
 

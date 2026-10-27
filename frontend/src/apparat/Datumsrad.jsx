@@ -317,7 +317,7 @@ export default function Datumsrad({
     return {
       geburtsdatum: `${jahr}-${zwei(monat + 1)}-${zwei(Math.min(tag, tageImMonat(jahr, monat)))}`,
       uhrzeit: `${zwei(stunde)}:00`,
-      uhrzeitBekannt: stundeBewegt, // fuer spaetere Auswertung (noch nicht gespeichert)
+      uhrzeitBekannt: stundeBewegt, // fuer die Forschung (forschung.js: nur ja oder nein)
       ort,
     };
   }
