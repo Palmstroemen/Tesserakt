@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+// Signierung fuer Google Play aus keystore.properties (nicht im Repo, Vorlage keystore.properties.beispiel).
+// Ohne die Datei baut der Release-Build unsigniert.
+def keystoreDatei = rootProject.file('keystore.properties')
+def keystore = new Properties()
+if (keystoreDatei.exists()) keystoreDatei.withInputStream { keystore.load(it) }
+
 android {
     namespace "com.tesserakt.app"
     compileSdk rootProject.ext.compileSdkVersion
@@ -16,8 +22,24 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        if (keystoreDatei.exists()) {
+            release {
+                storeFile file(keystore['storeFile'])
+                storePassword keystore['storePassword']
+                keyAlias keystore['keyAlias']
+                keyPassword keystore['keyPassword']
+            }
+        }
+    }
     buildTypes {
+        // Unverschluesseltes HTTP nur im Debug-Build (Emulator gegen den Entwicklungsrechner, 10.0.2.2)
+        debug {
+            manifestPlaceholders = [klartext: "true"]
+        }
         release {
+            manifestPlaceholders = [klartext: "false"]
+            if (keystoreDatei.exists()) signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
