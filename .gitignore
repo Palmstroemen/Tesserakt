@@ -47,3 +47,6 @@ logs/
 # Generierte Ausgaben / Editor-Logs
 tools/output/
 .cursor/
+
+# Eigene Bilder, Videos und Prompts (nicht im Repo)
+pics/
