@@ -80,7 +80,7 @@ Inhalt nicht. Die Testdatenbank wird nicht in den Datensatz des Experiments übe
 ```bash
 cd Tesserakt/server
 cp .env.beispiel .env                 # COMPOSE_FILE=docker-compose.funnel.yml einkommentieren
-docker compose up -d --build          # Backend nur auf 127.0.0.1:8000
+docker compose up -d --build          # Backend nur auf 127.0.0.1:8000 (oder TESSERAKT_PORT)
 tailscale funnel --bg 8000            # beim ersten Mal: Link zum Freigeben von Funnel im Tailnet
 tailscale funnel status               # zeigt die öffentliche Adresse
 ```
