@@ -70,6 +70,24 @@ Ergebnis: `frontend/android/app/build/outputs/bundle/release/app-release.aab` (s
 `frontend/android/keystore.properties` vorhanden ist). Vor jedem Upload `versionCode` in
 `frontend/android/app/build.gradle` erhöhen.
 
+## Testbetrieb mit Tailscale Funnel
+
+Für den geschlossenen Test läuft das Backend auf einem Rechner mit Tailscale (derzeit der GMKtec zu Hause),
+ohne Domain, ohne Caddy und ohne Portfreigabe am Router. Funnel stellt HTTPS unter
+`https://<rechner>.<tailnet>.ts.net` bereit; die Verschlüsselung endet auf dem Rechner, Tailscale sieht den
+Inhalt nicht. Die Testdatenbank wird nicht in den Datensatz des Experiments übernommen.
+
+```bash
+cd Tesserakt/server
+cp .env.beispiel .env                 # COMPOSE_FILE=docker-compose.funnel.yml einkommentieren
+docker compose up -d --build          # Backend nur auf 127.0.0.1:8000
+tailscale funnel --bg 8000            # beim ersten Mal: Link zum Freigeben von Funnel im Tailnet
+tailscale funnel status               # zeigt die öffentliche Adresse
+```
+
+Einmalig vorher (mit sudo): Docker installieren, den Benutzer in die Gruppe `docker` aufnehmen und
+`sudo tailscale set --operator=$USER`, damit Funnel ohne sudo geht. Abschalten: `tailscale funnel --https=443 off`.
+
 ## Server zu Hause statt gemietet
 
 Geht genauso, zusätzlich: am Router Ports 80 und 443 auf den Server weiterleiten, dem Server im Router eine

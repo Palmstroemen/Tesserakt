@@ -31,8 +31,8 @@ services:
       - "443:443"
       - "443:443/udp"
     environment:
-      DOMAIN: ${DOMAIN:?DOMAIN in server/.env setzen}
-      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL in server/.env setzen}
+      DOMAIN: ${DOMAIN:-} # Pflicht im Vollbetrieb (server/.env)
+      ACME_EMAIL: ${ACME_EMAIL:-}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_daten:/data
