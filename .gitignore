@@ -50,3 +50,7 @@ tools/output/
 
 # Eigene Bilder, Videos und Prompts (nicht im Repo)
 pics/
+
+# Server: Sicherungen der Forschungsdatenbank bleiben am Server
+server/sicherungen/
+!.env.beispiel

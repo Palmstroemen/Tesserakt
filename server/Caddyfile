@@ -1,0 +1,26 @@
+{
+	email {$ACME_EMAIL}
+	# Fehlermeldungen zu Anfragen enthielten IP-Adresse, Kopfzeilen und Suchbegriffe: nicht protokollieren
+	log default {
+		exclude http.log.error
+	}
+}
+
+{$DOMAIN} {
+	# Kein Zugriffsprotokoll (Caddy schreibt ohne "log" keines): keine IP-Adressen, keine Suchbegriffe
+
+	encode zstd gzip
+
+	request_body {
+		max_size 256KB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		-Server
+	}
+
+	reverse_proxy backend:8000
+}

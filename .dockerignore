@@ -1,0 +1,7 @@
+# Ins Server-Abbild kommen nur backend/ und content/ (server/Dockerfile)
+*
+!backend/
+!content/
+backend/assessment.db
+backend/**/__pycache__/
+backend/**/*.pyc

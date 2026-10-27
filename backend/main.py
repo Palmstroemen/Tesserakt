@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import random
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -61,8 +62,8 @@ def _sprache(accept_language: Optional[str] = Header(default=None)) -> str:
 app.add_middleware(
     CORSMiddleware,
     # Entwicklung: localhost und Geraete im privaten Heimnetz (Handy-Test im WLAN, start-dev.sh --handy).
-    # Fuer einen oeffentlichen Betrieb auf die echte Domain beschraenken.
-    allow_origin_regex=(
+    # Auf dem Server nur die App (TESSERAKT_ORIGINS, siehe server/docker-compose.yml).
+    allow_origin_regex=os.environ.get("TESSERAKT_ORIGINS") or (
         r"https?://(localhost|127\.0\.0\.1|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}"
         r"|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(:\d+)?$"
     ),

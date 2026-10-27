@@ -71,7 +71,7 @@ Die verbindliche Aufgabenliste für die Umsetzung wird in `ToDo.md` gepflegt.
 
 ## Entwicklung
 
-Lokal starten und testen: `docs/dev_workflow.md`.
+Lokal starten und testen: `docs/dev_workflow.md`. Server (Docker, HTTPS, Sicherung): `docs/betrieb.md`.
 
 ## Kopien und das Experiment
 

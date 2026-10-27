@@ -1,0 +1,46 @@
+# Tesserakt-Server: Backend hinter Caddy (HTTPS mit Let's Encrypt). Anleitung: docs/betrieb.md
+# Einstellungen in server/.env (Vorlage .env.beispiel).
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    environment:
+      # Nur die App darf das Backend aus dem Browser heraus ansprechen (Capacitor: Android https://localhost,
+      # iOS capacitor://localhost)
+      TESSERAKT_ORIGINS: "^(https://localhost|capacitor://localhost)$"
+    volumes:
+      - daten:/daten
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 60s
+      timeout: 5s
+
+  caddy:
+    image: caddy:2.10
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:?DOMAIN in server/.env setzen}
+      ACME_EMAIL: ${ACME_EMAIL:?ACME_EMAIL in server/.env setzen}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_daten:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+
+volumes:
+  daten:       # Forschungsdatenbank (forschung.db): sichern mit server/sicherung.sh
+  caddy_daten: # Zertifikate
+  caddy_config:

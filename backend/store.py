@@ -9,12 +9,14 @@ beschrieben; eine alte Datenbank behaelt sie, bis sie geloescht wird.
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List
 
-DB_PATH = Path(__file__).resolve().parent / "assessment.db"
+# Auf dem Server liegt die Datenbank auf einem eigenen Volume (TESSERAKT_DB, siehe server/docker-compose.yml)
+DB_PATH = Path(os.environ.get("TESSERAKT_DB") or Path(__file__).resolve().parent / "assessment.db")
 
 
 def _conn() -> sqlite3.Connection:
