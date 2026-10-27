@@ -1,5 +1,5 @@
 ---
-version: 2
+version: 3
 ---
 <!--
 Front sheet of the Apparatus (English translation of de/einwilligung.md). The version is taken from the
@@ -22,7 +22,8 @@ Tesserakt is a game and an experiment at the same time: do horoscopes hit the ma
 allows?
 
 If you agree, we store your answers and the results for scientific analysis – **without your name and
-without your place of birth**. Exactly what is stored is described in the detailed explanation.
+without your place of birth**. This includes your answers about health; they are only stored in summarised form.
+Exactly what is stored is described in the detailed explanation. You can consent from the age of 14.
 
 **One request:** If you agree, please answer honestly and thoughtfully. Only sincere answers help the research.
 If you'd rather just try it out, play without consent – that's perfectly fine, and the game is the same.

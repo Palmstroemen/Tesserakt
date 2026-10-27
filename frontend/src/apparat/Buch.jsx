@@ -16,6 +16,8 @@ import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
 import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
 import { buchtexte, t } from "../sprache";
+import { datenErlaubt, kameraErlaubt } from "./einwilligung";
+import Vorblatt from "./Vorblatt";
 import deckelBild from "./kaestchen/deckel.webp";
 
 const DIMENSIONEN = [
@@ -383,6 +385,8 @@ export default function Buch({
   const [erklaerungen, setErklaerungen] = useState([]);
   const [dunkel, setDunkel] = useState(false);
   const [gesetzt, setGesetzt] = useState(null); // Abschnitte mit fertig gesetzten Textseiten
+  const [forschung, setForschung] = useState(datenErlaubt);
+  const [vorblatt, setVorblatt] = useState(false);
   const muster = useRef(null);
 
   useEffect(() => {
@@ -435,6 +439,7 @@ export default function Buch({
   const seiten = [];
   let nummer = 1;
   let imHoroskop = 0; // Seiten des laufenden Horoskops
+  let quellenEnde = null; // nach den Quellen (letzter Abschnitt) steht die Einwilligung zur Forschung
   (gesetzt ?? []).forEach((a, i) => {
     if (a.art === "titel") {
       seiten.push(
@@ -538,6 +543,7 @@ export default function Buch({
           </Seite>,
         );
       });
+      if (i === gesetzt.length - 1) quellenEnde = seiten.length;
     } else if (a.art === "horoskop-ende") {
       // die naechste Grafik soll wieder links stehen: notfalls eine Notizseite
       if (imHoroskop % 2)
@@ -594,7 +600,37 @@ export default function Buch({
       <div className="buch-muster" aria-hidden="true">
         <section className="buch-seite text" ref={muster} />
       </div>
-      <div className="buch">{seiten}</div>
+      <div className="buch">
+        {seiten.slice(0, quellenEnde ?? seiten.length)}
+        {/* nur am Bildschirm, keine Buchseite */}
+        {quellenEnde !== null ? (
+          <div className="buch-einwilligung">
+            <span>
+              {forschung ? t("buch.forschung_ja") : t("buch.forschung_nein")}
+            </span>
+            <button
+              type="button"
+              className="vb-link"
+              onClick={() => setVorblatt(true)}
+            >
+              {t("buch.forschung_aendern")}
+            </button>
+          </div>
+        ) : null}
+        {seiten.slice(quellenEnde ?? seiten.length)}
+      </div>
+      {vorblatt ? (
+        <div className="buch-vorblatt">
+          <Vorblatt
+            start="daten"
+            kameraVorher={kameraErlaubt()}
+            onFertig={(e) => {
+              setForschung(e.daten);
+              setVorblatt(false);
+            }}
+          />
+        </div>
+      ) : null}
     </div>,
     document.body,
   );

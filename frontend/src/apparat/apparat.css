@@ -3010,6 +3010,35 @@ body::after {
   color: #c9a66b;
 }
 
+/* Einwilligung zur Forschung unter der Quellenseite: nur am Bildschirm, keine Buchseite (Buch.jsx) */
+.buch-einwilligung {
+  width: var(--seite);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px 12px;
+  font-size: 0.85rem;
+  color: #e8d9bd;
+  text-align: center;
+}
+
+.buch-einwilligung .vb-link {
+  color: #f0d59c;
+}
+
+/* das Vorblatt ueber dem Buch */
+.buch-vorblatt .vb-ebene {
+  z-index: 50;
+}
+
+@media print {
+  .buch-einwilligung,
+  .buch-vorblatt {
+    display: none !important;
+  }
+}
+
 .buch-rueckseite-text span {
   display: block;
   margin-bottom: 1cqw;

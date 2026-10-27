@@ -27,6 +27,9 @@ nehmen nichts auf, speichern nichts und senden nichts an uns oder an andere.
 Für die Horoskope brauchen wir dein Geburtsdatum, die Uhrzeit und den Ort. Diese Angaben schickt der Apparat zum
 Rechnen an unseren Server. Er rechnet damit und vergisst sie wieder – egal, ob du einwilligst oder nicht.
 
+In Spiel C gibst du auch die Geburtsdaten einer anderen Person ein. Frag sie bitte vorher. Auch ihre Daten werden
+nur gerechnet und nie gespeichert.
+
 ## Was wir speichern, wenn du einwilligst
 
 - deine Antworten auf die Fragen und welches Spiel du gespielt hast; gehst du eine Frage zurück, auch deine
@@ -66,7 +69,7 @@ speichern, kann niemand auf dich persönlich schließen – auch wir nicht.
 
 Solange das Experiment läuft und die Auswertung nachprüfbar sein soll. Weil die gespeicherten Daten dich nicht
 erkennbar machen, können wir sie später auch nicht mehr dir zuordnen – und deshalb nicht einzeln löschen. Deine
-Entscheidung für künftige Spiele kannst du jederzeit ändern.
+Entscheidung für künftige Spiele kannst du jederzeit ändern: im Buch, unter der Seite mit den Quellen.
 
 ## Nachprüfbar
 
@@ -85,6 +88,5 @@ Recht, dich bei der Datenschutzbehörde zu beschweren (in Österreich: Datenschu
 
 ## Wer verantwortlich ist
 
-[Name oder Firma]\
-[Anschrift]\
-[E-Mail-Adresse für Datenschutzfragen]
+Oliver Rafelsberger, Österreich\
+palmstroem177@gmail.com

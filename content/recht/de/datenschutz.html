@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+Datenschutzerklaerung (vom Backend unter /datenschutz ausgeliefert, Link fuer Google Play und App Store).
+Muss zu frontend/src/sprache/de/datenverwendung.md und zu backend/forschung.py passen.
+ENTWURF: vor dem oeffentlichen Start rechtlich pruefen lassen. Noch zu pruefen: Sitz von Tailscale Inc. (Kanada
+oder USA) und Grundlage der Uebermittlung, z. B. Angemessenheitsbeschluss.
+-->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tesserakt – Datenschutz</title>
+<style>
+  :root { --text: #2a2118; --grund: #f6f1e7; --linie: #d8ccb6; --gedaempft: #6b5d4c; }
+  @media (prefers-color-scheme: dark) {
+    :root { --text: #eadfcb; --grund: #16110d; --linie: #4a3d2e; --gedaempft: #a8987f; }
+  }
+  body { margin: 0; background: var(--grund); color: var(--text);
+         font: 17px/1.55 Georgia, "Times New Roman", serif; }
+  main { max-width: 42rem; margin: 0 auto; padding: 2rem 16px 4rem; }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .3rem; }
+  h2 { font-size: 1.2rem; margin: 2.2rem 0 .5rem; padding-top: .8rem; border-top: 1px solid var(--linie); }
+  .stand { color: var(--gedaempft); margin: 0 0 1.5rem; }
+  ul { padding-left: 1.3rem; }
+  li { margin: .25rem 0; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Datenschutzerklärung</h1>
+<p class="stand">Tesserakt, App und Server · Stand: 27. Oktober 2026, Fassung 1</p>
+
+<h2>Kurz gesagt</h2>
+<ul>
+  <li>Die Kamerabilder verlassen dein Gerät nie.</li>
+  <li>Geburtsdatum, Uhrzeit und Geburtsort werden auf unserem Server nur gerechnet und nicht gespeichert.</li>
+  <li>Nur wenn du einwilligst, speichern wir deine Antworten und Ergebnisse für die Forschung – ohne Namen, ohne
+      Geburtsort, ohne genaues Geburtsdatum.</li>
+  <li>Keine Werbung, kein Tracking, keine Analysedienste, kein Verkauf von Daten.</li>
+</ul>
+
+<h2>Wer verantwortlich ist</h2>
+<p>Oliver Rafelsberger, Österreich<br>
+E-Mail: <a href="mailto:palmstroem177@gmail.com">palmstroem177@gmail.com</a></p>
+
+<h2>Was nur auf deinem Gerät geschieht</h2>
+<ul>
+  <li><strong>Kamera:</strong> Der Apparat nutzt die Kameras für zwei Effekte: Die Rückkamera lässt das magische
+      Auge durchscheinen, die Frontkamera spiegelt dein Gesicht im Glas des Ergebnisses. Die Bilder werden nur auf
+      deinem Gerät angezeigt. Nichts wird aufgenommen, gespeichert oder gesendet. Die Kamera wird nur verwendet,
+      wenn du sie im Vorblatt freigibst; ohne Kamera funktioniert das Spiel genauso.</li>
+  <li><strong>Lagesensor:</strong> Wenn du das Gerät kippst, verschieben sich Teile des Apparats. Die Werte des
+      Sensors werden nur auf dem Gerät verwendet.</li>
+  <li><strong>Gespeichert auf dem Gerät:</strong> deine Entscheidungen im Vorblatt (Kamera, Forschung) mit Datum
+      und ob du den Einführungsfilm und den Zettel schon gesehen hast. Diese Angaben bleiben auf dem Gerät.</li>
+</ul>
+
+<h2>Was der Apparat zum Rechnen an unseren Server schickt</h2>
+<p>Die Horoskope rechnet unser Server. Dafür schickt der Apparat:</p>
+<ul>
+  <li>dein Geburtsdatum, die Uhrzeit und den Geburtsort (als Koordinaten und Zeitzone), in Spiel C auch die
+      Geburtsdaten deines Gegenübers</li>
+  <li>die Suchbegriffe, wenn du einen Ort suchst</li>
+  <li>die Sprache deines Geräts (für die Texte) und seine Zeitzone (für die Preise des Buchs)</li>
+</ul>
+<p>Der Server rechnet damit und vergisst die Angaben wieder. Er speichert sie nicht und schreibt keine Protokolle
+über Anfragen, also auch keine IP-Adressen. Deine IP-Adresse ist ihm nur für die Dauer der Verbindung bekannt,
+weil er sonst nicht antworten könnte.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO – du forderst die Berechnung an, und ohne diese
+Angaben lässt sie sich nicht durchführen.</p>
+<p>Wenn du die Geburtsdaten einer anderen Person eingibst (Spiel C), sorge bitte dafür, dass sie damit
+einverstanden ist; darauf weist auch die Erklärung im Vorblatt hin. Ihre Daten werden nur gerechnet und nie
+gespeichert.</p>
+
+<h2>Was wir für die Forschung speichern, wenn du einwilligst</h2>
+<p>Tesserakt ist zugleich ein wissenschaftliches Experiment: Treffen Horoskope mehr, als der Zufall erlaubt? Nur
+wenn du im Vorblatt einwilligst, speichern wir am Ende jeder Runde:</p>
+<ul>
+  <li>deine Antworten auf die Fragen und welches Spiel du gespielt hast; gehst du eine Frage zurück, auch deine
+      erste Antwort und wie oft du sie geändert hast</li>
+  <li>die Ergebnisse der Horoskope (wie gut jedes zu deinen Antworten gepasst hat)</li>
+  <li>dein Geburtsjahr</li>
+  <li>ob du Uhrzeit und Ort eingestellt hast (nur ja oder nein)</li>
+  <li>deinen Kulturraum, z. B. Europa, Indien oder China (aus dem Land des Geburtsorts bestimmt; das Land selbst
+      wird nicht gespeichert)</li>
+  <li>die Sprache des Spiels, die Spracheinstellung des Geräts und das Datum des Spiels</li>
+  <li>die Fassung der Regeln und Fragen, mit der gerechnet wurde</li>
+</ul>
+<p><strong>Nie gespeichert</strong> werden dein Name, dein Geburtsort, dein genaues Geburtsdatum und deine
+Geburtszeit, die Rechenwerte der Horoskope (aus ihnen ließe sich das Geburtsdatum zurückrechnen), Daten deines
+Gegenübers in Spiel C, Kamerabilder, E-Mail-Adresse, Telefonnummer, IP-Adresse und Gerätekennungen.</p>
+<p><strong>Antworten zur Gesundheit</strong> können nach der DSGVO Gesundheitsdaten sein. Wir speichern sie nicht
+einzeln, sondern nur als Mittelwert je Runde.</p>
+<p><strong>Rechtsgrundlage:</strong> deine Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, für Angaben zur
+Gesundheit nach Art. 9 Abs. 2 lit. a DSGVO, verarbeitet für wissenschaftliche Forschungszwecke im Sinne von
+Art. 89 DSGVO. Das Vorblatt nennt die Antworten zur Gesundheit ausdrücklich.</p>
+<p><strong>Zweck:</strong> allein die Frage, ob Horoskope mehr treffen als der Zufall. Die Ergebnisse
+veröffentlichen wir als wissenschaftliche Auswertung und als offenen Datensatz, damit andere sie prüfen können.
+Auch darin bist du nicht erkennbar.</p>
+<p><strong>Speicherdauer:</strong> solange das Experiment läuft und die Auswertung nachprüfbar sein soll.</p>
+
+<h2>Deine Einwilligung zurücknehmen</h2>
+<p>Die Einwilligung ist freiwillig; ohne sie ist das Spiel dasselbe. Du kannst sie jederzeit für künftige Runden
+zurücknehmen oder neu geben: Im Buch steht unter der Seite mit den Quellen, ob deine Antworten gespeichert werden,
+daneben „Ändern“. Das öffnet das Blatt aus dem Vorblatt wieder. Was bis dahin gespeichert wurde, bleibt
+rechtmäßig.</p>
+<p>Die gespeicherten Runden enthalten nichts, womit wir sie dir zuordnen könnten. Deshalb können wir sie später
+nicht einzeln heraussuchen oder löschen (Art. 11 Abs. 2 DSGVO).</p>
+
+<h2>Wo der Server steht</h2>
+<p>Während der Testphase läuft der Server auf einem Rechner des Verantwortlichen in Österreich. Die Verbindung aus
+dem Internet läuft über den Dienst Tailscale Funnel (Tailscale Inc.). Die Verbindung ist bis zu unserem Rechner
+verschlüsselt; Tailscale leitet sie nur weiter und sieht dabei die IP-Adresse deines Geräts und den Zeitpunkt,
+aber nicht den Inhalt. Rechtsgrundlage dafür ist unser berechtigtes Interesse an einem erreichbaren Server
+(Art. 6 Abs. 1 lit. f DSGVO).</p>
+<p>Die gespeicherten Forschungsdaten werden täglich auf einen weiteren Datenträger des Verantwortlichen gesichert.</p>
+
+<h2>Google Play</h2>
+<p>Die App wird über Google Play verteilt. Dafür gilt die Datenschutzerklärung von Google. Von Google erhalten wir
+nur zusammengefasste Statistiken (z. B. Zahl der Installationen) und Absturzberichte ohne Angaben zu deiner
+Person. Wir binden keine Dienste von Google oder anderen Anbietern in die App ein.</p>
+
+<h2>Weitergabe</h2>
+<p>Wir geben keine Daten an andere weiter, verkaufen keine Daten und verwenden sie nicht für Werbung. Veröffentlicht
+wird nur der offene Datensatz der Forschung, in dem niemand erkennbar ist.</p>
+
+<h2>Alter</h2>
+<p>In die Speicherung für die Forschung kannst du ab 14 Jahren selbst einwilligen, so steht es auch im Vorblatt
+(Österreich; in anderen Ländern gilt das dortige Alter, höchstens 16). Wenn du jünger bist, spiel bitte ohne
+Einwilligung.</p>
+
+<h2>Deine Rechte</h2>
+<p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und
+Widerspruch, soweit wir Daten dir zuordnen können, sowie das Recht, eine Einwilligung zu widerrufen. Schreib uns
+dazu an die oben genannte E-Mail-Adresse.</p>
+<p>Du kannst dich auch bei einer Datenschutzbehörde beschweren, in Österreich bei der Datenschutzbehörde,
+Barichgasse 40–42, 1030 Wien, <a href="https://www.dsb.gv.at">dsb.gv.at</a>.</p>
+
+<h2>Nachprüfbar</h2>
+<p>Der Quellcode von App und Server ist offen:
+<a href="https://github.com/Palmstroemen/Tesserakt">github.com/Palmstroemen/Tesserakt</a>. Dort lässt sich
+nachlesen, was der Apparat mit der Kamera tut, was er an den Server schickt und was der Server speichert.</p>
+
+</main>
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-version: 2
+version: 3
 ---
 <!--
 Vorblatt des Apparats (erscheint beim ersten Start und wieder, wenn sich "version" oben aendert).
@@ -22,8 +22,9 @@ Ohne Kamera funktioniert das Spiel genauso. Das Auge bleibt dann einfach etwas r
 Tesserakt ist ein Spiel und zugleich ein Experiment: Treffen Horoskope mehr, als der Zufall erlaubt?
 
 Wenn du einverstanden bist, speichern wir deine Antworten und die Ergebnisse für die wissenschaftliche Auswertung –
-**ohne deinen Namen und ohne deinen Geburtsort**. Was genau gespeichert wird, steht in der ausführlichen
-Erklärung.
+**ohne deinen Namen und ohne deinen Geburtsort**. Dazu gehören auch deine Antworten zur Gesundheit; sie werden nur
+zusammengefasst gespeichert. Was genau gespeichert wird, steht in der ausführlichen Erklärung. Einwilligen kannst
+du ab 14 Jahren.
 
 **Eine Bitte:** Wenn du einwilligst, antworte ehrlich und überlegt. Nur ernsthafte Antworten helfen der Forschung.
 Willst du lieber nur ausprobieren, spiel ohne Einwilligung – das ist völlig in Ordnung, und das Spiel ist

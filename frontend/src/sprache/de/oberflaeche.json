@@ -125,7 +125,10 @@
     "seiten": "{anzahl} Seiten · 21 × 21 cm",
     "hell": "Hell",
     "dunkel": "Dunkel",
-    "drucken": "Drucken / PDF"
+    "drucken": "Drucken / PDF",
+    "forschung_ja": "Deine Antworten werden für die Forschung gespeichert.",
+    "forschung_nein": "Deine Antworten werden nicht gespeichert.",
+    "forschung_aendern": "Ändern"
   },
   "systeme": {
     "Numerologie": {

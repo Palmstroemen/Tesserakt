@@ -26,6 +26,9 @@ record nothing, store nothing and send nothing to us or to anyone else.
 For the horoscopes we need your date of birth, the time and the place. The Apparatus sends this information to
 our server for the calculation. The server calculates with it and then forgets it – whether you consent or not.
 
+In Game C you also enter the birth data of another person. Please ask them first. Their data, too, is only used
+for the calculation and never stored.
+
 ## What We Store If You Consent
 
 - your answers to the questions and which game you played; if you go back a question, also your first answer
@@ -64,7 +67,7 @@ from what we store – not even us.
 
 As long as the experiment runs and the analysis is meant to remain verifiable. Because the stored data does not
 identify you, we cannot assign it to you later either – and therefore cannot delete it individually. You can
-change your decision for future games at any time.
+change your decision for future games at any time: in the book, below the page with the sources.
 
 ## Verifiable
 
@@ -83,6 +86,5 @@ right to lodge a complaint with the data protection authority (in Austria: Daten
 
 ## Who Is Responsible
 
-[Name or company]\
-[Address]\
-[Email address for data protection questions]
+Oliver Rafelsberger, Austria\
+palmstroem177@gmail.com

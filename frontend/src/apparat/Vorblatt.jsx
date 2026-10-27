@@ -1,7 +1,8 @@
 // Vorblatt beim ersten Start: zwei Blaetter auf dem Apparat. Erst die Kamera (Freigabe gleich hier, damit die
 // Abfragen des Systems nicht mitten im Spiel kommen), dann die Datenverwendung mit der Bitte um ernsthafte
 // Antworten und der ausfuehrlichen Erklaerung. Die Texte stehen je Sprache in src/sprache/<sprache>/
-// einwilligung.md und datenverwendung.md.
+// einwilligung.md und datenverwendung.md. Aus dem Buch (Quellenseite) wieder aufrufbar, dann gleich mit dem Blatt
+// zu den Daten: die Einwilligung laesst sich so leicht zuruecknehmen, wie sie gegeben wurde.
 import { useState } from "react";
 import { datei, t } from "../sprache";
 import { Markdown, abschnitte, lesen } from "./markdown";
@@ -10,9 +11,9 @@ import { einwilligungSpeichern } from "./einwilligung";
 const [KAMERA, DATEN] = abschnitte(lesen(datei("einwilligung")).rumpf);
 const ERKLAERUNG = lesen(datei("datenverwendung")).rumpf;
 
-export default function Vorblatt({ onFertig }) {
-  const [blatt, setBlatt] = useState("kamera"); // kamera | daten | erklaerung
-  const [kamera, setKamera] = useState(false);
+export default function Vorblatt({ onFertig, start = "kamera", kameraVorher = false }) {
+  const [blatt, setBlatt] = useState(start); // kamera | daten | erklaerung
+  const [kamera, setKamera] = useState(kameraVorher);
   const [fragt, setFragt] = useState(false);
 
   function kameraFreigeben() {

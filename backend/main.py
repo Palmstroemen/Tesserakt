@@ -13,6 +13,7 @@ from uuid import uuid4
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 from arabic_chart import build_firdaria_chart, compute_lot_houses
@@ -301,6 +302,12 @@ def _stable_seed(seed_key: str) -> int:
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/datenschutz", response_class=HTMLResponse)
+def datenschutz() -> str:
+    """Datenschutzerklaerung als Webseite (Link fuer die Stores); bisher nur Deutsch."""
+    return (_content_root() / "content" / "recht" / "de" / "datenschutz.html").read_text(encoding="utf-8")
 
 
 @app.on_event("startup")
