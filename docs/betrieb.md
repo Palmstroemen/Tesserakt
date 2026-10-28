@@ -94,3 +94,34 @@ Geht genauso, zusätzlich: am Router Ports 80 und 443 auf den Server weiterleite
 feste Adresse geben und die wechselnde öffentliche IP per DynDNS an den DNS-Anbieter melden (je nach Anbieter,
 z. B. deSEC oder Cloudflare). Die Domain bleibt dieselbe, wenn der Server später umzieht; die App merkt davon
 nichts.
+
+## Google Play: Formular „Datensicherheit“
+
+So in der Play Console eingetragen (Stand 28. Oktober 2026, App 1.0, versionCode 1). Muss zu
+`content/recht/de/datenschutz.html` passen. Neu prüfen, wenn die App oder der Server andere Daten sendet oder
+speichert, eine Bibliothek mit eigener Datenerhebung dazukommt (Analyse, Absturzberichte, Werbung) oder ein
+anderer Anbieter den Server betreibt.
+
+Allgemein:
+
+- Daten erhoben oder geteilt: ja
+- Übertragung verschlüsselt: ja (HTTPS; Klartext ist im Release gesperrt)
+- Konten: die App erlaubt keine Konten
+- Löschen beantragen: nein, die gespeicherten Runden lassen sich niemandem zuordnen (Art. 11 Abs. 2 DSGVO)
+- Unabhängige Sicherheitsprüfung: nein
+
+Datentypen (alle erhoben, keiner geteilt, Zweck jeweils „App-Funktionen“, weil das Experiment der erklärte
+Zweck der App ist; „Forschung“ gibt es in Googles Liste nicht):
+
+| Datentyp | Was | Nur kurzzeitig | Pflicht/optional |
+|---|---|---|---|
+| Persönliche Daten → Sonstige Daten | Geburtsdatum, -zeit, -ort und Gegenüber in Spiel C (nur gerechnet); Geburtsjahr, Kulturraum (gespeichert) | nein | Pflicht |
+| Gesundheit → Gesundheitsinformationen | Antworten zur Gesundheit, nur als Mittelwert | nein | optional |
+| App-Aktivitäten → Interaktionen | gespieltes Spiel, geänderte Antworten | nein | optional |
+| App-Aktivitäten → Sonstige Inhalte von Nutzern | Antworten auf die Fragen | nein | optional |
+| App-Aktivitäten → Suchverlauf in der App | Ortssuche | ja | Pflicht |
+
+Nicht angegeben: Fotos und Videos (Kamera nur auf dem Gerät), Standort (Geburtsort ist nicht der Standort des
+Geräts, keine Standort-Berechtigung), Geräte-IDs, Diagnosedaten (Absturzberichte sammelt Google Play selbst).
+
+Nicht als Teilen gezählt: Tailscale (Dienstleister, leitet nur weiter) und der offene Datensatz (anonymisiert).
