@@ -74,19 +74,27 @@ Ergebnis: `frontend/android/app/build/outputs/bundle/release/app-release.aab` (s
 
 Für den geschlossenen Test läuft das Backend auf einem Rechner mit Tailscale (derzeit der GMKtec zu Hause),
 ohne Domain, ohne Caddy und ohne Portfreigabe am Router. Funnel stellt HTTPS unter
-`https://<rechner>.<tailnet>.ts.net` bereit; die Verschlüsselung endet auf dem Rechner, Tailscale sieht den
+`https://<rechner>.<tailnet>.ts.net:8443` bereit; die Verschlüsselung endet auf dem Rechner, Tailscale sieht den
 Inhalt nicht. Die Testdatenbank wird nicht in den Datensatz des Experiments übernommen.
+
+Auf dem GMKtec sind Port 8000 und die Tailscale-Adresse auf 443 schon von einem anderen Dienst belegt (443 nur
+im Tailnet). Tesserakt läuft deshalb auf `TESSERAKT_PORT=8765` und öffentlich auf 8443; Funnel erlaubt dafür
+443, 8443 und 10000. **Nie `tailscale funnel` ohne `--https=8443` aufrufen**, das überschreibt den Dienst auf 443.
 
 ```bash
 cd Tesserakt/server
-cp .env.beispiel .env                 # COMPOSE_FILE=docker-compose.funnel.yml einkommentieren
-docker compose up -d --build          # Backend nur auf 127.0.0.1:8000 (oder TESSERAKT_PORT)
-tailscale funnel --bg 8000            # beim ersten Mal: Link zum Freigeben von Funnel im Tailnet
-tailscale funnel status               # zeigt die öffentliche Adresse
+cp .env.beispiel .env                 # COMPOSE_FILE=docker-compose.funnel.yml und TESSERAKT_PORT=8765 einkommentieren
+docker compose up -d --build          # Backend nur auf 127.0.0.1:8765
+tailscale funnel --bg --https=8443 8765   # beim ersten Mal: Link zum Freigeben von Funnel im Tailnet
+tailscale funnel status               # 443 (nur Tailnet) und 8443 (Funnel, öffentlich) müssen beide da sein
 ```
 
+Die App wird gegen `VITE_API_BASE=https://gmxtec.tail83779a.ts.net:8443` gebaut, die Datenschutzerklärung liegt
+unter `https://gmxtec.tail83779a.ts.net:8443/datenschutz`.
+
 Einmalig vorher (mit sudo): Docker installieren, den Benutzer in die Gruppe `docker` aufnehmen und
-`sudo tailscale set --operator=$USER`, damit Funnel ohne sudo geht. Abschalten: `tailscale funnel --https=443 off`.
+`sudo tailscale set --operator=$USER`, damit Funnel ohne sudo geht. Abschalten nur von Tesserakt:
+`tailscale funnel --https=8443 off`.
 
 ## Server zu Hause statt gemietet
 
