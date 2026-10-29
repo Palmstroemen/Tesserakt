@@ -595,8 +595,9 @@ body::after {
   transition: none;
 }
 
+/* Spiegel im Glas: Deckkraft 0.5 + 0.5 * sin(kipp) (Keyframes bei sp-auge-kippen) */
 .sp-auftritt .sp-spiegel {
-  opacity: calc(0.5 + 0.5 * sin(var(--kipp)));
+  animation: sp-spiegel-kippen 1.05s linear 1.05s both;
   transition: none;
 }
 
@@ -1236,10 +1237,16 @@ body::after {
    senkrechte Achse in seiner Mitte, erst die Scheibe auf die Kante (1,05 s), dann das Auge von der Kante herein
    (1,05 s). --kipp ist der Winkel der sichtbaren Seite (0 = schaut her); sie wird um cos gestaucht und rueckt um
    sin mal halbe Dicke zur Seite. Dazwischen sieht man den Mantel (Mantel.jsx). Drehung gleichmaessig wie bei
-   der Muenzdrehung nach Silber. */
+   der Muenzdrehung nach Silber.
+   Scheibe, Auge, Linse, Tiefe und Spiegel kippen ueber fertig berechnete Keyframes (Winkel in Schritten von
+   7,5 Grad, dazwischen linear; erzeugt nach den Formeln in den Kommentaren): reine Transform- und
+   Opacity-Animationen uebernimmt der Grafikchip, die Ebenen werden einmal gemalt und nur noch bewegt. Ueber
+   eine animierte Variable muesste der Browser in jedem Bild Stil und Textlayout der ganzen Scheibe neu rechnen
+   (Ruckeln). Nur der Mantel (SVG-Teile, ohnehin nicht auf dem Grafikchip) rechnet noch mit --kipp; es wird
+   nicht vererbt und nur an seinen Teilen animiert. */
 @property --kipp {
   syntax: "<angle>";
-  inherits: true;
+  inherits: false;
   initial-value: 0deg;
 }
 
@@ -1252,8 +1259,7 @@ body::after {
 }
 
 .mantel-band,
-.mantel-ende,
-.mantel-rille {
+.mantel-ende {
   transform-box: view-box;
   transform-origin: 200px 200px;
 }
@@ -1269,15 +1275,8 @@ body::after {
     scaleX(cos(var(--kipp)));
 }
 
-/* Rille: so lang wie das Band breit ist, am Rand der sichtbaren Seite (Mantel.jsx) */
-.mantel-rille {
-  transform: translateX(
-      calc(var(--seite) * var(--ausladung) * -1px * cos(var(--kipp)))
-    )
-    scaleX(sin(var(--kipp)));
-}
-
-.dr-abgang {
+.dr-abgang .mantel-band,
+.dr-abgang .mantel-ende {
   animation: dr-kippen 1.05s linear forwards;
 }
 
@@ -1290,10 +1289,52 @@ body::after {
   }
 }
 
+/* rueckt um sin(kipp) * halbe Dicke zur Seite und wird um cos(kipp) gestaucht */
 .dr-abgang .dr-scheibe,
 .dr-abgang .dr-scheibe-mitte {
-  transform: translateX(calc(var(--halbdicke) * 0.25cqw * sin(var(--kipp))))
-    scaleX(cos(var(--kipp)));
+  animation: dr-scheibe-kippen 1.05s linear forwards;
+}
+
+@keyframes dr-scheibe-kippen {
+  0% {
+    transform: translateX(0cqw) scaleX(1);
+  }
+  8.3333% {
+    transform: translateX(0.8158cqw) scaleX(0.9914);
+  }
+  16.6667% {
+    transform: translateX(1.6176cqw) scaleX(0.9659);
+  }
+  25% {
+    transform: translateX(2.3918cqw) scaleX(0.9239);
+  }
+  33.3333% {
+    transform: translateX(3.125cqw) scaleX(0.866);
+  }
+  41.6667% {
+    transform: translateX(3.8048cqw) scaleX(0.7934);
+  }
+  50% {
+    transform: translateX(4.4194cqw) scaleX(0.7071);
+  }
+  58.3333% {
+    transform: translateX(4.9585cqw) scaleX(0.6088);
+  }
+  66.6667% {
+    transform: translateX(5.4127cqw) scaleX(0.5);
+  }
+  75% {
+    transform: translateX(5.7742cqw) scaleX(0.3827);
+  }
+  83.3333% {
+    transform: translateX(6.037cqw) scaleX(0.2588);
+  }
+  91.6667% {
+    transform: translateX(6.1965cqw) scaleX(0.1305);
+  }
+  100% {
+    transform: translateX(6.25cqw) scaleX(0);
+  }
 }
 
 /* auf der Kante uebernimmt der Mantel unter dem Auge */
@@ -1308,7 +1349,8 @@ body::after {
 }
 
 /* ... und von der Kante dreht sich das magische Auge herein */
-.sp-auftritt .sp-buehne {
+.sp-auftritt .mantel-band,
+.sp-auftritt .mantel-ende {
   animation: sp-kippen 1.05s linear 1.05s both;
 }
 
@@ -1321,21 +1363,145 @@ body::after {
   }
 }
 
+/* rueckt um sin(kipp) * halbe Dicke zur anderen Seite, gestaucht um cos(kipp) */
 .sp-auftritt .sp-augenteil,
 .sp-auftritt .sp-linse {
-  transform: translateX(calc(var(--halbdicke) * -0.25cqw * sin(var(--kipp))))
-    scaleX(cos(var(--kipp)));
+  animation: sp-auge-kippen 1.05s linear 1.05s both;
+}
+
+@keyframes sp-auge-kippen {
+  0% {
+    transform: translateX(-6.25cqw) scaleX(0);
+  }
+  8.3333% {
+    transform: translateX(-6.1965cqw) scaleX(0.1305);
+  }
+  16.6667% {
+    transform: translateX(-6.037cqw) scaleX(0.2588);
+  }
+  25% {
+    transform: translateX(-5.7742cqw) scaleX(0.3827);
+  }
+  33.3333% {
+    transform: translateX(-5.4127cqw) scaleX(0.5);
+  }
+  41.6667% {
+    transform: translateX(-4.9585cqw) scaleX(0.6088);
+  }
+  50% {
+    transform: translateX(-4.4194cqw) scaleX(0.7071);
+  }
+  58.3333% {
+    transform: translateX(-3.8048cqw) scaleX(0.7934);
+  }
+  66.6667% {
+    transform: translateX(-3.125cqw) scaleX(0.866);
+  }
+  75% {
+    transform: translateX(-2.3918cqw) scaleX(0.9239);
+  }
+  83.3333% {
+    transform: translateX(-1.6176cqw) scaleX(0.9659);
+  }
+  91.6667% {
+    transform: translateX(-0.8158cqw) scaleX(0.9914);
+  }
+  100% {
+    transform: translateX(0cqw) scaleX(1);
+  }
+}
+
+@keyframes sp-spiegel-kippen {
+  0% {
+    opacity: 1;
+  }
+  8.3333% {
+    opacity: 0.9957;
+  }
+  16.6667% {
+    opacity: 0.983;
+  }
+  25% {
+    opacity: 0.9619;
+  }
+  33.3333% {
+    opacity: 0.933;
+  }
+  41.6667% {
+    opacity: 0.8967;
+  }
+  50% {
+    opacity: 0.8536;
+  }
+  58.3333% {
+    opacity: 0.8044;
+  }
+  66.6667% {
+    opacity: 0.75;
+  }
+  75% {
+    opacity: 0.6913;
+  }
+  83.3333% {
+    opacity: 0.6294;
+  }
+  91.6667% {
+    opacity: 0.5653;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 /* Der Grund der Bohrung rueckt gegen die Oeffnung um tiefe * sin(kipp); in der gestauchten Linse ist das
    tiefe * tan(kipp). Steht der Puck steil, liegt das Dia ganz hinter der Wand. Schraeg durch die Linse gesehen
    vergroessert sie staerker: der Grund wird waagrecht gedehnt (statt die Polsterverzerrung in jedem Bild neu
    zu rechnen). */
+/* translateX(tiefe * min(tan(kipp), 40)) scaleX(1 + 0.4 * sin(kipp)) */
 .sp-auftritt .sp-tiefe {
-  transform: translateX(
-      calc(var(--tiefe) * 0.25cqw * min(tan(var(--kipp)), 40))
-    )
-    scaleX(calc(1 + 0.4 * sin(var(--kipp))));
+  animation: sp-tiefe-kippen 1.05s linear 1.05s both;
+}
+
+@keyframes sp-tiefe-kippen {
+  0% {
+    transform: translateX(750cqw) scaleX(1.4);
+  }
+  8.3333% {
+    transform: translateX(142.4204cqw) scaleX(1.3966);
+  }
+  16.6667% {
+    transform: translateX(69.976cqw) scaleX(1.3864);
+  }
+  25% {
+    transform: translateX(45.2665cqw) scaleX(1.3696);
+  }
+  33.3333% {
+    transform: translateX(32.476cqw) scaleX(1.3464);
+  }
+  41.6667% {
+    transform: translateX(24.4355cqw) scaleX(1.3173);
+  }
+  50% {
+    transform: translateX(18.75cqw) scaleX(1.2828);
+  }
+  58.3333% {
+    transform: translateX(14.3874cqw) scaleX(1.2435);
+  }
+  66.6667% {
+    transform: translateX(10.8253cqw) scaleX(1.2);
+  }
+  75% {
+    transform: translateX(7.7665cqw) scaleX(1.1531);
+  }
+  83.3333% {
+    transform: translateX(5.024cqw) scaleX(1.1035);
+  }
+  91.6667% {
+    transform: translateX(2.4685cqw) scaleX(1.0522);
+  }
+  100% {
+    transform: translateX(0cqw) scaleX(1);
+  }
 }
 
 /* Am Grund der Bohrung ist es zuerst dunkel; das Dia wird erst gegen Ende des Hereindrehens beleuchtet */

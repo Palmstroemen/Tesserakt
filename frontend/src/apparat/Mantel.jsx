@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { MITTE } from "./geometrie";
 
 // Mantel des flachen Zylinders unter Datumsscheibe und Auge: Die beiden sitzen wie die zwei Seiten einer dicken
@@ -13,7 +13,9 @@ export const HALBDICKE = 25; // wie --halbdicke in apparat.css; 50 Einheiten sin
 // Raendelung: Rillen in gleichen Winkelschritten um den Rand, von der Seite gesehen oben und unten gedraengt.
 // Jede Rille laeuft parallel zur Achse, von der sichtbaren zur abgewandten Seite: ein waagrechtes Stueck der
 // Laenge Dicke * sin(kipp), das am Rand der sichtbaren Seite beginnt, also um ausladung * cos(kipp) nach aussen
-// gerueckt (ausladung = halbe Breite des Kreises in dieser Hoehe). Die Verschiebung rechnet das CSS.
+// gerueckt (ausladung = halbe Breite des Kreises in dieser Hoehe). Alle Rillen sind ein Pfad (dazu einer fuer
+// die helle Kante darunter), der je Bild neu gesetzt wird: 63 einzeln animierte Gruppen liessen den Browser in
+// jedem Bild das SVG 63-mal neu anordnen (Ruckeln beim Uebergang).
 function rillen(r) {
   const n = 64;
   return Array.from({ length: n - 1 }, (_, k) => {
@@ -24,6 +26,23 @@ function rillen(r) {
     };
   });
 }
+
+function rillenPfad(liste, kippGrad, seite, dy) {
+  const k = (kippGrad * Math.PI) / 180;
+  const halb = HALBDICKE * Math.sin(k);
+  const c = Math.cos(k);
+  return liste
+    .map(({ y, ausladung }) => {
+      const m = MITTE.x - seite * ausladung * c;
+      return `M${(m - halb).toFixed(2)} ${y + dy}H${(m + halb).toFixed(2)}`;
+    })
+    .join("");
+}
+
+const KANTE = 0.9; // helle Kante unter jeder Rille
+// Kippen beim Uebergang (apparat.css: dr-kippen, sp-kippen, je 1,05 s gleichmaessig): Winkel von, bis
+const KIPPEN_MS = 1050;
+const KIPPEN = { "dr-kippen": [0, 90], "sp-kippen": [90, 0] };
 
 // Verlaeufe ueber den Rand (oben = Anfang); liegend laufen sie quer, zu den Seiten hin dunkler
 const VERLAUF = {
@@ -58,6 +77,48 @@ const Mantel = memo(function Mantel({
 }) {
   const p = praefix;
   const r = radius;
+  // --kipp wird nicht vererbt (apparat.css): bei der Muenzdrehung kommt es ueber style und muss an die Teile
+  const kipp = style?.["--kipp"];
+  const teil = kipp === undefined ? undefined : { "--kipp": kipp };
+  const liste = rillen(r);
+  const bandRef = useRef(null);
+  const kerbeRef = useRef(null);
+  const kanteRef = useRef(null);
+  // Muenzdrehung: Winkel und Seite kommen ueber style, React zeichnet ohnehin jedes Bild neu
+  const kippStil = parseFloat(kipp) || 0;
+  const seiteStil = Number(style?.["--seite"] ?? 1);
+
+  // Uebergang Datumsscheibe -> Auge: --kipp laeuft als CSS-Animation am Band (gleichmaessig, KIPPEN_MS). Den
+  // Winkel aus der Zeit seit animationstart rechnen statt ihn aus dem Stil zu lesen (getComputedStyle je Bild
+  // zwaenge den Browser, Stil und Layout jedes Mal neu zu rechnen).
+  useEffect(() => {
+    const band = bandRef.current;
+    if (!band) return undefined;
+    let bild = 0;
+    const setzen = (kippGrad, seite) => {
+      kerbeRef.current?.setAttribute("d", rillenPfad(liste, kippGrad, seite, 0));
+      kanteRef.current?.setAttribute("d", rillenPfad(liste, kippGrad, seite, KANTE));
+    };
+    const start = (e) => {
+      const [von, bis] = KIPPEN[e.animationName] ?? [];
+      if (von === undefined) return;
+      const seite = Number(getComputedStyle(band).getPropertyValue("--seite")) || 1;
+      const beginn = e.timeStamp;
+      cancelAnimationFrame(bild);
+      const lauf = (jetzt) => {
+        const t = Math.min(1, Math.max(0, (jetzt - beginn) / KIPPEN_MS));
+        setzen(von + (bis - von) * t, seite);
+        bild = t < 1 ? requestAnimationFrame(lauf) : 0;
+      };
+      bild = requestAnimationFrame(lauf);
+    };
+    band.addEventListener("animationstart", start);
+    return () => {
+      cancelAnimationFrame(bild);
+      band.removeEventListener("animationstart", start);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [r]);
   const links = MITTE.x - HALBDICKE;
   const breite = 2 * HALBDICKE;
   return (
@@ -86,7 +147,7 @@ const Mantel = memo(function Mantel({
 
       <g transform={liegend ? `rotate(90 ${MITTE.x} ${MITTE.y})` : undefined}>
         {/* Rand der abgewandten Seite: bis dorthin reicht der Mantel */}
-        <g className="mantel-ende">
+        <g className="mantel-ende" style={teil}>
           <circle
             cx={MITTE.x}
             cy={MITTE.y}
@@ -99,7 +160,7 @@ const Mantel = memo(function Mantel({
         </g>
 
         {/* Band zwischen den beiden Seiten */}
-        <g className="mantel-band">
+        <g className="mantel-band" style={teil} ref={bandRef}>
           <rect
             x={links}
             y={MITTE.y - r}
@@ -109,32 +170,22 @@ const Mantel = memo(function Mantel({
           />
         </g>
 
-        {rillen(r).map(({ y, ausladung }) => (
-          <g
-            key={y}
-            className="mantel-rille"
-            style={{ "--ausladung": ausladung }}
-          >
-            <line
-              x1={links}
-              y1={y}
-              x2={links + breite}
-              y2={y}
-              stroke="#1c1309"
-              strokeOpacity="0.55"
-              strokeWidth="0.9"
-            />
-            <line
-              x1={links}
-              y1={y + 0.9}
-              x2={links + breite}
-              y2={y + 0.9}
-              stroke="#fff0c8"
-              strokeOpacity="0.22"
-              strokeWidth="0.6"
-            />
-          </g>
-        ))}
+        <path
+          ref={kerbeRef}
+          d={rillenPfad(liste, kippStil, seiteStil, 0)}
+          fill="none"
+          stroke="#1c1309"
+          strokeOpacity="0.55"
+          strokeWidth="0.9"
+        />
+        <path
+          ref={kanteRef}
+          d={rillenPfad(liste, kippStil, seiteStil, KANTE)}
+          fill="none"
+          stroke="#fff0c8"
+          strokeOpacity="0.22"
+          strokeWidth="0.6"
+        />
       </g>
     </svg>
   );
