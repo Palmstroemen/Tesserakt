@@ -73,11 +73,6 @@ export function hebel() {
   rauschStoss(0.05, 1400, 0.4, 0.05);
 }
 
-export function ratsche() {
-  // alle Schieber schnappen zurueck
-  zahnrad(7, 0.16, 2100);
-}
-
 export function sperre() {
   // Hebel blockiert: dumpfes Anschlagen
   rauschStoss(0.06, 260, 0.7);

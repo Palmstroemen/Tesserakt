@@ -22,7 +22,7 @@ import {
   uAusWert,
   wertAusU,
 } from "./geometrie";
-import { einrasten, hebel, ratsche, rastKlick, sperre, zahnrad } from "./klang";
+import { einrasten, hebel, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
 import { neigungAbonnieren } from "./neigung";
 import { t } from "../sprache";
@@ -42,6 +42,7 @@ const HEBEL_ANKER = {
 };
 const HEBEL_DREHUNG = (-HEBEL.phi * 180) / Math.PI;
 const RUHE = 0.035; // u-Toleranz fuer "steht in der Ruheposition"
+const RUECKLAUF = 650; // ms, bis die Schieber nach dem Hochschieben des Hebels links in der Ruhe stehen
 // Prototyp: Belichtung und Lichtmesser-Werte im Auge anzeigen (aus; zum Kamera-Testen auf true)
 const MESSWERTE_ZEIGEN = false;
 
@@ -734,12 +735,26 @@ export default function Spielplatte({
     aufgezogenRef.current.clear();
     aufgezogenAktualisieren();
     einrasten();
-    ratsche();
     animiere("hebel", 0, 160);
-    ALLE.forEach((s, i) =>
-      animiere(s, 0, 300, { verz: 60 + i * 30, ease: easeMechanisch }),
-    );
-    animiere("user", 0, 300, { verz: 60 });
+    zuruecklaufen(60);
+    animiere("user", 0, RUECKLAUF, { verz: 60 });
+  }
+
+  // alle Systemschieber laufen nach links in die Ruhe; jeder tickert dabei im Takt seiner Bewegung (wie beim
+  // Ausloesen, nur rueckwaerts): je weiter der Weg, desto mehr Klicks
+  function zuruecklaufen(verzStart) {
+    ALLE.forEach((s, i) => {
+      const verz = verzStart + i * 30;
+      const weg = posRef.current[s] ?? 0;
+      if (weg > 0.02)
+        zahnrad(
+          Math.max(2, Math.round(weg * 18)),
+          RUECKLAUF / 1000,
+          1800 + i * 180,
+          { verz: verz / 1000, ease: easeMechanisch },
+        );
+      animiere(s, 0, RUECKLAUF, { verz, ease: easeMechanisch });
+    });
   }
 
   // "‹" links oben: eine Frage zurueck. Steht ein Ergebnis da (auch die Rangliste), wird die Frage noch einmal
@@ -763,11 +778,8 @@ export default function Spielplatte({
     aufgezogenAktualisieren();
     setRueckwaerts(true);
     setTimeout(() => setRueckwaerts(false), 1000);
-    ratsche();
     animiere("hebel", 0, 200);
-    ALLE.forEach((s, k) =>
-      animiere(s, 0, 320, { verz: 40 + k * 30, ease: easeMechanisch }),
-    );
+    zuruecklaufen(40);
     animiere("user", 0, 320, { verz: 40 });
     return true;
   }

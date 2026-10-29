@@ -38,6 +38,8 @@ const SPALT = 4; // Grad, wenn der Riegel offen ist
 const OFFEN = 108; // Grad, ganz aufgeschwungen
 const RIEGEL = { y: 1530, weg: 70 };
 export const FILM_GESEHEN = "tesserakt-film";
+const LEERES_BILD =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 // --- Fuge --------------------------------------------------------------------------------------------------
 
@@ -1006,6 +1008,9 @@ export default function Kaestchen({ film, onOffen }) {
           ref={videoRef}
           className={filmZeigen ? "ka-film" : "ka-film ka-film-aus"}
           src={filmDatei}
+          // ohne Vorschaubild zeigt die Android-WebView bis zum ersten Bild einen grauen Platzhalter mit
+          // Abspielpfeil; ein durchsichtiges Bild laesst stattdessen den dunklen Grund stehen
+          poster={LEERES_BILD}
           playsInline
           preload="auto"
           onEnded={filmEnde}
