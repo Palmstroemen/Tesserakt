@@ -57,3 +57,6 @@ server/sicherungen/
 
 # Sperrdateien von LibreOffice
 .~lock.*#
+
+# Testprotokolle (enthalten Namen der Tester)
+docs/Testfeedback/
