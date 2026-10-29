@@ -21,6 +21,8 @@ genauso? Ein drittes Spiel über vergangene Zeitabschnitte ist in Arbeit.
 Gespielt wird auf einem alten Apparat aus Messing, der in einem geschnitzten Holzkästchen liegt. Wie er
 funktioniert, findest du selbst heraus.
 
+Zum Schluss gibt's als Belohnung für die Teilnahme für jeden je nach Spiel alle aktuellen Horoskope und auf Wunsch auch noch in einem wunderschönen Buch gedruckt.
+
 ## Für Entwicklerinnen und Entwickler
 
 **Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
