@@ -73,6 +73,9 @@ const DIMENSIONEN = [
 ];
 const PLATTE_OBEN = 330; // Textfeld beginnt bei y = 300 (viewBox), Kreisbogen schneidet die Oberkante aus
 const BOGEN = 210; // Radius des ausgeschnittenen Bogens um MITTE
+// Beim Lesen rueckt das Auge langsam mit nach oben (Anteil des gescrollten Wegs), bis es samt Bogen aus dem
+// Bild ist; der Text gleitet dabei unter den Rand des Bogens.
+const AUGE_MIT = 0.35;
 const DIAGRAMM_BREITE = 300; // natuerliche Breite, in der die Diagramme gezeichnet werden
 
 // Diagramm in seiner natuerlichen Breite zeichnen, dann so verkleinern, dass es nach Breite UND Hoehe
@@ -226,6 +229,7 @@ export default function Ergebnisplatte({
   const [breite, setBreite] = useState(390);
   const [pos, setPos] = useState(0); // Index der Systemkarte (fliessend beim Wischen)
   const wisch = useRef(null);
+  const hoch = useRef({ ist: 0, ziel: 0, takt: 0 }); // wie weit das Auge nach oben gerueckt ist (px)
 
   useEffect(() => {
     const el = mainRef.current;
@@ -264,6 +268,26 @@ export default function Ergebnisplatte({
     if (b) setPos(b.scrollLeft / Math.max(1, b.clientWidth));
   }
 
+  // Ziel aus der sichtbaren Karte; das Auge folgt weich (beim Kartenwechsel springt es so nicht)
+  function augeNachfuehren() {
+    const b = bandRef.current;
+    const main = mainRef.current;
+    if (!b || !main) return;
+    const karte = b.children[Math.round(b.scrollLeft / Math.max(1, b.clientWidth))];
+    const ganz = ((MITTE.y + BOGEN) * main.clientWidth) / 400;
+    const h = hoch.current;
+    h.ziel = Math.min(ganz, (karte?.scrollTop ?? 0) * AUGE_MIT);
+    if (h.takt) return;
+    const schritt = () => {
+      h.ist += (h.ziel - h.ist) * 0.35;
+      if (Math.abs(h.ziel - h.ist) < 0.5) h.ist = h.ziel;
+      main.style.setProperty("--eg-hoch", `${h.ist}px`);
+      h.takt = h.ist === h.ziel ? 0 : requestAnimationFrame(schritt);
+    };
+    h.takt = requestAnimationFrame(schritt);
+  }
+  useEffect(() => () => cancelAnimationFrame(hoch.current.takt), []);
+
   function zuKarte(i) {
     const b = bandRef.current;
     b?.scrollTo({ left: i * b.clientWidth, behavior: "smooth" });
@@ -278,7 +302,7 @@ export default function Ergebnisplatte({
 
   return (
     <main className="sp eg" ref={mainRef} style={{ "--eg-k": `${k}px` }}>
-      <div className="sp-buehne">
+      <div className="sp-buehne eg-auge">
         <svg viewBox="0 0 400 400" className="sp-svg" aria-hidden="true">
           <defs>
             <radialGradient id="eg-messing" cx="35%" cy="30%" r="80%">
@@ -354,19 +378,22 @@ export default function Ergebnisplatte({
         </div>
       </div>
 
-      {/* Textfeld: Oberkante folgt dem Kreis; seitlich wischen = naechstes System */}
+      {/* Textfeld: reicht bis oben, sichtbar erst unter der Kante bei PLATTE_OBEN und ausserhalb des Bogens um
+          das Auge (beides rueckt mit dem Auge nach oben); seitlich wischen = naechstes System */}
       <section
         className="eg-platte"
         style={{
-          marginTop: `${-(400 - PLATTE_OBEN) * k}px`,
-          "--eg-ausschnitt": `radial-gradient(circle ${BOGEN * k}px at 50% ${(MITTE.y - PLATTE_OBEN) * k}px, transparent 99.4%, #000 100%)`,
-          "--eg-oben": `${(MITTE.y + BOGEN - PLATTE_OBEN + 10) * k}px`,
+          marginTop: `${-400 * k}px`,
+          "--eg-ausschnitt": `radial-gradient(circle ${BOGEN * k}px at 50% calc(${MITTE.y * k}px - var(--eg-hoch)), transparent 99.4%, #000 100%)`,
+          "--eg-kante": `linear-gradient(180deg, transparent calc(${PLATTE_OBEN * k}px - var(--eg-hoch)), #000 calc(${PLATTE_OBEN * k}px - var(--eg-hoch)))`,
+          "--eg-oben": `${(MITTE.y + BOGEN + 10) * k}px`,
         }}
       >
         <div
           className="eg-band"
           ref={bandRef}
           onScroll={scrollen}
+          onScrollCapture={augeNachfuehren}
           onTouchStart={wischStart}
           onTouchEnd={wischEnde}
         >

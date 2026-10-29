@@ -1538,14 +1538,25 @@ body::after {
   flex: 1;
 }
 
-/* Textfeld unter dem Auge: Oberkante = Kreisbogen um die Augenmitte */
+/* Textfeld unter dem Auge: Oberkante = Kreisbogen um die Augenmitte. Beim Lesen ruecken Auge, Bogen und
+   Kante um --eg-hoch nach oben (Ergebnisplatte.jsx) */
+.eg {
+  --eg-hoch: 0px;
+}
+
+.eg-auge {
+  transform: translateY(calc(-1 * var(--eg-hoch)));
+}
+
 .eg-platte {
   position: relative;
   flex: 1;
   min-height: 0;
   background: linear-gradient(180deg, #8a6a3c, #4a3720);
-  -webkit-mask-image: var(--eg-ausschnitt);
-  mask-image: var(--eg-ausschnitt);
+  -webkit-mask-image: var(--eg-ausschnitt), var(--eg-kante);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--eg-ausschnitt), var(--eg-kante);
+  mask-composite: intersect;
 }
 
 .eg-band {

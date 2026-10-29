@@ -26,7 +26,8 @@ import { einrasten, hebel, rastKlick, sperre } from "./klang";
 // auf, dann eine Haelfte mit dem Finger aufziehen.
 //
 // Masse in Bildpunkten des Deckelbilds; auf dem Bildschirm liegt der Mittelpunkt der Einlage ueber dem der
-// Datumsscheibe, der Deckel ist etwas breiter als der Bildschirm (die Scharniere liegen ausserhalb).
+// Datumsscheibe. Auf dem Handy ist der Deckel so breit wie der Bildschirm (Schriftzug ganz zu sehen, die
+// Scharniere sitzen an den Raendern), auf breiten Schirmen etwas breiter als der Apparat.
 
 const { breite: W, hoehe: H, einlage: EINLAGE, fuge: FUGE } = DECKEL;
 const QUELLE = { breite: 1152, hoehe: 2048 }; // Bildausschnitt am Ende des Films (Deckel_1)
@@ -548,7 +549,12 @@ function lageMessen() {
   const B = rad?.width || Math.min(vw, 440);
   const cx = rad ? rad.left + rad.width / 2 : vw / 2;
   const cy = rad ? rad.top + rad.width / 2 : B / 2;
-  const s = B / (ANTEIL * W);
+  // so breit wie der Bildschirm, aber mindestens bis zum unteren Rand (hohe Handys: dann ragt er ein wenig
+  // ueber die Seiten, der Schriftzug bleibt sichtbar); hoechstens so breit wie bisher auf breiten Schirmen
+  const s = Math.min(
+    Math.max(vw / W, (vh - cy) / (H - EINLAGE.y)),
+    B / ANTEIL / W,
+  );
   return { vw, vh, s, ox: cx - s * EINLAGE.x, oy: cy - s * EINLAGE.y };
 }
 
