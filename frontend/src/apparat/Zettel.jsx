@@ -8,11 +8,13 @@ import HoroskopIcon from "./HoroskopIcon";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { papier } from "./klang";
 import { t } from "../sprache";
+import { TESTPHASE } from "./werkstatt";
 
 const SCHLUESSEL = "tesserakt-zettel";
 
 // liegt der Zettel noch im Apparat? (bis er weggewischt oder das erste Spiel gestartet wurde)
 export function zettelDa() {
+  if (TESTPHASE) return true;
   try {
     return localStorage.getItem(SCHLUESSEL) !== "weg";
   } catch {

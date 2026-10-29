@@ -274,6 +274,9 @@ export function SpurenBild({
       width={box.width}
       height={box.height}
       preserveAspectRatio="none"
+      // nur Zierde: das Bild ist quadratisch und wuerde mit seinen (durchsichtigen) Ecken Beruehrungen fuer
+      // die Spielknoepfe darunter abfangen
+      pointerEvents="none"
     />
   ) : null;
 }

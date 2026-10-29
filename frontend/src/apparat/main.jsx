@@ -5,7 +5,7 @@ import Kaestchen, { FILM_GESEHEN } from "./Kaestchen";
 import Vorblatt from "./Vorblatt";
 import { einwilligungLaden } from "./einwilligung";
 import { neigungErlauben } from "./neigung";
-import { werkstattEinrichten } from "./werkstatt";
+import { TESTPHASE, werkstattEinrichten } from "./werkstatt";
 import "../components/diagramme.css";
 import "./apparat.css";
 
@@ -14,6 +14,7 @@ werkstattEinrichten(); // Testschalter ueber die Adresse (?neu, ?messen, ?ohne=.
 document.addEventListener("click", neigungErlauben, { capture: true });
 
 function filmGesehen() {
+  if (TESTPHASE) return false;
   try {
     return localStorage.getItem(FILM_GESEHEN) !== null;
   } catch {
@@ -22,10 +23,10 @@ function filmGesehen() {
 }
 
 // Beim ersten Start (oder nach geaenderten Einwilligungstexten) zuerst das Vorblatt, beim allerersten Mal dann
-// der Film. Bei jedem Besuch liegt der Apparat im verschlossenen Kaestchen.
+// der Film (in der Testphase bei jedem Besuch). Bei jedem Besuch liegt der Apparat im verschlossenen Kaestchen.
 function App() {
   const [bereit, setBereit] = useState(() => einwilligungLaden() !== null);
-  const [film, setFilm] = useState(false);
+  const [film, setFilm] = useState(() => bereit && !filmGesehen());
   const [zu, setZu] = useState(true);
   if (!bereit)
     return (

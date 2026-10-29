@@ -265,8 +265,8 @@ export default function Datumsrad({
     if (laedt) return;
     const p = svgPunkt(e);
     const r = Math.hypot(p.x - MITTE.x, p.y - MITTE.y);
-    // Tipp auf das Datum in der Mitte: Abkuerzung zum Ergebnis (Entwicklung)
-    if (r < 64 && scheibe.skala === 1) {
+    // Tipp auf das Datum in der Mitte: Abkuerzung zum Ergebnis (nur im Entwicklungsserver)
+    if (import.meta.env.DEV && r < 64 && scheibe.skala === 1) {
       hebel();
       // auf der silbernen Seite: Abkuerzung durch Spiel C (erste Person gold, zweite die eingestellte)
       if (seite === "silber") onSpiel("XC", { a: erstePerson, b: eingabe() });

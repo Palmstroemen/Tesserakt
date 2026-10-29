@@ -54,3 +54,6 @@ pics/
 # Server: Sicherungen der Forschungsdatenbank bleiben am Server
 server/sicherungen/
 !.env.beispiel
+
+# Sperrdateien von LibreOffice
+.~lock.*#

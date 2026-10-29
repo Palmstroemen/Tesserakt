@@ -5,6 +5,11 @@
 //                   z. B. ?messen&ohne=schatten,masken), um herauszufinden, was auf dem Geraet bremst
 // Im Entwicklungsserver meldet die Seite ausserdem nach logs/handy.log, was auf dem Geraet passiert.
 
+// Geschlossener Test (Google Play): Film und Zettel bei jedem Besuch, damit jeder Tester sie sieht. Fuer die
+// Veroeffentlichung auf false stellen, dann kommen sie nur beim ersten Mal (Film) bzw. bis zum ersten Spiel
+// (Zettel).
+export const TESTPHASE = true;
+
 function melden(art, daten) {
   if (!import.meta.env.DEV) return;
   try {
