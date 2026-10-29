@@ -11,6 +11,9 @@ Dabei muss sich jedes Horoskop gegen den Zufall behaupten. Der Apparat rechnet e
 Geburtstage. Beschreibt dich dein eigenes Horoskop besser als die fremden, ist vielleicht etwas dran. Wenn
 nicht, war es Zufall.
 
+Insgesamt wurden für die Erstellung der Horoskope 38 Bücher als [Quellen](docs/Berechnungsgrundlagen/quellen.md)
+herangezogen.
+
 Wer mag, schenkt seine Antworten der Forschung, ohne Namen, ohne Geburtsort und ohne genaues Geburtsdatum. Aus
 vielen Runden wird sichtbar, ob Horoskope mehr treffen, als der Zufall erlaubt. Die Auswertung und die Daten
 werden offen veröffentlicht, damit jeder sie nachprüfen kann.
