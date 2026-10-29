@@ -116,6 +116,19 @@ function Darstellung({ text }) {
   );
 }
 
+// Klare Hinweise aus dem Jahreshoroskop (Server: deutung.py), weit unten nach den Lebensbereichen
+function Deutung({ saetze }) {
+  if (!saetze?.length) return null;
+  return (
+    <>
+      <h4>{t("buch.deutung")}</h4>
+      {saetze.map((x, i) => (
+        <p key={i}>{x}</p>
+      ))}
+    </>
+  );
+}
+
 const vorzeichen = (x) => (x > 0 ? `+${x.toFixed(0)}` : x.toFixed(0));
 
 function Dimensionen({ daten }) {
@@ -284,7 +297,8 @@ export default function Ergebnisplatte({
     const b = bandRef.current;
     const main = mainRef.current;
     if (!b || !main) return;
-    const karte = b.children[Math.round(b.scrollLeft / Math.max(1, b.clientWidth))];
+    const karte =
+      b.children[Math.round(b.scrollLeft / Math.max(1, b.clientWidth))];
     const ganz = ((MITTE.y + BOGEN) * main.clientWidth) / 400;
     const h = hoch.current;
     h.ziel = Math.min(ganz, (karte?.scrollTop ?? 0) * AUGE_MIT);
@@ -413,6 +427,7 @@ export default function Ergebnisplatte({
             const d = ergebnis?.alle.systemDetails[id];
             const h = heute?.systeme?.[id];
             const jahr = ausblick?.systeme?.[id];
+            const deutung = ausblick?.deutung?.[id];
             const euer = paar?.systeme?.[id];
             const st = texte?.systems?.[id];
             return (
@@ -470,6 +485,14 @@ export default function Ergebnisplatte({
                     )}
                   </p>
                 ) : null}
+                {/* Absatz zur Grafik weit oben: beim Lesen rueckt das Auge bald aus dem Bild */}
+                <Darstellung
+                  text={
+                    spiel === "C"
+                      ? euer?.bildtext
+                      : visualPayloads?.[id]?.bildtext
+                  }
+                />
                 {h ? (
                   <>
                     <h4>{t("ergebnis.heute")}</h4>
@@ -503,11 +526,11 @@ export default function Ergebnisplatte({
                   </>
                 ) : null}
                 {st && spiel === "C" ? (
-                  // Spiel C wie im Buch: wie das Horoskop denkt, mit dem Absatz zur Grafik fuer zwei
+                  // Spiel C wie im Buch: wie das Horoskop denkt (der Absatz zur Grafik fuer zwei steht oben)
                   <>
-                    <Darstellung text={euer?.bildtext} />
                     <h4>{t("buch.so_denkt")}</h4>
                     <Paragraphs text={st.intro} />
+                    <Deutung saetze={deutung} />
                     <Paragraphs text={st.paracelsus_outro} />
                   </>
                 ) : st ? (
@@ -518,7 +541,6 @@ export default function Ergebnisplatte({
                         <Paragraphs text={st.horoskop_ausfuehrlich} />
                       </>
                     ) : null}
-                    <Darstellung text={visualPayloads?.[id]?.bildtext} />
                     {st.intro ? (
                       <>
                         <h4>{t("buch.so_denkt")}</h4>
@@ -526,6 +548,7 @@ export default function Ergebnisplatte({
                       </>
                     ) : null}
                     <Dimensionen daten={st} />
+                    <Deutung saetze={deutung} />
                     <Paragraphs text={st.paracelsus_outro} />
                   </>
                 ) : null}

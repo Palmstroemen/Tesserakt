@@ -299,9 +299,10 @@ def vedisch(
             erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "mahadasha",
                         "md": md, "text": f"{_um(von, t)}: "
                         + tv["mahadasha_beginn"].replace("{md}", namen[md]).replace("{jahre}", str(dauern[md]))})
-        beschreibung = matrix.get(f"{md}_antardasha", {}).get(f"{md}_{ad}", {}).get("beschreibung", "")
+        eintrag = matrix.get(f"{md}_antardasha", {}).get(f"{md}_{ad}", {})
         neu(von, bis, "antardasha", tv["antardasha"].replace("{ad}", t["planeten_kurz"][ad])
-            .replace("{md}", namen[md]).replace("{beschreibung}", beschreibung), md=md, ad=ad)
+            .replace("{md}", namen[md]).replace("{beschreibung}", eintrag.get("beschreibung", "")), md=md, ad=ad,
+            dimensionen=eintrag.get("dimensionen", {}))
 
     # Gochara: Haeuser von Jupiter und Saturn vom Mondzeichen, Weg durch die Haeuser wie in _wanderung
     if mond_zeichen is not None:
@@ -323,7 +324,7 @@ def vedisch(
                     # laufender Zustand im Praesens (Bausteine von heute), Wechsel in Zukunftsform
                     text = (t["vedisch_gochara"][art] if laufend else tv[art]).replace("{haus}", str(haus))
                 nachsatz = _rueck_text(tv["rueckkehr"], t["planeten_kurz"][pl], e, ende, t)
-                neu(e["von"], e["bis"], "gochara", f"{text} {nachsatz}".strip(), planet=pl, haus=haus)
+                neu(e["von"], e["bis"], "gochara", f"{text} {nachsatz}".strip(), planet=pl, haus=haus, lage=art)
     return sorted(erg, key=lambda e: e["von"])
 
 
@@ -386,7 +387,7 @@ def bazi(
         vorlage = next((tb[k] for k in (f"monat_{rel}_{i}" for i in range(n, 1, -1)) if k in tb),
                        tb[f"monat_{rel}"])
         neu(von, bis, "monat", vorlage.replace("{dm}", dm).replace("{monat}", el[monat_el]),
-            element=monat_el, beziehung=rel)
+            element=monat_el, beziehung=rel, tagesmeister=tagesmeister)
 
     # Monate, deren Zweig mit dem Zweig der Tagessaeule zusammenstoesst
     for zweig, von, bis in _abschnitte([s[3] for s in saeulen], tage_liste):
@@ -532,13 +533,15 @@ def arabisch(
         if i > 0 and haupt != perioden[0][0] and (unter is None or unter == haupt):
             erg.append({"von": von.date().isoformat(), "bis": von.date().isoformat(), "art": "firdaria",
                         "haupt": haupt, "text": f"{_um(von, t)}: {ta[haupt]}"})
+        eintrag = {} if unter is None else kombis.get(f"{haupt}_hauptperiode", {}).get(f"{haupt}_{unter}", {})
         if unter is None:
             text = ta["knoten"].replace("{haupt}", gen[haupt])
         else:
-            beschreibung = kombis.get(f"{haupt}_hauptperiode", {}).get(f"{haupt}_{unter}", {}).get("beschreibung", "")
-            text = ta["unter"].replace("{unter}", gen[unter]).replace("{haupt}", gen[haupt]).replace("{beschreibung}", beschreibung)
+            text = (ta["unter"].replace("{unter}", gen[unter]).replace("{haupt}", gen[haupt])
+                    .replace("{beschreibung}", eintrag.get("beschreibung", "")))
         erg.append({"von": von.date().isoformat(), "bis": bis.date().isoformat(), "art": "unter",
-                    "haupt": haupt, "unter": unter, "text": f"{zeitraum_offen(von, bis, start, ende, t)}: {text}"})
+                    "haupt": haupt, "unter": unter, "dimensionen": eintrag.get("dimensionen_vektor", {}),
+                    "text": f"{zeitraum_offen(von, bis, start, ende, t)}: {text}"})
     return sorted(erg, key=lambda e: e["von"])
 
 

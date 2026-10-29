@@ -46,6 +46,7 @@ from rule_engine import (
     _HOUSE_LORD,
 )
 import ausblick
+import deutung
 import paar
 import buchpreise
 import orte
@@ -821,7 +822,11 @@ def post_horoskop_ausblick(payload: VektorRequest, sp: str = Depends(_sprache)) 
             bazi_jahr_monat, stem_to_element, _bazi_beziehung, start, t, sprache.regeln("Bazi", sp),
             _naechste_glueckssaeule(birth_dt, birth_ut, payload.geschlecht, start),
         )
-    return {"stichtag": start.date().isoformat(), "bis": (start + timedelta(days=365)).date().isoformat(), "systeme": systeme}
+    ende = start + timedelta(days=365)
+    # klare Hinweise fuer den Alltag aus den Ereignissen ("Was das fuer dich bedeutet")
+    hinweise = {s: deutung.saetze(s, ev, start, ende, t) for s, ev in systeme.items()}
+    return {"stichtag": start.date().isoformat(), "bis": ende.date().isoformat(), "systeme": systeme,
+            "deutung": {s: h for s, h in hinweise.items() if h}}
 
 
 def _beschriftet(system: str, bild: Dict[str, Any], sp: str) -> Dict[str, Any]:

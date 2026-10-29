@@ -53,6 +53,16 @@ function darstellung(bildtext) {
     : [];
 }
 
+// Klare Hinweise aus dem Jahreshoroskop ("Was das für dich bedeutet")
+function hinweise(saetze) {
+  return saetze?.length
+    ? [
+        { k: "h3", t: t("buch.deutung") },
+        ...saetze.map((x) => ({ k: "p", t: x })),
+      ]
+    : [];
+}
+
 const escape = (t) =>
   t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fettHtml = (t) => escape(t).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
@@ -283,6 +293,7 @@ function abschnitte({
     const sys = SYSTEME.find((x) => x.id === id);
     const st = texte?.systems?.[id];
     const jahr = ausblick?.systeme?.[id];
+    const deutung = ausblick?.deutung?.[id];
     const h = heute?.systeme?.[id];
     const bereiche = DIMENSIONEN.filter((dim) => st?.dimensions?.[dim]);
     liste.push({ art: "grafik", id });
@@ -305,6 +316,7 @@ function abschnitte({
                 ...darstellung(paar?.systeme?.[id]?.bildtext),
                 { k: "h3", t: t("buch.so_denkt") },
                 ...absaetze(st.intro),
+                ...hinweise(deutung),
                 ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,
@@ -343,10 +355,15 @@ function abschnitte({
                 }),
               ]
             : null,
-          bereiche.length
+          bereiche.length || deutung?.length
             ? [
-                { k: "h3", t: t("buch.lebensbereiche") },
-                ...bereichBloecke(st, bereiche),
+                ...(bereiche.length
+                  ? [
+                      { k: "h3", t: t("buch.lebensbereiche") },
+                      ...bereichBloecke(st, bereiche),
+                    ]
+                  : []),
+                ...hinweise(deutung),
                 ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,
