@@ -8,7 +8,7 @@ import ProfectionChart from "../components/ProfectionChart";
 import FirdariaChart from "../components/FirdariaChart";
 import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
-import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
+import { SYSTEME, anzeigeName } from "./systeme";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import { spiegelglasStarten } from "./spiegelglas";
@@ -102,6 +102,17 @@ function Eingepasst({ linsePx, children }) {
     >
       {children}
     </div>
+  );
+}
+
+// Absatz zur Grafik (bildtext vom Server) mit eigener Ueberschrift, vor "So denkt dieses Horoskop"
+function Darstellung({ text }) {
+  if (!text) return null;
+  return (
+    <>
+      <h4>{t("buch.so_liest")}</h4>
+      <Paragraphs text={text} />
+    </>
   );
 }
 
@@ -494,8 +505,9 @@ export default function Ergebnisplatte({
                 {st && spiel === "C" ? (
                   // Spiel C wie im Buch: wie das Horoskop denkt, mit dem Absatz zur Grafik fuer zwei
                   <>
+                    <Darstellung text={euer?.bildtext} />
                     <h4>{t("buch.so_denkt")}</h4>
-                    <Paragraphs text={introMitBild(st.intro, euer?.bildtext)} />
+                    <Paragraphs text={st.intro} />
                     <Paragraphs text={st.paracelsus_outro} />
                   </>
                 ) : st ? (
@@ -506,12 +518,13 @@ export default function Ergebnisplatte({
                         <Paragraphs text={st.horoskop_ausfuehrlich} />
                       </>
                     ) : null}
-                    <Paragraphs
-                      text={introMitBild(
-                        st.intro,
-                        visualPayloads?.[id]?.bildtext,
-                      )}
-                    />
+                    <Darstellung text={visualPayloads?.[id]?.bildtext} />
+                    {st.intro ? (
+                      <>
+                        <h4>{t("buch.so_denkt")}</h4>
+                        <Paragraphs text={st.intro} />
+                      </>
+                    ) : null}
                     <Dimensionen daten={st} />
                     <Paragraphs text={st.paracelsus_outro} />
                   </>

@@ -376,10 +376,16 @@ def bazi(
         erg.append({"von": tag.date().isoformat(), "bis": tag.date().isoformat(), "art": art,
                     "text": f"{_um(tag, t)}: {text}", **mehr})
 
-    # Monate: Stamm-Element wechselt alle zwei Monate (Yang- und Yin-Stamm desselben Elements)
+    # Monate: Stamm-Element wechselt alle zwei Monate (Yang- und Yin-Stamm desselben Elements). Dieselbe
+    # Beziehung kehrt nach zehn Monaten wieder; dann eine andere Formulierung (monat_<rel>_2, _3). Der laufende
+    # Monat steht schon unter "Heute" (bazi_beziehung), sein Block beginnt deshalb mit der zweiten.
+    schon: Dict[str, int] = {}
     for monat_el, von, bis in _abschnitte([element(s[2]) for s in saeulen], tage_liste):
         rel = beziehung(tagesmeister, monat_el)
-        neu(von, bis, "monat", tb[f"monat_{rel}"].replace("{dm}", dm).replace("{monat}", el[monat_el]),
+        n = schon[rel] = schon.get(rel, 1 if von <= start else 0) + 1
+        vorlage = next((tb[k] for k in (f"monat_{rel}_{i}" for i in range(n, 1, -1)) if k in tb),
+                       tb[f"monat_{rel}"])
+        neu(von, bis, "monat", vorlage.replace("{dm}", dm).replace("{monat}", el[monat_el]),
             element=monat_el, beziehung=rel)
 
     # Monate, deren Zweig mit dem Zweig der Tagessaeule zusammenstoesst

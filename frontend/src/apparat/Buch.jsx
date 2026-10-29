@@ -14,7 +14,7 @@ import { holen } from "../logic/api";
 import HoroskopIcon from "./HoroskopIcon";
 import Datumsscheibe, { datumAus } from "./Datumsscheibe";
 import { PAARBILD, VOLLBILD } from "./Ergebnisplatte";
-import { SYSTEME, anzeigeName, introMitBild } from "./systeme";
+import { SYSTEME, anzeigeName } from "./systeme";
 import { buchtexte, t } from "../sprache";
 import { datenErlaubt, kameraErlaubt } from "./einwilligung";
 import Vorblatt from "./Vorblatt";
@@ -44,6 +44,13 @@ function absaetze(text, k = "p") {
     .split(/\n\n+/)
     .filter(Boolean)
     .map((t) => ({ k, t }));
+}
+
+// Absatz zur Grafik mit eigener Ueberschrift, vor "So denkt dieses Horoskop"
+function darstellung(bildtext) {
+  return bildtext
+    ? [{ k: "h3", t: t("buch.so_liest") }, ...absaetze(bildtext)]
+    : [];
 }
 
 const escape = (t) =>
@@ -295,10 +302,9 @@ function abschnitte({
           ],
           st?.intro
             ? [
+                ...darstellung(paar?.systeme?.[id]?.bildtext),
                 { k: "h3", t: t("buch.so_denkt") },
-                ...absaetze(
-                  introMitBild(st.intro, paar?.systeme?.[id]?.bildtext),
-                ),
+                ...absaetze(st.intro),
                 ...absaetze(st?.paracelsus_outro, "schluss"),
               ]
             : null,
@@ -306,10 +312,10 @@ function abschnitte({
       : [
           [
             ...kopf,
-            { k: "h3", t: t("buch.so_denkt") },
-            ...absaetze(
-              introMitBild(st?.intro, visualPayloads?.[id]?.bildtext),
-            ),
+            ...darstellung(visualPayloads?.[id]?.bildtext),
+            ...(st?.intro
+              ? [{ k: "h3", t: t("buch.so_denkt") }, ...absaetze(st.intro)]
+              : []),
           ],
           st?.horoskop_ausfuehrlich
             ? [
