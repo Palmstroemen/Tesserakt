@@ -1,5 +1,28 @@
 # Tesserakt
 
+**Stimmen Horoskope? Tesserakt ist ein Spiel, das es herausfinden will.**
+
+Du beantwortest 16 Fragen über dich selbst: wie du bist, was dir liegt, was dir wichtig ist. Gleichzeitig rechnet
+der Apparat aus deinem Geburtsdatum sieben Horoskope aus, das westliche, das chinesische, das indische, das
+arabische, das hellenistische, die Kabbala und die Numerologie. Am Ende siehst du, welches dich am besten
+beschreibt.
+
+Dabei muss sich jedes Horoskop gegen den Zufall behaupten. Der Apparat rechnet es auch für 100 zufällige andere
+Geburtstage. Beschreibt dich dein eigenes Horoskop besser als die fremden, ist vielleicht etwas dran. Wenn
+nicht, war es Zufall.
+
+Wer mag, schenkt seine Antworten der Forschung, ohne Namen, ohne Geburtsort und ohne genaues Geburtsdatum. Aus
+vielen Runden wird sichtbar, ob Horoskope mehr treffen, als der Zufall erlaubt. Die Auswertung und die Daten
+werden offen veröffentlicht, damit jeder sie nachprüfen kann.
+
+Im zweiten Spiel geht es um zwei Menschen: Wer von euch beiden ist wo stärker, und sehen die Horoskope das
+genauso? Ein drittes Spiel über vergangene Zeitabschnitte ist in Arbeit.
+
+Gespielt wird auf einem alten Apparat aus Messing, der in einem geschnitzten Holzkästchen liegt. Wie er
+funktioniert, findest du selbst heraus.
+
+## Für Entwicklerinnen und Entwickler
+
 **Horoskop-Assessment als sozialwissenschaftliches Experiment.**  
 Vergleich mehrerer astrologischer und numerologischer Systeme mit der Selbsteinschätzung von Nutzerinnen und Nutzern. Kernmetrik: Skill – passt das eigene Geburtsdatum besser als 100 zufällige andere Geburtsdaten desselben Systems? (0 = Zufallsniveau, Erklärung: `docs/Textbausteine/erklaerungen/01_skill.md`). Intern: Bewertungen und Vektoren auf Skala -1..+1.
 
