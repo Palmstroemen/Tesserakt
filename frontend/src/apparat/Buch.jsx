@@ -58,7 +58,7 @@ function hinweise(saetze) {
   return saetze?.length
     ? [
         { k: "h3", t: t("buch.deutung") },
-        ...saetze.map((x) => ({ k: "p", t: x })),
+        ...saetze.map((x) => ({ k: "p", fett: x.zeit, t: x.text })),
       ]
     : [];
 }

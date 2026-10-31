@@ -164,8 +164,9 @@ def _zeitraum(von: datetime, bis: datetime, start: datetime, ende: datetime, t: 
 
 
 def saetze(system: str, ereignisse: List[Dict[str, object]], start: datetime, ende: datetime,
-           t: Texte) -> List[str]:
-    """Bis zu drei Hinweise fuer das System, die staerksten, zeitlich geordnet."""
+           t: Texte) -> List[Dict[str, str]]:
+    """Bis zu drei Hinweise fuer das System, die staerksten, zeitlich geordnet: {zeit, text}; der Zeitraum
+    steht getrennt, damit die App ihn hervorheben kann (zusammen gelesen ein Satz)."""
     d = t["deutung"]
     signale: List[Signal] = []
     for e in ereignisse:
@@ -187,17 +188,18 @@ def saetze(system: str, ereignisse: List[Dict[str, object]], start: datetime, en
             # guenstige Zeit danach: beginnt fruehestens einen Monat nach dem heiklen Abschnitt, die naechste
             spaeter = [s for s in gut if s["von"] >= n["von"] + timedelta(days=30) and s["kern"] != n["kern"]]
             p: Optional[Signal] = min(spaeter, key=lambda s: (s["von"], -s["wert"])) if spaeter else None
-            text = (f"{_zeitraum(n['von'], n['bis'], start, ende, t)}{d['komma']} {d[f'vorsicht_{b}']}. "
-                    f"{einleitung(n['kern'])}")
+            zeit = f"{_zeitraum(n['von'], n['bis'], start, ende, t)}{d['komma']}"
+            text = f"{d[f'vorsicht_{b}']}. {einleitung(n['kern'])}"
             if p:
                 text += " " + _f(d["warten"], womit=d[f"warten_{b}"], zeit=monatsteil(p["von"], t)) \
                     + " " + _f(d["dann"], kern=p["kern"])
-            kandidaten.append((abs(n["wert"]) + (0.3 if p else 0), [n["kern"]] + ([p["kern"]] if p else []), text, n["von"]))
+            kandidaten.append((abs(n["wert"]) + (0.3 if p else 0), [n["kern"]] + ([p["kern"]] if p else []),
+                               {"zeit": zeit, "text": text}, n["von"]))
         elif gut:
             g = max(gut, key=lambda s: (s["wert"], -s["von"].timestamp()))
-            text = (f"{_zeitraum(g['von'], g['bis'], start, ende, t)}{d['komma']} {d[f'gut_{b}']}. "
-                    f"{einleitung(g['kern'])}")
-            kandidaten.append((g["wert"], [g["kern"]], text, g["von"]))
+            zeit = f"{_zeitraum(g['von'], g['bis'], start, ende, t)}{d['komma']}"
+            text = f"{d[f'gut_{b}']}. {einleitung(g['kern'])}"
+            kandidaten.append((g["wert"], [g["kern"]], {"zeit": zeit, "text": text}, g["von"]))
 
     # die staerksten auswaehlen (dieselbe Begruendung nur einmal), dann in zeitlicher Reihenfolge
     gewaehlt = []

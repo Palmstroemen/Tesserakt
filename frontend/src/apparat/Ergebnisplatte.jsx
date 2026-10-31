@@ -123,7 +123,9 @@ function Deutung({ saetze }) {
     <>
       <h4>{t("buch.deutung")}</h4>
       {saetze.map((x, i) => (
-        <p key={i}>{x}</p>
+        <p key={i}>
+          <b>{x.zeit}</b> {x.text}
+        </p>
       ))}
     </>
   );
