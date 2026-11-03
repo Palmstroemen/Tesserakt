@@ -91,17 +91,25 @@ export function spiegelglasStarten(canvas, video) {
   gl.uniform1f(gl.getUniformLocation(prog, "grund"), GRUNDWOELBUNG);
   const deckung = gl.getUniformLocation(prog, "deckung");
 
+  // je Bild nachsehen, ob die Kamera ein neues geliefert hat (requestVideoFrameCallback meldet sich nur bei
+  // sichtbaren Videos; die Quelle laeuft unsichtbar, selfie.js)
   let laeuft = true;
-  let rvfc = null;
   let raf = 0;
+  let zuletzt = -1;
   const zeichnen = () => {
     if (!laeuft) return;
-    if (video.readyState >= 2 && video.videoWidth) {
+    const px = Math.round(
+      canvas.clientWidth * Math.min(2, window.devicePixelRatio || 1),
+    );
+    if (
+      video.readyState >= 2 &&
+      video.videoWidth &&
+      px &&
+      (video.currentTime !== zuletzt || canvas.width !== px)
+    ) {
+      zuletzt = video.currentTime;
       // Canvas in Geraetepixeln (hoechstens doppelte Aufloesung)
-      const px = Math.round(
-        canvas.clientWidth * Math.min(2, window.devicePixelRatio || 1),
-      );
-      if (px && canvas.width !== px) {
+      if (canvas.width !== px) {
         canvas.width = px;
         canvas.height = px;
         gl.viewport(0, 0, px, px);
@@ -122,16 +130,12 @@ export function spiegelglasStarten(canvas, video) {
       );
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
-    if (video.requestVideoFrameCallback)
-      rvfc = video.requestVideoFrameCallback(zeichnen);
-    else raf = requestAnimationFrame(zeichnen);
+    raf = requestAnimationFrame(zeichnen);
   };
   zeichnen();
 
   return () => {
     laeuft = false;
-    if (rvfc !== null && video.cancelVideoFrameCallback)
-      video.cancelVideoFrameCallback(rvfc);
     cancelAnimationFrame(raf);
   };
 }

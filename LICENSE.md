@@ -33,6 +33,7 @@ Die App enthält keinen Code der Swiss Ephemeris und steht deshalb unter der fre
 | Gebrauchsspuren auf dem Messing (`frontend/src/apparat/oberflaeche/`) | ambientCG (ambientcg.com) | CC0 1.0 |
 | Schriften Amiri, Caveat, Cinzel, Ma Shan Zheng, Patrick Hand | siehe [OFL.txt](frontend/src/apparat/schriften/OFL.txt) | OFL-1.1 |
 | React, three.js, Capacitor, Vite | ihre Autorinnen und Autoren | MIT |
+| MediaPipe Tasks Vision und Gesichtsmodell BlazeFace (`frontend/src/apparat/gesicht/`), Lage der Augen für die Parallaxe | Google LLC | Apache-2.0 |
 | FastAPI und weitere Python-Bibliotheken | siehe `backend/requirements.txt` | jeweils eigene Lizenz |
 
 Die Übertragung der Regeln aus den Büchern (siehe Quellenseite im Buch) in Zahlen und Texte ist unsere eigene

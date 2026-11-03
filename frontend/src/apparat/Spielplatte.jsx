@@ -25,6 +25,8 @@ import {
 import { einrasten, hebel, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
 import { neigungAbonnieren } from "./neigung";
+import { RubinSpiegel, Spiegel } from "./Spiegelung";
+import { AUGE_KAMERA } from "./werkstatt";
 import { t } from "../sprache";
 
 const ALLE = SYSTEME.map((s) => s.id);
@@ -1056,6 +1058,9 @@ export default function Spielplatte({
                 fill="url(#sp-rubin)"
                 className="sp-rubin"
               />
+              {AUGE_KAMERA === "selfie" && !wartet ? (
+                <RubinSpiegel r={13} />
+              ) : null}
               <ellipse
                 cx="2.8"
                 cy="3.2"
@@ -1319,6 +1324,10 @@ export default function Spielplatte({
           {/* Linse an der Oberflaeche: spiegelt zuerst und gibt erst nach dem Hereindrehen den Blick frei; die
               Lichtreflexe bleiben */}
           <div className="sp-spiegel" />
+          {/* das eigene Bild aus der Frontkamera als Reflexion auf dem Glas (werkstatt.js: AUGE_KAMERA) */}
+          {AUGE_KAMERA === "selfie" && !wartet ? (
+            <Spiegel glanz={null} />
+          ) : null}
           <div className="sp-glanz" />
         </div>
       </div>

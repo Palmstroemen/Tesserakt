@@ -1,4 +1,3 @@
-import { kameraErlaubt } from "./einwilligung";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import RadixWheel from "../components/RadixWheel";
 import FourPillarsChart from "../components/FourPillarsChart";
@@ -9,9 +8,9 @@ import FirdariaChart from "../components/FirdariaChart";
 import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME, anzeigeName } from "./systeme";
+import { Spiegel } from "./Spiegelung";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
-import { spiegelglasStarten } from "./spiegelglas";
 import WestlichNacht from "./diagramme/WestlichNacht";
 import KabbalahBuch from "./diagramme/KabbalahBuch";
 import BaziKarte from "./diagramme/BaziKarte";
@@ -151,91 +150,6 @@ function Dimensionen({ daten }) {
       </div>
     );
   });
-}
-
-// Uhrglas-Spiegelung: Die Frontkamera liefert das eigene Bild; gespiegelt, gewoelbt (Fischauge per WebGL),
-// hochtransparent und kontrastreich ueber die Grafik gelegt (nur aufhellend, wie eine Reflexion). Ohne WebGL
-// zwei ungewoelbte Lagen als Rueckfall. Dazu ein Glanzstreifen, auch ohne Kamera.
-function Spiegel() {
-  const [strom, setStrom] = useState(null);
-  const [ohneWebgl, setOhneWebgl] = useState(false);
-  const quelle = useRef(null);
-  const glas = useRef(null);
-  const innen = useRef(null);
-  const aussen = useRef(null);
-
-  useEffect(() => {
-    let st = null;
-    let vorbei = false;
-    if (!kameraErlaubt()) return undefined;
-    navigator.mediaDevices
-      ?.getUserMedia({ video: { facingMode: "user" }, audio: false })
-      .then((s) => {
-        if (vorbei) {
-          s.getTracks().forEach((t) => t.stop());
-          return;
-        }
-        st = s;
-        setStrom(s);
-      })
-      .catch(() => {});
-    return () => {
-      vorbei = true;
-      st?.getTracks().forEach((t) => t.stop());
-    };
-  }, []);
-
-  useEffect(() => {
-    [quelle, innen, aussen].forEach((r) => {
-      if (r.current) r.current.srcObject = strom;
-    });
-    if (!strom || !quelle.current || !glas.current) return undefined;
-    let stopp = null;
-    try {
-      stopp = spiegelglasStarten(glas.current, quelle.current);
-    } catch {
-      stopp = null;
-    }
-    if (!stopp) setOhneWebgl(true);
-    return () => stopp?.();
-  }, [strom, ohneWebgl]);
-
-  return (
-    <>
-      {strom && !ohneWebgl ? (
-        <>
-          {/* Quelle fuer WebGL: muss laufen, bleibt aber unsichtbar */}
-          <video
-            ref={quelle}
-            className="eg-spiegel-quelle"
-            autoPlay
-            muted
-            playsInline
-          />
-          <canvas ref={glas} className="eg-spiegel glas" />
-        </>
-      ) : null}
-      {strom && ohneWebgl ? (
-        <>
-          <video
-            ref={aussen}
-            className="eg-spiegel aussen"
-            autoPlay
-            muted
-            playsInline
-          />
-          <video
-            ref={innen}
-            className="eg-spiegel innen"
-            autoPlay
-            muted
-            playsInline
-          />
-        </>
-      ) : null}
-      <div className="eg-glanz" />
-    </>
-  );
 }
 
 export default function Ergebnisplatte({

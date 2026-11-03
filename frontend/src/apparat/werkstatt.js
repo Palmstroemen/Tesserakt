@@ -10,6 +10,11 @@
 // (Zettel).
 export const TESTPHASE = true;
 
+// Kamera fuer das magische Auge (Versuch): "selfie" = Frontkamera, aus der Lage der Augen die Parallaxe
+// (blick.js, neigung.js), dazu das eigene Bild als Spiegelung auf Auge und Rubin; "durchlicht" = wie bisher die
+// Rueckkamera als Licht hinter dem Dia (kaempft mit der Belichtungsautomatik), Parallaxe nur ueber den Lagesensor.
+export const AUGE_KAMERA = "selfie";
+
 function melden(art, daten) {
   if (!import.meta.env.DEV) return;
   try {

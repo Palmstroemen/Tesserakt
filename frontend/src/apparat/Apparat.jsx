@@ -17,6 +17,7 @@ import Buch from "./Buch";
 import Eckknoepfe from "./Eckknoepfe";
 import { rastKlick, zahnrad } from "./klang";
 import { belichtungFesthalten } from "./kamera";
+import { AUGE_KAMERA } from "./werkstatt";
 
 import { holen } from "../logic/api";
 import { t } from "../sprache";
@@ -241,6 +242,9 @@ export default function Apparat() {
   function kameraStarten() {
     // Magisches Auge: Rueckkamera als Durchlicht (nur ueber HTTPS oder localhost; sonst bleibt die Linse hell).
     // Laeuft schon ein Strom oder wurde abgelehnt: nicht noch einmal fragen.
+    // Mit der Frontkamera (werkstatt.js: AUGE_KAMERA "selfie") bleibt die Rueckkamera aus: beide zugleich geht auf
+    // vielen Handys nicht, und das Licht kommt dann aus dem Dia selbst
+    if (AUGE_KAMERA !== "durchlicht") return;
     const laeuft = kameraRef.current
       ?.getVideoTracks()
       .some((t) => t.readyState === "live");
