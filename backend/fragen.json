@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "beschreibung": "Fragen für Spiel A. gewichte: wie stark ein System die Frage abdeckt (0 = gar nicht). id = frage_id in der Datenbank, nicht ändern.",
-    "katalog_version": "persoenlichkeit_v1"
+    "beschreibung": "Fragen für Spiel A, je Lebensbereich eine zustimmend und eine umgekehrt formuliert (umgekehrt: Zustimmung heißt wenig davon; der Apparat spiegelt die Antwort auf die Richtung des Lebensbereichs, so wird sie gewertet und gespeichert). gewichte: wie stark ein System die Frage abdeckt (0 = gar nicht). id = frage_id in der Datenbank, nicht ändern; eine neu formulierte Frage bekommt eine neue id (v1 hatte 1-16, v2 ersetzt 2, 4, ... 16 durch 17-24).",
+    "katalog_version": "persoenlichkeit_v2"
   },
   "fragen": [
     {
@@ -19,9 +19,10 @@
       }
     },
     {
-      "id": 2,
-      "text": "Romantische Verbindungen entstehen in meinem Leben eher leicht.",
+      "id": 17,
+      "text": "Romantische Beziehungen kommen in meinem Leben eher schwer zustande.",
       "dimension": "liebe",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.9,
         "Bazi": 0.8,
@@ -47,9 +48,10 @@
       }
     },
     {
-      "id": 4,
-      "text": "Andere Menschen respektieren meine fachliche Kompetenz.",
+      "id": 18,
+      "text": "Im Beruf fühle ich mich oft unterschätzt oder übergangen.",
       "dimension": "beruf",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.8,
         "Bazi": 0.9,
@@ -75,9 +77,10 @@
       }
     },
     {
-      "id": 6,
-      "text": "Geld und materielle Sicherheit kommen in meinem Leben eher von selbst.",
+      "id": 19,
+      "text": "Es fällt mir schwer, mich um meine Geldangelegenheiten zu kümmern.",
       "dimension": "finanzen",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.9,
         "Bazi": 1.0,
@@ -103,9 +106,10 @@
       }
     },
     {
-      "id": 8,
-      "text": "Ich erhole mich nach Krankheiten oder Belastungen schnell.",
+      "id": 20,
+      "text": "Nach Krankheiten oder Belastungen brauche ich lange, bis ich wieder bei Kräften bin.",
       "dimension": "gesundheit",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 1.0,
         "Bazi": 0.8,
@@ -131,9 +135,10 @@
       }
     },
     {
-      "id": 10,
-      "text": "Ich knüpfe leicht neue Bekanntschaften und halte Kontakt aufrecht.",
+      "id": 21,
+      "text": "Neue Kontakte zu knüpfen kostet mich Überwindung.",
       "dimension": "soziales",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.9,
         "Bazi": 0.0,
@@ -159,9 +164,10 @@
       }
     },
     {
-      "id": 12,
-      "text": "Ich finde spontan und intuitiv unkonventionelle Lösungen für Probleme.",
+      "id": 22,
+      "text": "Ich halte mich lieber an bewährte Lösungen, als etwas Neues auszuprobieren.",
       "dimension": "kreativitaet",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.8,
         "Bazi": 0.3,
@@ -187,9 +193,10 @@
       }
     },
     {
-      "id": 14,
-      "text": "Ich bin offen für Neues und passe mich gut an veränderte Umstände an.",
+      "id": 23,
+      "text": "Veränderungen in meinem Leben sind mir eher unangenehm.",
       "dimension": "veraenderung",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.8,
         "Bazi": 0.7,
@@ -215,9 +222,10 @@
       }
     },
     {
-      "id": 16,
-      "text": "Ich vertraue oft meiner Intuition und inneren Stimme.",
+      "id": 24,
+      "text": "Bei Entscheidungen verlasse ich mich lieber auf Fakten als auf mein Bauchgefühl.",
       "dimension": "spiritualitaet",
+      "umgekehrt": true,
       "gewichte": {
         "Westlich": 0.7,
         "Bazi": 0.0,

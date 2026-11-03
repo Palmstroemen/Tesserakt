@@ -419,10 +419,13 @@ export default function Apparat() {
     }
   }
 
-  // Zielwert eines Systems fuer die Anzeige der Symbole
+  // Zielwert eines Systems fuer die Anzeige der Symbole; bei umgekehrt formulierten Fragen ("Es faellt mir
+  // schwer ...") gespiegelt: wer laut Horoskop gut mit Geld kann, stimmt dort nicht zu
   function zielWert(s, dim, frage) {
-    if (spiel !== "B")
-      return anzeigeWert(stat, s, dim, Number(vektoren[s][dim]));
+    if (spiel !== "B") {
+      const w = anzeigeWert(stat, s, dim, Number(vektoren[s][dim]));
+      return frage?.umgekehrt ? -w : w;
+    }
     if (frage.typ === "gewertet")
       return anzeigeWert(
         statB[frage.fenster],
@@ -464,13 +467,15 @@ export default function Apparat() {
       if (!gewertet && wert >= ERINNERUNG_AB) setNachfrage(true);
       return;
     }
+    // umgekehrt formuliert: auf die Richtung des Lebensbereichs gespiegelt, so wird gewertet und gespeichert
+    const imBereich = frage.umgekehrt ? -wert : wert;
     setAntworten((prev) => [
       ...prev,
       {
         frage_id: frage.id,
         dimension: frage.dimension,
-        selbst_wert: wert,
-        ...verlauf(frage, wert),
+        selbst_wert: imBereich,
+        ...verlauf(frage, imBereich),
         angezeigt,
         system_werte: Object.fromEntries(
           ALLE.map((s) => [s, Number(vektoren[s][frage.dimension])]),
