@@ -23,7 +23,7 @@ import { einrasten, hebel, rastKlick, sperre } from "./klang";
 // in der Einlage entlang der Gesichtsprofile (tools/kaestchen.py zeichnet sie nach). Die Haelften haben eine
 // echte Dicke (etwa 5 mm, die Einlage 2 mm tief) und schwingen an Scharnieren ausserhalb des Bildschirms nach
 // links und rechts auf. Oeffnen: den Haken unter dem Titel hochklappen (ziehen oder antippen), sein Ende
-// kommt aus der Ringoese, der Deckel springt einen Spalt auf, dann eine Haelfte mit dem Finger aufziehen.
+// hebt sich vom Stift, der Deckel springt einen Spalt auf, dann eine Haelfte mit dem Finger aufziehen.
 //
 // Masse in Bildpunkten des Deckelbilds; auf dem Bildschirm liegt der Mittelpunkt der Einlage ueber dem der
 // Datumsscheibe. Auf dem Handy ist der Deckel so breit wie der Bildschirm (Schriftzug ganz zu sehen, die
@@ -180,19 +180,19 @@ function schraube(ctx, x, y, r, winkel) {
   ctx.stroke();
 }
 
-// Lage der Teile des Hakenverschlusses (Bildpunkte): Drehpunkt rechts der Fuge, Ringoese links
+// Lage der Teile des Hakenverschlusses (Bildpunkte): Drehpunkt rechts der Fuge, Schliessblech mit Stift links
 function hakenMasse() {
   const fx = fugeX(HAKEN.y);
   const y = HAKEN.y;
   return {
     fx,
     y,
-    drehpunkt: { x: fx + 150, y }, // rechte Haelfte, Rosette mit Niet
-    oese: { x: fx - 75, y, r: 25 }, // linke Haelfte, Ring der Oese
+    drehpunkt: { x: fx + 150, y }, // rechte Haelfte, Auge des Hakens mit Niet
+    stift: { x: fx - 75, y: y + 30, r: 15 }, // linke Haelfte, Pilzkopf auf dem Schliessblech
   };
 }
 
-// runde Messingscheibe (Rosette, Grundplatte der Oese)
+// runder Messingkopf (Stift, Niet)
 function messingRund(ctx, x, y, r) {
   ctx.save();
   ctx.shadowColor = "rgba(20,8,2,0.6)";
@@ -207,19 +207,14 @@ function messingRund(ctx, x, y, r) {
     y,
     r,
   );
-  g.addColorStop(0, "#e2c47c");
-  g.addColorStop(0.6, "#a17d3b");
-  g.addColorStop(1, "#5e4420");
+  g.addColorStop(0, "#f3dc9c");
+  g.addColorStop(0.55, "#a17d3b");
+  g.addColorStop(1, "#4a3313");
   ctx.fillStyle = g;
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
-  ctx.strokeStyle = "rgba(40,22,5,0.45)";
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.arc(x, y, r - 4, 0, Math.PI * 2);
-  ctx.stroke();
 }
 
 // Deckeloberseite: Foto plus die festen Messingteile der Schliesse
@@ -229,104 +224,129 @@ function deckelZeichnen(bild) {
   c.height = H;
   const ctx = c.getContext("2d");
   ctx.drawImage(bild, 0, 0);
-  const { drehpunkt: d, oese: o } = hakenMasse();
+  const { stift: s } = hakenMasse();
   const zufall = zufallsquelle(11);
-  // Rosette, in der der Haken drehbar vernietet ist
-  messingRund(ctx, d.x, d.y, 46);
-  schraube(ctx, d.x + 28, d.y - 22, 7, 0.6);
-  schraube(ctx, d.x + 28, d.y + 22, 7, 2.1);
-  patina(ctx, d.x - 46, d.y - 46, 92, 92, zufall, 80);
-  // Oese: Grundplatte und Ring, durch den das Hakenende greift
-  messingRund(ctx, o.x, o.y, 38);
-  ctx.save();
-  ctx.shadowColor = "rgba(20,8,2,0.7)";
-  ctx.shadowBlur = 5;
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 4;
-  const ring = ctx.createLinearGradient(
-    o.x - o.r,
-    o.y - o.r,
-    o.x + o.r,
-    o.y + o.r,
-  );
-  ring.addColorStop(0, "#f3dc9c");
-  ring.addColorStop(0.5, "#b08a45");
-  ring.addColorStop(1, "#4a3313");
-  ctx.strokeStyle = ring;
-  ctx.lineWidth = 11;
-  ctx.beginPath();
-  ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-  ctx.fillStyle = "#24160a"; // Loch im Ring
-  ctx.beginPath();
-  ctx.arc(o.x, o.y, o.r - 6, 0, Math.PI * 2);
-  ctx.fill();
-  patina(ctx, o.x - 38, o.y - 38, 76, 76, zufall, 50);
+  // Schliessblech: gestanztes Messing, zwei Schrauben, in der Mitte der Stift, hinter den der Haken greift
+  messingFlaeche(ctx, s.x - 27, s.y - 78, 54, 150, 14);
+  schraube(ctx, s.x, s.y - 58, 7, 0.6);
+  schraube(ctx, s.x, s.y + 49, 7, 2.1);
+  patina(ctx, s.x - 27, s.y - 78, 54, 150, zufall, 70);
+  messingRund(ctx, s.x, s.y, s.r);
   return c;
 }
 
-// Der Haken: ein Messingdraht vom Niet nach links, am Ende ueber den Ring der Oese gebogen. Ursprung der
-// Zeichnung ist der Drehpunkt; der Haken klappt um ihn nach oben.
+// Der Haken: ein flaches Stanzblech, am Drehpunkt ein rundes Auge mit Niet, nach links ein Steg mit
+// eingepraegter Sicke, der sich am Ende um den Stift biegt; oben an der Biegung steht eine Lasche als Griff ab.
+// Ursprung der Zeichnung ist der Drehpunkt; der Haken klappt um ihn nach oben, die Biegung hebt sich vom Stift.
 function hakenBild() {
-  const { drehpunkt: d, oese: o } = hakenMasse();
-  const laenge = d.x - (o.x + o.r); // gerades Stueck bis zum Ring
-  const draht = 14;
+  const { drehpunkt: d, stift: s } = hakenMasse();
+  const sx = s.x - d.x; // Stift relativ zum Drehpunkt
+  const sy = s.y - d.y;
+  const bogen = sy; // Radius der Biegung (Mittellinie), der Steg laeuft auf Hoehe des Drehpunkts
+  const band = 11; // halbe Breite des Blechs in der Biegung
+  const ende = -Math.PI - 0.5; // links unterhalb des Stifts
+  const auge = 28;
+  const lasche = { winkel: -2.45, abstand: bogen + band + 26, r: 12 };
+  const um = (w, r) => [sx + r * Math.cos(w), sy + r * Math.sin(w)];
   const rand = 18;
-  const links = -(laenge + 2 * o.r) - draht - rand;
-  const rechts = 20 + rand;
-  const oben = -o.r - draht - rand;
+  const links = Math.floor(sx - lasche.abstand - lasche.r - rand);
+  const rechts = auge + rand;
+  const unten = Math.ceil(sy + (bogen + band) * Math.sin(-ende - Math.PI) + band) + rand;
   const breite = rechts - links;
-  const hoehe = -2 * oben;
+  const hoehe = 2 * Math.max(auge + rand, unten); // Drehpunkt in der Mitte der Hoehe
   const c = document.createElement("canvas");
   const k = 2;
   c.width = breite * k;
   c.height = hoehe * k;
   const ctx = c.getContext("2d");
   ctx.scale(k, k);
-  ctx.translate(-links, -oben);
-  const ringX = -(laenge + o.r);
-  const weg = () => {
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(-laenge, 0);
-    // ueber den Ring (oben herum) und auf der anderen Seite hinunter
-    ctx.arc(ringX, 0, o.r, 0, -Math.PI - 0.9, true);
+  ctx.translate(-links, hoehe / 2);
+  // Umriss des Blechs, um "ein" nach innen versetzt (fuer Kante und Flaeche); jedes Teil einzeln gefuellt
+  const umriss = (ein) => {
+    const teil = (pfad) => {
+      ctx.beginPath();
+      pfad();
+      ctx.fill();
+    };
+    teil(() => ctx.arc(0, 0, auge - ein, 0, Math.PI * 2));
+    // Steg, zum Haken hin etwas schmaler
+    teil(() => {
+      ctx.moveTo(0, -13 + ein);
+      ctx.lineTo(sx, -band + ein);
+      ctx.lineTo(sx, band - ein);
+      ctx.lineTo(0, 13 - ein);
+    });
+    // Biegung um den Stift
+    teil(() => {
+      ctx.arc(sx, sy, bogen + band - ein, -Math.PI / 2, ende, true);
+      ctx.arc(sx, sy, bogen - band + ein, ende, -Math.PI / 2, false);
+    });
+    // rundes Ende
+    const [ex, ey] = um(ende, bogen);
+    teil(() => ctx.arc(ex, ey, band - ein, 0, Math.PI * 2));
+    // Lasche: aus der Biegung schraeg nach oben links
+    const [lx, ly] = um(lasche.winkel, lasche.abstand);
+    const nx = -Math.sin(lasche.winkel);
+    const ny = Math.cos(lasche.winkel);
+    const lr = lasche.r - ein;
+    teil(() => {
+      ctx.moveTo(...um(lasche.winkel + 0.42, bogen + band - ein - 2));
+      ctx.lineTo(lx + nx * lr, ly + ny * lr);
+      ctx.lineTo(lx - nx * lr, ly - ny * lr);
+      ctx.lineTo(...um(lasche.winkel - 0.42, bogen + band - ein - 2));
+    });
+    teil(() => ctx.arc(lx, ly, lr, 0, Math.PI * 2));
   };
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
+  // Kante und Schatten auf dem Holz
   ctx.save();
   ctx.shadowColor = "rgba(15,6,0,0.7)";
   ctx.shadowBlur = 6;
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 5;
-  ctx.strokeStyle = "#6b4c1e";
-  ctx.lineWidth = draht;
-  weg();
-  ctx.stroke();
+  ctx.fillStyle = "#5e4420";
+  umriss(0);
   ctx.restore();
-  // Licht oben auf dem runden Draht
-  ctx.strokeStyle = "#c9a35a";
-  ctx.lineWidth = draht - 5;
-  weg();
-  ctx.stroke();
+  // Licht auf der oberen Schnittkante
   ctx.save();
-  ctx.translate(-1, -2.5);
-  ctx.strokeStyle = "rgba(255,238,190,0.75)";
-  ctx.lineWidth = 3;
-  weg();
-  ctx.stroke();
+  ctx.translate(-0.6, -1.4);
+  ctx.fillStyle = "#ecd394";
+  umriss(1.5);
   ctx.restore();
-  // Niet
-  const g = ctx.createRadialGradient(-6, -6, 1, 0, 0, 18);
-  g.addColorStop(0, "#f6e2a8");
-  g.addColorStop(0.55, "#b08a45");
-  g.addColorStop(1, "#4a3313");
-  ctx.fillStyle = g;
+  // flache Oberseite
+  const blech = ctx.createLinearGradient(0, -auge, 0, unten);
+  blech.addColorStop(0, "#d6b56b");
+  blech.addColorStop(0.5, "#ab8642");
+  blech.addColorStop(1, "#86662d");
+  ctx.fillStyle = blech;
+  umriss(2.5);
+  // eingepraegte Sicke im Steg und eine Mulde in der Lasche
+  ctx.lineCap = "round";
+  for (const [farbe, dy] of [
+    ["rgba(50,30,8,0.55)", -1],
+    ["rgba(255,236,180,0.5)", 1.2],
+  ]) {
+    ctx.strokeStyle = farbe;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-auge - 4, dy);
+    ctx.lineTo(sx + 6, dy);
+    ctx.stroke();
+  }
+  const [lx, ly] = um(lasche.winkel, lasche.abstand);
+  const mulde = ctx.createRadialGradient(lx - 2, ly - 2, 1, lx, ly, 7);
+  mulde.addColorStop(0, "rgba(60,38,10,0.55)");
+  mulde.addColorStop(0.7, "rgba(60,38,10,0.15)");
+  mulde.addColorStop(1, "rgba(255,236,180,0.35)");
+  ctx.fillStyle = mulde;
   ctx.beginPath();
-  ctx.arc(0, 0, 18, 0, Math.PI * 2);
+  ctx.arc(lx, ly, 6.5, 0, Math.PI * 2);
   ctx.fill();
-  patina(ctx, links + rand, -18, laenge, 36, zufallsquelle(5), 60);
+  ctx.save();
+  ctx.globalCompositeOperation = "source-atop"; // nur auf dem Blech
+  patina(ctx, links, -auge, breite, hoehe / 2 + auge, zufallsquelle(5), 140);
+  ctx.restore();
+  // Niet im Auge
+  messingRund(ctx, 0, 0, 12);
   return { canvas: c, breite, hoehe, mitteX: links + breite / 2 };
 }
 
@@ -636,7 +656,7 @@ export default function Kaestchen({ film, onOffen }) {
       von: null, // Filmlage waehrend der Ueberleitung
       fahrt: 1,
       winkel: [0, 0], // links, rechts (Grad)
-      haken: 0, // 0 = in der Oese, 1 = hochgeklappt
+      haken: 0, // 0 = am Stift, 1 = hochgeklappt
       phase: "zu", // zu | frei | auf
     };
     const szene = new Scene();
@@ -687,7 +707,7 @@ export default function Kaestchen({ film, onOffen }) {
         h.stoffe[1].color.setScalar(Math.max(0.62, kante));
         h.stoffe[2].color.setScalar(Math.max(0.25, unten * 0.8));
       });
-      // im Uhrzeigersinn: das Hakenende hebt sich aus der Oese
+      // im Uhrzeigersinn: die Biegung hebt sich vom Stift
       teile.haken.rotation.z = -zustand.haken * HAKEN.auf * RAD;
       renderer.render(szene, kamera);
       const offen = (zustand.winkel[0] + zustand.winkel[1]) / 2;
@@ -793,10 +813,10 @@ export default function Kaestchen({ film, onOffen }) {
       }, 6000);
     }
 
-    // Drehpunkt auf dem Schirm und Abstand des Fingers vom Haken (Strecke Niet - Oese)
+    // Drehpunkt auf dem Schirm und Abstand des Fingers vom Haken (Strecke Niet - Stift)
     function hakenAufSchirm(x, y) {
       const { lage } = zustand;
-      const { drehpunkt: d, oese: o } = teile.masse;
+      const { drehpunkt: d, stift: o } = teile.masse;
       const px = lage.ox + lage.s * d.x;
       const py = lage.oy + lage.s * d.y;
       const ex = lage.ox + lage.s * o.x;
@@ -827,7 +847,7 @@ export default function Kaestchen({ film, onOffen }) {
           };
           laeufe.delete("haken");
         } else {
-          // verschlossen: die Haelften ruckeln, der Haken klappert in der Oese
+          // verschlossen: die Haelften ruckeln, der Haken klappert am Stift
           sperre();
           animiere(
             "haken",
