@@ -1,5 +1,5 @@
 import { kameraErlaubt } from "./einwilligung";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import RadixWheel from "../components/RadixWheel";
 import FourPillarsChart from "../components/FourPillarsChart";
 import NumerologyChart from "../components/NumerologyChart";
@@ -248,12 +248,16 @@ export default function Ergebnisplatte({
   ausblick,
   paar,
   texte,
+  erklaerung, // Satz zur Skala (Zufall = 0, was das beste Horoskop ohne Aussagekraft erreicht)
   onZurueck, // zurueck zum Faecher (Rangliste und Ergebnisschieber)
 }) {
   const mainRef = useRef(null);
   const bandRef = useRef(null);
   const [breite, setBreite] = useState(390);
-  const [pos, setPos] = useState(0); // Index der Systemkarte (fliessend beim Wischen)
+  // Index der sichtbaren Systemkarte (fuer die Punkte). Die fliessende Lage beim Wischen geht nicht durch
+  // React: jedes Scrollbild haette sonst Karten und Grafiken neu gerendert (Ruckeln bei 120 Hz)
+  const [pos, setPos] = useState(0);
+  const streifenRef = useRef(null);
   const wisch = useRef(null);
   const hoch = useRef({ ist: 0, ziel: 0, takt: 0 }); // wie weit das Auge nach oben gerueckt ist (px)
 
@@ -289,9 +293,22 @@ export default function Ergebnisplatte({
       onZurueck?.();
   }
 
-  function scrollen() {
+  // Dia-Streifen in der Linse folgt dem Wischen im Textfeld, direkt am Element
+  function streifenSetzen() {
     const b = bandRef.current;
-    if (b) setPos(b.scrollLeft / Math.max(1, b.clientWidth));
+    const s = streifenRef.current;
+    if (!b || !s) return 0;
+    const lage = b.scrollLeft / Math.max(1, b.clientWidth);
+    s.style.transform = `translateX(${-lage * linsePx}px)`;
+    return lage;
+  }
+  useLayoutEffect(() => {
+    streifenSetzen();
+  });
+
+  function scrollen() {
+    const i = Math.round(streifenSetzen());
+    if (i !== pos) setPos(i);
   }
 
   // Ziel aus der sichtbaren Karte; das Auge folgt weich (beim Kartenwechsel springt es so nicht)
@@ -364,10 +381,7 @@ export default function Ergebnisplatte({
 
         {/* Linse: Dia-Streifen mit Uebersicht und den Grafiken; folgt dem Wischen im Textfeld */}
         <div className="sp-linse eg-linse" style={linse}>
-          <div
-            className="eg-streifen"
-            style={{ transform: `translateX(${-pos * linsePx}px)` }}
-          >
+          <div className="eg-streifen" ref={streifenRef}>
             {karten.map((id) => {
               const Diagramm = DIAGRAMME[id];
               const payload = visualPayloads?.[id];
@@ -424,7 +438,7 @@ export default function Ergebnisplatte({
           onTouchStart={wischStart}
           onTouchEnd={wischEnde}
         >
-          {karten.map((id) => {
+          {karten.map((id, nr) => {
             const sys = SYSTEME.find((s) => s.id === id);
             const d = ergebnis?.alle.systemDetails[id];
             const h = heute?.systeme?.[id];
@@ -486,6 +500,9 @@ export default function Ergebnisplatte({
                       },
                     )}
                   </p>
+                ) : null}
+                {nr === 0 && erklaerung ? (
+                  <p className="eg-leise">{erklaerung}</p>
                 ) : null}
                 {/* Absatz zur Grafik weit oben: beim Lesen rueckt das Auge bald aus dem Bild */}
                 <Darstellung
@@ -571,7 +588,7 @@ export default function Ergebnisplatte({
               key={id}
               type="button"
               aria-label={anzeigeName(id)}
-              className={Math.round(pos) === i ? "an" : ""}
+              className={pos === i ? "an" : ""}
               style={{
                 "--farbe": SYSTEME.find((s) => s.id === id)?.farbe ?? "#f0d59c",
               }}

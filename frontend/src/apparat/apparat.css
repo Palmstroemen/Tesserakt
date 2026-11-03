@@ -754,9 +754,13 @@ body::after {
 }
 
 .sp-dia.sp-dia-rang {
-  gap: 4px;
-  padding: 0 9%;
-  animation: sp-dia-ein 0.5s ease-out both;
+  gap: 6px;
+  padding: 0 7%;
+  /* ohne Worte: das Dia ruckt ab und zu nach links und federt zurueck, als wolle es weitergeschoben werden
+     (Wischen nach links fuehrt zu den Karten der Horoskope) */
+  animation:
+    sp-dia-ein 0.5s ease-out both,
+    sp-dia-schubs 7s ease-in-out 3s infinite;
 }
 
 .sp-ergebnisklein {
@@ -812,23 +816,51 @@ body::after {
   gap: 14px;
 }
 
-/* Rangliste im Fenster: enger gesetzt als auf der Ergebnisplatte */
+/* Rangliste im Fenster: das Dia ganz ausnutzen, so gross wie es geht (Testerinnen fanden sie zu klein) */
 .sp-fenster .sp-ergebnistitel {
   font-size: 1.15em;
 }
 
+@keyframes sp-dia-schubs {
+  0%,
+  82%,
+  100% {
+    transform: translateX(0);
+  }
+  88% {
+    transform: translateX(-14%);
+  }
+  94% {
+    transform: translateX(3%);
+  }
+  97% {
+    transform: translateX(-1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-dia.sp-dia-rang {
+    animation: sp-dia-ein 0.5s ease-out both;
+  }
+}
+
 .sp-fenster .eg-rangliste {
   width: 100%;
-  font-size: 0.66rem;
+  font-size: 0.9rem;
 }
 
 .sp-fenster .eg-rangtitel {
-  font-size: 0.62rem;
-  margin-bottom: 2px;
+  font-size: 0.66rem;
+  margin-bottom: 3px;
 }
 
 .sp-fenster .eg-rang {
   line-height: 1.25;
+}
+
+.sp-fenster .eg-rang i {
+  width: 10px;
+  height: 10px;
 }
 
 .sp-fenster .sp-ergebnisklein {

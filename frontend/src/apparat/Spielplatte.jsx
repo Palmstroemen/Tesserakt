@@ -264,7 +264,6 @@ export default function Spielplatte({
   sonderDia = null, // eigenes Dia im Auge (z. B. Nachfrage "Wann war das?")
   ergebnis = null, // Auswertung (ranking, systemDetails.skillScore); kann nach dem Hebelzug noch fehlen
   titel = t("ergebnis.titel.A"),
-  erklaerung = null, // Satz zur Skala unter der Rangliste
   hinweis = null, // z. B. "Antworten gewuerfelt" (Abkuerzung)
   sofort = false, // Abkuerzung: gleich mit der Auswertung beginnen
   onAuswertung, // die Rangliste ist sichtbar
@@ -1284,9 +1283,6 @@ export default function Spielplatte({
                         </div>
                       ))}
                     </div>
-                    {erklaerung ? (
-                      <span className="sp-ergebnisklein">{erklaerung}</span>
-                    ) : null}
                     {hinweis ? (
                       <span className="sp-ergebnisklein">{hinweis}</span>
                     ) : null}

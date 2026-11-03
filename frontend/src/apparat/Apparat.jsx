@@ -168,6 +168,12 @@ export default function Apparat() {
   const [antworten, setAntworten] = useState([]);
   const rundeId = useRef(null); // Kennung der Runde fuer die Forschung (forschung.js), neu je Spiel
   const [runde, setRunde] = useState(0);
+  // Der Faecher (Spielplatte) liegt schon auf der Datumsseite bereit; je Spiel ein neuer
+  function neuerFaecher() {
+    setFragen([]);
+    setAntworten([]);
+    setRunde((r) => r + 1);
+  }
   // Zurueckgehen ("‹"): fuer die Forschung zaehlt die erste Antwort auf eine Frage, gegeben bevor man die
   // Systeme gesehen hat; das persoenliche Ergebnis rechnet mit der letzten. Gemerkt je Frage, je Runde neu.
   const ersteRef = useRef(new Map());
@@ -291,6 +297,9 @@ export default function Apparat() {
     setKartenOffen(false);
     rastKlick(); // erste Beruehrung: Audio freigeben
     setPhase("laden");
+    // neuer Faecher gleich jetzt, waehrend der Server rechnet (er liest Spiel und Abkuerzung beim Aufbau):
+    // erst beim Uebergang gebaut, fiele sein Aufbau in die ersten Bilder der Drehung (Haenger)
+    neuerFaecher();
     if (!schnell) kameraStarten();
     setVisualPayloads(null);
     setHeute(null);
@@ -375,7 +384,6 @@ export default function Apparat() {
       setFragen(katalogFragen);
       setVektoren(vek);
       setKontroll(null);
-      setRunde((r) => r + 1);
       if (schnell) {
         setAntworten(
           katalogFragen.map((f) => ({
@@ -673,11 +681,20 @@ export default function Apparat() {
   // Deckschicht ueber dem schon fertigen Faecher. Das Ergebnis bleibt im Faecher; daneben (rechts) liegen die
   // Textkarten, beim Wischen im Auge schiebt sich der Faecher nach links weg.
   const zeigeRad = ["start", "laden", "bereit", "uebergang"].includes(phase);
-  const zeigeSpiel = ["bereit", "uebergang", "frage"].includes(phase);
+  const zeigeSpiel = [
+    "start",
+    "laden",
+    "bereit",
+    "uebergang",
+    "frage",
+  ].includes(phase);
+  // Datumsseite: der Faecher liegt links auf der Drehscheibe bereit
+  const wartet = ["start", "laden", "bereit"].includes(phase);
   const titel = t(`ergebnis.titel.${spiel}`);
   function nochmal() {
     setDruck(null);
     setPhase("start");
+    neuerFaecher(); // nicht der Faecher der letzten Runde mit ihren Schiebern
     setAuswertung(false);
     setTextkarten(false);
     setKartenOffen(false);
@@ -698,25 +715,13 @@ export default function Apparat() {
               onAntwort={antwort}
               kamera={kamera}
               kameraInfo={kameraInfo}
-              wartet={phase === "bereit"}
+              wartet={wartet}
               auftritt={phase === "uebergang"}
-              uhrwerk={phase === "uebergang"}
+              uhrwerk={phase === "uebergang" || muenze}
               zusatz={zusatz}
               sonderDia={sonderDia}
               ergebnis={ergebnis}
               titel={titel}
-              erklaerung={
-                ergebnis
-                  ? t("ergebnis.erklaerung", {
-                      vergleich: SPIELE[spiel].vergleich,
-                      anzahl: ergebnis.gezeigt.length,
-                      erwartung: ergebnis.erwartung.toFixed(0),
-                    }) +
-                    (ergebnis.fenster
-                      ? ` ${t("ergebnis.erklaerung_reihenfolge")}`
-                      : "")
-                  : null
-              }
               hinweis={abkuerzung ? t("ergebnis.abkuerzung") : null}
               sofort={abkuerzung}
               vonMitte={spiel === "C"}
@@ -755,6 +760,19 @@ export default function Apparat() {
                 ausblick={ausblick}
                 paar={paar}
                 texte={texte}
+                // Satz zur Skala, auf der ersten Karte (dem besten Horoskop, auf das er sich bezieht)
+                erklaerung={
+                  ergebnis
+                    ? t("ergebnis.erklaerung", {
+                        vergleich: SPIELE[spiel].vergleich,
+                        anzahl: ergebnis.gezeigt.length,
+                        erwartung: ergebnis.erwartung.toFixed(0),
+                      }) +
+                      (ergebnis.fenster
+                        ? ` ${t("ergebnis.erklaerung_reihenfolge")}`
+                        : "")
+                    : null
+                }
                 onZurueck={() => setTextkarten(false)}
               />
             </div>
@@ -805,17 +823,6 @@ export default function Apparat() {
           ausblick={ausblick}
           heute={heute}
           onSchliessen={() => setDruck({ ...druck, zurueck: true })}
-        />
-      ) : null}
-      {phase === "start" || phase === "laden" ? (
-        // der Faecher liegt schon auf der Drehscheibe bereit, links neben der Walzenplatte
-        <Spielplatte
-          key="wartet"
-          wartet
-          uhrwerk={muenze}
-          fragen={[]}
-          zielWert={() => 0}
-          onAntwort={() => {}}
         />
       ) : null}
       {zeigeRad ? (

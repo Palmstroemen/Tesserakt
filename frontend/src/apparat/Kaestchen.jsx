@@ -22,8 +22,8 @@ import { einrasten, hebel, rastKlick, sperre } from "./klang";
 // dem Deckel endet). Der Deckel ist zweiteilig: Sonne links, Mond rechts, die Fuge laeuft im Holz gerade und
 // in der Einlage entlang der Gesichtsprofile (tools/kaestchen.py zeichnet sie nach). Die Haelften haben eine
 // echte Dicke (etwa 5 mm, die Einlage 2 mm tief) und schwingen an Scharnieren ausserhalb des Bildschirms nach
-// links und rechts auf. Oeffnen: Riegel unter dem Titel zur Seite schieben, der Deckel springt einen Spalt
-// auf, dann eine Haelfte mit dem Finger aufziehen.
+// links und rechts auf. Oeffnen: den Haken unter dem Titel hochklappen (ziehen oder antippen), sein Ende
+// kommt aus der Ringoese, der Deckel springt einen Spalt auf, dann eine Haelfte mit dem Finger aufziehen.
 //
 // Masse in Bildpunkten des Deckelbilds; auf dem Bildschirm liegt der Mittelpunkt der Einlage ueber dem der
 // Datumsscheibe. Auf dem Handy ist der Deckel so breit wie der Bildschirm (Schriftzug ganz zu sehen, die
@@ -34,9 +34,9 @@ const QUELLE = { breite: 1152, hoehe: 2048 }; // Bildausschnitt am Ende des Film
 const DICKE = 46; // etwa 5 mm
 const METALL = 18; // etwa 2 mm
 const ANTEIL = 0.85; // Anteil der Deckelbreite auf dem Bildschirm
-const SPALT = 4; // Grad, wenn der Riegel offen ist
+const SPALT = 4; // Grad, wenn der Haken offen ist
 const OFFEN = 108; // Grad, ganz aufgeschwungen
-const RIEGEL = { y: 1530, weg: 70 };
+const HAKEN = { y: 1530, auf: 105 }; // Hoehe im Deckelbild; Grad, um die er hochklappt
 export const FILM_GESEHEN = "tesserakt-film";
 const LEERES_BILD =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
@@ -180,18 +180,46 @@ function schraube(ctx, x, y, r, winkel) {
   ctx.stroke();
 }
 
-// Lage der Riegelteile (Bildpunkte)
-function riegelMasse() {
-  const fx = fugeX(RIEGEL.y);
-  const y = RIEGEL.y;
+// Lage der Teile des Hakenverschlusses (Bildpunkte): Drehpunkt rechts der Fuge, Ringoese links
+function hakenMasse() {
+  const fx = fugeX(HAKEN.y);
+  const y = HAKEN.y;
   return {
     fx,
     y,
-    platte: { x: fx + 6, y: y - 38, w: 160, h: 76 }, // rechte Haelfte, Fuehrung
-    gegen: { x: fx - 64, y: y - 30, w: 56, h: 60 }, // linke Haelfte, Grundplatte unter der Krampe
-    krampe: { x: fx - 54, y: y - 34, w: 34, h: 68 },
-    riegel: { x: fx - 58, w: 150, h: 18 }, // geschlossen; Knauf am rechten Ende
+    drehpunkt: { x: fx + 150, y }, // rechte Haelfte, Rosette mit Niet
+    oese: { x: fx - 75, y, r: 25 }, // linke Haelfte, Ring der Oese
   };
+}
+
+// runde Messingscheibe (Rosette, Grundplatte der Oese)
+function messingRund(ctx, x, y, r) {
+  ctx.save();
+  ctx.shadowColor = "rgba(20,8,2,0.6)";
+  ctx.shadowBlur = 6;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 4;
+  const g = ctx.createRadialGradient(
+    x - r * 0.4,
+    y - r * 0.4,
+    r * 0.1,
+    x,
+    y,
+    r,
+  );
+  g.addColorStop(0, "#e2c47c");
+  g.addColorStop(0.6, "#a17d3b");
+  g.addColorStop(1, "#5e4420");
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle = "rgba(40,22,5,0.45)";
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(x, y, r - 4, 0, Math.PI * 2);
+  ctx.stroke();
 }
 
 // Deckeloberseite: Foto plus die festen Messingteile der Schliesse
@@ -201,108 +229,105 @@ function deckelZeichnen(bild) {
   c.height = H;
   const ctx = c.getContext("2d");
   ctx.drawImage(bild, 0, 0);
-  const m = riegelMasse();
+  const { drehpunkt: d, oese: o } = hakenMasse();
   const zufall = zufallsquelle(11);
-  const { platte: p, gegen: g } = m;
-  messingFlaeche(ctx, p.x, p.y, p.w, p.h, 9);
-  messingFlaeche(ctx, g.x, g.y, g.w, g.h, 7);
-  // Fuehrungsschlitz in der Platte
-  ctx.fillStyle = "#2a1a08";
-  rundRechteck(ctx, p.x + 4, m.y - 12, p.w - 40, 24, 6);
+  // Rosette, in der der Haken drehbar vernietet ist
+  messingRund(ctx, d.x, d.y, 46);
+  schraube(ctx, d.x + 28, d.y - 22, 7, 0.6);
+  schraube(ctx, d.x + 28, d.y + 22, 7, 2.1);
+  patina(ctx, d.x - 46, d.y - 46, 92, 92, zufall, 80);
+  // Oese: Grundplatte und Ring, durch den das Hakenende greift
+  messingRund(ctx, o.x, o.y, 38);
+  ctx.save();
+  ctx.shadowColor = "rgba(20,8,2,0.7)";
+  ctx.shadowBlur = 5;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 4;
+  const ring = ctx.createLinearGradient(
+    o.x - o.r,
+    o.y - o.r,
+    o.x + o.r,
+    o.y + o.r,
+  );
+  ring.addColorStop(0, "#f3dc9c");
+  ring.addColorStop(0.5, "#b08a45");
+  ring.addColorStop(1, "#4a3313");
+  ctx.strokeStyle = ring;
+  ctx.lineWidth = 11;
+  ctx.beginPath();
+  ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+  ctx.fillStyle = "#24160a"; // Loch im Ring
+  ctx.beginPath();
+  ctx.arc(o.x, o.y, o.r - 6, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = "rgba(255,230,170,0.35)";
-  ctx.fillRect(p.x + 8, m.y + 10, p.w - 48, 2);
-  schraube(ctx, p.x + p.w - 18, p.y + 16, 7, 0.6);
-  schraube(ctx, p.x + p.w - 18, p.y + p.h - 16, 7, 2.1);
-  schraube(ctx, g.x + 12, g.y + 12, 6, 1.2);
-  schraube(ctx, g.x + 12, g.y + g.h - 12, 6, 0.2);
-  patina(ctx, p.x, p.y, p.w, p.h, zufall, 140);
-  patina(ctx, g.x, g.y, g.w, g.h, zufall, 50);
+  patina(ctx, o.x - 38, o.y - 38, 76, 76, zufall, 50);
   return c;
 }
 
-function riegelBild() {
-  const { riegel: r } = riegelMasse();
-  const rand = 14;
-  const knauf = 19;
-  const hoehe = knauf * 2 + rand * 2;
+// Der Haken: ein Messingdraht vom Niet nach links, am Ende ueber den Ring der Oese gebogen. Ursprung der
+// Zeichnung ist der Drehpunkt; der Haken klappt um ihn nach oben.
+function hakenBild() {
+  const { drehpunkt: d, oese: o } = hakenMasse();
+  const laenge = d.x - (o.x + o.r); // gerades Stueck bis zum Ring
+  const draht = 14;
+  const rand = 18;
+  const links = -(laenge + 2 * o.r) - draht - rand;
+  const rechts = 20 + rand;
+  const oben = -o.r - draht - rand;
+  const breite = rechts - links;
+  const hoehe = -2 * oben;
   const c = document.createElement("canvas");
   const k = 2;
-  c.width = (r.w + rand * 2) * k;
+  c.width = breite * k;
   c.height = hoehe * k;
   const ctx = c.getContext("2d");
   ctx.scale(k, k);
-  const mitte = hoehe / 2;
+  ctx.translate(-links, -oben);
+  const ringX = -(laenge + o.r);
+  const weg = () => {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-laenge, 0);
+    // ueber den Ring (oben herum) und auf der anderen Seite hinunter
+    ctx.arc(ringX, 0, o.r, 0, -Math.PI - 0.9, true);
+  };
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
   ctx.save();
-  ctx.shadowColor = "rgba(15,6,0,0.65)";
+  ctx.shadowColor = "rgba(15,6,0,0.7)";
   ctx.shadowBlur = 6;
   ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 4;
-  // Stange (rund: Licht oben)
-  const g = ctx.createLinearGradient(0, mitte - r.h / 2, 0, mitte + r.h / 2);
-  g.addColorStop(0, "#f0d692");
-  g.addColorStop(0.35, "#c29b52");
-  g.addColorStop(1, "#4c3514");
-  ctx.fillStyle = g;
-  rundRechteck(ctx, rand, mitte - r.h / 2, r.w, r.h, r.h / 2);
-  ctx.fill();
-  // Knauf
-  const kx = rand + r.w - knauf - 6;
-  const gk = ctx.createRadialGradient(
-    kx - knauf * 0.35,
-    mitte - knauf * 0.4,
-    1,
-    kx,
-    mitte,
-    knauf,
-  );
-  gk.addColorStop(0, "#f6e2a8");
-  gk.addColorStop(0.5, "#b08a45");
-  gk.addColorStop(1, "#4a3313");
-  ctx.fillStyle = gk;
-  ctx.beginPath();
-  ctx.arc(kx, mitte, knauf, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.shadowOffsetY = 5;
+  ctx.strokeStyle = "#6b4c1e";
+  ctx.lineWidth = draht;
+  weg();
+  ctx.stroke();
   ctx.restore();
-  // Riffeln am Knauf
-  ctx.strokeStyle = "rgba(50,30,8,0.45)";
-  ctx.lineWidth = 1;
-  for (let i = 0; i < 24; i += 1) {
-    const w = (i / 24) * Math.PI * 2;
-    ctx.beginPath();
-    ctx.moveTo(
-      kx + Math.cos(w) * knauf * 0.78,
-      mitte + Math.sin(w) * knauf * 0.78,
-    );
-    ctx.lineTo(
-      kx + Math.cos(w) * knauf * 0.98,
-      mitte + Math.sin(w) * knauf * 0.98,
-    );
-    ctx.stroke();
-  }
-  patina(ctx, rand, mitte - knauf, r.w, knauf * 2, zufallsquelle(5), 60);
-  return { canvas: c, breite: r.w + rand * 2, hoehe, versatz: rand };
-}
-
-function krampeBild() {
-  const { krampe: kr } = riegelMasse();
-  const rand = 10;
-  const c = document.createElement("canvas");
-  const k = 2;
-  c.width = (kr.w + rand * 2) * k;
-  c.height = (kr.h + rand * 2) * k;
-  const ctx = c.getContext("2d");
-  ctx.scale(k, k);
-  messingFlaeche(ctx, rand, rand, kr.w, kr.h, 6, { schatten: 5 });
-  // Wulst: der Buegel woelbt sich ueber den Riegel
-  const g = ctx.createLinearGradient(rand, 0, rand + kr.w, 0);
-  g.addColorStop(0, "rgba(255,240,190,0.35)");
-  g.addColorStop(0.5, "rgba(255,240,190,0)");
-  g.addColorStop(1, "rgba(30,15,0,0.35)");
+  // Licht oben auf dem runden Draht
+  ctx.strokeStyle = "#c9a35a";
+  ctx.lineWidth = draht - 5;
+  weg();
+  ctx.stroke();
+  ctx.save();
+  ctx.translate(-1, -2.5);
+  ctx.strokeStyle = "rgba(255,238,190,0.75)";
+  ctx.lineWidth = 3;
+  weg();
+  ctx.stroke();
+  ctx.restore();
+  // Niet
+  const g = ctx.createRadialGradient(-6, -6, 1, 0, 0, 18);
+  g.addColorStop(0, "#f6e2a8");
+  g.addColorStop(0.55, "#b08a45");
+  g.addColorStop(1, "#4a3313");
   ctx.fillStyle = g;
-  ctx.fillRect(rand, rand + 4, kr.w, kr.h - 8);
-  patina(ctx, rand, rand, kr.w, kr.h, zufallsquelle(9), 40);
-  return { canvas: c, breite: kr.w + rand * 2, hoehe: kr.h + rand * 2 };
+  ctx.beginPath();
+  ctx.arc(0, 0, 18, 0, Math.PI * 2);
+  ctx.fill();
+  patina(ctx, links + rand, -18, laenge, 36, zufallsquelle(5), 60);
+  return { canvas: c, breite, hoehe, mitteX: links + breite / 2 };
 }
 
 // Schnittkante entlang der Fuge: Holz im Querschnitt, in der Einlage oben das Metall (2 mm), wo die
@@ -572,6 +597,7 @@ function filmLage(lage) {
 }
 
 const easeAus = (t) => 1 - (1 - t) ** 3;
+const easeEin = (t) => t * t; // faellt: wird schneller
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 const RAD = Math.PI / 180;
 
@@ -610,7 +636,7 @@ export default function Kaestchen({ film, onOffen }) {
       von: null, // Filmlage waehrend der Ueberleitung
       fahrt: 1,
       winkel: [0, 0], // links, rechts (Grad)
-      riegel: 0, // 0 = zu, 1 = offen
+      haken: 0, // 0 = in der Oese, 1 = hochgeklappt
       phase: "zu", // zu | frei | auf
     };
     const szene = new Scene();
@@ -661,12 +687,8 @@ export default function Kaestchen({ film, onOffen }) {
         h.stoffe[1].color.setScalar(Math.max(0.62, kante));
         h.stoffe[2].color.setScalar(Math.max(0.25, unten * 0.8));
       });
-      const m = teile.masse;
-      teile.riegel.position.x =
-        m.riegel.x -
-        teile.riegelBild.versatz +
-        teile.riegelBild.breite / 2 +
-        zustand.riegel * RIEGEL.weg;
+      // im Uhrzeigersinn: das Hakenende hebt sich aus der Oese
+      teile.haken.rotation.z = -zustand.haken * HAKEN.auf * RAD;
       renderer.render(szene, kamera);
       const offen = (zustand.winkel[0] + zustand.winkel[1]) / 2;
       schattenRef.current.style.opacity = Math.max(0, 1 - offen / 80) ** 1.3;
@@ -723,20 +745,15 @@ export default function Kaestchen({ film, onOffen }) {
           haelfteBauen(1, texturen),
         ];
         haelften.forEach((h) => deckel.add(h.gelenk));
-        const masse = riegelMasse();
-        const rb = riegelBild();
-        const riegel = flaeche(rb.canvas, rb.breite, rb.hoehe);
-        riegel.position.set(0, -masse.y, 1.5);
-        haelften[1].koerper.add(riegel);
-        const kb = krampeBild();
-        const krampe = flaeche(kb.canvas, kb.breite, kb.hoehe);
-        krampe.position.set(
-          masse.krampe.x + masse.krampe.w / 2,
-          -(masse.krampe.y + masse.krampe.h / 2),
-          3,
-        );
-        haelften[0].koerper.add(krampe);
-        teile = { haelften, masse, riegel, riegelBild: rb };
+        const masse = hakenMasse();
+        const hb = hakenBild();
+        const draht = flaeche(hb.canvas, hb.breite, hb.hoehe);
+        draht.position.set(hb.mitteX, 0, 0);
+        const haken = new Group(); // dreht um den Niet
+        haken.position.set(masse.drehpunkt.x, -masse.y, 1.5);
+        haken.add(draht);
+        haelften[1].koerper.add(haken);
+        teile = { haelften, masse, haken };
         if (film) zustand.fahrt = 0;
         zustand.von = film ? filmLage(zustand.lage) : null;
         groesse();
@@ -753,35 +770,43 @@ export default function Kaestchen({ film, onOffen }) {
       clearTimeout(ruhe);
       ruhe = setTimeout(() => {
         if (zustand.phase !== "zu" || ziehen || zustand.fahrt < 1) return;
-        // der Riegel ruckt ein wenig, als wolle er bewegt werden
-        rastKlick();
+        // der Haken hebt sich ein wenig und faellt zurueck, als wolle er bewegt werden
         animiere(
-          "riegel",
-          (r) => (zustand.riegel = r),
+          "haken",
+          (r) => (zustand.haken = r),
           0,
-          0.08,
-          160,
+          0.12,
+          180,
           easeAus,
           () =>
             animiere(
-              "riegel",
-              (r) => (zustand.riegel = r),
-              0.08,
+              "haken",
+              (r) => (zustand.haken = r),
+              0.12,
               0,
-              260,
-              easeInOut,
+              220,
+              easeEin,
+              rastKlick,
             ),
         );
         hinweisPlanen();
       }, 6000);
     }
 
-    function riegelAufSchirm() {
+    // Drehpunkt auf dem Schirm und Abstand des Fingers vom Haken (Strecke Niet - Oese)
+    function hakenAufSchirm(x, y) {
       const { lage } = zustand;
-      const m = teile.masse;
-      const knaufX = m.riegel.x + m.riegel.w - 25 + zustand.riegel * RIEGEL.weg;
-      return { x: lage.ox + lage.s * knaufX, y: lage.oy + lage.s * m.y };
+      const { drehpunkt: d, oese: o } = teile.masse;
+      const px = lage.ox + lage.s * d.x;
+      const py = lage.oy + lage.s * d.y;
+      const ex = lage.ox + lage.s * o.x;
+      const t = Math.min(1, Math.max(0, (px - x) / Math.max(1, px - ex)));
+      const abstand = Math.hypot(x - (px + (ex - px) * t), y - py);
+      return { px, py, abstand };
     }
+    // Winkel des Fingers um den Niet (Mathematik: y nach oben)
+    const fingerWinkel = (e, k) =>
+      Math.atan2(k.py - e.clientY, e.clientX - k.px);
 
     function runter(e) {
       if (!teile || zustand.fahrt < 1 || zustand.phase === "auf") return;
@@ -789,13 +814,38 @@ export default function Kaestchen({ film, onOffen }) {
       hinweisPlanen();
       const { lage } = zustand;
       if (zustand.phase === "zu") {
-        const k = riegelAufSchirm();
-        if (Math.hypot(e.clientX - k.x, e.clientY - k.y) < 44) {
-          ziehen = { art: "riegel", x0: e.clientX, r0: zustand.riegel };
-          laeufe.delete("riegel");
+        const k = hakenAufSchirm(e.clientX, e.clientY);
+        if (k.abstand < 40) {
+          ziehen = {
+            art: "haken",
+            k,
+            a0: fingerWinkel(e, k),
+            r0: zustand.haken,
+            x0: e.clientX,
+            y0: e.clientY,
+            weit: false,
+          };
+          laeufe.delete("haken");
         } else {
-          // verschlossen: die Haelften ruckeln nur
+          // verschlossen: die Haelften ruckeln, der Haken klappert in der Oese
           sperre();
+          animiere(
+            "haken",
+            (r) => (zustand.haken = r),
+            0,
+            0.06,
+            70,
+            easeAus,
+            () =>
+              animiere(
+                "haken",
+                (r) => (zustand.haken = r),
+                0.06,
+                0,
+                140,
+                easeEin,
+              ),
+          );
           [0, 1].forEach((i) =>
             animiere(`w${i}`, setWinkel(i), 0, 0.7, 70, easeAus, () =>
               animiere(`w${i}`, setWinkel(i), 0.7, 0, 140, easeInOut),
@@ -822,10 +872,14 @@ export default function Kaestchen({ film, onOffen }) {
       if (!ziehen) return;
       const { lage } = zustand;
       const dx = e.clientX - ziehen.x0;
-      if (ziehen.art === "riegel") {
-        zustand.riegel = Math.min(
+      if (ziehen.art === "haken") {
+        if (Math.hypot(dx, e.clientY - ziehen.y0) > 8) ziehen.weit = true;
+        let dw = ziehen.a0 - fingerWinkel(e, ziehen.k); // im Uhrzeigersinn positiv
+        if (dw > Math.PI) dw -= 2 * Math.PI;
+        if (dw < -Math.PI) dw += 2 * Math.PI;
+        zustand.haken = Math.min(
           1,
-          Math.max(0, ziehen.r0 + dx / lage.s / RIEGEL.weg),
+          Math.max(0, ziehen.r0 + dw / (HAKEN.auf * RAD)),
         );
       } else {
         const seite = ziehen.i === 0 ? -1 : 1;
@@ -847,14 +901,15 @@ export default function Kaestchen({ film, onOffen }) {
       if (!ziehen) return;
       const z = ziehen;
       ziehen = null;
-      if (z.art === "riegel") {
-        if (zustand.riegel > 0.55) {
+      if (z.art === "haken") {
+        // Antippen klappt ihn ganz hoch, Ziehen ab gut der Haelfte
+        if (zustand.haken > 0.55 || !z.weit) {
           animiere(
-            "riegel",
-            (r) => (zustand.riegel = r),
-            zustand.riegel,
+            "haken",
+            (r) => (zustand.haken = r),
+            zustand.haken,
             1,
-            90,
+            z.weit ? 90 : 240,
             easeAus,
             () => {
               einrasten();
@@ -886,12 +941,12 @@ export default function Kaestchen({ film, onOffen }) {
           );
         } else {
           animiere(
-            "riegel",
-            (r) => (zustand.riegel = r),
-            zustand.riegel,
+            "haken",
+            (r) => (zustand.haken = r),
+            zustand.haken,
             0,
-            160,
-            easeAus,
+            90 + 160 * zustand.haken,
+            easeEin,
             sperre,
           );
         }
