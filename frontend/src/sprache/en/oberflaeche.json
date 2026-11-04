@@ -221,7 +221,30 @@
     "ueberschrift": "Horoscope traditions",
     "notiz": {
       "Vedisch": "Indian"
-    }
+    },
+    "spiele_ueberschrift": "Three topics",
+    "spiele": {
+      "A": {
+        "name": "Birth horoscope",
+        "text": "Your personality: how well do the horoscopes of your birth describe you?"
+      },
+      "B": {
+        "name": "Looking back",
+        "text": "Your last few months: would the horoscopes for that time have been right?"
+      },
+      "C": {
+        "name": "Relationship horoscope",
+        "text": "The two of you: who is stronger where – and do the horoscopes see it the same way?"
+      }
+    },
+    "anleitung": [
+      "Set the date of birth, then pick one of the topics.",
+      "Wind up the mechanism: at least one slider to the right!",
+      "Read the question behind the lens …",
+      "… and answer it with the red ruby.",
+      "Pull the blue crystal down: it shows the horoscopes’ answers.",
+      "Push it back up – next question!"
+    ]
   },
   "orte": {
     "unbekannt": "Place unknown",

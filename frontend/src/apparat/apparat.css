@@ -3988,7 +3988,9 @@ body::after {
 .zt-gefaltet .zt-lage {
   pointer-events: auto;
 }
-.zt-offen {
+.zt-offen,
+.zt-wendet,
+.zt-gewendet {
   background: rgba(30, 20, 8, 0.45);
 }
 /* Lage und Schraege (der Rand des Blatts ist ausgefranst, daher drop-shadow statt box-shadow) */
@@ -4030,8 +4032,7 @@ body::after {
   transition: opacity 400ms;
   pointer-events: none;
 }
-.zt-offen .zt-oben::after,
-.zt-fliegt .zt-oben::after {
+.zt-auf .zt-oben::after {
   opacity: 0;
 }
 /* untere Haelfte: nach hinten umgeschlagen, klappt beim Auffalten herunter. Solange sie hinter der oberen
@@ -4041,8 +4042,7 @@ body::after {
   transform: rotateX(-178deg);
   opacity: 0;
 }
-.zt-offen .zt-unten,
-.zt-fliegt .zt-unten {
+.zt-auf .zt-unten {
   transform: none;
   opacity: 1;
 }
@@ -4249,6 +4249,118 @@ body::after {
   fill: rgba(70, 70, 78, 0.78);
   text-anchor: middle;
 }
+/* Umdrehen um die senkrechte Achse: bis zur Kante (dann wechselt die Seite), danach von der anderen Seite her */
+.zt-wendet .zt-falt {
+  animation: zt-wenden-hin 260ms cubic-bezier(0.5, 0, 0.9, 0.6) forwards;
+}
+.zt-gewendet .zt-falt {
+  animation: zt-wenden-her 420ms cubic-bezier(0.15, 0.5, 0.3, 1);
+}
+@keyframes zt-wenden-hin {
+  to {
+    transform: perspective(1400px) rotateY(90deg) scale(1.03);
+  }
+}
+@keyframes zt-wenden-her {
+  from {
+    transform: perspective(1400px) rotateY(-90deg) scale(1.03);
+  }
+}
+/* beide Seiten liegen uebereinander; die verdeckte nimmt nur Platz ein */
+.zt-seiten {
+  display: grid;
+}
+.zt-vorne,
+.zt-hinten {
+  grid-area: 1 / 1;
+}
+.zt-blatt:not(.hinten) .zt-hinten,
+.zt-blatt.hinten .zt-vorne {
+  visibility: hidden;
+}
+/* Rueckseite: dieselben Flecken, gespiegelt und blasser durchgeschlagen */
+.zt-blatt.hinten {
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.3  0 0 0 0 0.12  0 0 0 0.28 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(
+      circle at 20% 18%,
+      transparent 0 8.5%,
+      rgba(130, 85, 35, 0.12) 9%,
+      rgba(130, 85, 35, 0.05) 10%,
+      transparent 11%
+    ),
+    radial-gradient(
+      ellipse at 82% 88%,
+      rgba(150, 105, 45, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 38% 58%,
+      rgba(150, 110, 50, 0.07),
+      transparent 22%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 48.8%,
+      rgba(255, 250, 230, 0.5) 49.4%,
+      rgba(100, 70, 30, 0.2) 50%,
+      transparent 51.2%
+    ),
+    radial-gradient(ellipse at 55% 40%, #f3e6c8 30%, #ddc794 85%, #c4a76c);
+}
+.zt-spiele {
+  margin-top: 6px !important;
+}
+/* Anleitung unten auf der Rueckseite, kleiner und mit Bleistift */
+/* Notizen unten auf der Rueckseite: Bleistift (grau, glaenzend, leicht verwackelt), wie fuer sich selbst */
+.zt-anleitung {
+  margin: 16px 0 0 !important;
+  filter: url(#zt-wackeln);
+}
+.zt-blatt .zt-anleitung li {
+  display: block;
+  padding: 3px 0;
+  font-size: 1.12rem;
+  line-height: 1.2;
+  color: rgba(78, 78, 88, 0.8);
+  text-shadow: 0.4px 0.3px 0 rgba(120, 120, 132, 0.35);
+}
+.zt-blatt .zt-anleitung li::before {
+  content: "– ";
+}
+/* Fortsetzung der Zeile davor ("… und"): ohne Strich */
+.zt-blatt .zt-anleitung li.weiter::before {
+  content: none;
+}
+.zt-blatt .zt-spiele li {
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+.zt-spiele b {
+  display: block;
+  font-weight: normal;
+  font-size: 1.4rem;
+  color: #2a2016;
+}
+/* die Zeichen der Knoepfe mit dem Bleistift nachgezeichnet: nur Umrisse, doppelt und etwas verwackelt */
+.zt-blatt .zt-spiele li svg {
+  width: 46px;
+  height: 46px;
+  margin-top: 2px;
+  overflow: visible;
+  filter: none;
+  opacity: 1;
+}
+.zt-spiele svg * {
+  fill: none !important;
+  stroke: rgba(70, 70, 78, 0.75);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
 /* Wegwischen: der Zettel fliegt nach rechts hinaus, mit leichter Drehung */
 .zt-fliegt {
   background: rgba(30, 20, 8, 0);

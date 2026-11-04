@@ -1,10 +1,12 @@
 // Zettel im Apparat (nur auf dem Startbild und nur bis zum ersten Spiel): einmal quer gefaltet liegt er gross und
 // etwas schraeg ueber der Datumsscheibe, wenn das Kaestchen aufgeht. Oben steht die Grundfrage des Spiels, darunter
 // eine Legende, keine Anleitung: die Horoskope mit ihren Zeichen und Namen, von Hand geschrieben, dazu eine
-// Bleistiftnotiz und eine Skizze. Antippen faltet ihn auf (er rueckt dabei etwas gerader), weggewischt (oder
-// aufgefaltet angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
+// Bleistiftnotiz und eine Skizze. Auf der Rueckseite die drei Spiele mit den Zeichen ihrer Knoepfe, mit dem
+// Bleistift nachgezeichnet, darunter Notizen zur Bedienung, mit dem Bleistift. Antippen faltet ihn auf (er rueckt dabei etwas gerader), nochmals angetippt dreht er
+// sich um; weggewischt (oder umgedreht angetippt) fliegt er nach rechts hinaus und kommt nicht wieder.
 import { useLayoutEffect, useRef, useState } from "react";
 import HoroskopIcon from "./HoroskopIcon";
+import Knopfsymbol from "./Knopfsymbole";
 import { SYSTEME, anzeigeName } from "./systeme";
 import { papier } from "./klang";
 import { t } from "../sprache";
@@ -32,6 +34,7 @@ export function zettelWeglegen() {
 
 // Bleistiftnotizen neben einzelnen Horoskopen
 const NOTIZ = t("zettel.notiz");
+const SPIELE = ["A", "B", "C"];
 // Handschrift: jede Zeile etwas anders geneigt und eingerueckt
 const ZEILE = [
   [-0.8, 0],
@@ -91,21 +94,82 @@ function Kritzelei() {
   );
 }
 
-function Blatt({ kopie = false }) {
+// mit dem Bleistift unterstrichen
+function Strich() {
+  return (
+    <svg className="zt-strich" viewBox="0 0 200 10" aria-hidden="true">
+      <path d="M4 6 C 40 3, 80 8, 120 5 S 180 3, 196 6" />
+      <path d="M30 8 C 70 6, 120 9, 170 6" />
+    </svg>
+  );
+}
+
+// Rueckseite: die drei Spiele, je mit dem Zeichen ihres Knopfs als Bleistiftskizze
+function Rueckseite() {
+  const spiele = t("zettel.spiele");
+  return (
+    <>
+      <h2>{t("zettel.spiele_ueberschrift")}</h2>
+      <Strich />
+      <ul className="zt-spiele">
+        {SPIELE.map((id, i) => (
+          <li key={id} style={{ transform: `rotate(${ZEILE[i * 2][0]}deg)` }}>
+            <svg viewBox="-21 -21 42 42" aria-hidden="true">
+              <Knopfsymbol spiel={id} x={0} y={0} filter="url(#zt-wackeln)" />
+            </svg>
+            <span>
+              <b>{spiele[id].name}</b>
+              {spiele[id].text}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {/* eigene Notizen mit dem Bleistift, jede Zeile etwas anders angesetzt */}
+      <ul className="zt-anleitung">
+        {t("zettel.anleitung").map((schritt, i) => (
+          <li
+            key={schritt}
+            className={schritt.startsWith("…") ? "weiter" : undefined}
+            style={{
+              transform: `rotate(${ZEILE[(i + 3) % ZEILE.length][0] * 1.4}deg)`,
+              paddingLeft: ZEILE[(i + 3) % ZEILE.length][1] * 2,
+            }}
+          >
+            {schritt}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function Blatt({ kopie = false, hinten = false }) {
   return (
     <div
-      className="zt-blatt"
+      className={hinten ? "zt-blatt hinten" : "zt-blatt"}
       role={kopie ? undefined : "dialog"}
       aria-label={kopie ? undefined : t("zettel.zettel")}
       aria-hidden={kopie || undefined}
     >
+      {/* beide Seiten uebereinander, damit das Blatt beim Umdrehen gleich gross bleibt */}
+      <div className="zt-seiten">
+        <div className="zt-vorne" aria-hidden={hinten || undefined}>
+          <Vorderseite />
+        </div>
+        <div className="zt-hinten" aria-hidden={!hinten || undefined}>
+          <Rueckseite />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Vorderseite() {
+  return (
+    <>
       <p className="zt-frage">{t("zettel.frage")}</p>
       <h2>{t("zettel.ueberschrift")}</h2>
-      {/* mit dem Bleistift unterstrichen */}
-      <svg className="zt-strich" viewBox="0 0 200 10" aria-hidden="true">
-        <path d="M4 6 C 40 3, 80 8, 120 5 S 180 3, 196 6" />
-        <path d="M30 8 C 70 6, 120 9, 170 6" />
-      </svg>
+      <Strich />
       <ul>
         {SYSTEME.map((s, i) => (
           <li
@@ -126,7 +190,7 @@ function Blatt({ kopie = false }) {
         ))}
       </ul>
       <Kritzelei />
-    </div>
+    </>
   );
 }
 
@@ -136,11 +200,12 @@ const NEIGUNG = { gefaltet: -5, offen: -1.5 };
 export default function Zettel() {
   const [zustand, setZustand] = useState(() =>
     zettelDa() ? "gefaltet" : "weg",
-  ); // gefaltet | offen | fliegt | weg
+  ); // gefaltet | offen | wendet | gewendet | fliegt | weg
   const [dx, setDx] = useState(0); // Wischweg waehrend des Ziehens
   const [halb, setHalb] = useState(0); // halbe Blatthoehe (Lage der Faltkante)
   const start = useRef(null);
   const blattRef = useRef(null);
+  const gewendet = useRef(false); // fliegt die Rueckseite hinaus?
 
   // die Faltkante liegt in der Mitte des Blatts; die untere Haelfte zeigt dasselbe Blatt, nach oben verschoben
   useLayoutEffect(() => {
@@ -158,14 +223,19 @@ export default function Zettel() {
     setZustand("offen");
   }
 
+  function wenden() {
+    papier(true);
+    setZustand("wendet");
+  }
+
   function wegwischen() {
     papier(false);
     zettelWeglegen();
     setZustand("fliegt");
   }
 
-  // Wischen: dem Finger folgen; loslassen nach rechts wirft den Zettel hinaus, Antippen faltet ihn auf
-  // (aufgefaltet: wirft ihn hinaus)
+  // Wischen: dem Finger folgen; loslassen nach rechts wirft den Zettel hinaus. Antippen faltet ihn auf,
+  // aufgefaltet dreht es ihn um, umgedreht wirft es ihn hinaus
   function runter(e) {
     start.current = e.clientX;
   }
@@ -179,17 +249,25 @@ export default function Zettel() {
     else if (dx < 6) {
       setDx(0);
       if (zustand === "gefaltet") oeffnen();
-      else wegwischen();
+      else if (zustand === "offen") wenden();
+      else if (zustand === "gewendet") wegwischen();
     } else setDx(0);
   }
 
   if (zustand === "weg") return null;
   const neigung = zustand === "gefaltet" ? NEIGUNG.gefaltet : NEIGUNG.offen;
+  // bis zur Haelfte der Drehung ist noch die Vorderseite zu sehen
+  const hinten =
+    zustand === "gewendet" || (zustand === "fliegt" && gewendet.current);
   return (
     <div
-      className={`zt-ebene zt-${zustand}`}
+      className={`zt-ebene zt-${zustand}${zustand === "gefaltet" ? "" : " zt-auf"}`}
       onAnimationEnd={(e) => {
         if (e.animationName === "zt-wegfliegen") setZustand("weg");
+        if (e.animationName === "zt-wenden-hin") {
+          gewendet.current = true;
+          setZustand("gewendet");
+        }
       }}
     >
       <div
@@ -206,12 +284,12 @@ export default function Zettel() {
         <div className="zt-falt" style={{ "--zt-halb": `${halb}px` }}>
           <div className="zt-oben">
             <div ref={blattRef}>
-              <Blatt />
+              <Blatt hinten={hinten} />
             </div>
           </div>
           <div className="zt-unten">
             <div style={{ marginTop: -halb }}>
-              <Blatt kopie />
+              <Blatt kopie hinten={hinten} />
             </div>
           </div>
         </div>

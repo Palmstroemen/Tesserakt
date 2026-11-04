@@ -221,7 +221,30 @@
     "ueberschrift": "Horoskopsysteme",
     "notiz": {
       "Vedisch": "indisch"
-    }
+    },
+    "spiele_ueberschrift": "Drei Themen",
+    "spiele": {
+      "A": {
+        "name": "Geburtshoroskop",
+        "text": "Deine Persönlichkeit: Wie gut beschreiben dich die Horoskope deiner Geburt?"
+      },
+      "B": {
+        "name": "Rückblick",
+        "text": "Deine letzten Monate: Hätten die Horoskope für diese Zeit gestimmt?"
+      },
+      "C": {
+        "name": "Beziehungshoroskop",
+        "text": "Ihr zwei: Wer von euch ist wo stärker – und sehen es die Horoskope genauso?"
+      }
+    },
+    "anleitung": [
+      "Geburtsdatum einstellen, dann eines der Themen wählen.",
+      "Mechanismus aufziehen: mindestens einen Schieber nach rechts!",
+      "Frage hinter der Linse lesen …",
+      "… und mit dem roten Rubin beantworten.",
+      "Blauen Kristall herunterziehen: Er zeigt die Antworten der Horoskope.",
+      "Wieder hochschieben – nächste Frage!"
+    ]
   },
   "orte": {
     "unbekannt": "Ort unbekannt",
