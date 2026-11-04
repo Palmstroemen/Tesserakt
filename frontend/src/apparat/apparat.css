@@ -357,7 +357,7 @@ body::after {
   pointer-events: none;
 }
 
-/* eigener Schieber: Messinggriff mit gravierter Pfeilspitze */
+/* eigener Schieber: Rubin in einer Messingfassung, die als Pfeil auf die Skala zeigt */
 .sp-griff {
   filter: drop-shadow(0 1.6px 2px rgba(0, 0, 0, 0.65));
 }
@@ -454,7 +454,7 @@ body::after {
   stroke-width: 1.5;
 }
 
-/* Ausloesehebel: grosser weinroter Rubin */
+/* Ausloesehebel: grosser blauer Kristall */
 .sp-hebelgriff {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
 }
@@ -1635,7 +1635,7 @@ body::after {
   visibility: hidden;
 }
 
-/* der eigene Schieber steht dort in der Mitte am Bildrand, nur die Spitze des Steins schaute hervor */
+/* der eigene Schieber steht dort in der Mitte am Bildrand, nur die Spitze der Fassung schaute hervor */
 .sp-wartet .sp-griff {
   visibility: hidden;
 }

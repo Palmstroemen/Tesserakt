@@ -77,7 +77,7 @@ export function Spiegel({ glanz = "eg-glanz" }) {
   );
 }
 
-// Winziger Spiegel auf dem Rubin des Hebels: das eigene Bild, gespiegelt und stark verkleinert wie auf einer
+// Winziger Spiegel auf dem Rubin des eigenen Schiebers: das eigene Bild, gespiegelt und stark verkleinert wie auf einer
 // gewoelbten Kuppe. Im SVG des Faechers (foreignObject); gezeichnet nur etwa 12-mal je Sekunde, er ist klein.
 const RUBIN_TAKT_MS = 80;
 export function RubinSpiegel({ r }) {

@@ -241,6 +241,98 @@ const Auge = memo(function Auge() {
   );
 });
 
+// Weinroter Rubin (Cabochon) in Goldfassung, um (0, 0); darauf winzig das eigene Spiegelbild (Selfie-Kamera)
+function Rubin({ r, spiegel }) {
+  const k = r / 14; // gezeichnet fuer einen Stein mit Radius 14
+  return (
+    <g transform={`scale(${k})`}>
+      <ellipse
+        cx="0"
+        cy="1"
+        rx="16.6"
+        ry="16.6"
+        fill="#2a1c08"
+        opacity="0.45"
+      />
+      <ellipse cx="0" cy="0" rx="16.4" ry="16.4" className="sp-rubin-fassung" />
+      <ellipse
+        cx="0"
+        cy="0"
+        rx="15"
+        ry="15"
+        fill="none"
+        stroke="url(#sp-fase-aussen)"
+        strokeWidth="2.2"
+      />
+      <ellipse
+        cx="0"
+        cy="0"
+        rx="14"
+        ry="14"
+        fill="url(#sp-rubin)"
+        className="sp-rubin"
+      />
+      {spiegel ? <RubinSpiegel r={13} /> : null}
+      <ellipse
+        cx="2.8"
+        cy="3.2"
+        rx="8"
+        ry="4.2"
+        fill="url(#sp-rubin-schimmer)"
+      />
+      <ellipse
+        cx="-5"
+        cy="-4"
+        rx="5.2"
+        ry="2.4"
+        transform="rotate(-18 -5 -4)"
+        fill="url(#sp-rubin-glanz)"
+      />
+      <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
+    </g>
+  );
+}
+
+// Blauer, geschliffener Dreieck-Kristall in Goldfassung, Spitze nach unten
+function Kristall() {
+  return (
+    <>
+      <path
+        d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+        fill="#2a1c08"
+        opacity="0.4"
+        transform="translate(0 1)"
+      />
+      <path
+        d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+        className="sp-stein-fassung"
+      />
+      <path
+        d="M -9.4 -10.2 L 9.4 -10.2 L 4.4 -6.6 L -4.4 -6.6 Z"
+        fill="#8cc2ff"
+      />
+      <path d="M -9.4 -10.2 L -4.4 -6.6 L 0 2.2 L 0 8 Z" fill="#2f6fd1" />
+      <path d="M 9.4 -10.2 L 4.4 -6.6 L 0 2.2 L 0 8 Z" fill="#163a8a" />
+      <path d="M -4.4 -6.6 L 4.4 -6.6 L 0 2.2 Z" fill="url(#sp-stein-tafel)" />
+      <path
+        d="M -9.4 -10.2 L 9.4 -10.2 L 0 8 Z"
+        fill="none"
+        stroke="#0c2154"
+        strokeWidth="0.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M -2.6 -5.6 L -1.4 -5.6"
+        stroke="#fff"
+        strokeWidth="0.9"
+        strokeLinecap="round"
+        opacity="0.9"
+      />
+      <circle cx="-2" cy="-5.6" r="1.6" fill="url(#sp-stein-glanz)" />
+    </>
+  );
+}
+
 /**
  * Fragerunde als Faecher: oben das Auge mit dem Fragedia, unten der eigene Schieber und die Systembögen.
  * Mechanik siehe docs/Konzepte/Apparat_Mechanik.md. Das Aufziehen wirkt nur auf die Anzeige;
@@ -969,7 +1061,7 @@ export default function Spielplatte({
 
             <Beschriftung {...geo} />
           </g>
-          {/* Hebel mit Sperre: radial schraeg; der Rubin bleibt aufrecht (Licht von links oben). Er steht auf
+          {/* Hebel mit Sperre: radial schraeg; der Kristall bleibt aufrecht (Licht von links oben). Er steht auf
               der Platte und dreht beim Auftritt mit dem Faecher herein (gleiche Ebene). */}
           <g
             className="sp-hebel"
@@ -1020,73 +1112,21 @@ export default function Spielplatte({
                 opacity="0.35"
               />
             </g>
-            {/* Griff: ein grosser weinroter Rubin (Cabochon), ohne Rahmen; gesperrt etwas dunkler */}
+            {/* Griff: ein grosser blauer, geschliffener Kristall in Goldfassung; gesperrt etwas dunkler */}
             <g
               transform={`translate(0 ${knaufY}) rotate(${-HEBEL_DREHUNG})`}
               className="sp-hebelgriff"
             >
-              {/* goldene Fassung, wirft einen kleinen Schatten */}
-              <ellipse
-                cx="0"
-                cy="1"
-                rx="16.6"
-                ry="16.6"
-                fill="#2a1c08"
-                opacity="0.45"
-              />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="16.4"
-                ry="16.4"
-                className="sp-rubin-fassung"
-              />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="15"
-                ry="15"
-                fill="none"
-                stroke="url(#sp-fase-aussen)"
-                strokeWidth="2.2"
-              />
-              <ellipse
-                cx="0"
-                cy="0"
-                rx="14"
-                ry="14"
-                fill="url(#sp-rubin)"
-                className="sp-rubin"
-              />
-              {AUGE_KAMERA === "selfie" && !wartet ? (
-                <RubinSpiegel r={13} />
-              ) : null}
-              <ellipse
-                cx="2.8"
-                cy="3.2"
-                rx="8"
-                ry="4.2"
-                fill="url(#sp-rubin-schimmer)"
-              />
-              <ellipse
-                cx="-5"
-                cy="-4"
-                rx="5.2"
-                ry="2.4"
-                transform="rotate(-18 -5 -4)"
-                fill="url(#sp-rubin-glanz)"
-              />
-              <circle cx="5.6" cy="-4.4" r="0.9" fill="#fff" opacity="0.8" />
-              {gesperrt ? (
-                <ellipse
-                  cx="0"
-                  cy="0"
-                  rx="14"
-                  ry="14"
-                  fill="#000"
-                  opacity="0.25"
-                />
-              ) : null}
+              <g transform="translate(0 3.5) scale(1.3)">
+                <Kristall />
+                {gesperrt ? (
+                  <path
+                    d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
+                    fill="#000"
+                    opacity="0.25"
+                  />
+                ) : null}
+              </g>
             </g>
           </g>
 
@@ -1101,8 +1141,8 @@ export default function Spielplatte({
           style={{ transformOrigin: `50% ${(MITTE.y / hoehe) * 100}%` }}
           aria-hidden="true"
         >
-          {/* eigener Schieber: breiter Messinggriff mit eingravierter Pfeilspitze nach unten, dreht sich mit dem
-              Bogen und reicht bis an die Luenette */}
+          {/* eigener Schieber: Rubin mit dem eigenen Spiegelbild in einer Messingfassung, die als Pfeil nach
+              unten auf die Skala zeigt; dreht sich mit dem Bogen und reicht bis an die Luenette */}
           {(() => {
             const p = punktU(rUser, pos.user, theta);
             const phi = -theta + 2 * theta * pos.user;
@@ -1112,56 +1152,24 @@ export default function Spielplatte({
                 transform={`translate(${p.x} ${p.y}) rotate(${(-phi * 180) / Math.PI}) scale(${e})`}
                 className={pos.user < RUHE ? "sp-griff ruhe" : "sp-griff"}
               >
+                {/* Fassung: rund um den Rubin, unten zur Pfeilspitze auf die Skala ausgezogen */}
                 <path
-                  d="M -27 -19 L 27 -19 Q 30 -19 29.6 -16.5 L 21.6 8 Q 20.2 11 15.2 11.6 L 0 13 L -15.2 11.6 Q -20.2 11 -21.6 8 L -29.6 -16.5 Q -30 -19 -27 -19 Z"
+                  d="M 7.5 6.35 A 10.5 10.5 0 1 0 -7.5 6.35 L 0 14 Z"
                   className="sp-griff-koerper"
                 />
                 <path
-                  d="M -23.5 -16 L 23.5 -16 L 17.4 6.5 L 0 9.4 L -17.4 6.5 Z"
+                  d="M 6.4 5.33 A 9 9 0 1 0 -6.4 5.33 L 0 11.8 Z"
                   className="sp-griff-flaeche"
                 />
-                {/* blauer, geschliffener Dreieck-Edelstein, Spitze nach unten zur Skala, in Goldfassung */}
-                <path
-                  d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
-                  fill="#2a1c08"
-                  opacity="0.4"
-                  transform="translate(0 1)"
-                />
-                <path
-                  d="M -11.5 -11.5 L 11.5 -11.5 L 0 10.5 Z"
-                  className="sp-stein-fassung"
-                />
-                <path
-                  d="M -9.4 -10.2 L 9.4 -10.2 L 4.4 -6.6 L -4.4 -6.6 Z"
-                  fill="#8cc2ff"
-                />
-                <path
-                  d="M -9.4 -10.2 L -4.4 -6.6 L 0 2.2 L 0 8 Z"
-                  fill="#2f6fd1"
-                />
-                <path
-                  d="M 9.4 -10.2 L 4.4 -6.6 L 0 2.2 L 0 8 Z"
-                  fill="#163a8a"
-                />
-                <path
-                  d="M -4.4 -6.6 L 4.4 -6.6 L 0 2.2 Z"
-                  fill="url(#sp-stein-tafel)"
-                />
-                <path
-                  d="M -9.4 -10.2 L 9.4 -10.2 L 0 8 Z"
-                  fill="none"
-                  stroke="#0c2154"
-                  strokeWidth="0.4"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M -2.6 -5.6 L -1.4 -5.6"
-                  stroke="#fff"
-                  strokeWidth="0.9"
-                  strokeLinecap="round"
-                  opacity="0.9"
-                />
-                <circle cx="-2" cy="-5.6" r="1.6" fill="url(#sp-stein-glanz)" />
+                {/* der Rubin bleibt aufrecht (Licht von links oben), auch wenn der Schieber mitdreht */}
+                <g
+                  transform={`translate(0 -1) rotate(${(phi * 180) / Math.PI})`}
+                >
+                  <Rubin
+                    r={7.6}
+                    spiegel={AUGE_KAMERA === "selfie" && !wartet}
+                  />
+                </g>
               </g>
             );
           })()}
