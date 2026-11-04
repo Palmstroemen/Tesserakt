@@ -35,6 +35,41 @@
   font-display: swap;
 }
 
+/* Grundschrift des Buchs: EB Garamond (SIL OFL, siehe schriften/EBGaramond-OFL.txt), lateinische Zeichen;
+   mitgeliefert, damit Bildschirm, Handy und Druck-PDF gleich setzen. Feste Schnitte statt der variablen
+   Schrift, sonst bettet Chrome sie als Type-3-Schrift ins PDF ein */
+@font-face {
+  font-family: "Tesserakt Garamond";
+  src: url("./schriften/EBGaramond-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tesserakt Garamond";
+  src: url("./schriften/EBGaramond-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tesserakt Garamond";
+  src: url("./schriften/EBGaramond-Italic-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tesserakt Garamond";
+  src: url("./schriften/EBGaramond-Italic-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Prototyp Apparat: mobile first, eine Spalte (max. 440 CSS-Pixel), am Desktop zentriert. */
 :root {
   --sc-grund: #16110d;
@@ -3019,7 +3054,7 @@ body::after {
   padding: calc(8 * var(--s)) calc(8 * var(--s)) calc(9 * var(--s));
   background: #fbf7ee;
   color: #241a10;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Tesserakt Garamond", Georgia, "Times New Roman", serif;
   font-size: calc(2.05 * var(--s));
   line-height: 1.42;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
@@ -3498,7 +3533,7 @@ body::after {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   white-space: nowrap;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Tesserakt Garamond", Georgia, "Times New Roman", serif;
   font-size: min(calc(3.4 * var(--mm)), calc(var(--ruecken) * 0.45));
   color: #e8d9b5;
 }

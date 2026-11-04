@@ -455,7 +455,15 @@ export default function Buch({
       );
     };
     los();
-    document.fonts?.ready.then(los);
+    // Kursiv und fett laedt der Browser sonst erst beim ersten Gebrauch, nach dem Setzen
+    Promise.all(
+      ["400 1em", "italic 400 1em", "700 1em", "italic 700 1em"].map((f) =>
+        document.fonts?.load(`${f} "Tesserakt Garamond"`),
+      ),
+    )
+      .catch(() => {})
+      .then(() => document.fonts?.ready)
+      .then(los);
     window.addEventListener("resize", los);
     return () => {
       aus = true;
