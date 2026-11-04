@@ -4,15 +4,15 @@ Kurz: Aus deinem Geburtsdatum berechnen wir für jedes System sein klassisches H
 
 ## Vom Geburtsdatum zum Horoskop {#vom_datum_zum_horoskop}
 
-Jedes System schaut auf etwas anderes. Die westliche Astrologie berechnet, wo Sonne, Mond und Planeten zum Zeitpunkt deiner Geburt standen. Bazi bildet aus Jahr, Monat, Tag und Stunde die vier Säulen des chinesischen Kalenders. Die Numerologie rechnet mit den Ziffern deines Geburtsdatums und – wenn du ihn angibst – mit den Buchstaben deines Namens.
+Jedes System schaut auf etwas anderes. Die westliche Astrologie berechnet, wo Sonne, Mond und Planeten zum Zeitpunkt deiner Geburt standen. Das chinesische Horoskop – genauer die ausführliche Form, die man Bazi nennt und die wir hier verwenden – bildet aus Jahr, Monat, Tag und Stunde die vier Säulen des chinesischen Kalenders. Die Numerologie rechnet mit den Ziffern deines Geburtsdatums; die Zahlen aus den Buchstaben eines Namens lässt der Apparat weg, weil er nicht nach deinem Namen fragt.
 
 Uhrzeit und Geburtsort sind vor allem für die astrologischen Systeme wichtig: Sie bestimmen zum Beispiel den Aszendenten und die Häuser. Wenn du sie nicht genau kennst, werden diese Teile ungenauer.
 
 ## Die sieben Systeme {#die_systeme}
 
 - **Westlich:** Tierkreiszeichen, Planeten in Zeichen und Häusern, Aspekte zwischen den Planeten und aktuelle Transite.
-- **Bazi (chinesisch):** die vier Säulen, dein Tagesmeister, das Zusammenspiel der fünf Elemente und die aktuelle Glückssäule.
-- **Numerologie:** Lebenszahl, Namenszahlen und persönliche Zyklen.
+- **Chinesisch (Bazi):** die vier Säulen, dein Tagesmeister, das Zusammenspiel der fünf Elemente und die aktuelle Glückssäule.
+- **Numerologie:** Lebenszahl und persönliche Zyklen.
 - **Kabbalah:** die Sephiroth und Pfade des Lebensbaums, die deinem Geburtsdatum zugeordnet werden.
 - **Arabisch:** die arabischen Lose, etwa das Los des Glücks, und die Firdaria – Lebensabschnitte, die von wechselnden Planeten regiert werden.
 - **Hellenistisch:** die antike Astrologie mit Geburtszeichen, Jahresprofektionen und Jahresherrscher, Tag- oder Nachtgeburt (Sekte) und den Losen.

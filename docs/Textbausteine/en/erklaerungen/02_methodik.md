@@ -4,15 +4,15 @@ Kurz: From your date of birth we calculate the classical horoscope of each tradi
 
 ## From date of birth to horoscope {#vom_datum_zum_horoskop}
 
-Each horoscope looks at something different. Western astrology calculates where the Sun, Moon and planets stood at the moment of your birth. Bazi forms the four pillars of the Chinese calendar from the year, month, day and hour. Numerology works with the digits of your date of birth and – if you give it – with the letters of your name.
+Each horoscope looks at something different. Western astrology calculates where the Sun, Moon and planets stood at the moment of your birth. The Chinese horoscope – more precisely its detailed form called Bazi, which is the one we use here – forms the four pillars of the Chinese calendar from the year, month, day and hour. Numerology works with the digits of your date of birth; the apparatus leaves out the numbers from the letters of a name, because it does not ask for yours.
 
 Time and place of birth matter mainly for the astrological horoscopes: they determine, for example, the Ascendant and the houses. If you do not know them exactly, these parts become less precise.
 
 ## The seven horoscopes {#die_systeme}
 
 - **Western:** zodiac signs, planets in signs and houses, aspects between the planets and current transits.
-- **Bazi (Chinese):** the four pillars, your Day Master, the interplay of the five elements and the current Luck Pillar.
-- **Numerology:** Life Path number, name numbers and personal cycles.
+- **Chinese (Bazi):** the four pillars, your Day Master, the interplay of the five elements and the current Luck Pillar.
+- **Numerology:** Life Path number and personal cycles.
 - **Kabbalah:** the Sephiroth and paths of the Tree of Life that are assigned to your date of birth.
 - **Arabic:** the Arabic lots, such as the Lot of Fortune, and the Firdaria – stretches of life ruled by changing planets.
 - **Hellenistic:** the astrology of antiquity, with the birth sign, annual profections and the Lord of the Year, day or night birth (sect) and the lots.

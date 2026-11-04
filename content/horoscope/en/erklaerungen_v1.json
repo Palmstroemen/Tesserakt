@@ -60,7 +60,7 @@
           "bloecke": [
             {
               "typ": "absatz",
-              "text": "Your winner is your personal result – for your friend Bazi might win, for your coworker the Kabbalah. If no horoscope really knows anything, the wins spread out evenly over many games: each horoscope then wins for roughly one in seven people."
+              "text": "Your winner is your personal result – for your friend the Chinese horoscope might win, for your coworker the Kabbalah. If no horoscope really knows anything, the wins spread out evenly over many games: each horoscope then wins for roughly one in seven people."
             },
             {
               "typ": "absatz",
@@ -113,7 +113,7 @@
           "bloecke": [
             {
               "typ": "absatz",
-              "text": "Each horoscope looks at something different. Western astrology calculates where the Sun, Moon and planets stood at the moment of your birth. Bazi forms the four pillars of the Chinese calendar from the year, month, day and hour. Numerology works with the digits of your date of birth and – if you give it – with the letters of your name."
+              "text": "Each horoscope looks at something different. Western astrology calculates where the Sun, Moon and planets stood at the moment of your birth. The Chinese horoscope – more precisely its detailed form called Bazi, which is the one we use here – forms the four pillars of the Chinese calendar from the year, month, day and hour. Numerology works with the digits of your date of birth; the apparatus leaves out the numbers from the letters of a name, because it does not ask for yours."
             },
             {
               "typ": "absatz",
@@ -129,8 +129,8 @@
               "typ": "liste",
               "punkte": [
                 "**Western:** zodiac signs, planets in signs and houses, aspects between the planets and current transits.",
-                "**Bazi (Chinese):** the four pillars, your Day Master, the interplay of the five elements and the current Luck Pillar.",
-                "**Numerology:** Life Path number, name numbers and personal cycles.",
+                "**Chinese (Bazi):** the four pillars, your Day Master, the interplay of the five elements and the current Luck Pillar.",
+                "**Numerology:** Life Path number and personal cycles.",
                 "**Kabbalah:** the Sephiroth and paths of the Tree of Life that are assigned to your date of birth.",
                 "**Arabic:** the Arabic lots, such as the Lot of Fortune, and the Firdaria – stretches of life ruled by changing planets.",
                 "**Hellenistic:** the astrology of antiquity, with the birth sign, annual profections and the Lord of the Year, day or night birth (sect) and the lots.",
@@ -183,15 +183,23 @@
       "abschnitte": [
         {
           "id": "die_frage",
-          "titel": "The question",
+          "titel": "Our questions",
           "bloecke": [
             {
               "typ": "absatz",
-              "text": "For thousands of years people have read meaning into the stars, numbers and calendars. We want to know: does a horoscope describe people better when it knows their **real** date of birth than when it is given a random one?"
+              "text": "For thousands of years people have read meaning into the stars, numbers and calendars. Whether this yields more than a pleasing reflection has rarely been tested on many people at once. We go into this experiment without a ready-made answer and ask three questions. As soon as enough games have come together, we want to answer them with charts drawn from the collected data – perhaps already in a later edition of this book."
             },
             {
               "typ": "absatz",
-              "text": "We go into this experiment without a ready-made answer. The result may turn out differently for each horoscope."
+              "text": "**First: do horoscopes hit more often than chance?** This is the basic question. Does a horoscope describe a person better when it knows their **real** date of birth than when it is given a random one? Because every horoscope is also calculated for many random birthdays for comparison, this can be tested for each tradition on its own. The answer may turn out differently for each horoscope."
+            },
+            {
+              "typ": "absatz",
+              "text": "**Second: does the season of birth play a part?** Even if the stars know nothing about us, the calendar might. A child born in spring has spent the months before in a different way from one born in autumn: in different light, with different food and the illnesses of a different season – and with a mother whose mood may have changed with winter and summer over the course of the pregnancy. If people rate themselves a little differently depending on their month of birth, this should show up in the data as a gentle wave across the year, whatever the horoscopes say. And it could explain why a horoscope hits now and then: whoever reads the calendar always reads the season as well."
+            },
+            {
+              "typ": "absatz",
+              "text": "**Third: are we shaped by the horoscope we grow up with?** Anyone who grows up in the Chinese cultural sphere often knows their animal sign from early childhood; in the West almost everyone knows their star sign. Whoever hears for years that Tigers are brave and Aries impatient may one day see themselves that way – or even become so. This is called a self-fulfilling prophecy. If it exists, the Chinese horoscope should describe people from the Chinese cultural sphere better than others, and Western astrology, in turn, people in the West. Our only clue is the rough region of the place of birth. It does not always tell where someone grew up – but across many games such an influence should still become visible."
             }
           ]
         },
@@ -227,9 +235,8 @@
               "typ": "liste",
               "punkte": [
                 "You do not need an account.",
-                "We store your date of birth, the time, your answers and the result – without your name.",
+                "We store your date of birth, the time, your answers and the result. The apparatus never asks for your name.",
                 "Of your place of birth we store only the time zone and a rough region (about 100 km).",
-                "If you give your name, only numerology uses it, for its name numbers. These three numbers are stored, not the name.",
                 "Only aggregated, anonymous analyses across many games are published."
               ]
             }

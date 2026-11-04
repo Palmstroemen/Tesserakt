@@ -22,7 +22,7 @@ Mit den sieben Systemen ist es ähnlich. Selbst wenn kein einziges System etwas 
 
 ## Bei anderen Menschen gewinnt ein anderes System {#verteilung_der_siege}
 
-Dein Sieger ist dein persönliches Ergebnis – bei deiner Freundin gewinnt vielleicht Bazi, bei deinem Kollegen die Kabbalah. Wenn kein System wirklich etwas weiß, verteilen sich die Siege über viele Spiele gleichmäßig: Jedes System gewinnt dann ungefähr bei einem von sieben Menschen.
+Dein Sieger ist dein persönliches Ergebnis – bei deiner Freundin gewinnt vielleicht das chinesische Horoskop, bei deinem Kollegen die Kabbalah. Wenn kein System wirklich etwas weiß, verteilen sich die Siege über viele Spiele gleichmäßig: Jedes System gewinnt dann ungefähr bei einem von sieben Menschen.
 
 Übrigens: Wenn du selbst noch einmal spielst, gewinnt oft wieder dasselbe System. Das liegt daran, dass dein Geburtsdatum und deine Antworten gleich bleiben – über die Treffsicherheit des Systems sagt das noch nichts.
 

@@ -22,7 +22,7 @@ It is much the same with the seven horoscopes. Even if not a single one of them 
 
 ## For other people, a different horoscope wins {#verteilung_der_siege}
 
-Your winner is your personal result – for your friend Bazi might win, for your coworker the Kabbalah. If no horoscope really knows anything, the wins spread out evenly over many games: each horoscope then wins for roughly one in seven people.
+Your winner is your personal result – for your friend the Chinese horoscope might win, for your coworker the Kabbalah. If no horoscope really knows anything, the wins spread out evenly over many games: each horoscope then wins for roughly one in seven people.
 
 By the way: if you play again yourself, the same horoscope often wins again. That is because your date of birth and your answers stay the same – it says nothing yet about how accurate the horoscope is.
 
