@@ -130,7 +130,13 @@
     "drucken": "Print / PDF",
     "forschung_ja": "Your answers are stored for the research.",
     "forschung_nein": "Your answers are not stored.",
-    "forschung_aendern": "Change"
+    "forschung_aendern": "Change",
+    "vorlage_vorschau": "Preview",
+    "vorlage_innen": "Print: interior",
+    "vorlage_umschlag": "Print: cover",
+    "beschnitt": "Bleed mm",
+    "ruecken": "Spine mm",
+    "rand": "Margin mm"
   },
   "systeme": {
     "Numerologie": {

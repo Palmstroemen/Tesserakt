@@ -8,6 +8,10 @@
 // zwischen zwei Saetzen geteilt, eine Ueberschrift bleibt nicht allein am Seitenende. Alle Groessen sind in
 // cqw (relativ zur Seite), daher gilt der Umbruch der Vorschau auch fuer den Druck.
 // Zwei Ausfuehrungen: hell (Papier) und dunkel (fast schwarz, helle Schrift, goldene Ueberschriften).
+// Druckvorlagen fuer die Druckerei (in der Entwicklung oder mit ?druckvorlage in der Adresse): Innenteil ohne
+// Rueckseite, aufgefuellt auf MINDESTSEITEN, jede Seite mit Beschnitt rundum; Umschlag als ein Bogen aus
+// Rueckseite, Ruecken und Titelseite mit Rand (Einschlag und Beschnitt). Die Seiten selbst bleiben 210 mm gross
+// und gleich gesetzt, nur ihr Hintergrund laeuft in den Rand weiter.
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { holen } from "../logic/api";
@@ -31,6 +35,11 @@ const DIMENSIONEN = [
   "spiritualitaet",
 ];
 const UEBERSCHRIFTEN = ["h2", "h3", "unter", "klein"];
+const MINDESTSEITEN = 24; // kleinster Innenteil der Druckereien (Hardcover)
+const VORLAGEN_WAEHLBAR =
+  import.meta.env.DEV ||
+  new URLSearchParams(window.location.search).has("druckvorlage");
+const mm = (x) => `calc(${x} * var(--mm))`;
 
 // --- Bausteine ---------------------------------------------------------------------------------------------
 // { k: "h2" | "unter" | "klein" | "h3" | "p" | "schluss" | "li" | "rangliste", t, fett?, zeilen? }
@@ -410,6 +419,8 @@ export default function Buch({
   const [gesetzt, setGesetzt] = useState(null); // Abschnitte mit fertig gesetzten Textseiten
   const [forschung, setForschung] = useState(datenErlaubt);
   const [vorblatt, setVorblatt] = useState(false);
+  const [vorlage, setVorlage] = useState("vorschau"); // "vorschau" | "innen" | "umschlag"
+  const [masse, setMasse] = useState({ beschnitt: 3, ruecken: 10, rand: 15 }); // in mm
   const muster = useRef(null);
 
   useEffect(() => {
@@ -463,9 +474,10 @@ export default function Buch({
   let nummer = 1;
   let imHoroskop = 0; // Seiten des laufenden Horoskops
   let quellenEnde = null; // nach den Quellen (letzter Abschnitt) steht die Einwilligung zur Forschung
+  let titelseite = null;
   (gesetzt ?? []).forEach((a, i) => {
     if (a.art === "titel") {
-      seiten.push(
+      titelseite = (
         <Seite key="titel" art="titel">
           <div className="buch-titelzeichen">{t("buch.titelzeichen")}</div>
           <h1>{titel}</h1>
@@ -493,8 +505,9 @@ export default function Buch({
             ))}
           </div>
           <p className="buch-datum">{datum}</p>
-        </Seite>,
+        </Seite>
       );
+      seiten.push(titelseite);
       nummer += 1;
     } else if (a.art === "impressum") {
       seiten.push(
@@ -578,9 +591,9 @@ export default function Buch({
       imHoroskop = 0;
     }
   });
-  // Rueckseite: das Kaestchen des Apparats; sie ist die letzte Seite, die Seitenzahl bleibt gerade
-  if (seiten.length % 2 === 0) seiten.push(<Seite key="leer" art="leer" />);
-  seiten.push(
+  // Rueckseite: das Kaestchen des Apparats; in der Vorschau die letzte Seite (die Seitenzahl bleibt gerade),
+  // in der Druckvorlage auf dem Umschlag
+  const rueckseite = (
     <Seite key="rueckseite" art="rueckseite">
       <div className="buch-kaestchen">
         <img src={deckelBild} alt={t("buch.kaestchen_bild")} />
@@ -589,11 +602,52 @@ export default function Buch({
         <span>{t("buch.titelzeichen")}</span>
         {t("buch.projekt")}
       </p>
-    </Seite>,
+    </Seite>
   );
+  // Innenteil fuer die Druckerei: gerade Seitenzahl, mindestens MINDESTSEITEN, aufgefuellt mit Notizseiten
+  const innen = [...seiten];
+  while (innen.length < MINDESTSEITEN || innen.length % 2)
+    innen.push(
+      <Seite key={`f-${innen.length}`} art="notiz" nummer={nummer++}>
+        <h3>{t("buch.notizen")}</h3>
+      </Seite>,
+    );
+  if (seiten.length % 2 === 0) seiten.push(<Seite key="leer" art="leer" />);
+  seiten.push(rueckseite);
+
+  const { beschnitt, ruecken, rand } = masse;
+  const massFeld = (name) => (
+    <label className="buch-mass">
+      {t(`buch.${name}`)}
+      <input
+        type="number"
+        min="0"
+        step="0.1"
+        value={masse[name]}
+        onChange={(e) =>
+          setMasse((m) => ({ ...m, [name]: Number(e.target.value) || 0 }))
+        }
+      />
+    </label>
+  );
+  // Bogengroesse fuer den Druck (eine Vorlage je PDF)
+  const bogen =
+    vorlage === "innen"
+      ? [210 + 2 * beschnitt, 210 + 2 * beschnitt]
+      : [420 + ruecken + 2 * rand, 210 + 2 * rand];
 
   return createPortal(
-    <div className={dunkel ? "buch-ebene dunkel" : "buch-ebene"}>
+    <div
+      className={`buch-ebene${dunkel ? " dunkel" : ""} vorlage-${vorlage}`}
+      style={{
+        "--beschnitt": mm(beschnitt),
+        "--ruecken": mm(ruecken),
+        "--rand": mm(rand),
+      }}
+    >
+      {vorlage !== "vorschau" ? (
+        <style>{`@media print { @page { size: ${bogen[0]}mm ${bogen[1]}mm; margin: 0; } }`}</style>
+      ) : null}
       <div className="buch-leiste">
         <button
           type="button"
@@ -603,7 +657,33 @@ export default function Buch({
         >
           ‹
         </button>
-        <span>{t("buch.seiten", { anzahl: seiten.length })}</span>
+        <span>
+          {t("buch.seiten", {
+            anzahl: vorlage === "vorschau" ? seiten.length : innen.length,
+          })}
+        </span>
+        {VORLAGEN_WAEHLBAR ? (
+          <span className="buch-vorlagen">
+            <select
+              className="buch-wahl"
+              value={vorlage}
+              onChange={(e) => setVorlage(e.target.value)}
+            >
+              {["vorschau", "innen", "umschlag"].map((v) => (
+                <option key={v} value={v}>
+                  {t(`buch.vorlage_${v}`)}
+                </option>
+              ))}
+            </select>
+            {vorlage === "innen" ? massFeld("beschnitt") : null}
+            {vorlage === "umschlag" ? (
+              <>
+                {massFeld("ruecken")}
+                {massFeld("rand")}
+              </>
+            ) : null}
+          </span>
+        ) : null}
         <button
           type="button"
           className="buch-wahl"
@@ -623,6 +703,32 @@ export default function Buch({
       <div className="buch-muster" aria-hidden="true">
         <section className="buch-seite text" ref={muster} />
       </div>
+      {vorlage === "innen" ? (
+        <div className="buch">
+          {innen.map((s) => (
+            <div key={s.key} className={`buch-blatt ${s.props.art}`}>
+              {s}
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {vorlage === "umschlag" ? (
+        <div className="buch">
+          <div className="buch-umschlag">
+            <div className="buch-umschlag-teil hinten">{rueckseite}</div>
+            <div className="buch-umschlag-ruecken">
+              {ruecken >= 5 ? (
+                <span>
+                  <b>{t("buch.titelzeichen")}</b>
+                  {titel}
+                </span>
+              ) : null}
+            </div>
+            <div className="buch-umschlag-teil vorne">{titelseite}</div>
+          </div>
+        </div>
+      ) : null}
+      {vorlage === "vorschau" ? (
       <div className="buch">
         {seiten.slice(0, quellenEnde ?? seiten.length)}
         {/* nur am Bildschirm, keine Buchseite */}
@@ -642,6 +748,7 @@ export default function Buch({
         ) : null}
         {seiten.slice(quellenEnde ?? seiten.length)}
       </div>
+      ) : null}
       {vorblatt ? (
         <div className="buch-vorblatt">
           <Vorblatt
