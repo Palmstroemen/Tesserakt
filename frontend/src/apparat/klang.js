@@ -1,3 +1,4 @@
+import hallDatei from "./kaestchen/hall.m4a";
 import { melden } from "./werkstatt";
 
 // Mechanische Geraeusche, synthetisch per Web Audio (keine Tondateien noetig).
@@ -40,6 +41,28 @@ function freigeben(e) {
 const FREIGABE = ["pointerdown", "pointerup", "touchend", "click", "keydown"];
 if (typeof window !== "undefined") {
   for (const art of FREIGABE) window.addEventListener(art, freigeben, true);
+}
+
+// Nachhall des letzten Orchesterschlags im Film (tools/hall.py), zum Film passend laut, nicht wie die Mechanik
+let hall = null;
+export function hallLaden() {
+  const ac = audio();
+  if (!ac || hall) return;
+  hall = fetch(hallDatei)
+    .then((r) => r.arrayBuffer())
+    .then((d) => ac.decodeAudioData(d))
+    .catch(() => null);
+}
+
+export function hallSpielen() {
+  hall?.then((puffer) => {
+    const ac = audio();
+    if (!puffer || !ac || ac.state !== "running") return;
+    const quelle = ac.createBufferSource();
+    quelle.buffer = puffer;
+    quelle.connect(ac.destination);
+    quelle.start();
+  });
 }
 
 function rauschStoss(dauer, frequenz, lautstaerke, verzoegerung = 0) {

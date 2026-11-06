@@ -15,8 +15,8 @@ import {
 } from "three";
 import DECKEL from "./kaestchen/deckel.json";
 import deckelBild from "./kaestchen/deckel.webp";
-import filmDatei from "./kaestchen/film.mp4";
-import { einrasten, hebel, rastKlick, sperre } from "./klang";
+import { filmVideo } from "./film";
+import { einrasten, hallLaden, hallSpielen, hebel, rastKlick, sperre } from "./klang";
 import { FILM_GESEHEN } from "./werkstatt";
 import { t } from "../sprache";
 
@@ -39,8 +39,6 @@ const ANTEIL = 0.85; // Anteil der Deckelbreite auf dem Bildschirm
 const SPALT = 4; // Grad, wenn der Haken offen ist
 const OFFEN = 108; // Grad, ganz aufgeschwungen
 const HAKEN = { y: 1530, auf: 105 }; // Hoehe im Deckelbild; Grad, um die er hochklappt
-const LEERES_BILD =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 // --- Fuge --------------------------------------------------------------------------------------------------
 
@@ -622,14 +620,11 @@ const easeEin = (t) => t * t; // faellt: wird schneller
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 const RAD = Math.PI / 180;
 
-// Film schon holen, solange man das Vorblatt liest (landet im Zwischenspeicher des Browsers)
-export function filmVorladen() {
-  fetch(filmDatei).catch(() => {});
-}
+const HALL_VORLAUF = 0.12; // s vor dem Schnitt (tools/hall.py: UEBERLAPP)
 
 export default function Kaestchen({ film, onOffen }) {
   const halter = useRef(null);
-  const videoRef = useRef(null);
+  const filmPlatz = useRef(null);
   const welt = useRef(null);
   const [bereit, setBereit] = useState(false);
   const [filmLaeuft, setFilmLaeuft] = useState(film);
@@ -638,14 +633,49 @@ export default function Kaestchen({ film, onOffen }) {
   const filmVorbei = useRef(false);
   const [weg, setWeg] = useState(false);
 
-  // Film gleich beim Einblenden starten (die Einwilligung davor war eine Beruehrung, Ton ist also erlaubt)
+  // Film gleich beim Einblenden starten, nach dem Vorblatt mit Ton (film.js). Ohne vorherige Beruehrung lassen die
+  // Browser nur stumm zu; dann schaltet die erste Beruehrung den Ton dazu. Vor dem Schnitt am Ende setzt der Nachhall
+  // ein und klingt ins geschlossene Kaestchen hinein.
+  const filmEndeAktuell = useRef(null);
+  filmEndeAktuell.current = filmEnde;
   useLayoutEffect(() => {
-    const v = videoRef.current;
-    if (!film || !v) return;
+    if (!film) return undefined;
+    const v = filmVideo();
+    filmPlatz.current.appendChild(v);
+    hallLaden();
+    const ende = () => filmEndeAktuell.current();
+    const spielt = () => setFilmBild(true);
+    const puffert = () => setFilmBild(false);
+    const tonDazu = () => {
+      v.muted = false;
+    };
+    v.addEventListener("playing", spielt);
+    v.addEventListener("waiting", puffert);
+    v.addEventListener("ended", ende);
+    v.addEventListener("error", ende);
+    window.addEventListener("pointerdown", tonDazu, true);
+    let hallDa = false;
+    let bild = requestAnimationFrame(function warten() {
+      if (!hallDa && v.duration - v.currentTime < HALL_VORLAUF) {
+        hallDa = true;
+        if (!v.muted) hallSpielen();
+      }
+      if (!hallDa) bild = requestAnimationFrame(warten);
+    });
     v.play().catch(() => {
       v.muted = true;
-      v.play().catch(filmEnde);
+      v.play().catch(ende);
     });
+    return () => {
+      cancelAnimationFrame(bild);
+      v.removeEventListener("playing", spielt);
+      v.removeEventListener("waiting", puffert);
+      v.removeEventListener("ended", ende);
+      v.removeEventListener("error", ende);
+      window.removeEventListener("pointerdown", tonDazu, true);
+      v.pause();
+      v.remove();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [film]);
 
@@ -1081,26 +1111,15 @@ export default function Kaestchen({ film, onOffen }) {
 
   // Film ohne fertigen Deckel nicht ausblenden
   const filmZeigen = filmLaeuft || !bereit;
+  useEffect(() => {
+    if (film)
+      filmVideo().className = filmZeigen ? "ka-film" : "ka-film ka-film-aus";
+  }, [film, filmZeigen]);
   return (
     <div className={weg ? "ka-ebene ka-weg" : "ka-ebene"}>
       <div ref={schattenRef} className="ka-schatten" />
       <div ref={halter} className="ka-deckel" />
-      {film ? (
-        <video
-          ref={videoRef}
-          className={filmZeigen ? "ka-film" : "ka-film ka-film-aus"}
-          src={filmDatei}
-          // ohne Vorschaubild zeigt die Android-WebView bis zum ersten Bild einen grauen Platzhalter mit
-          // Abspielpfeil; ein durchsichtiges Bild laesst stattdessen den dunklen Grund stehen
-          poster={LEERES_BILD}
-          playsInline
-          preload="auto"
-          onPlaying={() => setFilmBild(true)}
-          onWaiting={() => setFilmBild(false)}
-          onEnded={filmEnde}
-          onError={filmEnde}
-        />
-      ) : null}
+      <div ref={filmPlatz} />
       {film && filmLaeuft && !filmBild ? (
         <div className="ka-moment">{t("kaestchen.moment")}</div>
       ) : null}

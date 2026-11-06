@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Vorblatt from "./Vorblatt";
 import { einwilligungLaden } from "./einwilligung";
+import { filmFreischalten, filmVideo } from "./film";
 import { neigungErlauben } from "./neigung";
 import { t } from "../sprache";
 import { FILM_GESEHEN, TESTPHASE, werkstattEinrichten } from "./werkstatt";
@@ -37,17 +38,15 @@ function App() {
   useEffect(() => {
     if (bereit) return;
     apparatLaden().catch(() => {});
-    kaestchenLaden()
-      .then((k) => {
-        if (!filmGesehen()) k.filmVorladen();
-      })
-      .catch(() => {});
+    kaestchenLaden().catch(() => {});
+    if (!filmGesehen()) filmVideo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (!bereit)
     return (
       <Vorblatt
         onFertig={() => {
+          if (!filmGesehen()) filmFreischalten();
           setFilm(!filmGesehen());
           setBereit(true);
         }}
