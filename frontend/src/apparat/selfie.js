@@ -8,6 +8,18 @@ import { kameraErlaubt } from "./einwilligung";
 const NACHLAUF_MS = 2000;
 
 let warten = null;
+// Waehrend der Film laeuft, bleibt die Kamera aus: Sie beim Filmstart einzuschalten, kann auf dem iPhone den Ton des
+// Videos nehmen (Audio-Sitzung des Systems), und das Gesicht braucht dort noch niemand.
+let halt = Promise.resolve();
+
+// -> Funktion, die wieder freigibt
+export function selfieZurueckhalten() {
+  let frei;
+  halt = new Promise((r) => {
+    frei = r;
+  });
+  return frei;
+}
 let nutzer = 0;
 let stopp = 0;
 
@@ -19,15 +31,17 @@ export function selfieAnfordern() {
     nutzer -= 1;
     return Promise.reject(new Error("keine Kamera"));
   }
-  warten ??= navigator.mediaDevices
-    .getUserMedia({
-      video: {
-        facingMode: "user",
-        width: { ideal: 640 },
-        height: { ideal: 480 },
-      },
-      audio: false,
-    })
+  warten ??= halt
+    .then(() =>
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user",
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+        },
+        audio: false,
+      }),
+    )
     .then((strom) => {
       const v = document.createElement("video");
       v.muted = true;

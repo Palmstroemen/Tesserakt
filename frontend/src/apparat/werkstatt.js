@@ -123,6 +123,12 @@ function massanzeige() {
   const probe = document.createElement("div");
   probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:100svh";
   document.body.appendChild(probe);
+  const film = () => {
+    const v = document.querySelector("video.ka-film");
+    return v
+      ? `film stumm=${v.muted} pause=${v.paused} t=${v.currentTime.toFixed(1)} abgelehnt=${v.dataset.abgelehnt ?? "-"}`
+      : "film -";
+  };
   const hoehe = (s) => {
     const r = document.querySelector(s)?.getBoundingClientRect();
     return r ? `${s} ${Math.round(r.top)}..${Math.round(r.bottom)}` : `${s} -`;
@@ -133,6 +139,7 @@ function massanzeige() {
       `sichtbar ${Math.round(window.visualViewport?.height ?? 0)}`,
       `svh ${Math.round(probe.getBoundingClientRect().height)}`,
       `standalone ${window.navigator.standalone === true}`,
+      film(),
       ...[".sc-buehne", ".sp", ".sp-buehne", ".sp-svg", ".sp-faecher"].map(hoehe),
     ].join("\n");
   }, 500);

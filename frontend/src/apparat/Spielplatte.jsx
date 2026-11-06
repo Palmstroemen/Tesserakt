@@ -241,8 +241,11 @@ const Auge = memo(function Auge() {
   );
 });
 
-// Weinroter Rubin (Cabochon) in Goldfassung, um (0, 0); darauf das eigene Spiegelbild (Selfie-Kamera)
-function Rubin({ r, spiegel }) {
+// eigener Schieber: waechst mit den Knoepfen, bleibt aber groesser als sie
+const griffMassstab = (symbol) => Math.min(symbol / 11.4, 1.15);
+
+// Weinroter Rubin (Cabochon) in Goldfassung, um (0, 0); das eigene Spiegelbild liegt als eigene Ebene darauf
+function Rubin({ r }) {
   const k = r / 14; // gezeichnet fuer einen Stein mit Radius 14
   return (
     <g transform={`scale(${k})`}>
@@ -272,7 +275,6 @@ function Rubin({ r, spiegel }) {
         fill="url(#sp-rubin)"
         className="sp-rubin"
       />
-      {spiegel ? <RubinSpiegel r={13} /> : null}
       <ellipse
         cx="2.8"
         cy="3.2"
@@ -1138,7 +1140,7 @@ export default function Spielplatte({
           {(() => {
             const p = punktU(rUser, pos.user, theta);
             const phi = -theta + 2 * theta * pos.user;
-            const e = Math.min(symbol / 11.4, 1.15); // waechst mit den Knoepfen, bleibt aber groesser als sie
+            const e = griffMassstab(symbol);
             return (
               <g
                 transform={`translate(${p.x} ${p.y}) rotate(${(-phi * 180) / Math.PI}) scale(${e})`}
@@ -1156,13 +1158,29 @@ export default function Spielplatte({
                   />
                   {/* der Rubin bleibt aufrecht (Licht von links oben), auch wenn der Schieber mitdreht */}
                   <g transform={`rotate(${(phi * 180) / Math.PI})`}>
-                    <Rubin r={17} spiegel={AUGE_KAMERA === "selfie" && !wartet} />
+                    <Rubin r={17} />
                   </g>
                 </g>
               </g>
             );
           })()}
         </svg>
+
+        {/* Spiegelbild auf dem Rubin; steht still, solange sich der Faecher dreht, und zeigt sich erst danach */}
+        {AUGE_KAMERA === "selfie" && !wartet && !auftritt && !abgang
+          ? (() => {
+              const p = punktU(rUser, pos.user, theta);
+              const phi = -theta + 2 * theta * pos.user;
+              const e = griffMassstab(symbol);
+              return (
+                <RubinSpiegel
+                  x={p.x - 6 * e * Math.sin(phi)}
+                  y={p.y - 6 * e * Math.cos(phi)}
+                  r={15.8 * e}
+                />
+              );
+            })()
+          : null}
 
         {/* Mantel des Pucks unter dem Auge: man sieht ihn, waehrend sich das Auge von der Kante hereindreht */}
         {auftritt ? (

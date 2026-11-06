@@ -17,6 +17,7 @@ import DECKEL from "./kaestchen/deckel.json";
 import deckelBild from "./kaestchen/deckel.webp";
 import { filmVideo } from "./film";
 import { einrasten, hallLaden, hallSpielen, hebel, rastKlick, sperre } from "./klang";
+import { selfieZurueckhalten } from "./selfie";
 import { FILM_GESEHEN } from "./werkstatt";
 import { t } from "../sprache";
 
@@ -621,6 +622,8 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 const RAD = Math.PI / 180;
 
 const HALL_VORLAUF = 0.12; // s vor dem Schnitt (tools/hall.py: UEBERLAPP)
+const TON_BERUEHRUNG = ["pointerup", "touchend", "click"];
+const KAMERA_NACH_FILM_MS = 4000; // der Nachhall soll erst ausklingen; oeffnet man vorher, kommt sie gleich
 
 export default function Kaestchen({ film, onOffen }) {
   const halter = useRef(null);
@@ -643,17 +646,25 @@ export default function Kaestchen({ film, onOffen }) {
     const v = filmVideo();
     filmPlatz.current.appendChild(v);
     hallLaden();
-    const ende = () => filmEndeAktuell.current();
+    const kameraFrei = selfieZurueckhalten();
+    let kameraSpaeter = 0;
+    const ende = () => {
+      kameraSpaeter ||= setTimeout(kameraFrei, KAMERA_NACH_FILM_MS);
+      filmEndeAktuell.current();
+    };
     const spielt = () => setFilmBild(true);
     const puffert = () => setFilmBild(false);
+    // Safari zaehlt erst das Loslassen als Beruehrung, die Ton erlaubt
     const tonDazu = () => {
-      v.muted = false;
+      if (v.muted) v.muted = false;
     };
     v.addEventListener("playing", spielt);
     v.addEventListener("waiting", puffert);
     v.addEventListener("ended", ende);
     v.addEventListener("error", ende);
-    window.addEventListener("pointerdown", tonDazu, true);
+    TON_BERUEHRUNG.forEach((art) =>
+      window.addEventListener(art, tonDazu, true),
+    );
     let hallDa = false;
     let bild = requestAnimationFrame(function warten() {
       if (!hallDa && v.duration - v.currentTime < HALL_VORLAUF) {
@@ -662,7 +673,8 @@ export default function Kaestchen({ film, onOffen }) {
       }
       if (!hallDa) bild = requestAnimationFrame(warten);
     });
-    v.play().catch(() => {
+    v.play().catch((e) => {
+      v.dataset.abgelehnt = e.name; // fuer ?mass
       v.muted = true;
       v.play().catch(ende);
     });
@@ -672,7 +684,11 @@ export default function Kaestchen({ film, onOffen }) {
       v.removeEventListener("waiting", puffert);
       v.removeEventListener("ended", ende);
       v.removeEventListener("error", ende);
-      window.removeEventListener("pointerdown", tonDazu, true);
+      TON_BERUEHRUNG.forEach((art) =>
+        window.removeEventListener(art, tonDazu, true),
+      );
+      clearTimeout(kameraSpaeter);
+      kameraFrei();
       v.pause();
       v.remove();
     };

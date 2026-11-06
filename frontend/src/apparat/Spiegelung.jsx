@@ -78,31 +78,46 @@ export function Spiegel({ glanz = "eg-glanz" }) {
 }
 
 // Kleiner Spiegel auf dem Rubin des eigenen Schiebers: das eigene Bild, gespiegelt und stark verkleinert wie auf einer
-// gewoelbten Kuppe. Im SVG des Faechers (foreignObject); gezeichnet nur etwa 12-mal je Sekunde, er ist klein.
+// gewoelbten Kuppe. Eigene Ebene ueber dem SVG (in einem foreignObject zeichnet Safari Canvas samt Filter nicht
+// verlaesslich); Grau, Kontrast und Rand entstehen deshalb gleich in der Leinwand. Etwa 12-mal je Sekunde, er ist klein.
+// x, y, r in Einheiten der Zeichnung (400 breit).
 const RUBIN_TAKT_MS = 80;
-export function RubinSpiegel({ r }) {
+export function RubinSpiegel({ x, y, r }) {
   const video = useSelfie();
   const leinwand = useRef(null);
   useEffect(() => {
     const c = leinwand.current;
     if (!video || !c) return undefined;
     const ctx = c.getContext("2d");
+    const n = c.width;
+    const rand = ctx.createRadialGradient(n / 2, n / 2, n * 0.3, n / 2, n / 2, n / 2);
+    rand.addColorStop(0, "#000");
+    rand.addColorStop(1, "rgba(0,0,0,0)");
     let takt = 0;
     const zeichnen = () => {
       if (video.readyState >= 2 && video.videoWidth) {
-        const n = c.width;
         const vw = video.videoWidth;
         const vh = video.videoHeight;
         const s = Math.min(vw, vh) * 0.9; // fast das ganze Bild: eine Kuppe zeigt viel Umgebung
-        ctx.clearRect(0, 0, n, n);
+        const bild = () =>
+          ctx.drawImage(video, (vw - s) / 2, (vh - s) / 2, s, s, 0, 0, n, n);
         ctx.save();
-        ctx.beginPath();
-        ctx.arc(n / 2, n / 2, n / 2, 0, Math.PI * 2);
-        ctx.clip();
+        ctx.globalCompositeOperation = "source-over";
         ctx.translate(n, 0);
         ctx.scale(-1, 1); // wie ein Spiegel
-        ctx.drawImage(video, (vw - s) / 2, (vh - s) / 2, s, s, 0, 0, n, n);
+        bild();
+        ctx.globalCompositeOperation = "overlay"; // Kontrast: das Bild auf sich selbst
+        bild();
+        ctx.globalCompositeOperation = "lighter"; // hell genug fuer den dunklen Stein
+        ctx.globalAlpha = 0.6;
+        bild();
         ctx.restore();
+        ctx.globalCompositeOperation = "saturation"; // grau
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, n, n);
+        ctx.globalCompositeOperation = "destination-in"; // runder, weicher Rand
+        ctx.fillStyle = rand;
+        ctx.fillRect(0, 0, n, n);
       }
       takt = setTimeout(zeichnen, RUBIN_TAKT_MS);
     };
@@ -111,13 +126,17 @@ export function RubinSpiegel({ r }) {
   }, [video]);
   if (!video) return null;
   return (
-    <foreignObject x={-r} y={-r} width={2 * r} height={2 * r}>
-      <canvas
-        ref={leinwand}
-        width="96"
-        height="96"
-        className="sp-rubin-spiegel"
-      />
-    </foreignObject>
+    <canvas
+      ref={leinwand}
+      width="96"
+      height="96"
+      className="sp-rubin-spiegel"
+      style={{
+        left: `calc(${(x - r) / 4} * 1cqw)`,
+        top: `calc(${(y - r) / 4} * 1cqw)`,
+        width: `calc(${r / 2} * 1cqw)`,
+        height: `calc(${r / 2} * 1cqw)`,
+      }}
+    />
   );
 }
