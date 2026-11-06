@@ -3,6 +3,7 @@
 //   ?messen         Anzeige oben links: Dauer der Bilder, solange ein Finger auf dem Bildschirm ist
 //   ?ohne=schatten  SVG-Schatten aus; ?ohne=masken Masken der Schlitze aus (beides kombinierbar,
 //                   z. B. ?messen&ohne=schatten,masken), um herauszufinden, was auf dem Geraet bremst
+//   ?mass           Anzeige oben links: Fensterhoehe und wie weit Faecher und Buehne wirklich reichen (iPhone)
 // Im Entwicklungsserver meldet die Seite ausserdem nach logs/handy.log, was auf dem Geraet passiert.
 
 // Geschlossener Test (Google Play): Film und Zettel bei jedem Besuch, damit jeder Tester sie sieht. Fuer die
@@ -112,6 +113,29 @@ export function werkstattEinrichten() {
   for (const teil of (q.get("ohne") ?? "").split(",").filter(Boolean))
     document.documentElement.classList.add(`ohne-${teil}`);
   if (q.has("messen")) messanzeige();
+  if (q.has("mass")) massanzeige();
+}
+
+function massanzeige() {
+  const tafel = document.createElement("div");
+  tafel.className = "werkstatt-messung";
+  document.body.appendChild(tafel);
+  const probe = document.createElement("div");
+  probe.style.cssText = "position:fixed;left:0;top:0;width:0;height:100svh";
+  document.body.appendChild(probe);
+  const hoehe = (s) => {
+    const r = document.querySelector(s)?.getBoundingClientRect();
+    return r ? `${s} ${Math.round(r.top)}..${Math.round(r.bottom)}` : `${s} -`;
+  };
+  setInterval(() => {
+    tafel.textContent = [
+      `fenster ${window.innerWidth}x${window.innerHeight}`,
+      `sichtbar ${Math.round(window.visualViewport?.height ?? 0)}`,
+      `svh ${Math.round(probe.getBoundingClientRect().height)}`,
+      `standalone ${window.navigator.standalone === true}`,
+      ...[".sc-buehne", ".sp", ".sp-buehne", ".sp-svg", ".sp-faecher"].map(hoehe),
+    ].join("\n");
+  }, 500);
 }
 
 function messanzeige() {

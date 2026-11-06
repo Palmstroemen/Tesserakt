@@ -4470,6 +4470,27 @@ body::after {
   z-index: 3;
 }
 
+/* Solange noch nichts zu sehen ist (der Film puffert): erst nach einem Augenblick, sonst blitzt es nur auf */
+.ka-moment {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d9c08a;
+  font-family: "Tesserakt Cinzel", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  animation: ka-moment-ein 0.5s 0.4s backwards;
+}
+
+@keyframes ka-moment-ein {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Solange Apparat und Kaestchen noch laden (Webseite, naechster Besuch): dunkel wie der Film, nicht die Grundplatte */
 .ka-warten {
   position: fixed;

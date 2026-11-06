@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import Vorblatt from "./Vorblatt";
 import { einwilligungLaden } from "./einwilligung";
 import { neigungErlauben } from "./neigung";
+import { t } from "../sprache";
 import { FILM_GESEHEN, TESTPHASE, werkstattEinrichten } from "./werkstatt";
 import "../components/diagramme.css";
 import "./apparat.css";
@@ -53,7 +54,13 @@ function App() {
       />
     );
   return (
-    <Suspense fallback={<div className="ka-warten" />}>
+    <Suspense
+      fallback={
+        <div className="ka-warten">
+          <div className="ka-moment">{t("kaestchen.moment")}</div>
+        </div>
+      }
+    >
       <Apparat />
       {zu ? <Kaestchen film={film} onOffen={() => setZu(false)} /> : null}
     </Suspense>

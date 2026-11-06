@@ -18,6 +18,7 @@ import deckelBild from "./kaestchen/deckel.webp";
 import filmDatei from "./kaestchen/film.mp4";
 import { einrasten, hebel, rastKlick, sperre } from "./klang";
 import { FILM_GESEHEN } from "./werkstatt";
+import { t } from "../sprache";
 
 // Das verschlossene Kaestchen vor dem Apparat (bei jedem Besuch; beim allerersten Mal davor der Film, der auf
 // dem Deckel endet). Der Deckel ist zweiteilig: Sonne links, Mond rechts, die Fuge laeuft im Holz gerade und
@@ -632,6 +633,7 @@ export default function Kaestchen({ film, onOffen }) {
   const welt = useRef(null);
   const [bereit, setBereit] = useState(false);
   const [filmLaeuft, setFilmLaeuft] = useState(film);
+  const [filmBild, setFilmBild] = useState(false); // der Film zeigt gerade Bilder (sonst puffert er noch)
   const schattenRef = useRef(null);
   const filmVorbei = useRef(false);
   const [weg, setWeg] = useState(false);
@@ -1093,9 +1095,14 @@ export default function Kaestchen({ film, onOffen }) {
           poster={LEERES_BILD}
           playsInline
           preload="auto"
+          onPlaying={() => setFilmBild(true)}
+          onWaiting={() => setFilmBild(false)}
           onEnded={filmEnde}
           onError={filmEnde}
         />
+      ) : null}
+      {film && filmLaeuft && !filmBild ? (
+        <div className="ka-moment">{t("kaestchen.moment")}</div>
       ) : null}
     </div>
   );
