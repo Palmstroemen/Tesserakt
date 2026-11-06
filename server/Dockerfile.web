@@ -1,0 +1,12 @@
+# Webseite des Apparats fuer den Testbetrieb (docker-compose.funnel.yml): gebaut wie die App, aber ohne VITE_API_BASE,
+# das Backend liegt dann unter /api derselben Adresse. Gebaut vom Hauptordner aus.
+FROM node:20-slim AS bau
+WORKDIR /bau
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npx vite build
+
+FROM caddy:2.10
+COPY server/Caddyfile.web /etc/caddy/Caddyfile
+COPY --from=bau /bau/dist /srv

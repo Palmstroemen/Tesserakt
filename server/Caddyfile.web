@@ -1,0 +1,60 @@
+# Testbetrieb hinter Tailscale Funnel: HTTPS macht Funnel, hier nur Webseite und Weiterleitung ans Backend.
+{
+	auto_https off
+	admin off
+	# Fehlermeldungen zu Anfragen enthielten IP-Adresse, Kopfzeilen und Suchbegriffe: nicht protokollieren
+	log default {
+		exclude http.log.error
+	}
+}
+
+:80 {
+	# Kein Zugriffsprotokoll (Caddy schreibt ohne "log" keines): keine IP-Adressen, keine Suchbegriffe
+
+	encode zstd gzip
+
+	request_body {
+		max_size 256KB
+	}
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		-Server
+	}
+
+	root * /srv
+
+	# Die Webseite spricht das Backend unter /api an
+	handle_path /api/* {
+		reverse_proxy backend:8000
+	}
+
+	# Pruefsumme im Namen: aendert sich nie
+	@ewig {
+		path /assets/*
+		file
+	}
+	handle @ewig {
+		header Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+
+	# Einstieg, Service Worker und Manifest: bei jedem Start pruefen, damit neue Fassungen ankommen
+	@seite path /
+	handle @seite {
+		header Cache-Control "no-cache"
+		rewrite * /index.html
+		file_server
+	}
+	@datei file
+	handle @datei {
+		header Cache-Control "no-cache"
+		file_server
+	}
+
+	# Alles Uebrige ist das Backend: so spricht die App es an (auch /datenschutz)
+	handle {
+		reverse_proxy backend:8000
+	}
+}

@@ -9,6 +9,7 @@
 // Veroeffentlichung auf false stellen, dann kommen sie nur beim ersten Mal (Film) bzw. bis zum ersten Spiel
 // (Zettel).
 export const TESTPHASE = true;
+export const FILM_GESEHEN = "tesserakt-film";
 
 // Kamera fuer das magische Auge (Versuch): "selfie" = Frontkamera, aus der Lage der Augen die Parallaxe
 // (blick.js, neigung.js), dazu das eigene Bild als Spiegelung auf Auge und Rubin; "durchlicht" = wie bisher die

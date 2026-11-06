@@ -10,6 +10,7 @@ Lokal entwickelt wird weiter ohne Docker (`docs/dev_workflow.md`).
 | `server/Dockerfile` | Abbild des Backends (backend/ und content/, als eigener Benutzer, ohne Zugriffsprotokoll) |
 | `server/docker-compose.yml` | Backend, Caddy, Volumes; die App ist die einzige erlaubte Herkunft (CORS) |
 | `server/Caddyfile` | HTTPS, Weiterleitung ans Backend, keine Protokolle mit IP-Adressen |
+| `server/Dockerfile.web`, `server/Caddyfile.web` | Testbetrieb: die Webseite des Apparats samt Weiterleitung ans Backend |
 | `server/.env` | Domain, E-Mail für Let's Encrypt, Sicherungsziel (Vorlage `.env.beispiel`, nicht im Repo) |
 | `server/sicherung.sh` | tägliche Sicherung der Forschungsdatenbank |
 
@@ -72,8 +73,11 @@ Ergebnis: `frontend/android/app/build/outputs/bundle/release/app-release.aab` (s
 
 ## Testbetrieb mit Tailscale Funnel
 
-Für den geschlossenen Test läuft das Backend auf einem Rechner mit Tailscale (derzeit der GMKtec zu Hause),
-ohne Domain, ohne Caddy und ohne Portfreigabe am Router. Funnel stellt HTTPS unter
+Für den geschlossenen Test laufen Backend und Webseite auf einem Rechner mit Tailscale (derzeit der GMKtec zu Hause),
+ohne Domain, ohne Zertifikat von Let's Encrypt und ohne Portfreigabe am Router. Ein Caddy ohne HTTPS nimmt die
+Anfragen an: Dateien der Webseite liefert er selbst, `/api/...` und alle übrigen Pfade (so spricht die App das Backend
+an) gehen ans Backend. `index.html` und `sw.js` werden bei jedem Start geprüft, Dateien unter `/assets/` tragen eine
+Prüfsumme im Namen und bleiben ein Jahr gültig. Funnel stellt HTTPS unter
 `https://<rechner>.<tailnet>.ts.net:8443` bereit; die Verschlüsselung endet auf dem Rechner, Tailscale sieht den
 Inhalt nicht. Die Testdatenbank wird nicht in den Datensatz des Experiments übernommen.
 
@@ -84,13 +88,14 @@ im Tailnet). Tesserakt läuft deshalb auf `TESSERAKT_PORT=8765` und öffentlich 
 ```bash
 cd Tesserakt/server
 cp .env.beispiel .env                 # COMPOSE_FILE=docker-compose.funnel.yml und TESSERAKT_PORT=8765 einkommentieren
-docker compose up -d --build          # Backend nur auf 127.0.0.1:8765
+docker compose up -d --build          # Webseite und Backend nur auf 127.0.0.1:8765
 tailscale funnel --bg --https=8443 8765   # beim ersten Mal: Link zum Freigeben von Funnel im Tailnet
 tailscale funnel status               # 443 (nur Tailnet) und 8443 (Funnel, öffentlich) müssen beide da sein
 ```
 
-Die App wird gegen `VITE_API_BASE=https://gmxtec.tail83779a.ts.net:8443` gebaut, die Datenschutzerklärung liegt
-unter `https://gmxtec.tail83779a.ts.net:8443/datenschutz`.
+Die Webseite liegt unter `https://gmxtec.tail83779a.ts.net:8443/`. Die App wird gegen
+`VITE_API_BASE=https://gmxtec.tail83779a.ts.net:8443` gebaut, die Datenschutzerklärung liegt unter
+`https://gmxtec.tail83779a.ts.net:8443/datenschutz`.
 
 Einmalig vorher (mit sudo): Docker installieren, den Benutzer in die Gruppe `docker` aufnehmen und
 `sudo tailscale set --operator=$USER`, damit Funnel ohne sudo geht. Abschalten nur von Tesserakt:

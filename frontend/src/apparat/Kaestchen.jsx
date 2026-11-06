@@ -17,6 +17,7 @@ import DECKEL from "./kaestchen/deckel.json";
 import deckelBild from "./kaestchen/deckel.webp";
 import filmDatei from "./kaestchen/film.mp4";
 import { einrasten, hebel, rastKlick, sperre } from "./klang";
+import { FILM_GESEHEN } from "./werkstatt";
 
 // Das verschlossene Kaestchen vor dem Apparat (bei jedem Besuch; beim allerersten Mal davor der Film, der auf
 // dem Deckel endet). Der Deckel ist zweiteilig: Sonne links, Mond rechts, die Fuge laeuft im Holz gerade und
@@ -37,7 +38,6 @@ const ANTEIL = 0.85; // Anteil der Deckelbreite auf dem Bildschirm
 const SPALT = 4; // Grad, wenn der Haken offen ist
 const OFFEN = 108; // Grad, ganz aufgeschwungen
 const HAKEN = { y: 1530, auf: 105 }; // Hoehe im Deckelbild; Grad, um die er hochklappt
-export const FILM_GESEHEN = "tesserakt-film";
 const LEERES_BILD =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
@@ -620,6 +620,11 @@ const easeAus = (t) => 1 - (1 - t) ** 3;
 const easeEin = (t) => t * t; // faellt: wird schneller
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 const RAD = Math.PI / 180;
+
+// Film schon holen, solange man das Vorblatt liest (landet im Zwischenspeicher des Browsers)
+export function filmVorladen() {
+  fetch(filmDatei).catch(() => {});
+}
 
 export default function Kaestchen({ film, onOffen }) {
   const halter = useRef(null);

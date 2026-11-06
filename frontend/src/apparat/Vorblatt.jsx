@@ -6,6 +6,7 @@
 import { useState } from "react";
 import { datei, t } from "../sprache";
 import { Markdown, abschnitte, lesen } from "./markdown";
+import { blickVorbereiten } from "./blick";
 import { einwilligungSpeichern } from "./einwilligung";
 
 const [KAMERA, DATEN] = abschnitte(lesen(datei("einwilligung")).rumpf);
@@ -28,6 +29,7 @@ export default function Vorblatt({ onFertig, start = "kamera", kameraVorher = fa
         // nur die Freigabe einholen; der Apparat startet die Kameras selbst
         s.getTracks().forEach((t) => t.stop());
         setKamera(true);
+        blickVorbereiten();
       })
       .catch(() => setKamera(false))
       .finally(() => {

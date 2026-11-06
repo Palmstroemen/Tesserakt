@@ -1,0 +1,13 @@
+{
+  "name": "Tesserakt",
+  "short_name": "Tesserakt",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#16110d",
+  "theme_color": "#16110d",
+  "icons": [
+    { "src": "/symbol-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/symbol-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

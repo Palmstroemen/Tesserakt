@@ -1,5 +1,5 @@
-# Testbetrieb ueber Tailscale Funnel: nur das Backend, ohne Caddy. Funnel stellt HTTPS unter
-# https://<rechner>.<tailnet>.ts.net bereit (die Verschluesselung endet auf diesem Rechner) und leitet an
+# Testbetrieb ueber Tailscale Funnel: Backend und Webseite (Dockerfile.web), ohne Zertifikat und Domain. Funnel stellt
+# HTTPS unter https://<rechner>.<tailnet>.ts.net bereit (die Verschluesselung endet auf diesem Rechner) und leitet an
 # 127.0.0.1:<TESSERAKT_PORT> weiter (Standard 8000). Anleitung: docs/betrieb.md, Abschnitt "Testbetrieb mit Tailscale Funnel".
 # In server/.env: COMPOSE_FILE=docker-compose.funnel.yml, dann gelten docker compose und sicherung.sh dafuer.
 
@@ -8,8 +8,20 @@ services:
     extends:
       file: docker-compose.yml
       service: backend
+
+  web:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile.web
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /data
+      - /config
     ports:
-      - "127.0.0.1:${TESSERAKT_PORT:-8000}:8000" # nur fuer Funnel auf diesem Rechner, nicht im Heimnetz
+      - "127.0.0.1:${TESSERAKT_PORT:-8000}:80" # nur fuer Funnel auf diesem Rechner, nicht im Heimnetz
+    depends_on:
+      - backend
 
 volumes:
   daten:

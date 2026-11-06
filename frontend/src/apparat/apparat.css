@@ -4469,3 +4469,10 @@ body::after {
 .sp-linse .eg-spiegel {
   z-index: 3;
 }
+
+/* Solange Apparat und Kaestchen noch laden (Webseite, naechster Besuch): dunkel wie der Film, nicht die Grundplatte */
+.ka-warten {
+  position: fixed;
+  inset: 0;
+  background: #16110d;
+}
