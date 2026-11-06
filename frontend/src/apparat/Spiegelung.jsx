@@ -77,7 +77,7 @@ export function Spiegel({ glanz = "eg-glanz" }) {
   );
 }
 
-// Winziger Spiegel auf dem Rubin des eigenen Schiebers: das eigene Bild, gespiegelt und stark verkleinert wie auf einer
+// Kleiner Spiegel auf dem Rubin des eigenen Schiebers: das eigene Bild, gespiegelt und stark verkleinert wie auf einer
 // gewoelbten Kuppe. Im SVG des Faechers (foreignObject); gezeichnet nur etwa 12-mal je Sekunde, er ist klein.
 const RUBIN_TAKT_MS = 80;
 export function RubinSpiegel({ r }) {
@@ -114,8 +114,8 @@ export function RubinSpiegel({ r }) {
     <foreignObject x={-r} y={-r} width={2 * r} height={2 * r}>
       <canvas
         ref={leinwand}
-        width="48"
-        height="48"
+        width="96"
+        height="96"
         className="sp-rubin-spiegel"
       />
     </foreignObject>

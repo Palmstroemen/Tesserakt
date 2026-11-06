@@ -358,6 +358,11 @@ body::after {
 }
 
 /* eigener Schieber: Rubin in einer Messingfassung, die als Pfeil auf die Skala zeigt */
+/* der eigene Schieber ragt ueber die Luenette: ueber Auge und Linse */
+.sp-griffteil {
+  z-index: 4;
+}
+
 .sp-griff {
   filter: drop-shadow(0 1.6px 2px rgba(0, 0, 0, 0.65));
 }
@@ -454,16 +459,9 @@ body::after {
   stroke-width: 1.5;
 }
 
-/* Ausloesehebel: grosser blauer Kristall */
+/* Ausloesehebel: Messingschieber mit eingelassenem Kristall */
 .sp-hebelgriff {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
-}
-
-.sp-stein-fassung {
-  fill: #c9a462;
-  stroke: #6e5020;
-  stroke-width: 0.9;
-  stroke-linejoin: round;
 }
 
 .sp-rubin-fassung {
@@ -4459,10 +4457,10 @@ body::after {
   height: 100%;
   border-radius: 50%;
   mix-blend-mode: screen;
-  filter: grayscale(0.6) contrast(2.4) brightness(0.9) blur(0.4px);
-  opacity: 0.32;
-  -webkit-mask-image: radial-gradient(circle, #000 45%, transparent 72%);
-  mask-image: radial-gradient(circle, #000 45%, transparent 72%);
+  filter: grayscale(0.5) contrast(1.8);
+  opacity: 0.6;
+  -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 74%);
+  mask-image: radial-gradient(circle, #000 55%, transparent 74%);
 }
 
 /* Spiegelung im Auge der Spielplatte: ueber dem Grund der Bohrung (z 1), unter dem Glanz (gleiche Ebene, davor) */
