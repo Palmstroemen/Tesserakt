@@ -7,6 +7,7 @@ Erzeugt:
   mipmap-*/ic_launcher_background.png (Holz), dazu ic_launcher.png und ic_launcher_round.png fuer alte Androids
 - Startbildschirm: drawable*/splash.png (Emblem auf dem dunklen Grund des Apparats)
 - Store-Symbol: frontend/store/symbol-512.png (Google Play, 512 x 512, ohne Transparenz)
+- Symbole der Webseite: frontend/public/symbol-{180,192,512}.png (Startbildschirm des iPhones, Manifest)
 
     python3 tools/app_symbol.py
 """
@@ -16,12 +17,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter
+from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter
 
 WURZEL = Path(__file__).resolve().parent.parent
 DECKEL = WURZEL / "frontend/src/apparat/kaestchen/deckel.webp"
 RES = WURZEL / "frontend/android/app/src/main/res"
 STORE = WURZEL / "frontend/store"
+WEB = WURZEL / "frontend/public"
 
 DUNKEL = (0x16, 0x11, 0x0D)  # apparat_dunkel (values/farben.xml)
 # Adaptive Icon: 108 dp Flaeche, davon 72 dp sichtbar, 66 dp sicher vor jeder Maske des Launchers
@@ -29,6 +31,19 @@ DICHTEN = {"mdpi": 1, "hdpi": 1.5, "xhdpi": 2, "xxhdpi": 3, "xxxhdpi": 4}
 EMBLEM_ANTEIL = 64 / 108  # Durchmesser des Emblems auf der Flaeche: knapp innerhalb der sicheren Zone
 # freie Holzflaeche links unten auf dem Deckel (ohne Fuge, ohne Schnitzerei)
 HOLZ = (24, 1960, 556, 2470)
+# Das Symbol muss klein auf dem Startbildschirm leuchten: heller als der Deckel, das Emblem mehr als das Holz
+# (Gamma, Faktor, Saettigung). Der Startbildschirm der App behaelt das Emblem wie auf dem Deckel.
+LEUCHTEN_EMBLEM = (0.62, 1.25, 1.10)
+LEUCHTEN_HOLZ = (0.80, 1.22, 1.08)
+
+
+def aufgehellt(bild: Image.Image, gamma: float, faktor: float, saettigung: float) -> Image.Image:
+    """Mitten anheben, insgesamt heller, etwas kraeftiger; Transparenz bleibt."""
+    kurve = [min(255, round(255 * faktor * (i / 255) ** gamma)) for i in range(256)]
+    aus = ImageEnhance.Color(bild.convert("RGB").point(kurve * 3)).enhance(saettigung)
+    if bild.mode == "RGBA":
+        aus.putalpha(bild.getchannel("A"))
+    return aus
 
 
 def emblem() -> Image.Image:
@@ -47,10 +62,11 @@ def emblem() -> Image.Image:
 def holz(groesse: int) -> Image.Image:
     """Holz des Deckels, quadratisch, zum Rand hin etwas dunkler."""
     h = Image.open(DECKEL).convert("RGB").crop(HOLZ).resize((groesse, groesse), Image.LANCZOS)
+    h = aufgehellt(h, *LEUCHTEN_HOLZ)
     rand = Image.new("L", (groesse, groesse), 0)
     ImageDraw.Draw(rand).ellipse((-groesse // 4, -groesse // 4, groesse * 5 // 4, groesse * 5 // 4), fill=255)
     rand = rand.filter(ImageFilter.GaussianBlur(groesse / 6))
-    dunkler = Image.blend(h, Image.new("RGB", h.size, DUNKEL), 0.45)
+    dunkler = Image.blend(h, Image.new("RGB", h.size, DUNKEL), 0.18)
     return Image.composite(h, dunkler, rand)
 
 
@@ -84,10 +100,11 @@ def maskiert(bild: Image.Image, rund: bool) -> Image.Image:
 
 def main() -> None:
     e = emblem()
+    hell = aufgehellt(e, *LEUCHTEN_EMBLEM)
     for name, faktor in DICHTEN.items():
         ordner = RES / f"mipmap-{name}"
         flaeche = round(108 * faktor)
-        vorne = mit_schatten(e, flaeche, round(flaeche * EMBLEM_ANTEIL))
+        vorne = mit_schatten(hell, flaeche, round(flaeche * EMBLEM_ANTEIL))
         hinten = holz(flaeche)
         vorne.save(ordner / "ic_launcher_foreground.png", optimize=True)
         hinten.save(ordner / "ic_launcher_background.png", optimize=True)
@@ -112,9 +129,13 @@ def main() -> None:
     # Google Play: 512 x 512, volle Flaeche (Google rundet die Ecken selbst)
     STORE.mkdir(exist_ok=True)
     store = holz(512).convert("RGBA")
-    store.alpha_composite(mit_schatten(e, 512, 400))
+    store.alpha_composite(mit_schatten(hell, 512, 400))
     store.convert("RGB").save(STORE / "symbol-512.png", optimize=True)
-    print("App-Symbol, Startbildschirm und Store-Symbol erzeugt")
+
+    # Webseite: dasselbe Bild (das iPhone und die Browser runden selbst)
+    for groesse in (180, 192, 512):
+        store.convert("RGB").resize((groesse, groesse), Image.LANCZOS).save(WEB / f"symbol-{groesse}.png", optimize=True)
+    print("App-Symbol, Startbildschirm, Store-Symbol und Symbole der Webseite erzeugt")
 
 
 if __name__ == "__main__":

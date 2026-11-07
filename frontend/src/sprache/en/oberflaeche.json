@@ -26,20 +26,13 @@
     }
   },
   "rueckblick": {
-    "zeitpunkte": {
-      "7": "1 week ago",
-      "14": "2 weeks ago",
-      "30": "1 month ago",
-      "60": "2 months ago",
-      "90": "3 months ago",
-      "weiss_nicht": "can't remember"
-    },
     "wann_noch": "Do you remember roughly when that was?",
-    "wann": "Roughly when was that?",
-    "erinnerung": "Finally: memory {nr} of {anzahl}",
-    "ja": "Yes",
-    "nein": "No",
-    "weiss_nicht": "I don't know"
+    "heute": "today",
+    "vor_drei_monaten": "3 months ago",
+    "ganz_rechts": "far right: can't remember",
+    "ja": "yes",
+    "nein": "no",
+    "mitte": "middle: don't know"
   },
   "ergebnis": {
     "titel": {

@@ -57,12 +57,43 @@ const SPIELE = Object.fromEntries(
   ]),
 );
 
-// Spiel B: Antworten auf "Wann war das ungefaehr?" (Tage vor heute; null = weiss nicht mehr)
-const ZEITPUNKTE = [7, 14, 30, 60, 90, null].map((tage) => ({
-  label: t(`rueckblick.zeitpunkte.${tage ?? "weiss_nicht"}`),
-  tage,
-}));
+// Spiel B: "Wann war das?" auf dem Schieber: links heute, nach rechts bis vor drei Monaten (weiter reicht keine
+// Frage zurueck), ganz rechts am Anschlag "weiss nicht mehr" (die Ruhe links taugt nicht als Antwort, aus ihr loest
+// der Hebel nicht aus). Die Horoskope fahren danach auf ihren Zeitpunkt.
+const ZEIT_TAGE = 90;
+const ZEIT_WEISS_NICHT = 0.8; // ab diesem Wert (-1..1) des Schiebers
+const tageAusWert = (w) =>
+  w > ZEIT_WEISS_NICHT
+    ? null
+    : Math.max(0, Math.round(((w + 1) / (ZEIT_WEISS_NICHT + 1)) * ZEIT_TAGE));
+const wertAusTagen = (tage) =>
+  typeof tage === "number"
+    ? (Math.min(tage, ZEIT_TAGE) / ZEIT_TAGE) * (ZEIT_WEISS_NICHT + 1) - 1
+    : null;
+const ZEIT_POLE = {
+  pole: [t("rueckblick.heute"), t("rueckblick.vor_drei_monaten")],
+  poleHinweis: t("rueckblick.ganz_rechts"),
+};
+// Erinnerungsfragen am Ende der Runde: nein oder ja, dazwischen weiss nicht
+const JA_NEIN_POLE = {
+  pole: [t("rueckblick.nein"), t("rueckblick.ja")],
+  poleHinweis: t("rueckblick.mitte"),
+};
+const JA_NEIN_SCHWELLE = 0.33;
 const ERINNERUNG_AB = 0.2; // ab dieser Zustimmung zu einem auffaelligen Moment wird nach dem Zeitpunkt gefragt
+
+// Nachfrage als eigenes Dia gleich nach der Frage, auf die sie sich bezieht (von); ziele: Tage je System
+function wannFrage(von, ziele) {
+  return {
+    id: `${von.id}-wann`,
+    typ: "wann",
+    von,
+    dimension: von.dimension,
+    text: t("rueckblick.wann_noch"),
+    ziele,
+    ...ZEIT_POLE,
+  };
+}
 
 // Spiel B: Fragenreihe aus dem Katalog; Sehen mehrere Systeme denselben Moment, wird einmal gefragt
 function rueckblickFragen(katalog, rueckblick) {
@@ -160,11 +191,7 @@ export default function Apparat() {
   // Spiel B
   const [rueckblick, setRueckblick] = useState(null); // /rueckblick: mittel je Fenster, auffaellig, timing
   const [kontrollB, setKontrollB] = useState(null); // /rueckblick/kontrolle
-  const [zeitFragen, setZeitFragen] = useState([]);
-  const [nachfrage, setNachfrage] = useState(false); // "Wann war das?" zur letzten auffaelligen Antwort
-  const [zIndex, setZIndex] = useState(0);
-  const [zJa, setZJa] = useState(false);
-  const [zAntworten, setZAntworten] = useState([]);
+  const [zAntworten, setZAntworten] = useState([]); // Erinnerungsfragen am Ende: ja (mit Tagen), nein, weiss nicht
 
   const [antworten, setAntworten] = useState([]);
   const rundeId = useRef(null); // Kennung der Runde fuer die Forschung (forschung.js), neu je Spiel
@@ -194,15 +221,42 @@ export default function Apparat() {
       wiederholt: wiederholtRef.current.get(k) ?? 0,
     };
   }
-  // "‹" im Faecher: die letzte Antwort zuruecknehmen, die Frage wird noch einmal gespielt
-  function rueckgaengig() {
+  // "‹" im Faecher: die Antwort auf frage zuruecknehmen, sie wird noch einmal gespielt
+  function rueckgaengig(frage) {
+    setAuswertung(false);
+    // eine eingeschobene Nachfrage zur Frage verschwindet mit ihr (sie kommt wieder, wenn die Antwort passt)
+    const hatteNachfrage = fragen.some((f) => f.von === frage);
+    if (hatteNachfrage)
+      setFragen((prev) => prev.filter((f) => f.von !== frage));
+    if (frage?.typ === "wann") {
+      if (frage.von.typ === "erinnerung")
+        setZAntworten((prev) => prev.slice(0, -1));
+      else
+        setAntworten((prev) =>
+          prev.map((a, i) => {
+            if (i !== prev.length - 1) return a;
+            const { erinnerung: _weg, ...ohne } = a;
+            return ohne;
+          }),
+        );
+      return;
+    }
+    if (frage?.typ === "erinnerung") {
+      if (!hatteNachfrage) setZAntworten((prev) => prev.slice(0, -1));
+      return;
+    }
     const letzte = antworten[antworten.length - 1];
     if (!letzte) return;
     const k = frageSchluessel(letzte);
     wiederholtRef.current.set(k, (wiederholtRef.current.get(k) ?? 0) + 1);
     setAntworten((prev) => prev.slice(0, -1));
-    setAuswertung(false);
-    setNachfrage(false);
+  }
+  // Spiel B: Nachfrage gleich hinter ihre Frage in den Stapel
+  function einschieben(neu) {
+    setFragen((prev) => {
+      const i = prev.indexOf(neu.von);
+      return [...prev.slice(0, i + 1), neu, ...prev.slice(i + 1)];
+    });
   }
   const [muenze, setMuenze] = useState(false); // Datumsscheibe dreht sich nach Silber
   const [kamera, setKamera] = useState(null);
@@ -311,9 +365,6 @@ export default function Apparat() {
     setPaar(null);
     setRueckblick(null);
     setKontrollB(null);
-    setNachfrage(false);
-    setZIndex(0);
-    setZJa(false);
     setZAntworten([]);
     try {
       let body;
@@ -367,8 +418,15 @@ export default function Apparat() {
           .catch(() => {});
         if (wahl === "B") {
           setRueckblick(rb);
-          setZeitFragen(katalog.zeitpunkt ?? []);
-          katalogFragen = rueckblickFragen(katalog, rb);
+          // die Erinnerungsfragen zum Schluss, auch sie mit dem Schieber
+          katalogFragen = [
+            ...rueckblickFragen(katalog, rb),
+            ...(katalog.zeitpunkt ?? []).map((f) => ({
+              ...f,
+              typ: "erinnerung",
+              ...JA_NEIN_POLE,
+            })),
+          ];
           body = {
             ...body,
             session_id: rb.inputs.session_id,
@@ -390,18 +448,20 @@ export default function Apparat() {
       setKontroll(null);
       if (schnell) {
         setAntworten(
-          katalogFragen.map((f) => ({
-            frage_id: f.id,
-            dimension: f.dimension,
-            selbst_wert: Math.round((Math.random() * 2 - 1) * 5) / 5,
-            angezeigt: [],
-            system_werte: Object.fromEntries(
-              ALLE.map((s) => [s, Number(vek[s][f.dimension])]),
-            ),
-            gewichte: Object.fromEntries(
-              ALLE.map((s) => [s, f.gewichte?.[s] ?? 1]),
-            ),
-          })),
+          katalogFragen
+            .filter((f) => f.typ !== "erinnerung")
+            .map((f) => ({
+              frage_id: f.id,
+              dimension: f.dimension,
+              selbst_wert: Math.round((Math.random() * 2 - 1) * 5) / 5,
+              angezeigt: [],
+              system_werte: Object.fromEntries(
+                ALLE.map((s) => [s, Number(vek[s][f.dimension])]),
+              ),
+              gewichte: Object.fromEntries(
+                ALLE.map((s) => [s, f.gewichte?.[s] ?? 1]),
+              ),
+            })),
         );
         // Abkuerzung: gleich in den Faecher mit der Auswertung
         setPhase("bereit");
@@ -430,6 +490,9 @@ export default function Apparat() {
       const w = anzeigeWert(stat, s, dim, Number(vektoren[s][dim]));
       return frage?.umgekehrt ? -w : w;
     }
+    // Zeitpunkt: wann es das System sah; die Erinnerung (ja oder nein) sagt keines voraus
+    if (frage.typ === "wann") return wertAusTagen(frage.ziele?.[s]);
+    if (frage.typ === "erinnerung") return null;
     if (frage.typ === "gewertet")
       return anzeigeWert(
         statB[frage.fenster],
@@ -444,6 +507,44 @@ export default function Apparat() {
   // Antwort festhalten: Systemwerte fuer alle 7 (das Aufziehen wirkt nur auf die Anzeige)
   function antwort(frage, selbstWert, angezeigt) {
     const wert = Number(selbstWert.toFixed(2));
+    if (spiel === "B" && frage.typ === "wann") {
+      const tage = tageAusWert(wert);
+      if (frage.von.typ === "erinnerung")
+        setZAntworten((prev) => [
+          ...prev,
+          {
+            frage_id: frage.von.id,
+            dimension: frage.von.dimension,
+            antwort: tage === null ? "weiss_nicht" : "ja",
+            tage_zurueck: tage,
+          },
+        ]);
+      // zur auffaelligen Antwort davor
+      else
+        setAntworten((prev) =>
+          prev.map((a, i) =>
+            i === prev.length - 1
+              ? { ...a, erinnerung: { tage_zurueck: tage } }
+              : a,
+          ),
+        );
+      return;
+    }
+    if (spiel === "B" && frage.typ === "erinnerung") {
+      if (wert > JA_NEIN_SCHWELLE)
+        einschieben(wannFrage(frage, rueckblick?.timing?.[frage.id] ?? {}));
+      else
+        setZAntworten((prev) => [
+          ...prev,
+          {
+            frage_id: frage.id,
+            dimension: frage.dimension,
+            antwort: wert < -JA_NEIN_SCHWELLE ? "nein" : "weiss_nicht",
+            tage_zurueck: null,
+          },
+        ]);
+      return;
+    }
     if (spiel === "B") {
       const gewertet = frage.typ === "gewertet";
       setAntworten((prev) => [
@@ -468,7 +569,15 @@ export default function Apparat() {
           momente: frage.momente ?? [],
         },
       ]);
-      if (!gewertet && wert >= ERINNERUNG_AB) setNachfrage(true);
+      if (!gewertet && wert >= ERINNERUNG_AB)
+        einschieben(
+          wannFrage(
+            frage,
+            Object.fromEntries(
+              frage.momente.map((m) => [m.system, m.tage_zurueck]),
+            ),
+          ),
+        );
       return;
     }
     // umgekehrt formuliert: auf die Richtung des Lebensbereichs gespiegelt, so wird gewertet und gespeichert
@@ -489,110 +598,6 @@ export default function Apparat() {
         ),
       },
     ]);
-  }
-
-  // Spiel B: Nachfrage zur letzten auffaelligen Antwort
-  function erinnerung(tage) {
-    setAntworten((prev) =>
-      prev.map((a, i) =>
-        i === prev.length - 1
-          ? { ...a, erinnerung: { tage_zurueck: tage } }
-          : a,
-      ),
-    );
-    setNachfrage(false);
-    rastKlick();
-  }
-
-  // Spiel B: Zeitpunkt-Fragen nach der Fragerunde
-  function zeitpunktAntwort(antwortArt, tage = null) {
-    const frage = zeitFragen[zIndex];
-    setZAntworten((prev) => [
-      ...prev,
-      {
-        frage_id: frage.id,
-        dimension: frage.dimension,
-        antwort: antwortArt,
-        tage_zurueck: tage,
-      },
-    ]);
-    setZJa(false);
-    setZIndex((i) => i + 1);
-    rastKlick();
-  }
-
-  const zeitModus =
-    spiel === "B" &&
-    fragen.length > 0 &&
-    antworten.length === fragen.length &&
-    !nachfrage &&
-    zIndex < zeitFragen.length;
-
-  let zusatz = null;
-  let sonderDia = null;
-  if (spiel === "B" && phase === "frage") {
-    if (nachfrage) {
-      sonderDia = t("rueckblick.wann_noch");
-      zusatz = (
-        <div className="sp-plaettchen">
-          {ZEITPUNKTE.map((z) => (
-            <button
-              key={z.label}
-              type="button"
-              onClick={() => erinnerung(z.tage)}
-            >
-              {z.label}
-            </button>
-          ))}
-        </div>
-      );
-    } else if (zeitModus) {
-      const frage = zeitFragen[zIndex];
-      sonderDia = zJa ? t("rueckblick.wann") : frage.text;
-      zusatz = (
-        <>
-          <p className="sp-frage-klein">
-            {t("rueckblick.erinnerung", {
-              nr: zIndex + 1,
-              anzahl: zeitFragen.length,
-            })}
-          </p>
-          <div className="sp-plaettchen">
-            {zJa ? (
-              ZEITPUNKTE.map((z) => (
-                <button
-                  key={z.label}
-                  type="button"
-                  onClick={() =>
-                    zeitpunktAntwort(
-                      z.tage === null ? "weiss_nicht" : "ja",
-                      z.tage,
-                    )
-                  }
-                >
-                  {z.label}
-                </button>
-              ))
-            ) : (
-              <>
-                <button type="button" onClick={() => setZJa(true)}>
-                  {t("rueckblick.ja")}
-                </button>
-                <button type="button" onClick={() => zeitpunktAntwort("nein")}>
-                  {t("rueckblick.nein")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => zeitpunktAntwort("weiss_nicht")}
-                >
-                  {t("rueckblick.weiss_nicht")}
-                </button>
-              </>
-            )}
-          </div>
-        </>
-      );
-    }
   }
 
   // --- Ergebnis ---------------------------------------------------------------
@@ -727,8 +732,6 @@ export default function Apparat() {
               wartet={wartet}
               auftritt={phase === "uebergang"}
               uhrwerk={phase === "uebergang" || muenze}
-              zusatz={zusatz}
-              sonderDia={sonderDia}
               ergebnis={ergebnis}
               titel={titel}
               hinweis={abkuerzung ? t("ergebnis.abkuerzung") : null}

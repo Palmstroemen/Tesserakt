@@ -6,10 +6,10 @@
 // iOS verlangt eine Freigabe aus einer Beruehrung heraus: neigungErlauben (main.jsx, beim ersten Tippen).
 //
 // Mit der Frontkamera (werkstatt.js: AUGE_KAMERA "selfie") zaehlt zuerst, wo die Augen des Betrachters sind
-// (blick.js): Wer den Kopf nach links nimmt, sieht von links in die Tiefe, wie bei echter Parallaxe. Der
-// Lagesensor springt nur ein, solange kein Gesicht zu sehen ist. Beim Wechsel uebernimmt der neue Geber das Bild
-// dort, wo es gerade steht: Er bekommt eine passende Grundhaltung, sonst spraenge es auf seine alte. Kommt das Gesicht
-// nach einer laengeren Pause zurueck, wird es dort eingefangen und rueckt dann zuegig in die Mitte.
+// (blick.js), und zwar wie bei echter Parallaxe: Schaut man senkrecht auf die Linse, liegt das Dia mittig; wer den
+// Kopf nach links nimmt, sieht von links in die Tiefe. Die Kamera sitzt ueber dem Bildschirm, das wird
+// herausgerechnet. Der Lagesensor springt nur ein, solange kein Gesicht zu sehen ist; er uebernimmt das Bild dort,
+// wo es gerade steht. Kommt das Gesicht zurueck, gleitet das Bild in einem Moment dorthin, wo die Augen es sehen.
 
 import { blick, blickStarten, blickStoppen } from "./blick";
 import { AUGE_KAMERA } from "./werkstatt";
@@ -17,23 +17,22 @@ import { AUGE_KAMERA } from "./werkstatt";
 const SPANNE = 15; // Grad Neigung fuer den vollen Ausschlag: dann ist der Grund ganz aus der Linse
 const NACHZUG = 0.004; // je Bild: die Grundhaltung folgt in einigen Sekunden
 const GLAETTUNG = 0.15; // je Bild: gegen Zittern des Sensors
-// Augenlage: so weit (Anteil der Bildbreite) muss der Kopf aus der Grundhaltung, fuer den vollen Ausschlag;
-// die Grundhaltung folgt langsamer als beim Sensor, sonst verliert sich der Blick um die Ecke
-const SPANNE_BLICK = 0.2;
-const NACHZUG_BLICK = 0.0015;
+// Augen: so schraeg (Tangens, etwa 17 Grad) blickt man fuer den vollen Ausschlag in die Linse
+const SPANNE_BLICK = 0.3;
+const CM_JE_PX = 0.0165; // CSS-Pixel auf Handys (iPhone 390 px auf 6,4 cm, Android aehnlich)
+const KAMERA_UEBER_FENSTER_CM = 0.5; // die Frontkamera sitzt mittig knapp ueber dem oberen Rand der Seite
 const BLICK_FRISCH_MS = 500; // aelter: kein Gesicht mehr im Bild
-const BLICK_PAUSE_MS = 2000; // kuerzere Aussetzer: Grundhaltung behalten, der Kopf ist noch etwa dort, wo er war
-const FANG_MS = 1500; // so lange nach dem Einfangen ...
-const NACHZUG_FANG = 0.03; // ... folgt die Grundhaltung zuegig, was der Sensor verschoben hat, verschwindet bald
-const FANG_AB = 0.05; // Ausschlag, ab dem sich das lohnt
+const FANG_MS = 600; // so lange nach der Rueckkehr der Augen ...
+const GLAETTUNG_FANG = 0.06; // ... gleitet das Bild ruhiger dorthin, wo die Augen es sehen
+const BEZUG_MS = 500; // so oft wird nachgemessen, wo die Linse auf dem Bildschirm liegt
 
-const hoerer = new Set();
+const hoerer = new Map(); // Abonnent -> Bezugspunkt (Funktion, liefert die Linsenmitte in CSS-Pixeln)
 let roh = null;
 let basis = null;
-let blickBasis = null;
 let imBlick = false; // das Bild folgt gerade den Augen
-let wegSeit = 0;
 let fangBis = 0;
+let bezug = null;
+let bezugZeit = -Infinity;
 const wert = { x: 0, y: 0 };
 let bild = 0;
 
@@ -45,37 +44,44 @@ function ereignis(e) {
   basis ??= { ...roh };
 }
 
+// Mitte dessen, wohin man schaut (Linse), in CSS-Pixeln des Fensters; ohne Angabe die Mitte des Fensters
+function bezugMessen(jetzt) {
+  if (jetzt - bezugZeit < BEZUG_MS && bezug) return bezug;
+  bezugZeit = jetzt;
+  let punkt = null;
+  for (const f of hoerer.values()) punkt ??= f?.() ?? null;
+  bezug = punkt ?? { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  return bezug;
+}
+
 function tick() {
   const jetzt = performance.now();
   const frisch = jetzt - blick.zeit < BLICK_FRISCH_MS;
   if (frisch) {
     if (!imBlick) {
       imBlick = true;
-      if (!blickBasis || jetzt - wegSeit > BLICK_PAUSE_MS) {
-        // einfangen: Grundhaltung so, dass das Ziel genau dort liegt, wo das Bild steht
-        blickBasis = {
-          x: blick.x + wert.x * SPANNE_BLICK,
-          y: blick.y - wert.y * SPANNE_BLICK,
-        };
-        // steht es schon fast mittig, gibt es nichts zu vergessen: der Kopf soll gleich voll wirken
-        if (Math.hypot(wert.x, wert.y) > FANG_AB) fangBis = jetzt + FANG_MS;
-      }
+      fangBis = jetzt + FANG_MS;
     }
-    const nachzug = jetzt < fangBis ? NACHZUG_FANG : NACHZUG_BLICK;
-    blickBasis.x += (blick.x - blickBasis.x) * nachzug;
-    blickBasis.y += (blick.y - blickBasis.y) * nachzug;
-    // ungespiegeltes Kamerabild: der Kopf des Betrachters links von ihm erscheint rechts (x > 0), er sieht von
-    // links -> nach links; Kopf hoeher erscheint oben (y < 0), er sieht von oben -> nach oben
-    const zielX = begrenzt(-(blick.x - blickBasis.x) / SPANNE_BLICK);
-    const zielY = begrenzt((blick.y - blickBasis.y) / SPANNE_BLICK);
-    wert.x += (zielX - wert.x) * GLAETTUNG;
-    wert.y += (zielY - wert.y) * GLAETTUNG;
-    hoerer.forEach((f) => f(wert));
+    // Kopf gegen die Kamera in cm, auf den Bildschirm bezogen (x nach rechts, y nach unten, wie man ihn sieht):
+    // im ungespiegelten Kamerabild erscheint ein Kopf links vom Bildschirm rechts
+    const d = Math.max(15, Math.min(80, blick.d));
+    const kopfX = -blick.tx * d;
+    const kopfY = blick.ty * d;
+    // Linse gegen die Kamera
+    const p = bezugMessen(jetzt);
+    const linseX = (p.x - window.innerWidth / 2) * CM_JE_PX;
+    const linseY = p.y * CM_JE_PX + KAMERA_UEBER_FENSTER_CM;
+    // von links gesehen -> nach links; von oben gesehen -> nach oben
+    const zielX = begrenzt((kopfX - linseX) / d / SPANNE_BLICK);
+    const zielY = begrenzt((kopfY - linseY) / d / SPANNE_BLICK);
+    const glaettung = jetzt < fangBis ? GLAETTUNG_FANG : GLAETTUNG;
+    wert.x += (zielX - wert.x) * glaettung;
+    wert.y += (zielY - wert.y) * glaettung;
+    hoerer.forEach((_, f) => f(wert));
   } else if (roh) {
     if (imBlick) {
       imBlick = false;
-      wegSeit = jetzt;
-      // auch der Sensor uebernimmt das Bild, wo es steht
+      // der Sensor uebernimmt das Bild, wo es steht
       basis = {
         b: roh.b - wert.y * SPANNE,
         g: roh.g + wert.x * SPANNE,
@@ -89,30 +95,31 @@ function tick() {
     const zielY = begrenzt((roh.b - basis.b) / SPANNE);
     wert.x += (zielX - wert.x) * GLAETTUNG;
     wert.y += (zielY - wert.y) * GLAETTUNG;
-    hoerer.forEach((f) => f(wert));
+    hoerer.forEach((_, f) => f(wert));
   } else if (imBlick) {
     imBlick = false;
-    wegSeit = jetzt;
   }
   bild = requestAnimationFrame(tick);
 }
 
-export function neigungAbonnieren(f) {
+// f bekommt je Bild { x, y }; bezugspunkt (wahlweise): () => { x, y } in CSS-Pixeln, wohin man schaut
+export function neigungAbonnieren(f, bezugspunkt = null) {
   if (!hoerer.size) {
     window.addEventListener("deviceorientation", ereignis);
     if (AUGE_KAMERA === "selfie") blickStarten();
     bild = requestAnimationFrame(tick);
   }
-  hoerer.add(f);
+  hoerer.set(f, bezugspunkt);
+  bezugZeit = -Infinity;
   return () => {
     hoerer.delete(f);
+    bezugZeit = -Infinity;
     if (!hoerer.size) {
       window.removeEventListener("deviceorientation", ereignis);
       blickStoppen();
       cancelAnimationFrame(bild);
       roh = null;
       basis = null;
-      blickBasis = null;
       imBlick = false;
       fangBis = 0;
     }

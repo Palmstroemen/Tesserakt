@@ -26,20 +26,13 @@
     }
   },
   "rueckblick": {
-    "zeitpunkte": {
-      "7": "vor 1 Woche",
-      "14": "vor 2 Wochen",
-      "30": "vor 1 Monat",
-      "60": "vor 2 Monaten",
-      "90": "vor 3 Monaten",
-      "weiss_nicht": "weiß nicht mehr"
-    },
     "wann_noch": "Weißt du noch ungefähr, wann das war?",
-    "wann": "Wann war das ungefähr?",
-    "erinnerung": "Zum Schluss: Erinnerung {nr} von {anzahl}",
-    "ja": "Ja",
-    "nein": "Nein",
-    "weiss_nicht": "Weiß ich nicht"
+    "heute": "heute",
+    "vor_drei_monaten": "vor 3 Monaten",
+    "ganz_rechts": "ganz rechts: weiß nicht mehr",
+    "ja": "ja",
+    "nein": "nein",
+    "mitte": "Mitte: weiß nicht"
   },
   "ergebnis": {
     "titel": {

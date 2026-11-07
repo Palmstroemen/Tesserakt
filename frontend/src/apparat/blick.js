@@ -7,12 +7,24 @@ import ladeJs from "../../node_modules/@mediapipe/tasks-vision/wasm/vision_wasm_
 import ladeWasm from "../../node_modules/@mediapipe/tasks-vision/wasm/vision_wasm_internal.wasm?url";
 import modell from "./gesicht/blaze_face_short_range.tflite?url";
 
-// Augenlage im Bild der Frontkamera fuer die Parallaxe (neigung.js): Mitte zwischen den Augen, -0.5..0.5 um die
-// Bildmitte, im ungespiegelten Kamerabild (x nach rechts, y nach unten). zeit: letzte Messung mit Gesicht.
-export const blick = { x: 0, y: 0, zeit: 0, messungen: 0, gesichter: 0 };
+// Wo die Augen des Betrachters sind, fuer die Parallaxe (neigung.js), gesehen von der Frontkamera im
+// ungespiegelten Bild (x nach rechts, y nach unten): Richtung der Mitte zwischen den Augen als Tangens gegen die
+// Blickachse der Kamera (tx, ty) und Entfernung in cm (d, aus dem Augenabstand). Querab ergibt tx * d, das haengt
+// vom Bildwinkel der Kamera nicht ab (er kuerzt sich heraus); nur d und damit der Ausschlag. zeit: letzte Messung
+// mit Gesicht.
+export const blick = {
+  tx: 0,
+  ty: 0,
+  d: 35,
+  zeit: 0,
+  messungen: 0,
+  gesichter: 0,
+};
 if (import.meta.env.DEV) window.blick = blick; // Werkstatt: in der Konsole nachsehen
 
 const TAKT_MS = 66; // etwa 15 Messungen je Sekunde; dazwischen glaettet neigung.js
+const BILDWINKEL_DIAGONALE = 78; // Grad, typisch fuer Frontkameras von Handys (der Browser verraet ihn nicht)
+const AUGENABSTAND_CM = 6.3;
 
 let laeuft = false;
 let lauf = 0; // Nummer des laufenden Starts: ein frueherer, noch wartender Start gibt dann auf
@@ -71,9 +83,20 @@ export async function blickStarten() {
           // Punkte 0 und 1: die beiden Augen
           const [a, b] = g?.keypoints ?? [];
           if (a && b) {
-            blick.x = (a.x + b.x) / 2 - 0.5;
-            blick.y = (a.y + b.y) / 2 - 0.5;
-            blick.zeit = performance.now();
+            const w = video.videoWidth;
+            const h = video.videoHeight;
+            // Lochkamera: Brennweite in Bildpunkten
+            const f =
+              Math.hypot(w, h) /
+              2 /
+              Math.tan(((BILDWINKEL_DIAGONALE / 2) * Math.PI) / 180);
+            const abstand = Math.hypot((a.x - b.x) * w, (a.y - b.y) * h);
+            if (abstand > 1) {
+              blick.tx = (((a.x + b.x) / 2 - 0.5) * w) / f;
+              blick.ty = (((a.y + b.y) / 2 - 0.5) * h) / f;
+              blick.d = (AUGENABSTAND_CM * f) / abstand;
+              blick.zeit = performance.now();
+            }
           }
         } catch {
           // ein Bild ohne Ergebnis; das naechste versucht es wieder

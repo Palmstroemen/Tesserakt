@@ -242,6 +242,27 @@ const Auge = memo(function Auge() {
 });
 
 // eigener Schieber: waechst mit den Knoepfen, bleibt aber groesser als sie
+// Fragetext und Pole im Dia: so gross wie vorgesehen, bei langen Fragen (oder grosser Schrift des Systems)
+// kleiner, bis der Text ueber den Polen Platz hat und die Pole nebeneinander. Einmal je Frage (der Text wird je Frage neu angelegt).
+const EINPASSEN_MIN = 0.6;
+function textEinpassen(el) {
+  if (!el) return;
+  requestAnimationFrame(() => {
+    if (!el.isConnected || !el.clientHeight) return;
+    let f = 1;
+    el.style.fontSize = "";
+    const gross = parseFloat(getComputedStyle(el).fontSize);
+    while (
+      f > EINPASSEN_MIN &&
+      (el.scrollHeight > el.clientHeight + 1 ||
+        el.scrollWidth > el.clientWidth + 1)
+    ) {
+      f -= 0.05;
+      el.style.fontSize = `${(gross * f).toFixed(1)}px`;
+    }
+  });
+}
+
 const griffMassstab = (symbol) => Math.min(symbol / 11.4, 1.15);
 
 // Weinroter Rubin (Cabochon) in Goldfassung, um (0, 0); das eigene Spiegelbild liegt als eigene Ebene darauf
@@ -321,7 +342,14 @@ function Knauf({ drehung, gesperrt }) {
         <circle r="10.4" fill="#5a4325" />
         <circle r="9.6" fill="#0c2154" />
         <circle r="9" fill="url(#sp-stein-tafel)" />
-        <ellipse cx="2.6" cy="3.4" rx="5" ry="3" fill="#8cc2ff" opacity="0.35" />
+        <ellipse
+          cx="2.6"
+          cy="3.4"
+          rx="5"
+          ry="3"
+          fill="#8cc2ff"
+          opacity="0.35"
+        />
         <ellipse
           cx="-3"
           cy="-3.6"
@@ -407,6 +435,8 @@ export default function Spielplatte({
   // Systeme, die bei mindestens einer Frage aufgezogen waren: nur sie kommen ins Ergebnis
   const gespieltRef = useRef(new Set(sofort ? ALLE : []));
 
+  const fragenRef = useRef(fragen);
+  fragenRef.current = fragen;
   const svgRef = useRef(null);
   const zusatzRef = useRef(zusatz);
   zusatzRef.current = zusatz;
@@ -421,10 +451,19 @@ export default function Spielplatte({
   useEffect(() => {
     if (!linseD) return undefined;
     const weit = linseD;
-    return neigungAbonnieren(({ x, y }) => {
-      if (tiefeRef.current)
-        tiefeRef.current.style.translate = `${x * weit}px ${y * weit}px`;
-    });
+    return neigungAbonnieren(
+      ({ x, y }) => {
+        if (tiefeRef.current)
+          tiefeRef.current.style.translate = `${x * weit}px ${y * weit}px`;
+      },
+      // die Augen schauen auf die Linse: ihre Mitte auf dem Bildschirm
+      () => {
+        const r = linseRef.current?.getBoundingClientRect();
+        return r?.width
+          ? { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+          : null;
+      },
+    );
   }, [linseD]);
   const drag = useRef(null);
   const anim = useRef(new Map());
@@ -801,7 +840,9 @@ export default function Spielplatte({
     const DAUER = 1100;
     const VERZ = 140;
     aktiv.forEach((s, i) => {
-      const ziel = uAusWert(zielWert(s, frage.dimension, frage));
+      // null: das System sagt zu dieser Frage nichts, es kehrt in die Ruhe zurueck
+      const w = zielWert(s, frage.dimension, frage);
+      const ziel = w == null ? 0 : uAusWert(w);
       const verz = 120 + i * VERZ;
       // Klicks im Takt der Bewegung: erst wenn dieser Schieber losfaehrt, dicht am Anfang, dann seltener
       zahnrad(
@@ -817,7 +858,9 @@ export default function Spielplatte({
           i === aktiv.length - 1
             ? () =>
                 setZustand(
-                  indexRef.current + 1 >= fragen.length ? "fertig" : "ergebnis",
+                  indexRef.current + 1 >= fragenRef.current.length
+                    ? "fertig"
+                    : "ergebnis",
                 )
             : undefined,
       });
@@ -865,7 +908,7 @@ export default function Spielplatte({
     const i = indexRef.current;
     if (z === "aufziehen" && i < 0) return false;
     // in der Frage ist die aktuelle noch nicht beantwortet; sonst wird sie zurueckgenommen
-    if (z !== "frage") onRueckgaengig?.();
+    if (z !== "frage") onRueckgaengig?.(fragen[i]);
     anim.current.clear();
     setIndex(i - 1);
     setzePos({ dia: 0 });
@@ -916,21 +959,42 @@ export default function Spielplatte({
   const diaText = (i) => {
     if (i < 0) return null; // erstes Dia: leeres Glas (das erste Aufziehen schiebt es weg)
     if (i >= fragen.length) return "";
+    const f = fragen[i];
+    const p = f.pole ?? pole;
     return (
       <>
-        <span>{fragen[i].text}</span>
-        {/* die Pole des Schiebers, klein am unteren Rand des Dias */}
-        <span className="sp-dia-pole" aria-hidden="true">
-          <span>◂ {pole[0]}</span>
-          <span>{pole[1]} ▸</span>
+        <span key={f.id} ref={textEinpassen} className="sp-dia-text">
+          {f.text}
+        </span>
+        {/* die Pole des Schiebers, klein am unteren Rand des Dias; darunter, wo noetig, ein Hinweis */}
+        <span
+          key={`${f.id}-pole`}
+          ref={textEinpassen}
+          className="sp-dia-fuss"
+          aria-hidden="true"
+        >
+          <span className="sp-dia-pole">
+            <span>◂ {p[0]}</span>
+            <span>{p[1]} ▸</span>
+          </span>
+          {f.poleHinweis ? (
+            <span className="sp-dia-polhinweis">{f.poleHinweis}</span>
+          ) : null}
         </span>
       </>
     );
   };
-  // Zaehler auf der Scheibe: aktuelle Frage (nach der letzten: alle durch)
+  // Zaehler auf der Scheibe: aktuelle Frage (nach der letzten: alle durch). Eine eingeschobene Nachfrage
+  // (Spiel B: "Wann war das?") hat kein eigenes Loch, sie gehoert zur Frage davor.
+  const eigenesLoch = (f) => !f.von;
+  const lochZahl = fragen.filter(eigenesLoch).length;
+  const lochStand = (i) =>
+    i < 0 ? i : fragen.slice(0, i + 1).filter(eigenesLoch).length - 1;
   const zaehlerStand = ["endaufzug", "rechnet", "auswertung"].includes(zustand)
-    ? fragen.length
-    : index;
+    ? lochZahl
+    : lochStand(index);
+  const naechstesLoch =
+    index + 1 < fragen.length && eigenesLoch(fragen[index + 1]) ? 1 : 0;
   const lupe = linseD ? { filter: "url(#sp-lupe)" } : undefined;
 
   const linse = {
@@ -1116,10 +1180,7 @@ export default function Spielplatte({
               />
             </g>
             {/* Griff: Messingschieber mit eingelassenem Kristall, liegt in Richtung des Schlitzes; gesperrt etwas dunkler */}
-            <g
-              transform={`translate(0 ${knaufY})`}
-              className="sp-hebelgriff"
-            >
+            <g transform={`translate(0 ${knaufY})`} className="sp-hebelgriff">
               <Knauf drehung={-HEBEL_DREHUNG} gesperrt={gesperrt} />
             </g>
           </g>
@@ -1219,121 +1280,125 @@ export default function Spielplatte({
         >
           {/* Tief im Puck, hinter der Rueckseite der Datumsscheibe: Licht, Dia und Scheibe. Beim Hereindrehen
               verschiebt sich das gegen die Oeffnung (Parallaxe); dazwischen sieht man die Wand der Bohrung. */}
-          <div className="sp-tiefe" ref={tiefeRef}>
-            {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
-            {kamera ? (
-              <>
-                <video
-                  ref={videoRef}
-                  className="sp-kamera-quelle"
-                  autoPlay
-                  muted
-                  playsInline
+          {/* Lupe: Die Verzerrung gehoert zum Glas und bleibt an der Linse; was dahinter liegt, wandert bei der
+              Parallaxe durch sie hindurch und verzerrt sich dabei */}
+          <div className="sp-lupe-ebene" style={lupe}>
+            <div className="sp-tiefe" ref={tiefeRef}>
+              {/* Durchlicht: stark unscharfes Kamerabild; die Frage liegt darauf wie Tinte auf einem Dia */}
+              {kamera ? (
+                <>
+                  <video
+                    ref={videoRef}
+                    className="sp-kamera-quelle"
+                    autoPlay
+                    muted
+                    playsInline
+                  />
+                  <canvas ref={lichtRef} className="sp-kamera" />
+                </>
+              ) : null}
+              {/* Prototyp: Messwerte, um echte Helligkeit trotz Belichtungsautomatik zu erkennen */}
+              {MESSWERTE_ZEIGEN && kamera ? (
+                <div className="sp-messung">
+                  {kameraInfo}
+                  {licht ? (
+                    <>
+                      <br />
+                      B/s {licht.fps ?? "–"} · R {licht.rauschen.toFixed(1)}/
+                      {licht.rauschenZeit === null
+                        ? "–"
+                        : licht.rauschenZeit.toFixed(1)}{" "}
+                      · H {licht.hell.toFixed(0)}
+                    </>
+                  ) : null}
+                </div>
+              ) : null}
+              {/* Leuchten hinter dem Dia und den Bohrungen: hellt das Durchlicht auf, die Scheibe bleibt dunkel */}
+              <div className="sp-leuchten" />
+              {/* hinter der Lupe: das Dia im Fenster der Scheibe; die Tinte mischt sich mit dem Durchlicht */}
+              <div
+                className={
+                  zustand === "endaufzug" || zustand === "rechnet"
+                    ? "sp-lupe sp-lupe-dia sp-lupe-glas"
+                    : "sp-lupe sp-lupe-dia"
+                }
+              >
+                <Rotglas
+                  anzahl={lochZahl}
+                  stand={
+                    zaehlerStand +
+                    (zustand === "aufziehen" ? pos.dia * naechstesLoch : 0)
+                  }
+                  gleitet={zaehlerStand >= lochZahl || rueckwaerts}
                 />
-                <canvas ref={lichtRef} className="sp-kamera" />
-              </>
-            ) : null}
-            {/* Prototyp: Messwerte, um echte Helligkeit trotz Belichtungsautomatik zu erkennen */}
-            {MESSWERTE_ZEIGEN && kamera ? (
-              <div className="sp-messung">
-                {kameraInfo}
-                {licht ? (
-                  <>
-                    <br />
-                    B/s {licht.fps ?? "–"} · R {licht.rauschen.toFixed(1)}/
-                    {licht.rauschenZeit === null
-                      ? "–"
-                      : licht.rauschenZeit.toFixed(1)}{" "}
-                    · H {licht.hell.toFixed(0)}
-                  </>
-                ) : null}
-              </div>
-            ) : null}
-            {/* Leuchten hinter dem Dia und den Bohrungen: hellt das Durchlicht auf, die Scheibe bleibt dunkel */}
-            <div className="sp-leuchten" />
-            {/* hinter der Lupe: das Dia im Fenster der Scheibe; die Tinte mischt sich mit dem Durchlicht */}
-            <div
-              className={
-                zustand === "endaufzug" || zustand === "rechnet"
-                  ? "sp-lupe sp-lupe-dia sp-lupe-glas"
-                  : "sp-lupe sp-lupe-dia"
-              }
-              style={lupe}
-            >
-              <Rotglas
-                anzahl={fragen.length}
-                stand={zaehlerStand + (zustand === "aufziehen" ? pos.dia : 0)}
-                gleitet={zaehlerStand >= fragen.length || rueckwaerts}
-              />
-              <div className="sp-fenster" style={fensterLage}>
-                {zustand === "endaufzug" || zustand === "rechnet" ? (
-                  // Ergebnis-Dia auf blauem Glas: nur der Titel, bewusst ohne Anleitung
-                  <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
-                    <span className="sp-ergebnistitel">{titel}</span>
-                    {zustand === "rechnet" ? (
-                      <span className="sp-ergebnisanleitung">
-                        {t("spielplatte.rechnet")}
-                      </span>
-                    ) : null}
-                  </div>
-                ) : zustand === "auswertung" ? (
-                  <div key="rangliste" className="sp-dia sp-dia-rang">
-                    <div className="eg-rangliste">
-                      <div className="eg-rangtitel">{titel}</div>
-                      {(ergebnis?.alle?.ranking ?? []).map((s) => (
-                        <div
-                          key={s}
-                          className="eg-rang"
-                          style={{
-                            "--farbe": SYSTEME.find((x) => x.id === s)?.farbe,
-                          }}
-                        >
-                          <i />
-                          <span>
-                            {SYSTEME.find((x) => x.id === s)?.name ?? s}
-                          </span>
-                          <b>
-                            {(() => {
-                              const v = Math.round(
-                                ergebnis.alle.systemDetails[s].skillScore,
-                              );
-                              return v > 0 ? `+${v}` : `${v}`;
-                            })()}
-                          </b>
-                        </div>
-                      ))}
+                <div className="sp-fenster" style={fensterLage}>
+                  {zustand === "endaufzug" || zustand === "rechnet" ? (
+                    // Ergebnis-Dia auf blauem Glas: nur der Titel, bewusst ohne Anleitung
+                    <div key="ergebnisdia" className="sp-dia sp-dia-ergebnis">
+                      <span className="sp-ergebnistitel">{titel}</span>
+                      {zustand === "rechnet" ? (
+                        <span className="sp-ergebnisanleitung">
+                          {t("spielplatte.rechnet")}
+                        </span>
+                      ) : null}
                     </div>
-                    {hinweis ? (
-                      <span className="sp-ergebnisklein">{hinweis}</span>
-                    ) : null}
-                  </div>
-                ) : sonderDia ? (
-                  <div key={sonderDia} className="sp-dia sp-sonderdia">
-                    {sonderDia}
-                  </div>
-                ) : (
-                  <div
-                    className={index < 0 ? "sp-dia bild" : "sp-dia"}
-                    style={{ transform: `translateX(${-pos.dia * 115}%)` }}
-                  >
-                    {diaText(index)}
-                  </div>
-                )}
-                {pos.dia > 0 ? (
-                  <div
-                    className="sp-dia"
-                    style={{ transform: `translateX(${(1 - pos.dia) * 115}%)` }}
-                  >
-                    {diaText(index + 1)}
-                  </div>
-                ) : null}
+                  ) : zustand === "auswertung" ? (
+                    <div key="rangliste" className="sp-dia sp-dia-rang">
+                      <div className="eg-rangliste">
+                        <div className="eg-rangtitel">{titel}</div>
+                        {(ergebnis?.alle?.ranking ?? []).map((s) => (
+                          <div
+                            key={s}
+                            className="eg-rang"
+                            style={{
+                              "--farbe": SYSTEME.find((x) => x.id === s)?.farbe,
+                            }}
+                          >
+                            <i />
+                            <span>
+                              {SYSTEME.find((x) => x.id === s)?.name ?? s}
+                            </span>
+                            <b>
+                              {(() => {
+                                const v = Math.round(
+                                  ergebnis.alle.systemDetails[s].skillScore,
+                                );
+                                return v > 0 ? `+${v}` : `${v}`;
+                              })()}
+                            </b>
+                          </div>
+                        ))}
+                      </div>
+                      {hinweis ? (
+                        <span className="sp-ergebnisklein">{hinweis}</span>
+                      ) : null}
+                    </div>
+                  ) : sonderDia ? (
+                    <div key={sonderDia} className="sp-dia sp-sonderdia">
+                      {sonderDia}
+                    </div>
+                  ) : (
+                    <div
+                      className={index < 0 ? "sp-dia bild" : "sp-dia"}
+                      style={{ transform: `translateX(${-pos.dia * 115}%)` }}
+                    >
+                      {diaText(index)}
+                    </div>
+                  )}
+                  {pos.dia > 0 ? (
+                    <div
+                      className="sp-dia"
+                      style={{
+                        transform: `translateX(${(1 - pos.dia) * 115}%)`,
+                      }}
+                    >
+                      {diaText(index + 1)}
+                    </div>
+                  ) : null}
+                </div>
               </div>
+              <Diascheibe anzahl={lochZahl} aktuell={zaehlerStand} />
             </div>
-            <Diascheibe
-              anzahl={fragen.length}
-              aktuell={zaehlerStand}
-              style={lupe}
-            />
           </div>
           <LupenFilter id="sp-lupe" d={linseD} />
           {/* Linse an der Oberflaeche: spiegelt zuerst und gibt erst nach dem Hereindrehen den Blick frei; die

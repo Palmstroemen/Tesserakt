@@ -567,6 +567,13 @@ body::after {
   opacity: 0;
 }
 
+/* Lupe (Filter #sp-lupe): fest in der Linse, die Tiefe wandert bei der Parallaxe hindurch */
+.sp-lupe-ebene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 /* Tiefe im Puck: alles hinter der Linse liegt am Grund der Bohrung (--tiefe Einheiten unter der Oberflaeche) */
 .sp-tiefe {
   position: absolute;
@@ -691,7 +698,7 @@ body::after {
   transition: transform 0.9s cubic-bezier(0.45, 0, 0.2, 1);
 }
 
-/* Lupe vor Scheibe und Dia (Filter #sp-lupe aus lupe.jsx): beide Ebenen gleich gross, gleich verzerrt */
+/* Scheibe und Dia, gleich gross (verzerrt werden sie gemeinsam in .sp-lupe-ebene) */
 .sp-lupe {
   position: absolute;
   inset: 0;
@@ -743,21 +750,51 @@ body::after {
   text-shadow:
     0 0 1.5px rgba(38, 24, 12, 0.55),
     0 0 6px rgba(38, 24, 12, 0.25);
-  font-size: clamp(0.88rem, 4vw, 1.02rem);
+  /* an der Linse bemessen (100cqw = Breite der Zeichnung), nicht an der Schriftgroesse des Systems: sonst
+     waechst die Schrift (Android: Bedienungshilfe Schriftgroesse), die Linse aber nicht */
+  font-size: 4cqw;
   line-height: 1.28;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
-/* Pole des Schiebers, nahe am unteren Rand des Dias */
-.sp-dia-pole {
-  position: absolute;
-  left: 13%;
-  right: 13%;
-  bottom: 12%;
+/* Fragetext: nimmt den Platz ueber den Polen ein (textEinpassen in Spielplatte.jsx macht ihn kleiner, wenn er
+   nicht hineinpasst); oben frei, dort ist die Linse schmal */
+.sp-dia-text {
+  flex: 1 1 0;
+  min-height: 0;
+  align-self: stretch;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15%;
+  overflow: hidden;
+}
+
+/* Pole des Schiebers, nahe am unteren Rand des Dias; darunter wahlweise ein Hinweis */
+.sp-dia-fuss {
+  flex: none;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  margin: 0 -1% 15%;
   font-size: 0.6em;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  overflow: hidden;
+}
+
+.sp-dia-pole {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8em;
+}
+
+.sp-dia-polhinweis {
+  text-align: center;
+  font-size: 0.92em;
+  opacity: 0.85;
 }
 
 /* Ergebnis-Dia: blaues Glas, Messingschrift; danach die Rangliste wie ein neues Dia */
@@ -2606,42 +2643,6 @@ body::after {
 /* Sonder-Dia (Nachfragen in Spiel B): gleitet wie ein Dia herein */
 .sp-sonderdia {
   animation: sc-dia 0.7s ease-out;
-}
-
-/* Messingplaettchen fuer Antworten ohne Schieber (Spiel B: Ja/Nein, Zeitpunkt) */
-.sp-plaettchen {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  max-width: 360px;
-}
-
-.sp-plaettchen button {
-  font: inherit;
-  font-size: 0.92rem;
-  padding: 9px 13px;
-  min-height: 42px;
-  border-radius: 6px;
-  border: 1px solid #3a2c1a;
-  background: linear-gradient(180deg, #e7cb8c, #a77f43);
-  color: #20160b;
-  box-shadow:
-    0 2px 3px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 245, 210, 0.7);
-  cursor: pointer;
-}
-
-.sp-plaettchen button:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.sp-frage-klein {
-  margin: 0 0 4px;
-  color: #3a2a14;
-  font-size: 0.9rem;
-  text-align: center;
 }
 
 @keyframes sc-dia {
