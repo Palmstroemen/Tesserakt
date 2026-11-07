@@ -179,7 +179,9 @@ class RundenAntwort(BaseModel):
 class RundenZeitpunkt(BaseModel):
     frage_id: int
     dimension: str
-    antwort: Literal["ja", "nein", "weiss_nicht"]
+    # nein_oder_weiss_nicht: seit die Erinnerung gleich nach dem Zeitpunkt fragt (ganz rechts); nein und weiss_nicht
+    # stammen aus frueheren Runden
+    antwort: Literal["ja", "nein", "weiss_nicht", "nein_oder_weiss_nicht"]
     tage_zurueck: Optional[int] = Field(default=None, ge=0, le=400)
 
 

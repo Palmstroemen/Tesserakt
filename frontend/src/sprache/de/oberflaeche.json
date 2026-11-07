@@ -30,9 +30,8 @@
     "heute": "heute",
     "vor_drei_monaten": "vor 3 Monaten",
     "ganz_rechts": "ganz rechts: weiß nicht mehr",
-    "ja": "ja",
-    "nein": "nein",
-    "mitte": "Mitte: weiß nicht"
+    "wenn_ja_wann": "Wenn ja: wann?",
+    "ganz_rechts_nein": "ganz rechts: nein oder weiß nicht"
   },
   "ergebnis": {
     "titel": {

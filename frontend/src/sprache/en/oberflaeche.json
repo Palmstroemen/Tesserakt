@@ -30,9 +30,8 @@
     "heute": "today",
     "vor_drei_monaten": "3 months ago",
     "ganz_rechts": "far right: can't remember",
-    "ja": "yes",
-    "nein": "no",
-    "mitte": "middle: don't know"
+    "wenn_ja_wann": "If so, when?",
+    "ganz_rechts_nein": "far right: no or don't know"
   },
   "ergebnis": {
     "titel": {

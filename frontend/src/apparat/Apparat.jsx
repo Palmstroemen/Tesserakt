@@ -74,12 +74,12 @@ const ZEIT_POLE = {
   pole: [t("rueckblick.heute"), t("rueckblick.vor_drei_monaten")],
   poleHinweis: t("rueckblick.ganz_rechts"),
 };
-// Erinnerungsfragen am Ende der Runde: nein oder ja, dazwischen weiss nicht
-const JA_NEIN_POLE = {
-  pole: [t("rueckblick.nein"), t("rueckblick.ja")],
-  poleHinweis: t("rueckblick.mitte"),
+// Erinnerungsfragen am Ende der Runde: gleich nach dem Zeitpunkt gefragt (dazu sagt jedes Horoskop etwas, zum
+// "ob" keines); ganz rechts heisst hier: gab es nicht oder weiss nicht
+const ERINNERUNG_POLE = {
+  pole: ZEIT_POLE.pole,
+  poleHinweis: t("rueckblick.ganz_rechts_nein"),
 };
-const JA_NEIN_SCHWELLE = 0.33;
 const ERINNERUNG_AB = 0.2; // ab dieser Zustimmung zu einem auffaelligen Moment wird nach dem Zeitpunkt gefragt
 
 // Nachfrage als eigenes Dia gleich nach der Frage, auf die sie sich bezieht (von); ziele: Tage je System
@@ -229,20 +229,17 @@ export default function Apparat() {
     if (hatteNachfrage)
       setFragen((prev) => prev.filter((f) => f.von !== frage));
     if (frage?.typ === "wann") {
-      if (frage.von.typ === "erinnerung")
-        setZAntworten((prev) => prev.slice(0, -1));
-      else
-        setAntworten((prev) =>
-          prev.map((a, i) => {
-            if (i !== prev.length - 1) return a;
-            const { erinnerung: _weg, ...ohne } = a;
-            return ohne;
-          }),
-        );
+      setAntworten((prev) =>
+        prev.map((a, i) => {
+          if (i !== prev.length - 1) return a;
+          const { erinnerung: _weg, ...ohne } = a;
+          return ohne;
+        }),
+      );
       return;
     }
     if (frage?.typ === "erinnerung") {
-      if (!hatteNachfrage) setZAntworten((prev) => prev.slice(0, -1));
+      setZAntworten((prev) => prev.slice(0, -1));
       return;
     }
     const letzte = antworten[antworten.length - 1];
@@ -424,7 +421,9 @@ export default function Apparat() {
             ...(katalog.zeitpunkt ?? []).map((f) => ({
               ...f,
               typ: "erinnerung",
-              ...JA_NEIN_POLE,
+              text: `${f.text} ${t("rueckblick.wenn_ja_wann")}`,
+              ziele: rb.timing?.[f.id] ?? {},
+              ...ERINNERUNG_POLE,
             })),
           ];
           body = {
@@ -490,9 +489,9 @@ export default function Apparat() {
       const w = anzeigeWert(stat, s, dim, Number(vektoren[s][dim]));
       return frage?.umgekehrt ? -w : w;
     }
-    // Zeitpunkt: wann es das System sah; die Erinnerung (ja oder nein) sagt keines voraus
-    if (frage.typ === "wann") return wertAusTagen(frage.ziele?.[s]);
-    if (frage.typ === "erinnerung") return null;
+    // Zeitpunkt: wann es das System sah
+    if (frage.typ === "wann" || frage.typ === "erinnerung")
+      return wertAusTagen(frage.ziele?.[s]);
     if (frage.typ === "gewertet")
       return anzeigeWert(
         statB[frage.fenster],
@@ -507,42 +506,29 @@ export default function Apparat() {
   // Antwort festhalten: Systemwerte fuer alle 7 (das Aufziehen wirkt nur auf die Anzeige)
   function antwort(frage, selbstWert, angezeigt) {
     const wert = Number(selbstWert.toFixed(2));
+    // zur auffaelligen Antwort davor
     if (spiel === "B" && frage.typ === "wann") {
       const tage = tageAusWert(wert);
-      if (frage.von.typ === "erinnerung")
-        setZAntworten((prev) => [
-          ...prev,
-          {
-            frage_id: frage.von.id,
-            dimension: frage.von.dimension,
-            antwort: tage === null ? "weiss_nicht" : "ja",
-            tage_zurueck: tage,
-          },
-        ]);
-      // zur auffaelligen Antwort davor
-      else
-        setAntworten((prev) =>
-          prev.map((a, i) =>
-            i === prev.length - 1
-              ? { ...a, erinnerung: { tage_zurueck: tage } }
-              : a,
-          ),
-        );
+      setAntworten((prev) =>
+        prev.map((a, i) =>
+          i === prev.length - 1
+            ? { ...a, erinnerung: { tage_zurueck: tage } }
+            : a,
+        ),
+      );
       return;
     }
     if (spiel === "B" && frage.typ === "erinnerung") {
-      if (wert > JA_NEIN_SCHWELLE)
-        einschieben(wannFrage(frage, rueckblick?.timing?.[frage.id] ?? {}));
-      else
-        setZAntworten((prev) => [
-          ...prev,
-          {
-            frage_id: frage.id,
-            dimension: frage.dimension,
-            antwort: wert < -JA_NEIN_SCHWELLE ? "nein" : "weiss_nicht",
-            tage_zurueck: null,
-          },
-        ]);
+      const tage = tageAusWert(wert);
+      setZAntworten((prev) => [
+        ...prev,
+        {
+          frage_id: frage.id,
+          dimension: frage.dimension,
+          antwort: tage === null ? "nein_oder_weiss_nicht" : "ja",
+          tage_zurueck: tage,
+        },
+      ]);
       return;
     }
     if (spiel === "B") {
