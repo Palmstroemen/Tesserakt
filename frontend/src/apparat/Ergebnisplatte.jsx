@@ -8,7 +8,7 @@ import FirdariaChart from "../components/FirdariaChart";
 import DashaChart from "../components/DashaChart";
 import { Paragraphs } from "../components/SystemDeutungTabs";
 import { SYSTEME, anzeigeName } from "./systeme";
-import { Spiegel } from "./Spiegelung";
+import { Spiegel, useKameraSchalter } from "./Spiegelung";
 import { AUGE_RADIUS, LINSE_RADIUS, MITTE } from "./geometrie";
 import LuenettePraegung, { LuenetteDefs } from "./Luenette";
 import WestlichNacht from "./diagramme/WestlichNacht";
@@ -172,6 +172,8 @@ export default function Ergebnisplatte({
   // React: jedes Scrollbild haette sonst Karten und Grafiken neu gerendert (Ruckeln bei 120 Hz)
   const [pos, setPos] = useState(0);
   const streifenRef = useRef(null);
+  const linseRef = useRef(null);
+  useKameraSchalter(linseRef);
   const wisch = useRef(null);
   const hoch = useRef({ ist: 0, ziel: 0, takt: 0 }); // wie weit das Auge nach oben gerueckt ist (px)
 
@@ -294,7 +296,7 @@ export default function Ergebnisplatte({
         </svg>
 
         {/* Linse: Dia-Streifen mit Uebersicht und den Grafiken; folgt dem Wischen im Textfeld */}
-        <div className="sp-linse eg-linse" style={linse}>
+        <div ref={linseRef} className="sp-linse eg-linse" style={linse}>
           <div className="eg-streifen" ref={streifenRef}>
             {karten.map((id) => {
               const Diagramm = DIAGRAMME[id];

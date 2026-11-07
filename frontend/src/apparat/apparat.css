@@ -4334,9 +4334,23 @@ body::after {
 .zt-blatt .zt-spiele li {
   align-items: flex-start;
   gap: 14px;
-  padding: 10px 0;
+  padding: 7px 0;
   font-size: 1.2rem;
   line-height: 1.2;
+}
+/* niedrige Fenster (Safari mit Leisten): Rueckseite enger, damit die letzte Notiz nicht abgeschnitten wird */
+@media (max-height: 760px) {
+  .zt-blatt .zt-spiele li {
+    padding: 4px 0;
+    font-size: 1.1rem;
+  }
+  .zt-blatt .zt-anleitung li {
+    padding: 1px 0;
+    font-size: 1.04rem;
+  }
+  .zt-anleitung {
+    margin-top: 10px !important;
+  }
 }
 .zt-spiele b {
   display: block;

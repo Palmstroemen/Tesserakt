@@ -1,4 +1,4 @@
-import { selfieAnfordern, selfieFreigeben } from "./selfie";
+import { kameraAus, selfieAnfordern, selfieFreigeben } from "./selfie";
 import { AUGE_KAMERA } from "./werkstatt";
 // Gesichtserkennung von Google MediaPipe (BlazeFace, kurze Reichweite), laeuft ganz im Geraet; das Bild verlaesst
 // es nicht. Laufzeit und Modell kommen mit der App (die Laufzeit aus node_modules, das Paket gibt sie nicht als
@@ -55,7 +55,7 @@ function erkennerHolen() {
 // Gleich nach der Kamerafreigabe im Vorblatt (und nur dann): bis zur Datumsscheibe ist die Erkennung so meist
 // schon da, und das Einrichten stoert keine laufende Animation.
 export function blickVorbereiten() {
-  if (AUGE_KAMERA === "selfie") erkennerHolen().catch(() => {});
+  if (AUGE_KAMERA === "selfie" && !kameraAus()) erkennerHolen().catch(() => {});
 }
 
 export async function blickStarten() {

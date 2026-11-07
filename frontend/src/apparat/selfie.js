@@ -23,11 +23,53 @@ export function selfieZurueckhalten() {
 let nutzer = 0;
 let stopp = 0;
 
+// Kamera aus (lange auf die Linse gedrueckt, useKameraSchalter in Spiegelung.jsx): spart Strom, die Parallaxe
+// kommt dann nur vom Lagesensor, Spiegelungen gibt es keine. Bleibt gespeichert, bis man sie wieder einschaltet.
+const AUS_SCHLUESSEL = "tesserakt-kamera-aus";
+let aus = (() => {
+  try {
+    return localStorage.getItem(AUS_SCHLUESSEL) === "1";
+  } catch {
+    return false;
+  }
+})();
+const schalterHoerer = new Set();
+
+export const kameraAus = () => aus;
+
+export function kameraSchalterAbonnieren(f) {
+  schalterHoerer.add(f);
+  return () => schalterHoerer.delete(f);
+}
+
+function stromStoppen(v) {
+  v.srcObject?.getTracks().forEach((t) => t.stop());
+  v.remove();
+}
+
+export function kameraUmschalten() {
+  aus = !aus;
+  try {
+    if (aus) localStorage.setItem(AUS_SCHLUESSEL, "1");
+    else localStorage.removeItem(AUS_SCHLUESSEL);
+  } catch {
+    // dann gilt es nur bis zum Neuladen
+  }
+  schalterHoerer.forEach((f) => f(aus));
+  // gleich aus, ohne Nachlauf; wer das Video noch haelt, gibt es mit dem Abmelden frei
+  if (aus && warten) {
+    clearTimeout(stopp);
+    warten.then(stromStoppen).catch(() => {});
+    warten = null;
+    nutzer = 0;
+  }
+}
+
 // -> Promise<HTMLVideoElement>; nur mit Einwilligung zur Kamera
 export function selfieAnfordern() {
   nutzer += 1;
   clearTimeout(stopp);
-  if (!kameraErlaubt() || !navigator.mediaDevices?.getUserMedia) {
+  if (aus || !kameraErlaubt() || !navigator.mediaDevices?.getUserMedia) {
     nutzer -= 1;
     return Promise.reject(new Error("keine Kamera"));
   }
@@ -72,12 +114,7 @@ export function selfieFreigeben() {
   clearTimeout(stopp);
   stopp = setTimeout(() => {
     if (nutzer || !warten) return;
-    warten
-      .then((v) => {
-        v.srcObject?.getTracks().forEach((t) => t.stop());
-        v.remove();
-      })
-      .catch(() => {});
+    warten.then(stromStoppen).catch(() => {});
     warten = null;
   }, NACHLAUF_MS);
 }

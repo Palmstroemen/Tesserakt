@@ -25,7 +25,7 @@ import {
 import { einrasten, hebel, rastKlick, sperre, zahnrad } from "./klang";
 import { durchlichtStarten } from "./durchlicht";
 import { neigungAbonnieren } from "./neigung";
-import { RubinSpiegel, Spiegel } from "./Spiegelung";
+import { RubinSpiegel, Spiegel, useKameraSchalter } from "./Spiegelung";
 import { AUGE_KAMERA } from "./werkstatt";
 import { t } from "../sprache";
 
@@ -445,6 +445,7 @@ export default function Spielplatte({
   const linseRef = useRef(null);
   const [linseD, setLinseD] = useState(0); // Durchmesser der Linse in CSS-Pixeln (fuer den Lupenfilter)
   const tiefeRef = useRef(null);
+  useKameraSchalter(linseRef);
   // Parallaxe: kippt man das Geraet, rueckt der Grund der Bohrung (Licht, Dia, Scheibe) zur Seite des Blicks;
   // CSS translate, unabhaengig vom transform beim Hereindrehen. Bei voller Neigung (neigung.js: SPANNE) ist
   // er um einen Linsendurchmesser verschoben, das Dia ganz hinter der Wand (Tiefe und Vergroesserung der Linse).

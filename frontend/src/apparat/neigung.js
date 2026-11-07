@@ -10,8 +10,10 @@
 // Kopf nach links nimmt, sieht von links in die Tiefe. Die Kamera sitzt ueber dem Bildschirm, das wird
 // herausgerechnet. Der Lagesensor springt nur ein, solange kein Gesicht zu sehen ist; er uebernimmt das Bild dort,
 // wo es gerade steht. Kommt das Gesicht zurueck, gleitet das Bild in einem Moment dorthin, wo die Augen es sehen.
+// Ist die Kamera ausgeschaltet (selfie.js: kameraUmschalten), bleibt es beim Lagesensor.
 
 import { blick, blickStarten, blickStoppen } from "./blick";
+import { kameraAus, kameraSchalterAbonnieren } from "./selfie";
 import { AUGE_KAMERA } from "./werkstatt";
 
 const SPANNE = 15; // Grad Neigung fuer den vollen Ausschlag: dann ist der Grund ganz aus der Linse
@@ -35,6 +37,12 @@ let bezug = null;
 let bezugZeit = -Infinity;
 const wert = { x: 0, y: 0 };
 let bild = 0;
+let schalterAb = null;
+
+function blickSchalten(aus) {
+  if (aus) blickStoppen();
+  else blickStarten();
+}
 
 const begrenzt = (v) => Math.max(-1, Math.min(1, v));
 
@@ -106,7 +114,10 @@ function tick() {
 export function neigungAbonnieren(f, bezugspunkt = null) {
   if (!hoerer.size) {
     window.addEventListener("deviceorientation", ereignis);
-    if (AUGE_KAMERA === "selfie") blickStarten();
+    if (AUGE_KAMERA === "selfie") {
+      if (!kameraAus()) blickStarten();
+      schalterAb = kameraSchalterAbonnieren(blickSchalten);
+    }
     bild = requestAnimationFrame(tick);
   }
   hoerer.set(f, bezugspunkt);
@@ -117,6 +128,8 @@ export function neigungAbonnieren(f, bezugspunkt = null) {
     if (!hoerer.size) {
       window.removeEventListener("deviceorientation", ereignis);
       blickStoppen();
+      schalterAb?.();
+      schalterAb = null;
       cancelAnimationFrame(bild);
       roh = null;
       basis = null;
