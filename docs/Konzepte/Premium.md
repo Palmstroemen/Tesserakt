@@ -1,6 +1,6 @@
 # Premium: Konzept
 
-*Stand: 10. 11. 2026, Entwurf, noch nichts umgesetzt*
+*Stand: 18. 11. 2026, Entwurf, noch nichts umgesetzt*
 
 ---
 
@@ -20,8 +20,13 @@ EU-Ausnahmen, keine zweite Kasse neben dem Buchshop.
    es nur auf dem Gerät (welche Spiele abgeschlossen sind). Erwogen, aber verworfen: schon nach der ersten
    Runde.
 2. **Mit einer Buchbestellung** sofort, auch ohne die Spiele. Wer ein Buch bestellt, hat Interesse bekundet,
-   und genau das ist das Geschäftsmodell. Die Bestellung bringt einen **Code** mit (Stripe-Bestätigung und
-   Rückkehrseite), der Premium auf weiteren Geräten freischaltet (Familie, neues Handy).
+   und genau das ist das Geschäftsmodell. Freigeschaltet wird **das Gerät, mit dem bestellt wurde**, sobald
+   die Bestellung bestätigt ist (Rückkehr von Stripe).
+
+**Kein übertragbarer Code.** Premium gehört zu dem Gerät, auf dem gespielt oder bestellt wurde. Auf einem
+anderen Gerät spielt man eben noch einmal, oder bestellt dort. Das ist kein ernstes Hindernis: Wer schon
+weiß, wie der Apparat geht, ist schnell durch, und es bleibt nichts zu verwalten (keine Codes, kein
+Missbrauch durch weitergereichte Codes, nichts im Buch zu drucken).
 
 ## Was Premium freischaltet
 
@@ -64,9 +69,46 @@ beschrifteten Knopf:
 5. Noch einmal auf das Auge tippen schaltet zurück auf normales Spielen.
 
 Vor der Freischaltung tut das Auge nichts Besonderes. Der Moment der Freischaltung (nach dem dritten Spiel
-oder mit dem Code) sollte spürbar sein, etwa ein Einrasten mit Klang, und das Auge sieht danach anders aus.
-Davor könnte der Fortschritt sichtbar sein, ohne zu erklären: drei kleine Marken am Auge, die sich je
-gespieltem Spiel füllen (Sonne, Sanduhr, Sonne/Mond wie die Knöpfe).
+oder mit der Bestellung) ist spürbar, ein Einrasten mit Klang, und das Auge sieht danach anders aus.
+
+## Benutzerführung
+
+Außerhalb des Apparats darf erklärt werden, im Apparat wird nur gezeigt („Entdecken statt erklären“).
+
+### Wie man von Premium erfährt
+
+- **Fortschritt am Auge (entschieden: sichtbar):** drei kleine Marken am Auge, die sich je abgeschlossenem
+  Spiel füllen (Sonne, Sanduhr, Sonne/Mond wie die Knöpfe). Ohne Beschriftung; wer zwei gefüllt sieht, will
+  die dritte.
+- **Bestätigungsseite und Bestellmail:** ein Satz, etwa „Dein Apparat kennt dich jetzt: Tippe
+  auf das Auge der Datumsscheibe, und du kommst ohne Spiel zu deinen Horoskopen.“
+- **Im Buch (gedruckt auf der Schlussseite):** derselbe Satz, ohne Code; Premium gilt für das Gerät, mit dem
+  bestellt wurde. Das Buch kommt Tage später und erinnert noch einmal daran.
+- **Einrasten im Apparat:** Beim ersten Öffnen nach der Bestellung (oder direkt nach dem dritten Ergebnis)
+  füllen sich die Marken, das Auge rastet mit Klang ein und leuchtet von da an. Kein Text.
+- **Zettel-Rückseite:** Erst nach der Freischaltung erscheint dort eine Zeile, etwa „Auge antippen: ohne Spiel
+  zu den Ergebnissen“ (die erlaubte Ausnahme für Bedienhinweise).
+
+### Ablauf beim Wiederkommen
+
+1. Start, Kästchen, Datumsscheibe (der Film nur beim ersten Mal).
+2. **Tipp auf das Auge:** Es leuchtet auf, der Schnellweg ist an. Mit gespeicherten Personen erscheint die
+   Namenswalze, sonst gilt das eingestellte Datum.
+3. **Die drei Spielknöpfe sind die Horoskopauswahl**, ohne neue Bedienelemente:
+   - **A** direkt zum eigenen Ergebnis und Buch,
+   - **B** direkt zur Übersicht aller Horoskope,
+   - **C** fragt nach der zweiten Person (Walze oder zweites Drehen der Scheibe), dann das Paarergebnis.
+4. Noch ein Tipp auf das Auge: zurück zum normalen Spielen.
+
+### Abgrenzung im Code
+
+- Die heutige Entwicklungs-Abkürzung (Tipp auf das Datum, `spielWahl` mit `"X"`/`"XC"`, gewürfelte
+  Antworten) kommt hinter einen Entwicklerschalter. Der Schnellweg ist ein eigener Modus **ohne** Antworten
+  und ohne `POST /runde`.
+- Das Auge der Datumsscheibe reagiert auf einen kurzen Tipp; das lange Drücken auf die Linse der Spiel- und
+  Ergebnisplatte (Kamera aus/an) bleibt davon getrennt.
+- Freischaltung durch Bestellung: Die Rückkehrseite von Stripe setzt den Premium-Merker auf dem Gerät, aber
+  nur, wenn der Server die Zahlung für diese Sitzung bestätigt.
 
 ## Buchpreise: Folgebücher günstiger
 
@@ -75,13 +117,15 @@ vollen Preis**, jedes weitere günstiger (etwa zweites und weitere Bücher um ei
 Prozentsatz). Dargestellt als „Folgebücher günstiger“, nicht als „das erste ist teurer“: wirtschaftlich
 dasselbe, aber es klingt nach Belohnung statt nach Aufschlag.
 
-- **Stammkunde ohne Konto:** erkannt am Code aus der ersten Bestellung (derselbe Code wie für Premium). Der
-  Server merkt sich je Code nur, dass schon bestellt wurde.
+- **Stammkunde ohne Konto:** Das Gerät bekommt bei der ersten Bestellung eine zufällige, unsichtbare Kennung;
+  der Server merkt sich je Kennung nur, dass schon bestellt wurde. Ein bloßer Merker im Gerät genügt für den
+  Preis nicht, weil man ihn von Hand setzen könnte. Die Kennung ist nicht zum Weitergeben gedacht und wird
+  nirgends angezeigt. Ein anderes Gerät zahlt beim ersten Buch den vollen Preis.
 - **Marge:** Die Selbstkosten liegen bei 14–20 € je Buch, die heutige Staffel bei 15/30 €
   (`buchdruck_shop.md`, Preise). Der volle Preis für das erste Buch muss den Nachlass für die Folgebücher
   tragen.
 - `buchpreise.py` liefert schon Staffel und Aktion je Markt; der Folgepreis kommt als weiterer Wert dazu,
-  abhängig vom mitgeschickten Code.
+  abhängig von der mitgeschickten Gerätekennung.
 - Rechtlich: Preise klar ausweisen (Preisangaben, Omnibus-Richtlinie bei durchgestrichenen Preisen), am besten
   als eigener Folgepreis statt als „Rabatt von …“.
 
@@ -90,24 +134,22 @@ dasselbe, aber es klingt nach Belohnung statt nach Aufschlag.
 - **Google Play:** Ein digitaler Bonus (Premium) als Zugabe zu einem physischen Kauf (Buch), bezahlt außerhalb
   von Play Billing. Wahrscheinlich zulässig, weil Premium selbst nichts kostet und auch durch Spielen erreichbar
   ist; vor dem Start an der Payments-Richtlinie prüfen.
-- Datenschutz: Code und „schon bestellt“ je Code in der Datenschutzerklärung und im Play-Formular erwähnen.
+- Datenschutz: Gerätekennung und „schon bestellt“ je Kennung in der Datenschutzerklärung und im Play-Formular erwähnen.
 
 ## Reihenfolge
 
 1. Erst die Grundlagen: Buchshop, eigene Domain und Server, Markenname.
 2. Freischaltung durch Spielen (Merker auf dem Gerät), Speichern der Personen, Auge mit Namenswalze,
    Schnellweg. Das geht schon ohne Shop.
-3. Mit dem Shop: Code aus der Bestellung, Premium per Code, Folgepreis.
+3. Mit dem Shop: Premium für das bestellende Gerät, Gerätekennung, Folgepreis.
 4. Im laufenden Test die Tester fragen, ob ihnen der Schnellweg fehlt und wie viele Personen sie speichern
    würden.
 
 ## Offene Fragen
 
 1. Wie viele Personen speichern?
-2. Freischaltung genau: alle drei Spiele bis zum Ergebnis, oder genügt bei Spiel C eine Runde mit beliebigem
-   Partnerdatum?
+2. Freischaltung genau (beide Wege bleiben: Spiele oder Buchbestellung): alle drei Spiele bis zum Ergebnis,
+   oder genügt bei Spiel C eine Runde mit beliebigem Partnerdatum?
 3. Wie hoch ist der Folgepreis (fester Betrag oder Prozent), und gilt er schon für ein zweites Buch in
    derselben Bestellung?
-4. Für wie viele Geräte gilt ein Code?
-5. Fortschritt zum Premium sichtbar (Marken am Auge) oder ganz verborgen bis zur Freischaltung?
-6. Ergebnisplatte im Schnellweg: Was zeigt sie dort, wo sonst die eigenen Antworten stehen?
+4. Ergebnisplatte im Schnellweg: Was zeigt sie dort, wo sonst die eigenen Antworten stehen?
